@@ -78,14 +78,14 @@ Eine moderne, responsive Lernplattform für Fachinformatiker mit Quiz-System, Mu
 
 1. **Repository klonen**
    ```bash
-   git clone [repository-url]
-   cd fachinformatiker-lernplattform
+   git clone https://github.com/Lemm1988/Lernplattform.git
+   cd Lernplattform
    ```
 
 2. **Datenbank einrichten**
    ```sql
    CREATE DATABASE lernplattform;
-   -- Importiere migrations/001_add_question_type_support.sql
+   -- Danach Database.sql Importieren
    ```
 
 3. **Konfiguration anpassen**
