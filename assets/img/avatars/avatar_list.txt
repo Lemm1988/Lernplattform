@@ -1,0 +1,27 @@
+# Verfügbare Avatare
+# Diese Datei listet alle verfügbaren Avatar-Dateien auf
+
+default.png
+avatar1.png
+avatar2.png
+avatar3.png
+avatar4.png
+avatar5.png
+avatar6.png
+avatar7.png
+avatar8.png
+avatar9.png
+avatar10.png
+avatar11.png
+avatar12.png
+avatar13.png
+avatar14.png
+avatar15.png
+avatar16.png
+avatar17.png
+avatar18.png
+avatar19.png
+avatar20.png
+
+# Hinweis: Die tatsächlichen PNG-Dateien müssen noch erstellt werden
+# Für die Demo verwenden wir Bootstrap Icons als Platzhalter

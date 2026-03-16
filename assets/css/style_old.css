@@ -1,0 +1,755 @@
+/* ===========================
+   Farbvariablen (Farbschema)
+=========================== */
+:root {
+    --primary: #2563eb;
+    --primary-light: #3b82f6;
+    --primary-dark: #1e40af;
+    --bg: #f4f6fa;
+    --bg-card: #ffffff;
+    --text: #222222;
+    --text-muted: #707683;
+    --border: #e5e7eb;
+    --sidebar-bg: linear-gradient(180deg, #e0e7ef 0%, #f4f6fa 100%);
+    --sidebar-active: rgba(37, 99, 235, 0.13);
+    --shadow: 0 2px 8px rgba(30, 64, 175, 0.06);
+    --radius: 0.7rem;
+}
+
+/* ===========================
+   Browser Reset & Full Height Setup
+=========================== */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ===========================
+   Grundlayout mit Flexbox
+=========================== */
+body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 15px;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ===========================
+   Layout Container
+=========================== */
+.layout-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ===========================
+   Sidebar
+=========================== */
+.sidebar {
+    position: relative; /* Statt fixed, da jetzt im Flex-Container */
+    width: 280px;
+    min-width: 220px;
+    background: var(--sidebar-bg);
+    border-right: 1px solid var(--border);
+    box-shadow: var(--shadow);
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 10;
+    flex-shrink: 0; /* Verhindert, dass die Sidebar schrumpft */
+}
+
+/* ===========================
+   Main Content Wrapper
+=========================== */
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+    background: var(--bg);
+}
+
+/* ===========================
+   Navbar/Header
+=========================== */
+.navbar {
+    background: var(--bg-card);
+    box-shadow: var(--shadow);
+    border-bottom: 1px solid var(--border);
+    padding: 0.7rem 1.5rem;
+    position: relative;
+    z-index: 9;
+    flex-shrink: 0;
+}
+
+/* ===========================
+   Main Content Area
+=========================== */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1.5rem;
+    padding-top: 80px; /* Für die Navbar */
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+/* ===========================
+   Grid System für Seiten mit Sidebar
+=========================== */
+.main-content .row {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+}
+
+.main-content .col-md-4.col-lg-3 {
+    display: none; /* Diese Spalte wird nur für das Grid-System verwendet */
+}
+
+.main-content .col-md-8.col-lg-9 {
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 1.5rem;
+    width: 100%;
+}
+
+/* ===========================
+   Content Padding
+=========================== */
+.main-content .col-md-8.col-lg-9 > *:first-child {
+    margin-top: 0;
+}
+
+.main-content .col-md-8.col-lg-9 > *:last-child {
+    margin-bottom: 0;
+}
+
+/* ===========================
+   Footer
+=========================== */
+footer {
+    font-size: 0.9rem;
+    background: #23272b;
+    color: #b0b3b8 !important;
+    border-top: 1px solid var(--border);
+    padding: 0.8rem 0;
+    box-shadow: 0 -2px 8px rgba(30, 64, 175, 0.04);
+    flex-shrink: 0;
+    margin-top: auto;
+    width: 100%;
+}
+footer h6 {
+    color: #fff !important;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+footer small {
+    color: #b0b3b8 !important;
+}
+footer p, footer span, footer div {
+    color: #b0b3b8 !important;
+}
+footer.text-light {
+    color: #b0b3b8 !important;
+}
+footer.text-light * {
+    color: #b0b3b8 !important;
+}
+footer a {
+    color: #b0b3b8 !important;
+    text-decoration: none !important;
+    transition: color 0.2s;
+    font-size: 0.85rem;
+}
+footer a:hover, footer a:focus {
+    color: #b0b3b8 !important;
+    text-decoration: underline !important;
+}
+footer a.text-muted {
+    color: #b0b3b8 !important;
+}
+footer a.text-white {
+    color: #fff !important;
+}
+
+/* Kompaktere Details-Blöcke für Programming-Seiten */
+details {
+  margin-bottom: 1rem;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.06);
+  padding: 0.2rem 0 0.2rem 0;
+}
+details[open] {
+  box-shadow: 0 2px 6px rgba(0,0,0,.09);
+}
+details summary {
+  font-size: 1.2rem;
+  color: #003366;
+  font-weight: 600;
+  margin: 0.7rem 0 0.5rem 0;
+  cursor: pointer;
+  outline: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  background: none;
+  transition: background 0.2s;
+}
+details summary:hover, details[open] summary {
+  background: #f3f7fa;
+}
+details > *:not(summary) {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+/* ===========================
+   Responsives Design
+=========================== */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 180px;
+        min-width: 180px;
+    }
+}
+
+/* ===========================
+   Responsive Sidebar
+=========================== */
+@media (max-width: 768px) {
+    .layout-container {
+        flex-direction: column; /* Sidebar über Content auf mobilen Geräten */
+    }
+    
+    .sidebar {
+        position: fixed; /* Auf mobilen Geräten wieder fixed */
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 80vw;
+        max-width: 300px;
+        transform: translateX(-100%);
+        z-index: 1000;
+    }
+    
+    .sidebar.sidebar-open {
+        transform: translateX(0);
+    }
+    
+    .main-wrapper {
+        width: 100%;
+    }
+    
+    .main-content {
+        padding-top: 60px; /* Weniger Padding auf mobilen Geräten */
+    }
+    
+    .main-content .col-md-8.col-lg-9 {
+        padding: 1rem;
+    }
+    
+    #sidebarToggle {
+        display: block !important;
+    }
+}
+
+/* ===========================
+   Sidebar Toggle Button
+=========================== */
+#sidebarToggle {
+    position: fixed;
+    top: 0.5rem;
+    left: 0.5rem;
+    z-index: 9999;
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #sidebarToggle {
+        display: block !important;
+    }
+}
+/* ===========================
+   Quiz Question Styling
+=========================== */
+
+/* Question container */
+.question-container {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+}
+
+.question-text {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+/* Form check styling for both radio and checkbox */
+.form-check {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-check:hover {
+    background-color: rgba(37, 99, 235, 0.03);
+    border-radius: 0.5rem;
+    padding: 0.75rem 0.75rem 0.75rem 2rem;
+    margin-left: -0.75rem;
+    margin-right: -0.75rem;
+}
+
+/* Custom radio button styling */
+.form-check-input[type="radio"] {
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    background-color: var(--bg-card);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-check-input[type="radio"]:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    background-image: radial-gradient(circle, white 30%, transparent 30%);
+}
+
+.form-check-input[type="radio"]:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+    outline: none;
+}
+
+/* Custom checkbox styling */
+.form-check-input[type="checkbox"] {
+    position: absolute;
+    left: 0;
+    top: 0.25rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    border: 2px solid var(--border);
+    border-radius: 0.25rem;
+    background-color: var(--bg-card);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-check-input[type="checkbox"]:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+    background-size: 0.75rem;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.form-check-input[type="checkbox"]:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25);
+    outline: none;
+}
+
+/* Label styling */
+.form-check-label {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--text);
+    cursor: pointer;
+    display: block;
+    padding-left: 0.5rem;
+}
+
+/* Multiple choice specific styling */
+.question-multiple .form-check {
+    border-left: 3px solid transparent;
+    transition: border-color 0.2s ease;
+}
+
+.question-multiple .form-check:hover {
+    border-left-color: var(--primary-light);
+}
+
+.question-multiple .form-check-input:checked + .form-check-label {
+    font-weight: 500;
+    color: var(--primary-dark);
+}
+
+/* Single choice specific styling */
+.question-single .form-check-input:checked + .form-check-label {
+    font-weight: 500;
+    color: var(--primary-dark);
+}
+
+/* ===========================
+   Code Block Styling
+=========================== */
+
+/* Code examples in questions */
+.question-code {
+    background: #f8f9fa;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 1rem 0;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    overflow-x: auto;
+}
+
+.question-code pre {
+    margin: 0;
+    padding: 0;
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.question-code code {
+    background: none;
+    padding: 0;
+    color: #333;
+    font-size: inherit;
+}
+
+/* Syntax highlighting classes */
+.language-php .token.php {
+    color: #8892bf;
+}
+
+.language-php .token.keyword {
+    color: #0000ff;
+    font-weight: bold;
+}
+
+.language-php .token.string {
+    color: #008000;
+}
+
+.language-php .token.comment {
+    color: #808080;
+    font-style: italic;
+}
+
+.language-php .token.variable {
+    color: #0086b3;
+}
+
+.language-php .token.function {
+    color: #795da3;
+}
+
+.language-javascript .token.keyword {
+    color: #0000ff;
+    font-weight: bold;
+}
+
+.language-javascript .token.string {
+    color: #008000;
+}
+
+.language-javascript .token.comment {
+    color: #808080;
+    font-style: italic;
+}
+
+.language-javascript .token.function {
+    color: #795da3;
+}
+
+.language-python .token.keyword {
+    color: #0000ff;
+    font-weight: bold;
+}
+
+.language-python .token.string {
+    color: #008000;
+}
+
+.language-python .token.comment {
+    color: #808080;
+    font-style: italic;
+}
+
+.language-python .token.function {
+    color: #795da3;
+}
+
+/* ===========================
+   Question Type Indicators
+=========================== */
+
+.question-type-indicator {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+}
+
+.question-type-single {
+    background-color: rgba(34, 197, 94, 0.1);
+    color: #15803d;
+    border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.question-type-multiple {
+    background-color: rgba(59, 130, 246, 0.1);
+    color: #1d4ed8;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* ===========================
+   Responsive Design for Questions
+=========================== */
+
+@media (max-width: 768px) {
+    .question-container {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .question-text {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .form-check {
+        padding-left: 1.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .form-check:hover {
+        padding: 0.5rem 0.5rem 0.5rem 1.75rem;
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+    }
+    
+    .form-check-input[type="radio"],
+    .form-check-input[type="checkbox"] {
+        width: 1.1rem;
+        height: 1.1rem;
+        top: 0.2rem;
+    }
+    
+    .form-check-label {
+        font-size: 0.9rem;
+        padding-left: 0.25rem;
+    }
+    
+    .question-code {
+        padding: 0.75rem;
+        font-size: 0.8rem;
+        overflow-x: scroll;
+    }
+}
+
+@media (max-width: 480px) {
+    .question-container {
+        padding: 0.75rem;
+    }
+    
+    .form-check {
+        padding-left: 1.5rem;
+    }
+    
+    .form-check:hover {
+        padding: 0.25rem 0.25rem 0.25rem 1.5rem;
+        margin-left: -0.25rem;
+        margin-right: -0.25rem;
+    }
+    
+    .form-check-input[type="radio"],
+    .form-check-input[type="checkbox"] {
+        width: 1rem;
+        height: 1rem;
+        top: 0.15rem;
+    }
+}
+
+/* ===========================
+   Accessibility Enhancements
+=========================== */
+
+/* Focus indicators for keyboard navigation */
+.form-check-input:focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .form-check-input[type="radio"],
+    .form-check-input[type="checkbox"] {
+        border-width: 3px;
+    }
+    
+    .form-check-input[type="radio"]:checked,
+    .form-check-input[type="checkbox"]:checked {
+        border-color: #000;
+        background-color: #000;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .form-check,
+    .form-check-input,
+    .question-multiple .form-check {
+        transition: none;
+    }
+}
+
+/* Print styles */
+@media print {
+    .question-container {
+        box-shadow: none;
+        border: 1px solid #ccc;
+        break-inside: avoid;
+    }
+    
+    .form-check-input[type="radio"]:checked::after {
+        content: "●";
+        position: absolute;
+        left: 0.2rem;
+        top: -0.1rem;
+        font-size: 0.8rem;
+        color: #000;
+    }
+    
+    .form-check-input[type="checkbox"]:checked::after {
+        content: "✓";
+        position: absolute;
+        left: 0.15rem;
+        top: -0.1rem;
+        font-size: 0.8rem;
+        color: #000;
+    }
+}/* 
+===========================
+   Question Type Selection Styling
+=========================== */
+.form-check-container {
+    padding: 0.75rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 0.5rem;
+}
+
+.form-check-container .form-check {
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease;
+}
+
+.form-check-container .form-check:last-child {
+    margin-bottom: 0;
+}
+
+.form-check-container .form-check:hover {
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.form-check-container .form-check-input:checked + .form-check-label {
+    color: var(--primary);
+    font-weight: 500;
+}
+
+.form-check-container .form-check-label {
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.form-check-container .form-check-label strong {
+    display: block;
+    margin-bottom: 0.25rem;
+}/* ==
+=========================
+   Code Example Styling in Admin
+=========================== */
+#code-preview {
+    font-family: 'Courier New', Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    overflow-x: auto;
+}
+
+#code-preview pre {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: none;
+}
+
+#code-preview code {
+    background: transparent;
+    padding: 0;
+    color: var(--text);
+}
+
+/* Basic syntax highlighting for admin preview */
+.language-php .token.php { color: #8892bf; }
+.language-php .token.keyword { color: #0000ff; font-weight: bold; }
+.language-php .token.string { color: #008000; }
+.language-php .token.comment { color: #808080; font-style: italic; }
+.language-php .token.variable { color: #800080; }
+
+.language-java .token.keyword { color: #0000ff; font-weight: bold; }
+.language-java .token.string { color: #008000; }
+.language-java .token.comment { color: #808080; font-style: italic; }
+.language-java .token.class-name { color: #2b91af; }
+
+.language-python .token.keyword { color: #0000ff; font-weight: bold; }
+.language-python .token.string { color: #008000; }
+.language-python .token.comment { color: #808080; font-style: italic; }
+.language-python .token.function { color: #795e26; }
+
+.language-javascript .token.keyword { color: #0000ff; font-weight: bold; }
+.language-javascript .token.string { color: #008000; }
+.language-javascript .token.comment { color: #808080; font-style: italic; }
+.language-javascript .token.function { color: #795e26; }
+
+.language-sql .token.keyword { color: #0000ff; font-weight: bold; }
+.language-sql .token.string { color: #008000; }
+.language-sql .token.comment { color: #808080; font-style: italic; }
+
+/* Code textarea styling */
+textarea.font-monospace {
+    font-family: 'Courier New', Consolas, Monaco, monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
