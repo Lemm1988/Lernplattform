@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Enhancement JavaScript Tests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+    <style>
+        .test-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border: 1px solid #dee2e6;
+            border-radius: 0.5rem;
+        }
+        .test-result {
+            margin-top: 1rem;
+            padding: 0.75rem;
+            border-radius: 0.25rem;
+        }
+        .test-pass {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            border: 1px solid #badbcc;
+        }
+        .test-fail {
+            background-color: #f8d7da;
+            color: #842029;
+            border: 1px solid #f5c2c7;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Quiz Enhancement JavaScript Tests</h1>
+        <p class="text-muted">Diese Seite testet die JavaScript-Funktionalität für Quiz-Verbesserungen.</p>
+
+        <!-- Test 1: Single Choice Question -->
+        <div class="test-section">
+            <h3>Test 1: Single Choice Question Validation</h3>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title question-text">Was ist PHP?</h5>
+                    <form method="post" id="test-form-single">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="answer_id" id="answer1" value="1">
+                            <label class="form-check-label" for="answer1">
+                                Eine Programmiersprache
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="answer_id" id="answer2" value="2">
+                            <label class="form-check-label" for="answer2">
+                                Eine Datenbank
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="answer_id" id="answer3" value="3">
+                            <label class="form-check-label" for="answer3">
+                                Ein Betriebssystem
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Antwort speichern</button>
+                    </form>
+                </div>
+            </div>
+            <div id="test1-result" class="test-result"></div>
+            <button onclick="runTest1()" class="btn btn-secondary mt-2">Test ausführen</button>
+        </div>
+
+        <!-- Test 2: Multiple Choice Question -->
+        <div class="test-section">
+            <h3>Test 2: Multiple Choice Question Validation</h3>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title question-text">Welche sind Programmiersprachen?</h5>
+                    <form method="post" id="test-form-multiple">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="answer_ids[]" id="answer4" value="4">
+                            <label class="form-check-label" for="answer4">
+                                PHP
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="answer_ids[]" id="answer5" value="5">
+                            <label class="form-check-label" for="answer5">
+                                JavaScript
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="answer_ids[]" id="answer6" value="6">
+                            <label class="form-check-label" for="answer6">
+                                HTML
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Antwort speichern</button>
+                    </form>
+                </div>
+            </div>
+            <div id="test2-result" class="test-result"></div>
+            <button onclick="runTest2()" class="btn btn-secondary mt-2">Test ausführen</button>
+        </div>
+
+        <!-- Test 3: Keyboard Navigation -->
+        <div class="test-section">
+            <h3>Test 3: Keyboard Navigation</h3>
+            <p>Verwenden Sie die Tab-Taste und Pfeiltasten, um durch die Optionen zu navigieren.</p>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title question-text">Keyboard Navigation Test</h5>
+                    <form method="post" id="test-form-keyboard">
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="answer_id" id="kb1" value="1">
+                            <label class="form-check-label" for="kb1">
+                                Option 1 (Pfeiltasten verwenden)
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="answer_id" id="kb2" value="2">
+                            <label class="form-check-label" for="kb2">
+                                Option 2
+                            </label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="radio" name="answer_id" id="kb3" value="3">
+                            <label class="form-check-label" for="kb3">
+                                Option 3
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Test abschließen</button>
+                    </form>
+                </div>
+            </div>
+            <div id="test3-result" class="test-result"></div>
+        </div>
+
+        <!-- Test 4: Accessibility Features -->
+        <div class="test-section">
+            <h3>Test 4: Accessibility Features</h3>
+            <p>Testen Sie mit einem Screen Reader oder Tastaturnavigation.</p>
+            <div id="accessibility-info" class="alert alert-info">
+                <strong>Accessibility Features:</strong>
+                <ul class="mb-0 mt-2">
+                    <li>ARIA-Labels sind vorhanden</li>
+                    <li>Live Region für Ankündigungen</li>
+                    <li>Proper focus management</li>
+                    <li>Keyboard navigation support</li>
+                </ul>
+            </div>
+            <div id="test4-result" class="test-result"></div>
+            <button onclick="runTest4()" class="btn btn-secondary">Accessibility Test</button>
+        </div>
+
+        <!-- Test Results Summary -->
+        <div class="test-section">
+            <h3>Test Summary</h3>
+            <div id="test-summary" class="alert alert-secondary">
+                Führen Sie die Tests aus, um die Ergebnisse zu sehen.
+            </div>
+            <button onclick="runAllTests()" class="btn btn-success">Alle Tests ausführen</button>
+        </div>
+    </div>
+
+    <!-- Live Region for Screen Reader Announcements -->
+    <div id="quiz-live-region" aria-live="polite" aria-atomic="true" class="visually-hidden"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/quiz-enhancements.js"></script>
+    
+    <script>
+        let testResults = {
+            test1: false,
+            test2: false,
+            test3: false,
+            test4: false
+        };
+
+        function runTest1() {
+            const form = document.getElementById('test-form-single');
+            const resultDiv = document.getElementById('test1-result');
+            
+            // Test validation without selection
+            let isValid = QuizEnhancement.validateForm(form);
+            
+            if (!isValid) {
+                resultDiv.className = 'test-result test-pass';
+                resultDiv.innerHTML = '✓ PASS: Validation correctly prevents submission without selection';
+                testResults.test1 = true;
+            } else {
+                resultDiv.className = 'test-result test-fail';
+                resultDiv.innerHTML = '✗ FAIL: Validation should prevent submission without selection';
+                testResults.test1 = false;
+            }
+            
+            // Test with selection
+            document.getElementById('answer1').checked = true;
+            isValid = QuizEnhancement.validateForm(form);
+            
+            if (isValid) {
+                resultDiv.innerHTML += '<br>✓ PASS: Validation allows submission with selection';
+            } else {
+                resultDiv.className = 'test-result test-fail';
+                resultDiv.innerHTML += '<br>✗ FAIL: Validation should allow submission with selection';
+                testResults.test1 = false;
+            }
+            
+            updateSummary();
+        }
+
+        function runTest2() {
+            const form = document.getElementById('test-form-multiple');
+            const resultDiv = document.getElementById('test2-result');
+            
+            // Test validation without selection
+            let isValid = QuizEnhancement.validateForm(form);
+            
+            if (!isValid) {
+                resultDiv.className = 'test-result test-pass';
+                resultDiv.innerHTML = '✓ PASS: Multiple choice validation prevents submission without selection';
+                testResults.test2 = true;
+            } else {
+                resultDiv.className = 'test-result test-fail';
+                resultDiv.innerHTML = '✗ FAIL: Multiple choice validation should prevent submission without selection';
+                testResults.test2 = false;
+            }
+            
+            // Test with selection
+            document.getElementById('answer4').checked = true;
+            document.getElementById('answer5').checked = true;
+            isValid = QuizEnhancement.validateForm(form);
+            
+            if (isValid) {
+                resultDiv.innerHTML += '<br>✓ PASS: Multiple choice validation allows submission with selections';
+            } else {
+                resultDiv.className = 'test-result test-fail';
+                resultDiv.innerHTML += '<br>✗ FAIL: Multiple choice validation should allow submission with selections';
+                testResults.test2 = false;
+            }
+            
+            updateSummary();
+        }
+
+        function runTest3() {
+            const resultDiv = document.getElementById('test3-result');
+            
+            // Test keyboard navigation setup
+            const form = document.getElementById('test-form-keyboard');
+            const inputs = form.querySelectorAll('input[type="radio"]');
+            
+            let hasTabIndex = true;
+            inputs.forEach(input => {
+                if (!input.hasAttribute('tabindex')) {
+                    hasTabIndex = false;
+                }
+            });
+            
+            if (hasTabIndex) {
+                resultDiv.className = 'test-result test-pass';
+                resultDiv.innerHTML = '✓ PASS: Keyboard navigation is properly set up (tabindex attributes present)';
+                testResults.test3 = true;
+            } else {
+                resultDiv.className = 'test-result test-fail';
+                resultDiv.innerHTML = '✗ FAIL: Keyboard navigation setup incomplete';
+                testResults.test3 = false;
+            }
+            
+            updateSummary();
+        }
+
+        function runTest4() {
+            const resultDiv = document.getElementById('test4-result');
+            let accessibilityScore = 0;
+            let totalChecks = 4;
+            
+            // Check for live region
+            const liveRegion = document.getElementById('quiz-live-region');
+            if (liveRegion && liveRegion.getAttribute('aria-live')) {
+                accessibilityScore++;
+            }
+            
+            // Check for question text ID
+            const questionTexts = document.querySelectorAll('.question-text');
+            if (questionTexts.length > 0 && questionTexts[0].id) {
+                accessibilityScore++;
+            }
+            
+            // Check for proper ARIA attributes
+            const inputs = document.querySelectorAll('input[type="radio"], input[type="checkbox"]');
+            let hasAriaDescribedBy = false;
+            inputs.forEach(input => {
+                if (input.hasAttribute('aria-describedby')) {
+                    hasAriaDescribedBy = true;
+                }
+            });
+            if (hasAriaDescribedBy) {
+                accessibilityScore++;
+            }
+            
+            // Check for question type indicators
+            const typeIndicators = document.querySelectorAll('.question-type-indicator');
+            if (typeIndicators.length > 0) {
+                accessibilityScore++;
+            }
+            
+            if (accessibilityScore >= 3) {
+                resultDiv.className = 'test-result test-pass';
+                resultDiv.innerHTML = `✓ PASS: Accessibility features working (${accessibilityScore}/${totalChecks} checks passed)`;
+                testResults.test4 = true;
+            } else {
+                resultDiv.className = 'test-result test-fail';
+                resultDiv.innerHTML = `✗ FAIL: Accessibility features incomplete (${accessibilityScore}/${totalChecks} checks passed)`;
+                testResults.test4 = false;
+            }
+            
+            updateSummary();
+        }
+
+        function runAllTests() {
+            runTest1();
+            setTimeout(() => runTest2(), 100);
+            setTimeout(() => runTest3(), 200);
+            setTimeout(() => runTest4(), 300);
+        }
+
+        function updateSummary() {
+            const summaryDiv = document.getElementById('test-summary');
+            const passedTests = Object.values(testResults).filter(result => result === true).length;
+            const totalTests = Object.keys(testResults).length;
+            
+            if (passedTests === totalTests) {
+                summaryDiv.className = 'alert alert-success';
+                summaryDiv.innerHTML = `🎉 All tests passed! (${passedTests}/${totalTests})`;
+            } else if (passedTests > 0) {
+                summaryDiv.className = 'alert alert-warning';
+                summaryDiv.innerHTML = `⚠️ Some tests passed (${passedTests}/${totalTests})`;
+            } else {
+                summaryDiv.className = 'alert alert-danger';
+                summaryDiv.innerHTML = `❌ No tests passed yet (${passedTests}/${totalTests})`;
+            }
+        }
+
+        // Test form submission prevention
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                console.log('Form submission prevented for testing');
+            });
+        });
+
+        // Initialize tests when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Quiz Enhancement Tests loaded');
+            
+            // Add some visual feedback for loaded state
+            const summaryDiv = document.getElementById('test-summary');
+            summaryDiv.innerHTML = 'JavaScript loaded successfully. Ready to run tests.';
+            summaryDiv.className = 'alert alert-info';
+        });
+    </script>
+</body>
+</html>

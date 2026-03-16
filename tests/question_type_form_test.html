@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Type Form Test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/css/style.css" rel="stylesheet">
+    <style>
+        body { padding: 2rem; }
+        .test-section { margin-bottom: 2rem; border: 1px solid #ddd; padding: 1rem; border-radius: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Question Type Form Test</h1>
+        <p>This test verifies the question type selection functionality in the admin interface.</p>
+        
+        <div class="test-section">
+            <h3>Test 1: Question Type Selection Form</h3>
+            <form>
+                <div class="mb-3">
+                    <label class="form-label">Fragentext *</label>
+                    <textarea name="question_text" class="form-control" required rows="2" placeholder="Enter your test question here"></textarea>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Lernfeld *</label>
+                    <select name="learning_field_id" class="form-select" required>
+                        <option value="">Bitte wählen</option>
+                        <option value="1">LF1 - Test Learning Field</option>
+                        <option value="2">LF2 - Another Learning Field</option>
+                    </select>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Fragetyp *</label>
+                    <div class="form-check-container">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question_type" id="question_type_single" value="single" checked required>
+                            <label class="form-check-label" for="question_type_single">
+                                <strong>Single Choice</strong> - Nur eine richtige Antwort möglich
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="question_type" id="question_type_multiple" value="multiple" required>
+                            <label class="form-check-label" for="question_type_multiple">
+                                <strong>Multiple Choice</strong> - Mehrere richtige Antworten möglich
+                            </label>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Wählen Sie den Fragetyp basierend darauf aus, ob eine oder mehrere Antworten richtig sein können.</small>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label">Schwierigkeit</label>
+                        <select name="difficulty" class="form-select">
+                            <option value="easy" selected>Leicht</option>
+                            <option value="medium">Mittel</option>
+                            <option value="hard">Schwer</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Punkte</label>
+                        <input type="number" name="points" class="form-control" min="1" value="1">
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label class="form-label">Antwortoptionen *</label>
+                    <div id="answers">
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Antwort 1</span>
+                            <input type="text" name="answer_text[]" class="form-control" placeholder="First answer option" required>
+                            <span class="input-group-text">
+                                <input type="checkbox" name="is_correct[0]" value="1"> Richtig
+                            </span>
+                        </div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Antwort 2</span>
+                            <input type="text" name="answer_text[]" class="form-control" placeholder="Second answer option" required>
+                            <span class="input-group-text">
+                                <input type="checkbox" name="is_correct[1]" value="1"> Richtig
+                            </span>
+                        </div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Antwort 3</span>
+                            <input type="text" name="answer_text[]" class="form-control" placeholder="Third answer option">
+                            <span class="input-group-text">
+                                <input type="checkbox" name="is_correct[2]" value="1"> Richtig
+                            </span>
+                        </div>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Antwort 4</span>
+                            <input type="text" name="answer_text[]" class="form-control" placeholder="Fourth answer option">
+                            <span class="input-group-text">
+                                <input type="checkbox" name="is_correct[3]" value="1"> Richtig
+                            </span>
+                        </div>
+                    </div>
+                    <small class="form-text text-muted">Mindestens zwei Antwortoptionen erforderlich. Mindestens eine muss als richtig markiert sein.</small>
+                </div>
+                
+                <button type="button" class="btn btn-primary" onclick="testFormValidation()">Test Form Validation</button>
+                <button type="reset" class="btn btn-secondary">Reset Form</button>
+            </form>
+        </div>
+        
+        <div class="test-section">
+            <h3>Test Results</h3>
+            <div id="test-results">
+                <p>Click "Test Form Validation" to see results...</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function testFormValidation() {
+            const form = document.querySelector('form');
+            const formData = new FormData(form);
+            const results = document.getElementById('test-results');
+            
+            let testResults = '<h4>Form Validation Test Results:</h4>';
+            
+            // Test 1: Check if question type is selected
+            const questionType = formData.get('question_type');
+            if (questionType) {
+                testResults += `<p>✅ Question type selected: <strong>${questionType}</strong></p>`;
+            } else {
+                testResults += '<p>❌ No question type selected</p>';
+            }
+            
+            // Test 2: Check required fields
+            const questionText = formData.get('question_text');
+            const learningField = formData.get('learning_field_id');
+            
+            if (questionText && questionText.trim()) {
+                testResults += '<p>✅ Question text provided</p>';
+            } else {
+                testResults += '<p>❌ Question text missing</p>';
+            }
+            
+            if (learningField) {
+                testResults += '<p>✅ Learning field selected</p>';
+            } else {
+                testResults += '<p>❌ Learning field not selected</p>';
+            }
+            
+            // Test 3: Check answer options
+            const answers = formData.getAll('answer_text[]').filter(answer => answer.trim());
+            if (answers.length >= 2) {
+                testResults += `<p>✅ Sufficient answer options: ${answers.length}</p>`;
+            } else {
+                testResults += `<p>❌ Insufficient answer options: ${answers.length} (minimum 2 required)</p>`;
+            }
+            
+            // Test 4: Check if at least one correct answer is marked
+            const correctAnswers = [];
+            for (let i = 0; i < 4; i++) {
+                if (formData.get(`is_correct[${i}]`)) {
+                    correctAnswers.push(i + 1);
+                }
+            }
+            
+            if (correctAnswers.length > 0) {
+                testResults += `<p>✅ Correct answers marked: Answer(s) ${correctAnswers.join(', ')}</p>`;
+            } else {
+                testResults += '<p>❌ No correct answers marked</p>';
+            }
+            
+            // Test 5: Validate question type logic
+            if (questionType === 'single' && correctAnswers.length > 1) {
+                testResults += '<p>⚠️ Warning: Single choice question has multiple correct answers</p>';
+            } else if (questionType === 'multiple' && correctAnswers.length === 1) {
+                testResults += '<p>ℹ️ Info: Multiple choice question has only one correct answer (valid but consider single choice)</p>';
+            }
+            
+            results.innerHTML = testResults;
+        }
+        
+        // Add event listeners for question type change
+        document.querySelectorAll('input[name="question_type"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const selectedType = this.value;
+                const info = document.createElement('div');
+                info.className = 'alert alert-info mt-2';
+                info.innerHTML = selectedType === 'single' 
+                    ? '<strong>Single Choice:</strong> Participants can select only one answer. Use radio buttons in quiz.'
+                    : '<strong>Multiple Choice:</strong> Participants can select multiple answers. Use checkboxes in quiz.';
+                
+                // Remove existing info
+                const existingInfo = document.querySelector('.alert-info');
+                if (existingInfo) {
+                    existingInfo.remove();
+                }
+                
+                // Add new info
+                this.closest('.form-check-container').parentNode.appendChild(info);
+            });
+        });
+    </script>
+</body>
+</html>

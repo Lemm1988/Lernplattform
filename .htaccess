@@ -1,0 +1,141 @@
+# Fachinformatiker Lernplattform - .htaccess
+# IONOS-optimiert für bessere Sicherheit und Performance
+
+# Apache-Version prüfen
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # Fallback: alte /LF1-Pfade auf den richtigen Ordner umleiten
+    RewriteCond %{REQUEST_URI} ^/LF1(/.*)?$ [NC]
+    RewriteRule ^LF1(/.*)?$ /Learningfields/LF1$1 [L,R=301]
+
+    # HTTPS erzwingen (falls SSL-Zertifikat vorhanden)
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Verhindere Slash-Anhängung bei PHP-Dateien
+    RewriteCond %{REQUEST_FILENAME} -f
+    RewriteCond %{REQUEST_FILENAME} \.php$
+    RewriteCond %{REQUEST_URI} !\.php$
+    RewriteRule ^(.*)\.php/$ /$1.php [R=301,L]
+    
+    # .php/ auf .php normalisieren (verhindert 404/Redirect-Loops)
+    RewriteCond %{THE_REQUEST} \s/+([^\s]+)\.php/+\s [NC]
+    RewriteRule ^ /%1.php [R=301,L]
+
+    # Index-Dateien verstecken (inkl. Unterordner)
+    RewriteCond %{THE_REQUEST} \s/+(.+?)/+index\.(html|php)(\?[^\s]*)?\s [NC]
+    RewriteRule ^ /%1/ [R=301,L]
+
+    # Trailing Slash komplett deaktivieren um Probleme zu vermeiden
+    # RewriteCond %{REQUEST_FILENAME} -d
+    # RewriteCond %{REQUEST_URI} !/$
+    # RewriteRule ^(.+)$ $1/ [L,R=301]
+</IfModule>
+
+# Sicherheitsheader
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options nosniff
+    Header always set X-Frame-Options DENY
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+    # HSTS für HTTPS-Erzwingung (nur wenn SSL aktiv)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+</IfModule>
+
+# Schutz sensibler Dateien
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak|sql)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Schutz der config.php vor direktem Zugriff
+<Files "config.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Schutz von Backup-Dateien
+<FilesMatch "\.(bak|backup|old|orig|save|swp|tmp)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# PHP-Einstellungen für Sicherheit
+<IfModule mod_php8.c>
+    php_flag display_errors Off
+    php_flag log_errors On
+    php_value error_log /var/log/php_errors.log
+    php_flag expose_php Off
+    php_flag allow_url_fopen Off
+    php_flag allow_url_include Off
+    php_value session.cookie_httponly 1
+    php_value session.cookie_secure 1
+    php_value session.cookie_samesite Strict
+    php_value upload_max_filesize 5M
+    php_value post_max_size 10M
+    php_value memory_limit 512M
+    php_value max_execution_time 30
+    php_value max_input_time 60
+</IfModule>
+
+# Kompression aktivieren
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+</IfModule>
+
+# Cache-Kontrolle
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/ico "access plus 1 month"
+    ExpiresByType image/icon "access plus 1 month"
+    ExpiresByType text/plain "access plus 1 month"
+    ExpiresByType application/pdf "access plus 1 month"
+</IfModule>
+
+# Error Pages
+ErrorDocument 404 /404.html
+ErrorDocument 403 /403.html
+ErrorDocument 500 /500.html
+
+# Verzeichnis-Browsing verhindern
+Options -Indexes
+
+# Server-Signatur ausblenden
+ServerSignature Off
+
+# Schutz vor Hotlinking (außer für Assets-Ordner)
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Assets-Ordner von Hotlinking-Schutz ausnehmen
+    RewriteCond %{REQUEST_URI} !^/assets/
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?YourDomain [NC]
+    RewriteRule \.(jpg|jpeg|png|gif)$ - [F]
+</IfModule>
+
+# Rate Limiting für Login-Versuche
+<IfModule mod_evasive24.c>
+    DOSHashTableSize    2048
+    DOSPageCount        5
+    DOSPageInterval     1
+    DOSSiteCount        50
+    DOSSiteInterval     1
+    DOSBlockingPeriod   600
+</IfModule>

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinyMCE Fallback Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .editor-container { border: 1px solid #ccc; margin: 20px 0; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+    </style>
+</head>
+<body>
+    <h1>TinyMCE Fallback Test</h1>
+    
+    <div id="status" class="status warning">Lade TinyMCE...</div>
+    
+    <div class="editor-container">
+        <textarea id="content" style="width: 100%; height: 300px;">
+            <h2>Test Editor</h2>
+            <p>Dies ist ein Test des TinyMCE Editors.</p>
+        </textarea>
+    </div>
+    
+    <button onclick="testEditor()">Editor testen</button>
+    <button onclick="getContent()">Inhalt abrufen</button>
+    
+    <div id="result"></div>
+
+    <!-- TinyMCE CDN -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin" onerror="loadFallback()"></script>
+    
+    <script>
+        let editorLoaded = false;
+        
+        function loadFallback() {
+            document.getElementById('status').innerHTML = 'TinyMCE CDN fehlgeschlagen, lade Fallback...';
+            document.getElementById('status').className = 'status warning';
+            
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.7.0/tinymce.min.js';
+            script.referrerPolicy = 'origin';
+            script.onload = function() {
+                document.getElementById('status').innerHTML = 'TinyMCE Fallback erfolgreich geladen!';
+                document.getElementById('status').className = 'status success';
+                editorLoaded = true;
+                initEditor();
+            };
+            script.onerror = function() {
+                document.getElementById('status').innerHTML = 'Alle TinyMCE-Quellen fehlgeschlagen. Verwende einfachen Editor.';
+                document.getElementById('status').className = 'status error';
+                editorLoaded = false;
+            };
+            document.head.appendChild(script);
+        }
+        
+        function initEditor() {
+            if (typeof tinymce !== 'undefined') {
+                tinymce.init({
+                    selector: '#content',
+                    height: 300,
+                    plugins: ['lists', 'link', 'image', 'code'],
+                    toolbar: 'undo redo | bold italic | bullist numlist | link image | code',
+                    setup: function(editor) {
+                        editor.on('init', function() {
+                            document.getElementById('status').innerHTML = 'TinyMCE Editor erfolgreich initialisiert!';
+                            document.getElementById('status').className = 'status success';
+                        });
+                    }
+                });
+            }
+        }
+        
+        function testEditor() {
+            if (editorLoaded && typeof tinymce !== 'undefined') {
+                const editor = tinymce.get('content');
+                if (editor) {
+                    alert('Editor ist aktiv und funktioniert!');
+                } else {
+                    alert('Editor ist nicht verfügbar!');
+                }
+            } else {
+                alert('TinyMCE ist nicht geladen!');
+            }
+        }
+        
+        function getContent() {
+            if (editorLoaded && typeof tinymce !== 'undefined') {
+                const editor = tinymce.get('content');
+                if (editor) {
+                    document.getElementById('result').innerHTML = '<h3>Editor Inhalt:</h3><pre>' + editor.getContent() + '</pre>';
+                } else {
+                    document.getElementById('result').innerHTML = '<p>Editor nicht verfügbar!</p>';
+                }
+            } else {
+                document.getElementById('result').innerHTML = '<p>TinyMCE nicht geladen!</p>';
+            }
+        }
+        
+        // Auto-init nach 2 Sekunden
+        setTimeout(function() {
+            if (typeof tinymce !== 'undefined') {
+                document.getElementById('status').innerHTML = 'TinyMCE CDN erfolgreich geladen!';
+                document.getElementById('status').className = 'status success';
+                editorLoaded = true;
+                initEditor();
+            }
+        }, 2000);
+    </script>
+</body>
+</html>

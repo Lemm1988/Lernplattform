@@ -1,0 +1,488 @@
+admin_ip_whitelist
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+ip_address	varchar(45)	Nein		IPv4 oder IPv6-Adresse
+description	varchar(255)	Ja	NULL	Beschreibung der IP (z.B. Büro, Zuhause)
+is_active	tinyint(1)	Nein	1	Ist diese IP aktiv?
+added_by	int	Ja	NULL	Benutzer-ID der Person, die die IP hinzugefügt hat
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	Erstellungsdatum
+updated_at	timestamp	Ja	CURRENT_TIMESTAMP	Letzte Aktualisierung
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	2	A	Nein	
+unique_ip	BTREE	Ja	Nein	ip_address	2	A	Nein	
+added_by	BTREE	Nein	Nein	added_by	1	A	Ja	
+idx_admin_ip_whitelist_active	BTREE	Nein	Nein	is_active	1	A	Nein	
+idx_admin_ip_whitelist_ip	BTREE	Nein	Nein	ip_address	2	A	Nein	
+admin_security_log
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Ja	NULL	
+action	varchar(255)	Nein		
+details	text	Ja	NULL	
+ip_address	varchar(45)	Ja	NULL	
+user_agent	text	Ja	NULL	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	2	A	Nein	
+user_id	BTREE	Nein	Nein	user_id	1	A	Ja	
+answer_options
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+question_id	int	Nein		
+answer_text	text	Nein		
+is_correct	tinyint(1)	Nein	0	
+sort_order	tinyint	Nein	0	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+updated_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	6991	A	Nein	
+question_id	BTREE	Nein	Nein	question_id	1814	A	Nein	
+contact_messages
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Nein		
+name	varchar(100)	Nein		
+email	varchar(255)	Nein		
+message	text	Nein		
+created_at	timestamp	Nein	CURRENT_TIMESTAMP	
+admin_reply	text	Ja	NULL	
+reply_at	timestamp	Ja	NULL	
+is_from_admin	tinyint(1)	Nein	0	
+parent_id	int	Ja	NULL	
+last_viewed_at	datetime	Ja	NULL	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	1	A	Nein	
+user_id	BTREE	Nein	Nein	user_id	1	A	Nein	
+learning_fields
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+lf_number	varchar(10)	Nein		
+title	varchar(255)	Nein		
+description	text	Ja	NULL	
+specialization	enum('all', 'anwendungsentwicklung', 'systemintegration', 'daten_prozessanalyse', 'digitale_vernetzung')	Nein	all	
+sort_order	int	Nein	0	
+is_active	tinyint(1)	Nein	1	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	22	A	Nein	
+lf_number	BTREE	Ja	Nein	lf_number	22	A	Nein	
+login_attempts
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+email	varchar(255)	Nein		
+ip_address	varchar(45)	Ja	NULL	
+success	tinyint(1)	Ja	NULL	
+created_at	datetime	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	35	A	Nein	
+log_entries
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Ja	NULL	
+action	varchar(255)	Ja	NULL	
+created_at	datetime	Ja	CURRENT_TIMESTAMP	
+type	enum('login', 'cron', 'security', 'custom')	Ja	custom	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	448	A	Nein	
+idx_action	BTREE	Nein	Nein	action	213	A	Ja	
+idx_user_id	BTREE	Nein	Nein	user_id	3	A	Ja	
+idx_log_entries_type_created	BTREE	Nein	Nein	type	5	A	Ja	
+created_at	374	A	Ja
+news_articles
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+title	varchar(255)	Nein		
+slug	varchar(255)	Nein		
+content	longtext	Nein		
+excerpt	text	Ja	NULL	
+featured_image	varchar(255)	Ja	NULL	
+author_id	int	Nein		
+category_id	int	Ja	NULL	
+status	enum('draft', 'published', 'archived')	Ja	draft	
+is_featured	tinyint(1)	Ja	0	
+view_count	int	Ja	0	
+meta_title	varchar(255)	Ja	NULL	
+meta_description	text	Ja	NULL	
+meta_keywords	text	Ja	NULL	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+updated_at	timestamp	Ja	CURRENT_TIMESTAMP	
+published_at	timestamp	Ja	NULL	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	1	A	Nein	
+slug	BTREE	Ja	Nein	slug	1	A	Nein	
+author_id	BTREE	Nein	Nein	author_id	1	A	Nein	
+idx_status	BTREE	Nein	Nein	status	1	A	Ja	
+idx_published_at	BTREE	Nein	Nein	published_at	1	A	Ja	
+idx_is_featured	BTREE	Nein	Nein	is_featured	1	A	Ja	
+idx_category	BTREE	Nein	Nein	category_id	1	A	Ja	
+news_article_tags
+Spalte	Typ	Null	Standard	Kommentare
+article_id (Primärschlüssel)	int	Nein		
+tag_id (Primärschlüssel)	int	Nein		
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	article_id	1	A	Nein	
+tag_id	1	A	Nein
+tag_id	BTREE	Nein	Nein	tag_id	1	A	Nein	
+news_categories
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+name	varchar(100)	Nein		
+slug	varchar(100)	Nein		
+description	text	Ja	NULL	
+color	varchar(7)	Ja	#007bff	
+is_active	tinyint(1)	Ja	1	
+sort_order	int	Ja	0	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+updated_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	5	A	Nein	
+slug	BTREE	Ja	Nein	slug	5	A	Nein	
+news_drafts
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+article_id	int	Ja	NULL	
+title	varchar(255)	Ja	NULL	
+content	longtext	Ja	NULL	
+excerpt	text	Ja	NULL	
+author_id	int	Nein		
+last_saved	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	55	A	Nein	
+article_id	BTREE	Nein	Nein	article_id	1	A	Ja	
+author_id	BTREE	Nein	Nein	author_id	1	A	Nein	
+news_media
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+filename	varchar(255)	Nein		
+original_name	varchar(255)	Nein		
+file_path	varchar(500)	Nein		
+file_size	int	Nein		
+mime_type	varchar(100)	Nein		
+width	int	Ja	NULL	
+height	int	Ja	NULL	
+uploaded_by	int	Nein		
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	0	A	Nein	
+uploaded_by	BTREE	Nein	Nein	uploaded_by	0	A	Nein	
+news_tags
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+name	varchar(50)	Nein		
+slug	varchar(50)	Nein		
+color	varchar(7)	Ja	#6c757d	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	5	A	Nein	
+slug	BTREE	Ja	Nein	slug	5	A	Nein	
+password_resets
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+email	varchar(255)	Nein		
+token	varchar(255)	Nein		
+expires_at	datetime	Nein		
+created_at	datetime	Nein		
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	0	A	Nein	
+uniq_password_resets_token	BTREE	Ja	Nein	token	0	A	Nein	
+idx_password_resets_email	BTREE	Nein	Nein	email	0	A	Nein	
+posts
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+title	varchar(255)	Nein		
+content	text	Nein		
+created_at	datetime	Nein		
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	1	A	Nein	
+idx_posts_created_at	BTREE	Nein	Nein	created_at	1	A	Nein	
+protected_emails
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+email	varchar(255)	Nein		
+reason	varchar(255)	Ja	NULL	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	4	A	Nein	
+email	BTREE	Ja	Nein	email	4	A	Nein	
+questions
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+learning_field_id	int	Nein		
+question_text	text	Nein		
+code_example	text	Ja	NULL	
+code_language	varchar(20)	Ja	NULL	
+image_path	varchar(255)	Ja	NULL	
+question_type	enum('single', 'multiple')	Nein	single	
+points	tinyint	Nein	4	
+difficulty	enum('easy', 'medium', 'hard')	Nein	medium	
+is_approved	tinyint(1)	Nein	0	
+created_by	int	Ja	NULL	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+updated_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	1880	A	Nein	
+learning_field_id	BTREE	Nein	Nein	learning_field_id	12	A	Nein	
+created_by	BTREE	Nein	Nein	created_by	2	A	Ja	
+idx_question_type	BTREE	Nein	Nein	question_type	2	A	Nein	
+idx_code_language	BTREE	Nein	Nein	code_language	1	A	Ja	
+idx_questions_learning_field_approved	BTREE	Nein	Nein	learning_field_id	12	A	Nein	
+is_approved	12	A	Nein
+quiz_sessions
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Nein		
+learning_field_id	int	Ja	NULL	
+total_questions	int	Nein	60	
+answered_questions	int	Nein	0	
+total_score	int	Nein	0	
+max_score	int	Nein	240	
+status	enum('started', 'paused', 'completed', 'abandoned')	Nein	started	
+started_at	timestamp	Ja	CURRENT_TIMESTAMP	
+completed_at	timestamp	Ja	NULL	
+time_limit	int	Nein	7200	
+questions_json	text	Ja	NULL	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	0	A	Nein	
+user_id	BTREE	Nein	Nein	user_id	0	A	Nein	
+learning_field_id	BTREE	Nein	Nein	learning_field_id	0	A	Ja	
+idx_quiz_sessions_user_completed	BTREE	Nein	Nein	user_id	0	A	Nein	
+completed_at	0	A	Ja
+reward_points_audit
+Tabellenkommentar: Audit-Log für alle Belohnungspunkte-Änderungen
+
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Nein		
+points_change	int	Nein		Positive Zahl = Punkte hinzugefügt, Negative = Punkte entfernt
+reason	varchar(255)	Nein		Grund für Punkteänderung
+admin_user_id	int	Ja	NULL	Admin der die Änderung vorgenommen hat
+quiz_session_id	int	Ja	NULL	Quiz-Session falls relevant
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	0	A	Nein	
+quiz_session_id	BTREE	Nein	Nein	quiz_session_id	0	A	Ja	
+idx_reward_audit_user_id	BTREE	Nein	Nein	user_id	0	A	Nein	
+idx_reward_audit_admin_id	BTREE	Nein	Nein	admin_user_id	0	A	Ja	
+idx_reward_audit_created_at	BTREE	Nein	Nein	created_at	0	A	Ja	
+section_user_access
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+section_id	int	Nein		
+user_id	int	Nein		
+access	enum('allow', 'deny')	Nein	allow	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	1	A	Nein	
+unique_section_user	BTREE	Ja	Nein	section_id	1	A	Nein	
+user_id	1	A	Nein
+fk_user	BTREE	Nein	Nein	user_id	1	A	Nein	
+settings
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+setting_key	varchar(100)	Nein		
+setting_value	text	Ja	NULL	
+description	text	Ja	NULL	
+updated_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	21	A	Nein	
+setting_key	BTREE	Ja	Nein	setting_key	21	A	Nein	
+site_sections
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+name	varchar(100)	Nein		
+url_path	varchar(255)	Nein		
+icon	varchar(50)	Ja	bi-link	
+section_type	varchar(50)	Nein		
+is_active	tinyint(1)	Ja	1	
+sort_order	int	Ja	0	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+updated_at	timestamp	Ja	CURRENT_TIMESTAMP	
+roles	varchar(100)	Nein	admin,moderator,schueler	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	48	A	Nein	
+site_section_headers
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+name	varchar(100)	Nein		
+section_type	varchar(50)	Nein		
+icon	varchar(50)	Ja	bi-list	
+is_active	tinyint(1)	Ja	1	
+sort_order	int	Ja	0	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+updated_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	8	A	Nein	
+users
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+username	varchar(50)	Nein		
+email	varchar(100)	Nein		
+email_verified_at	datetime	Ja	NULL	
+password_hash	varchar(255)	Nein		
+role	enum('student', 'admin', 'moderator')	Nein	student	
+is_active	tinyint(1)	Nein	0	
+verification_token	varchar(255)	Ja	NULL	
+registration_date	timestamp	Ja	CURRENT_TIMESTAMP	
+last_login	timestamp	Ja	NULL	
+inactive_warn_sent	datetime	Ja	NULL	
+privacy_consent	tinyint(1)	Nein	0	
+newsletter_consent	tinyint(1)	Nein	0	
+kontaktformular_aktiv	tinyint(1)	Nein	1	
+two_factor_secret	varchar(32)	Ja	NULL	2FA-Secret für TOTP-Authentifizierung
+two_factor_backup_codes	text	Ja	NULL	JSON-Array mit Backup-Codes für 2FA
+two_factor_enabled	tinyint(1)	Nein	0	Ist 2FA für diesen Benutzer aktiviert?
+first_name	varchar(50)	Ja	NULL	Vorname des Benutzers
+last_name	varchar(50)	Ja	NULL	Nachname des Benutzers
+birth_date	date	Ja	NULL	Geburtsdatum des Benutzers
+gender	enum('male', 'female', 'other')	Ja	NULL	Geschlecht des Benutzers
+location	varchar(100)	Ja	NULL	Standort (Stadt, Land) des Benutzers
+bio	text	Ja	NULL	Kurze Biografie des Benutzers (max. 500 Zeichen)
+social_links	json	Ja	NULL	Social Media Links als JSON
+avatar	varchar(100)	Ja	NULL	Avatar-Dateiname (vordefinierte Avatare)
+reward_points	int	Ja	0	
+total_quizzes_passed	int	Ja	0	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	11	A	Nein	
+username	BTREE	Ja	Nein	username	11	A	Nein	
+email	BTREE	Ja	Nein	email	11	A	Nein	
+idx_users_2fa_enabled	BTREE	Nein	Nein	two_factor_enabled	2	A	Nein	
+idx_users_location	BTREE	Nein	Nein	location	2	A	Ja	
+idx_users_birth_date	BTREE	Nein	Nein	birth_date	2	A	Ja	
+idx_users_reward_points	BTREE	Nein	Nein	reward_points	1	A	Ja	
+idx_users_total_quizzes_passed	BTREE	Nein	Nein	total_quizzes_passed	3	A	Ja	
+user_activity_logs
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Nein		
+activity_type	varchar(50)	Nein		
+details	text	Ja	NULL	
+ip_address	varchar(45)	Ja	NULL	
+user_agent	text	Ja	NULL	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	4	A	Nein	
+idx_user_id	BTREE	Nein	Nein	user_id	1	A	Nein	
+idx_activity_type	BTREE	Nein	Nein	activity_type	3	A	Nein	
+idx_created_at	BTREE	Nein	Nein	created_at	4	A	Ja	
+user_answers
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+quiz_session_id	int	Nein		
+question_id	int	Nein		
+selected_answer_id	int	Ja	NULL	
+is_correct	tinyint(1)	Ja	NULL	
+points_earned	tinyint	Nein	0	
+answered_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	251	A	Nein	
+unique_session_question	BTREE	Ja	Nein	quiz_session_id	14	A	Nein	
+question_id	251	A	Nein
+question_id	BTREE	Nein	Nein	question_id	152	A	Nein	
+selected_answer_id	BTREE	Nein	Nein	selected_answer_id	164	A	Ja	
+idx_user_answers_session_question	BTREE	Nein	Nein	quiz_session_id	14	A	Nein	
+question_id	251	A	Nein
+user_answer_selections
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_answer_id	int	Nein		
+selected_answer_id	int	Nein		
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	38	A	Nein	
+unique_selection	BTREE	Ja	Nein	user_answer_id	26	A	Nein	
+selected_answer_id	38	A	Nein
+idx_user_answer_selections_user_answer	BTREE	Nein	Nein	user_answer_id	26	A	Nein	
+idx_user_answer_selections_selected_answer	BTREE	Nein	Nein	selected_answer_id	15	A	Nein	
+user_logins
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Ja	NULL	ID des Benutzers
+login_at	timestamp	Ja	NULL	Zeitpunkt des Logins
+ip_address	varchar(45)	Ja	NULL	IP-Adresse des Logins
+user_agent	text	Ja	NULL	User-Agent des Browsers
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	0	A	Nein	
+idx_user_logins_user_id	BTREE	Nein	Nein	user_id	0	A	Ja	
+idx_user_logins_login_at	BTREE	Nein	Nein	login_at	0	A	Ja	
+user_logs
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Nein		
+action	varchar(100)	Nein		
+details	text	Ja	NULL	
+ip_address	varchar(45)	Ja	NULL	
+user_agent	text	Ja	NULL	
+created_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	26	A	Nein	
+idx_user_id	BTREE	Nein	Nein	user_id	1	A	Nein	
+idx_action	BTREE	Nein	Nein	action	6	A	Nein	
+idx_created_at	BTREE	Nein	Nein	created_at	26	A	Ja	
+user_online_status
+Spalte	Typ	Null	Standard	Kommentare
+user_id (Primärschlüssel)	int	Nein		
+last_activity	timestamp	Ja	CURRENT_TIMESTAMP	
+ip_address	varchar(45)	Ja	NULL	
+user_agent	text	Ja	NULL	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	user_id	2	A	Nein	
+user_progress
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Nein		
+learning_field_id	int	Nein		
+completion_percentage	decimal(5,2)	Nein	0.00	
+best_score	int	Nein	0	
+attempts	int	Nein	0	
+last_attempt	timestamp	Ja	NULL	
+updated_at	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	0	A	Nein	
+unique_user_field	BTREE	Ja	Nein	user_id	0	A	Nein	
+learning_field_id	0	A	Nein
+learning_field_id	BTREE	Nein	Nein	learning_field_id	0	A	Nein	
+user_quiz_rewards
+Spalte	Typ	Null	Standard	Kommentare
+id (Primärschlüssel)	int	Nein		
+user_id	int	Nein		
+quiz_session_id	int	Nein		
+learning_field_id	int	Ja	NULL	
+points_earned	int	Nein		
+success_percentage	decimal(5,2)	Nein		
+completion_date	timestamp	Ja	CURRENT_TIMESTAMP	
+Indizes
+Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
+PRIMARY	BTREE	Ja	Nein	id	0	A	Nein	
+unique_user_quiz	BTREE	Ja	Nein	user_id	0	A	Nein	
+quiz_session_id	0	A	Nein
+quiz_session_id	BTREE	Nein	Nein	quiz_session_id	0	A	Nein	

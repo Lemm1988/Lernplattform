@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TinyMCE Debug</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .status { padding: 10px; margin: 10px 0; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .warning { background: #fff3cd; color: #856404; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <h1>TinyMCE Debug Test</h1>
+    
+    <div id="status" class="status warning">Lade TinyMCE...</div>
+    
+    <div id="editorContainer" style="margin: 20px 0;">
+        <textarea id="content" style="width: 100%; height: 300px;">
+            <h2>Test Editor</h2>
+            <p>Dies ist ein Test des TinyMCE Editors.</p>
+        </textarea>
+    </div>
+    
+    <div>
+        <button onclick="initEditor()">Editor initialisieren</button>
+        <button onclick="getContent()">Inhalt abrufen</button>
+        <button onclick="testNetwork()">Netzwerk testen</button>
+    </div>
+    
+    <div id="output" style="margin-top: 20px; padding: 10px; background: #f8f9fa; border-radius: 4px;"></div>
+
+    <!-- TinyMCE CDN -->
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    
+    <script>
+        let editorInitialized = false;
+        
+        function updateStatus(message, type = 'info') {
+            const statusEl = document.getElementById('status');
+            statusEl.textContent = message;
+            statusEl.className = 'status ' + type;
+        }
+        
+        function log(message) {
+            const output = document.getElementById('output');
+            output.innerHTML += '<div>' + new Date().toLocaleTimeString() + ': ' + message + '</div>';
+        }
+        
+        function testNetwork() {
+            log('Teste Netzwerkverbindung...');
+            
+            // Test verschiedene CDNs
+            const cdnTests = [
+                'https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.7.0/tinymce.min.js',
+                'https://unpkg.com/tinymce@6/tinymce.min.js'
+            ];
+            
+            cdnTests.forEach((url, index) => {
+                fetch(url, { method: 'HEAD' })
+                    .then(response => {
+                        log(`CDN ${index + 1} (${url}): ${response.ok ? 'OK' : 'FEHLER'}`);
+                    })
+                    .catch(error => {
+                        log(`CDN ${index + 1} (${url}): FEHLER - ${error.message}`);
+                    });
+            });
+        }
+        
+        function initEditor() {
+            log('Versuche Editor zu initialisieren...');
+            
+            if (typeof tinymce === 'undefined') {
+                updateStatus('TinyMCE nicht verfügbar!', 'error');
+                log('FEHLER: tinymce ist undefined');
+                return;
+            }
+            
+            try {
+                tinymce.init({
+                    selector: '#content',
+                    height: 300,
+                    plugins: ['lists', 'link', 'image'],
+                    toolbar: 'undo redo | bold italic | bullist numlist | link image',
+                    setup: function(editor) {
+                        editor.on('init', function() {
+                            updateStatus('TinyMCE erfolgreich initialisiert!', 'success');
+                            log('TinyMCE Editor erfolgreich initialisiert');
+                            editorInitialized = true;
+                        });
+                        
+                        editor.on('error', function(e) {
+                            log('TinyMCE Fehler: ' + e.message);
+                            updateStatus('TinyMCE Fehler: ' + e.message, 'error');
+                        });
+                    }
+                });
+            } catch (error) {
+                log('FEHLER beim Initialisieren: ' + error.message);
+                updateStatus('Fehler beim Initialisieren: ' + error.message, 'error');
+            }
+        }
+        
+        function getContent() {
+            if (editorInitialized && typeof tinymce !== 'undefined') {
+                const editor = tinymce.get('content');
+                if (editor) {
+                    const content = editor.getContent();
+                    log('Editor Inhalt: ' + content.substring(0, 100) + '...');
+                } else {
+                    log('FEHLER: Editor nicht gefunden');
+                }
+            } else {
+                const content = document.getElementById('content').value;
+                log('Textarea Inhalt: ' + content.substring(0, 100) + '...');
+            }
+        }
+        
+        // Auto-Test nach 3 Sekunden
+        setTimeout(() => {
+            if (typeof tinymce !== 'undefined') {
+                updateStatus('TinyMCE geladen!', 'success');
+                log('TinyMCE erfolgreich geladen');
+            } else {
+                updateStatus('TinyMCE konnte nicht geladen werden!', 'error');
+                log('FEHLER: TinyMCE konnte nicht geladen werden');
+            }
+        }, 3000);
+        
+        // Netzwerk-Test beim Laden
+        window.addEventListener('load', () => {
+            setTimeout(testNetwork, 1000);
+        });
+    </script>
+</body>
+</html>
