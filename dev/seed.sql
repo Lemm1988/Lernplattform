@@ -53,7 +53,8 @@ INSERT INTO `site_sections` (`id`, `name`, `url_path`, `icon`, `section_type`, `
 (30, 'Java',               '/programming/java/java-index.php',           'bi-cup-hot',          'programmierung', 1, 'admin,moderator,student'),
 (31, 'PHP',                '/programming/php/php-index.php',             'bi-filetype-php',     'programmierung', 2, 'admin,moderator,student'),
 (32, 'Python',             '/programming/python/python-index.php',       'bi-filetype-py',      'programmierung', 3, 'admin,moderator,student'),
-(40, 'Scrum Foundation',   '/Learningfields/Scrum/Scrum_Fundation_index.php', 'bi-people',      'agil', 1, 'admin,moderator,student');
+(40, 'Scrum Foundation',   '/Learningfields/Scrum/Scrum_Fundation_index.php', 'bi-people',      'agil', 1, 'admin,moderator,student'),
+(50, 'SQL-Trainer',        '/games/sql-trainer/index.php',               'bi-database',         'games', 1, 'admin,moderator,student');
 
 INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
 ('site_title', 'Lernplattform (lokal)', 'Titel der Website'),

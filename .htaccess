@@ -91,6 +91,11 @@
     php_value max_input_time 60
 </IfModule>
 
+# WebAssembly (SQL-Trainer) mit korrektem MIME-Type ausliefern
+<IfModule mod_mime.c>
+    AddType application/wasm .wasm
+</IfModule>
+
 # Kompression aktivieren
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/plain

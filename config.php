@@ -293,7 +293,8 @@ if (!defined('IS_CRONJOB')) {
 
     // Content Security Policy (CSP)
     $csp = "default-src 'self'; ";
-    $csp .= "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; ";
+    // 'wasm-unsafe-eval' erlaubt nur WebAssembly (für sql.js im SQL-Trainer), kein JavaScript-eval()
+    $csp .= "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; ";
     $csp .= "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; ";
     $csp .= "font-src 'self' https://cdn.jsdelivr.net; ";
     $csp .= "img-src 'self' data: https:; ";
