@@ -19,6 +19,7 @@ Lerplattform - Last Backup*/
 .vscode/*
 !.vscode/tasks.json
 !.vscode/settings.json
+!.vscode/launch.json
 .idea/
 Thumbs.db
 desktop.ini

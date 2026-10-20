@@ -1,0 +1,15 @@
+{
+    // F5 / "Ausführen und Debuggen": startet die Plattform über dev/start.ps1
+    // (MySQL + Testdatenbank + PHP-Server auf http://localhost:8000).
+    // Ohne diese Datei führt VS Code mit F5 nur die geöffnete PHP-Datei aus – ohne Datenbank.
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Lernplattform starten",
+            "type": "node-terminal",
+            "request": "launch",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"${workspaceFolder}\\dev\\start.ps1\"",
+            "cwd": "${workspaceFolder}"
+        }
+    ]
+}

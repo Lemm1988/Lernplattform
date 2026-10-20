@@ -8,7 +8,7 @@ Eine moderne, responsive Lernplattform für Fachinformatiker mit Quiz-System, Mu
 
 Voraussetzung: [XAMPP](https://www.apachefriends.org/) unter `C:\xampp` (PHP 8.2 und MariaDB werden daraus verwendet).
 
-- **VS Code:** Projektordner öffnen und `Strg+Umschalt+B` drücken (Task „Lernplattform starten“).
+- **VS Code:** Projektordner öffnen und `Strg+Umschalt+B` drücken (Task „Lernplattform starten“) – oder `F5`.
 - **Ohne VS Code:** `dev\start.bat` doppelklicken.
 
 Das Skript startet bei Bedarf MySQL aus XAMPP, legt beim ersten Mal die Testdatenbank `lernplattform_dev`

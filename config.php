@@ -113,7 +113,18 @@ try {
 } catch (PDOException $e) {
     error_log('Datenbankverbindung fehlgeschlagen: ' . $e->getMessage());
     http_response_code(500);
-    die(APP_DEBUG ? 'Datenbankverbindung fehlgeschlagen: ' . htmlspecialchars($e->getMessage()) : 'Die Seite ist gerade nicht erreichbar. Bitte versuche es später erneut.');
+    if (!APP_DEBUG) {
+        die('Die Seite ist gerade nicht erreichbar. Bitte versuche es später erneut.');
+    }
+    // Lokale Entwicklung: Ursache und Lösung nennen
+    $db_hint = in_array((int)$e->getCode(), [2002, 2003], true)
+        ? 'MySQL läuft nicht. Starte die Plattform in VS Code mit Strg+Umschalt+B oder F5 (dev/start.ps1) – '
+          . 'oder starte MySQL im XAMPP Control Panel.'
+        : 'Prüfe die Zugangsdaten in config.local.php.';
+    die(PHP_SAPI === 'cli'
+        ? 'Datenbankverbindung fehlgeschlagen: ' . $e->getMessage() . PHP_EOL . $db_hint . PHP_EOL
+        : '<h1>Datenbankverbindung fehlgeschlagen</h1><p>' . htmlspecialchars($e->getMessage()) . '</p><p><strong>'
+          . htmlspecialchars($db_hint) . '</strong></p>');
 }
 
 // ============================================================================
