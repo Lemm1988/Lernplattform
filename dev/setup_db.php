@@ -61,9 +61,17 @@ $db->set_charset('utf8mb4');
 $name = $db->real_escape_string(DB_NAME);
 $exists = $db->query("SHOW DATABASES LIKE '$name'")->num_rows > 0;
 
-if ($exists && !$reset) {
+// Wurde ein früheres Einrichten unterbrochen, existiert die Datenbank, ist aber leer bzw. unvollständig
+$complete = $exists && $db->query(
+    "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = '$name' AND table_name IN ('users', 'questions', 'site_sections')"
+)->fetch_row()[0] == 3 && $db->query("SELECT COUNT(*) FROM `$name`.`users`")->fetch_row()[0] > 0;
+
+if ($complete && !$reset) {
     echo "Datenbank " . DB_NAME . " ist vorhanden.\n";
     exit(0);
+}
+if ($exists && !$complete && !$reset) {
+    echo "Datenbank " . DB_NAME . " ist unvollständig (abgebrochenes Einrichten?) – wird neu aufgebaut.\n";
 }
 if ($exists) {
     $db->query("DROP DATABASE `$name`");
