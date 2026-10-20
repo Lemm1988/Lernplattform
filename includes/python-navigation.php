@@ -193,7 +193,17 @@ function renderPythonNavigation($current_page = '') {
  */
 function renderPythonNavigationStyles() {
     echo '<style>
-    .php-navigation-container { position: fixed; top: 20px; right: 20px; z-index: 1000; font-family: "Inter", system-ui, sans-serif; }
+    .php-navigation-container {
+        /* In der Inhaltsspalte über dem Seitentitel; bleibt beim Scrollen unter der Kopfleiste stehen.
+           (Vorher position: fixed oben rechts – überdeckte die Kopfleiste.) */
+        position: sticky;
+        top: 62px;
+        z-index: 900;
+        display: flex;
+        justify-content: flex-end;
+        margin: 12px 0 4px;
+        font-family: "Inter", system-ui, sans-serif;
+    }
     .php-nav-toggle { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; cursor: pointer; display: flex; align-items: center; box-shadow: var(--shadow); transition: all 0.2s ease; user-select: none; min-width: 200px; }
     .php-nav-toggle:hover { box-shadow: 0 4px 12px rgba(30, 64, 175, 0.12); border-color: var(--primary-light); }
     .php-nav-menu { position: absolute; top: 100%; right: 0; margin-top: 8px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); box-shadow: 0 8px 24px rgba(30, 64, 175, 0.15); min-width: 320px; max-width: 400px; max-height: 70vh; overflow-y: auto; opacity: 0; visibility: hidden; transform: translateY(-10px); transition: all 0.3s ease; }
@@ -211,7 +221,7 @@ function renderPythonNavigationStyles() {
     .php-nav-divider { height: 1px; background: var(--border); margin: 12px 0; }
     .php-nav-home .php-nav-item-number { background: var(--text-muted); }
     .php-nav-home .php-nav-item-icon { color: var(--text-muted); }
-    @media (max-width: 768px) { .php-navigation-container { top: 10px; right: 10px; left: 10px; } .php-nav-toggle { min-width: auto; } .php-nav-menu { right: 0; left: 0; min-width: auto; max-width: none; } }
+    @media (max-width: 768px) { .php-navigation-container { justify-content: stretch; } .php-nav-toggle { width: 100%; } .php-nav-toggle { min-width: auto; } .php-nav-menu { right: 0; left: 0; min-width: auto; max-width: none; } }
     </style>';
 }
 

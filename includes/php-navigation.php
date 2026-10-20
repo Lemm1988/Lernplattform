@@ -213,10 +213,14 @@ function renderNavigationStyles()
 {
     echo '<style>
     .php-navigation-container {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
+        /* In der Inhaltsspalte über dem Seitentitel; bleibt beim Scrollen unter der Kopfleiste stehen.
+           (Vorher position: fixed oben rechts – überdeckte die Kopfleiste.) */
+        position: sticky;
+        top: 62px;
+        z-index: 900;
+        display: flex;
+        justify-content: flex-end;
+        margin: 12px 0 4px;
         font-family: "Inter", system-ui, sans-serif;
     }
     
@@ -350,11 +354,7 @@ function renderNavigationStyles()
     
     /* Mobile Anpassungen */
     @media (max-width: 768px) {
-        .php-navigation-container {
-            top: 10px;
-            right: 10px;
-            left: 10px;
-        }
+        .php-navigation-container { justify-content: stretch; } .php-nav-toggle { width: 100%; }
         
         .php-nav-toggle {
             min-width: auto;
