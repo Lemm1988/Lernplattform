@@ -73,6 +73,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $_SESSION['user_id']
                 ]);
                 $new_question_id = $pdo->lastInsertId();
+                $explanation = trim($_POST['explanation'] ?? '');
+                if ($explanation !== '' && table_has_column('questions', 'explanation')) {
+                    $pdo->prepare("UPDATE questions SET explanation = ? WHERE id = ?")->execute([mb_substr($explanation, 0, 2000), $new_question_id]);
+                }
                 foreach ($answers as $i => $answer_text) {
                     $answer_text = trim($answer_text);
                     if ($answer_text === '') continue;
@@ -215,6 +219,13 @@ include '../includes/header.php';
                                 <div id="maxAnswersMsg" class="text-danger small mt-1" style="display:none;">Maximal 6 Antwortmöglichkeiten erlaubt.</div>
                                 <small class="form-text text-muted d-block mt-2">Mindestens zwei, maximal sechs Antwortoptionen. Mindestens eine muss als richtig markiert sein.</small>
                             </div>
+                            <?php if (table_has_column('questions', 'explanation')): ?>
+                            <div class="mb-3">
+                                <label class="form-label">Erklärung zur Lösung (optional)</label>
+                                <textarea name="explanation" class="form-control" rows="3" maxlength="2000"
+                                          placeholder="Warum ist die richtige Antwort richtig? Hilft anderen beim Lernen."><?= htmlspecialchars($_POST['explanation'] ?? '') ?></textarea>
+                            </div>
+                            <?php endif; ?>
                             <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Frage einreichen</button>
                         </form>
                         <script>

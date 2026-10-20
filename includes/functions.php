@@ -5,6 +5,28 @@
  */
 
 /**
+ * Prüft (mit Cache pro Request), ob eine Tabellenspalte existiert.
+ * Nützlich, damit neuer Code auch läuft, bevor eine Migration eingespielt wurde.
+ */
+function table_has_column($table, $column) {
+    global $pdo;
+    static $cache = [];
+    $key = $table . '.' . $column;
+    if (!isset($cache[$key])) {
+        if (!preg_match('/^\w+$/', $table) || !preg_match('/^\w+$/', $column)) {
+            return false;
+        }
+        try {
+            $pdo->query("SELECT `$column` FROM `$table` LIMIT 0");
+            $cache[$key] = true;
+        } catch (PDOException $e) {
+            $cache[$key] = false;
+        }
+    }
+    return $cache[$key];
+}
+
+/**
  * Überprüft CSRF-Token
  */
 function verify_csrf_token($token) {
@@ -2019,7 +2041,7 @@ function formatTextWithCode($text) {
 
 /**
  * Escaped normalen Text (ohne Code) für die Ausgabe in Fragen und Antworten.
- * Einfache Formatierungs-Tags OHNE Attribute (z. B. <b>, <br>, <ul>) bleiben erlaubt,
+ * Einfache Formatierungs-Tags OHNE Attribute (z. B. <b>, <br>, <ul>, <code>) bleiben erlaubt,
  * alles andere (z. B. <script>, <img onerror=...>) wird als Text angezeigt.
  *
  * @param string $text Normaler Text ohne Codeblöcke
@@ -2033,7 +2055,7 @@ function formatPlainTextSegment($text) {
     // Format any remaining unformatted code patterns
     $escaped = formatAdditionalCodePatterns($escaped);
 
-    return preg_replace('#&lt;(/?)(b|strong|i|em|u|br|p|ul|ol|li|sub|sup)\s*/?&gt;#i', '<$1$2>', $escaped);
+    return preg_replace('#&lt;(/?)(b|strong|i|em|u|br|p|ul|ol|li|sub|sup|code|pre)\s*/?&gt;#i', '<$1$2>', $escaped);
 }
 
 /**

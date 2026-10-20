@@ -290,6 +290,7 @@ CREATE TABLE `questions` (
   `question_text` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Fragentext',
   `code_example` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT 'Codebeispiel (optional)',
   `code_language` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Programmiersprache des Codebeispiels (z.B. "php", "java", "python")',
+  `explanation` text COLLATE utf8mb4_unicode_ci COMMENT 'Erklärung zur richtigen Lösung (wird nach dem Quiz angezeigt)',
   `image_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Pfad zu einem Bild (optional)',
   `question_type` enum('single','multiple') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'single' COMMENT 'Fragentyp: single = Single-Choice, multiple = Multiple-Choice',
   `points` tinyint NOT NULL DEFAULT '4' COMMENT 'Punkte pro Frage (1-10, Standard: 1)',

@@ -198,9 +198,10 @@ class AnswerProcessor {
     /**
      * Evaluate multiple choice with partial credit
      * - 100% points if all correct answers selected and no incorrect answers
-     * - 50% points if some correct answers selected but not all, or some incorrect answers selected
+     * - Teilpunkte (falls aktiviert): (richtig gewählte − falsch gewählte) ÷ Anzahl richtiger Antworten,
+     *   mindestens 0. Wer einfach alles ankreuzt, bekommt so keine Punkte geschenkt.
      * - 0% points if no correct answers selected
-     * 
+     *
      * @param array $selectedAnswers User's selected answer IDs
      * @param array $correctAnswers Correct answer IDs
      * @param array $answerMap Map of answer ID to correctness
@@ -246,9 +247,10 @@ class AnswerProcessor {
             return ['is_correct' => false, 'points' => 0.0];
         }
         
-        // Partial credit: some correct answers selected (50% of points)
-        // WICHTIG: Als float zurückgeben, nicht als int, damit 0.5 Punkte erhalten bleiben
-        return ['is_correct' => false, 'points' => round((float)$maxPoints * 0.5, 2)];
+        // Anteilige Punkte: falsche Kreuze heben richtige wieder auf
+        // WICHTIG: Als float zurückgeben, nicht als int, damit Teilpunkte erhalten bleiben
+        $ratio = max(0, ($correctSelected - $incorrectSelected) / max(1, $totalCorrect));
+        return ['is_correct' => false, 'points' => round((float)$maxPoints * $ratio, 2)];
     }
     
     /**

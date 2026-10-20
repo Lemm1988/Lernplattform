@@ -114,6 +114,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt = $pdo->prepare('UPDATE questions SET question_text = ?, question_type = ?, difficulty = ?, points = ?, learning_field_id = ? WHERE id = ?');
                     $stmt->execute([$question_text, $question_type, $difficulty, $points, $learning_field_id, $question_id]);
                 }
+                if (isset($_POST['explanation']) && table_has_column('questions', 'explanation')) {
+                    $explanation = trim($_POST['explanation']);
+                    $pdo->prepare('UPDATE questions SET explanation = ? WHERE id = ?')
+                        ->execute([$explanation !== '' ? $explanation : null, $question_id]);
+                }
             }
         }
 
@@ -212,6 +217,12 @@ include '../includes/admin_layout_start.php';
                                 </div>
                                 <small class="form-text text-muted">Code-Beispiele werden an den Fragentext angehängt und automatisch formatiert.</small>
                             </div>
+                            <?php if (table_has_column('questions', 'explanation')): ?>
+                            <div class="mb-3">
+                                <label class="form-label">Erklärung zur Lösung (optional)</label>
+                                <textarea name="explanation" class="form-control" rows="3" placeholder="Warum ist die richtige Antwort richtig? Wird nach dem Quiz angezeigt."><?= htmlspecialchars($question['explanation'] ?? '') ?></textarea>
+                            </div>
+                            <?php endif; ?>
                             <div class="mb-3">
                                 <label class="form-label">Fragetyp *</label>
                                 <div class="form-check-container">

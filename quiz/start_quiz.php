@@ -1,7 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 /**
  * Quiz-Start: Lernfeld auswählen und Quiz-Session initialisieren
  */
@@ -10,6 +7,59 @@ require_once(__DIR__ . '/../config.php');
 require_login();
 
 $page_title = 'Quiz starten';
+
+// Mindestanzahl Fragen pro Quiz (Lernfelder mit wenigen Fragen sollen trotzdem spielbar sein)
+const QUIZ_MIN_QUESTIONS = 5;
+const QUIZ_MAX_QUESTIONS = 100;
+
+/**
+ * Legt eine neue Quiz-Session mit den übergebenen Fragen an und gibt ihre ID zurück.
+ * Laufende Sessions des Benutzers werden vorher als abgebrochen markiert.
+ */
+function create_quiz_session(PDO $pdo, int $user_id, ?int $learning_field_id, array $question_ids): int
+{
+    $pdo->prepare("
+        UPDATE quiz_sessions
+        SET status = 'abandoned'
+        WHERE user_id = ? AND status IN ('started', 'paused')
+    ")->execute([$user_id]);
+
+    // max_score aus den tatsächlichen Punkten der Fragen (float wegen DECIMAL in der Datenbank)
+    $placeholders = implode(',', array_fill(0, count($question_ids), '?'));
+    $max_points_stmt = $pdo->prepare("SELECT SUM(points) FROM questions WHERE id IN ($placeholders)");
+    $max_points_stmt->execute($question_ids);
+    $max_score = (float)($max_points_stmt->fetchColumn() ?: 0);
+
+    $pdo->prepare("
+        INSERT INTO quiz_sessions (user_id, learning_field_id, total_questions, max_score, started_at, questions_json)
+        VALUES (?, ?, ?, ?, NOW(), ?)
+    ")->execute([$user_id, $learning_field_id, count($question_ids), $max_score, json_encode(array_values($question_ids))]);
+
+    $session_id = (int)$pdo->lastInsertId();
+    if (function_exists('log_quiz_start')) {
+        log_quiz_start($user_id, $session_id, $learning_field_id);
+    }
+    return $session_id;
+}
+
+/**
+ * Fragen, die der Benutzer bei seinem letzten Versuch falsch (oder nur teilweise richtig) beantwortet hat.
+ */
+function get_mistake_question_ids(PDO $pdo, int $user_id, int $limit = QUIZ_MAX_QUESTIONS): array
+{
+    $stmt = $pdo->prepare("
+        SELECT ua.question_id
+        FROM user_answers ua
+        JOIN quiz_sessions qs ON qs.id = ua.quiz_session_id
+        JOIN questions q ON q.id = ua.question_id AND q.is_approved = 1
+        WHERE qs.user_id = ?
+        GROUP BY ua.question_id
+        HAVING SUBSTRING_INDEX(GROUP_CONCAT(COALESCE(ua.is_correct, 0) ORDER BY ua.answered_at DESC, ua.id DESC), ',', 1) = '0'
+        LIMIT " . (int)$limit
+    );
+    $stmt->execute([$user_id]);
+    return array_map('intval', $stmt->fetchAll(PDO::FETCH_COLUMN));
+}
 
 $selected_field = $_GET['field'] ?? '';
 $error = '';
@@ -104,15 +154,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Bestehende Session fortsetzen
             header('Location: /quiz/quiz_session.php?session_id=' . $active_session['id']);
             exit;
+        } elseif ($action === 'start_mistakes') {
+            // Fehlertraining: nur zuletzt falsch beantwortete Fragen, in zufälliger Reihenfolge
+            $mistake_ids = get_mistake_question_ids($pdo, (int)$_SESSION['user_id']);
+            if (empty($mistake_ids)) {
+                $error = 'Du hast aktuell keine falsch beantworteten Fragen – stark!';
+            } else {
+                shuffle($mistake_ids);
+                try {
+                    $session_id = create_quiz_session($pdo, (int)$_SESSION['user_id'], null, $mistake_ids);
+                    header('Location: /quiz/quiz_session.php?session_id=' . $session_id);
+                    exit;
+                } catch (PDOException $e) {
+                    error_log("Quiz start error (Fehlertraining): " . $e->getMessage());
+                    $error = 'Das Quiz konnte nicht gestartet werden. Bitte versuche es erneut.';
+                }
+            }
         } elseif ($action === 'start_new') {
             $field_id = $_POST['learning_field_id'] ?? '';
             $question_count = intval($_POST['question_count'] ?? $quiz_questions_count);
 
-            // Validierung
+            // Validierung ("0" = alle Lernfelder gemischt)
             if (empty($field_id) && $field_id !== '0') {
                 $error = 'Bitte wählen Sie ein Lernfeld aus.';
-            } elseif ($question_count < 10 || $question_count > 100) {
-                $error = 'Die Fragenanzahl muss zwischen 10 und 100 liegen.';
+            } elseif ($question_count < QUIZ_MIN_QUESTIONS || $question_count > QUIZ_MAX_QUESTIONS) {
+                $error = 'Die Fragenanzahl muss zwischen ' . QUIZ_MIN_QUESTIONS . ' und ' . QUIZ_MAX_QUESTIONS . ' liegen.';
             } else {
                 // Verfügbare Fragen prüfen
                 $available_stmt = $pdo->prepare("
@@ -132,54 +198,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } else {
                     // Neue Quiz-Session erstellen
                     try {
-                        // Alte unvollständige Sessions archivieren
-                        $pdo->prepare("
-                            UPDATE quiz_sessions 
-                            SET status = 'abandoned' 
-                            WHERE user_id = ? AND status IN ('started', 'paused')
-                        ")->execute([$_SESSION['user_id']]);
-
-                        // Neue Session anlegen
-                        // Fragen für das Quiz bestimmen
+                        // Fragen für das Quiz bestimmen (nur aktive Lernfelder)
                         if ($field_id) {
                             $qstmt = $pdo->prepare("SELECT id FROM questions WHERE learning_field_id = ? AND is_approved = 1 ORDER BY RAND() LIMIT ?");
                             $qstmt->execute([$field_id, $question_count]);
                         } else {
-                            $qstmt = $pdo->prepare("SELECT id FROM questions WHERE is_approved = 1 ORDER BY RAND() LIMIT ?");
+                            $qstmt = $pdo->prepare("
+                                SELECT q.id FROM questions q
+                                JOIN learning_fields lf ON lf.id = q.learning_field_id AND lf.is_active = 1
+                                WHERE q.is_approved = 1 ORDER BY RAND() LIMIT ?
+                            ");
                             $qstmt->execute([$question_count]);
                         }
-                        $question_ids = $qstmt->fetchAll(PDO::FETCH_COLUMN);
-                        $questions_json = json_encode($question_ids);
+                        $question_ids = array_map('intval', $qstmt->fetchAll(PDO::FETCH_COLUMN));
 
-                        // max_score basierend auf tatsächlichen Fragen-Punkten berechnen
-                        // WICHTIG: Als float behandeln für Konsistenz mit DECIMAL in der Datenbank
-                        $max_score = 0.0;
-                        if (!empty($question_ids)) {
-                            $placeholders = str_repeat('?,', count($question_ids) - 1) . '?';
-                            $max_points_stmt = $pdo->prepare("SELECT SUM(points) FROM questions WHERE id IN ($placeholders)");
-                            $max_points_stmt->execute($question_ids);
-                            $max_score = (float)($max_points_stmt->fetchColumn() ?: 0);
-                        }
-                        
-                        $field_id_param = $field_id ?: null;
-
-                        $insert_stmt = $pdo->prepare("
-                            INSERT INTO quiz_sessions (user_id, learning_field_id, total_questions, max_score, started_at, questions_json)
-                            VALUES (?, ?, ?, ?, NOW(), ?)
-                        ");
-                        $insert_stmt->execute([
-                            $_SESSION['user_id'],
-                            $field_id_param,
-                            $question_count,
-                            $max_score,
-                            $questions_json
-                        ]);
-
-                        $session_id = $pdo->lastInsertId();
-
-                        if (function_exists('log_quiz_start')) {
-                            log_quiz_start($_SESSION['user_id'], $session_id, $field_id_param);
-                        }
+                        $session_id = create_quiz_session($pdo, (int)$_SESSION['user_id'], $field_id ? (int)$field_id : null, $question_ids);
 
                         // Zur Quiz-Session weiterleiten
                         header('Location: /quiz/quiz_session.php?session_id=' . $session_id);
@@ -187,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     } catch (PDOException $e) {
                         error_log("Quiz start error: " . $e->getMessage());
-                        $error = 'Fehler beim Starten des Quiz: ' . htmlspecialchars($e->getMessage());
+                        $error = 'Das Quiz konnte nicht gestartet werden. Bitte versuche es erneut.';
                     }
                 }
             }
@@ -275,6 +308,11 @@ include '../includes/header.php';
                                         </label>
                                         <select class="form-select" id="learning_field_id" name="learning_field_id" required>
                                             <option value="">Lernfeld wählen</option>
+                                            <?php if (count($available_fields) > 1): ?>
+                                                <option value="0" <?= $selected_field === '0' ? 'selected' : '' ?>>
+                                                    Alle Lernfelder gemischt (Prüfungstraining)
+                                                </option>
+                                            <?php endif; ?>
                                             <?php foreach ($available_fields as $field): ?>
                                                 <option value="<?= $field['id'] ?>" 
                                                         <?= $selected_field == $field['id'] ? 'selected' : '' ?>
@@ -303,9 +341,9 @@ include '../includes/header.php';
                                             <i class="bi bi-hash me-2"></i>Anzahl Fragen
                                         </label>
                                         <input type="number" class="form-control" id="question_count" name="question_count" 
-                                               value="<?= $quiz_questions_count ?>" min="10" max="100" required>
+                                               value="<?= (int)$quiz_questions_count ?>" min="<?= QUIZ_MIN_QUESTIONS ?>" max="<?= QUIZ_MAX_QUESTIONS ?>" required>
                                         <div class="form-text">
-                                            Standard: <?= $quiz_questions_count ?> Fragen
+                                            Standard: <?= (int)$quiz_questions_count ?> Fragen (<?= QUIZ_MIN_QUESTIONS ?>–<?= QUIZ_MAX_QUESTIONS ?>)
                                         </div>
                                     </div>
 
@@ -332,7 +370,7 @@ include '../includes/header.php';
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-star text-warning me-2"></i>
-                                        <strong>Punkte pro Frage:</strong> <?= $points_per_question ?> Punkt<?= $points_per_question > 1 ? 'e' : '' ?> bei korrekter Antwort
+                                        <strong>Punkte:</strong> Jede Frage hat eigene Punkte (schwerere Fragen zählen mehr)
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-percent text-info me-2"></i>
@@ -341,7 +379,7 @@ include '../includes/header.php';
                                     <?php if ($enable_partial_points): ?>
                                     <li class="mb-2">
                                         <i class="bi bi-half-circle text-success me-2"></i>
-                                        <strong>Teilpunkte:</strong> <?= number_format($points_per_question * 0.5, 1, ',', '.') ?> Punkte (50%) bei teilweise richtigen Multiple-Choice-Antworten
+                                        <strong>Teilpunkte:</strong> bei Multiple Choice anteilig – jede richtige Auswahl bringt Punkte, jede falsche zieht sie wieder ab
                                     </li>
                                     <?php endif; ?>
                                     <li class="mb-2">
@@ -380,14 +418,15 @@ include '../includes/header.php';
                                         <div id="pointSystem" class="accordion-collapse collapse" data-bs-parent="#quizSystemAccordion">
                                             <div class="accordion-body">
                                                 <ul class="mb-0">
-                                                    <li><strong>Single-Choice:</strong> <?= $points_per_question ?> Punkt<?= $points_per_question > 1 ? 'e' : '' ?> bei korrekter Antwort, 0 Punkte bei falscher Antwort</li>
-                                                    <li><strong>Multiple-Choice:</strong> 
+                                                    <li><strong>Single-Choice:</strong> volle Punktzahl der Frage bei korrekter Antwort, 0 Punkte bei falscher Antwort</li>
+                                                    <li><strong>Multiple-Choice:</strong>
                                                         <ul>
-                                                            <li><?= $points_per_question ?> Punkt<?= $points_per_question > 1 ? 'e' : '' ?> bei vollständig korrekter Antwort</li>
+                                                            <li>volle Punktzahl, wenn genau alle richtigen Antworten gewählt sind</li>
                                                             <?php if ($enable_partial_points): ?>
-                                                            <li><?= number_format($points_per_question * 0.5, 1, ',', '.') ?> Punkt<?= $points_per_question > 1 ? 'e' : '' ?> (50%) bei teilweise korrekter Antwort</li>
+                                                            <li>sonst anteilig: (richtig gewählte − falsch gewählte) ÷ Anzahl richtiger Antworten – nie weniger als 0</li>
+                                                            <?php else: ?>
+                                                            <li>sonst 0 Punkte</li>
                                                             <?php endif; ?>
-                                                            <li>0 Punkte bei keiner korrekten Antwort</li>
                                                         </ul>
                                                     </li>
                                                     <li><strong>Bewertung:</strong> Die Gesamtpunktzahl wird in Prozent umgerechnet</li>
@@ -443,6 +482,33 @@ include '../includes/header.php';
                     </div>
 
                     <div class="col-lg-4">
+                        <!-- Fehlertraining -->
+                        <?php $mistake_count = count(get_mistake_question_ids($pdo, (int)$_SESSION['user_id'])); ?>
+                        <div class="card mb-3 border-danger-subtle">
+                            <div class="card-header">
+                                <h6 class="mb-0"><i class="bi bi-arrow-repeat me-2"></i>Fehlertraining</h6>
+                            </div>
+                            <div class="card-body">
+                                <?php if ($mistake_count > 0): ?>
+                                    <p class="small mb-3">
+                                        <strong><?= $mistake_count ?></strong> Frage<?= $mistake_count !== 1 ? 'n' : '' ?> hast du zuletzt falsch
+                                        beantwortet. Übe sie gezielt, bis sie sitzen.
+                                    </p>
+                                    <form method="post">
+                                        <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
+                                        <input type="hidden" name="action" value="start_mistakes">
+                                        <button type="submit" class="btn btn-outline-danger w-100">
+                                            <i class="bi bi-bullseye me-1"></i>Fehler wiederholen
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <p class="small text-muted mb-0">
+                                        Hier landen Fragen, die du falsch beantwortest – so kannst du sie später gezielt wiederholen.
+                                    </p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+
                         <!-- Lernfortschritt -->
                         <div class="card mb-3">
                             <div class="card-header">
@@ -527,11 +593,11 @@ include '../includes/header.php';
                             </div>
                             <div class="card-body">
                                 <ul class="small mb-0">
-                                    <li>Lesen Sie jede Frage sorgfältig</li>
-                                    <li>Nutzen Sie den Ausschlussprozess</li>
-                                    <li>Überspringen Sie schwere Fragen zunächst</li>
-                                    <li>Überprüfen Sie Ihre Antworten</li>
-                                    <li>Bleiben Sie ruhig und konzentriert</li>
+                                    <li>Lies jede Frage zweimal – auf „nicht“ und „kein“ achten</li>
+                                    <li>Schließe offensichtlich falsche Antworten zuerst aus</li>
+                                    <li>Bei Multiple Choice können mehrere Antworten richtig sein</li>
+                                    <li>Schau dir nach dem Quiz die Erklärungen an</li>
+                                    <li>Wiederhole Fehler im Fehlertraining, bis sie sitzen</li>
                                 </ul>
                             </div>
                         </div>

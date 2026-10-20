@@ -79,6 +79,12 @@ $stmt = $pdo->prepare("SELECT * FROM answer_options WHERE question_id = ? ORDER 
 $stmt->execute([$question['id']]);
 $answers = $stmt->fetchAll();
 
+// Antwortreihenfolge pro Quiz mischen, damit die richtige Antwort nicht immer an derselben Stelle steht.
+// Die Reihenfolge hängt nur von Session und Antwort ab und bleibt beim Neuladen gleich.
+usort($answers, function ($a, $b) use ($session_id) {
+    return strcmp(md5($session_id . '-' . $a['id']), md5($session_id . '-' . $b['id']));
+});
+
 // Dynamische Einstellungen laden
 // $points_per_question entfernt - jede Frage hat eigene Punkte in questions.points
 

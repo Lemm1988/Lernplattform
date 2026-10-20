@@ -419,7 +419,14 @@ include '../includes/header.php';
                                                                     <?php endif; ?>
                                                                 </div>
                                                             </div>
-                                                            
+
+                                                            <?php if (!empty($question['explanation'])): ?>
+                                                                <div class="question-explanation mt-3">
+                                                                    <strong><i class="bi bi-lightbulb me-1"></i>Erklärung:</strong>
+                                                                    <div class="mt-1"><?= formatTextWithCode($question['explanation']) ?></div>
+                                                                </div>
+                                                            <?php endif; ?>
+
                                                         </div>
                                                     </div>
                                                 <?php endforeach; ?>
@@ -688,6 +695,13 @@ include '../includes/header.php';
     background: rgba(var(--color-info-rgb), 0.05);
     border-radius: var(--radius-sm);
     border-left: 4px solid var(--color-info);
+}
+
+.question-explanation {
+    padding: 12px;
+    background: #fff8e1;
+    border-radius: 6px;
+    border-left: 4px solid #f0ad4e;
 }
 
 .answer-text {

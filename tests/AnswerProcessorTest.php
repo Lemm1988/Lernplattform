@@ -176,9 +176,38 @@ class AnswerProcessorTest {
         }
     }
     
+    /**
+     * Teilpunkte (aktiviert): (richtig gewählte − falsch gewählte) ÷ Anzahl richtiger, mindestens 0.
+     * Frage 2: richtig sind 4 und 6, falsch 5 und 7, 4 Punkte.
+     */
+    public function testPartialCreditScoring() {
+        $property = new ReflectionProperty(AnswerProcessor::class, 'enablePartialPoints');
+        $property->setAccessible(true);
+        $property->setValue($this->processor, true);
+
+        $cases = [
+            [[4], 2.0],          // 1 von 2 richtig
+            [[4, 5], 0.0],       // 1 richtig, 1 falsch hebt sich auf
+            [[4, 6, 5], 2.0],    // 2 richtig, 1 falsch
+            [[4, 5, 6, 7], 0.0], // alles angekreuzt bringt nichts
+            [[4, 6], 4.0],       // vollständig richtig
+            [[5, 7], 0.0],       // nur falsche
+        ];
+        foreach ($cases as [$selection, $expected]) {
+            $result = $this->processor->processMultipleChoice(2, $selection, 1);
+            assert($result['points_earned'] == $expected,
+                'Teilpunkte für Auswahl ' . implode(',', $selection) . ": erwartet $expected, erhalten {$result['points_earned']}");
+        }
+
+        echo "✓ testPartialCreditScoring passed\n";
+    }
+
     public function runAllTests() {
         echo "Running AnswerProcessor tests...\n";
-        
+
+        $this->setUp();
+        $this->testPartialCreditScoring();
+
         $this->setUp();
         $this->testProcessSingleChoiceCorrect();
         

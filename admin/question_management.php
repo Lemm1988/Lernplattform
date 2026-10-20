@@ -107,6 +107,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $stmt = $pdo->prepare("INSERT INTO questions (question_text, learning_field_id, question_type, difficulty, points, image_path, is_approved, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, 0, ?, NOW())");
                     $stmt->execute([$question_text, $learning_field_id, $question_type, $difficulty, $points, $image_path, $_SESSION['user_id']]);
                     $new_question_id = $pdo->lastInsertId();
+                    $explanation = trim($_POST['explanation'] ?? '');
+                    if ($explanation !== '' && table_has_column('questions', 'explanation')) {
+                        $pdo->prepare("UPDATE questions SET explanation = ? WHERE id = ?")->execute([$explanation, $new_question_id]);
+                    }
                     foreach ($answers as $i => $answer_text) {
                         $answer_text = trim($answer_text);
                         if ($answer_text === '') continue;
@@ -181,6 +185,10 @@ if ($action === 'add') {
                     </div>
                 </div>
                 <small class="form-text text-muted">Code-Beispiele werden automatisch formatiert und sicher dargestellt.</small>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Erklärung zur Lösung (optional)</label>
+                <textarea name="explanation" class="form-control" rows="3" placeholder="Warum ist die richtige Antwort richtig? Wird nach dem Quiz angezeigt."><?= htmlspecialchars($_POST['explanation'] ?? '') ?></textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label">Fragebild (optional)</label>

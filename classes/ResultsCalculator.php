@@ -8,7 +8,24 @@ require_once __DIR__ . '/CodeFormatter.php';
 
 class ResultsCalculator {
     private $pdo;
-    
+    private $hasExplanationColumn = null;
+
+    /**
+     * SQL-Ausdruck für die Erklärung einer Frage. Liefert NULL, solange die Spalte
+     * questions.explanation noch nicht existiert (Migration noch nicht eingespielt).
+     */
+    private function explanationSelect($tableAlias) {
+        if ($this->hasExplanationColumn === null) {
+            try {
+                $this->pdo->query("SELECT explanation FROM questions LIMIT 0");
+                $this->hasExplanationColumn = true;
+            } catch (PDOException $e) {
+                $this->hasExplanationColumn = false;
+            }
+        }
+        return $this->hasExplanationColumn ? "{$tableAlias}.explanation" : 'NULL';
+    }
+
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
@@ -92,10 +109,11 @@ class ResultsCalculator {
                 } else {
                     // Question was not answered - create a result with 0 points
                     $question_stmt = $this->pdo->prepare("
-                        SELECT id, question_text, image_path, 
-                               COALESCE(question_type, 'single') as question_type, 
-                               points as max_points
-                        FROM questions 
+                        SELECT id, question_text, image_path,
+                               COALESCE(question_type, 'single') as question_type,
+                               points as max_points,
+                               " . $this->explanationSelect('questions') . " AS explanation
+                        FROM questions
                         WHERE id = ?
                     ");
                     $question_stmt->execute([$questionId]);
@@ -106,12 +124,14 @@ class ResultsCalculator {
                             'question_id' => $questionId,
                             'question_text' => $question['question_text'],
                             'question_type' => $question['question_type'],
+                            'explanation' => $question['explanation'] ?? null,
                             'is_correct' => false,
                             'points_earned' => 0,
                             'max_points' => (int)$question['max_points'],
-                            'correct_answers' => [],
+                            // Auch bei unbeantworteten Fragen die Lösung zeigen – daraus lernt man am meisten
+                            'correct_answers' => $this->getCorrectAnswersMultipleChoice($questionId),
                             'selected_answers' => [],
-                            'all_answers' => []
+                            'all_answers' => $this->getAllAnswerOptions($questionId)
                         ];
                     }
                 }
@@ -312,8 +332,9 @@ class ResultsCalculator {
                        ua.answered_at,
                        q.question_text,
                        q.image_path,
-                       COALESCE(q.question_type, 'single') as question_type, 
-                       q.points as max_points
+                       COALESCE(q.question_type, 'single') as question_type,
+                       q.points as max_points,
+                       " . $this->explanationSelect('q') . " AS explanation
                 FROM user_answers ua
                 JOIN questions q ON ua.question_id = q.id
                 WHERE ua.quiz_session_id = ?
@@ -380,6 +401,7 @@ class ResultsCalculator {
                 'question_text' => $userAnswer['question_text'],
                 'question_type' => $questionType,
                 'image_path' => $userAnswer['image_path'] ?? null,
+                'explanation' => $userAnswer['explanation'] ?? null,
                 'is_correct' => $is_fully_correct,  // Basierend auf Punkten, nicht DB-Wert
                 'is_partially_correct' => $is_partially_correct,
                 'points_earned' => $points_earned,  // float für Dezimalwerte (z.B. 0.5)
