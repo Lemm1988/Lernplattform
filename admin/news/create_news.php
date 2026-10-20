@@ -392,8 +392,9 @@ include '../../includes/header.php';
     </div>
 </div>
 
-<!-- TinyMCE CDN -->
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<!-- TinyMCE (Community-Version, MIT) über jsDelivr – von der Content-Security-Policy erlaubt;
+     cdn.tiny.cloud wurde von der CSP blockiert und braucht einen API-Key -->
+<script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.5/tinymce.min.js"></script>
 
 <!-- Simple Editor Fallback -->
 <script src="simple-editor.js"></script>
@@ -487,8 +488,7 @@ function initializeTinyMCE(button) {
             plugins: [
                 'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
                 'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-                'insertdatetime', 'media', 'table', 'help', 'wordcount',
-                'imagetools', 'textpattern', 'quickbars'
+                'insertdatetime', 'media', 'table', 'help', 'wordcount', 'quickbars'
             ],
             toolbar: [
                 'undo redo | blocks | bold italic underline strikethrough | alignleft aligncenter alignright alignjustify',
@@ -500,25 +500,22 @@ function initializeTinyMCE(button) {
             automatic_uploads: true,
             file_picker_types: 'image',
             paste_data_images: true,
-            images_upload_handler: function (blobInfo, success, failure) {
+            // TinyMCE 6: Handler gibt ein Promise mit der Bild-URL zurück
+            images_upload_handler: function (blobInfo) {
                 const formData = new FormData();
                 formData.append('file', blobInfo.blob(), blobInfo.filename());
-                formData.append('csrf_token', '<?= $_SESSION['csrf_token'] ?>');
-                
-                fetch('/api/news/upload_image.php', {
+                formData.append('csrf_token', '<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>');
+
+                return fetch('/api/news/upload_image.php', {
                     method: 'POST',
                     body: formData
                 })
                 .then(response => response.json())
                 .then(result => {
-                    if (result.success) {
-                        success(result.location);
-                    } else {
-                        failure(result.error || 'Upload failed');
+                    if (!result.success) {
+                        throw new Error(result.error || 'Upload fehlgeschlagen');
                     }
-                })
-                .catch(error => {
-                    failure('Upload error: ' + error.message);
+                    return result.location;
                 });
             },
             resize: 'both',
@@ -527,7 +524,7 @@ function initializeTinyMCE(button) {
             menubar: false,
             quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
             quickbars_insert_toolbar: 'quickimage quicktable',
-            contextmenu: 'link image imagetools table',
+            contextmenu: 'link image table',
             branding: false,
             promotion: false,
             statusbar: true,

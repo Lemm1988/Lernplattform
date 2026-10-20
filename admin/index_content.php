@@ -50,9 +50,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['new_post'])) {
     exit;
 }
 // Beitrag löschen
-if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
+// (per POST, damit der zentrale CSRF-Schutz greift – ein Link/Bild könnte sonst löschen)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_post']) && is_numeric($_POST['delete_post'])) {
     $stmt = $pdo->prepare("DELETE FROM posts WHERE id = ?");
-    $stmt->execute([$_GET['delete']]);
+    $stmt->execute([(int)$_POST['delete_post']]);
     header('Location: index_content.php');
     exit;
 }
@@ -146,8 +147,10 @@ include '../includes/header.php';
                                     </div>
                                     <div class="ms-2">
                                         <a href="?edit=<?= $post['id'] ?>" class="btn btn-sm btn-info me-1">Bearbeiten</a>
-                                        <a href="?delete=<?= $post['id'] ?>" class="btn btn-sm btn-danger"
-                                            onclick="return confirm('Beitrag wirklich löschen?')">Löschen</a>
+                                        <form method="post" class="d-inline" onsubmit="return confirm('Beitrag wirklich löschen?')">
+                                            <input type="hidden" name="delete_post" value="<?= (int)$post['id'] ?>">
+                                            <button type="submit" class="btn btn-sm btn-danger">Löschen</button>
+                                        </form>
                                     </div>
                                 </li>
                             <?php endforeach; ?>

@@ -54,8 +54,9 @@ if (!isset($site_description_value)) {
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
 
     <!-- CSRF Token für JavaScript -->
-    <meta name="csrf-token" content="<?= $_SESSION['csrf_token'] ?? '' ?>">
-    
+    <meta name="csrf-token" content="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+    <script src="/assets/js/csrf.js"></script>
+
     <!-- Layout JavaScript für Admin-Seiten -->
     <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false): ?>
     <script src="/assets/js/layout.js" defer></script>

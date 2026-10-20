@@ -257,7 +257,7 @@ if ($type === 'section' || $type === '') {
   }
 
   // Aktivieren/Deaktivieren
-  if ($action === 'toggle' && $id) {
+  if ($action === 'toggle' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("UPDATE site_sections SET is_active = 1 - is_active WHERE id = ?");
     $stmt->execute([$id]);
     $success = 'Status geändert!';
@@ -267,7 +267,7 @@ if ($type === 'section' || $type === '') {
   }
 
   // Löschen
-  if ($action === 'delete' && $id) {
+  if ($action === 'delete' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdo->prepare('DELETE FROM site_sections WHERE id = ?')->execute([$id]);
     $success = 'Eintrag gelöscht!';
     log_event($_SESSION['user_id'], "Section $id gelöscht (generic)", 'custom');
@@ -276,7 +276,7 @@ if ($type === 'section' || $type === '') {
   }
 
   // Sortieren (Up/Down)
-  if (($action === 'up' || $action === 'down') && $id) {
+  if (($action === 'up' || $action === 'down') && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $current = $pdo->prepare('SELECT id, sort_order, section_type FROM site_sections WHERE id = ?');
     $current->execute([$id]);
     $cur = $current->fetch();
@@ -338,7 +338,7 @@ if ($type === 'header') {
   }
 
   // Header aktivieren/deaktivieren
-  if ($action === 'toggle' && $id) {
+  if ($action === 'toggle' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $pdo->prepare("UPDATE site_section_headers SET is_active = 1 - is_active WHERE id = ?");
     $stmt->execute([$id]);
     $success = 'Status geändert!';
@@ -348,7 +348,7 @@ if ($type === 'header') {
   }
 
   // Header löschen
-  if ($action === 'delete' && $id) {
+  if ($action === 'delete' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdo->prepare('DELETE FROM site_section_headers WHERE id = ?')->execute([$id]);
     $success = 'Überschrift gelöscht!';
     log_event($_SESSION['user_id'], "Header $id gelöscht", 'custom');
@@ -357,7 +357,7 @@ if ($type === 'header') {
   }
 
   // Header sortieren (Up/Down)
-  if (($action === 'up' || $action === 'down') && $id) {
+  if (($action === 'up' || $action === 'down') && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
     $current = $pdo->prepare('SELECT id, sort_order FROM site_section_headers WHERE id = ?');
     $current->execute([$id]);
     $cur = $current->fetch();

@@ -58,7 +58,7 @@
 
 # Interne Ordner (Git, Tests, Logs, Doku, alte Backups) nie ausliefern
 <IfModule mod_alias.c>
-    RedirectMatch 404 "^/(\.git|tests|logs|Doku|docs|Lerplattform - Last Backup[^/]*)(/|$)"
+    RedirectMatch 404 "^/(\.git|\.vscode|dev|inhalte|migrations|tests|logs|Doku|docs|Lerplattform - Last Backup[^/]*)(/|$)"
 </IfModule>
 
 # Schutz der config.php vor direktem Zugriff

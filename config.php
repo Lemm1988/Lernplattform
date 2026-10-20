@@ -12,6 +12,11 @@ if (file_exists(__DIR__ . '/config.local.php')) {
 }
 defined('APP_DEBUG') || define('APP_DEBUG', false);
 
+// Kommandozeile (Tests, Skripte) wie Cronjobs behandeln: keine Session, keine HTTP-Header
+if (PHP_SAPI === 'cli' && !defined('IS_CRONJOB')) {
+    define('IS_CRONJOB', true);
+}
+
 // Fehlerberichterstattung: Fehler immer loggen, aber nur im Debug-Modus anzeigen
 // (angezeigte Fehler verraten Angreifern Pfade, SQL und Tabellennamen)
 error_reporting(E_ALL);
@@ -21,9 +26,12 @@ ini_set('log_errors', '1');
 
 // Session-Konfiguration (MUSS vor session_start() stehen!)
 // Standard-Werte, werden später aus Settings überschrieben
-if (session_status() === PHP_SESSION_NONE) {
+if (session_status() === PHP_SESSION_NONE && !defined('IS_CRONJOB')) {
+    // Secure-Cookies immer im Live-Betrieb; lokal (APP_DEBUG ohne HTTPS) sonst kein Login möglich
+    $is_https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
     ini_set('session.cookie_httponly', 1);
-    ini_set('session.cookie_secure', 1);
+    ini_set('session.cookie_secure', ($is_https || !APP_DEBUG) ? 1 : 0);
     ini_set('session.cookie_samesite', 'Strict');
     ini_set('session.gc_maxlifetime', 3600); // Standard: 1 Stunde, wird später aus Settings geladen
 }
@@ -250,6 +258,28 @@ if (!defined('IS_CRONJOB')) {
     if (!isset($_SESSION['csrf_token'])) {
         $csrf_token_length = $GLOBALS['_CSRF_TOKEN_LENGTH'] ?? CSRF_TOKEN_LENGTH;
         $_SESSION['csrf_token'] = bin2hex(random_bytes($csrf_token_length));
+    }
+
+    // Zentraler CSRF-Schutz: jede POST-Anfrage braucht ein gültiges Token.
+    // Formulare und AJAX-Anfragen bekommen es automatisch über assets/js/csrf.js.
+    if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
+        $sent_csrf_token = $_POST['csrf_token'] ?? ($_SERVER['HTTP_X_CSRF_TOKEN'] ?? '');
+        if (!is_string($sent_csrf_token) || !verify_csrf_token($sent_csrf_token)) {
+            http_response_code(403);
+            $is_ajax = !empty($_SERVER['HTTP_X_CSRF_TOKEN']) || !empty($_SERVER['HTTP_X_REQUESTED_WITH'])
+                || stripos($_SERVER['HTTP_ACCEPT'] ?? '', 'application/json') !== false;
+            if ($is_ajax) {
+                header('Content-Type: application/json; charset=utf-8');
+                echo json_encode(['success' => false, 'error' => 'Sicherheitstoken ungültig. Bitte lade die Seite neu.']);
+            } else {
+                echo '<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><title>Sitzung abgelaufen</title></head>'
+                    . '<body style="font-family:sans-serif;max-width:40rem;margin:4rem auto;padding:0 1rem">'
+                    . '<h1>Bitte noch einmal versuchen</h1><p>Das Formular war zu lange geöffnet oder deine Sitzung ist abgelaufen. '
+                    . 'Deine Eingaben wurden aus Sicherheitsgründen nicht gespeichert.</p>'
+                    . '<p><a href="' . htmlspecialchars($_SERVER['REQUEST_URI'] ?? '/', ENT_QUOTES, 'UTF-8') . '">Seite neu laden</a></p></body></html>';
+            }
+            exit;
+        }
     }
 
     // Zeitzone setzen
