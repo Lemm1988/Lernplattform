@@ -8,6 +8,7 @@ require_once __DIR__ . '/../classes/AnswerProcessor.php';
 require_once __DIR__ . '/../classes/CodeFormatter.php';
 require_once __DIR__ . '/../classes/ResultsCalculator.php';
 require_once __DIR__ . '/../classes/QuestionRenderer.php';
+require_once __DIR__ . '/../includes/functions.php'; // formatTextWithCode()
 
 class SecurityTest {
     private $pdo;
@@ -15,6 +16,8 @@ class SecurityTest {
     public function setUp() {
         // Create in-memory SQLite database for testing
         $this->pdo = new PDO('sqlite::memory:');
+        // SQLite kennt NOW() nicht (MySQL schon) – für die Tests nachbilden
+        $this->pdo->sqliteCreateFunction('NOW', function () { return date('Y-m-d H:i:s'); }, 0);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $this->createTestTables();
         $this->insertTestData();
@@ -26,7 +29,8 @@ class SecurityTest {
                 id INTEGER PRIMARY KEY,
                 question_text TEXT,
                 question_type TEXT DEFAULT 'single',
-                points INTEGER DEFAULT 4
+                points INTEGER DEFAULT 4,
+                image_path TEXT
             )
         ");
         
@@ -54,7 +58,8 @@ class SecurityTest {
                 question_id INTEGER,
                 selected_answer_id INTEGER,
                 is_correct INTEGER DEFAULT 0,
-                points_earned INTEGER DEFAULT 0
+                points_earned INTEGER DEFAULT 0,
+                answered_at DATETIME
             )
         ");
         
@@ -109,22 +114,37 @@ class SecurityTest {
         foreach ($xssPayloads as $payload) {
             // Test CodeFormatter
             $formatted = CodeFormatter::formatCode($payload, 'javascript');
-            assert(strpos($formatted, '<script>') === false, "CodeFormatter failed to escape: $payload");
-            assert(strpos($formatted, 'javascript:') === false, "CodeFormatter failed to escape: $payload");
-            assert(strpos($formatted, 'onerror=') === false, "CodeFormatter failed to escape: $payload");
-            
+            $this->assertNoActiveMarkup($formatted, 'CodeFormatter', $payload);
+
             // Test QuestionRenderer
             $question = ['id' => 1, 'question_text' => $payload, 'question_type' => 'single'];
             $answers = [['id' => 1, 'answer_text' => $payload]];
             $rendered = QuestionRenderer::renderQuestion($question, $answers);
-            assert(strpos($rendered, '<script>') === false, "QuestionRenderer failed to escape: $payload");
-            assert(strpos($rendered, 'javascript:') === false, "QuestionRenderer failed to escape: $payload");
-            assert(strpos($rendered, 'onerror=') === false, "QuestionRenderer failed to escape: $payload");
+            $this->assertNoActiveMarkup($rendered, 'QuestionRenderer', $payload);
+
+            // Test formatTextWithCode (Fragetexte in Quiz, Ergebnissen und Adminbereich)
+            if (function_exists('formatTextWithCode')) {
+                $this->assertNoActiveMarkup(formatTextWithCode($payload), 'formatTextWithCode', $payload);
+            }
         }
         
         echo "✓ All XSS attack vectors properly escaped\n";
     }
     
+    /**
+     * Gefährlich ist nur echtes (unescaptes) HTML aus dem Payload. Escapter Text wie
+     * "onerror=" oder "javascript:" innerhalb von &lt;code&gt; ist harmlos und darf vorkommen.
+     */
+    private function assertNoActiveMarkup($html, $context, $payload) {
+        $dangerousTag = '/<(script|img|svg|iframe|body|audio|video|details|marquee|select|textarea|keygen|object|embed|a|style|link|meta)\b/i';
+        $eventHandlerInTag = '/<[a-z][^>]*\son\w+\s*=/i';
+        $scriptUrlInAttribute = '/\b(href|src|action)\s*=\s*["\']?\s*(javascript|vbscript|data):/i';
+        assert(
+            !preg_match($dangerousTag, $html) && !preg_match($eventHandlerInTag, $html) && !preg_match($scriptUrlInAttribute, $html),
+            "$context failed to escape: $payload"
+        );
+    }
+
     public function testSQLInjectionAttacks() {
         echo "Testing SQL injection attack vectors...\n";
         

@@ -380,7 +380,7 @@ CREATE TABLE `site_sections` (
   `sort_order` int DEFAULT '0' COMMENT 'Sortierreihenfolge',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Erstellungsdatum',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Letzte Aktualisierung',
-  `roles` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'admin,moderator,schueler' COMMENT 'Erlaubte Rollen (kommagetrennt: admin,moderator,student)'
+  `roles` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'admin,moderator,student' COMMENT 'Erlaubte Rollen (kommagetrennt: admin,moderator,student)'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------

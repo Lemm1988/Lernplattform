@@ -27,7 +27,7 @@ try {
     $passedTests++;
     echo "\n";
     
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo "❌ AnswerProcessor tests failed: " . $e->getMessage() . "\n\n";
     $totalTests++;
 }
@@ -41,7 +41,7 @@ try {
     $passedTests++;
     echo "\n";
     
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo "❌ CodeFormatter tests failed: " . $e->getMessage() . "\n\n";
     $totalTests++;
 }
@@ -55,7 +55,7 @@ try {
     $passedTests++;
     echo "\n";
     
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo "❌ ResultsCalculator tests failed: " . $e->getMessage() . "\n\n";
     $totalTests++;
 }
@@ -69,7 +69,7 @@ try {
     $passedTests++;
     echo "\n";
     
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo "❌ QuestionRenderer tests failed: " . $e->getMessage() . "\n\n";
     $totalTests++;
 }
@@ -83,7 +83,7 @@ try {
     $passedTests++;
     echo "\n";
     
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo "❌ Security tests failed: " . $e->getMessage() . "\n\n";
     $totalTests++;
 }
@@ -97,7 +97,7 @@ try {
     $passedTests++;
     echo "\n";
     
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo "❌ Edge case tests failed: " . $e->getMessage() . "\n\n";
     $totalTests++;
 }
@@ -111,7 +111,7 @@ try {
     $passedTests++;
     echo "\n";
     
-} catch (Exception $e) {
+} catch (Throwable $e) {
     echo "❌ Integration tests failed: " . $e->getMessage() . "\n\n";
     $totalTests++;
 }

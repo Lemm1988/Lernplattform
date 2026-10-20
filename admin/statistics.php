@@ -172,13 +172,17 @@ try {
     // Quiz-Statistiken - Abgeschlossen
     $stmt = $pdo->prepare("
         SELECT COUNT(*) as completed_quizzes,
-               AVG(total_score / total_questions * 100) as avg_score,
-               COUNT(CASE WHEN total_score >= (total_questions * 0.6) THEN 1 END) as passed_quizzes
-        FROM quiz_sessions 
-        WHERE status = 'completed' 
+               AVG(total_score / NULLIF(max_score, 0) * 100) as avg_score,
+               COUNT(CASE WHEN max_score > 0 AND total_score >= (max_score * ?) THEN 1 END) as passed_quizzes
+        FROM quiz_sessions
+        WHERE status = 'completed'
         AND started_at BETWEEN ? AND ?
     ");
-    $stmt->execute([$start_date, $end_date . ' 23:59:59']);
+    $stmt->execute([
+        (float)get_setting('passing_score_percentage', PASSING_SCORE_PERCENTAGE) / 100,
+        $start_date,
+        $end_date . ' 23:59:59'
+    ]);
     $quiz_completed_data = $stmt->fetch();
     
     // Quiz-Statistiken - Abgebrochen

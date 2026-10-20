@@ -12,6 +12,8 @@ class ResultsCalculatorTest {
     public function setUp() {
         // Create in-memory SQLite database for testing
         $this->pdo = new PDO('sqlite::memory:');
+        // SQLite kennt NOW() nicht (MySQL schon) – für die Tests nachbilden
+        $this->pdo->sqliteCreateFunction('NOW', function () { return date('Y-m-d H:i:s'); }, 0);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         // Create test tables
@@ -32,7 +34,7 @@ class ResultsCalculatorTest {
         $this->pdo->exec("
             CREATE TABLE learning_fields (
                 id INTEGER PRIMARY KEY,
-                name TEXT
+                title TEXT
             )
         ");
         
@@ -41,7 +43,8 @@ class ResultsCalculatorTest {
                 id INTEGER PRIMARY KEY,
                 question_text TEXT,
                 question_type TEXT DEFAULT 'single',
-                points INTEGER DEFAULT 4
+                points INTEGER DEFAULT 4,
+                image_path TEXT
             )
         ");
         
@@ -88,7 +91,7 @@ class ResultsCalculatorTest {
     private function insertTestData() {
         // Insert test user and learning field
         $this->pdo->exec("INSERT INTO users (id, username) VALUES (1, 'testuser')");
-        $this->pdo->exec("INSERT INTO learning_fields (id, name) VALUES (1, 'Test Field')");
+        $this->pdo->exec("INSERT INTO learning_fields (id, title) VALUES (1, 'Test Field')");
         
         // Insert test questions
         $this->pdo->exec("INSERT INTO questions (id, question_text, question_type, points) VALUES (1, 'Single choice question?', 'single', 4)");
@@ -162,9 +165,9 @@ class ResultsCalculatorTest {
         
         assert($results['total_questions'] === 2, 'Should have 2 questions');
         assert($results['correct_answers'] === 2, 'Should have 2 correct answers');
-        assert($results['total_points'] === 8, 'Should have 8 total points');
-        assert($results['max_possible_points'] === 8, 'Should have 8 max possible points');
-        assert($results['percentage'] === 100.0, 'Should have 100% score');
+        assert($results['total_points'] == 8, 'Should have 8 total points');
+        assert($results['max_possible_points'] == 8, 'Should have 8 max possible points');
+        assert($results['percentage'] == 100.0, 'Should have 100% score');
         assert(count($results['questions']) === 2, 'Should have 2 question results');
         
         echo "✓ testCalculateResults passed\n";

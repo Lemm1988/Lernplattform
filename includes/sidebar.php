@@ -152,14 +152,14 @@ if (is_logged_in()) {
                     $quiz_links = [
                         [
                             'name' => 'Meine Quizzes',
-                            'url_path' => 'quiz/quizes_done.php',
+                            'url_path' => '/quiz/quizes_done.php',
                             'icon' => 'bi-trophy',
                             'is_active' => 1
                         ]
                     ];
                     
                     foreach ($quiz_links as $quiz_link) {
-                        $is_active = (basename($_SERVER['PHP_SELF']) === $quiz_link['url_path']);
+                        $is_active = ($_SERVER['PHP_SELF'] === $quiz_link['url_path']);
                         ?>
                         <li class="nav-item">
                             <a class="nav-link <?= $is_active ? 'active' : '' ?>" href="<?= htmlspecialchars($quiz_link['url_path']) ?>">

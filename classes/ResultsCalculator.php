@@ -40,19 +40,24 @@ class ResultsCalculator {
                 }
             }
             
+            // Get all user answers for this session
+            $userAnswers = $this->getUserAnswers($quizSessionId);
+
+            // Ältere Sessions ohne questions_json: beantwortete Fragen als Grundlage nehmen
+            if (empty($question_ids)) {
+                $question_ids = array_values(array_unique(array_column($userAnswers, 'question_id')));
+            }
+
             // Calculate total questions and max possible points from ALL questions in the quiz
             $total_questions = count($question_ids);
             $max_possible_points = 0;
-            
+
             if (!empty($question_ids)) {
                 $placeholders = str_repeat('?,', count($question_ids) - 1) . '?';
                 $max_points_stmt = $this->pdo->prepare("SELECT SUM(points) FROM questions WHERE id IN ($placeholders)");
                 $max_points_stmt->execute($question_ids);
                 $max_possible_points = (int)($max_points_stmt->fetchColumn() ?: 0);
             }
-            
-            // Get all user answers for this session
-            $userAnswers = $this->getUserAnswers($quizSessionId);
             
             // Create a map of question_id => userAnswer for quick lookup
             $userAnswersMap = [];
@@ -218,12 +223,15 @@ class ResultsCalculator {
      * @return array Formatted results ready for display
      */
     public function formatResultsForDisplay($results) {
-        if (!is_array($results)) {
-            throw new InvalidArgumentException('Results must be an array');
-        }
-        
         try {
-            $passing_percentage = (float)get_setting('passing_score_percentage', PASSING_SCORE_PERCENTAGE);
+            // Ungültige Eingabe führt zur sicheren Fallback-Anzeige (catch unten) statt zu einem Seitenabbruch
+            if (!is_array($results) || !isset($results['total_questions'])) {
+                throw new InvalidArgumentException('Results must be an array from calculateResults()');
+            }
+
+            $passing_percentage = function_exists('get_setting')
+                ? (float)get_setting('passing_score_percentage', PASSING_SCORE_PERCENTAGE)
+                : (defined('PASSING_SCORE_PERCENTAGE') ? (float)PASSING_SCORE_PERCENTAGE : 60.0);
             if ($passing_percentage <= 0) {
                 $passing_percentage = 60;
             }
@@ -361,8 +369,11 @@ class ResultsCalculator {
             $is_partially_correct = ($points_earned > 0 && $points_earned < $max_points);
             
             // is_correct basierend auf Punkten neu bestimmen (für Anzeige)
-            // Wenn points_earned >= max_points, dann vollständig richtig
-            $is_fully_correct = ($max_points > 0 && $points_earned >= $max_points);
+            // Wenn points_earned >= max_points, dann vollständig richtig.
+            // Fragen ohne Punkte (max_points = 0): gespeicherten is_correct-Wert verwenden
+            $is_fully_correct = $max_points > 0
+                ? ($points_earned >= $max_points)
+                : (bool)$userAnswer['is_correct'];
             
             return [
                 'question_id' => $questionId,

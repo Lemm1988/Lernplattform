@@ -451,7 +451,7 @@ include '../includes/header.php';
                                                 <td><?= $user['quiz_count'] ?? 0 ?></td>
                                                 <td>
                                                     <?php if ($user['avg_score']): ?>
-                                                        <span class="badge bg-<?= $user['avg_score'] >= 60 ? 'success' : 'warning' ?>">
+                                                        <span class="badge bg-<?= $user['avg_score'] >= (float)get_setting('passing_score_percentage', PASSING_SCORE_PERCENTAGE) ? 'success' : 'warning' ?>">
                                                             <?= round($user['avg_score']) ?>%
                                                         </span>
                                                     <?php else: ?>

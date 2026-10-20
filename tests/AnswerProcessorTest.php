@@ -12,6 +12,8 @@ class AnswerProcessorTest {
     public function setUp() {
         // Create in-memory SQLite database for testing
         $this->pdo = new PDO('sqlite::memory:');
+        // SQLite kennt NOW() nicht (MySQL schon) – für die Tests nachbilden
+        $this->pdo->sqliteCreateFunction('NOW', function () { return date('Y-m-d H:i:s'); }, 0);
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         // Create test tables
@@ -27,7 +29,8 @@ class AnswerProcessorTest {
                 id INTEGER PRIMARY KEY,
                 question_text TEXT,
                 question_type TEXT DEFAULT 'single',
-                points INTEGER DEFAULT 4
+                points INTEGER DEFAULT 4,
+                image_path TEXT
             )
         ");
         
@@ -93,7 +96,7 @@ class AnswerProcessorTest {
         $result = $this->processor->processSingleChoice(1, 2, 1);
         
         assert($result['is_correct'] === true, 'Should be correct');
-        assert($result['points_earned'] === 4, 'Should earn 4 points');
+        assert($result['points_earned'] == 4, 'Should earn 4 points');
         assert($result['selected_answers'] === [2], 'Should return selected answer');
         
         echo "✓ testProcessSingleChoiceCorrect passed\n";
@@ -103,7 +106,7 @@ class AnswerProcessorTest {
         $result = $this->processor->processSingleChoice(1, 1, 1);
         
         assert($result['is_correct'] === false, 'Should be incorrect');
-        assert($result['points_earned'] === 0, 'Should earn 0 points');
+        assert($result['points_earned'] == 0, 'Should earn 0 points');
         assert($result['selected_answers'] === [1], 'Should return selected answer');
         
         echo "✓ testProcessSingleChoiceIncorrect passed\n";
@@ -113,7 +116,7 @@ class AnswerProcessorTest {
         $result = $this->processor->processMultipleChoice(2, [4, 6], 1);
         
         assert($result['is_correct'] === true, 'Should be correct');
-        assert($result['points_earned'] === 4, 'Should earn 4 points');
+        assert($result['points_earned'] == 4, 'Should earn 4 points');
         assert($result['selected_answers'] === [4, 6], 'Should return selected answers');
         assert($result['correct_answers'] === [4, 6], 'Should return correct answers');
         
@@ -125,7 +128,7 @@ class AnswerProcessorTest {
         $result = $this->processor->processMultipleChoice(2, [4], 1);
         
         assert($result['is_correct'] === false, 'Should be incorrect when missing correct answer');
-        assert($result['points_earned'] === 0, 'Should earn 0 points');
+        assert($result['points_earned'] == 0, 'Should earn 0 points');
         
         echo "✓ testProcessMultipleChoiceIncorrectMissing passed\n";
     }
@@ -135,7 +138,7 @@ class AnswerProcessorTest {
         $result = $this->processor->processMultipleChoice(2, [4, 5, 6], 1);
         
         assert($result['is_correct'] === false, 'Should be incorrect when including wrong answer');
-        assert($result['points_earned'] === 0, 'Should earn 0 points');
+        assert($result['points_earned'] == 0, 'Should earn 0 points');
         
         echo "✓ testProcessMultipleChoiceIncorrectExtra passed\n";
     }

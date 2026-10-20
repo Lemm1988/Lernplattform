@@ -58,18 +58,19 @@ if ($is_logged_in) {
         $stmt->execute([$_SESSION['user_id']]);
         $stats['total_quizzes'] = $stmt->fetchColumn();
 
-        // Bestandene Quiz (60% oder mehr)
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM quiz_sessions WHERE user_id = ? AND status = 'completed' AND total_score >= (total_questions * 0.6)");
-        $stmt->execute([$_SESSION['user_id']]);
+        // Bestandene Quiz (Bestehensgrenze aus den Einstellungen, bezogen auf die maximale Punktzahl)
+        $pass_fraction = (float)get_setting('passing_score_percentage', PASSING_SCORE_PERCENTAGE) / 100;
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM quiz_sessions WHERE user_id = ? AND status = 'completed' AND max_score > 0 AND total_score >= max_score * ?");
+        $stmt->execute([$_SESSION['user_id'], $pass_fraction]);
         $stats['passed_quizzes'] = $stmt->fetchColumn();
 
-        // Durchschnittliche Punktzahl
-        $stmt = $pdo->prepare("SELECT AVG(total_score / total_questions * 100) FROM quiz_sessions WHERE user_id = ? AND status = 'completed'");
+        // Durchschnittliches Ergebnis in Prozent (Fragen haben unterschiedliche Punktzahlen)
+        $stmt = $pdo->prepare("SELECT AVG(total_score / NULLIF(max_score, 0) * 100) FROM quiz_sessions WHERE user_id = ? AND status = 'completed'");
         $stmt->execute([$_SESSION['user_id']]);
         $stats['avg_score'] = $stmt->fetchColumn();
 
-        // Beste Punktzahl
-        $stmt = $pdo->prepare("SELECT MAX(total_score) FROM quiz_sessions WHERE user_id = ? AND status = 'completed'");
+        // Bestes Ergebnis in Prozent
+        $stmt = $pdo->prepare("SELECT ROUND(MAX(total_score / NULLIF(max_score, 0) * 100)) FROM quiz_sessions WHERE user_id = ? AND status = 'completed'");
         $stmt->execute([$_SESSION['user_id']]);
         $stats['best_score'] = $stmt->fetchColumn();
 
@@ -300,8 +301,8 @@ include 'includes/header.php';
                                                         <i class="bi bi-award"></i>
                                                     </div>
                                                     <div class="stat-content">
-                                                        <div class="stat-number"><?= $stats['best_score'] ?></div>
-                                                        <div class="stat-label">Beste Punktzahl</div>
+                                                        <div class="stat-number"><?= (int)$stats['best_score'] ?>%</div>
+                                                        <div class="stat-label">Bestes Ergebnis</div>
                                                     </div>
                                                 </div>
                                             </div>

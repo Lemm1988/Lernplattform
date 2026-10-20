@@ -38,24 +38,7 @@ class QuestionRenderer
      */
     public static function renderSingleChoice($question, $answers)
     {
-        $html = '';
-        
-        foreach ($answers as $answer) {
-            $answerId = htmlspecialchars($answer['id'], ENT_QUOTES, 'UTF-8');
-            // Fix: Use proper HTML escaping for answer text instead of formatTextWithCode
-            $answerText = htmlspecialchars($answer['answer_text'], ENT_QUOTES, 'UTF-8');
-            
-            $html .= '<div class="form-check mb-3">' . "\n";
-            $html .= '    <input class="form-check-input" type="radio" name="answer_id" ';
-            $html .= 'id="answer' . $answerId . '" value="' . $answerId . '" required ';
-            $html .= 'aria-describedby="question-text">' . "\n";
-            $html .= '    <label class="form-check-label" for="answer' . $answerId . '">' . "\n";
-            $html .= '        ' . $answerText . "\n";
-            $html .= '    </label>' . "\n";
-            $html .= '</div>' . "\n";
-        }
-        
-        return $html;
+        return self::renderOptions($answers, 'radio', 'answer_id', ' required');
     }
 
     /**
@@ -67,23 +50,35 @@ class QuestionRenderer
      */
     public static function renderMultipleChoice($question, $answers)
     {
+        return self::renderOptions($answers, 'checkbox', 'answer_ids[]', '');
+    }
+
+    /**
+     * Antwortoptionen als Radio-Buttons oder Checkboxen ausgeben.
+     * Unvollständige Einträge (ohne id oder Text) werden übersprungen statt Warnungen zu erzeugen.
+     */
+    private static function renderOptions($answers, $inputType, $inputName, $extraAttributes)
+    {
         $html = '';
-        
-        foreach ($answers as $answer) {
-            $answerId = htmlspecialchars($answer['id'], ENT_QUOTES, 'UTF-8');
+
+        foreach (is_array($answers) ? $answers : [] as $answer) {
+            if (!is_array($answer) || !isset($answer['id'], $answer['answer_text'])) {
+                continue;
+            }
+            $answerId = htmlspecialchars((string)$answer['id'], ENT_QUOTES, 'UTF-8');
             // Fix: Use proper HTML escaping for answer text instead of formatTextWithCode
-            $answerText = htmlspecialchars($answer['answer_text'], ENT_QUOTES, 'UTF-8');
-            
+            $answerText = htmlspecialchars((string)$answer['answer_text'], ENT_QUOTES, 'UTF-8');
+
             $html .= '<div class="form-check mb-3">' . "\n";
-            $html .= '    <input class="form-check-input" type="checkbox" name="answer_ids[]" ';
-            $html .= 'id="answer' . $answerId . '" value="' . $answerId . '" ';
+            $html .= '    <input class="form-check-input" type="' . $inputType . '" name="' . $inputName . '" ';
+            $html .= 'id="answer' . $answerId . '" value="' . $answerId . '"' . $extraAttributes . ' ';
             $html .= 'aria-describedby="question-text">' . "\n";
             $html .= '    <label class="form-check-label" for="answer' . $answerId . '">' . "\n";
             $html .= '        ' . $answerText . "\n";
             $html .= '    </label>' . "\n";
             $html .= '</div>' . "\n";
         }
-        
+
         return $html;
     }
 

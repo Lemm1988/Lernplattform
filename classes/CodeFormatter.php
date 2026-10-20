@@ -160,8 +160,12 @@ class CodeFormatter {
             throw new InvalidArgumentException('Code must be a string');
         }
         
-        // Remove any existing HTML tags (in case someone tries to inject)
-        $code = strip_tags($code);
+        // Nur <script>-Blöcke entfernen. strip_tags() würde auch legitimen Code zerstören
+        // (z. B. PHP-Öffnungs-Tags oder HTML-Beispiele) – XSS-Schutz passiert beim Ausgeben (formatCode escaped).
+        $code = preg_replace('#<script\b[^>]*>.*?</script\s*>#is', '', $code);
+
+        // Null-Bytes und Steuerzeichen entfernen (Tab und Zeilenumbrüche bleiben erhalten)
+        $code = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/', '', $code);
         
         // Normalize line endings
         $code = str_replace(["\r\n", "\r"], "\n", $code);
@@ -271,6 +275,10 @@ class CodeFormatter {
         $dangerousPatterns = [
             '/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/mi',
             '/javascript:/i',
+            '/vbscript:/i',
+            '/data:\s*text\/html/i',
+            '/expression\s*\(/i', // alte IE-CSS-Ausdrücke
+            '/-moz-binding|behavior\s*:/i',
             '/on\w+\s*=/i', // onclick, onload, etc.
             '/<iframe\b/i',
             '/<object\b/i',

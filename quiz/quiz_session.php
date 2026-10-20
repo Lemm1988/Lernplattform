@@ -83,7 +83,7 @@ $answers = $stmt->fetchAll();
 // $points_per_question entfernt - jede Frage hat eigene Punkte in questions.points
 
 // Zeitlimit prüfen
-$quiz_time_limit = get_setting('quiz_time_limit', 900); // Sekunden
+$quiz_time_limit = (int)get_setting('quiz_time_limit', QUIZ_TIME_LIMIT); // Sekunden (gleicher Fallback wie start_quiz.php)
 $started_at = strtotime($session['started_at']);
 $now = time();
 $time_left = $quiz_time_limit > 0 ? max(0, $started_at + $quiz_time_limit - $now) : null;
