@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="cs-title cs-desc">
+  <title id="cs-title">Cloud-Servicemodelle: wer verwaltet was?</title>
+  <desc id="cs-desc">Vier Spalten mit je sieben Schichten von oben nach unten: Anwendung, Daten, Laufzeit und Middleware, Betriebssystem, Virtualisierung, Server und Speicher, Netzwerk und Rechenzentrum. On-Premises: alles verwaltest du selbst. IaaS: der Anbieter stellt Virtualisierung, Server und Netzwerk, du verwaltest Betriebssystem, Laufzeit, Daten und Anwendung. PaaS und damit auch DBaaS: du verwaltest nur Anwendung und Daten. SaaS: der Anbieter verwaltet alles, du nutzt die fertige Software. Die Verantwortung für den Datenschutz deiner Daten bleibt immer bei dir.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 14px; }
+      .e { font-size: 11px; fill: #6c757d; }
+      .l { font-size: 11.5px; }
+      .du { fill: #cfe2ff; stroke: #0d6efd; stroke-width: 1.2; }
+      .an { fill: #e9ecef; stroke: #adb5bd; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <!-- Spaltenköpfe -->
+  <text class="h" x="97" y="22">On-Premises</text><text class="e" x="97" y="38">eigener Serverraum</text>
+  <text class="h" x="272" y="22">IaaS</text><text class="e" x="272" y="38">z. B. virtuelle Maschine</text>
+  <text class="h" x="447" y="22">PaaS / DBaaS</text><text class="e" x="447" y="38">z. B. verwaltete Datenbank</text>
+  <text class="h" x="622" y="22">SaaS</text><text class="e" x="622" y="38">z. B. Webmail, Online-CRM</text>
+
+  <!-- On-Premises: alles selbst -->
+  <g>
+    <rect class="du" x="15" y="50" width="165" height="26" rx="4"/><text class="l" x="97" y="67">Anwendung</text>
+    <rect class="du" x="15" y="80" width="165" height="26" rx="4"/><text class="l" x="97" y="97">Daten</text>
+    <rect class="du" x="15" y="110" width="165" height="26" rx="4"/><text class="l" x="97" y="127">Laufzeit, Middleware</text>
+    <rect class="du" x="15" y="140" width="165" height="26" rx="4"/><text class="l" x="97" y="157">Betriebssystem</text>
+    <rect class="du" x="15" y="170" width="165" height="26" rx="4"/><text class="l" x="97" y="187">Virtualisierung</text>
+    <rect class="du" x="15" y="200" width="165" height="26" rx="4"/><text class="l" x="97" y="217">Server, Speicher</text>
+    <rect class="du" x="15" y="230" width="165" height="26" rx="4"/><text class="l" x="97" y="247">Netzwerk, Rechenzentrum</text>
+  </g>
+  <!-- IaaS -->
+  <g>
+    <rect class="du" x="190" y="50" width="165" height="26" rx="4"/><text class="l" x="272" y="67">Anwendung</text>
+    <rect class="du" x="190" y="80" width="165" height="26" rx="4"/><text class="l" x="272" y="97">Daten</text>
+    <rect class="du" x="190" y="110" width="165" height="26" rx="4"/><text class="l" x="272" y="127">Laufzeit, Middleware</text>
+    <rect class="du" x="190" y="140" width="165" height="26" rx="4"/><text class="l" x="272" y="157">Betriebssystem</text>
+    <rect class="an" x="190" y="170" width="165" height="26" rx="4"/><text class="l" x="272" y="187">Virtualisierung</text>
+    <rect class="an" x="190" y="200" width="165" height="26" rx="4"/><text class="l" x="272" y="217">Server, Speicher</text>
+    <rect class="an" x="190" y="230" width="165" height="26" rx="4"/><text class="l" x="272" y="247">Netzwerk, Rechenzentrum</text>
+  </g>
+  <!-- PaaS / DBaaS -->
+  <g>
+    <rect class="du" x="365" y="50" width="165" height="26" rx="4"/><text class="l" x="447" y="67">Anwendung</text>
+    <rect class="du" x="365" y="80" width="165" height="26" rx="4"/><text class="l" x="447" y="97">Daten (Schema, Inhalte)</text>
+    <rect class="an" x="365" y="110" width="165" height="26" rx="4"/><text class="l" x="447" y="127">Laufzeit, DBMS, Backups</text>
+    <rect class="an" x="365" y="140" width="165" height="26" rx="4"/><text class="l" x="447" y="157">Betriebssystem</text>
+    <rect class="an" x="365" y="170" width="165" height="26" rx="4"/><text class="l" x="447" y="187">Virtualisierung</text>
+    <rect class="an" x="365" y="200" width="165" height="26" rx="4"/><text class="l" x="447" y="217">Server, Speicher</text>
+    <rect class="an" x="365" y="230" width="165" height="26" rx="4"/><text class="l" x="447" y="247">Netzwerk, Rechenzentrum</text>
+  </g>
+  <!-- SaaS -->
+  <g>
+    <rect class="an" x="540" y="50" width="165" height="26" rx="4"/><text class="l" x="622" y="67">Anwendung</text>
+    <rect class="an" x="540" y="80" width="165" height="26" rx="4"/><text class="l" x="622" y="97">Daten (Speicherung)</text>
+    <rect class="an" x="540" y="110" width="165" height="26" rx="4"/><text class="l" x="622" y="127">Laufzeit, Middleware</text>
+    <rect class="an" x="540" y="140" width="165" height="26" rx="4"/><text class="l" x="622" y="157">Betriebssystem</text>
+    <rect class="an" x="540" y="170" width="165" height="26" rx="4"/><text class="l" x="622" y="187">Virtualisierung</text>
+    <rect class="an" x="540" y="200" width="165" height="26" rx="4"/><text class="l" x="622" y="217">Server, Speicher</text>
+    <rect class="an" x="540" y="230" width="165" height="26" rx="4"/><text class="l" x="622" y="247">Netzwerk, Rechenzentrum</text>
+  </g>
+
+  <!-- Legende -->
+  <rect class="du" x="15" y="272" width="18" height="14" rx="3"/><text class="l" x="39" y="284" style="text-anchor:start">verwaltest du</text>
+  <rect class="an" x="135" y="272" width="18" height="14" rx="3"/><text class="l" x="159" y="284" style="text-anchor:start">verwaltet der Anbieter</text>
+  <text class="l" x="705" y="284" style="text-anchor:end; font-style:italic; fill:#495057">Datenschutz-Verantwortung für deine Daten bleibt immer bei dir</text>
+</svg>

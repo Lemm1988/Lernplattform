@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 400" role="img" aria-labelledby="af-title af-desc">
+  <title id="af-title">Anwendungsfalldiagramm Onlineshop</title>
+  <desc id="af-desc">Systemgrenze Onlineshop mit fünf Anwendungsfällen. Der Akteur Kunde ist verbunden mit Artikel suchen, Bestellung aufgeben und Bestellung stornieren. Der Akteur Kundendienst ist mit Bestellung stornieren verbunden. Bestellung aufgeben bindet mit include den Anwendungsfall Zahlung durchführen ein; dieser ist mit dem externen Akteur Zahlungsdienstleister verbunden. Gutschein einlösen erweitert Bestellung aufgeben mit extend. Ein Stammkunde ist eine Spezialisierung des Kunden.</desc>
+  <defs>
+    <marker id="af-open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0,0 L10,5 L0,10" fill="none" stroke="#343a40" stroke-width="1.5"/>
+    </marker>
+    <marker id="af-gen" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="13" markerHeight="13" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#fff" stroke="#343a40" stroke-width="1.2"/>
+    </marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .system { fill: #f8f9fa; stroke: #343a40; stroke-width: 1.5; }
+      .uc { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .uc-t { font-size: 13px; }
+      .actor { stroke: #343a40; stroke-width: 2; fill: none; }
+      .actor-head { fill: #fff; stroke: #343a40; stroke-width: 2; }
+      .actor-t { font-size: 13px; font-weight: 700; }
+      .assoc { stroke: #343a40; stroke-width: 1.5; }
+      .dep { stroke: #343a40; stroke-width: 1.5; stroke-dasharray: 6 4; fill: none; }
+      .stereo { font-size: 12px; fill: #6f42c1; font-style: italic; }
+      .sys-t { font-weight: 700; font-size: 14px; }
+    </style>
+  </defs>
+
+  <!-- Systemgrenze -->
+  <rect class="system" x="170" y="16" width="380" height="350" rx="4"/>
+  <text class="sys-t" x="360" y="38">Onlineshop</text>
+
+  <!-- Anwendungsfälle -->
+  <ellipse class="uc" cx="300" cy="80" rx="95" ry="24"/><text class="uc-t" x="300" y="85">Artikel suchen</text>
+  <ellipse class="uc" cx="300" cy="170" rx="95" ry="24"/><text class="uc-t" x="300" y="175">Bestellung aufgeben</text>
+  <ellipse class="uc" cx="450" cy="255" rx="88" ry="24"/><text class="uc-t" x="450" y="260">Zahlung durchführen</text>
+  <ellipse class="uc" cx="275" cy="270" rx="85" ry="24"/><text class="uc-t" x="275" y="275">Gutschein einlösen</text>
+  <ellipse class="uc" cx="420" cy="336" rx="100" ry="22"/><text class="uc-t" x="420" y="341">Bestellung stornieren</text>
+
+  <!-- include / extend -->
+  <path class="dep" d="M370,186 L420,231" marker-end="url(#af-open)"/>
+  <text class="stereo" x="430" y="204">«include»</text>
+  <path class="dep" d="M285,246 L295,196" marker-end="url(#af-open)"/>
+  <text class="stereo" x="245" y="224">«extend»</text>
+
+  <!-- Akteur Kunde -->
+  <g transform="translate(70,130)">
+    <circle class="actor-head" cx="0" cy="0" r="12"/>
+    <path class="actor" d="M0,12 V44 M-20,24 H20 M0,44 L-16,70 M0,44 L16,70"/>
+    <text class="actor-t" x="0" y="90">Kunde</text>
+  </g>
+  <line class="assoc" x1="92" y1="150" x2="206" y2="86"/>
+  <line class="assoc" x1="92" y1="160" x2="205" y2="170"/>
+  <path class="assoc" d="M92,175 L200,330 L320,336" fill="none"/>
+
+  <!-- Stammkunde (Generalisierung) -->
+  <g transform="translate(70,292)">
+    <circle class="actor-head" cx="0" cy="0" r="12"/>
+    <path class="actor" d="M0,12 V44 M-20,24 H20 M0,44 L-16,70 M0,44 L16,70"/>
+    <text class="actor-t" x="0" y="90">Stammkunde</text>
+  </g>
+  <path class="assoc" d="M70,278 V236" marker-end="url(#af-gen)"/>
+
+  <!-- Akteur Kundendienst -->
+  <g transform="translate(650,250)">
+    <circle class="actor-head" cx="0" cy="0" r="12"/>
+    <path class="actor" d="M0,12 V44 M-20,24 H20 M0,44 L-16,70 M0,44 L16,70"/>
+    <text class="actor-t" x="0" y="90">Kundendienst</text>
+  </g>
+  <line class="assoc" x1="628" y1="285" x2="516" y2="330"/>
+
+  <!-- Externes System -->
+  <rect x="580" y="96" width="130" height="58" rx="4" fill="#fff" stroke="#343a40" stroke-width="1.5"/>
+  <text x="645" y="116" style="font-size:12px;fill:#6c757d">«actor»</text>
+  <text class="actor-t" x="645" y="134">Zahlungs-</text>
+  <text class="actor-t" x="645" y="149">dienstleister</text>
+  <line class="assoc" x1="610" y1="154" x2="505" y2="236"/>
+</svg>

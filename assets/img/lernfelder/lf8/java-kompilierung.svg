@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="jk-title jk-desc">
+  <title id="jk-title">Vom Java-Quellcode zur Ausführung</title>
+  <desc id="jk-desc">Der Quellcode in der Datei Kasse.java wird vom Compiler javac einmal in plattformunabhängigen Bytecode übersetzt, die Datei Kasse.class. Diesen Bytecode führt die Java Virtual Machine aus, die es für Windows, Linux und macOS gibt. Das JDK enthält Compiler und Werkzeuge zum Entwickeln, die Laufzeitumgebung JRE enthält die JVM und die Standardbibliothek zum Ausführen.</desc>
+  <defs>
+    <marker id="jk-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0d6efd"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .file { fill: #fff; stroke: #343a40; stroke-width: 1.5; }
+      .tool { fill: #0d6efd; }
+      .tool-t { fill: #fff; font-weight: 700; font-size: 13px; }
+      .name { font-weight: 700; font-size: 13px; font-family: ui-monospace, Consolas, monospace; }
+      .small { font-size: 11.5px; fill: #495057; }
+      .os { fill: #e8f5e9; stroke: #198754; stroke-width: 1.3; }
+      .flow { stroke: #0d6efd; stroke-width: 2; fill: none; }
+      .bracket { fill: none; stroke: #6c757d; stroke-width: 1.3; }
+    </style>
+  </defs>
+  <!-- Quellcode -->
+  <path class="file" d="M20,40 H110 L130,60 V150 H20 z"/><path d="M110,40 V60 H130" fill="none" stroke="#343a40" stroke-width="1.5"/>
+  <text class="name" x="75" y="82">Kasse.java</text>
+  <text class="small" x="75" y="104">Quellcode</text>
+  <text class="small" x="75" y="122">(Text, für Menschen)</text>
+
+  <path class="flow" d="M132,95 H178" marker-end="url(#jk-arrow)"/>
+  <rect class="tool" x="180" y="72" width="110" height="46" rx="8"/>
+  <text class="tool-t" x="235" y="92">Compiler</text>
+  <text class="tool-t" x="235" y="109" style="font-family:ui-monospace,Consolas,monospace">javac</text>
+  <path class="flow" d="M290,95 H336" marker-end="url(#jk-arrow)"/>
+
+  <!-- Bytecode -->
+  <path class="file" d="M338,40 H428 L448,60 V150 H338 z" style="fill:#fff8e1"/><path d="M428,40 V60 H448" fill="none" stroke="#343a40" stroke-width="1.5"/>
+  <text class="name" x="393" y="82">Kasse.class</text>
+  <text class="small" x="393" y="104">Bytecode</text>
+  <text class="small" x="393" y="122">(plattform-</text>
+  <text class="small" x="393" y="137">unabhängig)</text>
+
+  <!-- JVMs -->
+  <path class="flow" d="M450,95 C480,95 480,52 506,52" marker-end="url(#jk-arrow)"/>
+  <path class="flow" d="M450,95 H506" marker-end="url(#jk-arrow)"/>
+  <path class="flow" d="M450,95 C480,95 480,138 506,138" marker-end="url(#jk-arrow)"/>
+  <rect class="os" x="508" y="32" width="190" height="38" rx="6"/><text x="603" y="56" style="font-size:13px">JVM unter Windows</text>
+  <rect class="os" x="508" y="76" width="190" height="38" rx="6"/><text x="603" y="100" style="font-size:13px">JVM unter Linux</text>
+  <rect class="os" x="508" y="120" width="190" height="38" rx="6"/><text x="603" y="144" style="font-size:13px">JVM unter macOS</text>
+
+  <!-- JDK / JRE -->
+  <path class="bracket" d="M20,180 V190 H448 V180"/>
+  <text x="234" y="210" style="font-size:13px;font-weight:700">JDK – Java Development Kit</text>
+  <text class="small" x="234" y="228">Compiler, Debugger, Werkzeuge und die JRE (zum Entwickeln)</text>
+  <path class="bracket" d="M508,180 V190 H698 V180"/>
+  <text x="603" y="210" style="font-size:13px;font-weight:700">JRE – Laufzeitumgebung</text>
+  <text class="small" x="603" y="228">JVM + Standardbibliothek (zum Ausführen)</text>
+  <text class="small" x="360" y="246" style="font-style:italic">„Write once, run anywhere“ – einmal kompilieren, überall ausführen</text>
+</svg>

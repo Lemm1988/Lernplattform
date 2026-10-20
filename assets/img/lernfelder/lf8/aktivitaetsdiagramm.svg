@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 520" role="img" aria-labelledby="ad-title ad-desc">
+  <title id="ad-title">Aktivitätsdiagramm Bestellung bearbeiten</title>
+  <desc id="ad-desc">Drei Schwimmbahnen: Kunde, Onlineshop, Lager. Ablauf: Startknoten, der Kunde sendet die Bestellung ab, der Onlineshop prüft die Verfügbarkeit. Ein Entscheidungsknoten verzweigt: bei nicht verfügbar erhält der Kunde einen Hinweis und der Ablauf endet. Bei verfügbar teilt eine Gabelung den Ablauf in zwei parallele Aktionen: Der Onlineshop wickelt die Zahlung ab, gleichzeitig kommissioniert das Lager die Ware. Eine Vereinigung wartet auf beide, danach versendet das Lager das Paket und der Ablauf endet.</desc>
+  <defs>
+    <marker id="ad-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .lane { fill: #fff; stroke: #adb5bd; stroke-width: 1.2; }
+      .lane-h { fill: #f1f3f5; stroke: #adb5bd; stroke-width: 1.2; }
+      .lane-t { font-weight: 700; font-size: 14px; }
+      .act { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .act-t { font-size: 13px; }
+      .flow { stroke: #343a40; stroke-width: 1.5; fill: none; }
+      .guard { font-size: 12px; fill: #d63384; font-weight: 600; }
+      .bar { fill: #212529; }
+      .dec { fill: #fff8e1; stroke: #f0ad4e; stroke-width: 1.8; }
+    </style>
+  </defs>
+
+  <!-- Schwimmbahnen -->
+  <rect class="lane" x="1" y="1" width="239" height="518"/><rect class="lane-h" x="1" y="1" width="239" height="30"/><text class="lane-t" x="120" y="22">Kunde</text>
+  <rect class="lane" x="240" y="1" width="240" height="518"/><rect class="lane-h" x="240" y="1" width="240" height="30"/><text class="lane-t" x="360" y="22">Onlineshop</text>
+  <rect class="lane" x="480" y="1" width="239" height="518"/><rect class="lane-h" x="480" y="1" width="239" height="30"/><text class="lane-t" x="600" y="22">Lager</text>
+
+  <!-- Start -->
+  <circle cx="120" cy="58" r="10" fill="#212529"/>
+  <path class="flow" d="M120,68 V90" marker-end="url(#ad-arrow)"/>
+  <rect class="act" x="35" y="92" width="170" height="36" rx="16"/><text class="act-t" x="120" y="115">Bestellung absenden</text>
+  <path class="flow" d="M205,110 H360 V150" marker-end="url(#ad-arrow)"/>
+
+  <rect class="act" x="275" y="152" width="170" height="36" rx="16"/><text class="act-t" x="360" y="175">Verfügbarkeit prüfen</text>
+  <path class="flow" d="M360,188 V208" marker-end="url(#ad-arrow)"/>
+
+  <!-- Entscheidung -->
+  <path class="dec" d="M360,210 L380,230 L360,250 L340,230 z"/>
+  <path class="flow" d="M340,230 H207" marker-end="url(#ad-arrow)"/>
+  <text class="guard" x="272" y="222">[nicht verfügbar]</text>
+  <rect class="act" x="35" y="212" width="170" height="36" rx="16"/><text class="act-t" x="120" y="235">Hinweis erhalten</text>
+  <path class="flow" d="M120,248 V284" marker-end="url(#ad-arrow)"/>
+  <circle cx="120" cy="297" r="11" fill="#fff" stroke="#212529" stroke-width="2"/><circle cx="120" cy="297" r="6" fill="#212529"/>
+
+  <path class="flow" d="M360,250 V274" marker-end="url(#ad-arrow)"/>
+  <text class="guard" x="408" y="267">[verfügbar]</text>
+
+  <!-- Gabelung -->
+  <rect class="bar" x="330" y="276" width="300" height="6" rx="2"/>
+  <path class="flow" d="M360,282 V310" marker-end="url(#ad-arrow)"/>
+  <path class="flow" d="M600,282 V310" marker-end="url(#ad-arrow)"/>
+  <rect class="act" x="275" y="312" width="170" height="36" rx="16"/><text class="act-t" x="360" y="335">Zahlung abwickeln</text>
+  <rect class="act" x="515" y="312" width="170" height="36" rx="16"/><text class="act-t" x="600" y="335">Ware kommissionieren</text>
+  <path class="flow" d="M360,348 V380" marker-end="url(#ad-arrow)"/>
+  <path class="flow" d="M600,348 V380" marker-end="url(#ad-arrow)"/>
+
+  <!-- Vereinigung -->
+  <rect class="bar" x="330" y="382" width="300" height="6" rx="2"/>
+  <path class="flow" d="M600,388 V414" marker-end="url(#ad-arrow)"/>
+  <rect class="act" x="515" y="416" width="170" height="36" rx="16"/><text class="act-t" x="600" y="439">Paket versenden</text>
+  <path class="flow" d="M600,452 V474" marker-end="url(#ad-arrow)"/>
+  <circle cx="600" cy="487" r="11" fill="#fff" stroke="#212529" stroke-width="2"/><circle cx="600" cy="487" r="6" fill="#212529"/>
+
+  <text x="374" y="302" style="font-size:11px;fill:#6c757d;text-anchor:start">Gabelung: parallel weiter</text>
+  <text x="374" y="408" style="font-size:11px;fill:#6c757d;text-anchor:start">Vereinigung: wartet auf beide</text>
+</svg>

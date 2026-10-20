@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="eu-title eu-desc">
+  <title id="eu-title">Entwurfsstufen einer Benutzeroberfläche</title>
+  <desc id="eu-desc">Derselbe Anmeldebildschirm in vier Stufen. Skizze: grob von Hand gezeichnet, nur die Idee. Wireframe: graue Platzhalter für Logo, Eingabefelder und Schaltfläche, zeigt die Struktur. Mockup: mit Farben, Schrift und Logo, zeigt das Aussehen, ist aber nicht bedienbar. Prototyp: wie das Mockup, aber klickbar, um die Bedienung mit Nutzern zu testen. Ein Pfeil darunter zeigt die Entwicklung von niedriger zu hoher Detailtreue.</desc>
+  <defs>
+    <marker id="eu-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6c757d"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .frame { fill: #fff; stroke: #343a40; stroke-width: 1.5; }
+      .pencil { fill: none; stroke: #6c757d; stroke-width: 1.6; stroke-linecap: round; }
+      .wf { fill: #e9ecef; stroke: #adb5bd; stroke-width: 1; }
+      .wf-t { font-size: 10px; fill: #6c757d; }
+      .name { font-weight: 700; font-size: 14px; }
+      .desc { font-size: 12px; fill: #495057; }
+      .field { fill: #fff; stroke: #ced4da; stroke-width: 1.2; }
+      .btn { fill: #0d6efd; }
+      .btn-t { fill: #fff; font-size: 11px; font-weight: 700; }
+      .lbl { font-size: 9.5px; fill: #495057; text-anchor: start; }
+    </style>
+  </defs>
+
+  <!-- 1 Skizze -->
+  <rect class="frame" x="15" y="12" width="150" height="200" rx="10"/>
+  <path class="pencil" d="M70,38 q20,-8 40,1 q-2,18 -39,14 q-4,-8 -1,-15"/>
+  <path class="pencil" d="M35,90 q50,-3 110,1 M35,104 q52,2 110,-1"/>
+  <path class="pencil" d="M35,128 q50,-2 110,2 M35,142 q55,1 110,-2"/>
+  <path class="pencil" d="M55,168 q35,-4 70,0 q2,10 -2,18 q-34,3 -68,-1 q-3,-9 0,-17"/>
+  <text x="90" y="182" style="font-size:11px;fill:#6c757d;font-style:italic">Login</text>
+
+  <!-- 2 Wireframe -->
+  <rect class="frame" x="195" y="12" width="150" height="200" rx="10"/>
+  <rect class="wf" x="240" y="30" width="60" height="30"/><line x1="240" y1="30" x2="300" y2="60" stroke="#adb5bd"/><line x1="300" y1="30" x2="240" y2="60" stroke="#adb5bd"/>
+  <text class="wf-t" x="270" y="74">Logo</text>
+  <rect class="wf" x="215" y="88" width="110" height="20"/><text class="wf-t" x="270" y="102">E-Mail</text>
+  <rect class="wf" x="215" y="118" width="110" height="20"/><text class="wf-t" x="270" y="132">Passwort</text>
+  <rect class="wf" x="235" y="160" width="70" height="24" style="fill:#ced4da"/><text class="wf-t" x="270" y="176">Anmelden</text>
+
+  <!-- 3 Mockup -->
+  <rect class="frame" x="375" y="12" width="150" height="200" rx="10"/>
+  <circle cx="450" cy="44" r="16" fill="#0d6efd"/><text x="450" y="49" style="fill:#fff;font-weight:700;font-size:13px">LP</text>
+  <text class="lbl" x="395" y="84">E-Mail</text><rect class="field" x="395" y="88" width="110" height="20" rx="4"/>
+  <text class="lbl" x="395" y="118">Passwort</text><rect class="field" x="395" y="122" width="110" height="20" rx="4"/>
+  <rect class="btn" x="410" y="160" width="80" height="26" rx="6"/><text class="btn-t" x="450" y="177">Anmelden</text>
+
+  <!-- 4 Prototyp -->
+  <rect class="frame" x="555" y="12" width="150" height="200" rx="10"/>
+  <circle cx="630" cy="44" r="16" fill="#0d6efd"/><text x="630" y="49" style="fill:#fff;font-weight:700;font-size:13px">LP</text>
+  <text class="lbl" x="575" y="84">E-Mail</text><rect class="field" x="575" y="88" width="110" height="20" rx="4"/>
+  <text x="580" y="102" style="font-size:9.5px;text-anchor:start;fill:#212529">max@firma.de</text>
+  <text class="lbl" x="575" y="118">Passwort</text><rect class="field" x="575" y="122" width="110" height="20" rx="4" style="stroke:#0d6efd;stroke-width:2"/>
+  <text x="580" y="136" style="font-size:10px;text-anchor:start">••••••</text>
+  <rect class="btn" x="590" y="160" width="80" height="26" rx="6"/><text class="btn-t" x="630" y="177">Anmelden</text>
+  <path d="M662,180 l0,16 l4,-4 l3,7 l3,-1 l-3,-7 l5,0 z" fill="#212529" stroke="#fff" stroke-width="0.8"/>
+  <text x="630" y="204" style="font-size:10px;fill:#198754;font-weight:700">klickbar</text>
+
+  <text class="name" x="90" y="236">Skizze</text><text class="desc" x="90" y="254">Idee, schnell auf Papier</text>
+  <text class="name" x="270" y="236">Wireframe</text><text class="desc" x="270" y="254">Struktur und Anordnung</text>
+  <text class="name" x="450" y="236">Mockup</text><text class="desc" x="450" y="254">Aussehen, nicht bedienbar</text>
+  <text class="name" x="630" y="236">Prototyp</text><text class="desc" x="630" y="254">Bedienung mit Nutzern testen</text>
+
+  <path d="M40,280 H680" stroke="#6c757d" stroke-width="1.5" marker-end="url(#eu-arrow)"/>
+  <text class="desc" x="40" y="274" style="text-anchor:start">niedrige Detailtreue (low fidelity)</text>
+  <text class="desc" x="680" y="274" style="text-anchor:end">hohe Detailtreue (high fidelity)</text>
+</svg>

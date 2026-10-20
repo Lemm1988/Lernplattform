@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="mvc-title mvc-desc">
+  <title id="mvc-title">Model-View-Controller</title>
+  <desc id="mvc-desc">Der Benutzer bedient die View, zum Beispiel per Klick. Die View meldet das Ereignis an den Controller. Der Controller verarbeitet die Eingabe und ändert das Model, das die Daten und Fachlogik enthält. Das Model benachrichtigt die View über die Änderung, die View holt sich die neuen Daten und zeigt sie an. Model kennt weder View noch Controller und lässt sich deshalb unabhängig testen und wiederverwenden.</desc>
+  <defs>
+    <marker id="mvc-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0d6efd"/></marker>
+    <marker id="mvc-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6c757d"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .m { fill: #e8f5e9; stroke: #198754; stroke-width: 1.8; }
+      .v { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.8; }
+      .c { fill: #fff3cd; stroke: #f0ad4e; stroke-width: 1.8; }
+      .t { font-weight: 700; font-size: 15px; }
+      .s { font-size: 12px; fill: #495057; }
+      .flow { stroke: #0d6efd; stroke-width: 2; fill: none; }
+      .notify { stroke: #6c757d; stroke-width: 1.8; stroke-dasharray: 6 4; fill: none; }
+      .lbl { font-size: 12px; fill: #0d6efd; font-weight: 600; }
+      .lbl2 { font-size: 12px; fill: #6c757d; font-weight: 600; }
+    </style>
+  </defs>
+  <!-- Benutzer -->
+  <circle cx="60" cy="96" r="14" fill="#fff" stroke="#343a40" stroke-width="2"/>
+  <path d="M60,110 V146 M38,124 H82 M60,146 L44,176 M60,146 L76,176" stroke="#343a40" stroke-width="2" fill="none"/>
+  <text x="60" y="198" style="font-weight:700;font-size:13px">Benutzer</text>
+
+  <rect class="v" x="150" y="70" width="170" height="90" rx="10"/>
+  <text class="t" x="235" y="98">View</text>
+  <text class="s" x="235" y="118">Darstellung (Fenster,</text>
+  <text class="s" x="235" y="134">Buttons, HTML-Seite)</text>
+
+  <rect class="c" x="420" y="10" width="170" height="80" rx="10"/>
+  <text class="t" x="505" y="38">Controller</text>
+  <text class="s" x="505" y="58">verarbeitet Eingaben,</text>
+  <text class="s" x="505" y="74">steuert den Ablauf</text>
+
+  <rect class="m" x="420" y="160" width="170" height="90" rx="10"/>
+  <text class="t" x="505" y="188">Model</text>
+  <text class="s" x="505" y="208">Daten + Fachlogik</text>
+  <text class="s" x="505" y="224">(kennt View und</text>
+  <text class="s" x="505" y="240">Controller nicht)</text>
+
+  <path class="flow" d="M86,120 H148" marker-end="url(#mvc-a)"/>
+  <text class="lbl" x="117" y="112">klickt</text>
+  <path class="flow" d="M320,90 C360,60 380,50 418,50" marker-end="url(#mvc-a)"/>
+  <text class="lbl" x="350" y="54">1 Ereignis</text>
+  <path class="flow" d="M545,90 V158" marker-end="url(#mvc-a)"/>
+  <text class="lbl" x="610" y="128">2 ändert Daten</text>
+  <path class="notify" d="M420,205 C360,205 350,170 322,150" marker-end="url(#mvc-d)"/>
+  <text class="lbl2" x="378" y="176">3 meldet Änderung</text>
+  <path class="notify" d="M290,160 C300,230 380,240 418,230" marker-end="url(#mvc-d)"/>
+  <text class="lbl2" x="300" y="254">4 liest neue Daten</text>
+</svg>

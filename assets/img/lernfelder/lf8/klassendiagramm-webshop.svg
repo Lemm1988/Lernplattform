@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-labelledby="kw-title kw-desc">
+  <title id="kw-title">Klassendiagramm Webshop</title>
+  <desc id="kw-desc">Vier Klassen. Kunde mit name und email und der Methode neueBestellung ist über die Assoziation „gibt auf“ mit Bestellung verbunden: Ein Kunde hat null bis viele Bestellungen, jede Bestellung gehört zu genau einem Kunden. Bestellung mit nummer und datum und den Methoden hinzufuegen und berechneSumme besteht per Komposition (gefüllte Raute an der Bestellung) aus einer bis vielen Bestellpositionen. Jede Bestellposition mit menge und berechneBetrag verweist auf genau einen Artikel mit bezeichnung und preis; ein Artikel kann in null bis vielen Positionen vorkommen.</desc>
+  <defs>
+    <marker id="kw-open" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#343a40" stroke-width="1.5"/></marker>
+    <marker id="kw-dia" viewBox="0 0 16 10" refX="1" refY="5" markerWidth="18" markerHeight="11" orient="auto"><path d="M1,5 L8,1 L15,5 L8,9 z" fill="#343a40"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .mono { font-family: ui-monospace, Consolas, "Courier New", monospace; font-size: 12px; }
+      .box { fill: #e7f1ff; stroke: #343a40; stroke-width: 1.5; }
+      .sep { stroke: #343a40; stroke-width: 1.5; }
+      .title { font-weight: 700; font-size: 14px; text-anchor: middle; }
+      .ln { stroke: #343a40; stroke-width: 1.5; fill: none; }
+      .mult { font-size: 13px; font-weight: 700; fill: #d63384; }
+      .role { font-size: 12px; font-style: italic; fill: #495057; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Kunde -->
+  <rect class="box" x="20" y="16" width="250" height="110"/>
+  <text class="title" x="145" y="38">Kunde</text>
+  <line class="sep" x1="20" y1="48" x2="270" y2="48"/>
+  <text class="mono" x="30" y="66">- name: String</text>
+  <text class="mono" x="30" y="84">- email: String</text>
+  <line class="sep" x1="20" y1="94" x2="270" y2="94"/>
+  <text class="mono" x="30" y="114">+ neueBestellung(): Bestellung</text>
+
+  <!-- Bestellung -->
+  <rect class="box" x="430" y="16" width="270" height="128"/>
+  <text class="title" x="565" y="38">Bestellung</text>
+  <line class="sep" x1="430" y1="48" x2="700" y2="48"/>
+  <text class="mono" x="440" y="66">- nummer: int</text>
+  <text class="mono" x="440" y="84">- datum: LocalDate</text>
+  <line class="sep" x1="430" y1="94" x2="700" y2="94"/>
+  <text class="mono" x="440" y="112">+ hinzufuegen(a: Artikel, m: int)</text>
+  <text class="mono" x="440" y="130">+ berechneSumme(): double</text>
+
+  <!-- Artikel -->
+  <rect class="box" x="20" y="216" width="250" height="96"/>
+  <text class="title" x="145" y="238">Artikel</text>
+  <line class="sep" x1="20" y1="248" x2="270" y2="248"/>
+  <text class="mono" x="30" y="266">- bezeichnung: String</text>
+  <text class="mono" x="30" y="284">- preis: double</text>
+  <line class="sep" x1="20" y1="294" x2="270" y2="294"/>
+
+  <!-- Bestellposition -->
+  <rect class="box" x="430" y="216" width="270" height="96"/>
+  <text class="title" x="565" y="238">Bestellposition</text>
+  <line class="sep" x1="430" y1="248" x2="700" y2="248"/>
+  <text class="mono" x="440" y="266">- menge: int</text>
+  <line class="sep" x1="430" y1="276" x2="700" y2="276"/>
+  <text class="mono" x="440" y="296">+ berechneBetrag(): double</text>
+
+  <!-- Kunde 1 — 0..* Bestellung -->
+  <path class="ln" d="M270,70 H430"/>
+  <text class="mult" x="278" y="62">1</text>
+  <text class="mult" x="392" y="62">0..*</text>
+  <text class="role" x="350" y="88">gibt auf ▸</text>
+
+  <!-- Bestellung ◆ 1 — 1..* Bestellposition -->
+  <path class="ln" d="M565,145 V216" marker-start="url(#kw-dia)"/>
+  <text class="mult" x="575" y="172">1</text>
+  <text class="mult" x="575" y="210">1..*</text>
+
+  <!-- Bestellposition 0..* — 1 Artikel (Navigation zum Artikel) -->
+  <path class="ln" d="M430,264 H272" marker-end="url(#kw-open)"/>
+  <text class="mult" x="392" y="256">0..*</text>
+  <text class="mult" x="280" y="256">1</text>
+</svg>

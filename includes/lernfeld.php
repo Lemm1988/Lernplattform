@@ -26,7 +26,7 @@ function lernfeld_meta() {
         'LF5'  => ['title' => 'Software zur Verwaltung von Daten anpassen', 'icon' => 'database', 'ap' => 'AP1 + AP2'],
         'LF6'  => ['title' => 'Serviceanfragen bearbeiten', 'icon' => 'headset', 'ap' => 'AP1', 'legacy_title' => 'IT-Systeme integrieren'],
         'LF7'  => ['title' => 'Cyber-physische Systeme ergänzen', 'icon' => 'cpu', 'ap' => 'AP2', 'legacy_title' => 'IT-Sicherheit'],
-        'LF8'  => ['title' => 'Daten systemübergreifend bereitstellen', 'icon' => 'arrow-left-right', 'ap' => 'AP2', 'legacy_title' => 'Markt- und Kundenbeziehungen'],
+        'LF8'  => ['title' => 'Daten systemübergreifend bereitstellen', 'icon' => 'arrow-left-right', 'ap' => 'AP2'],
         'LF9'  => ['title' => 'Netzwerke und Dienste bereitstellen', 'icon' => 'hdd-network', 'ap' => 'AP2', 'legacy_title' => 'Öffentliche Netze und Dienste'],
         'LF10' => ['title' => 'Benutzerschnittstellen gestalten und entwickeln', 'icon' => 'window-stack', 'ap' => 'AP2', 'legacy_title' => 'Betreuen von IT-Systemen'],
         'LF11' => ['title' => 'Funktionalität in Anwendungen realisieren', 'icon' => 'gear-wide-connected', 'ap' => 'AP2', 'legacy_title' => 'Entwickeln und Bereitstellen von Anwendungssystemen'],
@@ -94,6 +94,11 @@ function lernfeld_page_end() {
         .lernfeld .lf-pruefung { border-left: 4px solid #f0ad4e; background: #fff8e1; padding: .75rem 1rem; border-radius: 6px; margin: 1rem 0; }
         .lernfeld details > summary { cursor: pointer; color: #0d6efd; }
         .lernfeld .lf-goals li::marker { content: "✓  "; color: #198754; }
+        @media (max-width: 575.98px) {
+            /* Grafiken auf dem Handy lesbar halten: Mindestbreite, seitlich wischen */
+            .lernfeld .lf-content figure { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            .lernfeld .lf-content figure img[src$=".svg"] { min-width: 600px; }
+        }
     </style>';
     include __DIR__ . '/footer.php';
 }

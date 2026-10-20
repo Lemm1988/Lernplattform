@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="pp-title pp-desc">
+  <title id="pp-title">Programmierparadigmen im Überblick</title>
+  <desc id="pp-desc">Baumdiagramm: Programmierparadigmen teilen sich in imperativ (beschreibt, WIE gerechnet wird) und deklarativ (beschreibt, WAS herauskommen soll). Imperativ: prozedural, zum Beispiel C und Pascal, und objektorientiert, zum Beispiel Java, C-Sharp und Python. Deklarativ: funktional, zum Beispiel Haskell und Lambdas, logisch, zum Beispiel Prolog, und Abfragesprachen wie SQL.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .root { fill: #0d6efd; } .root-text { fill: #fff; font-weight: 700; font-size: 16px; }
+      .imp { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .dek { fill: #e8f5e9; stroke: #198754; stroke-width: 1.5; }
+      .head { font-weight: 700; font-size: 15px; }
+      .sub { font-size: 12px; fill: #495057; }
+      .name { font-weight: 700; font-size: 13.5px; }
+      .ex { font-size: 12px; fill: #495057; font-style: italic; }
+      .line { stroke: #6c757d; stroke-width: 1.5; fill: none; }
+    </style>
+  </defs>
+  <rect class="root" x="250" y="10" width="220" height="40" rx="8"/>
+  <text class="root-text" x="360" y="36">Programmierparadigmen</text>
+  <path class="line" d="M360,50 V68 H148 V84 M360,68 H503 V84"/>
+
+  <rect class="imp" x="28" y="84" width="240" height="54" rx="8"/>
+  <text class="head" x="148" y="106">Imperativ</text>
+  <text class="sub" x="148" y="126">beschreibt, WIE gerechnet wird</text>
+
+  <rect class="dek" x="383" y="84" width="240" height="54" rx="8"/>
+  <text class="head" x="503" y="106">Deklarativ</text>
+  <text class="sub" x="503" y="126">beschreibt, WAS herauskommen soll</text>
+
+  <path class="line" d="M148,138 V158 H79 V178 M148,158 H217 V178"/>
+  <path class="line" d="M503,138 V158 H365 V178 M503,158 V178 M503,158 H641 V178"/>
+
+  <rect class="imp" x="14" y="178" width="130" height="74" rx="8"/>
+  <text class="name" x="79" y="202">Prozedural</text>
+  <text class="sub" x="79" y="221">Abläufe in Funktionen</text>
+  <text class="ex" x="79" y="240">C, Pascal</text>
+
+  <rect class="imp" x="152" y="178" width="130" height="74" rx="8"/>
+  <text class="name" x="217" y="202">Objektorientiert</text>
+  <text class="sub" x="217" y="221">Daten + Verhalten</text>
+  <text class="ex" x="217" y="240">Java, C#, Python</text>
+
+  <rect class="dek" x="300" y="178" width="130" height="74" rx="8"/>
+  <text class="name" x="365" y="202">Funktional</text>
+  <text class="sub" x="365" y="221">ohne Seiteneffekte</text>
+  <text class="ex" x="365" y="240">Haskell, Lambdas</text>
+
+  <rect class="dek" x="438" y="178" width="130" height="74" rx="8"/>
+  <text class="name" x="503" y="202">Logisch</text>
+  <text class="sub" x="503" y="221">Fakten und Regeln</text>
+  <text class="ex" x="503" y="240">Prolog</text>
+
+  <rect class="dek" x="576" y="178" width="130" height="74" rx="8"/>
+  <text class="name" x="641" y="202">Abfragesprachen</text>
+  <text class="sub" x="641" y="221">gewünschtes Ergebnis</text>
+  <text class="ex" x="641" y="240">SQL</text>
+
+  <text class="sub" x="360" y="284">Viele Sprachen sind multiparadigmatisch: Java und Python können objektorientiert und funktional.</text>
+</svg>

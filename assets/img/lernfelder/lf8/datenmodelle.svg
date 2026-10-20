@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="dm-title dm-desc">
+  <title id="dm-title">Datenmodelle im Vergleich</title>
+  <desc id="dm-desc">Sechs Datenmodelle mit Symbol und Beispiel. Relational: Tabellen mit Zeilen und Spalten, zum Beispiel MySQL. Dokumentenorientiert: JSON-artige Dokumente, zum Beispiel MongoDB. Schlüssel-Wert: Schlüssel zeigt auf Wert, zum Beispiel Redis. Spaltenorientiert: Daten spaltenweise gespeichert, zum Beispiel Cassandra. Graph: Knoten und Kanten, zum Beispiel Neo4j. Hierarchisch: Baumstruktur, zum Beispiel Windows-Registry oder LDAP.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .card { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1.2; }
+      .name { font-weight: 700; font-size: 13px; }
+      .ex { font-size: 11.5px; fill: #495057; }
+      .ic { stroke: #0d6efd; stroke-width: 1.6; fill: #e7f1ff; }
+      .icl { stroke: #0d6efd; stroke-width: 1.6; fill: none; }
+      .mono { font-family: ui-monospace, Consolas, monospace; font-size: 11px; fill: #0d6efd; }
+    </style>
+  </defs>
+  <!-- 1 relational -->
+  <rect class="card" x="6" y="6" width="112" height="216" rx="8"/>
+  <rect class="ic" x="24" y="28" width="76" height="60"/><path class="icl" d="M24,43 H100 M24,58 H100 M24,73 H100 M49,28 V88 M75,28 V88"/>
+  <text class="name" x="62" y="118">relational</text>
+  <text class="ex" x="62" y="140">Tabellen, feste</text><text class="ex" x="62" y="155">Spalten, SQL</text>
+  <text class="ex" x="62" y="190" style="font-style:italic">MySQL, PostgreSQL</text>
+
+  <!-- 2 Dokument -->
+  <rect class="card" x="126" y="6" width="112" height="216" rx="8"/>
+  <path class="ic" d="M150,26 H200 L214,40 V92 H150 z"/>
+  <text class="mono" x="182" y="56" style="font-size:10px">{"name":</text><text class="mono" x="182" y="70" style="font-size:10px">"Kaya"}</text>
+  <text class="name" x="182" y="118">dokumenten-</text><text class="name" x="182" y="134">orientiert</text>
+  <text class="ex" x="182" y="155">JSON-Dokumente,</text><text class="ex" x="182" y="170">flexibles Schema</text>
+  <text class="ex" x="182" y="190" style="font-style:italic">MongoDB</text>
+
+  <!-- 3 Key-Value -->
+  <rect class="card" x="246" y="6" width="112" height="216" rx="8"/>
+  <rect class="ic" x="262" y="40" width="34" height="26" rx="4"/><text class="mono" x="279" y="57">key</text>
+  <path class="icl" d="M296,53 H310"/><path d="M310,49 L318,53 L310,57 z" fill="#0d6efd"/>
+  <rect class="ic" x="318" y="40" width="30" height="26" rx="4"/><text class="mono" x="333" y="57">val</text>
+  <text class="name" x="302" y="118">Schlüssel-Wert</text>
+  <text class="ex" x="302" y="140">sehr schnell,</text><text class="ex" x="302" y="155">z. B. Sessions, Cache</text>
+  <text class="ex" x="302" y="190" style="font-style:italic">Redis</text>
+
+  <!-- 4 Spalten -->
+  <rect class="card" x="366" y="6" width="112" height="216" rx="8"/>
+  <rect class="ic" x="386" y="28" width="16" height="62"/><rect class="ic" x="406" y="28" width="16" height="62"/><rect class="ic" x="426" y="28" width="16" height="62"/><rect class="ic" x="446" y="28" width="16" height="62"/>
+  <text class="name" x="422" y="118">spalten-</text><text class="name" x="422" y="134">orientiert</text>
+  <text class="ex" x="422" y="155">große Datenmengen,</text><text class="ex" x="422" y="170">Auswertungen</text>
+  <text class="ex" x="422" y="190" style="font-style:italic">Cassandra</text>
+
+  <!-- 5 Graph -->
+  <rect class="card" x="486" y="6" width="112" height="216" rx="8"/>
+  <path class="icl" d="M512,40 L560,32 M512,40 L530,82 M560,32 L576,74 M530,82 L576,74 M512,40 L576,74"/>
+  <circle class="ic" cx="512" cy="40" r="9"/><circle class="ic" cx="560" cy="32" r="9"/><circle class="ic" cx="530" cy="82" r="9"/><circle class="ic" cx="576" cy="74" r="9"/>
+  <text class="name" x="542" y="118">Graph</text>
+  <text class="ex" x="542" y="140">Knoten + Kanten,</text><text class="ex" x="542" y="155">Beziehungsnetze</text>
+  <text class="ex" x="542" y="190" style="font-style:italic">Neo4j</text>
+
+  <!-- 6 hierarchisch -->
+  <rect class="card" x="606" y="6" width="108" height="216" rx="8"/>
+  <path class="icl" d="M660,36 V50 H630 V64 M660,50 H690 V64 M630,76 V84 H620 V92 M630,84 H640 V92"/>
+  <circle class="ic" cx="660" cy="30" r="7"/><circle class="ic" cx="630" cy="70" r="7"/><circle class="ic" cx="690" cy="70" r="7"/>
+  <text class="name" x="660" y="118">hierarchisch</text>
+  <text class="ex" x="660" y="140">Baum, ein</text><text class="ex" x="660" y="155">Elternteil je Knoten</text>
+  <text class="ex" x="660" y="190" style="font-style:italic">LDAP, Registry</text>
+</svg>

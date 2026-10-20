@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="vp-title vp-desc">
+  <title id="vp-title">Vererbung und Polymorphie</title>
+  <desc id="vp-desc">UML-Klassendiagramm: Die abstrakte Klasse Fahrzeug mit dem Attribut kennzeichen und der abstrakten Methode mautProKm sowie der Methode beschreiben. Die Klassen Pkw und Lkw erben von Fahrzeug (Pfeil mit hohler Dreiecksspitze) und überschreiben mautProKm: Pkw liefert 0,05 Euro, Lkw je nach Achsen 0,20 oder 0,35 Euro. Rechts: Eine Liste vom Typ Fahrzeug enthält einen Pkw und zwei Lkw; der Aufruf beschreiben ruft zur Laufzeit jeweils die passende mautProKm-Methode auf.</desc>
+  <defs>
+    <marker id="vp-gen" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="14" markerHeight="14" orient="auto">
+      <path d="M0,0 L12,6 L0,12 z" fill="#fff" stroke="#343a40" stroke-width="1.2"/>
+    </marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .mono { font-family: ui-monospace, Consolas, "Courier New", monospace; font-size: 12px; }
+      .box { fill: #e7f1ff; stroke: #343a40; stroke-width: 1.5; }
+      .sep { stroke: #343a40; stroke-width: 1.5; }
+      .title { font-weight: 700; font-size: 14px; text-anchor: middle; }
+      .abstract { font-style: italic; }
+      .line { stroke: #343a40; stroke-width: 1.5; fill: none; }
+      .note { fill: #fff8e1; stroke: #f0ad4e; stroke-width: 1.5; }
+      .small { font-size: 12px; fill: #495057; }
+    </style>
+  </defs>
+
+  <!-- Oberklasse -->
+  <rect class="box" x="90" y="14" width="250" height="112"/>
+  <text class="small" x="215" y="32" style="text-anchor:middle">«abstract»</text>
+  <text class="title abstract" x="215" y="50">Fahrzeug</text>
+  <line class="sep" x1="90" y1="58" x2="340" y2="58"/>
+  <text class="mono" x="100" y="76"># kennzeichen: String</text>
+  <line class="sep" x1="90" y1="84" x2="340" y2="84"/>
+  <text class="mono abstract" x="100" y="101">+ mautProKm(): double</text>
+  <text class="mono" x="100" y="118">+ beschreiben(): String</text>
+
+  <!-- Unterklassen -->
+  <rect class="box" x="20" y="190" width="180" height="76"/>
+  <text class="title" x="110" y="210">Pkw</text>
+  <line class="sep" x1="20" y1="218" x2="200" y2="218"/>
+  <line class="sep" x1="20" y1="230" x2="200" y2="230"/>
+  <text class="mono" x="30" y="250">+ mautProKm(): double</text>
+
+  <rect class="box" x="230" y="190" width="180" height="88"/>
+  <text class="title" x="320" y="210">Lkw</text>
+  <line class="sep" x1="230" y1="218" x2="410" y2="218"/>
+  <text class="mono" x="240" y="234">- achsen: int</text>
+  <line class="sep" x1="230" y1="242" x2="410" y2="242"/>
+  <text class="mono" x="240" y="262">+ mautProKm(): double</text>
+
+  <path class="line" d="M110,190 V160 H215 V128" marker-end="url(#vp-gen)"/>
+  <path class="line" d="M320,190 V160 H215"/>
+
+  <!-- Polymorphie -->
+  <rect class="note" x="450" y="30" width="255" height="236" rx="8"/>
+  <text x="577" y="54" style="font-weight:700;font-size:14px;text-anchor:middle">Polymorphie zur Laufzeit</text>
+  <text class="mono" x="464" y="82">List&lt;Fahrzeug&gt; flotte =</text>
+  <text class="mono" x="476" y="100">[Pkw, Lkw(5), Lkw(2)]</text>
+  <text class="mono" x="464" y="128">for (Fahrzeug f : flotte)</text>
+  <text class="mono" x="476" y="146">f.beschreiben();</text>
+  <text class="small" x="464" y="178">Ausgabe – jeweils die passende</text>
+  <text class="small" x="464" y="194">überschriebene Methode:</text>
+  <text class="mono" x="464" y="218">Pkw  … 0.05 €/km</text>
+  <text class="mono" x="464" y="236">Lkw  … 0.35 €/km</text>
+  <text class="mono" x="464" y="254">Lkw  … 0.2 €/km</text>
+</svg>

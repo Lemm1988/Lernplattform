@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 278" role="img" aria-labelledby="vm-title vm-desc">
+  <title id="vm-title">Teststufen im V-Modell</title>
+  <desc id="vm-desc">Linker Ast von oben nach unten: Anforderungen mit Lastenheft und Pflichtenheft, Systementwurf, Architekturentwurf, Komponentenentwurf. Unten: Implementierung. Rechter Ast von unten nach oben: Komponententest mit Unit-Tests, Integrationstest für Schnittstellen, Systemtest des Gesamtsystems, Abnahmetest durch den Kunden. Jede Teststufe prüft gegen die gegenüberliegende Entwurfsstufe; die Testfälle werden schon beim Entwurf festgelegt.</desc>
+  <defs>
+    <marker id="vm-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .lft { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .rgt { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .bot { fill: #fff8e1; stroke: #f0ad4e; stroke-width: 1.4; }
+      .t { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #495057; }
+      .flow { stroke: #495057; stroke-width: 1.5; fill: none; }
+      .pair { stroke: #adb5bd; stroke-width: 1.2; stroke-dasharray: 4 4; }
+      .pl { font-size: 11px; fill: #6c757d; font-style: italic; }
+    </style>
+  </defs>
+  <!-- linker Ast -->
+  <rect class="lft" x="10" y="10" width="170" height="40" rx="6"/><text class="t" x="95" y="27">Anforderungen</text><text class="s" x="95" y="42">Lastenheft, Pflichtenheft</text>
+  <rect class="lft" x="55" y="64" width="170" height="40" rx="6"/><text class="t" x="140" y="81">Systementwurf</text><text class="s" x="140" y="96">fachlich: was soll es tun?</text>
+  <rect class="lft" x="100" y="118" width="170" height="40" rx="6"/><text class="t" x="185" y="135">Architekturentwurf</text><text class="s" x="185" y="150">technisch: Module, Schnittstellen</text>
+  <rect class="lft" x="145" y="172" width="170" height="40" rx="6"/><text class="t" x="230" y="189">Komponentenentwurf</text><text class="s" x="230" y="204">Klassen, Methoden</text>
+  <path class="flow" d="M100,50 L122,62" marker-end="url(#vm-a)"/>
+  <path class="flow" d="M145,104 L167,116" marker-end="url(#vm-a)"/>
+  <path class="flow" d="M190,158 L212,170" marker-end="url(#vm-a)"/>
+  <path class="flow" d="M250,212 L290,224" marker-end="url(#vm-a)"/>
+  <!-- unten -->
+  <rect class="bot" x="275" y="226" width="170" height="40" rx="6"/><text class="t" x="360" y="243">Implementierung</text><text class="s" x="360" y="258">Code schreiben</text>
+  <!-- rechter Ast -->
+  <rect class="rgt" x="405" y="172" width="170" height="40" rx="6"/><text class="t" x="490" y="189">Komponententest</text><text class="s" x="490" y="204">Unit-Tests, z. B. JUnit</text>
+  <rect class="rgt" x="450" y="118" width="170" height="40" rx="6"/><text class="t" x="535" y="135">Integrationstest</text><text class="s" x="535" y="150">Schnittstellen, Zusammenspiel</text>
+  <rect class="rgt" x="495" y="64" width="170" height="40" rx="6"/><text class="t" x="580" y="81">Systemtest</text><text class="s" x="580" y="96">Gesamtsystem, Testumgebung</text>
+  <rect class="rgt" x="540" y="10" width="170" height="40" rx="6"/><text class="t" x="625" y="27">Abnahmetest</text><text class="s" x="625" y="42">Kunde prüft gegen Vertrag</text>
+  <path class="flow" d="M430,226 L470,214" marker-end="url(#vm-a)"/>
+  <path class="flow" d="M530,172 L552,160" marker-end="url(#vm-a)"/>
+  <path class="flow" d="M575,118 L597,106" marker-end="url(#vm-a)"/>
+  <path class="flow" d="M620,64 L642,52" marker-end="url(#vm-a)"/>
+  <!-- Paare -->
+  <line class="pair" x1="180" y1="30" x2="540" y2="30"/>
+  <line class="pair" x1="225" y1="84" x2="495" y2="84"/>
+  <line class="pair" x1="270" y1="138" x2="450" y2="138"/>
+  <line class="pair" x1="315" y1="192" x2="405" y2="192"/>
+  <rect x="268" y="20" width="184" height="18" fill="#fff"/>
+  <text class="pl" x="360" y="33">Testfälle aus dieser Stufe ableiten</text>
+</svg>

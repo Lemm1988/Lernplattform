@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img" aria-labelledby="df-title df-desc">
+  <title id="df-title">Dieselben Kundendaten in CSV, JSON und XML</title>
+  <desc id="df-desc">Drei Spalten zeigen denselben Kunden mit Kundennummer 1001, Name Meier, Ort Köln und Umsatz 1250.50. CSV: eine Kopfzeile und eine Zeile pro Datensatz mit Semikolon als Trennzeichen; kompakt und tabellentauglich, aber ohne Datentypen und Verschachtelung. JSON: ein Array mit Objekten aus Schlüssel-Wert-Paaren; kennt Zahlen, Texte, Wahrheitswerte und null, ideal für Web-APIs, erlaubt aber keine Kommentare. XML: verschachtelte Elemente mit Start- und End-Tag und Attributen wie nr und waehrung; per XSD prüfbar, aber viel Overhead.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .card { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1.2; }
+      .head { fill: #0d6efd; }
+      .ht { fill: #fff; font-weight: 700; font-size: 14px; text-anchor: middle; }
+      .hs { fill: #e7f1ff; font-size: 11px; text-anchor: middle; }
+      .c { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
+      .k { fill: #0d6efd; }
+      .s { fill: #198754; }
+      .n { fill: #b35c00; }
+      .g { fill: #6c757d; }
+      .pro { font-size: 11.5px; fill: #198754; }
+      .con { font-size: 11.5px; fill: #b02a37; }
+    </style>
+  </defs>
+
+  <!-- CSV -->
+  <rect class="card" x="6" y="6" width="228" height="224" rx="8"/>
+  <path class="head" d="M6,14 a8,8 0 0 1 8,-8 h212 a8,8 0 0 1 8,8 v30 h-228 z"/>
+  <text class="ht" x="120" y="25">CSV</text><text class="hs" x="120" y="39">Tabelle als Text</text>
+  <text class="c k" x="18" y="68">kundennr;name;ort;umsatz</text>
+  <text class="c" x="18" y="84">1001;Meier;Köln;1250.50</text>
+  <text class="c" x="18" y="100">1002;Kaya;Bonn;980.00</text>
+  <text class="c g" x="18" y="132">Trennzeichen ; oder ,</text>
+  <text class="c g" x="18" y="148">1. Zeile = Spaltennamen</text>
+  <text class="pro" x="18" y="206">+ klein, Excel-tauglich</text>
+  <text class="con" x="18" y="222">− keine Typen, keine Hierarchie</text>
+
+  <!-- JSON -->
+  <rect class="card" x="246" y="6" width="228" height="224" rx="8"/>
+  <path class="head" d="M246,14 a8,8 0 0 1 8,-8 h212 a8,8 0 0 1 8,8 v30 h-228 z"/>
+  <text class="ht" x="360" y="25">JSON</text><text class="hs" x="360" y="39">Objekte und Arrays</text>
+  <text class="c g" x="258" y="68">[</text>
+  <text class="c g" x="272" y="83">{</text>
+  <text class="c" x="286" y="98"><tspan class="k">"kundennr"</tspan>: <tspan class="n">1001</tspan>,</text>
+  <text class="c" x="286" y="113"><tspan class="k">"name"</tspan>: <tspan class="s">"Meier"</tspan>,</text>
+  <text class="c" x="286" y="128"><tspan class="k">"ort"</tspan>: <tspan class="s">"Köln"</tspan>,</text>
+  <text class="c" x="286" y="143"><tspan class="k">"umsatz"</tspan>: <tspan class="n">1250.50</tspan></text>
+  <text class="c g" x="272" y="158">},</text>
+  <text class="c g" x="272" y="173">{ … }</text>
+  <text class="c g" x="258" y="188">]</text>
+  <text class="pro" x="258" y="206">+ Datentypen, Standard bei Web-APIs</text>
+  <text class="con" x="258" y="222">− keine Kommentare</text>
+
+  <!-- XML -->
+  <rect class="card" x="486" y="6" width="228" height="224" rx="8"/>
+  <path class="head" d="M486,14 a8,8 0 0 1 8,-8 h212 a8,8 0 0 1 8,8 v30 h-228 z"/>
+  <text class="ht" x="600" y="25">XML</text><text class="hs" x="600" y="39">Elemente und Attribute</text>
+  <text class="c k" x="498" y="68">&lt;kunden&gt;</text>
+  <text class="c" x="512" y="83"><tspan class="k">&lt;kunde</tspan> <tspan class="n">nr=</tspan><tspan class="s">"1001"</tspan><tspan class="k">&gt;</tspan></text>
+  <text class="c" x="526" y="98"><tspan class="k">&lt;name&gt;</tspan>Meier<tspan class="k">&lt;/name&gt;</tspan></text>
+  <text class="c" x="526" y="113"><tspan class="k">&lt;ort&gt;</tspan>Köln<tspan class="k">&lt;/ort&gt;</tspan></text>
+  <text class="c" x="526" y="128"><tspan class="k">&lt;umsatz</tspan> <tspan class="n">waehrung=</tspan><tspan class="s">"EUR"</tspan><tspan class="k">&gt;</tspan></text>
+  <text class="c" x="540" y="143">1250.50<tspan class="k">&lt;/umsatz&gt;</tspan></text>
+  <text class="c k" x="512" y="158">&lt;/kunde&gt;</text>
+  <text class="c g" x="512" y="173">…</text>
+  <text class="c k" x="498" y="188">&lt;/kunden&gt;</text>
+  <text class="pro" x="498" y="206">+ Attribute, Prüfung per XSD</text>
+  <text class="con" x="498" y="222">− viel Overhead, aufwendig</text>
+</svg>

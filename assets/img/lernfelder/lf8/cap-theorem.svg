@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="cap-title cap-desc">
+  <title id="cap-title">CAP-Theorem</title>
+  <desc id="cap-desc">Dreieck mit den Ecken C für Konsistenz, A für Verfügbarkeit und P für Partitionstoleranz. Ein verteiltes System kann bei einer Netzwerkstörung nicht alle drei gleichzeitig garantieren. Kante CA: nur ohne Verteilung möglich, etwa eine einzelne relationale Datenbank. Kante CP: lieber Fehler als veraltete Daten, etwa MongoDB in der Standardeinstellung oder HBase. Kante AP: immer eine Antwort, eventuell veraltet, etwa Cassandra oder CouchDB.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .edge { stroke: #adb5bd; stroke-width: 2.5; fill: none; }
+      .v { fill: #0d6efd; }
+      .vt { fill: #fff; font-weight: 700; font-size: 20px; }
+      .k { font-weight: 700; font-size: 13px; fill: #0d6efd; }
+      .x { font-size: 11.5px; fill: #495057; }
+      .dt { font-weight: 700; font-size: 13px; text-anchor: start; }
+      .dd { font-size: 12px; text-anchor: start; fill: #343a40; }
+      .box { fill: #fff8e1; stroke: #f0ad4e; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <path class="edge" d="M220,38 L80,214 L360,214 z"/>
+  <circle class="v" cx="220" cy="38" r="24"/><text class="vt" x="220" y="45">C</text>
+  <circle class="v" cx="80" cy="214" r="24"/><text class="vt" x="80" y="221">A</text>
+  <circle class="v" cx="360" cy="214" r="24"/><text class="vt" x="360" y="221">P</text>
+
+  <text class="k" x="140" y="96" style="text-anchor:end">CA</text>
+  <text class="x" x="140" y="112" style="text-anchor:end">nur ohne Verteilung</text>
+  <text class="x" x="140" y="127" style="text-anchor:end">(eine einzelne SQL-DB)</text>
+
+  <text class="k" x="300" y="96" style="text-anchor:start">CP</text>
+  <text class="x" x="300" y="112" style="text-anchor:start">lieber Fehler als veraltete</text>
+  <text class="x" x="300" y="127" style="text-anchor:start">Daten (MongoDB, HBase)</text>
+
+  <text class="k" x="220" y="244">AP</text>
+  <text class="x" x="220" y="260">immer eine Antwort, evtl. veraltet (Cassandra, CouchDB)</text>
+
+  <text class="dt" x="457" y="40">C – Consistency (Konsistenz)</text>
+  <text class="dd" x="457" y="58">Jeder Knoten liefert den neuesten Stand.</text>
+  <text class="dt" x="457" y="90">A – Availability (Verfügbarkeit)</text>
+  <text class="dd" x="457" y="108">Jede Anfrage bekommt eine Antwort.</text>
+  <text class="dt" x="457" y="140">P – Partition tolerance</text>
+  <text class="dd" x="457" y="158">System läuft weiter, auch wenn Knoten</text>
+  <text class="dd" x="457" y="174">sich gegenseitig nicht erreichen.</text>
+  <rect class="box" x="449" y="192" width="263" height="56" rx="6"/>
+  <text class="dd" x="459" y="214">Netzausfälle passieren immer → bei einer</text>
+  <text class="dd" x="459" y="232">Störung wählt das System C <tspan font-weight="700">oder</tspan> A.</text>
+</svg>

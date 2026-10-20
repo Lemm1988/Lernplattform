@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 310" role="img" aria-labelledby="ko-title ko-desc">
+  <title id="ko-title">Klasse und Objekte</title>
+  <desc id="ko-desc">Links die Klasse Konto in UML-Notation mit den privaten Attributen iban und saldo und den öffentlichen Methoden einzahlen, abheben und getSaldo. Pfeile mit der Beschriftung new führen zu drei Objekten rechts: k1, k2 und k3, jeweils vom Typ Konto mit eigener IBAN und eigenem Saldo von 100, 2500 und 0 Euro.</desc>
+  <defs>
+    <marker id="ko-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0d6efd"/>
+    </marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .mono { font-family: ui-monospace, Consolas, "Courier New", monospace; font-size: 12px; }
+      .box { fill: #fff; stroke: #343a40; stroke-width: 1.5; }
+      .cls { fill: #e7f1ff; }
+      .obj { fill: #fff8e1; }
+      .title { font-weight: 700; font-size: 14px; text-anchor: middle; }
+      .caption { font-size: 13px; font-weight: 700; text-anchor: middle; fill: #495057; }
+      .flow { stroke: #0d6efd; stroke-width: 1.8; fill: none; }
+      .label { font-size: 12px; fill: #0d6efd; font-family: ui-monospace, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <text class="caption" x="160" y="24">Klasse = Bauplan</text>
+  <rect class="box cls" x="20" y="36" width="280" height="200"/>
+  <text class="title" x="160" y="60">Konto</text>
+  <line x1="20" y1="72" x2="300" y2="72" stroke="#343a40" stroke-width="1.5"/>
+  <text class="mono" x="32" y="94">- iban: String</text>
+  <text class="mono" x="32" y="114">- saldo: double</text>
+  <line x1="20" y1="128" x2="300" y2="128" stroke="#343a40" stroke-width="1.5"/>
+  <text class="mono" x="32" y="150">+ Konto(iban: String)</text>
+  <text class="mono" x="32" y="170">+ einzahlen(betrag: double)</text>
+  <text class="mono" x="32" y="190">+ abheben(betrag: double): boolean</text>
+  <text class="mono" x="32" y="210">+ getSaldo(): double</text>
+  <text x="160" y="258" style="font-size:12px;fill:#495057;text-anchor:middle">- privat (Kapselung)   + öffentlich</text>
+
+  <text class="caption" x="565" y="24">Objekte = Instanzen</text>
+  <g>
+    <rect class="box obj" x="430" y="36" width="270" height="70" rx="4"/>
+    <text class="mono" x="444" y="56" style="text-decoration: underline; font-weight: 700">k1 : Konto</text>
+    <text class="mono" x="444" y="76">iban = "DE02…0001"</text>
+    <text class="mono" x="444" y="94">saldo = 100.0</text>
+  </g>
+  <g>
+    <rect class="box obj" x="430" y="122" width="270" height="70" rx="4"/>
+    <text class="mono" x="444" y="142" style="text-decoration: underline; font-weight: 700">k2 : Konto</text>
+    <text class="mono" x="444" y="162">iban = "DE89…3000"</text>
+    <text class="mono" x="444" y="180">saldo = 2500.0</text>
+  </g>
+  <g>
+    <rect class="box obj" x="430" y="208" width="270" height="70" rx="4"/>
+    <text class="mono" x="444" y="228" style="text-decoration: underline; font-weight: 700">k3 : Konto</text>
+    <text class="mono" x="444" y="248">iban = "DE44…7777"</text>
+    <text class="mono" x="444" y="266">saldo = 0.0</text>
+  </g>
+
+  <path class="flow" d="M300,120 C360,120 370,71 428,71" marker-end="url(#ko-arrow)"/>
+  <path class="flow" d="M300,140 C360,140 370,157 428,157" marker-end="url(#ko-arrow)"/>
+  <path class="flow" d="M300,160 C360,160 370,243 428,243" marker-end="url(#ko-arrow)"/>
+  <text class="label" x="318" y="98">new</text>
+  <text x="565" y="300" style="font-size:12px;fill:#495057;text-anchor:middle">eigene Werte je Objekt, dieselben Methoden</text>
+</svg>

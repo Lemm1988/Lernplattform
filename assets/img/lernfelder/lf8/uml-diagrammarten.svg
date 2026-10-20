@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="ud-title ud-desc">
+  <title id="ud-title">UML-Diagrammarten</title>
+  <desc id="ud-desc">UML 2.5 kennt Strukturdiagramme und Verhaltensdiagramme. Strukturdiagramme: Klassendiagramm, Objektdiagramm, Komponentendiagramm, Verteilungsdiagramm, Paketdiagramm. Verhaltensdiagramme: Anwendungsfalldiagramm, Aktivitätsdiagramm, Zustandsdiagramm sowie die Interaktionsdiagramme Sequenzdiagramm und Kommunikationsdiagramm. Die in der Abschlussprüfung besonders häufigen Diagramme sind hervorgehoben: Klassen-, Anwendungsfall-, Aktivitäts-, Sequenz- und Zustandsdiagramm.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .root { fill: #0d6efd; } .root-t { fill: #fff; font-weight: 700; font-size: 15px; }
+      .grp { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.5; }
+      .grp-t { font-weight: 700; font-size: 14px; }
+      .item { fill: #fff; stroke: #adb5bd; stroke-width: 1.2; }
+      .hot { fill: #fff3cd; stroke: #f0ad4e; stroke-width: 2; }
+      .item-t { font-size: 12.5px; }
+      .hot-t { font-size: 12.5px; font-weight: 700; }
+      .line { stroke: #6c757d; stroke-width: 1.5; fill: none; }
+      .legend { font-size: 12px; fill: #495057; text-anchor: start; }
+    </style>
+  </defs>
+  <rect class="root" x="270" y="8" width="180" height="34" rx="8"/>
+  <text class="root-t" x="360" y="30">UML 2.5</text>
+  <path class="line" d="M360,42 V56 H175 V66 M360,56 H545 V66"/>
+
+  <rect class="grp" x="20" y="66" width="310" height="34" rx="6"/>
+  <text class="grp-t" x="175" y="88">Strukturdiagramme – Was gibt es?</text>
+  <rect class="grp" x="390" y="66" width="310" height="34" rx="6"/>
+  <text class="grp-t" x="545" y="88">Verhaltensdiagramme – Was passiert?</text>
+
+  <rect class="hot" x="20" y="112" width="150" height="30" rx="5"/><text class="hot-t" x="95" y="132">Klassendiagramm</text>
+  <rect class="item" x="180" y="112" width="150" height="30" rx="5"/><text class="item-t" x="255" y="132">Objektdiagramm</text>
+  <rect class="item" x="20" y="150" width="150" height="30" rx="5"/><text class="item-t" x="95" y="170">Komponentendiagramm</text>
+  <rect class="item" x="180" y="150" width="150" height="30" rx="5"/><text class="item-t" x="255" y="170">Verteilungsdiagramm</text>
+  <rect class="item" x="20" y="188" width="150" height="30" rx="5"/><text class="item-t" x="95" y="208">Paketdiagramm</text>
+
+  <rect class="hot" x="390" y="112" width="150" height="30" rx="5"/><text class="hot-t" x="465" y="132">Anwendungsfall</text>
+  <rect class="hot" x="550" y="112" width="150" height="30" rx="5"/><text class="hot-t" x="625" y="132">Aktivitätsdiagramm</text>
+  <rect class="hot" x="390" y="150" width="150" height="30" rx="5"/><text class="hot-t" x="465" y="170">Zustandsdiagramm</text>
+  <rect class="grp" x="550" y="150" width="150" height="68" rx="5"/>
+  <text class="item-t" x="625" y="166" style="font-style:italic">Interaktion:</text>
+  <rect class="hot" x="560" y="172" width="130" height="20" rx="4"/><text class="hot-t" x="625" y="186">Sequenzdiagramm</text>
+  <text class="item-t" x="625" y="210">Kommunikationsdiagr.</text>
+
+  <rect class="hot" x="20" y="238" width="22" height="16" rx="3"/>
+  <text class="legend" x="50" y="251">besonders prüfungsrelevant (AP2)</text>
+</svg>
