@@ -13,6 +13,17 @@ if (!defined('DB_HOST')) {
         }
     }
 }
+
+// Seite wurde direkt als Skript gestartet (z. B. mit dem ▷-Knopf "PHP-Datei ausführen" in VS Code)
+// statt über den Webserver – dann gibt es weder Session noch Browser. Klaren Hinweis statt HTML ausgeben.
+if (PHP_SAPI === 'cli') {
+    echo PHP_EOL . 'Das ist eine Webseite und muss über den Webserver aufgerufen werden.' . PHP_EOL
+        . 'So startest du die Lernplattform in VS Code:' . PHP_EOL
+        . '  - Strg+Umschalt+B (Task "Lernplattform starten") oder' . PHP_EOL
+        . '  - F5 bzw. links "Ausführen und Debuggen" -> "Lernplattform starten"' . PHP_EOL
+        . 'Danach im Browser: http://localhost:8000' . PHP_EOL . PHP_EOL;
+    exit(1);
+}
 ?>
 <?php
 // Website-Titel dynamisch aus settings laden (falls nicht schon gesetzt)
@@ -58,7 +69,7 @@ if (!isset($site_description_value)) {
     <script src="/assets/js/csrf.js"></script>
 
     <!-- Layout JavaScript für Admin-Seiten -->
-    <?php if (strpos($_SERVER['REQUEST_URI'], '/admin/') !== false): ?>
+    <?php if (strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/') !== false): ?>
     <script src="/assets/js/layout.js" defer></script>
     <?php endif; ?>
 </head>
