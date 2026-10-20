@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-labelledby="joins-title joins-desc">
+  <title id="joins-title">JOIN-Arten im Überblick</title>
+  <desc id="joins-desc">Sechs Felder mit je zwei überlappenden Kreisen: A ist die linke Tabelle, B die rechte. Blau markiert ist, was der JOIN liefert. INNER JOIN: nur die Schnittmenge. LEFT JOIN: der ganze Kreis A. RIGHT JOIN: der ganze Kreis B. FULL OUTER JOIN: beide Kreise. LEFT JOIN mit WHERE B IS NULL: nur der Teil von A ohne Schnittmenge.</desc>
+  <defs>
+    <clipPath id="joins-clip-a"><circle cx="70" cy="68" r="46"/></clipPath>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .outline { fill: none; stroke: #495057; stroke-width: 2; }
+      .hit { fill: #9ec5fe; }
+      .letter { font-size: 18px; font-weight: 700; fill: #343a40; }
+      .keyword { font-family: ui-monospace, Consolas, "Courier New", monospace; font-size: 14px; font-weight: 700; }
+      .note { font-size: 12px; fill: #495057; }
+      .panel { fill: #f8f9fa; stroke: #dee2e6; }
+    </style>
+  </defs>
+
+  <!-- 1: INNER JOIN -->
+  <g transform="translate(0,0)">
+    <rect class="panel" x="4" y="4" width="192" height="192" rx="10"/>
+    <circle class="hit" cx="130" cy="68" r="46" clip-path="url(#joins-clip-a)"/>
+    <circle class="outline" cx="70" cy="68" r="46"/><circle class="outline" cx="130" cy="68" r="46"/>
+    <text class="letter" x="48" y="74">A</text><text class="letter" x="152" y="74">B</text>
+    <text class="keyword" x="100" y="140">INNER JOIN</text>
+    <text class="note" x="100" y="160">nur Zeilen, die in A und B</text>
+    <text class="note" x="100" y="176">einen Partner haben</text>
+  </g>
+
+  <!-- 2: LEFT JOIN -->
+  <g transform="translate(200,0)">
+    <rect class="panel" x="4" y="4" width="192" height="192" rx="10"/>
+    <circle class="hit" cx="70" cy="68" r="46"/>
+    <circle class="outline" cx="70" cy="68" r="46"/><circle class="outline" cx="130" cy="68" r="46"/>
+    <text class="letter" x="48" y="74">A</text><text class="letter" x="152" y="74">B</text>
+    <text class="keyword" x="100" y="140">LEFT JOIN</text>
+    <text class="note" x="100" y="160">alle Zeilen aus A,</text>
+    <text class="note" x="100" y="176">fehlender Partner = NULL</text>
+  </g>
+
+  <!-- 3: RIGHT JOIN -->
+  <g transform="translate(400,0)">
+    <rect class="panel" x="4" y="4" width="192" height="192" rx="10"/>
+    <circle class="hit" cx="130" cy="68" r="46"/>
+    <circle class="outline" cx="70" cy="68" r="46"/><circle class="outline" cx="130" cy="68" r="46"/>
+    <text class="letter" x="48" y="74">A</text><text class="letter" x="152" y="74">B</text>
+    <text class="keyword" x="100" y="140">RIGHT JOIN</text>
+    <text class="note" x="100" y="160">alle Zeilen aus B,</text>
+    <text class="note" x="100" y="176">fehlender Partner = NULL</text>
+  </g>
+
+  <!-- 4: FULL OUTER JOIN -->
+  <g transform="translate(0,200)">
+    <rect class="panel" x="4" y="4" width="192" height="192" rx="10"/>
+    <circle class="hit" cx="70" cy="68" r="46"/><circle class="hit" cx="130" cy="68" r="46"/>
+    <circle class="outline" cx="70" cy="68" r="46"/><circle class="outline" cx="130" cy="68" r="46"/>
+    <text class="letter" x="48" y="74">A</text><text class="letter" x="152" y="74">B</text>
+    <text class="keyword" x="100" y="140">FULL OUTER JOIN</text>
+    <text class="note" x="100" y="160">alle Zeilen aus A und B</text>
+    <text class="note" x="100" y="176">(MySQL: LEFT UNION RIGHT)</text>
+  </g>
+
+  <!-- 5: Anti-Join -->
+  <g transform="translate(200,200)">
+    <rect class="panel" x="4" y="4" width="192" height="192" rx="10"/>
+    <circle class="hit" cx="70" cy="68" r="46"/>
+    <circle cx="130" cy="68" r="46" fill="#f8f9fa" clip-path="url(#joins-clip-a)"/>
+    <circle class="outline" cx="70" cy="68" r="46"/><circle class="outline" cx="130" cy="68" r="46"/>
+    <text class="letter" x="48" y="74">A</text><text class="letter" x="152" y="74">B</text>
+    <text class="keyword" x="100" y="140">LEFT JOIN … WHERE</text>
+    <text class="keyword" x="100" y="157">B.id IS NULL</text>
+    <text class="note" x="100" y="176">nur A ohne Partner</text>
+  </g>
+
+  <!-- 6: Legende -->
+  <g transform="translate(400,200)">
+    <rect class="panel" x="4" y="4" width="192" height="192" rx="10"/>
+    <text x="100" y="36" style="font-size:14px;font-weight:700">Legende</text>
+    <circle class="outline" cx="30" cy="68" r="12"/><text class="letter" x="30" y="74" style="font-size:13px">A</text>
+    <text class="note" x="52" y="65" style="text-anchor:start">linke Tabelle (FROM)</text>
+    <text class="note" x="52" y="80" style="text-anchor:start">z. B. kunde</text>
+    <circle class="outline" cx="30" cy="112" r="12"/><text class="letter" x="30" y="118" style="font-size:13px">B</text>
+    <text class="note" x="52" y="109" style="text-anchor:start">rechte Tabelle (JOIN)</text>
+    <text class="note" x="52" y="124" style="text-anchor:start">z. B. bestellung</text>
+    <rect class="hit" x="18" y="146" width="24" height="18" rx="3"/>
+    <text class="note" x="52" y="160" style="text-anchor:start">im Ergebnis enthalten</text>
+  </g>
+</svg>

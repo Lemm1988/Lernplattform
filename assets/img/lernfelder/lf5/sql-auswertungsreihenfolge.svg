@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" role="img" aria-labelledby="order-title order-desc">
+  <title id="order-title">Logische Auswertungsreihenfolge einer SELECT-Abfrage</title>
+  <desc id="order-desc">Acht Schritte in Reihenfolge: 1 FROM und JOIN verbinden die Tabellen, 2 WHERE filtert Zeilen, 3 GROUP BY bildet Gruppen, 4 HAVING filtert Gruppen, 5 SELECT berechnet Spalten und Aliase, 6 DISTINCT entfernt Duplikate, 7 ORDER BY sortiert, Aliase sind hier erlaubt, 8 LIMIT begrenzt die Anzahl.</desc>
+  <defs>
+    <marker id="order-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#0d6efd"/>
+    </marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .box { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .num { fill: #0d6efd; }
+      .numtext { fill: #fff; font-size: 13px; font-weight: 700; text-anchor: middle; }
+      .kw { font-family: ui-monospace, Consolas, "Courier New", monospace; font-size: 15px; font-weight: 700; }
+      .desc { font-size: 12px; fill: #495057; }
+      .flow { fill: none; stroke: #0d6efd; stroke-width: 2; }
+    </style>
+  </defs>
+
+  <!-- Reihe 1 -->
+  <g transform="translate(15,18)">
+    <rect class="box" width="150" height="60" rx="8"/><circle class="num" cx="18" cy="18" r="11"/><text class="numtext" x="18" y="23">1</text>
+    <text class="kw" x="36" y="24">FROM / JOIN</text><text class="desc" x="12" y="48">Tabellen verbinden</text>
+  </g>
+  <g transform="translate(195,18)">
+    <rect class="box" width="150" height="60" rx="8"/><circle class="num" cx="18" cy="18" r="11"/><text class="numtext" x="18" y="23">2</text>
+    <text class="kw" x="36" y="24">WHERE</text><text class="desc" x="12" y="48">Zeilen filtern</text>
+  </g>
+  <g transform="translate(375,18)">
+    <rect class="box" width="150" height="60" rx="8"/><circle class="num" cx="18" cy="18" r="11"/><text class="numtext" x="18" y="23">3</text>
+    <text class="kw" x="36" y="24">GROUP BY</text><text class="desc" x="12" y="48">Gruppen bilden</text>
+  </g>
+  <g transform="translate(555,18)">
+    <rect class="box" width="150" height="60" rx="8"/><circle class="num" cx="18" cy="18" r="11"/><text class="numtext" x="18" y="23">4</text>
+    <text class="kw" x="36" y="24">HAVING</text><text class="desc" x="12" y="48">Gruppen filtern</text>
+  </g>
+  <path class="flow" d="M165,48 H193" marker-end="url(#order-arrow)"/>
+  <path class="flow" d="M345,48 H373" marker-end="url(#order-arrow)"/>
+  <path class="flow" d="M525,48 H553" marker-end="url(#order-arrow)"/>
+
+  <!-- Übergang in Reihe 2 -->
+  <path class="flow" d="M630,78 V104 H90 V128" marker-end="url(#order-arrow)"/>
+
+  <!-- Reihe 2 -->
+  <g transform="translate(15,130)">
+    <rect class="box" width="150" height="60" rx="8"/><circle class="num" cx="18" cy="18" r="11"/><text class="numtext" x="18" y="23">5</text>
+    <text class="kw" x="36" y="24">SELECT</text><text class="desc" x="12" y="48">Spalten/Aliase bilden</text>
+  </g>
+  <g transform="translate(195,130)">
+    <rect class="box" width="150" height="60" rx="8"/><circle class="num" cx="18" cy="18" r="11"/><text class="numtext" x="18" y="23">6</text>
+    <text class="kw" x="36" y="24">DISTINCT</text><text class="desc" x="12" y="48">Duplikate entfernen</text>
+  </g>
+  <g transform="translate(375,130)">
+    <rect class="box" width="150" height="60" rx="8"/><circle class="num" cx="18" cy="18" r="11"/><text class="numtext" x="18" y="23">7</text>
+    <text class="kw" x="36" y="24">ORDER BY</text><text class="desc" x="12" y="48">sortieren (Alias ok)</text>
+  </g>
+  <g transform="translate(555,130)">
+    <rect class="box" width="150" height="60" rx="8"/><circle class="num" cx="18" cy="18" r="11"/><text class="numtext" x="18" y="23">8</text>
+    <text class="kw" x="36" y="24">LIMIT</text><text class="desc" x="12" y="48">Anzahl begrenzen</text>
+  </g>
+  <path class="flow" d="M165,160 H193" marker-end="url(#order-arrow)"/>
+  <path class="flow" d="M345,160 H373" marker-end="url(#order-arrow)"/>
+  <path class="flow" d="M525,160 H553" marker-end="url(#order-arrow)"/>
+</svg>

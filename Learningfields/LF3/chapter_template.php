@@ -65,12 +65,12 @@ include '../../includes/header.php';
                                     <?php endforeach; ?>
                                 </ul>
 
-                                <h5 class="mt-4">Quiz</h5>
+                                <h5 class="mt-4">Selbstkontrolle</h5>
                                 <ol>
                                     <?php foreach ($chapter['quiz'] as $question): ?>
                                         <li>
                                             <p><?= htmlspecialchars($question['question']) ?></p>
-                                            <p><strong>Lösung:</strong> <?= htmlspecialchars($question['answer']) ?></p>
+                                            <details><summary>Lösung anzeigen</summary><p class="mt-2"><?= htmlspecialchars($question['answer']) ?></p></details>
                                         </li>
                                     <?php endforeach; ?>
                                 </ol>
