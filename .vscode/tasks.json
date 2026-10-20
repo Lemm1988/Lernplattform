@@ -1,0 +1,34 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Lernplattform starten",
+            "detail": "MySQL (XAMPP) + Testdatenbank + PHP-Server auf http://localhost:8000",
+            "type": "shell",
+            "command": "powershell",
+            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/dev/start.ps1"],
+            "isBackground": true,
+            "problemMatcher": [],
+            "group": { "kind": "build", "isDefault": true },
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
+            "label": "Testdatenbank zurücksetzen und starten",
+            "detail": "Löscht lernplattform_dev und baut sie mit Demo-Daten neu auf",
+            "type": "shell",
+            "command": "powershell",
+            "args": ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", "${workspaceFolder}/dev/start.ps1", "-Reset"],
+            "isBackground": true,
+            "problemMatcher": [],
+            "presentation": { "reveal": "always", "panel": "dedicated" }
+        },
+        {
+            "label": "Tests ausführen",
+            "type": "shell",
+            "command": "C:/xampp/php/php.exe",
+            "args": ["tests/run_all_tests.php"],
+            "problemMatcher": [],
+            "group": "test"
+        }
+    ]
+}

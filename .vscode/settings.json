@@ -1,0 +1,12 @@
+{
+    "php.validate.executablePath": "C:/xampp/php/php.exe",
+    "php.executablePath": "C:/xampp/php/php.exe",
+    "files.encoding": "utf8",
+    "files.exclude": {
+        "Lerplattform - Last Backup*": true
+    },
+    "search.exclude": {
+        "Lerplattform - Last Backup*": true,
+        "assets/js/vendor": true
+    }
+}

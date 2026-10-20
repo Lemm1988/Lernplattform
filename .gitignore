@@ -15,8 +15,10 @@ uploads/**
 Lerplattform - Last Backup*/
 *.zip
 
-# Editor / Betriebssystem
-.vscode/
+# Editor / Betriebssystem (gemeinsame VS-Code-Tasks bleiben im Repo)
+.vscode/*
+!.vscode/tasks.json
+!.vscode/settings.json
 .idea/
 Thumbs.db
 desktop.ini
