@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 258" role="img" aria-labelledby="bin-title bin-desc">
+  <title id="bin-title">Binäre Suche nach 41</title>
+  <desc id="bin-desc">Sortiertes Array mit 15 Zahlen von 3 bis 70, Indizes 0 bis 14. Schritt 1: Bereich 0 bis 14, mitte 7 mit dem Wert 34; 34 ist kleiner als 41, also wird rechts weitergesucht. Schritt 2: Bereich 8 bis 14, mitte 11 mit 52; 52 ist größer, also links weiter. Schritt 3: Bereich 8 bis 10, mitte 9 mit 41 – gefunden nach drei Vergleichen. Die lineare Suche hätte zehn Vergleiche gebraucht.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .in { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.1; }
+      .out { fill: #f1f3f5; stroke: #dee2e6; stroke-width: 1.1; }
+      .mid { fill: #fff3e0; stroke: #fd7e14; stroke-width: 2.2; }
+      .hit { fill: #d1e7dd; stroke: #198754; stroke-width: 2.4; }
+      .v { font-size: 13px; font-weight: 600; }
+      .vo { font-size: 13px; fill: #adb5bd; }
+      .i { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; fill: #6c757d; }
+      .lab { font-weight: 700; font-size: 12.5px; text-anchor: start; }
+      .d { font-size: 12px; text-anchor: start; fill: #343a40; }
+    </style>
+  </defs>
+  <text class="lab" x="10" y="22">Index</text>
+  <text class="i" x="120" y="22">0</text>
+  <text class="i" x="160" y="22">1</text>
+  <text class="i" x="200" y="22">2</text>
+  <text class="i" x="240" y="22">3</text>
+  <text class="i" x="280" y="22">4</text>
+  <text class="i" x="320" y="22">5</text>
+  <text class="i" x="360" y="22">6</text>
+  <text class="i" x="400" y="22">7</text>
+  <text class="i" x="440" y="22">8</text>
+  <text class="i" x="480" y="22">9</text>
+  <text class="i" x="520" y="22">10</text>
+  <text class="i" x="560" y="22">11</text>
+  <text class="i" x="600" y="22">12</text>
+  <text class="i" x="640" y="22">13</text>
+  <text class="i" x="680" y="22">14</text>
+  <text class="lab" x="10" y="53">1. Schritt</text>
+  <rect class="in" x="100" y="32" width="40" height="32"/><text class="v" x="120" y="53">3</text>
+  <rect class="in" x="140" y="32" width="40" height="32"/><text class="v" x="160" y="53">8</text>
+  <rect class="in" x="180" y="32" width="40" height="32"/><text class="v" x="200" y="53">12</text>
+  <rect class="in" x="220" y="32" width="40" height="32"/><text class="v" x="240" y="53">17</text>
+  <rect class="in" x="260" y="32" width="40" height="32"/><text class="v" x="280" y="53">21</text>
+  <rect class="in" x="300" y="32" width="40" height="32"/><text class="v" x="320" y="53">25</text>
+  <rect class="in" x="340" y="32" width="40" height="32"/><text class="v" x="360" y="53">30</text>
+  <rect class="mid" x="380" y="32" width="40" height="32"/><text class="v" x="400" y="53">34</text>
+  <rect class="in" x="420" y="32" width="40" height="32"/><text class="v" x="440" y="53">38</text>
+  <rect class="in" x="460" y="32" width="40" height="32"/><text class="v" x="480" y="53">41</text>
+  <rect class="in" x="500" y="32" width="40" height="32"/><text class="v" x="520" y="53">47</text>
+  <rect class="in" x="540" y="32" width="40" height="32"/><text class="v" x="560" y="53">52</text>
+  <rect class="in" x="580" y="32" width="40" height="32"/><text class="v" x="600" y="53">58</text>
+  <rect class="in" x="620" y="32" width="40" height="32"/><text class="v" x="640" y="53">63</text>
+  <rect class="in" x="660" y="32" width="40" height="32"/><text class="v" x="680" y="53">70</text>
+  <text class="d" x="100" y="81">mitte = 7: 34 &lt; 41 → rechts weitersuchen, links = 8</text>
+  <text class="lab" x="10" y="119">2. Schritt</text>
+  <rect class="out" x="100" y="98" width="40" height="32"/><text class="vo" x="120" y="119">3</text>
+  <rect class="out" x="140" y="98" width="40" height="32"/><text class="vo" x="160" y="119">8</text>
+  <rect class="out" x="180" y="98" width="40" height="32"/><text class="vo" x="200" y="119">12</text>
+  <rect class="out" x="220" y="98" width="40" height="32"/><text class="vo" x="240" y="119">17</text>
+  <rect class="out" x="260" y="98" width="40" height="32"/><text class="vo" x="280" y="119">21</text>
+  <rect class="out" x="300" y="98" width="40" height="32"/><text class="vo" x="320" y="119">25</text>
+  <rect class="out" x="340" y="98" width="40" height="32"/><text class="vo" x="360" y="119">30</text>
+  <rect class="out" x="380" y="98" width="40" height="32"/><text class="vo" x="400" y="119">34</text>
+  <rect class="in" x="420" y="98" width="40" height="32"/><text class="v" x="440" y="119">38</text>
+  <rect class="in" x="460" y="98" width="40" height="32"/><text class="v" x="480" y="119">41</text>
+  <rect class="in" x="500" y="98" width="40" height="32"/><text class="v" x="520" y="119">47</text>
+  <rect class="mid" x="540" y="98" width="40" height="32"/><text class="v" x="560" y="119">52</text>
+  <rect class="in" x="580" y="98" width="40" height="32"/><text class="v" x="600" y="119">58</text>
+  <rect class="in" x="620" y="98" width="40" height="32"/><text class="v" x="640" y="119">63</text>
+  <rect class="in" x="660" y="98" width="40" height="32"/><text class="v" x="680" y="119">70</text>
+  <text class="d" x="100" y="147">mitte = 11: 52 &gt; 41 → links weitersuchen, rechts = 10</text>
+  <text class="lab" x="10" y="185">3. Schritt</text>
+  <rect class="out" x="100" y="164" width="40" height="32"/><text class="vo" x="120" y="185">3</text>
+  <rect class="out" x="140" y="164" width="40" height="32"/><text class="vo" x="160" y="185">8</text>
+  <rect class="out" x="180" y="164" width="40" height="32"/><text class="vo" x="200" y="185">12</text>
+  <rect class="out" x="220" y="164" width="40" height="32"/><text class="vo" x="240" y="185">17</text>
+  <rect class="out" x="260" y="164" width="40" height="32"/><text class="vo" x="280" y="185">21</text>
+  <rect class="out" x="300" y="164" width="40" height="32"/><text class="vo" x="320" y="185">25</text>
+  <rect class="out" x="340" y="164" width="40" height="32"/><text class="vo" x="360" y="185">30</text>
+  <rect class="out" x="380" y="164" width="40" height="32"/><text class="vo" x="400" y="185">34</text>
+  <rect class="in" x="420" y="164" width="40" height="32"/><text class="v" x="440" y="185">38</text>
+  <rect class="hit" x="460" y="164" width="40" height="32"/><text class="v" x="480" y="185">41</text>
+  <rect class="in" x="500" y="164" width="40" height="32"/><text class="v" x="520" y="185">47</text>
+  <rect class="out" x="540" y="164" width="40" height="32"/><text class="vo" x="560" y="185">52</text>
+  <rect class="out" x="580" y="164" width="40" height="32"/><text class="vo" x="600" y="185">58</text>
+  <rect class="out" x="620" y="164" width="40" height="32"/><text class="vo" x="640" y="185">63</text>
+  <rect class="out" x="660" y="164" width="40" height="32"/><text class="vo" x="680" y="185">70</text>
+  <text class="d" x="100" y="213">mitte = 9: 41 gefunden – nach 3 Vergleichen</text>
+  <text class="d" x="10" y="240" style="font-style:italic">Bei jedem Schritt halbiert sich der Bereich. Die lineare Suche hätte 10 Vergleiche gebraucht.</text>
+</svg>

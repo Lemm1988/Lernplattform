@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 404" role="img" aria-labelledby="md-title md-desc">
+  <title id="md-title">Maximum suchen: Programmablaufplan, Struktogramm und Pseudocode</title>
+  <desc id="md-desc">Derselbe Algorithmus in drei Darstellungen. Ablauf: Zahlen einlesen, max auf das erste Element und i auf 1 setzen. Solange i kleiner als die Länge ist: Wenn zahlen an Stelle i größer als max ist, max auf diesen Wert setzen; danach i um 1 erhöhen. Am Ende max ausgeben. Links als Programmablaufplan mit Start- und Endsymbol, Ein- und Ausgabe als Parallelogramm, Verarbeitung als Rechteck und Verzweigung als Raute; der Rücksprung bildet die Schleife. Rechts oben als Struktogramm mit Zählschleife und Verzweigung, rechts unten als Pseudocode.</desc>
+  <defs>
+    <marker id="md-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 13px; }
+      .e { stroke: #343a40; stroke-width: 1.4; fill: none; }
+      .term { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .io { fill: #fff8e1; stroke: #f0ad4e; stroke-width: 1.4; }
+      .op { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .dec { fill: #fff; stroke: #343a40; stroke-width: 1.4; }
+      .t { font-size: 12px; }
+      .l { font-size: 11px; fill: #495057; }
+      .sb { fill: #fff; stroke: #343a40; stroke-width: 1.4; }
+      .sk { fill: #e7f1ff; stroke: #343a40; stroke-width: 1.4; }
+      .pc { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; text-anchor: start; }
+      .kw { fill: #0d6efd; font-weight: 700; }
+    </style>
+  </defs>
+  <text class="h" x="160" y="16">Programmablaufplan (PAP)</text>
+  <text class="h" x="555" y="16">Struktogramm</text>
+
+  <g transform="translate(0,22)">
+    <!-- PAP -->
+    <ellipse class="term" cx="150" cy="19" rx="48" ry="13"/><text class="t" x="150" y="23">Start</text>
+    <path class="e" d="M150,32 V46" marker-end="url(#md-a)"/>
+    <path class="io" d="M95,48 H225 L205,76 H75 z"/><text class="t" x="150" y="66">Eingabe: zahlen</text>
+    <path class="e" d="M150,76 V88" marker-end="url(#md-a)"/>
+    <rect class="op" x="85" y="90" width="130" height="34" rx="2"/><text class="t" x="150" y="104">max ← zahlen[0]</text><text class="t" x="150" y="119">i ← 1</text>
+    <path class="e" d="M150,124 V138" marker-end="url(#md-a)"/>
+    <path class="dec" d="M150,140 L220,164 L150,188 L80,164 z"/><text class="t" x="150" y="168">i &lt; länge ?</text>
+    <path class="e" d="M150,188 V200" marker-end="url(#md-a)"/><text class="l" x="158" y="198" style="text-anchor:start">ja</text>
+    <path class="dec" d="M150,202 L230,226 L150,250 L70,226 z"/><text class="t" x="150" y="230">zahlen[i] &gt; max ?</text>
+    <path class="e" d="M150,250 V262" marker-end="url(#md-a)"/><text class="l" x="158" y="260" style="text-anchor:start">ja</text>
+    <rect class="op" x="85" y="264" width="130" height="26" rx="2"/><text class="t" x="150" y="281">max ← zahlen[i]</text>
+    <path class="e" d="M150,290 V302" marker-end="url(#md-a)"/>
+    <path class="e" d="M230,226 H246 V298 H153" marker-end="url(#md-a)"/><text class="l" x="238" y="219">nein</text>
+    <rect class="op" x="95" y="304" width="110" height="24" rx="2"/><text class="t" x="150" y="320">i ← i + 1</text>
+    <path class="e" d="M150,328 V340 H40 V131 H147" marker-end="url(#md-a)"/>
+    <path class="e" d="M220,164 H320 V286" marker-end="url(#md-a)"/><text class="l" x="236" y="157">nein</text>
+    <path class="io" d="M275,288 H375 L365,316 H265 z"/><text class="t" x="320" y="306">Ausgabe: max</text>
+    <path class="e" d="M320,316 V328" marker-end="url(#md-a)"/>
+    <ellipse class="term" cx="320" cy="343" rx="44" ry="13"/><text class="t" x="320" y="347">Ende</text>
+
+    <!-- Struktogramm -->
+    <rect class="sb" x="400" y="0" width="310" height="28"/><text class="t" x="555" y="18">Eingabe: zahlen</text>
+    <rect class="sb" x="400" y="28" width="310" height="28"/><text class="t" x="555" y="46">max ← zahlen[0]</text>
+    <rect class="sk" x="400" y="56" width="310" height="134"/><text class="t" x="555" y="75">für i ← 1 bis länge − 1</text>
+    <rect class="sk" x="424" y="84" width="286" height="46"/>
+    <path class="e" d="M424,84 L567,130 L710,84"/>
+    <text class="t" x="567" y="102">zahlen[i] &gt; max ?</text>
+    <text class="l" x="436" y="124" style="text-anchor:start">ja</text><text class="l" x="698" y="124" style="text-anchor:end">nein</text>
+    <rect class="sb" x="424" y="130" width="143" height="60"/><text class="t" x="495" y="164">max ← zahlen[i]</text>
+    <rect class="sb" x="567" y="130" width="143" height="60"/><text class="t" x="638" y="164">–</text>
+    <rect class="sb" x="400" y="190" width="310" height="28"/><text class="t" x="555" y="208">Ausgabe: max</text>
+
+    <!-- Pseudocode -->
+    <text class="h" x="555" y="246">Pseudocode</text>
+    <rect x="400" y="254" width="310" height="126" rx="6" fill="#f8f9fa" stroke="#dee2e6"/>
+    <text class="pc" x="412" y="274"><tspan class="kw">eingabe</tspan> zahlen</text>
+    <text class="pc" x="412" y="288">max ← zahlen[0]</text>
+    <text class="pc" x="412" y="302"><tspan class="kw">für</tspan> i ← 1 <tspan class="kw">bis</tspan> länge(zahlen) − 1</text>
+    <text class="pc" x="430" y="316"><tspan class="kw">wenn</tspan> zahlen[i] &gt; max <tspan class="kw">dann</tspan></text>
+    <text class="pc" x="448" y="330">max ← zahlen[i]</text>
+    <text class="pc" x="430" y="344"><tspan class="kw">ende wenn</tspan></text>
+    <text class="pc" x="412" y="358"><tspan class="kw">ende für</tspan></text>
+    <text class="pc" x="412" y="372"><tspan class="kw">ausgabe</tspan> max</text>
+  </g>
+</svg>

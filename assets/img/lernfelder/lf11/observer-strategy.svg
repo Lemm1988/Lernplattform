@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 262" role="img" aria-labelledby="os-title os-desc">
+  <title id="os-title">Klassendiagramme der Muster Observer und Strategy</title>
+  <desc id="os-desc">Links das Observer-Muster: Die Klasse Lager hält eine Liste von Beobachtern und hat die Methoden anmelden, abmelden und setBestand. Sie ist mit beliebig vielen Objekten des Interfaces Beobachter verbunden, das die Methode bestandGeaendert vorgibt. Shopanzeige und Einkauf implementieren das Interface. Rechts das Strategy-Muster: Warenkorb hat genau eine Versandstrategie und die Methoden setVersand und versandkosten. Das Interface Versandstrategie gibt kostenCent vor; Standardversand und Expressversand implementieren es. In beiden Fällen kennt die Klasse nur das Interface.</desc>
+  <defs>
+    <marker id="os-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#343a40" stroke-width="1.5"/></marker>
+    <marker id="os-t" viewBox="0 0 12 12" refX="11" refY="6" markerWidth="12" markerHeight="12" orient="auto"><path d="M1,1 L11,6 L1,11 z" fill="#fff" stroke="#343a40" stroke-width="1.3"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .box { fill: #fff; stroke: #343a40; stroke-width: 1.3; }
+      .hd { fill: #e7f1ff; stroke: #343a40; stroke-width: 1.3; }
+      .ih { fill: #fff8e1; stroke: #343a40; stroke-width: 1.3; }
+      .cn { font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .st { font-size: 10.5px; fill: #6c757d; text-anchor: middle; }
+      .m { font-size: 11px; }
+      .rel { stroke: #343a40; stroke-width: 1.3; fill: none; stroke-dasharray: 5 3; }
+      .as { stroke: #343a40; stroke-width: 1.3; fill: none; }
+      .mu { font-size: 11px; font-weight: 600; text-anchor: middle; }
+      .s { font-size: 11.5px; fill: #495057; text-anchor: middle; }
+    </style>
+  </defs>
+
+  <!-- Observer -->
+  <text class="h" x="178" y="16">Observer (Beobachter)</text>
+  <rect class="hd" x="10" y="30" width="140" height="22"/><text class="cn" x="80" y="45">Lager</text>
+  <rect class="box" x="10" y="52" width="140" height="22"/><text class="m" x="16" y="67">- beobachter : List</text>
+  <rect class="box" x="10" y="74" width="140" height="56"/>
+  <text class="m" x="16" y="89">+ anmelden(b)</text><text class="m" x="16" y="104">+ abmelden(b)</text><text class="m" x="16" y="119">+ setBestand(…)</text>
+
+  <rect class="ih" x="205" y="30" width="140" height="36"/><text class="st" x="275" y="44">«interface»</text><text class="cn" x="275" y="60">Beobachter</text>
+  <rect class="box" x="205" y="66" width="140" height="24"/><text class="m" x="211" y="82">+ bestandGeaendert(…)</text>
+  <path class="as" d="M150,60 H203" marker-end="url(#os-a)"/><text class="mu" x="194" y="54">*</text>
+
+  <rect class="hd" x="170" y="160" width="92" height="30"/><text class="cn" x="216" y="180">Shopanzeige</text>
+  <rect class="hd" x="272" y="160" width="73" height="30"/><text class="cn" x="308" y="180">Einkauf</text>
+  <path class="rel" d="M216,160 L252,91" marker-end="url(#os-t)"/>
+  <path class="rel" d="M308,160 L296,91" marker-end="url(#os-t)"/>
+  <text class="s" x="178" y="222">Das Lager kennt nur das Interface.</text>
+  <text class="s" x="178" y="238">setBestand(…) ruft bei allen angemeldeten</text>
+  <text class="s" x="178" y="254">Beobachtern bestandGeaendert(…) auf.</text>
+
+  <line x1="360" y1="8" x2="360" y2="256" stroke="#dee2e6"/>
+
+  <!-- Strategy -->
+  <text class="h" x="542" y="16">Strategy (Strategie)</text>
+  <rect class="hd" x="372" y="30" width="160" height="22"/><text class="cn" x="452" y="45">Warenkorb</text>
+  <rect class="box" x="372" y="52" width="160" height="22"/><text class="m" x="378" y="67">- versand : Versandstrategie</text>
+  <rect class="box" x="372" y="74" width="160" height="40"/>
+  <text class="m" x="378" y="89">+ setVersand(v)</text><text class="m" x="378" y="104">+ versandkosten(g) : int</text>
+
+  <rect class="ih" x="570" y="30" width="142" height="36"/><text class="st" x="641" y="44">«interface»</text><text class="cn" x="641" y="60">Versandstrategie</text>
+  <rect class="box" x="570" y="66" width="142" height="24"/><text class="m" x="576" y="82">+ kostenCent(g) : int</text>
+  <path class="as" d="M532,60 H568" marker-end="url(#os-a)"/><text class="mu" x="552" y="54">1</text>
+
+  <rect class="hd" x="500" y="160" width="104" height="30"/><text class="cn" x="552" y="180">Standardversand</text>
+  <rect class="hd" x="612" y="160" width="100" height="30"/><text class="cn" x="662" y="180">Expressversand</text>
+  <path class="rel" d="M552,160 L618,91" marker-end="url(#os-t)"/>
+  <path class="rel" d="M662,160 L662,91" marker-end="url(#os-t)"/>
+  <text class="s" x="542" y="222">Der Warenkorb kennt nur das Interface.</text>
+  <text class="s" x="542" y="238">Die Strategie ist zur Laufzeit austauschbar:</text>
+  <text class="s" x="542" y="254" style="font-family:ui-monospace,Consolas,monospace;font-size:11px">setVersand(new Expressversand())</text>
+</svg>

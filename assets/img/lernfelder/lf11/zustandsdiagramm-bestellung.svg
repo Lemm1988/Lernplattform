@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="zd-title zd-desc">
+  <title id="zd-title">Zustandsdiagramm einer Bestellung</title>
+  <desc id="zd-desc">Vom Startzustand geht es in den Zustand Neu. Das Ereignis bezahlen mit der Bedingung Rest offen bleibt in Neu; bezahlen mit der Bedingung vollständig bezahlt führt nach Bezahlt, dort wird beim Eintritt eine Rechnung gesendet. versenden führt von Bezahlt nach Versendet, zustellen von Versendet nach Zugestellt, danach endet der Automat. stornieren oder nach 14 Tagen ohne Zahlung führt von Neu nach Storniert. stornieren mit der Aktion Betrag erstatten führt von Bezahlt nach Storniert. Auch Storniert ist ein Endzustand. Aus Versendet gibt es keinen Übergang nach Storniert.</desc>
+  <defs>
+    <marker id="zd-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#212529"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .st { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .sx { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.5; }
+      .sg { fill: #d1e7dd; stroke: #198754; stroke-width: 1.5; }
+      .n { font-weight: 700; font-size: 13px; }
+      .in { font-size: 11px; fill: #495057; }
+      .tr { stroke: #212529; stroke-width: 1.4; fill: none; }
+      .l { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .ls { font-family: ui-monospace, Consolas, monospace; font-size: 11px; text-anchor: start; }
+      .card { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1.2; }
+      .ct { font-weight: 700; font-size: 12px; text-anchor: start; }
+      .cd { font-size: 11.5px; text-anchor: start; fill: #343a40; }
+    </style>
+  </defs>
+  <!-- Start -->
+  <circle cx="18" cy="70" r="7" fill="#212529"/>
+  <path class="tr" d="M25,70 H38" marker-end="url(#zd-a)"/>
+  <!-- Zustände -->
+  <rect class="st" x="40" y="48" width="110" height="44" rx="12"/><text class="n" x="95" y="75">Neu</text>
+  <rect class="st" x="290" y="40" width="140" height="60" rx="12"/><text class="n" x="360" y="64">Bezahlt</text>
+  <line x1="290" y1="72" x2="430" y2="72" stroke="#0d6efd" stroke-width="1"/><text class="in" x="360" y="89">entry / Rechnung senden</text>
+  <rect class="st" x="560" y="48" width="120" height="44" rx="12"/><text class="n" x="620" y="75">Versendet</text>
+  <rect class="sg" x="560" y="170" width="120" height="44" rx="12"/><text class="n" x="620" y="197">Zugestellt</text>
+  <rect class="sx" x="290" y="180" width="140" height="44" rx="12"/><text class="n" x="360" y="207">Storniert</text>
+  <!-- Endzustände -->
+  <circle cx="620" cy="258" r="10" fill="#fff" stroke="#212529" stroke-width="1.5"/><circle cx="620" cy="258" r="6" fill="#212529"/>
+  <circle cx="360" cy="268" r="10" fill="#fff" stroke="#212529" stroke-width="1.5"/><circle cx="360" cy="268" r="6" fill="#212529"/>
+
+  <!-- Übergänge -->
+  <path class="tr" d="M70,48 V22 H120 V46" marker-end="url(#zd-a)"/><text class="l" x="95" y="15">bezahlen [Rest offen]</text>
+  <path class="tr" d="M150,70 H288" marker-end="url(#zd-a)"/>
+  <text class="l" x="219" y="52">bezahlen(betrag)</text><text class="l" x="219" y="65">[vollständig]</text>
+  <path class="tr" d="M430,70 H558" marker-end="url(#zd-a)"/><text class="l" x="494" y="63">versenden()</text>
+  <path class="tr" d="M620,92 V168" marker-end="url(#zd-a)"/><text class="ls" x="628" y="134">zustellen()</text>
+  <path class="tr" d="M620,214 V246" marker-end="url(#zd-a)"/>
+  <path class="tr" d="M95,92 V202 H288" marker-end="url(#zd-a)"/>
+  <text class="l" x="190" y="182">stornieren()</text><text class="l" x="190" y="196">oder after(14 Tage)</text>
+  <path class="tr" d="M360,100 V178" marker-end="url(#zd-a)"/>
+  <text class="ls" x="368" y="134">stornieren()</text><text class="ls" x="368" y="148">/ Betrag erstatten</text>
+  <path class="tr" d="M360,224 V256" marker-end="url(#zd-a)"/>
+
+  <!-- Legende -->
+  <rect class="card" x="452" y="232" width="146" height="52" rx="6"/>
+  <text class="ct" x="460" y="250">Beschriftung:</text>
+  <text class="cd" x="460" y="268" style="font-family:ui-monospace,Consolas,monospace;font-size:10.5px">Ereignis [Bedingung]</text>
+  <text class="cd" x="460" y="280" style="font-family:ui-monospace,Consolas,monospace;font-size:10.5px">/ Aktion</text>
+</svg>

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="bs-title bs-desc">
+  <title id="bs-title">Binärer Suchbaum</title>
+  <desc id="bs-desc">Binärer Suchbaum mit der Wurzel 50. Links darunter 30 mit den Kindern 20 und 40, rechts 70 mit den Kindern 60 und 80. Links stehen immer kleinere, rechts größere Werte. Die Knoten 20, 40, 60 und 80 sind Blätter. Hervorgehoben ist die Suche nach 60: 50, dann rechts 70, dann links 60 – drei Vergleiche. Inorder-Durchlauf, also links, Knoten, rechts, ergibt die sortierte Folge 20 30 40 50 60 70 80. Preorder ergibt 50 30 20 40 70 60 80. Wird bereits sortiert eingefügt, entartet der Baum zu einer Liste.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .ed { stroke: #adb5bd; stroke-width: 2; }
+      .hl { stroke: #fd7e14; stroke-width: 3.5; }
+      .k { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.6; }
+      .kh { fill: #fff3e0; stroke: #fd7e14; stroke-width: 2.4; }
+      .v { font-size: 14px; font-weight: 700; }
+      .lab { font-size: 11.5px; fill: #495057; }
+      .card { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1.2; }
+      .ct { font-weight: 700; font-size: 12.5px; text-anchor: start; }
+      .cd { font-size: 12px; text-anchor: start; fill: #343a40; }
+      .cm { font-family: ui-monospace, Consolas, monospace; font-size: 12px; text-anchor: start; fill: #0d6efd; }
+    </style>
+  </defs>
+  <!-- Kanten -->
+  <line class="ed" x1="220" y1="40" x2="120" y2="110"/>
+  <line class="hl" x1="220" y1="40" x2="320" y2="110"/>
+  <line class="ed" x1="120" y1="110" x2="70" y2="180"/>
+  <line class="ed" x1="120" y1="110" x2="170" y2="180"/>
+  <line class="hl" x1="320" y1="110" x2="270" y2="180"/>
+  <line class="ed" x1="320" y1="110" x2="370" y2="180"/>
+  <!-- Knoten -->
+  <circle class="kh" cx="220" cy="40" r="20"/><text class="v" x="220" y="45">50</text>
+  <circle class="k" cx="120" cy="110" r="20"/><text class="v" x="120" y="115">30</text>
+  <circle class="kh" cx="320" cy="110" r="20"/><text class="v" x="320" y="115">70</text>
+  <circle class="k" cx="70" cy="180" r="20"/><text class="v" x="70" y="185">20</text>
+  <circle class="k" cx="170" cy="180" r="20"/><text class="v" x="170" y="185">40</text>
+  <circle class="kh" cx="270" cy="180" r="20"/><text class="v" x="270" y="185">60</text>
+  <circle class="k" cx="370" cy="180" r="20"/><text class="v" x="370" y="185">80</text>
+  <!-- Beschriftungen -->
+  <text class="lab" x="248" y="30" style="text-anchor:start">Wurzel</text>
+  <text class="lab" x="158" y="70" style="text-anchor:end">links: kleiner</text>
+  <text class="lab" x="282" y="70" style="text-anchor:start">rechts: größer</text>
+  <text class="lab" x="220" y="226">Blätter: Knoten ohne Kinder (20, 40, 60, 80)</text>
+  <text class="lab" x="220" y="242" style="fill:#fd7e14">Suche nach 60: 50 → 70 → 60</text>
+
+  <!-- Erklärungen -->
+  <rect class="card" x="430" y="8" width="282" height="234" rx="8"/>
+  <text class="ct" x="442" y="30">Inorder (links – Knoten – rechts)</text>
+  <text class="cm" x="442" y="48">20 30 40 50 60 70 80</text>
+  <text class="cd" x="442" y="64">→ liefert die Werte sortiert</text>
+  <text class="ct" x="442" y="92">Preorder (Knoten – links – rechts)</text>
+  <text class="cm" x="442" y="110">50 30 20 40 70 60 80</text>
+  <text class="ct" x="442" y="138">Suchen</text>
+  <text class="cd" x="442" y="156">Pro Ebene ein Vergleich: Höhe 3 →</text>
+  <text class="cd" x="442" y="172">höchstens 3 statt 7 Vergleiche</text>
+  <text class="ct" x="442" y="200" style="fill:#b02a37">Achtung</text>
+  <text class="cd" x="442" y="218">Sortiert eingefügt (10, 20, 30 …)</text>
+  <text class="cd" x="442" y="234">entartet der Baum zu einer Liste.</text>
+</svg>

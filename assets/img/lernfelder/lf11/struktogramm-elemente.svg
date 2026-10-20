@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 352" role="img" aria-labelledby="se-title se-desc">
+  <title id="se-title">Bausteine eines Struktogramms</title>
+  <desc id="se-desc">Sechs Grundelemente nach Nassi-Shneiderman mit dem passenden Java-Code. Sequenz: Anweisungen untereinander. Verzweigung: Bedingung im Dreieck, links der Ja-Zweig, rechts der Nein-Zweig. Fallauswahl: ein Wert entscheidet zwischen mehreren Spalten und einem Sonst-Fall. Kopfgesteuerte Schleife: Bedingung oben, der Rumpf ist eingerückt. Fußgesteuerte Schleife: Rumpf zuerst, Bedingung unten. Zählschleife: wie die kopfgesteuerte Schleife, oben steht der Zählbereich.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 13px; }
+      .b { fill: #fff; stroke: #343a40; stroke-width: 1.4; }
+      .k { fill: #e7f1ff; stroke: #343a40; stroke-width: 1.4; }
+      .ln { stroke: #343a40; stroke-width: 1.4; fill: none; }
+      .t { font-size: 12px; }
+      .s { font-size: 11px; fill: #495057; }
+      .c { font-family: ui-monospace, Consolas, monospace; font-size: 11px; fill: #0d6efd; }
+    </style>
+  </defs>
+
+  <!-- 1 Sequenz -->
+  <text class="h" x="120" y="22">Sequenz</text>
+  <rect class="b" x="10" y="34" width="220" height="28"/><text class="t" x="120" y="52">Anweisung 1</text>
+  <rect class="b" x="10" y="62" width="220" height="28"/><text class="t" x="120" y="80">Anweisung 2</text>
+  <rect class="b" x="10" y="90" width="220" height="28"/><text class="t" x="120" y="108">Anweisung 3</text>
+  <text class="c" x="120" y="156">a(); b(); c();</text>
+
+  <!-- 2 Verzweigung -->
+  <text class="h" x="357" y="22">Verzweigung</text>
+  <rect class="k" x="247" y="34" width="220" height="46"/>
+  <path class="ln" d="M247,34 L357,80 L467,34"/>
+  <text class="t" x="357" y="52">Bedingung?</text>
+  <text class="s" x="262" y="74" style="text-anchor:start">ja</text><text class="s" x="452" y="74" style="text-anchor:end">nein</text>
+  <rect class="b" x="247" y="80" width="110" height="56"/><text class="t" x="302" y="112">Anweisung A</text>
+  <rect class="b" x="357" y="80" width="110" height="56"/><text class="t" x="412" y="112">Anweisung B</text>
+  <text class="c" x="357" y="156">if (…) { A } else { B }</text>
+
+  <!-- 3 Fallauswahl -->
+  <text class="h" x="594" y="22">Fallauswahl</text>
+  <rect class="k" x="484" y="34" width="220" height="60"/>
+  <path class="ln" d="M484,34 L630,94 L704,34 M557,64 V94"/>
+  <text class="t" x="600" y="52">Wert von x</text>
+  <text class="s" x="520" y="88">1</text><text class="s" x="585" y="88">2</text><text class="s" x="670" y="88">sonst</text>
+  <rect class="b" x="484" y="94" width="73" height="42"/><text class="t" x="520" y="119">A</text>
+  <rect class="b" x="557" y="94" width="73" height="42"/><text class="t" x="593" y="119">B</text>
+  <rect class="b" x="630" y="94" width="74" height="42"/><text class="t" x="667" y="119">C</text>
+  <text class="c" x="594" y="156">switch (x) { case 1: … }</text>
+
+  <!-- 4 kopfgesteuert -->
+  <text class="h" x="120" y="186">Kopfgesteuerte Schleife</text>
+  <rect class="k" x="10" y="196" width="220" height="104"/>
+  <text class="t" x="120" y="215">solange Bedingung</text>
+  <rect class="b" x="34" y="224" width="196" height="38"/><text class="t" x="132" y="247">Anweisung 1</text>
+  <rect class="b" x="34" y="262" width="196" height="38"/><text class="t" x="132" y="285">Anweisung 2</text>
+  <text class="c" x="120" y="326">while (…) { … }</text>
+  <text class="s" x="120" y="342">evtl. kein Durchlauf</text>
+
+  <!-- 5 fußgesteuert -->
+  <text class="h" x="357" y="186">Fußgesteuerte Schleife</text>
+  <rect class="k" x="247" y="196" width="220" height="104"/>
+  <rect class="b" x="271" y="196" width="196" height="38"/><text class="t" x="369" y="219">Anweisung 1</text>
+  <rect class="b" x="271" y="234" width="196" height="38"/><text class="t" x="369" y="257">Anweisung 2</text>
+  <text class="t" x="357" y="291">solange Bedingung</text>
+  <text class="c" x="357" y="326">do { … } while (…);</text>
+  <text class="s" x="357" y="342">mindestens ein Durchlauf</text>
+
+  <!-- 6 Zählschleife -->
+  <text class="h" x="594" y="186">Zählschleife</text>
+  <rect class="k" x="484" y="196" width="220" height="104"/>
+  <text class="t" x="594" y="215">für i ← 1 bis n</text>
+  <rect class="b" x="508" y="224" width="196" height="76"/><text class="t" x="606" y="266">Anweisungen</text>
+  <text class="c" x="594" y="326">for (int i = 1; i &lt;= n; i++)</text>
+  <text class="s" x="594" y="342">Anzahl steht vorher fest</text>
+</svg>

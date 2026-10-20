@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="ra-title ra-desc">
+  <title id="ra-title">Rekursion am Beispiel fakultaet(4)</title>
+  <desc id="ra-desc">Links der Abstieg: fakultaet(4) ruft fakultaet(3) auf, diese fakultaet(2), diese fakultaet(1). fakultaet(1) ist der Basisfall und liefert 1. Dann der Aufstieg: fakultaet(2) berechnet 2 mal 1 gleich 2, fakultaet(3) 3 mal 2 gleich 6, fakultaet(4) 4 mal 6 gleich 24. Rechts der Aufrufstapel im tiefsten Moment: vier Rahmen übereinander, oben fakultaet(1) mit n gleich 1, unten fakultaet(4) mit n gleich 4. Jeder Rahmen hat sein eigenes n. Fehlt der Basisfall, wächst der Stapel, bis ein StackOverflowError auftritt.</desc>
+  <defs>
+    <marker id="ra-d" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0d6efd"/></marker>
+    <marker id="ra-u" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#198754"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .call { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .base { fill: #d1e7dd; stroke: #198754; stroke-width: 1.6; }
+      .c { font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+      .down { stroke: #0d6efd; stroke-width: 1.6; fill: none; }
+      .up { stroke: #198754; stroke-width: 1.6; fill: none; }
+      .rv { font-family: ui-monospace, Consolas, monospace; font-size: 12px; fill: #198754; font-weight: 700; }
+      .h { font-weight: 700; font-size: 13px; }
+      .s { font-size: 11.5px; fill: #495057; }
+      .fr { fill: #fff; stroke: #343a40; stroke-width: 1.3; }
+      .frt { fill: #cfe2ff; stroke: #343a40; stroke-width: 1.3; }
+    </style>
+  </defs>
+  <text class="h" x="20" y="18">Abstieg</text><text class="h" x="356" y="18" text-anchor="end" style="fill:#198754">Aufstieg</text>
+
+  <rect class="call" x="20" y="30" width="230" height="30" rx="5"/><text class="c" x="30" y="50">fakultaet(4) = 4 * fakultaet(3)</text>
+  <rect class="call" x="50" y="78" width="230" height="30" rx="5"/><text class="c" x="60" y="98">fakultaet(3) = 3 * fakultaet(2)</text>
+  <rect class="call" x="80" y="126" width="230" height="30" rx="5"/><text class="c" x="90" y="146">fakultaet(2) = 2 * fakultaet(1)</text>
+  <rect class="base" x="110" y="174" width="230" height="30" rx="5"/><text class="c" x="120" y="194">fakultaet(1) = 1   Basisfall</text>
+
+  <path class="down" d="M36,60 V93 H48" marker-end="url(#ra-d)"/>
+  <path class="down" d="M66,108 V141 H78" marker-end="url(#ra-d)"/>
+  <path class="down" d="M96,156 V189 H108" marker-end="url(#ra-d)"/>
+
+  <path class="up" d="M340,182 H352 V141 H314" marker-end="url(#ra-u)"/><text class="rv" x="358" y="168">1</text>
+  <path class="up" d="M310,134 H322 V93 H284" marker-end="url(#ra-u)"/><text class="rv" x="328" y="120">2</text>
+  <path class="up" d="M280,86 H292 V45 H254" marker-end="url(#ra-u)"/><text class="rv" x="298" y="72">6</text>
+  <text class="rv" x="20" y="226" style="font-size:13px">Ergebnis: 24</text>
+  <text class="s" x="120" y="226">(4 · 3 · 2 · 1)</text>
+
+  <!-- Aufrufstapel -->
+  <line x1="420" y1="10" x2="420" y2="240" stroke="#dee2e6"/>
+  <text class="h" x="450" y="18">Aufrufstapel an der tiefsten Stelle</text>
+  <path d="M460,32 V204 H660 V32" stroke="#343a40" stroke-width="2" fill="none"/>
+  <rect class="frt" x="466" y="40" width="188" height="36"/><text class="c" x="476" y="62">fakultaet  n = 1</text>
+  <rect class="fr" x="466" y="80" width="188" height="36"/><text class="c" x="476" y="102">fakultaet  n = 2</text>
+  <rect class="fr" x="466" y="120" width="188" height="36"/><text class="c" x="476" y="142">fakultaet  n = 3</text>
+  <rect class="fr" x="466" y="160" width="188" height="36"/><text class="c" x="476" y="182">fakultaet  n = 4</text>
+  <text class="s" x="666" y="62">← oben</text>
+  <text class="s" x="450" y="224">Jeder Aufruf hat seinen eigenen Rahmen.</text>
+  <text class="s" x="450" y="240">Ohne Basisfall: StackOverflowError.</text>
+</svg>

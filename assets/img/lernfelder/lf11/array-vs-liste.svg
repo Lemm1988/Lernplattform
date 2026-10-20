@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img" aria-labelledby="al-title al-desc">
+  <title id="al-title">Einfügen in Array und verkettete Liste</title>
+  <desc id="al-desc">Oben ein Array mit A, C, D, E an den Indizes 0 bis 3 und einem freien Platz. Um B an Index 1 einzufügen, müssen E, D und C jeweils einen Platz nach rechts rücken; dafür ist der Zugriff über den Index sofort möglich. Unten eine verkettete Liste: kopf zeigt auf A, A auf C, C auf D, D auf null. Zum Einfügen von B wird ein neuer Knoten angelegt, A zeigt danach auf B und B auf C; die alte Verbindung von A nach C entfällt. Es werden nur zwei Zeiger geändert, aber um das zehnte Element zu finden, muss man die Liste von vorne durchlaufen.</desc>
+  <defs>
+    <marker id="al-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"/></marker>
+    <marker id="al-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#198754"/></marker>
+    <marker id="al-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#fd7e14"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: start; }
+      .cell { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .free { fill: #fff; stroke: #0d6efd; stroke-width: 1.3; stroke-dasharray: 4 3; }
+      .v { font-size: 14px; font-weight: 700; }
+      .i { font-family: ui-monospace, Consolas, monospace; font-size: 11px; fill: #6c757d; }
+      .node { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .new { fill: #d1e7dd; stroke: #198754; stroke-width: 1.6; }
+      .e { stroke: #343a40; stroke-width: 1.5; fill: none; }
+      .g { stroke: #198754; stroke-width: 2; fill: none; }
+      .old { stroke: #adb5bd; stroke-width: 1.5; stroke-dasharray: 4 3; fill: none; }
+      .sh { stroke: #fd7e14; stroke-width: 1.6; fill: none; }
+      .n { font-size: 12px; text-anchor: start; fill: #343a40; }
+      .pro { font-size: 12px; text-anchor: start; fill: #198754; }
+      .con { font-size: 12px; text-anchor: start; fill: #b02a37; }
+    </style>
+  </defs>
+  <!-- Array -->
+  <text class="h" x="10" y="18">Array: Elemente liegen direkt hintereinander</text>
+  <rect class="cell" x="20" y="44" width="50" height="36"/><text class="v" x="45" y="67">A</text>
+  <rect class="cell" x="70" y="44" width="50" height="36"/><text class="v" x="95" y="67">C</text>
+  <rect class="cell" x="120" y="44" width="50" height="36"/><text class="v" x="145" y="67">D</text>
+  <rect class="cell" x="170" y="44" width="50" height="36"/><text class="v" x="195" y="67">E</text>
+  <rect class="free" x="220" y="44" width="50" height="36"/>
+  <text class="i" x="45" y="96">0</text><text class="i" x="95" y="96">1</text><text class="i" x="145" y="96">2</text><text class="i" x="195" y="96">3</text><text class="i" x="245" y="96">4</text>
+  <path class="sh" d="M95,42 Q120,24 143,40" marker-end="url(#al-o)"/>
+  <path class="sh" d="M145,42 Q170,24 193,40" marker-end="url(#al-o)"/>
+  <path class="sh" d="M195,42 Q220,24 243,40" marker-end="url(#al-o)"/>
+  <text class="n" x="300" y="52">B an Index 1 einfügen: C, D und E rücken nach rechts.</text>
+  <text class="con" x="300" y="72">− Einfügen/Löschen in der Mitte: viel Verschieben</text>
+  <text class="pro" x="300" y="92">+ Zugriff auf zahlen[i] sofort, egal wie lang</text>
+
+  <line x1="10" y1="112" x2="710" y2="112" stroke="#dee2e6"/>
+
+  <!-- verkettete Liste -->
+  <text class="h" x="10" y="132">Verkettete Liste: jeder Knoten kennt seinen Nachfolger</text>
+  <text class="i" x="24" y="208" style="font-size:12px;fill:#343a40">kopf</text>
+  <path class="e" d="M42,204 H58" marker-end="url(#al-a)"/>
+  <rect class="node" x="60" y="186" width="46" height="34"/><rect class="node" x="106" y="186" width="24" height="34"/><text class="v" x="83" y="208">A</text><circle cx="118" cy="203" r="3.5" fill="#343a40"/>
+  <rect class="node" x="210" y="186" width="46" height="34"/><rect class="node" x="256" y="186" width="24" height="34"/><text class="v" x="233" y="208">C</text><circle cx="268" cy="203" r="3.5" fill="#343a40"/>
+  <rect class="node" x="330" y="186" width="46" height="34"/><rect class="node" x="376" y="186" width="24" height="34"/><text class="v" x="353" y="208">D</text><circle cx="388" cy="203" r="3.5" fill="#343a40"/>
+  <path class="e" d="M268,203 H328" marker-end="url(#al-a)"/>
+  <path class="e" d="M388,203 H428" marker-end="url(#al-a)"/><text class="i" x="448" y="207" style="font-size:12px">null</text>
+  <!-- alter Zeiger -->
+  <path class="old" d="M122,212 H206"/><text x="164" y="217" style="font-size:13px;fill:#b02a37;font-weight:700">✕</text>
+  <!-- neuer Knoten -->
+  <rect class="new" x="140" y="140" width="46" height="34"/><rect class="new" x="186" y="140" width="24" height="34"/><text class="v" x="163" y="162">B</text><circle cx="198" cy="157" r="3.5" fill="#198754"/>
+  <path class="g" d="M118,199 L139,166" marker-end="url(#al-g)"/>
+  <path class="g" d="M198,161 L216,184" marker-end="url(#al-g)"/>
+  <text class="n" x="480" y="160">B einfügen: neuen Knoten anlegen</text>
+  <text class="n" x="480" y="176">und nur zwei Zeiger umbiegen.</text>
+  <text class="pro" x="480" y="198">+ Einfügen/Löschen ohne Verschieben</text>
+  <text class="con" x="480" y="218">− Element Nr. i: von vorne durchlaufen</text>
+</svg>

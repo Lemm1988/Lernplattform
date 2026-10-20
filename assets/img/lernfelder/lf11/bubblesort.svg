@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 272" role="img" aria-labelledby="bu-title bu-desc">
+  <title id="bu-title">Bubble Sort Schritt für Schritt</title>
+  <desc id="bu-desc">Bubble Sort sortiert 5, 2, 9, 1, 7. Links der erste Durchlauf im Detail: 5 größer 2, tauschen; 5 größer 9, nein; 9 größer 1, tauschen; 9 größer 7, tauschen. Danach steht die 9 als größte Zahl am Ende. Rechts das Ergebnis nach jedem Durchlauf: 2 5 1 7 9, dann 2 1 5 7 9, dann 1 2 5 7 9; im vierten Durchlauf wird nicht mehr getauscht, das Verfahren endet. Der sortierte Bereich am Ende wächst pro Durchlauf um ein Element.</desc>
+  <defs><style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .c { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.2; }
+      .p { fill: #fff3e0; stroke: #fd7e14; stroke-width: 2.2; }
+      .s { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .g { fill: #f1f3f5; stroke: #adb5bd; stroke-width: 1.2; }
+      .v { font-size: 13px; font-weight: 600; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: start; }
+      .l { font-size: 12px; text-anchor: start; fill: #343a40; }
+      .lr { font-size: 12px; text-anchor: end; fill: #343a40; }
+      .n { font-size: 11.5px; fill: #495057; font-style: italic; }
+    </style></defs>
+  <text class="h" x="20" y="20">1. Durchlauf im Detail</text>
+  <rect class="c" x="20" y="34" width="36" height="30"/><text class="v" x="38" y="54">5</text>
+  <rect class="c" x="56" y="34" width="36" height="30"/><text class="v" x="74" y="54">2</text>
+  <rect class="c" x="92" y="34" width="36" height="30"/><text class="v" x="110" y="54">9</text>
+  <rect class="c" x="128" y="34" width="36" height="30"/><text class="v" x="146" y="54">1</text>
+  <rect class="c" x="164" y="34" width="36" height="30"/><text class="v" x="182" y="54">7</text>
+  <text class="l" x="214" y="54">Start</text>
+  <rect class="p" x="20" y="74" width="36" height="30"/><text class="v" x="38" y="94">2</text>
+  <rect class="p" x="56" y="74" width="36" height="30"/><text class="v" x="74" y="94">5</text>
+  <rect class="c" x="92" y="74" width="36" height="30"/><text class="v" x="110" y="94">9</text>
+  <rect class="c" x="128" y="74" width="36" height="30"/><text class="v" x="146" y="94">1</text>
+  <rect class="c" x="164" y="74" width="36" height="30"/><text class="v" x="182" y="94">7</text>
+  <text class="l" x="214" y="94">5 &gt; 2: tauschen</text>
+  <rect class="c" x="20" y="114" width="36" height="30"/><text class="v" x="38" y="134">2</text>
+  <rect class="p" x="56" y="114" width="36" height="30"/><text class="v" x="74" y="134">5</text>
+  <rect class="p" x="92" y="114" width="36" height="30"/><text class="v" x="110" y="134">9</text>
+  <rect class="c" x="128" y="114" width="36" height="30"/><text class="v" x="146" y="134">1</text>
+  <rect class="c" x="164" y="114" width="36" height="30"/><text class="v" x="182" y="134">7</text>
+  <text class="l" x="214" y="134">5 &gt; 9? nein</text>
+  <rect class="c" x="20" y="154" width="36" height="30"/><text class="v" x="38" y="174">2</text>
+  <rect class="c" x="56" y="154" width="36" height="30"/><text class="v" x="74" y="174">5</text>
+  <rect class="p" x="92" y="154" width="36" height="30"/><text class="v" x="110" y="174">1</text>
+  <rect class="p" x="128" y="154" width="36" height="30"/><text class="v" x="146" y="174">9</text>
+  <rect class="c" x="164" y="154" width="36" height="30"/><text class="v" x="182" y="174">7</text>
+  <text class="l" x="214" y="174">9 &gt; 1: tauschen</text>
+  <rect class="c" x="20" y="194" width="36" height="30"/><text class="v" x="38" y="214">2</text>
+  <rect class="c" x="56" y="194" width="36" height="30"/><text class="v" x="74" y="214">5</text>
+  <rect class="c" x="92" y="194" width="36" height="30"/><text class="v" x="110" y="214">1</text>
+  <rect class="p" x="128" y="194" width="36" height="30"/><text class="v" x="146" y="214">7</text>
+  <rect class="s" x="164" y="194" width="36" height="30"/><text class="v" x="182" y="214">9</text>
+  <text class="l" x="214" y="214">9 &gt; 7: tauschen</text>
+  <text class="n" x="170" y="248">Die größte Zahl „blubbert“ nach hinten.</text>
+  <line x1="368" y1="10" x2="368" y2="262" stroke="#dee2e6"/>
+  <text class="h" x="392" y="20">Nach jedem Durchlauf</text>
+  <text class="l" x="392" y="54">1. Durchlauf</text>
+  <rect class="c" x="482" y="34" width="36" height="30"/><text class="v" x="500" y="54">2</text>
+  <rect class="c" x="518" y="34" width="36" height="30"/><text class="v" x="536" y="54">5</text>
+  <rect class="c" x="554" y="34" width="36" height="30"/><text class="v" x="572" y="54">1</text>
+  <rect class="c" x="590" y="34" width="36" height="30"/><text class="v" x="608" y="54">7</text>
+  <rect class="s" x="626" y="34" width="36" height="30"/><text class="v" x="644" y="54">9</text>
+  <text class="l" x="392" y="94">2. Durchlauf</text>
+  <rect class="c" x="482" y="74" width="36" height="30"/><text class="v" x="500" y="94">2</text>
+  <rect class="c" x="518" y="74" width="36" height="30"/><text class="v" x="536" y="94">1</text>
+  <rect class="c" x="554" y="74" width="36" height="30"/><text class="v" x="572" y="94">5</text>
+  <rect class="s" x="590" y="74" width="36" height="30"/><text class="v" x="608" y="94">7</text>
+  <rect class="s" x="626" y="74" width="36" height="30"/><text class="v" x="644" y="94">9</text>
+  <text class="l" x="392" y="134">3. Durchlauf</text>
+  <rect class="c" x="482" y="114" width="36" height="30"/><text class="v" x="500" y="134">1</text>
+  <rect class="c" x="518" y="114" width="36" height="30"/><text class="v" x="536" y="134">2</text>
+  <rect class="s" x="554" y="114" width="36" height="30"/><text class="v" x="572" y="134">5</text>
+  <rect class="s" x="590" y="114" width="36" height="30"/><text class="v" x="608" y="134">7</text>
+  <rect class="s" x="626" y="114" width="36" height="30"/><text class="v" x="644" y="134">9</text>
+  <text class="l" x="392" y="174">4. Durchlauf</text>
+  <rect class="s" x="482" y="154" width="36" height="30"/><text class="v" x="500" y="174">1</text>
+  <rect class="s" x="518" y="154" width="36" height="30"/><text class="v" x="536" y="174">2</text>
+  <rect class="s" x="554" y="154" width="36" height="30"/><text class="v" x="572" y="174">5</text>
+  <rect class="s" x="590" y="154" width="36" height="30"/><text class="v" x="608" y="174">7</text>
+  <rect class="s" x="626" y="154" width="36" height="30"/><text class="v" x="644" y="174">9</text>
+  <text class="l" x="482" y="200">kein Tausch mehr → fertig</text>
+  <rect class="s" x="392" y="232" width="16" height="14"/><text class="l" x="414" y="244">sortierter Bereich</text>
+  <rect class="p" x="540" y="232" width="16" height="14"/><text class="l" x="562" y="244">verglichenes Paar</text>
+  <text class="n" x="540" y="264">10 Vergleiche, 5 Tauschvorgänge</text>
+</svg>

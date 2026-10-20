@@ -22,7 +22,7 @@ INSERT INTO `learning_fields` (`id`, `lf_number`, `title`, `description`, `speci
 (8,  'LF8',  'Daten systemübergreifend bereitstellen', NULL, 'all', 8),
 (9,  'LF9',  'Öffentliche Netze und Dienste', NULL, 'all', 9),
 (10, 'LF10', 'Betreuen von IT-Systemen', NULL, 'all', 10),
-(11, 'LF11', 'Entwickeln und Bereitstellen von Anwendungssystemen', NULL, 'all', 11),
+(11, 'LF11', 'Funktionalität in Anwendungen realisieren', NULL, 'all', 11),
 (12, 'LF12', 'Projektarbeit', NULL, 'all', 12);
 
 INSERT INTO `site_section_headers` (`name`, `section_type`, `icon`, `sort_order`) VALUES
@@ -48,7 +48,7 @@ INSERT INTO `site_sections` (`id`, `name`, `url_path`, `icon`, `section_type`, `
 (17, 'LF8 Daten bereitstellen',          '/Learningfields/LF8/index.php',  'bi-arrow-left-right', 'lernfelder', 8,  'admin,moderator,student'),
 (18, 'LF9 Netze & Dienste',              '/Learningfields/LF9/index.php',  'bi-globe',        'lernfelder', 9,  'admin,moderator,student'),
 (19, 'LF10 IT-Systeme betreuen',         '/Learningfields/LF10/index.php', 'bi-hdd-network',  'lernfelder', 10, 'admin,moderator,student'),
-(20, 'LF11 Anwendungssysteme',           '/Learningfields/LF11/index.php', 'bi-window-stack', 'lernfelder', 11, 'admin,moderator,student'),
+(20, 'LF11 Funktionalität realisieren', '/Learningfields/LF11/index.php', 'bi-gear-wide-connected', 'lernfelder', 11, 'admin,moderator,student'),
 (21, 'LF12 Projektarbeit',               '/Learningfields/LF12/index.php', 'bi-kanban',       'lernfelder', 12, 'admin,moderator,student'),
 (30, 'Java',               '/programming/java/java-index.php',           'bi-cup-hot',          'programmierung', 1, 'admin,moderator,student'),
 (31, 'PHP',                '/programming/php/php-index.php',             'bi-filetype-php',     'programmierung', 2, 'admin,moderator,student'),

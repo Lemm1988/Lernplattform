@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 170" role="img" aria-labelledby="sn-title sn-desc">
+  <title id="sn-title">Notation im Sequenzdiagramm</title>
+  <desc id="sn-desc">Synchrone Nachricht: durchgezogene Linie mit gefüllter Pfeilspitze, der Sender wartet auf die Antwort. Antwort: gestrichelte Linie mit offener Pfeilspitze. Asynchrone Nachricht: durchgezogene Linie mit offener Pfeilspitze, der Sender arbeitet sofort weiter. Objekterzeugung: gestrichelter Pfeil mit create auf den Objektkasten. Zerstörung: ein großes X am Ende der Lebenslinie. Kombinierte Fragmente: alt für Alternativen mit Bedingungen, opt für einen optionalen Teil, loop für Wiederholungen, par für parallele Abläufe.</desc>
+  <defs>
+    <marker id="sn-f" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#212529"/></marker>
+    <marker id="sn-o" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#212529" stroke-width="1.5"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .t { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11.5px; fill: #495057; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .msg { stroke: #212529; stroke-width: 1.5; fill: none; }
+      .ret { stroke: #212529; stroke-width: 1.4; fill: none; stroke-dasharray: 5 3; }
+      .card { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1.2; }
+      .fl { font-size: 12px; font-weight: 700; fill: #6f42c1; text-anchor: start; }
+      .fd { font-size: 11.5px; fill: #343a40; text-anchor: start; }
+    </style>
+  </defs>
+  <rect class="card" x="6" y="6" width="168" height="74" rx="6"/>
+  <text class="t" x="90" y="24">synchron</text>
+  <path class="msg" d="M26,46 H154" marker-end="url(#sn-f)"/><text class="m" x="90" y="41">aufruf()</text>
+  <text class="s" x="90" y="70">Sender wartet</text>
+
+  <rect class="card" x="184" y="6" width="168" height="74" rx="6"/>
+  <text class="t" x="268" y="24">Antwort</text>
+  <path class="ret" d="M332,46 H204" marker-end="url(#sn-o)"/><text class="m" x="268" y="41">ergebnis</text>
+  <text class="s" x="268" y="70">Rückgabewert</text>
+
+  <rect class="card" x="362" y="6" width="168" height="74" rx="6"/>
+  <text class="t" x="446" y="24">asynchron</text>
+  <path class="msg" d="M382,46 H510" marker-end="url(#sn-o)"/><text class="m" x="446" y="41">signal()</text>
+  <text class="s" x="446" y="70">Sender arbeitet weiter</text>
+
+  <rect class="card" x="540" y="6" width="174" height="74" rx="6"/>
+  <text class="t" x="627" y="24">Erzeugen / Zerstören</text>
+  <path class="ret" d="M552,48 H620" marker-end="url(#sn-o)"/><text class="m" x="584" y="42">«create»</text>
+  <rect x="621" y="36" width="44" height="22" rx="3" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.3"/><text class="m" x="643" y="51">:Obj</text>
+  <path d="M681,38 L699,56 M699,38 L681,56" stroke="#b02a37" stroke-width="2.4"/>
+  <text class="s" x="627" y="72">«create» · X = Ende</text>
+
+  <rect class="card" x="6" y="90" width="708" height="74" rx="6"/>
+  <text class="t" x="18" y="110" style="text-anchor:start">Kombinierte Fragmente (Rahmen mit Operator oben links, Bedingungen in eckigen Klammern)</text>
+  <text class="fl" x="18" y="132">alt</text><text class="fd" x="48" y="132">Alternativen: [verfügbar] … [sonst] …</text>
+  <text class="fl" x="18" y="152">opt</text><text class="fd" x="48" y="152">optionaler Teil, nur wenn [Bedingung]</text>
+  <text class="fl" x="370" y="132">loop</text><text class="fd" x="408" y="132">Wiederholung, z. B. [für jede Position]</text>
+  <text class="fl" x="370" y="152">par</text><text class="fd" x="408" y="152">Teile laufen parallel ab</text>
+</svg>
