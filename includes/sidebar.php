@@ -183,29 +183,22 @@ if (is_logged_in()) {
                     if (!isset($section['is_active'])) $section['is_active'] = 1;
                     if (!isset($section['icon'])) $section['icon'] = 'bi-link';
                     if (!isset($section['url_path'])) $section['url_path'] = '#';
-                    $is_active = false;
-                    if ($section['url_path'] === '/' && basename($_SERVER['PHP_SELF']) === 'index.php') {
-                        $is_active = true;
-                    } elseif ($section['url_path'] !== '/') {
-                        // Verbesserte aktive Seite-Erkennung für absolute Pfade
-                        $current_path = $_SERVER['REQUEST_URI'] ?? $_SERVER['PHP_SELF'];
-                        $section_path = $section['url_path'];
-                        
-                        // Normalisiere Pfade (entferne Query-Strings und führende Slashes für Vergleich)
-                        $current_path = strtok($current_path, '?');
-                        $section_path = strtok($section_path, '?');
-                        
-                        // Entferne führende Slashes für Vergleich
-                        $current_path_normalized = ltrim($current_path, '/');
-                        $section_path_normalized = ltrim($section_path, '/');
-                        
-                        // Prüfe ob der aktuelle Pfad mit dem Section-Pfad übereinstimmt
-                        // Oder ob der Dateiname übereinstimmt (für relative Pfade)
-                        if ($current_path_normalized === $section_path_normalized || 
-                            strpos($current_path_normalized, $section_path_normalized) === 0 ||
-                            basename($current_path) === basename($section_path)) {
-                            $is_active = true;
+                    // Aktive Seite erkennen. Früher genügte ein gleicher Dateiname – dann waren auf jeder
+                    // index.php-Seite alle Lernfelder und das Dashboard gleichzeitig markiert.
+                    $current_path = '/' . ltrim((string)strtok($_SERVER['REQUEST_URI'] ?? $_SERVER['PHP_SELF'], '?'), '/');
+                    $section_path = '/' . ltrim((string)strtok($section['url_path'], '?'), '/');
+                    if ($section_path === '/') {
+                        $is_active = in_array($current_path, ['/', '/index.php'], true);
+                    } else {
+                        // Ordner-Links (/news/) und Übersichtsseiten (/Learningfields/LF5/index.php) gelten auch für Unterseiten
+                        $section_dir = null;
+                        if (substr($section_path, -1) === '/') {
+                            $section_dir = $section_path;
+                        } elseif (substr($section_path, -10) === '/index.php') {
+                            $section_dir = substr($section_path, 0, -9);
                         }
+                        $is_active = $current_path === $section_path
+                            || ($section_dir !== null && strpos($current_path, $section_dir) === 0);
                     }
 ?>
     <li class="nav-item">

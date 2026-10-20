@@ -631,12 +631,19 @@ function check_login_attempts($email, $max_attempts = null, $lockout_time = null
         $lockout_time = (int)get_setting('login_lockout_time', LOGIN_LOCKOUT_TIME);
     }
 
+    // Nur FEHLGESCHLAGENE Versuche seit der letzten erfolgreichen Anmeldung zählen.
+    // Vorher zählten auch erfolgreiche Logins mit – nach 5 normalen Anmeldungen war man gesperrt.
     $stmt = $pdo->prepare("
-        SELECT COUNT(*) as attempts 
-        FROM login_attempts 
-        WHERE email = ? AND created_at > DATE_SUB(NOW(), INTERVAL ? SECOND)
+        SELECT COUNT(*) as attempts
+        FROM login_attempts
+        WHERE email = ? AND success = 0
+          AND created_at > DATE_SUB(NOW(), INTERVAL ? SECOND)
+          AND created_at > COALESCE(
+              (SELECT MAX(created_at) FROM login_attempts WHERE email = ? AND success = 1),
+              '1970-01-01'
+          )
     ");
-    $stmt->execute([$email, $lockout_time]);
+    $stmt->execute([$email, $lockout_time, $email]);
     $result = $stmt->fetch();
 
     return $result['attempts'] < $max_attempts;
