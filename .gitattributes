@@ -1,0 +1,7 @@
+# Binärdateien nie in Zeilenenden umwandeln
+*.wasm binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.pdf binary

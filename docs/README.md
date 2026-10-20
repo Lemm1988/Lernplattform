@@ -4,6 +4,27 @@
 
 Eine moderne, responsive Lernplattform für Fachinformatiker mit Quiz-System, Multiple-Choice-Unterstützung und umfassendem Content-Management.
 
+## Lokal starten
+
+Voraussetzung: [XAMPP](https://www.apachefriends.org/) unter `C:\xampp` (PHP 8.2 und MariaDB werden daraus verwendet).
+
+- **VS Code:** Projektordner öffnen und `Strg+Umschalt+B` drücken (Task „Lernplattform starten“).
+- **Ohne VS Code:** `dev\start.bat` doppelklicken.
+
+Das Skript startet bei Bedarf MySQL aus XAMPP, legt beim ersten Mal die Testdatenbank `lernplattform_dev`
+mit Beispieldaten an und öffnet <http://localhost:8000>. Andere Datenbanken in XAMPP werden nicht angefasst.
+
+| Rolle | E-Mail | Passwort |
+|-------|--------|----------|
+| Admin | admin@lernplattform.local | Admin123! |
+| Moderator | moderator@lernplattform.local | Moderator123! |
+| Schüler | schueler@lernplattform.local | Schueler123! |
+
+Testdatenbank neu aufbauen: VS Code-Task „Testdatenbank zurücksetzen und starten“ oder `dev\start.ps1 -Reset`.
+Tests: VS Code-Task „Tests ausführen“ oder `C:\xampp\php\php.exe tests\run_all_tests.php`.
+
+Änderungen vom Oktober 2026 und Anleitung zum Hochladen: [UPDATE_2026-10.md](UPDATE_2026-10.md).
+
 ## Technologie-Stack
 
 - **Backend:** PHP 8.1+, MySQL 8.0+
