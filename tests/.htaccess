@@ -1,0 +1,3 @@
+# Testdateien sind nur für die lokale Entwicklung (php tests/run_all_tests.php) – kein Webzugriff
+Order Allow,Deny
+Deny from all

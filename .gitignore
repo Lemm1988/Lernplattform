@@ -1,0 +1,22 @@
+# Lokale Einstellungen mit Zugangsdaten (Vorlage: config.local.example.php)
+config.local.php
+
+# Server-Logs – enthalten IP-Adressen (personenbezogene Daten nach DSGVO), gehören nie ins Repo
+logs/*
+!logs/.htaccess
+*.log
+*.log.gz
+
+# Von Nutzern hochgeladene Dateien
+uploads/**
+!uploads/.htaccess
+
+# Alte Backups und Archive
+Lerplattform - Last Backup*/
+*.zip
+
+# Editor / Betriebssystem
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini

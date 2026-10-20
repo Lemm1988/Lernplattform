@@ -1984,38 +1984,33 @@ function formatTextWithCode($text) {
     }
     
     try {
-        // First, format code blocks (```language\ncode\n```) with enhanced language detection
-        $formatted = preg_replace_callback('/```(\w+)?\s*\n(.*?)\n```/s', function($matches) {
-            $language = !empty($matches[1]) ? $matches[1] : detectCodeLanguage($matches[2]);
-            $code = $matches[2];
-            
-            // Use CodeFormatter for proper code formatting
-            $formattedCode = CodeFormatter::formatCode($code, $language);
-            
-            // Add data-language attribute for display
-            $formattedCode = str_replace('<pre class="code-block', '<pre data-language="' . strtoupper($language) . '" class="code-block', $formattedCode);
-            
-            return $formattedCode;
-        }, $text);
-        
-        // Then format inline code (`code`) with enhanced language detection
-        $formatted = preg_replace_callback('/`([^`]+)`/', function($matches) {
-            $code = $matches[1];
-            $language = detectCodeLanguage($code);
-            
-            // For very short code snippets, use simple formatting
-            if (strlen(trim($code)) < 3) {
-                return CodeFormatter::formatInlineCode($code, 'text');
+        // Text in Codeblöcke (```language\ncode\n```), Inline-Code (`code`) und normalen Text zerlegen.
+        // SICHERHEIT: Normaler Text wird escaped, sonst könnten eingereichte Fragen Skripte einschleusen (Stored XSS).
+        $parts = preg_split('/(```(?:\w+)?\s*\n.*?\n```|`[^`]+`)/s', $text, -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+        $formatted = '';
+
+        foreach ($parts as $part) {
+            if (preg_match('/^```(\w+)?\s*\n(.*?)\n```$/s', $part, $matches)) {
+                $language = !empty($matches[1]) ? $matches[1] : detectCodeLanguage($matches[2]);
+
+                // Use CodeFormatter for proper code formatting
+                $formattedCode = CodeFormatter::formatCode($matches[2], $language);
+
+                // Add data-language attribute for display
+                $formatted .= str_replace('<pre class="code-block', '<pre data-language="' . htmlspecialchars(strtoupper($language), ENT_QUOTES, 'UTF-8') . '" class="code-block', $formattedCode);
+            } elseif (preg_match('/^`([^`]+)`$/', $part, $matches)) {
+                $code = $matches[1];
+
+                // For very short code snippets, use simple formatting
+                $language = strlen(trim($code)) < 3 ? 'text' : detectCodeLanguage($code);
+                $formatted .= CodeFormatter::formatInlineCode($code, $language);
+            } else {
+                $formatted .= formatPlainTextSegment($part);
             }
-            
-            return CodeFormatter::formatInlineCode($code, $language);
-        }, $formatted);
-        
-        // Format any remaining unformatted code patterns
-        $formatted = formatAdditionalCodePatterns($formatted);
-        
+        }
+
         return $formatted;
-        
+
     } catch (Exception $e) {
         error_log("Error formatting text with code: " . $e->getMessage());
         return htmlspecialchars($text, ENT_QUOTES, 'UTF-8');
@@ -2023,8 +2018,27 @@ function formatTextWithCode($text) {
 }
 
 /**
+ * Escaped normalen Text (ohne Code) für die Ausgabe in Fragen und Antworten.
+ * Einfache Formatierungs-Tags OHNE Attribute (z. B. <b>, <br>, <ul>) bleiben erlaubt,
+ * alles andere (z. B. <script>, <img onerror=...>) wird als Text angezeigt.
+ *
+ * @param string $text Normaler Text ohne Codeblöcke
+ * @return string Sicheres HTML
+ */
+function formatPlainTextSegment($text) {
+    // Bereits gespeicherte Entities (z. B. aus sanitize_input) nicht doppelt kodieren
+    $decoded = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    $escaped = htmlspecialchars($decoded, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+
+    // Format any remaining unformatted code patterns
+    $escaped = formatAdditionalCodePatterns($escaped);
+
+    return preg_replace('#&lt;(/?)(b|strong|i|em|u|br|p|ul|ol|li|sub|sup)\s*/?&gt;#i', '<$1$2>', $escaped);
+}
+
+/**
  * Format additional code patterns that might not be in standard markdown format
- * 
+ *
  * @param string $text Text to process
  * @return string Formatted text
  */
@@ -2268,10 +2282,15 @@ function generate_2fa_secret() {
     return base32_encode(random_bytes(20));
 }
 
-function generate_2fa_qr_code($secret, $email) {
+/**
+ * Liefert die otpauth-URL für Authenticator-Apps.
+ * Der QR-Code wird im Browser erzeugt (assets/js/vendor/qrcode-generator), damit das
+ * 2FA-Secret nicht an einen externen QR-Code-Dienst übertragen wird.
+ */
+function generate_2fa_otpauth_url($secret, $account) {
     $issuer = get_setting('site_title', SITE_TITLE);
-    $otpauth_url = "otpauth://totp/{$issuer}:{$email}?secret={$secret}&issuer={$issuer}";
-    return "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" . urlencode($otpauth_url);
+    return 'otpauth://totp/' . rawurlencode($issuer) . ':' . rawurlencode($account)
+        . '?secret=' . rawurlencode($secret) . '&issuer=' . rawurlencode($issuer);
 }
 
 function verify_2fa_code($secret, $code) {

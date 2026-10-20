@@ -8,15 +8,15 @@ require_once '../../config.php';
 require_login();
 
 // Nur Admins und Moderatoren können Bilder hochladen
-if (!is_admin() && $_SESSION['role'] !== 'moderator') {
+if (!is_admin_or_moderator()) {
     http_response_code(403);
     echo json_encode(['error' => 'Keine Berechtigung']);
     exit;
 }
 
-// CSRF-Token prüfen (optional für AJAX-Uploads)
+// CSRF-Token prüfen (Pflicht – der News-Editor sendet ihn immer mit)
 $csrf_token = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
-if (!empty($csrf_token) && !verify_csrf_token($csrf_token)) {
+if (!verify_csrf_token($csrf_token)) {
     http_response_code(403);
     echo json_encode(['error' => 'Ungültiger CSRF-Token']);
     exit;
@@ -28,8 +28,13 @@ if (!is_dir($upload_dir)) {
     mkdir($upload_dir, 0755, true);
 }
 
-// Erlaubte Dateitypen
-$allowed_types = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+// Erlaubte Dateitypen (MIME-Type => Dateiendung)
+$allowed_types = [
+    'image/jpeg' => 'jpg',
+    'image/png'  => 'png',
+    'image/gif'  => 'gif',
+    'image/webp' => 'webp',
+];
 $max_file_size = 5 * 1024 * 1024; // 5MB
 
 // Datei prüfen
@@ -53,15 +58,16 @@ $finfo = finfo_open(FILEINFO_MIME_TYPE);
 $mime_type = finfo_file($finfo, $file['tmp_name']);
 finfo_close($finfo);
 
-if (!in_array($mime_type, $allowed_types)) {
+if (!isset($allowed_types[$mime_type]) || getimagesize($file['tmp_name']) === false) {
     http_response_code(400);
     echo json_encode(['error' => 'Dateityp nicht erlaubt']);
     exit;
 }
 
-// Dateiname generieren
-$extension = pathinfo($file['name'], PATHINFO_EXTENSION);
-$filename = uniqid() . '_' . time() . '.' . $extension;
+// Dateiname generieren – Endung aus dem geprüften MIME-Type, NIE aus dem Dateinamen des Nutzers
+// (sonst könnte ein Bild mit angehängtem PHP-Code als .php gespeichert und ausgeführt werden)
+$extension = $allowed_types[$mime_type];
+$filename = bin2hex(random_bytes(8)) . '_' . time() . '.' . $extension;
 $filepath = $upload_dir . $filename;
 
 // Datei verschieben

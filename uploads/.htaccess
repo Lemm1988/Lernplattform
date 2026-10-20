@@ -1,0 +1,6 @@
+# Upload-Ordner: hier dürfen nur Bilder/Dokumente liegen, niemals ausführbare Skripte.
+# Zweite Verteidigungslinie, falls trotz Prüfung eine Skriptdatei hochgeladen wird.
+<FilesMatch "(?i)\.(php\d?|phtml|phar|pht|phps|cgi|pl|py|sh|shtml|htaccess)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

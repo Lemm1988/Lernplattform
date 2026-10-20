@@ -107,7 +107,7 @@ include '../includes/header.php';
                             <!-- Schritt 2: QR-Code anzeigen und Code verifizieren -->
                             <?php 
                             $secret = $_SESSION['temp_2fa_secret'];
-                            $qr_code_url = generate_2fa_qr_code($secret, $_SESSION['username']);
+                            $otpauth_url = generate_2fa_otpauth_url($secret, $_SESSION['username']);
                             ?>
                             
                             <div class="text-center">
@@ -117,11 +117,20 @@ include '../includes/header.php';
                                 </p>
                                 
                                 <div class="mb-4">
-                                    <img src="<?= htmlspecialchars($qr_code_url) ?>" 
-                                         alt="2FA QR-Code" 
-                                         class="img-fluid border rounded"
-                                         style="max-width: 200px;">
+                                    <div id="qr-code-2fa" class="d-inline-block border rounded p-2 bg-white"
+                                         role="img" aria-label="2FA QR-Code"
+                                         data-otpauth="<?= htmlspecialchars($otpauth_url, ENT_QUOTES, 'UTF-8') ?>"></div>
                                 </div>
+                                <script src="/assets/js/vendor/qrcode-generator-1.4.4.js"></script>
+                                <script>
+                                    (function () {
+                                        var el = document.getElementById('qr-code-2fa');
+                                        var qr = qrcode(0, 'M');
+                                        qr.addData(el.dataset.otpauth);
+                                        qr.make();
+                                        el.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 0 });
+                                    })();
+                                </script>
                                 
                                 <div class="alert alert-info">
                                     <strong>Manueller Code:</strong><br>

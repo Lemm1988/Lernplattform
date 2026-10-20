@@ -5,11 +5,19 @@
  * IONOS-optimiert für PHP 8.1+ und MySQL 8.0
  */
 
-// Fehlerberichterstattung (für Entwicklung - in Produktion ausschalten)
+// Lokale Einstellungen (NICHT in Git, siehe config.local.example.php):
+// echte Datenbank-Zugangsdaten und APP_DEBUG für die Entwicklung
+if (file_exists(__DIR__ . '/config.local.php')) {
+    require __DIR__ . '/config.local.php';
+}
+defined('APP_DEBUG') || define('APP_DEBUG', false);
+
+// Fehlerberichterstattung: Fehler immer loggen, aber nur im Debug-Modus anzeigen
+// (angezeigte Fehler verraten Angreifern Pfade, SQL und Tabellennamen)
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+ini_set('display_errors', APP_DEBUG ? '1' : '0');
+ini_set('display_startup_errors', APP_DEBUG ? '1' : '0');
+ini_set('log_errors', '1');
 
 // Session-Konfiguration (MUSS vor session_start() stehen!)
 // Standard-Werte, werden später aus Settings überschrieben
@@ -20,12 +28,12 @@ if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.gc_maxlifetime', 3600); // Standard: 1 Stunde, wird später aus Settings geladen
 }
 
-// Datenbankverbindung - BITTE ANPASSEN!
-define('DB_HOST', 'YourDatabaseHostname'); // Datenbankhost (Platzhalter)
-define('DB_NAME', 'YourDatabaseName'); // Ihr Datenbankname (Platzhalter)
-define('DB_USER', 'YourDatabaseUser'); // Ihr Datenbankbenutzer (Platzhalter)
-define('DB_PASSWORD', 'YourDatabasePassword'); // Ihr Datenbankpasswort (Platzhalter)
-define('DB_CHARSET', 'utf8mb4');
+// Datenbankverbindung - echte Werte in config.local.php eintragen (oder hier anpassen)
+defined('DB_HOST') || define('DB_HOST', 'YourDatabaseHostname'); // Datenbankhost (Platzhalter)
+defined('DB_NAME') || define('DB_NAME', 'YourDatabaseName'); // Ihr Datenbankname (Platzhalter)
+defined('DB_USER') || define('DB_USER', 'YourDatabaseUser'); // Ihr Datenbankbenutzer (Platzhalter)
+defined('DB_PASSWORD') || define('DB_PASSWORD', 'YourDatabasePassword'); // Ihr Datenbankpasswort (Platzhalter)
+defined('DB_CHARSET') || define('DB_CHARSET', 'utf8mb4');
 
 // ============================================================================
 // WEBSITE-KONFIGURATION - FALLBACK-WERTE
@@ -95,7 +103,9 @@ try {
         ]
     );
 } catch (PDOException $e) {
-    die('Datenbankverbindung fehlgeschlagen: ' . $e->getMessage());
+    error_log('Datenbankverbindung fehlgeschlagen: ' . $e->getMessage());
+    http_response_code(500);
+    die(APP_DEBUG ? 'Datenbankverbindung fehlgeschlagen: ' . htmlspecialchars($e->getMessage()) : 'Die Seite ist gerade nicht erreichbar. Bitte versuche es später erneut.');
 }
 
 // ============================================================================

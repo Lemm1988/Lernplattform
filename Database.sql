@@ -1053,6 +1053,25 @@ ALTER TABLE `user_quiz_rewards`
   ADD CONSTRAINT `user_quiz_rewards_ibfk_2` FOREIGN KEY (`quiz_session_id`) REFERENCES `quiz_sessions` (`id`) ON DELETE CASCADE;
 COMMIT;
 
+--
+-- Fehlendes AUTO_INCREMENT ergänzen (siehe migrations/2026-10-20_auto_increment.sql)
+--
+ALTER TABLE `admin_ip_whitelist`     MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `admin_security_log`     MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `contact_messages`       MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `news_drafts`            MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `news_media`             MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `password_resets`        MODIFY `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `posts`                  MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `protected_emails`       MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `reward_points_audit`    MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `section_user_access`    MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `settings`               MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `site_section_headers`   MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `user_activity_logs`     MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `user_answer_selections` MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+ALTER TABLE `user_progress`          MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

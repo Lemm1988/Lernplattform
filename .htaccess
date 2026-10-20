@@ -46,16 +46,26 @@
 </IfModule>
 
 # Schutz sensibler Dateien
-<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak|sql)$">
+<FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak|sql|gz|db|sqlite|md|env)$">
     Order Allow,Deny
     Deny from all
 </FilesMatch>
 
-# Schutz der config.php vor direktem Zugriff
-<Files "config.php">
+<Files "Datenbankstruktur.txt">
     Order Allow,Deny
     Deny from all
 </Files>
+
+# Interne Ordner (Git, Tests, Logs, Doku, alte Backups) nie ausliefern
+<IfModule mod_alias.c>
+    RedirectMatch 404 "^/(\.git|tests|logs|Doku|docs|Lerplattform - Last Backup[^/]*)(/|$)"
+</IfModule>
+
+# Schutz der config.php vor direktem Zugriff
+<FilesMatch "^config(\.local|\.local\.example)?\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
 
 # Schutz von Backup-Dateien
 <FilesMatch "\.(bak|backup|old|orig|save|swp|tmp)$">

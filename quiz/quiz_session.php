@@ -67,17 +67,11 @@ $stmt = $pdo->prepare("SELECT *, COALESCE(question_type, 'single') as question_t
 $stmt->execute([$next_question_id]);
 $question = $stmt->fetch();
 
-// Debug: Prüfe ob Codebeispiel vorhanden ist
-if (!empty($question['code_example']) || !empty($question['code_language'])) {
-    error_log("Codebeispiel gefunden - ID: {$question['id']}, Code: " . substr($question['code_example'], 0, 50) . ", Language: {$question['code_language']}");
-}
-
-// Codebeispiel zu Fragentext hinzufügen, falls vorhanden
-if (!empty($question['code_example']) && !empty($question['code_language'])) {
+// Codebeispiel zu Fragentext hinzufügen, falls vorhanden und nicht schon beim Speichern
+// eingebettet (Einreichen/Admin-Seiten hängen den Codeblock bereits an den Fragentext an)
+if (!empty($question['code_example']) && !empty($question['code_language'])
+    && strpos($question['question_text'], '```') === false) {
     $question['question_text'] .= "\n\n```" . $question['code_language'] . "\n" . $question['code_example'] . "\n```";
-    error_log("Codebeispiel zu Fragentext hinzugefügt - Final text: " . substr($question['question_text'], -100));
-} else {
-    error_log("Kein Codebeispiel gefunden - Code: '" . $question['code_example'] . "', Language: '" . $question['code_language'] . "'");
 }
 
 // Antworten laden
@@ -107,8 +101,8 @@ if ($quiz_time_limit > 0 && $now > $started_at + $quiz_time_limit) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['answer_id']) || isset($_POST['answer_ids']))) {
-    // CSRF-Token validieren (falls verfügbar)
-    if (function_exists('validate_csrf_token') && !validate_csrf_token($_POST['csrf_token'] ?? '')) {
+    // CSRF-Token validieren
+    if (!verify_csrf_token($_POST['csrf_token'] ?? '')) {
         set_error_message('Sicherheitsfehler. Bitte versuche es erneut.');
     } else {
     try {
@@ -123,11 +117,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['answer_id']) || isse
             if (empty($selectedAnswers)) {
                 set_error_message('Bitte wähle mindestens eine Antwort.');
             } else {
+                // Antwort und Fortschritt gemeinsam speichern – nie nur halb
+                $pdo->beginTransaction();
                 $result = $answerProcessor->processAnswer($question['id'], 'multiple', $selectedAnswers, $session_id);
-                
+
                 // Fortschritt updaten
                 $pdo->prepare("UPDATE quiz_sessions SET answered_questions = answered_questions + 1, total_score = total_score + ? WHERE id = ?")
                     ->execute([$result['points_earned'], $session_id]);
+                $pdo->commit();
 
                 header("Location: quiz_session.php?session_id=$session_id");
                 exit;
@@ -139,17 +136,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['answer_id']) || isse
             if ($selected === 0) {
                 set_error_message('Bitte wähle eine Antwort.');
             } else {
+                // Antwort und Fortschritt gemeinsam speichern – nie nur halb
+                $pdo->beginTransaction();
                 $result = $answerProcessor->processAnswer($question['id'], 'single', $selected, $session_id);
-                
+
                 // Fortschritt updaten
                 $pdo->prepare("UPDATE quiz_sessions SET answered_questions = answered_questions + 1, total_score = total_score + ? WHERE id = ?")
                     ->execute([$result['points_earned'], $session_id]);
+                $pdo->commit();
 
                 header("Location: quiz_session.php?session_id=$session_id");
                 exit;
             }
         }
     } catch (Exception $e) {
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
         error_log("Quiz answer processing error: " . $e->getMessage());
         set_error_message('Ein Fehler ist aufgetreten. Bitte versuche es erneut.');
     }
@@ -157,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['answer_id']) || isse
 }
 
 // Abbrechen-Handler
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['abort_quiz'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['abort_quiz']) && verify_csrf_token($_POST['csrf_token'] ?? '')) {
     $pdo->prepare("UPDATE quiz_sessions SET status = 'abandoned' WHERE id = ?")->execute([$session_id]);
     
     if (function_exists('log_quiz_abandonment')) {
@@ -347,9 +350,7 @@ include '../includes/header.php';
                                 <form method="post">
                                     <?php
                                     // CSRF-Token hinzufügen
-                                    if (function_exists('csrf_token')) {
-                                        echo '<input type="hidden" name="csrf_token" value="' . csrf_token() . '">';
-                                    }
+                                    echo '<input type="hidden" name="csrf_token" value="' . htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') . '">';
                                     
                                     // QuestionRenderer für dynamische Anzeige verwenden
                                     echo QuestionRenderer::renderQuestion($question, $answers);
@@ -373,6 +374,7 @@ include '../includes/header.php';
                         </div>
 
                         <form method="post" class="d-inline">
+                            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>">
                             <button type="submit" name="abort_quiz" class="btn btn-danger">Quiz abbrechen</button>
                         </form>
                     </div>

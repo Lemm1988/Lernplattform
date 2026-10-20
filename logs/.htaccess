@@ -1,0 +1,3 @@
+# Logs enthalten IP-Adressen – kein Webzugriff
+Order Allow,Deny
+Deny from all
