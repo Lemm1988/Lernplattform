@@ -141,7 +141,8 @@ ServerSignature Off
     # Assets-Ordner von Hotlinking-Schutz ausnehmen
     RewriteCond %{REQUEST_URI} !^/assets/
     RewriteCond %{HTTP_REFERER} !^$
-    RewriteCond %{HTTP_REFERER} !^https?://(www\.)?YourDomain [NC]
+    # Verweis von der eigenen Domain erlaubt – verglichen mit dem aufgerufenen Host, ohne festen Domainnamen
+    RewriteCond %{HTTP_HOST}@@%{HTTP_REFERER} !^(?:www\.)?([^@]+)@@https?://(?:www\.)?\1(?::\d+)?/ [NC]
     RewriteRule \.(jpg|jpeg|png|gif)$ - [F]
 </IfModule>
 

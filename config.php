@@ -52,9 +52,10 @@ defined('DB_CHARSET') || define('DB_CHARSET', 'utf8mb4');
 // ============================================================================
 
 // Website-Konfiguration (Fallback-Werte)
-define('SITE_URL', 'https://YourDomain'); // Ihre Domain (Platzhalter)
-define('SITE_TITLE', 'Lernplattform');
-define('SITE_EMAIL', 'admin@YourDomain'); // Admin E-Mail (Platzhalter)
+// Echte Werte in config.local.php eintragen (überschreiben diese Platzhalter)
+defined('SITE_URL') || define('SITE_URL', 'https://YourDomain'); // Ihre Domain (Platzhalter)
+defined('SITE_TITLE') || define('SITE_TITLE', 'Lernplattform');
+defined('SITE_EMAIL') || define('SITE_EMAIL', 'admin@YourDomain'); // Admin E-Mail (Platzhalter)
 
 // Sicherheitseinstellungen (Fallback-Werte)
 define('CSRF_TOKEN_LENGTH', 32); // Länge des CSRF-Tokens

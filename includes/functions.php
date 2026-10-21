@@ -2271,14 +2271,13 @@ function monitor_admin_security() {
  * Prüft, ob eine E-Mail-Adresse geschützt ist
  */
 function is_protected_email($email) {
-    $protected_emails = [
-        'admin@YourDomain',
-        'your-email@YourDomain',
-        'administrator@YourDomain',
-        'root@YourDomain'
-    ];
-    
-    return in_array(strtolower($email), $protected_emails);
+    // Echte Adressen gehören in config.local.php: define('PROTECTED_EMAILS', 'a@domain.de,b@domain.de');
+    $liste = defined('PROTECTED_EMAILS')
+        ? PROTECTED_EMAILS
+        : 'admin@YourDomain,your-email@YourDomain,administrator@YourDomain,root@YourDomain';
+    $protected_emails = array_map('trim', explode(',', strtolower($liste)));
+
+    return in_array(strtolower(trim((string)$email)), $protected_emails, true);
 }
 
 /**
