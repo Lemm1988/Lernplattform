@@ -23,7 +23,7 @@ INSERT INTO `learning_fields` (`id`, `lf_number`, `title`, `description`, `speci
 (9,  'LF9',  'Öffentliche Netze und Dienste', NULL, 'all', 9),
 (10, 'LF10', 'Benutzerschnittstellen gestalten und entwickeln', NULL, 'all', 10),
 (11, 'LF11', 'Funktionalität in Anwendungen realisieren', NULL, 'all', 11),
-(12, 'LF12', 'Projektarbeit', NULL, 'all', 12);
+(12, 'LF12', 'Kundenspezifische Anwendungsentwicklung durchführen', NULL, 'all', 12);
 
 INSERT INTO `site_section_headers` (`name`, `section_type`, `icon`, `sort_order`) VALUES
 ('Übersicht',       'main',           'bi-house',            1),
@@ -49,7 +49,7 @@ INSERT INTO `site_sections` (`id`, `name`, `url_path`, `icon`, `section_type`, `
 (18, 'LF9 Netze & Dienste',              '/Learningfields/LF9/index.php',  'bi-globe',        'lernfelder', 9,  'admin,moderator,student'),
 (19, 'LF10 Benutzerschnittstellen',     '/Learningfields/LF10/index.php', 'bi-window-stack', 'lernfelder', 10, 'admin,moderator,student'),
 (20, 'LF11 Funktionalität realisieren', '/Learningfields/LF11/index.php', 'bi-gear-wide-connected', 'lernfelder', 11, 'admin,moderator,student'),
-(21, 'LF12 Projektarbeit',               '/Learningfields/LF12/index.php', 'bi-kanban',       'lernfelder', 12, 'admin,moderator,student'),
+(21, 'LF12 Kundenprojekt',              '/Learningfields/LF12/index.php', 'bi-kanban',       'lernfelder', 12, 'admin,moderator,student'),
 (30, 'Java',               '/programming/java/java-index.php',           'bi-cup-hot',          'programmierung', 1, 'admin,moderator,student'),
 (31, 'PHP',                '/programming/php/php-index.php',             'bi-filetype-php',     'programmierung', 2, 'admin,moderator,student'),
 (32, 'Python',             '/programming/python/python-index.php',       'bi-filetype-py',      'programmierung', 3, 'admin,moderator,student'),

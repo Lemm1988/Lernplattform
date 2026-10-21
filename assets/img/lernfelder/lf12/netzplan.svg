@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" role="img" aria-labelledby="np-title np-desc">
+  <title id="np-title">Netzplan der Online-Terminbuchung</title>
+  <desc id="np-desc">Vorgangsknoten-Netzplan mit sieben Vorgängen. A Analyse, Dauer 3 Tage, frühester Anfang 0, frühestes Ende 3, spätester Anfang 0, spätestes Ende 3, Gesamtpuffer 0. B Backend, Dauer 6 Tage, frühester Anfang 3, frühestes Ende 9, spätester Anfang 3, spätestes Ende 9, Gesamtpuffer 0. C Oberfläche, Dauer 5 Tage, frühester Anfang 3, frühestes Ende 8, spätester Anfang 8, spätestes Ende 13, Gesamtpuffer 5. D Kalender, Dauer 4 Tage, frühester Anfang 9, frühestes Ende 13, spätester Anfang 9, spätestes Ende 13, Gesamtpuffer 0. E Erinnerung, Dauer 2 Tage, frühester Anfang 9, frühestes Ende 11, spätester Anfang 11, spätestes Ende 13, Gesamtpuffer 2. F Tests, Dauer 3 Tage, frühester Anfang 13, frühestes Ende 16, spätester Anfang 13, spätestes Ende 16, Gesamtpuffer 0. G Einführung, Dauer 2 Tage, frühester Anfang 16, frühestes Ende 18, spätester Anfang 16, spätestes Ende 18, Gesamtpuffer 0. Projektdauer 18 Tage. Kritischer Pfad: A, B, D, F, G.</desc>
+  <defs>
+    <marker id="np-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6c757d"/></marker>
+    <marker id="np-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d63384"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .n { fill: #fff; stroke: #343a40; stroke-width: 1.3; }
+      .nk { fill: #fff3e0; stroke: #d63384; stroke-width: 2.2; }
+      .v { font-size: 12px; font-family: ui-monospace, Consolas, monospace; }
+      .nr { font-weight: 700; font-size: 13px; }
+      .b { font-size: 12px; text-anchor: start; }
+      .e { stroke: #6c757d; stroke-width: 1.5; fill: none; }
+      .ek { stroke: #d63384; stroke-width: 2.6; fill: none; }
+      .s { font-size: 11.5px; fill: #495057; text-anchor: start; }
+    </style>
+  </defs>
+  <path class="e" d="M118,153 H138 V239 H154" marker-end="url(#np-a)"/>
+  <path class="e" d="M264,79 H284 V153 H300" marker-end="url(#np-a)"/>
+  <path class="e" d="M264,239 H430 V153 H446" marker-end="url(#np-a)"/>
+  <path class="e" d="M410,153 H430 V153 H446" marker-end="url(#np-a)"/>
+  <path class="ek" d="M118,153 H138 V79 H154" marker-end="url(#np-k)"/>
+  <path class="ek" d="M264,79 H284 V43 H300" marker-end="url(#np-k)"/>
+  <path class="ek" d="M410,43 H430 V153 H446" marker-end="url(#np-k)"/>
+  <path class="ek" d="M556,153 H576 V153 H592" marker-end="url(#np-k)"/>
+  <rect class="nk" x="10" y="120" width="108" height="66" rx="3"/>
+  <line x1="10" y1="142" x2="118" y2="142" stroke="#343a40"/><line x1="10" y1="164" x2="118" y2="164" stroke="#343a40"/>
+  <line x1="46" y1="120" x2="46" y2="142" stroke="#343a40"/><line x1="82" y1="120" x2="82" y2="142" stroke="#343a40"/>
+  <line x1="46" y1="164" x2="46" y2="186" stroke="#343a40"/><line x1="82" y1="164" x2="82" y2="186" stroke="#343a40"/>
+  <line x1="32" y1="142" x2="32" y2="164" stroke="#343a40"/>
+  <text class="v" x="28" y="136">0</text><text class="v" x="64" y="136">3</text><text class="v" x="100" y="136">3</text>
+  <text class="nr" x="21" y="158">A</text><text class="b" x="38" y="158">Analyse</text>
+  <text class="v" x="28" y="180">0</text><text class="v" x="64" y="180">0</text><text class="v" x="100" y="180">3</text>
+  <rect class="nk" x="156" y="46" width="108" height="66" rx="3"/>
+  <line x1="156" y1="68" x2="264" y2="68" stroke="#343a40"/><line x1="156" y1="90" x2="264" y2="90" stroke="#343a40"/>
+  <line x1="192" y1="46" x2="192" y2="68" stroke="#343a40"/><line x1="228" y1="46" x2="228" y2="68" stroke="#343a40"/>
+  <line x1="192" y1="90" x2="192" y2="112" stroke="#343a40"/><line x1="228" y1="90" x2="228" y2="112" stroke="#343a40"/>
+  <line x1="178" y1="68" x2="178" y2="90" stroke="#343a40"/>
+  <text class="v" x="174" y="62">3</text><text class="v" x="210" y="62">6</text><text class="v" x="246" y="62">9</text>
+  <text class="nr" x="167" y="84">B</text><text class="b" x="184" y="84">Backend</text>
+  <text class="v" x="174" y="106">3</text><text class="v" x="210" y="106">0</text><text class="v" x="246" y="106">9</text>
+  <rect class="n" x="156" y="206" width="108" height="66" rx="3"/>
+  <line x1="156" y1="228" x2="264" y2="228" stroke="#343a40"/><line x1="156" y1="250" x2="264" y2="250" stroke="#343a40"/>
+  <line x1="192" y1="206" x2="192" y2="228" stroke="#343a40"/><line x1="228" y1="206" x2="228" y2="228" stroke="#343a40"/>
+  <line x1="192" y1="250" x2="192" y2="272" stroke="#343a40"/><line x1="228" y1="250" x2="228" y2="272" stroke="#343a40"/>
+  <line x1="178" y1="228" x2="178" y2="250" stroke="#343a40"/>
+  <text class="v" x="174" y="222">3</text><text class="v" x="210" y="222">5</text><text class="v" x="246" y="222">8</text>
+  <text class="nr" x="167" y="244">C</text><text class="b" x="184" y="244">Oberfläche</text>
+  <text class="v" x="174" y="266">8</text><text class="v" x="210" y="266">5</text><text class="v" x="246" y="266">13</text>
+  <rect class="nk" x="302" y="10" width="108" height="66" rx="3"/>
+  <line x1="302" y1="32" x2="410" y2="32" stroke="#343a40"/><line x1="302" y1="54" x2="410" y2="54" stroke="#343a40"/>
+  <line x1="338" y1="10" x2="338" y2="32" stroke="#343a40"/><line x1="374" y1="10" x2="374" y2="32" stroke="#343a40"/>
+  <line x1="338" y1="54" x2="338" y2="76" stroke="#343a40"/><line x1="374" y1="54" x2="374" y2="76" stroke="#343a40"/>
+  <line x1="324" y1="32" x2="324" y2="54" stroke="#343a40"/>
+  <text class="v" x="320" y="26">9</text><text class="v" x="356" y="26">4</text><text class="v" x="392" y="26">13</text>
+  <text class="nr" x="313" y="48">D</text><text class="b" x="330" y="48">Kalender</text>
+  <text class="v" x="320" y="70">9</text><text class="v" x="356" y="70">0</text><text class="v" x="392" y="70">13</text>
+  <rect class="n" x="302" y="120" width="108" height="66" rx="3"/>
+  <line x1="302" y1="142" x2="410" y2="142" stroke="#343a40"/><line x1="302" y1="164" x2="410" y2="164" stroke="#343a40"/>
+  <line x1="338" y1="120" x2="338" y2="142" stroke="#343a40"/><line x1="374" y1="120" x2="374" y2="142" stroke="#343a40"/>
+  <line x1="338" y1="164" x2="338" y2="186" stroke="#343a40"/><line x1="374" y1="164" x2="374" y2="186" stroke="#343a40"/>
+  <line x1="324" y1="142" x2="324" y2="164" stroke="#343a40"/>
+  <text class="v" x="320" y="136">9</text><text class="v" x="356" y="136">2</text><text class="v" x="392" y="136">11</text>
+  <text class="nr" x="313" y="158">E</text><text class="b" x="330" y="158">Erinnerung</text>
+  <text class="v" x="320" y="180">11</text><text class="v" x="356" y="180">2</text><text class="v" x="392" y="180">13</text>
+  <rect class="nk" x="448" y="120" width="108" height="66" rx="3"/>
+  <line x1="448" y1="142" x2="556" y2="142" stroke="#343a40"/><line x1="448" y1="164" x2="556" y2="164" stroke="#343a40"/>
+  <line x1="484" y1="120" x2="484" y2="142" stroke="#343a40"/><line x1="520" y1="120" x2="520" y2="142" stroke="#343a40"/>
+  <line x1="484" y1="164" x2="484" y2="186" stroke="#343a40"/><line x1="520" y1="164" x2="520" y2="186" stroke="#343a40"/>
+  <line x1="470" y1="142" x2="470" y2="164" stroke="#343a40"/>
+  <text class="v" x="466" y="136">13</text><text class="v" x="502" y="136">3</text><text class="v" x="538" y="136">16</text>
+  <text class="nr" x="459" y="158">F</text><text class="b" x="476" y="158">Tests</text>
+  <text class="v" x="466" y="180">13</text><text class="v" x="502" y="180">0</text><text class="v" x="538" y="180">16</text>
+  <rect class="nk" x="594" y="120" width="108" height="66" rx="3"/>
+  <line x1="594" y1="142" x2="702" y2="142" stroke="#343a40"/><line x1="594" y1="164" x2="702" y2="164" stroke="#343a40"/>
+  <line x1="630" y1="120" x2="630" y2="142" stroke="#343a40"/><line x1="666" y1="120" x2="666" y2="142" stroke="#343a40"/>
+  <line x1="630" y1="164" x2="630" y2="186" stroke="#343a40"/><line x1="666" y1="164" x2="666" y2="186" stroke="#343a40"/>
+  <line x1="616" y1="142" x2="616" y2="164" stroke="#343a40"/>
+  <text class="v" x="612" y="136">16</text><text class="v" x="648" y="136">2</text><text class="v" x="684" y="136">18</text>
+  <text class="nr" x="605" y="158">G</text><text class="b" x="622" y="158">Einführung</text>
+  <text class="v" x="612" y="180">16</text><text class="v" x="648" y="180">0</text><text class="v" x="684" y="180">18</text>
+  <rect class="n" x="10" y="284" width="108" height="66" rx="3"/>
+  <line x1="10" y1="306" x2="118" y2="306" stroke="#343a40"/><line x1="10" y1="328" x2="118" y2="328" stroke="#343a40"/>
+  <line x1="46" y1="284" x2="46" y2="306" stroke="#343a40"/><line x1="82" y1="284" x2="82" y2="306" stroke="#343a40"/>
+  <line x1="46" y1="328" x2="46" y2="350" stroke="#343a40"/><line x1="82" y1="328" x2="82" y2="350" stroke="#343a40"/>
+  <line x1="32" y1="306" x2="32" y2="328" stroke="#343a40"/>
+  <text class="v" x="28" y="300">FAZ</text><text class="v" x="64" y="300">D</text><text class="v" x="100" y="300">FEZ</text>
+  <text class="v" x="21" y="322">Nr</text><text class="b" x="38" y="322">Vorgang</text>
+  <text class="v" x="28" y="344">SAZ</text><text class="v" x="64" y="344">GP</text><text class="v" x="100" y="344">SEZ</text>
+  <text class="s" x="132" y="296">FAZ/FEZ: frühester Anfang/frühestes Ende · D: Dauer in Tagen</text>
+  <text class="s" x="132" y="314">SAZ/SEZ: spätester Anfang/spätestes Ende · GP: Gesamtpuffer</text>
+  <text class="s" x="132" y="332" style="fill:#d63384;font-weight:600">Kritischer Pfad (GP = 0): A → B → D → F → G – Projektdauer 18 Tage</text>
+  <text class="s" x="132" y="350">Zeitpunkte gezählt ab 0 (Projektstart); Freier Puffer: C = 5, E = 2 Tage</text>
+</svg>

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="pl-title pl-desc">
+  <title id="pl-title">CI/CD-Pipeline</title>
+  <desc id="pl-desc">Fünf Stufen von links nach rechts. 1 Push: Entwickler schiebt Code ins Repository. 2 Build: Abhängigkeiten installieren, Paket bauen. 3 Prüfen: Syntax, Linter, Unit-Tests, Sicherheitsscan. Diese drei Stufen bilden Continuous Integration. 4 Staging: automatisch auf eine Testumgebung ausrollen, End-to-End-Tests, fachliche Abnahme. 5 Produktion: bei Continuous Delivery nach Freigabe per Knopfdruck, bei Continuous Deployment automatisch. Schlägt eine Stufe fehl, stoppt die Pipeline und meldet den Fehler an das Team zurück.</desc>
+  <defs>
+    <marker id="pl-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"/></marker>
+    <marker id="pl-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b02a37"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .st { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .pr { fill: #d1e7dd; stroke: #198754; stroke-width: 1.6; }
+      .n { fill: #0d6efd; } .nt { fill: #fff; font-weight: 700; font-size: 11px; }
+      .t { font-weight: 700; font-size: 13px; }
+      .s { font-size: 11px; fill: #495057; }
+      .ar { stroke: #343a40; stroke-width: 1.6; fill: none; }
+      .br { stroke: #6f42c1; stroke-width: 1.4; fill: none; }
+      .bl { font-size: 12px; font-weight: 700; fill: #6f42c1; }
+    </style>
+  </defs>
+  <!-- Klammern CI / CD -->
+  <path class="br" d="M12,40 V30 H404 V40"/><text class="bl" x="208" y="22">Continuous Integration</text>
+  <path class="br" d="M12,40 V30" /><path class="br" d="M420,40 V30 H708 V40"/><text class="bl" x="564" y="22">Continuous Delivery / Deployment</text>
+
+  <rect class="st" x="12" y="48" width="122" height="96" rx="8"/><circle class="n" cx="26" cy="48" r="10"/><text class="nt" x="26" y="52">1</text>
+  <text class="t" x="73" y="74">Push</text><text class="s" x="73" y="94">Code ins</text><text class="s" x="73" y="108">Repository,</text><text class="s" x="73" y="122">Pull Request</text>
+  <rect class="st" x="148" y="48" width="122" height="96" rx="8"/><circle class="n" cx="162" cy="48" r="10"/><text class="nt" x="162" y="52">2</text>
+  <text class="t" x="209" y="74">Build</text><text class="s" x="209" y="94">Abhängigkeiten</text><text class="s" x="209" y="108">installieren,</text><text class="s" x="209" y="122">Paket bauen</text>
+  <rect class="st" x="284" y="48" width="122" height="96" rx="8"/><circle class="n" cx="298" cy="48" r="10"/><text class="nt" x="298" y="52">3</text>
+  <text class="t" x="345" y="74">Prüfen</text><text class="s" x="345" y="94">Syntax, Linter,</text><text class="s" x="345" y="108">Unit-Tests,</text><text class="s" x="345" y="122">Sicherheitsscan</text>
+  <rect class="st" x="420" y="48" width="122" height="96" rx="8"/><circle class="n" cx="434" cy="48" r="10"/><text class="nt" x="434" y="52">4</text>
+  <text class="t" x="481" y="74">Staging</text><text class="s" x="481" y="94">Testumgebung,</text><text class="s" x="481" y="108">E2E-Tests,</text><text class="s" x="481" y="122">Abnahme</text>
+  <rect class="pr" x="556" y="48" width="152" height="96" rx="8"/><circle class="n" cx="570" cy="48" r="10"/><text class="nt" x="570" y="52">5</text>
+  <text class="t" x="632" y="74">Produktion</text><text class="s" x="632" y="94">Delivery: Freigabe</text><text class="s" x="632" y="108">per Knopfdruck</text><text class="s" x="632" y="122">Deployment: automatisch</text>
+  <path class="ar" d="M134,96 H146" marker-end="url(#pl-a)"/><path class="ar" d="M270,96 H282" marker-end="url(#pl-a)"/>
+  <path class="ar" d="M406,96 H418" marker-end="url(#pl-a)"/><path class="ar" d="M542,96 H554" marker-end="url(#pl-a)"/>
+
+  <!-- Fehlerweg -->
+  <path d="M345,144 V188 H73 V148" stroke="#b02a37" stroke-width="1.6" fill="none" stroke-dasharray="6 3" marker-end="url(#pl-r)"/>
+  <path d="M481,144 V188 H345" stroke="#b02a37" stroke-width="1.6" fill="none" stroke-dasharray="6 3"/>
+  <text class="s" x="230" y="206" style="fill:#b02a37;font-weight:600">Stufe fehlgeschlagen → Pipeline stoppt, Team wird benachrichtigt</text>
+  <text class="s" x="360" y="236" style="font-style:italic">Jeder Push durchläuft dieselben Prüfungen – in der Produktion landet nur, was alle Stufen bestanden hat.</text>
+</svg>

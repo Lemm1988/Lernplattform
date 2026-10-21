@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="am-title am-desc">
+  <title id="am-title">Amortisation der Online-Terminbuchung</title>
+  <desc id="am-desc">Kumulierter Rückfluss über 36 Monate. Start bei minus 18.000 Euro Investition, danach monatlich 700 Euro Nettoersparnis. Die Linie schneidet die Nulllinie nach etwa 25,7 Monaten: Ab dann hat sich die Investition bezahlt gemacht. Nach 36 Monaten liegt der kumulierte Überschuss bei plus 7.200 Euro.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .grid { stroke: #e9ecef; stroke-width: 1; }
+      .zero { stroke: #6c757d; stroke-width: 1.2; }
+      .tick { font-size: 11px; fill: #6c757d; }
+      .ax { font-size: 11.5px; fill: #495057; }
+      .lbl { font-size: 12px; font-weight: 600; }
+      .n { font-size: 11.5px; fill: #495057; }
+    </style>
+  </defs>
+  <line class="grid" x1="80" y1="236.0" x2="640" y2="236.0"/>
+  <text class="tick" x="72" y="240.0" text-anchor="end">-18.000 €</text>
+  <line class="grid" x1="80" y1="187.1" x2="640" y2="187.1"/>
+  <text class="tick" x="72" y="191.1" text-anchor="end">-12.000 €</text>
+  <line class="grid" x1="80" y1="138.2" x2="640" y2="138.2"/>
+  <text class="tick" x="72" y="142.2" text-anchor="end">-6.000 €</text>
+  <line class="zero" x1="80" y1="89.2" x2="640" y2="89.2"/>
+  <text class="tick" x="72" y="93.2" text-anchor="end">0 €</text>
+  <line class="grid" x1="80" y1="40.3" x2="640" y2="40.3"/>
+  <text class="tick" x="72" y="44.3" text-anchor="end">6.000 €</text>
+  <text class="tick" x="80.0" y="252" text-anchor="middle">0</text>
+  <text class="tick" x="173.3" y="252" text-anchor="middle">6</text>
+  <text class="tick" x="266.7" y="252" text-anchor="middle">12</text>
+  <text class="tick" x="360.0" y="252" text-anchor="middle">18</text>
+  <text class="tick" x="453.3" y="252" text-anchor="middle">24</text>
+  <text class="tick" x="546.7" y="252" text-anchor="middle">30</text>
+  <text class="tick" x="640.0" y="252" text-anchor="middle">36</text>
+  <text class="ax" x="360" y="272" text-anchor="middle">Monate nach Go-live</text>
+  <polyline points="80.0,236.0 95.6,230.3 111.1,224.6 126.7,218.9 142.2,213.2 157.8,207.5 173.3,201.8 188.9,196.0 204.4,190.3 220.0,184.6 235.6,178.9 251.1,173.2 266.7,167.5 282.2,161.8 297.8,156.1 313.3,150.4 328.9,144.7 344.4,139.0 360.0,133.3 375.6,127.6 391.1,121.8 406.7,116.1 422.2,110.4 437.8,104.7 453.3,99.0 468.9,93.3 484.4,87.6 500.0,81.9 515.6,76.2 531.1,70.5 546.7,64.8 562.2,59.1 577.8,53.4 593.3,47.6 608.9,41.9 624.4,36.2 640.0,30.5" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+  <line x1="480.0" y1="81.2" x2="480.0" y2="97.2" stroke="#212529" stroke-width="1.5"/>
+  <circle cx="480.0" cy="89.2" r="5" fill="#2a78d6" stroke="#fff" stroke-width="2"/>
+  <text class="lbl" x="470.0" y="75.2" text-anchor="end">Break-even nach ≈ 25,7 Monaten</text>
+  <circle cx="80.0" cy="236.0" r="4" fill="#2a78d6"/>
+  <text class="lbl" x="157.8" y="230.0">Investition − 18.000 €</text>
+  <circle cx="640.0" cy="30.5" r="4" fill="#2a78d6"/>
+  <text class="lbl" x="648.0" y="34.5">+ 7.200 €</text>
+  <text class="n" x="297.8" y="162.6">+ 700 € pro Monat</text>
+  <text class="n" x="297.8" y="178.6">(Ersparnis 850 € − Betrieb 150 €)</text>
+</svg>

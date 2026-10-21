@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" role="img" aria-labelledby="gb-title gb-desc">
+  <title id="gb-title">Die vier Bereiche von Git</title>
+  <desc id="gb-desc">Von links nach rechts: Arbeitsverzeichnis mit den Dateien, an denen man arbeitet; Staging-Bereich mit den für den nächsten Commit vorgemerkten Änderungen; lokales Repository mit der Versionsgeschichte; entferntes Repository, etwa auf GitHub oder GitLab, für das Team. git add bringt Änderungen in den Staging-Bereich, git commit ins lokale Repository, git push ins entfernte Repository. Zurück holt git pull die Änderungen anderer ins lokale Repository und ins Arbeitsverzeichnis, git restore verwirft Änderungen im Arbeitsverzeichnis, git switch wechselt den Branch.</desc>
+  <defs>
+    <marker id="gb-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0d6efd"/></marker>
+    <marker id="gb-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#198754"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .bx { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.4; }
+      .rm { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .t { font-weight: 700; font-size: 13px; }
+      .s { font-size: 11px; fill: #495057; }
+      .c { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; font-weight: 700; }
+      .f { stroke: #0d6efd; stroke-width: 1.8; fill: none; }
+      .b { stroke: #198754; stroke-width: 1.8; fill: none; }
+    </style>
+  </defs>
+  <rect class="bx" x="10" y="70" width="150" height="70" rx="8"/><text class="t" x="85" y="98">Arbeits-</text><text class="t" x="85" y="114">verzeichnis</text><text class="s" x="85" y="131">deine Dateien</text>
+  <rect class="bx" x="196" y="70" width="150" height="70" rx="8"/><text class="t" x="271" y="98">Staging-Bereich</text><text class="s" x="271" y="116">für den nächsten</text><text class="s" x="271" y="131">Commit vorgemerkt</text>
+  <rect class="bx" x="382" y="70" width="150" height="70" rx="8"/><text class="t" x="457" y="98">lokales</text><text class="t" x="457" y="114">Repository</text><text class="s" x="457" y="131">Versionsgeschichte</text>
+  <rect class="rm" x="568" y="70" width="142" height="70" rx="8"/><text class="t" x="639" y="98">entferntes</text><text class="t" x="639" y="114">Repository</text><text class="s" x="639" y="131">GitHub, GitLab …</text>
+
+  <!-- vorwärts -->
+  <path class="f" d="M85,70 V44 H267" marker-end="url(#gb-a)"/><text class="c" x="176" y="36" style="fill:#0d6efd">git add</text>
+  <path class="f" d="M271,70 V52 H453" marker-end="url(#gb-a)"/><text class="c" x="362" y="44" style="fill:#0d6efd">git commit</text>
+  <path class="f" d="M457,70 V22 H635 V66" marker-end="url(#gb-a)"/><text class="c" x="546" y="16" style="fill:#0d6efd">git push</text>
+  <!-- zurück -->
+  <path class="b" d="M639,140 V186 H89 V144" marker-end="url(#gb-b)"/><text class="c" x="364" y="202" style="fill:#198754">git pull (= fetch + merge)</text>
+  <path class="b" d="M200,155 H90" marker-end="url(#gb-b)"/><path class="b" d="M271,140 V155 H200"/><text class="c" x="160" y="170" style="fill:#198754;font-size:10.5px">git restore --staged</text>
+</svg>

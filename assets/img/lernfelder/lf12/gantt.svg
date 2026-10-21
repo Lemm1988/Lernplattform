@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="ga-title ga-desc">
+  <title id="ga-title">Gantt-Diagramm der Online-Terminbuchung</title>
+  <desc id="ga-desc">Balkenplan über 18 Arbeitstage. A Analyse von Tag 0 bis 3, kritisch. B Backend von Tag 3 bis 9, kritisch. C Oberfläche von Tag 3 bis 8, Puffer 5 Tage. D Kalender von Tag 9 bis 13, kritisch. E Erinnerung von Tag 9 bis 11, Puffer 2 Tage. F Tests von Tag 13 bis 16, kritisch. G Einführung von Tag 16 bis 18, kritisch. Meilensteine: Pflichtenheft freigegeben an Tag 3, Go-live an Tag 18.</desc>
+  <defs><style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .n { fill: #fff; stroke: #343a40; stroke-width: 1.3; }
+      .nk { fill: #fff3e0; stroke: #d63384; stroke-width: 2.2; }
+      .v { font-size: 12px; font-family: ui-monospace, Consolas, monospace; }
+      .nr { font-weight: 700; font-size: 13px; }
+      .b { font-size: 12px; text-anchor: start; }
+      .e { stroke: #6c757d; stroke-width: 1.5; fill: none; }
+      .ek { stroke: #d63384; stroke-width: 2.6; fill: none; }
+      .s { font-size: 11.5px; fill: #495057; text-anchor: start; }
+      .bar { fill: #9ec5fe; stroke: #0d6efd; stroke-width: 1.2; }
+      .barK { fill: #f7c1da; stroke: #d63384; stroke-width: 1.6; }
+      .puf { fill: none; stroke: #6c757d; stroke-width: 1.2; stroke-dasharray: 4 3; }
+      .g { stroke: #e9ecef; stroke-width: 1; }
+      .t { font-size: 11px; fill: #6c757d; }
+    </style></defs>
+  <line class="g" x1="150.0" y1="34" x2="150.0" y2="240"/><text class="t" x="150.0" y="28">0</text>
+  <line class="g" x1="211.1" y1="34" x2="211.1" y2="240"/><text class="t" x="211.1" y="28">2</text>
+  <line class="g" x1="272.2" y1="34" x2="272.2" y2="240"/><text class="t" x="272.2" y="28">4</text>
+  <line class="g" x1="333.3" y1="34" x2="333.3" y2="240"/><text class="t" x="333.3" y="28">6</text>
+  <line class="g" x1="394.4" y1="34" x2="394.4" y2="240"/><text class="t" x="394.4" y="28">8</text>
+  <line class="g" x1="455.6" y1="34" x2="455.6" y2="240"/><text class="t" x="455.6" y="28">10</text>
+  <line class="g" x1="516.7" y1="34" x2="516.7" y2="240"/><text class="t" x="516.7" y="28">12</text>
+  <line class="g" x1="577.8" y1="34" x2="577.8" y2="240"/><text class="t" x="577.8" y="28">14</text>
+  <line class="g" x1="638.9" y1="34" x2="638.9" y2="240"/><text class="t" x="638.9" y="28">16</text>
+  <line class="g" x1="700.0" y1="34" x2="700.0" y2="240"/><text class="t" x="700.0" y="28">18</text>
+  <text class="b" x="10" y="56"><tspan font-weight="700">A</tspan>  Analyse</text>
+  <rect class="barK" x="150.0" y="44" width="91.7" height="18" rx="3"/>
+  <text class="b" x="10" y="84"><tspan font-weight="700">B</tspan>  Backend</text>
+  <rect class="barK" x="241.7" y="72" width="183.3" height="18" rx="3"/>
+  <text class="b" x="10" y="112"><tspan font-weight="700">C</tspan>  Oberfläche</text>
+  <rect class="bar" x="241.7" y="100" width="152.8" height="18" rx="3"/>
+  <rect class="puf" x="394.4" y="100" width="152.8" height="18" rx="3"/>
+  <text class="t" x="470.8" y="113">Puffer</text>
+  <text class="b" x="10" y="140"><tspan font-weight="700">D</tspan>  Kalender</text>
+  <rect class="barK" x="425.0" y="128" width="122.2" height="18" rx="3"/>
+  <text class="b" x="10" y="168"><tspan font-weight="700">E</tspan>  Erinnerung</text>
+  <rect class="bar" x="425.0" y="156" width="61.1" height="18" rx="3"/>
+  <rect class="puf" x="486.1" y="156" width="61.1" height="18" rx="3"/>
+  <text class="t" x="516.7" y="169">Puffer</text>
+  <text class="b" x="10" y="196"><tspan font-weight="700">F</tspan>  Tests</text>
+  <rect class="barK" x="547.2" y="184" width="91.7" height="18" rx="3"/>
+  <text class="b" x="10" y="224"><tspan font-weight="700">G</tspan>  Einführung</text>
+  <rect class="barK" x="638.9" y="212" width="61.1" height="18" rx="3"/>
+  <path d="M241.7,250 L249.7,258 L241.7,266 L233.7,258 z" fill="#212529"/>
+  <text class="s" x="253.7" y="262" style="text-anchor:start">Pflichtenheft freigegeben (Tag 3)</text>
+  <path d="M700.0,250 L708.0,258 L700.0,266 L692.0,258 z" fill="#212529"/>
+  <text class="s" x="688.0" y="262" style="text-anchor:end">Go-live (Tag 18)</text>
+  <text class="s" x="10" y="262" style="font-weight:700">Meilensteine</text>
+  <rect class="barK" x="10" y="282" width="18" height="12" rx="2"/><text class="s" x="34" y="292">kritischer Vorgang</text>
+  <rect class="bar" x="170" y="282" width="18" height="12" rx="2"/><text class="s" x="194" y="292">Vorgang mit Puffer</text>
+  <rect class="puf" x="330" y="282" width="18" height="12" rx="2"/><text class="s" x="354" y="292">Gesamtpuffer</text>
+  <text class="s" x="460" y="292">Achse: Arbeitstage ab Projektstart</text>
+</svg>

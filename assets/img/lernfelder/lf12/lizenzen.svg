@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="li-title li-desc">
+  <title id="li-title">Spektrum der Open-Source-Lizenzen</title>
+  <desc id="li-desc">Von links nach rechts nehmen die Pflichten zu. Freizügige Lizenzen wie MIT, BSD und Apache 2.0: Code darf auch in geschlossener Software verwendet werden, Lizenz- und Urheberhinweis müssen erhalten bleiben; Apache 2.0 regelt zusätzlich Patente. Schwaches Copyleft wie LGPL und MPL: Die Bibliothek selbst bleibt offen, Änderungen daran müssen offengelegt werden, das eigene Programm, das sie nur nutzt, darf geschlossen bleiben. Starkes Copyleft wie GPL: Wer ein Programm mit GPL-Code weitergibt, muss das gesamte abgeleitete Werk unter der GPL samt Quelltext weitergeben. AGPL: gilt zusätzlich, wenn die Software nur über ein Netzwerk angeboten wird.</desc>
+  <defs>
+    <linearGradient id="li-g" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#d1e7dd"/><stop offset="0.5" stop-color="#fff3cd"/><stop offset="1" stop-color="#f8d7da"/>
+    </linearGradient>
+    <marker id="li-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 13px; }
+      .n { font-family: ui-monospace, Consolas, monospace; font-size: 12px; font-weight: 700; }
+      .s { font-size: 11.5px; fill: #343a40; }
+    </style>
+  </defs>
+  <rect x="10" y="40" width="700" height="34" rx="17" fill="url(#li-g)" stroke="#adb5bd"/>
+  <path d="M20,92 H700" stroke="#343a40" stroke-width="1.5" marker-end="url(#li-a)"/>
+  <text class="s" x="360" y="108" style="font-style:italic">mehr Pflichten bei der Weitergabe</text>
+
+  <text class="h" x="125" y="26">freizügig (permissiv)</text>
+  <text class="n" x="125" y="62">MIT · BSD · Apache 2.0</text>
+  <text class="s" x="125" y="136">auch in geschlossener</text><text class="s" x="125" y="152">Software erlaubt</text>
+  <text class="s" x="125" y="174">Pflicht: Lizenz- und</text><text class="s" x="125" y="190">Urheberhinweis behalten</text>
+  <text class="s" x="125" y="212">(Apache: auch Patente)</text>
+
+  <text class="h" x="360" y="26">schwaches Copyleft</text>
+  <text class="n" x="360" y="62">LGPL · MPL 2.0</text>
+  <text class="s" x="360" y="136">Bibliothek bleibt offen,</text><text class="s" x="360" y="152">Änderungen daran offenlegen</text>
+  <text class="s" x="360" y="174">eigenes Programm, das sie</text><text class="s" x="360" y="190">nur nutzt, darf geschlossen sein</text>
+
+  <text class="h" x="595" y="26">starkes Copyleft</text>
+  <text class="n" x="595" y="62">GPL · AGPL</text>
+  <text class="s" x="595" y="136">bei Weitergabe: gesamtes</text><text class="s" x="595" y="152">abgeleitetes Werk unter GPL</text>
+  <text class="s" x="595" y="174">mit Quelltext</text>
+  <text class="s" x="595" y="196">AGPL: auch bei reiner</text><text class="s" x="595" y="212">Nutzung übers Netz</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img" aria-labelledby="ka-title ka-desc">
+  <title id="ka-title">Vom Gehalt zum Angebotspreis</title>
+  <desc id="ka-desc">Kalkulationsschema in sechs Stufen. Personalkosten 60.984 Euro pro Jahr geteilt durch 1.500 produktive Stunden ergibt direkte Kosten von 40,66 Euro pro Stunde. Plus 60 Prozent Gemeinkosten, also 24,40 Euro, ergibt Selbstkosten von 65,06 Euro pro Stunde. Plus 10 Prozent Gewinn, 6,51 Euro, ergibt einen Stundensatz von 71,57 Euro netto. Mal 208 geschätzte Stunden ergibt ein Angebot von 14.886,56 Euro netto. Plus 19 Prozent Umsatzsteuer, 2.828,45 Euro, ergibt 17.715,01 Euro brutto.</desc>
+  <defs>
+    <marker id="ka-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .b { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .e { fill: #d1e7dd; stroke: #198754; stroke-width: 1.6; }
+      .t { font-size: 11.5px; fill: #495057; }
+      .v { font-weight: 700; font-size: 15px; }
+      .op { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; fill: #6f42c1; }
+      .ar { stroke: #343a40; stroke-width: 1.6; fill: none; }
+    </style>
+  </defs>
+  <!-- Reihe 1 -->
+  <rect class="b" x="10" y="20" width="180" height="64" rx="8"/><text class="t" x="100" y="44">Personalkosten pro Jahr</text><text class="v" x="100" y="68">60.984,00 €</text>
+  <path class="ar" d="M190,52 H268" marker-end="url(#ka-a)"/><text class="op" x="229" y="44">÷ 1.500 h</text>
+  <rect class="b" x="270" y="20" width="180" height="64" rx="8"/><text class="t" x="360" y="44">direkte Kosten pro Stunde</text><text class="v" x="360" y="68">40,66 €</text>
+  <path class="ar" d="M450,52 H528" marker-end="url(#ka-a)"/><text class="op" x="489" y="38">+ 60 % GK</text><text class="op" x="489" y="70">24,40 €</text>
+  <rect class="b" x="530" y="20" width="180" height="64" rx="8"/><text class="t" x="620" y="44">Selbstkosten pro Stunde</text><text class="v" x="620" y="68">65,06 €</text>
+  <!-- Übergang -->
+  <path class="ar" d="M620,84 V104 H100 V128" marker-end="url(#ka-a)"/><text class="op" x="360" y="98" style="font-size:12px">+ 10 % Gewinn (6,51 €)</text>
+  <!-- Reihe 2 -->
+  <rect class="b" x="10" y="130" width="180" height="64" rx="8"/><text class="t" x="100" y="154">Stundensatz netto</text><text class="v" x="100" y="178">71,57 €</text>
+  <path class="ar" d="M190,162 H268" marker-end="url(#ka-a)"/><text class="op" x="229" y="154">× 208 h</text>
+  <rect class="b" x="270" y="130" width="180" height="64" rx="8"/><text class="t" x="360" y="154">Angebot netto</text><text class="v" x="360" y="178">14.886,56 €</text>
+  <path class="ar" d="M450,162 H528" marker-end="url(#ka-a)"/><text class="op" x="489" y="148">+ 19 % USt</text><text class="op" x="489" y="180">2.828,45 €</text>
+  <rect class="e" x="530" y="130" width="180" height="64" rx="8"/><text class="t" x="620" y="154">Angebot brutto</text><text class="v" x="620" y="178">17.715,01 €</text>
+  <text class="t" x="360" y="222" style="font-style:italic">GK = Gemeinkosten (Büro, Software, Verwaltung, Akquise); 208 h aus der Drei-Punkt-Schätzung (26 Personentage)</text>
+</svg>
