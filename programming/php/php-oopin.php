@@ -19,7 +19,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-oop'); ?>
+                        <?php renderNavigation('php-oopin'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-box2 me-2"></i>PHP OOP</h1>
@@ -109,34 +109,34 @@ class Auto {
     }
     
     public function fahren($kilometer) {
-        $this->km_stand += $kilometer;
-        return "Gefahren: $kilometer km. Neuer Stand: {$this->km_stand} km";
+        $this-&gt;km_stand += $kilometer;
+        return "Gefahren: $kilometer km. Neuer Stand: {$this-&gt;km_stand} km";
     }
     
     public function getInfo() {
-        return "Auto: {$this->marke} {$this->modell} ({$this->farbe}) - {$this->km_stand} km";
+        return "Auto: {$this-&gt;marke} {$this-&gt;modell} ({$this-&gt;farbe}) - {$this-&gt;km_stand} km";
     }
 }
 
 // Objekte erstellen (Instanzen der Klasse)
 $mein_auto = new Auto();
-$mein_auto->marke = "BMW";
-$mein_auto->modell = "X5";
-$mein_auto->farbe = "schwarz";
+$mein_auto-&gt;marke = "BMW";
+$mein_auto-&gt;modell = "X5";
+$mein_auto-&gt;farbe = "schwarz";
 
-echo $mein_auto->getInfo() . "\n";
-echo $mein_auto->starten() . "\n";
-echo $mein_auto->fahren(150) . "\n";
-echo $mein_auto->getInfo() . "\n";
+echo $mein_auto-&gt;getInfo() . "\n";
+echo $mein_auto-&gt;starten() . "\n";
+echo $mein_auto-&gt;fahren(150) . "\n";
+echo $mein_auto-&gt;getInfo() . "\n";
 
 // Mehrere Objekte derselben Klasse
 $auto2 = new Auto();
-$auto2->marke = "Mercedes";
-$auto2->modell = "C-Klasse";
-$auto2->farbe = "weiß";
+$auto2-&gt;marke = "Mercedes";
+$auto2-&gt;modell = "C-Klasse";
+$auto2-&gt;farbe = "weiß";
 
 echo "\nZweites Auto:\n";
-echo $auto2->getInfo() . "\n";
+echo $auto2-&gt;getInfo() . "\n";
 
 // Klasse mit Konstruktor für einfachere Initialisierung
 class Benutzer {
@@ -146,29 +146,29 @@ class Benutzer {
     
     // Konstruktor - wird beim "new" automatisch aufgerufen
     public function __construct($name, $email) {
-        $this->name = $name;
-        $this->email = $email;
-        $this->registriert_am = date('Y-m-d H:i:s');
+        $this-&gt;name = $name;
+        $this-&gt;email = $email;
+        $this-&gt;registriert_am = date('Y-m-d H:i:s');
         
         echo "Neuer Benutzer erstellt: $name\n";
     }
     
     // Destruktor - wird beim Objektabbau aufgerufen
     public function __destruct() {
-        echo "Benutzer {$this->name} wird aus dem Speicher entfernt\n";
+        echo "Benutzer {$this-&gt;name} wird aus dem Speicher entfernt\n";
     }
     
     public function begruessung() {
-        return "Hallo {$this->name}! Du bist seit {$this->registriert_am} registriert.";
+        return "Hallo {$this-&gt;name}! Du bist seit {$this-&gt;registriert_am} registriert.";
     }
 }
 
 // Objekt mit Konstruktor erstellen
 $user1 = new Benutzer("Max Mustermann", "max@example.com");
-echo $user1->begruessung() . "\n";
+echo $user1-&gt;begruessung() . "\n";
 
 $user2 = new Benutzer("Anna Schmidt", "anna@example.com");
-echo $user2->begruessung() . "\n";
+echo $user2-&gt;begruessung() . "\n";
 
 // Objekt-Array
 $benutzer_liste = [
@@ -179,7 +179,7 @@ $benutzer_liste = [
 
 echo "\nAlle Benutzer:\n";
 foreach ($benutzer_liste as $benutzer) {
-    echo "- " . $benutzer->begruessung() . "\n";
+    echo "- " . $benutzer-&gt;begruessung() . "\n";
 }
 ?&gt;</code></pre>
                                             </div>
@@ -202,32 +202,32 @@ class BankKonto {
     private $pin = '1234';
     
     public function __construct($inhaber, $kontonummer) {
-        $this->inhaber = $inhaber;
-        $this->kontonummer = $kontonummer;
+        $this-&gt;inhaber = $inhaber;
+        $this-&gt;kontonummer = $kontonummer;
     }
     
     // Öffentliche Methode für Zugriff auf private Eigenschaften
     public function getKontostand() {
-        return $this->kontostand;
+        return $this-&gt;kontostand;
     }
     
     // Kontrollierter Zugriff mit Validierung
     public function einzahlen($betrag) {
-        if ($betrag > 0) {
-            $this->kontostand += $betrag;
-            return "Eingezahlt: $betrag €. Neuer Stand: {$this->kontostand} €";
+        if ($betrag &gt; 0) {
+            $this-&gt;kontostand += $betrag;
+            return "Eingezahlt: $betrag €. Neuer Stand: {$this-&gt;kontostand} €";
         }
         return "Ungültiger Betrag!";
     }
     
     public function abheben($betrag, $pin) {
-        if ($pin !== $this->pin) {
+        if ($pin !== $this-&gt;pin) {
             return "Falsche PIN!";
         }
         
-        if ($betrag > 0 && $betrag <= $this->kontostand) {
-            $this->kontostand -= $betrag;
-            return "Abgehoben: $betrag €. Neuer Stand: {$this->kontostand} €";
+        if ($betrag &gt; 0 && $betrag &lt;= $this-&gt;kontostand) {
+            $this-&gt;kontostand -= $betrag;
+            return "Abgehoben: $betrag €. Neuer Stand: {$this-&gt;kontostand} €";
         }
         
         return "Nicht genügend Guthaben oder ungültiger Betrag!";
@@ -236,19 +236,19 @@ class BankKonto {
     // Private Hilfsmethode
     private function log_transaktion($typ, $betrag) {
         $timestamp = date('Y-m-d H:i:s');
-        echo "[LOG] $timestamp: $typ - $betrag € (Stand: {$this->kontostand} €)\n";
+        echo "[LOG] $timestamp: $typ - $betrag € (Stand: {$this-&gt;kontostand} €)\n";
     }
     
     // Getter für protected Eigenschaft
     public function getKontonummer() {
-        return "****" . substr($this->kontonummer, -4); // Nur letzten 4 Ziffern
+        return "****" . substr($this-&gt;kontonummer, -4); // Nur letzten 4 Ziffern
     }
     
     // Setter mit Validierung
     public function setPIN($alte_pin, $neue_pin) {
-        if ($alte_pin === $this->pin) {
+        if ($alte_pin === $this-&gt;pin) {
             if (strlen($neue_pin) === 4 && is_numeric($neue_pin)) {
-                $this->pin = $neue_pin;
+                $this-&gt;pin = $neue_pin;
                 return "PIN erfolgreich geändert";
             }
             return "Neue PIN muss 4 Ziffern haben";
@@ -260,18 +260,18 @@ class BankKonto {
 // Bankkonto verwenden
 $konto = new BankKonto("Max Mustermann", "1234567890");
 
-echo "Inhaber: " . $konto->inhaber . "\n";  // ✅ public - funktioniert
-echo "Kontonummer: " . $konto->getKontostand() . "\n";  // ✅ über public Methode
+echo "Inhaber: " . $konto-&gt;inhaber . "\n";  // ✅ public - funktioniert
+echo "Kontonummer: " . $konto-&gt;getKontostand() . "\n";  // ✅ über public Methode
 
-// echo $konto->kontostand;  // ❌ private - würde Fehler verursachen
-// echo $konto->pin;         // ❌ private - würde Fehler verursachen
+// echo $konto-&gt;kontostand;  // ❌ private - würde Fehler verursachen
+// echo $konto-&gt;pin;         // ❌ private - würde Fehler verursachen
 
-echo $konto->einzahlen(1000) . "\n";
-echo $konto->einzahlen(500) . "\n";
-echo $konto->abheben(200, '1234') . "\n";
-echo $konto->abheben(100, '9999') . "\n";  // Falsche PIN
-echo $konto->setPIN('1234', '5678') . "\n";
-echo $konto->abheben(100, '5678') . "\n";  // Mit neuer PIN
+echo $konto-&gt;einzahlen(1000) . "\n";
+echo $konto-&gt;einzahlen(500) . "\n";
+echo $konto-&gt;abheben(200, '1234') . "\n";
+echo $konto-&gt;abheben(100, '9999') . "\n";  // Falsche PIN
+echo $konto-&gt;setPIN('1234', '5678') . "\n";
+echo $konto-&gt;abheben(100, '5678') . "\n";  // Mit neuer PIN
 
 // Statische Eigenschaften und Methoden
 class MathUtils {
@@ -340,30 +340,30 @@ class Fahrzeug {
     protected $max_geschwindigkeit;
     
     public function __construct($marke, $max_geschwindigkeit) {
-        $this->marke = $marke;
-        $this->max_geschwindigkeit = $max_geschwindigkeit;
+        $this-&gt;marke = $marke;
+        $this-&gt;max_geschwindigkeit = $max_geschwindigkeit;
         echo "Fahrzeug erstellt: $marke\n";
     }
     
     public function beschleunigen($wert) {
-        $neue_geschwindigkeit = $this->geschwindigkeit + $wert;
+        $neue_geschwindigkeit = $this-&gt;geschwindigkeit + $wert;
         
-        if ($neue_geschwindigkeit <= $this->max_geschwindigkeit) {
-            $this->geschwindigkeit = $neue_geschwindigkeit;
-            return "Beschleunigt auf {$this->geschwindigkeit} km/h";
+        if ($neue_geschwindigkeit &lt;= $this-&gt;max_geschwindigkeit) {
+            $this-&gt;geschwindigkeit = $neue_geschwindigkeit;
+            return "Beschleunigt auf {$this-&gt;geschwindigkeit} km/h";
         } else {
-            $this->geschwindigkeit = $this->max_geschwindigkeit;
-            return "Maximalgeschwindigkeit erreicht: {$this->max_geschwindigkeit} km/h";
+            $this-&gt;geschwindigkeit = $this-&gt;max_geschwindigkeit;
+            return "Maximalgeschwindigkeit erreicht: {$this-&gt;max_geschwindigkeit} km/h";
         }
     }
     
     public function bremsen($wert) {
-        $this->geschwindigkeit = max(0, $this->geschwindigkeit - $wert);
-        return "Gebremst auf {$this->geschwindigkeit} km/h";
+        $this-&gt;geschwindigkeit = max(0, $this-&gt;geschwindigkeit - $wert);
+        return "Gebremst auf {$this-&gt;geschwindigkeit} km/h";
     }
     
     public function getInfo() {
-        return "Fahrzeug: {$this->marke}, {$this->geschwindigkeit}/{$this->max_geschwindigkeit} km/h";
+        return "Fahrzeug: {$this-&gt;marke}, {$this-&gt;geschwindigkeit}/{$this-&gt;max_geschwindigkeit} km/h";
     }
     
     // Diese Methode kann von Unterklassen überschrieben werden
@@ -382,8 +382,8 @@ class PKW extends Fahrzeug {
         // Parent-Konstruktor aufrufen
         parent::__construct($marke, $max_geschwindigkeit);
         
-        $this->anzahl_tueren = $anzahl_tueren;
-        $this->max_passagiere = $max_passagiere;
+        $this-&gt;anzahl_tueren = $anzahl_tueren;
+        $this-&gt;max_passagiere = $max_passagiere;
         echo "PKW spezifiziert: $anzahl_tueren Türen, max. $max_passagiere Passagiere\n";
     }
     
@@ -394,20 +394,20 @@ class PKW extends Fahrzeug {
     
     // Neue Methoden, die nur PKW haben
     public function passagier_einsteigen($anzahl = 1) {
-        $neue_anzahl = $this->anzahl_passagiere + $anzahl;
+        $neue_anzahl = $this-&gt;anzahl_passagiere + $anzahl;
         
-        if ($neue_anzahl <= $this->max_passagiere) {
-            $this->anzahl_passagiere = $neue_anzahl;
-            return "$anzahl Passagier(e) eingestiegen. Insgesamt: {$this->anzahl_passagiere}";
+        if ($neue_anzahl &lt;= $this-&gt;max_passagiere) {
+            $this-&gt;anzahl_passagiere = $neue_anzahl;
+            return "$anzahl Passagier(e) eingestiegen. Insgesamt: {$this-&gt;anzahl_passagiere}";
         } else {
-            return "Nicht genug Platz! Max. {$this->max_passagiere} Passagiere erlaubt.";
+            return "Nicht genug Platz! Max. {$this-&gt;max_passagiere} Passagiere erlaubt.";
         }
     }
     
     // Parent-Methode erweitern
     public function getInfo() {
         $basis_info = parent::getInfo();  // Original-Methode aufrufen
-        return $basis_info . ", {$this->anzahl_passagiere}/{$this->max_passagiere} Passagiere, {$this->anzahl_tueren} Türen";
+        return $basis_info . ", {$this-&gt;anzahl_passagiere}/{$this-&gt;max_passagiere} Passagiere, {$this-&gt;anzahl_tueren} Türen";
     }
 }
 
@@ -418,7 +418,7 @@ class LKW extends Fahrzeug {
     
     public function __construct($marke, $max_geschwindigkeit, $ladekapazitaet) {
         parent::__construct($marke, $max_geschwindigkeit);
-        $this->ladekapazitaet = $ladekapazitaet;
+        $this-&gt;ladekapazitaet = $ladekapazitaet;
         echo "LKW spezifiziert: {$ladekapazitaet}t Ladekapazität\n";
     }
     
@@ -427,19 +427,19 @@ class LKW extends Fahrzeug {
     }
     
     public function beladen($gewicht) {
-        $neue_ladung = $this->ladung + $gewicht;
+        $neue_ladung = $this-&gt;ladung + $gewicht;
         
-        if ($neue_ladung <= $this->ladekapazitaet) {
-            $this->ladung = $neue_ladung;
-            return "Beladen mit {$gewicht}t. Gesamtladung: {$this->ladung}t";
+        if ($neue_ladung &lt;= $this-&gt;ladekapazitaet) {
+            $this-&gt;ladung = $neue_ladung;
+            return "Beladen mit {$gewicht}t. Gesamtladung: {$this-&gt;ladung}t";
         } else {
-            return "Überladung! Max. {$this->ladekapazitaet}t erlaubt.";
+            return "Überladung! Max. {$this-&gt;ladekapazitaet}t erlaubt.";
         }
     }
     
     public function getInfo() {
         $basis_info = parent::getInfo();
-        return $basis_info . ", Ladung: {$this->ladung}/{$this->ladekapazitaet}t";
+        return $basis_info . ", Ladung: {$this-&gt;ladung}/{$this-&gt;ladekapazitaet}t";
     }
 }
 
@@ -447,26 +447,26 @@ class LKW extends Fahrzeug {
 echo "\n=== Vererbungs-Demo ===\n";
 
 $pkw = new PKW("BMW", 250, 4, 5);
-echo $pkw->beschleunigen(50) . "\n";
-echo $pkw->passagier_einsteigen(3) . "\n";
-echo $pkw->hupen() . "\n";
-echo $pkw->getInfo() . "\n";
+echo $pkw-&gt;beschleunigen(50) . "\n";
+echo $pkw-&gt;passagier_einsteigen(3) . "\n";
+echo $pkw-&gt;hupen() . "\n";
+echo $pkw-&gt;getInfo() . "\n";
 
 echo "\n";
 
 $lkw = new LKW("MAN", 120, 40);
-echo $lkw->beschleunigen(30) . "\n";
-echo $lkw->beladen(25) . "\n";
-echo $lkw->hupen() . "\n";
-echo $lkw->getInfo() . "\n";
+echo $lkw-&gt;beschleunigen(30) . "\n";
+echo $lkw-&gt;beladen(25) . "\n";
+echo $lkw-&gt;hupen() . "\n";
+echo $lkw-&gt;getInfo() . "\n";
 
 // Polymorphismus - verschiedene Objekte, gleiche Schnittstelle
 $fahrzeuge = [$pkw, $lkw];
 
 echo "\n=== Polymorphismus-Demo ===\n";
 foreach ($fahrzeuge as $fahrzeug) {
-    echo $fahrzeug->hupen() . "\n";  // Jede Klasse hat ihre eigene Implementation
-    echo $fahrzeug->getInfo() . "\n";
+    echo $fahrzeug-&gt;hupen() . "\n";  // Jede Klasse hat ihre eigene Implementation
+    echo $fahrzeug-&gt;getInfo() . "\n";
 }
 ?&gt;</code></pre>
                                             </div>
@@ -484,17 +484,17 @@ abstract class Mitarbeiter {
     protected $abteilung;
     
     public function __construct($name, $abteilung) {
-        $this->name = $name;
-        $this->abteilung = $abteilung;
+        $this-&gt;name = $name;
+        $this-&gt;abteilung = $abteilung;
     }
     
     // Konkrete Methode (wird vererbt)
     public function getInfo() {
-        return "Mitarbeiter: {$this->name}, Abteilung: {$this->abteilung}";
+        return "Mitarbeiter: {$this-&gt;name}, Abteilung: {$this-&gt;abteilung}";
     }
     
     public function getName() {
-        return $this->name;
+        return $this-&gt;name;
     }
     
     // Abstrakte Methode - MUSS in Unterklassen implementiert werden
@@ -503,10 +503,10 @@ abstract class Mitarbeiter {
     
     // Template-Method Pattern
     public function monatsabrechnung() {
-        $gehalt = $this->berechneGehalt();
-        $titel = $this->getJobTitle();
+        $gehalt = $this-&gt;berechneGehalt();
+        $titel = $this-&gt;getJobTitle();
         
-        return "Abrechnung für {$titel} {$this->name}: {$gehalt} € ({$this->abteilung})";
+        return "Abrechnung für {$titel} {$this-&gt;name}: {$gehalt} € ({$this-&gt;abteilung})";
     }
 }
 
@@ -516,11 +516,11 @@ class Vollzeitmitarbeiter extends Mitarbeiter {
     
     public function __construct($name, $abteilung, $monatsgehalt) {
         parent::__construct($name, $abteilung);
-        $this->monatsgehalt = $monatsgehalt;
+        $this-&gt;monatsgehalt = $monatsgehalt;
     }
     
     public function berechneGehalt() {
-        return $this->monatsgehalt;
+        return $this-&gt;monatsgehalt;
     }
     
     public function getJobTitle() {
@@ -535,17 +535,17 @@ class Freelancer extends Mitarbeiter {
     
     public function __construct($name, $abteilung, $stundenlohn) {
         parent::__construct($name, $abteilung);
-        $this->stundenlohn = $stundenlohn;
-        $this->geleistete_stunden = 0;
+        $this-&gt;stundenlohn = $stundenlohn;
+        $this-&gt;geleistete_stunden = 0;
     }
     
     public function stundenHinzufuegen($stunden) {
-        $this->geleistete_stunden += $stunden;
-        return "Hinzugefügt: $stunden Stunden. Gesamt: {$this->geleistete_stunden}";
+        $this-&gt;geleistete_stunden += $stunden;
+        return "Hinzugefügt: $stunden Stunden. Gesamt: {$this-&gt;geleistete_stunden}";
     }
     
     public function berechneGehalt() {
-        return $this->stundenlohn * $this->geleistete_stunden;
+        return $this-&gt;stundenlohn * $this-&gt;geleistete_stunden;
     }
     
     public function getJobTitle() {
@@ -561,14 +561,14 @@ class Manager extends Mitarbeiter {
     
     public function __construct($name, $abteilung, $grundgehalt, $team_groesse) {
         parent::__construct($name, $abteilung);
-        $this->grundgehalt = $grundgehalt;
-        $this->team_groesse = $team_groesse;
-        $this->bonus_prozent = min(50, $team_groesse * 5); // Max 50% Bonus
+        $this-&gt;grundgehalt = $grundgehalt;
+        $this-&gt;team_groesse = $team_groesse;
+        $this-&gt;bonus_prozent = min(50, $team_groesse * 5); // Max 50% Bonus
     }
     
     public function berechneGehalt() {
-        $bonus = $this->grundgehalt * ($this->bonus_prozent / 100);
-        return $this->grundgehalt + $bonus;
+        $bonus = $this-&gt;grundgehalt * ($this-&gt;bonus_prozent / 100);
+        return $this-&gt;grundgehalt + $bonus;
     }
     
     public function getJobTitle() {
@@ -576,7 +576,7 @@ class Manager extends Mitarbeiter {
     }
     
     public function getTeamInfo() {
-        return "Führt Team von {$this->team_groesse} Mitarbeitern";
+        return "Führt Team von {$this-&gt;team_groesse} Mitarbeitern";
     }
 }
 
@@ -591,16 +591,16 @@ $mitarbeiter_liste = [
 
 // Freelancer arbeitet
 $freelancer = $mitarbeiter_liste[2]; // Lisa
-echo $freelancer->stundenHinzufuegen(40) . "\n";
-echo $freelancer->stundenHinzufuegen(35) . "\n";
+echo $freelancer-&gt;stundenHinzufuegen(40) . "\n";
+echo $freelancer-&gt;stundenHinzufuegen(35) . "\n";
 
 echo "\n--- Monatsabrechnungen ---\n";
 foreach ($mitarbeiter_liste as $mitarbeiter) {
-    echo $mitarbeiter->monatsabrechnung() . "\n";
+    echo $mitarbeiter-&gt;monatsabrechnung() . "\n";
     
     // Spezielle Methoden wenn verfügbar
     if ($mitarbeiter instanceof Manager) {
-        echo "  → " . $mitarbeiter->getTeamInfo() . "\n";
+        echo "  → " . $mitarbeiter-&gt;getTeamInfo() . "\n";
     }
 }
 
@@ -649,12 +649,12 @@ class MySQLDatabase implements DatabaseInterface, CacheInterface {
     
     public function connect() {
         echo "Verbindung zu MySQL hergestellt\n";
-        $this->connection = true;
+        $this-&gt;connection = true;
         return $this;
     }
     
     public function query($sql) {
-        if (!$this->connection) {
+        if (!$this-&gt;connection) {
             throw new Exception("Keine Datenbankverbindung");
         }
         
@@ -664,29 +664,29 @@ class MySQLDatabase implements DatabaseInterface, CacheInterface {
     
     public function close() {
         echo "MySQL-Verbindung geschlossen\n";
-        $this->connection = false;
+        $this-&gt;connection = false;
     }
     
     // Cache-Interface Implementation
     public function get($key) {
-        return $this->cache[$key] ?? null;
+        return $this-&gt;cache[$key] ?? null;
     }
     
     public function set($key, $value, $ttl = 3600) {
-        $this->cache[$key] = [
-            'value' => $value,
-            'expires' => time() + $ttl
+        $this-&gt;cache[$key] = [
+            'value' =&gt; $value,
+            'expires' =&gt; time() + $ttl
         ];
         echo "Cache gesetzt: $key\n";
     }
     
     public function delete($key) {
-        unset($this->cache[$key]);
+        unset($this-&gt;cache[$key]);
         echo "Cache gelöscht: $key\n";
     }
     
     public function clear() {
-        $this->cache = [];
+        $this-&gt;cache = [];
         echo "Cache komplett gelöscht\n";
     }
 }
@@ -697,12 +697,12 @@ class PostgreSQLDatabase implements DatabaseInterface {
     
     public function connect() {
         echo "Verbindung zu PostgreSQL hergestellt\n";
-        $this->connection = true;
+        $this-&gt;connection = true;
         return $this;
     }
     
     public function query($sql) {
-        if (!$this->connection) {
+        if (!$this-&gt;connection) {
             throw new Exception("Keine Datenbankverbindung");
         }
         
@@ -712,16 +712,16 @@ class PostgreSQLDatabase implements DatabaseInterface {
     
     public function close() {
         echo "PostgreSQL-Verbindung geschlossen\n";
-        $this->connection = false;
+        $this-&gt;connection = false;
     }
 }
 
 // Polymorphismus mit Interfaces
 function datenbank_operationen(DatabaseInterface $db) {
-    $db->connect();
-    $result = $db->query("SELECT * FROM users");
+    $db-&gt;connect();
+    $result = $db-&gt;query("SELECT * FROM users");
     echo "Ergebnis: $result\n";
-    $db->close();
+    $db-&gt;close();
 }
 
 echo "\n=== Interface Demo ===\n";
@@ -734,8 +734,8 @@ datenbank_operationen($postgres); // Funktioniert auch
 
 // Cache verwenden (nur bei MySQL verfügbar)
 if ($mysql instanceof CacheInterface) {
-    $mysql->set('user_123', ['name' => 'Max', 'email' => 'max@example.com']);
-    $user_data = $mysql->get('user_123');
+    $mysql-&gt;set('user_123', ['name' =&gt; 'Max', 'email' =&gt; 'max@example.com']);
+    $user_data = $mysql-&gt;get('user_123');
     echo "Aus Cache: " . json_encode($user_data) . "\n";
 }
 ?&gt;</code></pre>
@@ -753,20 +753,20 @@ trait TimestampTrait {
     protected $updated_at;
     
     public function initTimestamps() {
-        $this->created_at = date('Y-m-d H:i:s');
-        $this->updated_at = date('Y-m-d H:i:s');
+        $this-&gt;created_at = date('Y-m-d H:i:s');
+        $this-&gt;updated_at = date('Y-m-d H:i:s');
     }
     
     public function touch() {
-        $this->updated_at = date('Y-m-d H:i:s');
+        $this-&gt;updated_at = date('Y-m-d H:i:s');
     }
     
     public function getCreatedAt() {
-        return $this->created_at;
+        return $this-&gt;created_at;
     }
     
     public function getUpdatedAt() {
-        return $this->updated_at;
+        return $this-&gt;updated_at;
     }
 }
 
@@ -774,24 +774,24 @@ trait ValidationTrait {
     protected $errors = [];
     
     public function addError($field, $message) {
-        $this->errors[$field] = $message;
+        $this-&gt;errors[$field] = $message;
     }
     
     public function hasErrors() {
-        return !empty($this->errors);
+        return !empty($this-&gt;errors);
     }
     
     public function getErrors() {
-        return $this->errors;
+        return $this-&gt;errors;
     }
     
     public function clearErrors() {
-        $this->errors = [];
+        $this-&gt;errors = [];
     }
     
     protected function validateEmail($email) {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->addError('email', 'Ungültige E-Mail-Adresse');
+            $this-&gt;addError('email', 'Ungültige E-Mail-Adresse');
             return false;
         }
         return true;
@@ -799,7 +799,7 @@ trait ValidationTrait {
     
     protected function validateRequired($field, $value) {
         if (empty($value)) {
-            $this->addError($field, "Feld '$field' ist erforderlich");
+            $this-&gt;addError($field, "Feld '$field' ist erforderlich");
             return false;
         }
         return true;
@@ -814,15 +814,15 @@ trait LoggingTrait {
     }
     
     protected function logInfo($message) {
-        $this->log('INFO', $message);
+        $this-&gt;log('INFO', $message);
     }
     
     protected function logError($message) {
-        $this->log('ERROR', $message);
+        $this-&gt;log('ERROR', $message);
     }
     
     protected function logWarning($message) {
-        $this->log('WARNING', $message);
+        $this-&gt;log('WARNING', $message);
     }
 }
 
@@ -834,35 +834,35 @@ class User {
     private $email;
     
     public function __construct($name, $email) {
-        $this->initTimestamps();
+        $this-&gt;initTimestamps();
         
-        if ($this->validate($name, $email)) {
-            $this->name = $name;
-            $this->email = $email;
-            $this->logInfo("Benutzer erstellt: $name");
+        if ($this-&gt;validate($name, $email)) {
+            $this-&gt;name = $name;
+            $this-&gt;email = $email;
+            $this-&gt;logInfo("Benutzer erstellt: $name");
         } else {
-            $this->logError("Benutzer-Validierung fehlgeschlagen");
-            throw new Exception("Validierungsfehler: " . implode(', ', $this->getErrors()));
+            $this-&gt;logError("Benutzer-Validierung fehlgeschlagen");
+            throw new Exception("Validierungsfehler: " . implode(', ', $this-&gt;getErrors()));
         }
     }
     
     private function validate($name, $email) {
-        $this->clearErrors();
+        $this-&gt;clearErrors();
         
         $valid = true;
-        $valid = $this->validateRequired('name', $name) && $valid;
-        $valid = $this->validateRequired('email', $email) && $valid;
-        $valid = $this->validateEmail($email) && $valid;
+        $valid = $this-&gt;validateRequired('name', $name) && $valid;
+        $valid = $this-&gt;validateRequired('email', $email) && $valid;
+        $valid = $this-&gt;validateEmail($email) && $valid;
         
         return $valid;
     }
     
     public function updateEmail($new_email) {
-        if ($this->validateEmail($new_email)) {
-            $old_email = $this->email;
-            $this->email = $new_email;
-            $this->touch();
-            $this->logInfo("E-Mail geändert von $old_email zu $new_email");
+        if ($this-&gt;validateEmail($new_email)) {
+            $old_email = $this-&gt;email;
+            $this-&gt;email = $new_email;
+            $this-&gt;touch();
+            $this-&gt;logInfo("E-Mail geändert von $old_email zu $new_email");
             return true;
         }
         return false;
@@ -870,10 +870,10 @@ class User {
     
     public function getInfo() {
         return [
-            'name' => $this->name,
-            'email' => $this->email,
-            'created_at' => $this->getCreatedAt(),
-            'updated_at' => $this->getUpdatedAt()
+            'name' =&gt; $this-&gt;name,
+            'email' =&gt; $this-&gt;email,
+            'created_at' =&gt; $this-&gt;getCreatedAt(),
+            'updated_at' =&gt; $this-&gt;getUpdatedAt()
         ];
     }
 }
@@ -885,25 +885,25 @@ class Product {
     private $price;
     
     public function __construct($name, $price) {
-        $this->initTimestamps();
+        $this-&gt;initTimestamps();
         
-        if ($this->validate($name, $price)) {
-            $this->name = $name;
-            $this->price = $price;
-            $this->logInfo("Produkt erstellt: $name ($price €)");
+        if ($this-&gt;validate($name, $price)) {
+            $this-&gt;name = $name;
+            $this-&gt;price = $price;
+            $this-&gt;logInfo("Produkt erstellt: $name ($price €)");
         } else {
             throw new Exception("Produkt-Validierung fehlgeschlagen");
         }
     }
     
     private function validate($name, $price) {
-        $this->clearErrors();
+        $this-&gt;clearErrors();
         
         $valid = true;
-        $valid = $this->validateRequired('name', $name) && $valid;
+        $valid = $this-&gt;validateRequired('name', $name) && $valid;
         
-        if (!is_numeric($price) || $price < 0) {
-            $this->addError('price', 'Preis muss eine positive Zahl sein');
+        if (!is_numeric($price) || $price &lt; 0) {
+            $this-&gt;addError('price', 'Preis muss eine positive Zahl sein');
             $valid = false;
         }
         
@@ -911,14 +911,14 @@ class Product {
     }
     
     public function updatePrice($new_price) {
-        if (is_numeric($new_price) && $new_price >= 0) {
-            $old_price = $this->price;
-            $this->price = $new_price;
-            $this->touch();
-            $this->logInfo("Preis geändert von $old_price € auf $new_price €");
+        if (is_numeric($new_price) && $new_price &gt;= 0) {
+            $old_price = $this-&gt;price;
+            $this-&gt;price = $new_price;
+            $this-&gt;touch();
+            $this-&gt;logInfo("Preis geändert von $old_price € auf $new_price €");
             return true;
         } else {
-            $this->logWarning("Ungültiger Preis: $new_price");
+            $this-&gt;logWarning("Ungültiger Preis: $new_price");
             return false;
         }
     }
@@ -928,17 +928,17 @@ echo "\n=== Traits Demo ===\n";
 
 try {
     $user = new User("Max Mustermann", "max@example.com");
-    print_r($user->getInfo());
+    print_r($user-&gt;getInfo());
     
     sleep(1); // Kurz warten für timestamp
-    $user->updateEmail("max.mustermann@example.com");
-    print_r($user->getInfo());
+    $user-&gt;updateEmail("max.mustermann@example.com");
+    print_r($user-&gt;getInfo());
     
     $product = new Product("Laptop", 1299.99);
-    $product->updatePrice(1199.99);
+    $product-&gt;updatePrice(1199.99);
     
 } catch (Exception $e) {
-    echo "Fehler: " . $e->getMessage() . "\n";
+    echo "Fehler: " . $e-&gt;getMessage() . "\n";
 }
 
 // Trait-Konflikte lösen
@@ -963,8 +963,8 @@ class C {
 
 $c = new C();
 echo "\nTrait-Konflikt-Lösung:\n";
-echo $c->test() . "\n";   // "A"
-echo $c->testB() . "\n";  // "B"
+echo $c-&gt;test() . "\n";   // "A"
+echo $c-&gt;testB() . "\n";  // "B"
 ?&gt;</code></pre>
                                             </div>
                                         </div>
@@ -1024,7 +1024,7 @@ trait ValidationTrait {
     
     protected function validateEmail(string $email): bool {
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->errors[] = 'Ungültige E-Mail-Adresse';
+            $this-&gt;errors[] = 'Ungültige E-Mail-Adresse';
             return false;
         }
         return true;
@@ -1032,18 +1032,18 @@ trait ValidationTrait {
     
     protected function validateRequired(string $value, string $field): bool {
         if (empty(trim($value))) {
-            $this->errors[] = "Feld '$field' ist erforderlich";
+            $this-&gt;errors[] = "Feld '$field' ist erforderlich";
             return false;
         }
         return true;
     }
     
     public function getErrors(): array {
-        return $this->errors;
+        return $this-&gt;errors;
     }
     
     public function hasErrors(): bool {
-        return !empty($this->errors);
+        return !empty($this-&gt;errors);
     }
 }
 
@@ -1059,36 +1059,36 @@ abstract class Product implements ProductInterface {
     protected int $stock;
     
     public function __construct(string $id, string $name, float $price, string $category, int $stock = 0) {
-        $this->id = $id;
-        $this->name = $name;
-        $this->price = $price;
-        $this->category = $category;
-        $this->stock = $stock;
+        $this-&gt;id = $id;
+        $this-&gt;name = $name;
+        $this-&gt;price = $price;
+        $this-&gt;category = $category;
+        $this-&gt;stock = $stock;
     }
     
     public function getId(): string {
-        return $this->id;
+        return $this-&gt;id;
     }
     
     public function getName(): string {
-        return $this->name;
+        return $this-&gt;name;
     }
     
     public function getPrice(): float {
-        return $this->price;
+        return $this-&gt;price;
     }
     
     public function getCategory(): string {
-        return $this->category;
+        return $this-&gt;category;
     }
     
     public function getStock(): int {
-        return $this->stock;
+        return $this-&gt;stock;
     }
     
     public function reduceStock(int $quantity): bool {
-        if ($this->stock >= $quantity) {
-            $this->stock -= $quantity;
+        if ($this-&gt;stock &gt;= $quantity) {
+            $this-&gt;stock -= $quantity;
             return true;
         }
         return false;
@@ -1107,12 +1107,12 @@ class PhysicalProduct extends Product {
     
     public function __construct(string $id, string $name, float $price, string $category, int $stock, float $weight, array $dimensions) {
         parent::__construct($id, $name, $price, $category, $stock);
-        $this->weight = $weight;
-        $this->dimensions = $dimensions;
+        $this-&gt;weight = $weight;
+        $this-&gt;dimensions = $dimensions;
     }
     
     public function getShippingWeight(): float {
-        return $this->weight;
+        return $this-&gt;weight;
     }
     
     public function getProductType(): string {
@@ -1120,7 +1120,7 @@ class PhysicalProduct extends Product {
     }
     
     public function getDimensions(): array {
-        return $this->dimensions;
+        return $this-&gt;dimensions;
     }
 }
 
@@ -1130,8 +1130,8 @@ class DigitalProduct extends Product {
     
     public function __construct(string $id, string $name, float $price, string $category, string $download_url, int $download_limit = 5) {
         parent::__construct($id, $name, $price, $category, 999999); // Digitale Produkte haben "unendlichen" Stock
-        $this->download_url = $download_url;
-        $this->download_limit = $download_limit;
+        $this-&gt;download_url = $download_url;
+        $this-&gt;download_limit = $download_limit;
     }
     
     public function getShippingWeight(): float {
@@ -1143,7 +1143,7 @@ class DigitalProduct extends Product {
     }
     
     public function getDownloadUrl(): string {
-        return $this->download_url;
+        return $this-&gt;download_url;
     }
 }
 
@@ -1156,62 +1156,62 @@ class ShoppingCart implements CartInterface {
     private string $currency = 'EUR';
     
     public function addItem(ProductInterface $product, int $quantity = 1): void {
-        $product_id = $product->getId();
+        $product_id = $product-&gt;getId();
         
-        if (isset($this->items[$product_id])) {
-            $this->items[$product_id]['quantity'] += $quantity;
+        if (isset($this-&gt;items[$product_id])) {
+            $this-&gt;items[$product_id]['quantity'] += $quantity;
         } else {
-            $this->items[$product_id] = [
-                'product' => $product,
-                'quantity' => $quantity,
-                'added_at' => new DateTime()
+            $this-&gt;items[$product_id] = [
+                'product' =&gt; $product,
+                'quantity' =&gt; $quantity,
+                'added_at' =&gt; new DateTime()
             ];
         }
     }
     
     public function removeItem(string $product_id): void {
-        unset($this->items[$product_id]);
+        unset($this-&gt;items[$product_id]);
     }
     
     public function updateQuantity(string $product_id, int $quantity): void {
-        if (isset($this->items[$product_id])) {
-            if ($quantity <= 0) {
-                $this->removeItem($product_id);
+        if (isset($this-&gt;items[$product_id])) {
+            if ($quantity &lt;= 0) {
+                $this-&gt;removeItem($product_id);
             } else {
-                $this->items[$product_id]['quantity'] = $quantity;
+                $this-&gt;items[$product_id]['quantity'] = $quantity;
             }
         }
     }
     
     public function getItems(): array {
-        return $this->items;
+        return $this-&gt;items;
     }
     
     public function getItemCount(): int {
-        return array_sum(array_column($this->items, 'quantity'));
+        return array_sum(array_column($this-&gt;items, 'quantity'));
     }
     
     public function getTotal(): float {
         $total = 0;
-        foreach ($this->items as $item) {
-            $total += $item['product']->getPrice() * $item['quantity'];
+        foreach ($this-&gt;items as $item) {
+            $total += $item['product']-&gt;getPrice() * $item['quantity'];
         }
         return $total;
     }
     
     public function getTotalWithTax(float $tax_rate = 19.0): float {
-        $total = $this->getTotal();
-        return $total + $this->calculateTax($total, $tax_rate);
+        $total = $this-&gt;getTotal();
+        return $total + $this-&gt;calculateTax($total, $tax_rate);
     }
     
     public function clear(): void {
-        $this->items = [];
+        $this-&gt;items = [];
     }
     
     public function getShippingWeight(): float {
         $total_weight = 0;
-        foreach ($this->items as $item) {
-            $total_weight += $item['product']->getShippingWeight() * $item['quantity'];
+        foreach ($this-&gt;items as $item) {
+            $total_weight += $item['product']-&gt;getShippingWeight() * $item['quantity'];
         }
         return $total_weight;
     }
@@ -1229,31 +1229,31 @@ class Customer {
     private array $order_history = [];
     
     public function __construct(string $name, string $email) {
-        $this->errors = [];
+        $this-&gt;errors = [];
         
-        if ($this->validateRequired($name, 'name') && $this->validateEmail($email)) {
-            $this->id = uniqid('customer_');
-            $this->name = $name;
-            $this->email = $email;
+        if ($this-&gt;validateRequired($name, 'name') && $this-&gt;validateEmail($email)) {
+            $this-&gt;id = uniqid('customer_');
+            $this-&gt;name = $name;
+            $this-&gt;email = $email;
         } else {
-            throw new InvalidArgumentException('Validierungsfehler: ' . implode(', ', $this->errors));
+            throw new InvalidArgumentException('Validierungsfehler: ' . implode(', ', $this-&gt;errors));
         }
     }
     
-    public function getId(): string { return $this->id; }
-    public function getName(): string { return $this->name; }
-    public function getEmail(): string { return $this->email; }
+    public function getId(): string { return $this-&gt;id; }
+    public function getName(): string { return $this-&gt;name; }
+    public function getEmail(): string { return $this-&gt;email; }
     
     public function addAddress(string $type, array $address): void {
-        $this->addresses[$type] = $address;
+        $this-&gt;addresses[$type] = $address;
     }
     
     public function getAddress(string $type): ?array {
-        return $this->addresses[$type] ?? null;
+        return $this-&gt;addresses[$type] ?? null;
     }
     
     public function addOrder(Order $order): void {
-        $this->order_history[] = $order;
+        $this-&gt;order_history[] = $order;
     }
 }
 
@@ -1277,18 +1277,18 @@ class Order {
     const STATUS_CANCELLED = 'cancelled';
     
     public function __construct(Customer $customer, ShoppingCart $cart, array $shipping_address) {
-        $this->id = uniqid('order_');
-        $this->customer = $customer;
-        $this->cart = clone $cart; // Warenkorb "einfrieren"
-        $this->shipping_address = $shipping_address;
-        $this->status = self::STATUS_PENDING;
-        $this->created_at = new DateTime();
+        $this-&gt;id = uniqid('order_');
+        $this-&gt;customer = $customer;
+        $this-&gt;cart = clone $cart; // Warenkorb "einfrieren"
+        $this-&gt;shipping_address = $shipping_address;
+        $this-&gt;status = self::STATUS_PENDING;
+        $this-&gt;created_at = new DateTime();
     }
     
-    public function getId(): string { return $this->id; }
-    public function getCustomer(): Customer { return $this->customer; }
-    public function getStatus(): string { return $this->status; }
-    public function getTotal(): float { return $this->cart->getTotalWithTax(); }
+    public function getId(): string { return $this-&gt;id; }
+    public function getCustomer(): Customer { return $this-&gt;customer; }
+    public function getStatus(): string { return $this-&gt;status; }
+    public function getTotal(): float { return $this-&gt;cart-&gt;getTotalWithTax(); }
     
     public function updateStatus(string $status): void {
         $valid_statuses = [
@@ -1300,29 +1300,29 @@ class Order {
         ];
         
         if (in_array($status, $valid_statuses)) {
-            $this->status = $status;
+            $this-&gt;status = $status;
             
             if ($status === self::STATUS_SHIPPED) {
-                $this->shipped_at = new DateTime();
-                $this->reduceStock();
+                $this-&gt;shipped_at = new DateTime();
+                $this-&gt;reduceStock();
             }
         }
     }
     
     private function reduceStock(): void {
-        foreach ($this->cart->getItems() as $item) {
-            $item['product']->reduceStock($item['quantity']);
+        foreach ($this-&gt;cart-&gt;getItems() as $item) {
+            $item['product']-&gt;reduceStock($item['quantity']);
         }
     }
     
     public function getOrderSummary(): array {
         return [
-            'order_id' => $this->id,
-            'customer' => $this->customer->getName(),
-            'status' => $this->status,
-            'items' => count($this->cart->getItems()),
-            'total' => $this->formatPrice($this->getTotal()),
-            'created_at' => $this->created_at->format('Y-m-d H:i:s')
+            'order_id' =&gt; $this-&gt;id,
+            'customer' =&gt; $this-&gt;customer-&gt;getName(),
+            'status' =&gt; $this-&gt;status,
+            'items' =&gt; count($this-&gt;cart-&gt;getItems()),
+            'total' =&gt; $this-&gt;formatPrice($this-&gt;getTotal()),
+            'created_at' =&gt; $this-&gt;created_at-&gt;format('Y-m-d H:i:s')
         ];
     }
 }
@@ -1336,31 +1336,31 @@ class CreditCardPayment implements PaymentInterface {
         $masked_card = '****-****-****-' . substr($card_number, -4);
         
         // Einfache Validierung
-        if (strlen($card_number) < 16) {
+        if (strlen($card_number) &lt; 16) {
             return [
-                'success' => false,
-                'error' => 'Ungültige Kartennummer'
+                'success' =&gt; false,
+                'error' =&gt; 'Ungültige Kartennummer'
             ];
         }
         
         $transaction_id = uniqid('cc_');
         
         return [
-            'success' => true,
-            'transaction_id' => $transaction_id,
-            'amount' => $amount,
-            'card' => $masked_card,
-            'processed_at' => date('Y-m-d H:i:s')
+            'success' =&gt; true,
+            'transaction_id' =&gt; $transaction_id,
+            'amount' =&gt; $amount,
+            'card' =&gt; $masked_card,
+            'processed_at' =&gt; date('Y-m-d H:i:s')
         ];
     }
     
     public function refund(string $transaction_id, float $amount): array {
         return [
-            'success' => true,
-            'refund_id' => uniqid('refund_'),
-            'original_transaction' => $transaction_id,
-            'amount' => $amount,
-            'processed_at' => date('Y-m-d H:i:s')
+            'success' =&gt; true,
+            'refund_id' =&gt; uniqid('refund_'),
+            'original_transaction' =&gt; $transaction_id,
+            'amount' =&gt; $amount,
+            'processed_at' =&gt; date('Y-m-d H:i:s')
         ];
     }
 }
@@ -1373,31 +1373,31 @@ class ECommerceSystem {
     private array $orders = [];
     
     public function addProduct(Product $product): void {
-        $this->products[$product->getId()] = $product;
+        $this-&gt;products[$product-&gt;getId()] = $product;
     }
     
     public function getProduct(string $product_id): ?Product {
-        return $this->products[$product_id] ?? null;
+        return $this-&gt;products[$product_id] ?? null;
     }
     
     public function registerCustomer(string $name, string $email): Customer {
         $customer = new Customer($name, $email);
-        $this->customers[$customer->getId()] = $customer;
+        $this-&gt;customers[$customer-&gt;getId()] = $customer;
         return $customer;
     }
     
     public function createOrder(Customer $customer, ShoppingCart $cart, array $shipping_address): Order {
         $order = new Order($customer, $cart, $shipping_address);
-        $this->orders[$order->getId()] = $order;
-        $customer->addOrder($order);
+        $this-&gt;orders[$order-&gt;getId()] = $order;
+        $customer-&gt;addOrder($order);
         return $order;
     }
     
     public function processPayment(Order $order, PaymentInterface $payment_method, array $payment_data): array {
-        $result = $payment_method->processPayment($order->getTotal(), $payment_data);
+        $result = $payment_method-&gt;processPayment($order-&gt;getTotal(), $payment_data);
         
         if ($result['success']) {
-            $order->updateStatus(Order::STATUS_PAID);
+            $order-&gt;updateStatus(Order::STATUS_PAID);
         }
         
         return $result;
@@ -1407,19 +1407,19 @@ class ECommerceSystem {
         $total_revenue = 0;
         $completed_orders = 0;
         
-        foreach ($this->orders as $order) {
-            if ($order->getStatus() === Order::STATUS_DELIVERED) {
-                $total_revenue += $order->getTotal();
+        foreach ($this-&gt;orders as $order) {
+            if ($order-&gt;getStatus() === Order::STATUS_DELIVERED) {
+                $total_revenue += $order-&gt;getTotal();
                 $completed_orders++;
             }
         }
         
         return [
-            'total_products' => count($this->products),
-            'total_customers' => count($this->customers),
-            'total_orders' => count($this->orders),
-            'completed_orders' => $completed_orders,
-            'total_revenue' => $total_revenue
+            'total_products' =&gt; count($this-&gt;products),
+            'total_customers' =&gt; count($this-&gt;customers),
+            'total_orders' =&gt; count($this-&gt;orders),
+            'completed_orders' =&gt; $completed_orders,
+            'total_revenue' =&gt; $total_revenue
         ];
     }
 }
@@ -1431,67 +1431,67 @@ echo "\n=== E-Commerce System Demo ===\n";
 $ecommerce = new ECommerceSystem();
 
 // Produkte erstellen
-$laptop = new PhysicalProduct('laptop-001', 'Gaming Laptop', 1299.99, 'Electronics', 10, 2.5, ['length' => 35, 'width' => 25, 'height' => 3]);
+$laptop = new PhysicalProduct('laptop-001', 'Gaming Laptop', 1299.99, 'Electronics', 10, 2.5, ['length' =&gt; 35, 'width' =&gt; 25, 'height' =&gt; 3]);
 $software = new DigitalProduct('software-001', 'Antivirus Premium', 49.99, 'Software', 'https://download.example.com/antivirus');
 
-$ecommerce->addProduct($laptop);
-$ecommerce->addProduct($software);
+$ecommerce-&gt;addProduct($laptop);
+$ecommerce-&gt;addProduct($software);
 
 // Kunde registrieren
-$customer = $ecommerce->registerCustomer('Max Mustermann', 'max@example.com');
-$customer->addAddress('shipping', [
-    'street' => 'Musterstraße 123',
-    'city' => 'Berlin',
-    'zip' => '10115',
-    'country' => 'Deutschland'
+$customer = $ecommerce-&gt;registerCustomer('Max Mustermann', 'max@example.com');
+$customer-&gt;addAddress('shipping', [
+    'street' =&gt; 'Musterstraße 123',
+    'city' =&gt; 'Berlin',
+    'zip' =&gt; '10115',
+    'country' =&gt; 'Deutschland'
 ]);
 
 // Warenkorb erstellen und befüllen
 $cart = new ShoppingCart();
-$cart->addItem($laptop, 1);
-$cart->addItem($software, 2);
+$cart-&gt;addItem($laptop, 1);
+$cart-&gt;addItem($software, 2);
 
 echo "Warenkorb:\n";
-echo "- Artikel: " . $cart->getItemCount() . "\n";
-echo "- Netto: " . number_format($cart->getTotal(), 2) . " €\n";
-echo "- Mit MwSt: " . number_format($cart->getTotalWithTax(), 2) . " €\n";
-echo "- Gewicht: " . $cart->getShippingWeight() . " kg\n";
+echo "- Artikel: " . $cart-&gt;getItemCount() . "\n";
+echo "- Netto: " . number_format($cart-&gt;getTotal(), 2) . " €\n";
+echo "- Mit MwSt: " . number_format($cart-&gt;getTotalWithTax(), 2) . " €\n";
+echo "- Gewicht: " . $cart-&gt;getShippingWeight() . " kg\n";
 
 // Bestellung erstellen
-$order = $ecommerce->createOrder($customer, $cart, $customer->getAddress('shipping'));
-echo "\nBestellung erstellt: " . $order->getId() . "\n";
+$order = $ecommerce-&gt;createOrder($customer, $cart, $customer-&gt;getAddress('shipping'));
+echo "\nBestellung erstellt: " . $order-&gt;getId() . "\n";
 
 // Zahlung verarbeiten
 $payment = new CreditCardPayment();
-$payment_result = $ecommerce->processPayment($order, $payment, [
-    'card_number' => '1234567890123456',
-    'expiry' => '12/25',
-    'cvv' => '123'
+$payment_result = $ecommerce-&gt;processPayment($order, $payment, [
+    'card_number' =&gt; '1234567890123456',
+    'expiry' =&gt; '12/25',
+    'cvv' =&gt; '123'
 ]);
 
 if ($payment_result['success']) {
     echo "Zahlung erfolgreich: " . $payment_result['transaction_id'] . "\n";
     
     // Bestellung versenden
-    $order->updateStatus(Order::STATUS_SHIPPED);
+    $order-&gt;updateStatus(Order::STATUS_SHIPPED);
     echo "Bestellung versendet\n";
     
     // Bestellung als geliefert markieren
-    $order->updateStatus(Order::STATUS_DELIVERED);
+    $order-&gt;updateStatus(Order::STATUS_DELIVERED);
     echo "Bestellung zugestellt\n";
 } else {
     echo "Zahlung fehlgeschlagen: " . $payment_result['error'] . "\n";
 }
 
 // System-Statistiken
-$stats = $ecommerce->getSystemStats();
+$stats = $ecommerce-&gt;getSystemStats();
 echo "\nSystem-Statistiken:\n";
-foreach ($stats as $key => $value) {
+foreach ($stats as $key =&gt; $value) {
     echo "- $key: $value\n";
 }
 
 // Bestellübersicht
-print_r($order->getOrderSummary());
+print_r($order-&gt;getOrderSummary());
 ?&gt;</code></pre>
                                     </div>
                                 </div>
@@ -1526,7 +1526,7 @@ print_r($order->getOrderSummary());
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <h6>Nächstes Thema</h6>
-                                        <a href="php-error-handling.php" class="btn btn-primary">
+                                        <a href="php-err.php" class="btn btn-primary">
                                             <i class="bi bi-bug me-2"></i>Error Handling
                                         </a>
                                     </div>

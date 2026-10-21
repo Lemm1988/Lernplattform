@@ -19,7 +19,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-cookies-sessions'); ?>
+                        <?php renderNavigation('php-cookiessessions'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-person-check me-2"></i>Cookies & Sessions</h1>
@@ -104,27 +104,27 @@ class SecureCookieManager {
     
     private $encryption_key;
     private $default_options = [
-        'lifetime' => 2592000, // 30 Tage
-        'path' => '/',
-        'domain' => '',
-        'secure' => true,      // Nur über HTTPS
-        'httponly' => true,    // Kein JS-Zugriff
-        'samesite' => 'Strict' // CSRF-Schutz
+        'lifetime' =&gt; 2592000, // 30 Tage
+        'path' =&gt; '/',
+        'domain' =&gt; '',
+        'secure' =&gt; true,      // Nur über HTTPS
+        'httponly' =&gt; true,    // Kein JS-Zugriff
+        'samesite' =&gt; 'Strict' // CSRF-Schutz
     ];
     
     public function __construct($encryption_key = null) {
-        $this->encryption_key = $encryption_key ?: $this->generateKey();
+        $this-&gt;encryption_key = $encryption_key ?: $this-&gt;generateKey();
     }
     
     /**
      * Sicheres Cookie setzen
      */
     public function set($name, $value, $options = []) {
-        $opts = array_merge($this->default_options, $options);
+        $opts = array_merge($this-&gt;default_options, $options);
         
         // Wert verschlüsseln für sensible Daten
         if ($opts['encrypt'] ?? false) {
-            $value = $this->encrypt($value);
+            $value = $this-&gt;encrypt($value);
         }
         
         // JSON für komplexe Datentypen
@@ -133,12 +133,12 @@ class SecureCookieManager {
         }
         
         return setcookie($name, $value, [
-            'expires' => time() + $opts['lifetime'],
-            'path' => $opts['path'],
-            'domain' => $opts['domain'],
-            'secure' => $opts['secure'],
-            'httponly' => $opts['httponly'],
-            'samesite' => $opts['samesite']
+            'expires' =&gt; time() + $opts['lifetime'],
+            'path' =&gt; $opts['path'],
+            'domain' =&gt; $opts['domain'],
+            'secure' =&gt; $opts['secure'],
+            'httponly' =&gt; $opts['httponly'],
+            'samesite' =&gt; $opts['samesite']
         ]);
     }
     
@@ -154,7 +154,7 @@ class SecureCookieManager {
         
         // Entschlüsseln falls nötig
         if ($encrypted) {
-            $value = $this->decrypt($value);
+            $value = $this-&gt;decrypt($value);
             if ($value === false) {
                 return $default; // Entschlüsselung fehlgeschlagen
             }
@@ -175,10 +175,10 @@ class SecureCookieManager {
     public function delete($name) {
         if (isset($_COOKIE[$name])) {
             setcookie($name, '', [
-                'expires' => time() - 3600,
-                'path' => $this->default_options['path'],
-                'secure' => $this->default_options['secure'],
-                'httponly' => $this->default_options['httponly']
+                'expires' =&gt; time() - 3600,
+                'path' =&gt; $this-&gt;default_options['path'],
+                'secure' =&gt; $this-&gt;default_options['secure'],
+                'httponly' =&gt; $this-&gt;default_options['httponly']
             ]);
             unset($_COOKIE[$name]);
         }
@@ -188,8 +188,8 @@ class SecureCookieManager {
      * Alle Cookies löschen
      */
     public function clear() {
-        foreach ($_COOKIE as $name => $value) {
-            $this->delete($name);
+        foreach ($_COOKIE as $name =&gt; $value) {
+            $this-&gt;delete($name);
         }
     }
     
@@ -198,20 +198,20 @@ class SecureCookieManager {
      */
     public function setConsent($categories = []) {
         $consent_data = [
-            'timestamp' => time(),
-            'categories' => $categories,
-            'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown'
+            'timestamp' =&gt; time(),
+            'categories' =&gt; $categories,
+            'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            'user_agent' =&gt; $_SERVER['HTTP_USER_AGENT'] ?? 'unknown'
         ];
         
-        return $this->set('cookie_consent', $consent_data, [
-            'lifetime' => 31536000, // 1 Jahr
-            'encrypt' => false
+        return $this-&gt;set('cookie_consent', $consent_data, [
+            'lifetime' =&gt; 31536000, // 1 Jahr
+            'encrypt' =&gt; false
         ]);
     }
     
     public function hasConsent($category = null) {
-        $consent = $this->get('cookie_consent');
+        $consent = $this-&gt;get('cookie_consent');
         
         if (!$consent) {
             return false;
@@ -228,21 +228,21 @@ class SecureCookieManager {
      * Benutzer-Präferenzen verwalten
      */
     public function setUserPreferences($preferences) {
-        return $this->set('user_preferences', $preferences, [
-            'lifetime' => 7776000, // 90 Tage
-            'encrypt' => true
+        return $this-&gt;set('user_preferences', $preferences, [
+            'lifetime' =&gt; 7776000, // 90 Tage
+            'encrypt' =&gt; true
         ]);
     }
     
     public function getUserPreferences($defaults = []) {
-        return $this->get('user_preferences', $defaults, true);
+        return $this-&gt;get('user_preferences', $defaults, true);
     }
     
     /**
      * Shopping-Cart Management
      */
     public function addToCart($product_id, $quantity = 1) {
-        $cart = $this->get('shopping_cart', []);
+        $cart = $this-&gt;get('shopping_cart', []);
         
         if (isset($cart[$product_id])) {
             $cart[$product_id] += $quantity;
@@ -250,34 +250,34 @@ class SecureCookieManager {
             $cart[$product_id] = $quantity;
         }
         
-        return $this->set('shopping_cart', $cart, [
-            'lifetime' => 604800 // 7 Tage
+        return $this-&gt;set('shopping_cart', $cart, [
+            'lifetime' =&gt; 604800 // 7 Tage
         ]);
     }
     
     public function getCartItems() {
-        return $this->get('shopping_cart', []);
+        return $this-&gt;get('shopping_cart', []);
     }
     
     public function clearCart() {
-        $this->delete('shopping_cart');
+        $this-&gt;delete('shopping_cart');
     }
     
     /**
      * Einfache Verschlüsselung
      */
     private function encrypt($data) {
-        $key = hash('sha256', $this->encryption_key);
+        $key = hash('sha256', $this-&gt;encryption_key);
         $iv = openssl_random_pseudo_bytes(16);
         $encrypted = openssl_encrypt($data, 'AES-256-CBC', $key, 0, $iv);
         return base64_encode($iv . $encrypted);
     }
     
     private function decrypt($data) {
-        $key = hash('sha256', $this->encryption_key);
+        $key = hash('sha256', $this-&gt;encryption_key);
         $data = base64_decode($data);
         
-        if (strlen($data) < 16) {
+        if (strlen($data) &lt; 16) {
             return false;
         }
         
@@ -298,20 +298,20 @@ $cookies = new SecureCookieManager('mein-geheimer-schluessel-2024');
 // Beispiele
 if ($_POST['save_preferences'] ?? false) {
     $preferences = [
-        'theme' => $_POST['theme'] ?? 'light',
-        'language' => $_POST['language'] ?? 'de',
-        'notifications' => isset($_POST['notifications'])
+        'theme' =&gt; $_POST['theme'] ?? 'light',
+        'language' =&gt; $_POST['language'] ?? 'de',
+        'notifications' =&gt; isset($_POST['notifications'])
     ];
     
-    if ($cookies->setUserPreferences($preferences)) {
+    if ($cookies-&gt;setUserPreferences($preferences)) {
         echo "&lt;div class='alert alert-success'&gt;Einstellungen gespeichert!&lt;/div&gt;";
     }
 }
 
-$user_prefs = $cookies->getUserPreferences([
-    'theme' => 'light',
-    'language' => 'de',
-    'notifications' => true
+$user_prefs = $cookies-&gt;getUserPreferences([
+    'theme' =&gt; 'light',
+    'language' =&gt; 'de',
+    'notifications' =&gt; true
 ]);
 
 echo "&lt;div class='alert alert-info'&gt;";
@@ -333,35 +333,35 @@ class GDPRCookieBanner {
     
     private $cookie_manager;
     private $categories = [
-        'necessary' => [
-            'name' => 'Notwendige Cookies',
-            'description' => 'Für die Grundfunktionen der Website erforderlich',
-            'required' => true
+        'necessary' =&gt; [
+            'name' =&gt; 'Notwendige Cookies',
+            'description' =&gt; 'Für die Grundfunktionen der Website erforderlich',
+            'required' =&gt; true
         ],
-        'analytics' => [
-            'name' => 'Analytische Cookies',
-            'description' => 'Helfen uns die Website zu verbessern',
-            'required' => false
+        'analytics' =&gt; [
+            'name' =&gt; 'Analytische Cookies',
+            'description' =&gt; 'Helfen uns die Website zu verbessern',
+            'required' =&gt; false
         ],
-        'marketing' => [
-            'name' => 'Marketing Cookies',
-            'description' => 'Für personalisierte Werbung',
-            'required' => false
+        'marketing' =&gt; [
+            'name' =&gt; 'Marketing Cookies',
+            'description' =&gt; 'Für personalisierte Werbung',
+            'required' =&gt; false
         ],
-        'comfort' => [
-            'name' => 'Komfort Cookies',
-            'description' => 'Für zusätzliche Funktionen und Benutzererfahrung',
-            'required' => false
+        'comfort' =&gt; [
+            'name' =&gt; 'Komfort Cookies',
+            'description' =&gt; 'Für zusätzliche Funktionen und Benutzererfahrung',
+            'required' =&gt; false
         ]
     ];
     
     public function __construct($cookie_manager) {
-        $this->cookie_manager = $cookie_manager;
+        $this-&gt;cookie_manager = $cookie_manager;
     }
     
     public function renderBanner() {
         // Bereits Zustimmung erteilt?
-        if ($this->cookie_manager->hasConsent()) {
+        if ($this-&gt;cookie_manager-&gt;hasConsent()) {
             return '';
         }
         
@@ -407,7 +407,7 @@ class GDPRCookieBanner {
                         &lt;p&gt;Wählen Sie aus, welche Cookie-Kategorien Sie zulassen möchten:&lt;/p&gt;
                         
                         &lt;form id="cookie-preferences-form"&gt;
-                            &lt;?php foreach ($this->categories as $key => $category): ?&gt;
+                            &lt;?php foreach ($this-&gt;categories as $key =&gt; $category): ?&gt;
                                 &lt;div class="border rounded p-3 mb-3"&gt;
                                     &lt;div class="form-check"&gt;
                                         &lt;input type="checkbox" 
@@ -450,7 +450,7 @@ class GDPRCookieBanner {
         &lt;script&gt;
         function acceptAllCookies() {
             fetch('?cookie_action=accept_all', { method: 'POST' })
-                .then(() => {
+                .then(() =&gt; {
                     document.getElementById('cookie-banner').style.display = 'none';
                     location.reload();
                 });
@@ -458,7 +458,7 @@ class GDPRCookieBanner {
         
         function acceptNecessaryOnly() {
             fetch('?cookie_action=necessary_only', { method: 'POST' })
-                .then(() => {
+                .then(() =&gt; {
                     document.getElementById('cookie-banner').style.display = 'none';
                     location.reload();
                 });
@@ -475,7 +475,7 @@ class GDPRCookieBanner {
             fetch('?cookie_action=save_preferences', {
                 method: 'POST',
                 body: formData
-            }).then(() => {
+            }).then(() =&gt; {
                 document.getElementById('cookie-banner').style.display = 'none';
                 bootstrap.Modal.getInstance(document.getElementById('cookie-settings-modal')).hide();
                 location.reload();
@@ -491,21 +491,21 @@ class GDPRCookieBanner {
         
         switch ($action) {
             case 'accept_all':
-                $this->cookie_manager->setConsent(array_keys($this->categories));
+                $this-&gt;cookie_manager-&gt;setConsent(array_keys($this-&gt;categories));
                 break;
                 
             case 'necessary_only':
-                $necessary = array_filter($this->categories, function($cat) {
+                $necessary = array_filter($this-&gt;categories, function($cat) {
                     return $cat['required'];
                 });
-                $this->cookie_manager->setConsent(array_keys($necessary));
+                $this-&gt;cookie_manager-&gt;setConsent(array_keys($necessary));
                 break;
                 
             case 'save_preferences':
                 $selected = $_POST['cookie_categories'] ?? [];
                 // Notwendige Cookies immer hinzufügen
                 $selected[] = 'necessary';
-                $this->cookie_manager->setConsent(array_unique($selected));
+                $this-&gt;cookie_manager-&gt;setConsent(array_unique($selected));
                 break;
         }
     }
@@ -513,11 +513,11 @@ class GDPRCookieBanner {
 
 // Cookie-Banner verwenden
 $banner = new GDPRCookieBanner($cookies);
-$banner->handleCookieActions();
+$banner-&gt;handleCookieActions();
 
 // Banner nur anzeigen wenn noch keine Zustimmung
-if (!$cookies->hasConsent()) {
-    echo $banner->renderBanner();
+if (!$cookies-&gt;hasConsent()) {
+    echo $banner-&gt;renderBanner();
 } else {
     echo "&lt;div class='alert alert-success'&gt;";
     echo "✅ Cookie-Einstellungen aktiv. Sie können diese jederzeit ändern.";
@@ -547,12 +547,12 @@ class SecureSessionManager {
     private $regenerate_interval = 300; // 5 Minuten
     
     public function __construct($options = []) {
-        $this->session_timeout = $options['timeout'] ?? $this->session_timeout;
-        $this->regenerate_interval = $options['regenerate'] ?? $this->regenerate_interval;
+        $this-&gt;session_timeout = $options['timeout'] ?? $this-&gt;session_timeout;
+        $this-&gt;regenerate_interval = $options['regenerate'] ?? $this-&gt;regenerate_interval;
         
-        $this->configureSession();
-        $this->startSession();
-        $this->validateSession();
+        $this-&gt;configureSession();
+        $this-&gt;startSession();
+        $this-&gt;validateSession();
     }
     
     /**
@@ -561,15 +561,15 @@ class SecureSessionManager {
     private function configureSession() {
         // Session-Cookie-Parameter setzen
         session_set_cookie_params([
-            'lifetime' => 0, // Session-Cookie
-            'path' => '/',
-            'domain' => $_SERVER['HTTP_HOST'] ?? '',
-            'secure' => isset($_SERVER['HTTPS']), // Nur über HTTPS
-            'httponly' => true, // Kein JS-Zugriff
-            'samesite' => 'Strict' // CSRF-Schutz
+            'lifetime' =&gt; 0, // Session-Cookie
+            'path' =&gt; '/',
+            'domain' =&gt; $_SERVER['HTTP_HOST'] ?? '',
+            'secure' =&gt; isset($_SERVER['HTTPS']), // Nur über HTTPS
+            'httponly' =&gt; true, // Kein JS-Zugriff
+            'samesite' =&gt; 'Strict' // CSRF-Schutz
         ]);
         
-        session_name($this->session_name);
+        session_name($this-&gt;session_name);
         
         // Session-Handler konfigurieren (optional)
         ini_set('session.use_strict_mode', 1);
@@ -589,10 +589,10 @@ class SecureSessionManager {
             // Session-Metadaten initialisieren
             if (!isset($_SESSION['_metadata'])) {
                 $_SESSION['_metadata'] = [
-                    'created' => time(),
-                    'last_regenerated' => time(),
-                    'ip_address' => $this->getClientIP(),
-                    'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? ''
+                    'created' =&gt; time(),
+                    'last_regenerated' =&gt; time(),
+                    'ip_address' =&gt; $this-&gt;getClientIP(),
+                    'user_agent' =&gt; $_SERVER['HTTP_USER_AGENT'] ?? ''
                 ];
             }
         }
@@ -604,16 +604,16 @@ class SecureSessionManager {
     private function validateSession() {
         // Timeout prüfen
         if (isset($_SESSION['_metadata']['last_activity'])) {
-            if (time() - $_SESSION['_metadata']['last_activity'] > $this->session_timeout) {
-                $this->destroy();
+            if (time() - $_SESSION['_metadata']['last_activity'] &gt; $this-&gt;session_timeout) {
+                $this-&gt;destroy();
                 return;
             }
         }
         
         // Session-Hijacking-Schutz
         if (isset($_SESSION['_metadata']['ip_address'])) {
-            if ($_SESSION['_metadata']['ip_address'] !== $this->getClientIP()) {
-                $this->destroy();
+            if ($_SESSION['_metadata']['ip_address'] !== $this-&gt;getClientIP()) {
+                $this-&gt;destroy();
                 return;
             }
         }
@@ -623,14 +623,14 @@ class SecureSessionManager {
             $current_ua = $_SERVER['HTTP_USER_AGENT'] ?? '';
             if ($_SESSION['_metadata']['user_agent'] !== $current_ua) {
                 // Optional: Session zerstören oder nur warnen
-                // $this->destroy();
+                // $this-&gt;destroy();
                 // return;
             }
         }
         
         // Session-ID regelmäßig erneuern
-        if (time() - $_SESSION['_metadata']['last_regenerated'] > $this->regenerate_interval) {
-            $this->regenerateId();
+        if (time() - $_SESSION['_metadata']['last_regenerated'] &gt; $this-&gt;regenerate_interval) {
+            $this-&gt;regenerateId();
         }
         
         // Letzte Aktivität aktualisieren
@@ -724,13 +724,13 @@ class SecureSessionManager {
      */
     public function getSessionInfo() {
         return [
-            'id' => session_id(),
-            'name' => session_name(),
-            'status' => session_status(),
-            'created' => $_SESSION['_metadata']['created'] ?? null,
-            'last_activity' => $_SESSION['_metadata']['last_activity'] ?? null,
-            'lifetime_remaining' => $this->session_timeout - (time() - ($_SESSION['_metadata']['last_activity'] ?? time())),
-            'ip_address' => $_SESSION['_metadata']['ip_address'] ?? null
+            'id' =&gt; session_id(),
+            'name' =&gt; session_name(),
+            'status' =&gt; session_status(),
+            'created' =&gt; $_SESSION['_metadata']['created'] ?? null,
+            'last_activity' =&gt; $_SESSION['_metadata']['last_activity'] ?? null,
+            'lifetime_remaining' =&gt; $this-&gt;session_timeout - (time() - ($_SESSION['_metadata']['last_activity'] ?? time())),
+            'ip_address' =&gt; $_SESSION['_metadata']['ip_address'] ?? null
         ];
     }
     
@@ -762,12 +762,12 @@ class SecureSessionManager {
 // Session-Manager verwenden
 try {
     $session = new SecureSessionManager([
-        'timeout' => 3600,    // 1 Stunde
-        'regenerate' => 300   // 5 Minuten
+        'timeout' =&gt; 3600,    // 1 Stunde
+        'regenerate' =&gt; 300   // 5 Minuten
     ]);
     
     // Session-Info anzeigen
-    $session_info = $session->getSessionInfo();
+    $session_info = $session-&gt;getSessionInfo();
     echo "&lt;div class='alert alert-info'&gt;";
     echo "&lt;h5&gt;📊 Session-Informationen:&lt;/h5&gt;";
     echo "&lt;p&gt;&lt;strong&gt;Session-ID:&lt;/strong&gt; " . substr($session_info['id'], 0, 8) . "...&lt;/p&gt;";
@@ -777,7 +777,7 @@ try {
     echo "&lt;/div&gt;";
     
 } catch (Exception $e) {
-    echo "&lt;div class='alert alert-danger'&gt;Session-Fehler: " . $e->getMessage() . "&lt;/div&gt;";
+    echo "&lt;div class='alert alert-danger'&gt;Session-Fehler: " . $e-&gt;getMessage() . "&lt;/div&gt;";
 }
 ?&gt;</code></pre>
                                             </div>
@@ -792,22 +792,22 @@ class UserAuthSystem {
     
     private $session;
     private $users = [
-        'admin' => [
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'role' => 'admin',
-            'name' => 'Administrator',
-            'email' => 'admin@example.com'
+        'admin' =&gt; [
+            'password' =&gt; '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'role' =&gt; 'admin',
+            'name' =&gt; 'Administrator',
+            'email' =&gt; 'admin@example.com'
         ],
-        'user' => [
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'role' => 'user',
-            'name' => 'Benutzer',
-            'email' => 'user@example.com'
+        'user' =&gt; [
+            'password' =&gt; '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'role' =&gt; 'user',
+            'name' =&gt; 'Benutzer',
+            'email' =&gt; 'user@example.com'
         ]
     ];
     
     public function __construct($session_manager) {
-        $this->session = $session_manager;
+        $this-&gt;session = $session_manager;
     }
     
     /**
@@ -815,59 +815,59 @@ class UserAuthSystem {
      */
     public function login($username, $password, $remember_me = false) {
         // Rate-Limiting prüfen
-        if ($this->isLoginBlocked()) {
+        if ($this-&gt;isLoginBlocked()) {
             return [
-                'success' => false,
-                'message' => 'Zu viele Fehlversuche. Versuchen Sie es in 15 Minuten erneut.'
+                'success' =&gt; false,
+                'message' =&gt; 'Zu viele Fehlversuche. Versuchen Sie es in 15 Minuten erneut.'
             ];
         }
         
         // Benutzer validieren
-        if (!isset($this->users[$username])) {
-            $this->recordLoginAttempt(false);
+        if (!isset($this-&gt;users[$username])) {
+            $this-&gt;recordLoginAttempt(false);
             return [
-                'success' => false,
-                'message' => 'Ungültige Anmeldedaten'
+                'success' =&gt; false,
+                'message' =&gt; 'Ungültige Anmeldedaten'
             ];
         }
         
-        $user = $this->users[$username];
+        $user = $this-&gt;users[$username];
         
         if (!password_verify($password, $user['password'])) {
-            $this->recordLoginAttempt(false);
+            $this-&gt;recordLoginAttempt(false);
             return [
-                'success' => false,
-                'message' => 'Ungültige Anmeldedaten'
+                'success' =&gt; false,
+                'message' =&gt; 'Ungültige Anmeldedaten'
             ];
         }
         
         // Erfolgreiche Anmeldung
-        $this->recordLoginAttempt(true);
+        $this-&gt;recordLoginAttempt(true);
         
         // Session-ID erneuern für Sicherheit
-        $this->session->regenerateId();
+        $this-&gt;session-&gt;regenerateId();
         
         // Benutzer-Daten in Session speichern
-        $this->session->set('logged_in', true);
-        $this->session->set('user_id', $username);
-        $this->session->set('username', $username);
-        $this->session->set('role', $user['role']);
-        $this->session->set('name', $user['name']);
-        $this->session->set('email', $user['email']);
-        $this->session->set('login_time', time());
+        $this-&gt;session-&gt;set('logged_in', true);
+        $this-&gt;session-&gt;set('user_id', $username);
+        $this-&gt;session-&gt;set('username', $username);
+        $this-&gt;session-&gt;set('role', $user['role']);
+        $this-&gt;session-&gt;set('name', $user['name']);
+        $this-&gt;session-&gt;set('email', $user['email']);
+        $this-&gt;session-&gt;set('login_time', time());
         
         // "Angemeldet bleiben" Cookie
         if ($remember_me) {
-            $token = $this->generateRememberToken($username);
+            $token = $this-&gt;generateRememberToken($username);
             setcookie('remember_token', $token, time() + (30 * 24 * 60 * 60), '/', '', true, true);
         }
         
-        $this->session->flash('success', 'Erfolgreich angemeldet!');
+        $this-&gt;session-&gt;flash('success', 'Erfolgreich angemeldet!');
         
         return [
-            'success' => true,
-            'message' => 'Willkommen zurück, ' . $user['name'] . '!',
-            'user' => $user
+            'success' =&gt; true,
+            'message' =&gt; 'Willkommen zurück, ' . $user['name'] . '!',
+            'user' =&gt; $user
         ];
     }
     
@@ -880,12 +880,12 @@ class UserAuthSystem {
             setcookie('remember_token', '', time() - 3600, '/', '', true, true);
         }
         
-        $this->session->flash('info', 'Sie wurden erfolgreich abgemeldet.');
-        $this->session->destroy();
+        $this-&gt;session-&gt;flash('info', 'Sie wurden erfolgreich abgemeldet.');
+        $this-&gt;session-&gt;destroy();
         
         return [
-            'success' => true,
-            'message' => 'Erfolgreich abgemeldet'
+            'success' =&gt; true,
+            'message' =&gt; 'Erfolgreich abgemeldet'
         ];
     }
     
@@ -894,13 +894,13 @@ class UserAuthSystem {
      */
     public function isLoggedIn() {
         // Session prüfen
-        if ($this->session->get('logged_in') === true) {
+        if ($this-&gt;session-&gt;get('logged_in') === true) {
             return true;
         }
         
         // Remember-Token prüfen
         if (isset($_COOKIE['remember_token'])) {
-            return $this->validateRememberToken($_COOKIE['remember_token']);
+            return $this-&gt;validateRememberToken($_COOKIE['remember_token']);
         }
         
         return false;
@@ -910,17 +910,17 @@ class UserAuthSystem {
      * Aktueller Benutzer
      */
     public function getCurrentUser() {
-        if (!$this->isLoggedIn()) {
+        if (!$this-&gt;isLoggedIn()) {
             return null;
         }
         
         return [
-            'id' => $this->session->get('user_id'),
-            'username' => $this->session->get('username'),
-            'name' => $this->session->get('name'),
-            'email' => $this->session->get('email'),
-            'role' => $this->session->get('role'),
-            'login_time' => $this->session->get('login_time')
+            'id' =&gt; $this-&gt;session-&gt;get('user_id'),
+            'username' =&gt; $this-&gt;session-&gt;get('username'),
+            'name' =&gt; $this-&gt;session-&gt;get('name'),
+            'email' =&gt; $this-&gt;session-&gt;get('email'),
+            'role' =&gt; $this-&gt;session-&gt;get('role'),
+            'login_time' =&gt; $this-&gt;session-&gt;get('login_time')
         ];
     }
     
@@ -928,38 +928,38 @@ class UserAuthSystem {
      * Rolle prüfen
      */
     public function hasRole($role) {
-        return $this->isLoggedIn() && $this->session->get('role') === $role;
+        return $this-&gt;isLoggedIn() && $this-&gt;session-&gt;get('role') === $role;
     }
     
     /**
      * Login-Versuche verwalten
      */
     private function recordLoginAttempt($success) {
-        $attempts = $this->session->get('login_attempts', []);
+        $attempts = $this-&gt;session-&gt;get('login_attempts', []);
         $now = time();
         
         // Alte Versuche entfernen (älter als 15 Minuten)
         $attempts = array_filter($attempts, function($attempt) use ($now) {
-            return ($now - $attempt['time']) < 900; // 15 Minuten
+            return ($now - $attempt['time']) &lt; 900; // 15 Minuten
         });
         
         // Neuen Versuch hinzufügen
         $attempts[] = [
-            'time' => $now,
-            'success' => $success,
-            'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+            'time' =&gt; $now,
+            'success' =&gt; $success,
+            'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? 'unknown'
         ];
         
-        $this->session->set('login_attempts', $attempts);
+        $this-&gt;session-&gt;set('login_attempts', $attempts);
     }
     
     private function isLoginBlocked() {
-        $attempts = $this->session->get('login_attempts', []);
+        $attempts = $this-&gt;session-&gt;get('login_attempts', []);
         $failed_attempts = array_filter($attempts, function($attempt) {
             return !$attempt['success'];
         });
         
-        return count($failed_attempts) >= 5;
+        return count($failed_attempts) &gt;= 5;
     }
     
     /**
@@ -968,35 +968,35 @@ class UserAuthSystem {
     private function generateRememberToken($username) {
         $token = bin2hex(random_bytes(32));
         // In realer Anwendung: Token in Datenbank speichern
-        $this->session->set('remember_tokens', [
-            $token => [
-                'user_id' => $username,
-                'created' => time()
+        $this-&gt;session-&gt;set('remember_tokens', [
+            $token =&gt; [
+                'user_id' =&gt; $username,
+                'created' =&gt; time()
             ]
         ]);
         return $token;
     }
     
     private function validateRememberToken($token) {
-        $tokens = $this->session->get('remember_tokens', []);
+        $tokens = $this-&gt;session-&gt;get('remember_tokens', []);
         
         if (isset($tokens[$token])) {
             $token_data = $tokens[$token];
             
             // Token nicht älter als 30 Tage
-            if ((time() - $token_data['created']) < (30 * 24 * 60 * 60)) {
+            if ((time() - $token_data['created']) &lt; (30 * 24 * 60 * 60)) {
                 // Automatischer Login
                 $user_id = $token_data['user_id'];
-                if (isset($this->users[$user_id])) {
-                    $user = $this->users[$user_id];
+                if (isset($this-&gt;users[$user_id])) {
+                    $user = $this-&gt;users[$user_id];
                     
-                    $this->session->set('logged_in', true);
-                    $this->session->set('user_id', $user_id);
-                    $this->session->set('username', $user_id);
-                    $this->session->set('role', $user['role']);
-                    $this->session->set('name', $user['name']);
-                    $this->session->set('email', $user['email']);
-                    $this->session->set('login_time', time());
+                    $this-&gt;session-&gt;set('logged_in', true);
+                    $this-&gt;session-&gt;set('user_id', $user_id);
+                    $this-&gt;session-&gt;set('username', $user_id);
+                    $this-&gt;session-&gt;set('role', $user['role']);
+                    $this-&gt;session-&gt;set('name', $user['name']);
+                    $this-&gt;session-&gt;set('email', $user['email']);
+                    $this-&gt;session-&gt;set('login_time', time());
                     
                     return true;
                 }
@@ -1016,7 +1016,7 @@ if ($_POST['login'] ?? false) {
     $password = $_POST['password'] ?? '';
     $remember = isset($_POST['remember_me']);
     
-    $result = $auth->login($username, $password, $remember);
+    $result = $auth-&gt;login($username, $password, $remember);
     
     if ($result['success']) {
         echo "&lt;div class='alert alert-success'&gt;" . $result['message'] . "&lt;/div&gt;";
@@ -1027,13 +1027,13 @@ if ($_POST['login'] ?? false) {
 
 // Logout-Verarbeitung
 if ($_POST['logout'] ?? false) {
-    $result = $auth->logout();
+    $result = $auth-&gt;logout();
     echo "&lt;div class='alert alert-info'&gt;" . $result['message'] . "&lt;/div&gt;";
 }
 
 // Benutzer-Status anzeigen
-if ($auth->isLoggedIn()) {
-    $user = $auth->getCurrentUser();
+if ($auth-&gt;isLoggedIn()) {
+    $user = $auth-&gt;getCurrentUser();
     echo "&lt;div class='alert alert-success'&gt;";
     echo "&lt;h5&gt;✅ Angemeldet als: {$user['name']}&lt;/h5&gt;";
     echo "&lt;p&gt;Rolle: {$user['role']}&lt;/p&gt;";
@@ -1064,8 +1064,8 @@ if ($auth->isLoggedIn()) {
 }
 
 // Flash-Messages anzeigen
-$flash_messages = $session->getFlashMessages();
-foreach ($flash_messages as $type => $message) {
+$flash_messages = $session-&gt;getFlashMessages();
+foreach ($flash_messages as $type =&gt; $message) {
     $alert_class = $type === 'success' ? 'alert-success' : 
                    ($type === 'error' ? 'alert-danger' : 'alert-info');
     echo "&lt;div class='alert $alert_class'&gt;$message&lt;/div&gt;";
@@ -1092,16 +1092,16 @@ class ShoppingCart {
     private $session;
     
     public function __construct($session_manager) {
-        $this->session = $session_manager;
-        $this->initializeCart();
+        $this-&gt;session = $session_manager;
+        $this-&gt;initializeCart();
     }
     
     private function initializeCart() {
-        if (!$this->session->has('shopping_cart')) {
-            $this->session->set('shopping_cart', [
-                'items' => [],
-                'created' => time(),
-                'updated' => time()
+        if (!$this-&gt;session-&gt;has('shopping_cart')) {
+            $this-&gt;session-&gt;set('shopping_cart', [
+                'items' =&gt; [],
+                'created' =&gt; time(),
+                'updated' =&gt; time()
             ]);
         }
     }
@@ -1110,7 +1110,7 @@ class ShoppingCart {
      * Artikel hinzufügen
      */
     public function addItem($product_id, $quantity = 1, $product_data = []) {
-        $cart = $this->session->get('shopping_cart');
+        $cart = $this-&gt;session-&gt;get('shopping_cart');
         
         if (isset($cart['items'][$product_id])) {
             // Menge erhöhen
@@ -1118,26 +1118,26 @@ class ShoppingCart {
         } else {
             // Neuer Artikel
             $cart['items'][$product_id] = [
-                'product_id' => $product_id,
-                'quantity' => $quantity,
-                'added_at' => time(),
-                'product_data' => $product_data
+                'product_id' =&gt; $product_id,
+                'quantity' =&gt; $quantity,
+                'added_at' =&gt; time(),
+                'product_data' =&gt; $product_data
             ];
         }
         
         $cart['updated'] = time();
-        $this->session->set('shopping_cart', $cart);
+        $this-&gt;session-&gt;set('shopping_cart', $cart);
         
-        return $this->getItemCount();
+        return $this-&gt;getItemCount();
     }
     
     /**
      * Artikel aktualisieren
      */
     public function updateItem($product_id, $quantity) {
-        $cart = $this->session->get('shopping_cart');
+        $cart = $this-&gt;session-&gt;get('shopping_cart');
         
-        if ($quantity <= 0) {
+        if ($quantity &lt;= 0) {
             unset($cart['items'][$product_id]);
         } else {
             if (isset($cart['items'][$product_id])) {
@@ -1146,27 +1146,27 @@ class ShoppingCart {
         }
         
         $cart['updated'] = time();
-        $this->session->set('shopping_cart', $cart);
+        $this-&gt;session-&gt;set('shopping_cart', $cart);
     }
     
     /**
      * Artikel entfernen
      */
     public function removeItem($product_id) {
-        $cart = $this->session->get('shopping_cart');
+        $cart = $this-&gt;session-&gt;get('shopping_cart');
         unset($cart['items'][$product_id]);
         $cart['updated'] = time();
-        $this->session->set('shopping_cart', $cart);
+        $this-&gt;session-&gt;set('shopping_cart', $cart);
     }
     
     /**
      * Warenkorb leeren
      */
     public function clear() {
-        $this->session->set('shopping_cart', [
-            'items' => [],
-            'created' => time(),
-            'updated' => time()
+        $this-&gt;session-&gt;set('shopping_cart', [
+            'items' =&gt; [],
+            'created' =&gt; time(),
+            'updated' =&gt; time()
         ]);
     }
     
@@ -1174,7 +1174,7 @@ class ShoppingCart {
      * Alle Artikel abrufen
      */
     public function getItems() {
-        $cart = $this->session->get('shopping_cart');
+        $cart = $this-&gt;session-&gt;get('shopping_cart');
         return $cart['items'] ?? [];
     }
     
@@ -1182,7 +1182,7 @@ class ShoppingCart {
      * Anzahl Artikel
      */
     public function getItemCount() {
-        $items = $this->getItems();
+        $items = $this-&gt;getItems();
         return array_sum(array_column($items, 'quantity'));
     }
     
@@ -1191,7 +1191,7 @@ class ShoppingCart {
      */
     public function getTotal($products_catalog = []) {
         $total = 0;
-        $items = $this->getItems();
+        $items = $this-&gt;getItems();
         
         foreach ($items as $item) {
             $product_id = $item['product_id'];
@@ -1211,7 +1211,7 @@ class ShoppingCart {
      * Warenkorb als HTML rendern
      */
     public function renderCart($products_catalog = []) {
-        $items = $this->getItems();
+        $items = $this-&gt;getItems();
         
         if (empty($items)) {
             return "&lt;div class='alert alert-info'&gt;🛒 Ihr Warenkorb ist leer&lt;/div&gt;";
@@ -1220,7 +1220,7 @@ class ShoppingCart {
         ob_start();
         ?&gt;
         &lt;div class="shopping-cart"&gt;
-            &lt;h5&gt;🛒 Warenkorb (&lt;?= $this->getItemCount() ?&gt; Artikel)&lt;/h5&gt;
+            &lt;h5&gt;🛒 Warenkorb (&lt;?= $this-&gt;getItemCount() ?&gt; Artikel)&lt;/h5&gt;
             
             &lt;div class="table-responsive"&gt;
                 &lt;table class="table"&gt;
@@ -1277,7 +1277,7 @@ class ShoppingCart {
                     &lt;tfoot&gt;
                         &lt;tr class="table-success"&gt;
                             &lt;th colspan="3"&gt;Gesamtsumme:&lt;/th&gt;
-                            &lt;th&gt;&lt;?= number_format($this->getTotal($products_catalog), 2) ?&gt; €&lt;/th&gt;
+                            &lt;th&gt;&lt;?= number_format($this-&gt;getTotal($products_catalog), 2) ?&gt; €&lt;/th&gt;
                             &lt;th&gt;&lt;/th&gt;
                         &lt;/tr&gt;
                     &lt;/tfoot&gt;
@@ -1292,7 +1292,7 @@ class ShoppingCart {
                 &lt;/form&gt;
                 
                 &lt;button class="btn btn-success"&gt;
-                    &lt;i class="bi bi-credit-card me-2"&gt;&lt;/i&gt;Zur Kasse (&lt;?= number_format($this->getTotal($products_catalog), 2) ?&gt; €)
+                    &lt;i class="bi bi-credit-card me-2"&gt;&lt;/i&gt;Zur Kasse (&lt;?= number_format($this-&gt;getTotal($products_catalog), 2) ?&gt; €)
                 &lt;/button&gt;
             &lt;/div&gt;
         &lt;/div&gt;
@@ -1303,10 +1303,10 @@ class ShoppingCart {
 
 // Produktkatalog (normalerweise aus Datenbank)
 $products = [
-    1 => ['name' => 'Gaming Laptop', 'price' => 1299.99],
-    2 => ['name' => 'Wireless Maus', 'price' => 79.99],
-    3 => ['name' => 'Mechanische Tastatur', 'price' => 159.99],
-    4 => ['name' => '4K Monitor', 'price' => 399.99]
+    1 =&gt; ['name' =&gt; 'Gaming Laptop', 'price' =&gt; 1299.99],
+    2 =&gt; ['name' =&gt; 'Wireless Maus', 'price' =&gt; 79.99],
+    3 =&gt; ['name' =&gt; 'Mechanische Tastatur', 'price' =&gt; 159.99],
+    4 =&gt; ['name' =&gt; '4K Monitor', 'price' =&gt; 399.99]
 ];
 
 // Warenkorb initialisieren
@@ -1318,8 +1318,8 @@ if ($_POST['add_to_cart'] ?? false) {
     $quantity = (int)($_POST['quantity'] ?? 1);
     
     if (isset($products[$product_id])) {
-        $cart->addItem($product_id, $quantity, $products[$product_id]);
-        $session->flash('success', "Artikel wurde zum Warenkorb hinzugefügt!");
+        $cart-&gt;addItem($product_id, $quantity, $products[$product_id]);
+        $session-&gt;flash('success', "Artikel wurde zum Warenkorb hinzugefügt!");
     }
 }
 
@@ -1327,25 +1327,25 @@ if ($_POST['update_cart'] ?? false) {
     $product_id = (int)($_POST['product_id'] ?? 0);
     $quantity = (int)($_POST['quantity'] ?? 0);
     
-    $cart->updateItem($product_id, $quantity);
-    $session->flash('info', "Warenkorb wurde aktualisiert");
+    $cart-&gt;updateItem($product_id, $quantity);
+    $session-&gt;flash('info', "Warenkorb wurde aktualisiert");
 }
 
 if ($_POST['remove_item'] ?? false) {
     $product_id = (int)($_POST['product_id'] ?? 0);
-    $cart->removeItem($product_id);
-    $session->flash('warning', "Artikel wurde entfernt");
+    $cart-&gt;removeItem($product_id);
+    $session-&gt;flash('warning', "Artikel wurde entfernt");
 }
 
 if ($_POST['clear_cart'] ?? false) {
-    $cart->clear();
-    $session->flash('info', "Warenkorb wurde geleert");
+    $cart-&gt;clear();
+    $session-&gt;flash('info', "Warenkorb wurde geleert");
 }
 
 // Produktkatalog anzeigen
 echo "&lt;div class='row mb-4'&gt;";
 echo "&lt;h5&gt;🛍️ Produktkatalog&lt;/h5&gt;";
-foreach ($products as $id => $product) {
+foreach ($products as $id =&gt; $product) {
     echo "&lt;div class='col-md-3 mb-3'&gt;";
     echo "&lt;div class='card'&gt;";
     echo "&lt;div class='card-body'&gt;";
@@ -1362,7 +1362,7 @@ foreach ($products as $id => $product) {
 echo "&lt;/div&gt;";
 
 // Warenkorb anzeigen
-echo $cart->renderCart($products);
+echo $cart-&gt;renderCart($products);
 ?&gt;</code></pre>
                                     </div>
                                 </div>

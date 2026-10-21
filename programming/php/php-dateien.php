@@ -18,7 +18,7 @@ include '../../includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-files'); ?>
+                        <?php renderNavigation('php-dateien'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-file-earmark me-2"></i>PHP Dateien</h1>
@@ -119,7 +119,7 @@ if ($inhalt !== false) {
 $zeilen = file('logfile.txt');
 if ($zeilen !== false) {
     echo "Anzahl Zeilen: " . count($zeilen) . "\n";
-    foreach ($zeilen as $nr => $zeile) {
+    foreach ($zeilen as $nr =&gt; $zeile) {
         echo "Zeile " . ($nr + 1) . ": " . trim($zeile) . "\n";
     }
 }
@@ -133,7 +133,7 @@ if ($datei) {
         $zeile_nr++;
         
         // Nur erste 10 Zeilen anzeigen
-        if ($zeile_nr > 10) {
+        if ($zeile_nr &gt; 10) {
             echo "... (weitere Zeilen vorhanden)\n";
             break;
         }
@@ -147,29 +147,29 @@ if ($datei) {
 function sichere_datei_lesen($dateiname, $max_groesse = 1048576) {
     // Prüfungen vor dem Lesen
     if (!file_exists($dateiname)) {
-        return ['success' => false, 'error' => 'Datei existiert nicht'];
+        return ['success' =&gt; false, 'error' =&gt; 'Datei existiert nicht'];
     }
     
     if (!is_readable($dateiname)) {
-        return ['success' => false, 'error' => 'Datei ist nicht lesbar'];
+        return ['success' =&gt; false, 'error' =&gt; 'Datei ist nicht lesbar'];
     }
     
     $groesse = filesize($dateiname);
-    if ($groesse > $max_groesse) {
-        return ['success' => false, 'error' => 'Datei zu groß (max. ' . 
+    if ($groesse &gt; $max_groesse) {
+        return ['success' =&gt; false, 'error' =&gt; 'Datei zu groß (max. ' . 
                 round($max_groesse/1024/1024, 1) . ' MB)'];
     }
     
     $inhalt = file_get_contents($dateiname);
     if ($inhalt === false) {
-        return ['success' => false, 'error' => 'Lesefehler aufgetreten'];
+        return ['success' =&gt; false, 'error' =&gt; 'Lesefehler aufgetreten'];
     }
     
     return [
-        'success' => true,
-        'content' => $inhalt,
-        'size' => $groesse,
-        'lines' => substr_count($inhalt, "\n") + 1
+        'success' =&gt; true,
+        'content' =&gt; $inhalt,
+        'size' =&gt; $groesse,
+        'lines' =&gt; substr_count($inhalt, "\n") + 1
     ];
 }
 
@@ -207,7 +207,7 @@ if ($csv_datei) {
         echo "Zeile $zeile_nr: " . implode(' | ', $daten) . "\n";
         $zeile_nr++;
         
-        if ($zeile_nr > 5) break; // Nur erste 5 Datenzeilen
+        if ($zeile_nr &gt; 5) break; // Nur erste 5 Datenzeilen
     }
     fclose($csv_datei);
 }
@@ -229,13 +229,13 @@ class LogAnalyzer {
         }
         
         $statistik = [
-            'total_lines' => 0,
-            'error_count' => 0,
-            'warning_count' => 0,
-            'info_count' => 0,
-            'file_size' => filesize($dateiname),
-            'last_modified' => filemtime($dateiname),
-            'recent_errors' => []
+            'total_lines' =&gt; 0,
+            'error_count' =&gt; 0,
+            'warning_count' =&gt; 0,
+            'info_count' =&gt; 0,
+            'file_size' =&gt; filesize($dateiname),
+            'last_modified' =&gt; filemtime($dateiname),
+            'recent_errors' =&gt; []
         ];
         
         $datei = fopen($dateiname, 'r');
@@ -247,7 +247,7 @@ class LogAnalyzer {
             // Log-Level erkennen
             if (stripos($zeile, 'ERROR') !== false) {
                 $statistik['error_count']++;
-                if (count($statistik['recent_errors']) < 5) {
+                if (count($statistik['recent_errors']) &lt; 5) {
                     $statistik['recent_errors'][] = trim($zeile);
                 }
             } elseif (stripos($zeile, 'WARNING') !== false) {
@@ -272,7 +272,7 @@ class LogAnalyzer {
         $buffer = [];
         while (($zeile = fgets($datei)) !== false) {
             $buffer[] = rtrim($zeile);
-            if (count($buffer) > $zeilen) {
+            if (count($buffer) &gt; $zeilen) {
                 array_shift($buffer); // Erste Zeile entfernen
             }
         }
@@ -294,7 +294,7 @@ file_put_contents($test_log,
     "[2024-08-31 10:18:45] ERROR: Datei nicht gefunden: config.xml\n"
 );
 
-$log_stats = $analyzer->analyzeLogFile($test_log);
+$log_stats = $analyzer-&gt;analyzeLogFile($test_log);
 if ($log_stats) {
     echo "&lt;div class='alert alert-info'&gt;";
     echo "&lt;h5&gt;📊 Log-Datei Analyse:&lt;/h5&gt;";
@@ -427,13 +427,13 @@ function sichere_datei_schreiben($dateiname, $inhalt, $modus = 'w') {
     $verzeichnis = dirname($dateiname);
     if (!is_dir($verzeichnis)) {
         if (!mkdir($verzeichnis, 0755, true)) {
-            return ['success' => false, 'error' => 'Verzeichnis konnte nicht erstellt werden'];
+            return ['success' =&gt; false, 'error' =&gt; 'Verzeichnis konnte nicht erstellt werden'];
         }
     }
     
     // Schreibberechtigung prüfen
     if (file_exists($dateiname) && !is_writable($dateiname)) {
-        return ['success' => false, 'error' => 'Datei ist nicht schreibbar'];
+        return ['success' =&gt; false, 'error' =&gt; 'Datei ist nicht schreibbar'];
     }
     
     // Temporäre Datei für atomare Schreibvorgänge
@@ -442,19 +442,19 @@ function sichere_datei_schreiben($dateiname, $inhalt, $modus = 'w') {
     $bytes = file_put_contents($temp_datei, $inhalt, LOCK_EX);
     
     if ($bytes === false) {
-        return ['success' => false, 'error' => 'Schreibvorgang fehlgeschlagen'];
+        return ['success' =&gt; false, 'error' =&gt; 'Schreibvorgang fehlgeschlagen'];
     }
     
     // Atomare Umbenennung
     if (!rename($temp_datei, $dateiname)) {
         unlink($temp_datei); // Aufräumen
-        return ['success' => false, 'error' => 'Umbenennung fehlgeschlagen'];
+        return ['success' =&gt; false, 'error' =&gt; 'Umbenennung fehlgeschlagen'];
     }
     
     return [
-        'success' => true,
-        'bytes_written' => $bytes,
-        'file_size' => filesize($dateiname)
+        'success' =&gt; true,
+        'bytes_written' =&gt; $bytes,
+        'file_size' =&gt; filesize($dateiname)
     ];
 }
 
@@ -470,11 +470,11 @@ if ($ergebnis['success']) {
 
 // JSON-Daten schreiben
 $daten = [
-    'benutzer' => 'Max Mustermann',
-    'angemeldet_seit' => date('c'),
-    'einstellungen' => [
-        'sprache' => 'de',
-        'theme' => 'dark'
+    'benutzer' =&gt; 'Max Mustermann',
+    'angemeldet_seit' =&gt; date('c'),
+    'einstellungen' =&gt; [
+        'sprache' =&gt; 'de',
+        'theme' =&gt; 'dark'
     ]
 ];
 
@@ -507,7 +507,7 @@ class SimpleLogger {
     private $log_datei;
     
     public function __construct($dateiname = 'app.log') {
-        $this->log_datei = $dateiname;
+        $this-&gt;log_datei = $dateiname;
     }
     
     public function log($level, $nachricht) {
@@ -515,26 +515,26 @@ class SimpleLogger {
         $log_eintrag = "[$timestamp] $level: $nachricht\n";
         
         // Thread-sicher anhängen
-        file_put_contents($this->log_datei, $log_eintrag, FILE_APPEND | LOCK_EX);
+        file_put_contents($this-&gt;log_datei, $log_eintrag, FILE_APPEND | LOCK_EX);
     }
     
     public function info($nachricht) {
-        $this->log('INFO', $nachricht);
+        $this-&gt;log('INFO', $nachricht);
     }
     
     public function warning($nachricht) {
-        $this->log('WARNING', $nachricht);
+        $this-&gt;log('WARNING', $nachricht);
     }
     
     public function error($nachricht) {
-        $this->log('ERROR', $nachricht);
+        $this-&gt;log('ERROR', $nachricht);
     }
 }
 
 $logger = new SimpleLogger('system.log');
-$logger->info('Anwendung gestartet');
-$logger->warning('Speicher zu 90% belegt');
-$logger->error('Datenbankverbindung fehlgeschlagen');
+$logger-&gt;info('Anwendung gestartet');
+$logger-&gt;warning('Speicher zu 90% belegt');
+$logger-&gt;error('Datenbankverbindung fehlgeschlagen');
 
 echo "✅ Log-Einträge geschrieben\n";
 ?&gt;</code></pre>
@@ -552,20 +552,20 @@ class FileCache {
     private $default_ttl = 3600; // 1 Stunde
     
     public function __construct($cache_dir = 'cache/') {
-        $this->cache_dir = rtrim($cache_dir, '/') . '/';
-        if (!is_dir($this->cache_dir)) {
-            mkdir($this->cache_dir, 0755, true);
+        $this-&gt;cache_dir = rtrim($cache_dir, '/') . '/';
+        if (!is_dir($this-&gt;cache_dir)) {
+            mkdir($this-&gt;cache_dir, 0755, true);
         }
     }
     
     public function set($key, $data, $ttl = null) {
-        $ttl = $ttl ?? $this->default_ttl;
-        $cache_file = $this->getCacheFile($key);
+        $ttl = $ttl ?? $this-&gt;default_ttl;
+        $cache_file = $this-&gt;getCacheFile($key);
         
         $cache_data = [
-            'expires' => time() + $ttl,
-            'data' => $data,
-            'created' => time()
+            'expires' =&gt; time() + $ttl,
+            'data' =&gt; $data,
+            'created' =&gt; time()
         ];
         
         $serialized = serialize($cache_data);
@@ -573,7 +573,7 @@ class FileCache {
     }
     
     public function get($key) {
-        $cache_file = $this->getCacheFile($key);
+        $cache_file = $this-&gt;getCacheFile($key);
         
         if (!file_exists($cache_file)) {
             return null;
@@ -590,7 +590,7 @@ class FileCache {
         }
         
         // Ablaufzeit prüfen
-        if (time() > $cache_data['expires']) {
+        if (time() &gt; $cache_data['expires']) {
             unlink($cache_file); // Expired cache löschen
             return null;
         }
@@ -599,7 +599,7 @@ class FileCache {
     }
     
     public function delete($key) {
-        $cache_file = $this->getCacheFile($key);
+        $cache_file = $this-&gt;getCacheFile($key);
         if (file_exists($cache_file)) {
             return unlink($cache_file);
         }
@@ -607,7 +607,7 @@ class FileCache {
     }
     
     public function clear() {
-        $files = glob($this->cache_dir . '*.cache');
+        $files = glob($this-&gt;cache_dir . '*.cache');
         $deleted = 0;
         foreach ($files as $file) {
             if (unlink($file)) {
@@ -619,24 +619,24 @@ class FileCache {
     
     private function getCacheFile($key) {
         $safe_key = preg_replace('/[^a-zA-Z0-9_-]/', '_', $key);
-        return $this->cache_dir . $safe_key . '.cache';
+        return $this-&gt;cache_dir . $safe_key . '.cache';
     }
 }
 
 $cache = new FileCache();
 
 // Cache verwenden
-$expensive_data = $cache->get('user_stats');
+$expensive_data = $cache-&gt;get('user_stats');
 if ($expensive_data === null) {
     // Teurer Datenbank-Aufruf simulieren
     $expensive_data = [
-        'total_users' => 1250,
-        'active_users' => 892,
-        'new_today' => 15,
-        'calculated' => date('Y-m-d H:i:s')
+        'total_users' =&gt; 1250,
+        'active_users' =&gt; 892,
+        'new_today' =&gt; 15,
+        'calculated' =&gt; date('Y-m-d H:i:s')
     ];
     
-    $cache->set('user_stats', $expensive_data, 300); // 5 Minuten Cache
+    $cache-&gt;set('user_stats', $expensive_data, 300); // 5 Minuten Cache
     echo "📊 Daten berechnet und gecacht\n";
 } else {
     echo "📊 Daten aus Cache geladen\n";
@@ -739,18 +739,18 @@ class DataExporter {
     public function exportToXML($data, $filename, $root_name = 'data') {
         $xml = new SimpleXMLElement("&lt;$root_name/&gt;");
         
-        foreach ($data as $key => $value) {
+        foreach ($data as $key =&gt; $value) {
             if (is_array($value)) {
-                $child = $xml->addChild('item');
-                foreach ($value as $subkey => $subvalue) {
-                    $child->addChild($subkey, htmlspecialchars($subvalue));
+                $child = $xml-&gt;addChild('item');
+                foreach ($value as $subkey =&gt; $subvalue) {
+                    $child-&gt;addChild($subkey, htmlspecialchars($subvalue));
                 }
             } else {
-                $xml->addChild($key, htmlspecialchars($value));
+                $xml-&gt;addChild($key, htmlspecialchars($value));
             }
         }
         
-        return $xml->asXML($filename) !== false;
+        return $xml-&gt;asXML($filename) !== false;
     }
 }
 
@@ -758,14 +758,14 @@ $exporter = new DataExporter();
 
 // Test-Daten für Export
 $export_data = [
-    ['Name' => 'Max Mustermann', 'Alter' => 25, 'Stadt' => 'Berlin'],
-    ['Name' => 'Anna Schmidt', 'Alter' => 30, 'Stadt' => 'Hamburg'],
-    ['Name' => 'Tom Weber', 'Alter' => 28, 'Stadt' => 'München']
+    ['Name' =&gt; 'Max Mustermann', 'Alter' =&gt; 25, 'Stadt' =&gt; 'Berlin'],
+    ['Name' =&gt; 'Anna Schmidt', 'Alter' =&gt; 30, 'Stadt' =&gt; 'Hamburg'],
+    ['Name' =&gt; 'Tom Weber', 'Alter' =&gt; 28, 'Stadt' =&gt; 'München']
 ];
 
-$exporter->exportToCSV($export_data, 'exports/personen.csv', ['Name', 'Alter', 'Stadt']);
-$exporter->exportToJSON($export_data, 'exports/personen.json');
-$exporter->exportToXML($export_data, 'exports/personen.xml');
+$exporter-&gt;exportToCSV($export_data, 'exports/personen.csv', ['Name', 'Alter', 'Stadt']);
+$exporter-&gt;exportToJSON($export_data, 'exports/personen.json');
+$exporter-&gt;exportToXML($export_data, 'exports/personen.xml');
 
 echo "📦 Daten in verschiedene Formate exportiert\n";
 ?&gt;</code></pre>
@@ -812,7 +812,7 @@ foreach ($dateien as $datei) {
 
 // Rekursive Verzeichnis-Durchsuchung
 function durchsuche_verzeichnis($pfad, $max_tiefe = 3, $aktuelle_tiefe = 0) {
-    if ($aktuelle_tiefe >= $max_tiefe) return [];
+    if ($aktuelle_tiefe &gt;= $max_tiefe) return [];
     
     $ergebnisse = [];
     
@@ -826,10 +826,10 @@ function durchsuche_verzeichnis($pfad, $max_tiefe = 3, $aktuelle_tiefe = 0) {
         
         if (is_dir($vollpfad)) {
             $ergebnisse[] = [
-                'typ' => 'verzeichnis',
-                'name' => $datei,
-                'pfad' => $vollpfad,
-                'tiefe' => $aktuelle_tiefe
+                'typ' =&gt; 'verzeichnis',
+                'name' =&gt; $datei,
+                'pfad' =&gt; $vollpfad,
+                'tiefe' =&gt; $aktuelle_tiefe
             ];
             
             // Rekursiv durchsuchen
@@ -838,12 +838,12 @@ function durchsuche_verzeichnis($pfad, $max_tiefe = 3, $aktuelle_tiefe = 0) {
             
         } else {
             $ergebnisse[] = [
-                'typ' => 'datei',
-                'name' => $datei,
-                'pfad' => $vollpfad,
-                'groesse' => filesize($vollpfad),
-                'geaendert' => filemtime($vollpfad),
-                'tiefe' => $aktuelle_tiefe
+                'typ' =&gt; 'datei',
+                'name' =&gt; $datei,
+                'pfad' =&gt; $vollpfad,
+                'groesse' =&gt; filesize($vollpfad),
+                'geaendert' =&gt; filemtime($vollpfad),
+                'tiefe' =&gt; $aktuelle_tiefe
             ];
         }
     }
@@ -877,7 +877,7 @@ function finde_dateien($verzeichnis, $pattern = null, $modifiziert_seit = null) 
     );
     
     foreach ($iterator as $datei) {
-        $pfad = $datei->getPathname();
+        $pfad = $datei-&gt;getPathname();
         
         // Pattern-Filter
         if ($pattern && !fnmatch($pattern, basename($pfad))) {
@@ -885,16 +885,16 @@ function finde_dateien($verzeichnis, $pattern = null, $modifiziert_seit = null) 
         }
         
         // Zeitfilter
-        if ($modifiziert_seit && filemtime($pfad) < $modifiziert_seit) {
+        if ($modifiziert_seit && filemtime($pfad) &lt; $modifiziert_seit) {
             continue;
         }
         
         $gefundene_dateien[] = [
-            'pfad' => $pfad,
-            'name' => $datei->getFilename(),
-            'groesse' => $datei->getSize(),
-            'geaendert' => filemtime($pfad),
-            'erweiterung' => strtolower($datei->getExtension())
+            'pfad' =&gt; $pfad,
+            'name' =&gt; $datei-&gt;getFilename(),
+            'groesse' =&gt; $datei-&gt;getSize(),
+            'geaendert' =&gt; filemtime($pfad),
+            'erweiterung' =&gt; strtolower($datei-&gt;getExtension())
         ];
     }
     
@@ -922,14 +922,14 @@ function verzeichnis_groesse($pfad) {
     );
     
     foreach ($iterator as $datei) {
-        $gesamtgroesse += $datei->getSize();
+        $gesamtgroesse += $datei-&gt;getSize();
         $datei_anzahl++;
     }
     
     return [
-        'bytes' => $gesamtgroesse,
-        'mb' => round($gesamtgroesse / 1024 / 1024, 2),
-        'dateien' => $datei_anzahl
+        'bytes' =&gt; $gesamtgroesse,
+        'mb' =&gt; round($gesamtgroesse / 1024 / 1024, 2),
+        'dateien' =&gt; $datei_anzahl
     ];
 }
 
@@ -955,20 +955,20 @@ class FileBrowser {
     private $max_file_size = 1048576; // 1MB
     
     public function __construct($base_path = '.') {
-        $this->base_path = realpath($base_path);
+        $this-&gt;base_path = realpath($base_path);
     }
     
     public function listDirectory($relative_path = '') {
-        $full_path = $this->base_path . '/' . ltrim($relative_path, '/');
+        $full_path = $this-&gt;base_path . '/' . ltrim($relative_path, '/');
         $real_path = realpath($full_path);
         
         // Sicherheit: Pfad darf nicht außerhalb des Basis-Pfads liegen
-        if (strpos($real_path, $this->base_path) !== 0) {
-            return ['error' => 'Zugriff verweigert'];
+        if (strpos($real_path, $this-&gt;base_path) !== 0) {
+            return ['error' =&gt; 'Zugriff verweigert'];
         }
         
         if (!is_dir($real_path)) {
-            return ['error' => 'Verzeichnis nicht gefunden'];
+            return ['error' =&gt; 'Verzeichnis nicht gefunden'];
         }
         
         $items = [];
@@ -981,20 +981,20 @@ class FileBrowser {
             $relative_file_path = $relative_path . '/' . $file;
             
             $item = [
-                'name' => $file,
-                'path' => ltrim($relative_file_path, '/'),
-                'is_dir' => is_dir($file_path),
-                'size' => is_file($file_path) ? filesize($file_path) : 0,
-                'modified' => filemtime($file_path),
-                'permissions' => substr(sprintf('%o', fileperms($file_path)), -4),
-                'readable' => is_readable($file_path),
-                'writable' => is_writable($file_path)
+                'name' =&gt; $file,
+                'path' =&gt; ltrim($relative_file_path, '/'),
+                'is_dir' =&gt; is_dir($file_path),
+                'size' =&gt; is_file($file_path) ? filesize($file_path) : 0,
+                'modified' =&gt; filemtime($file_path),
+                'permissions' =&gt; substr(sprintf('%o', fileperms($file_path)), -4),
+                'readable' =&gt; is_readable($file_path),
+                'writable' =&gt; is_writable($file_path)
             ];
             
             if (!$item['is_dir']) {
                 $item['extension'] = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                $item['can_preview'] = in_array($item['extension'], $this->allowed_extensions) 
-                                      && $item['size'] <= $this->max_file_size;
+                $item['can_preview'] = in_array($item['extension'], $this-&gt;allowed_extensions) 
+                                      && $item['size'] &lt;= $this-&gt;max_file_size;
             }
             
             $items[] = $item;
@@ -1009,49 +1009,49 @@ class FileBrowser {
         });
         
         return [
-            'path' => $relative_path,
-            'items' => $items,
-            'parent' => dirname($relative_path) !== '.' ? dirname($relative_path) : null
+            'path' =&gt; $relative_path,
+            'items' =&gt; $items,
+            'parent' =&gt; dirname($relative_path) !== '.' ? dirname($relative_path) : null
         ];
     }
     
     public function getFileContent($relative_path) {
-        $full_path = $this->base_path . '/' . ltrim($relative_path, '/');
+        $full_path = $this-&gt;base_path . '/' . ltrim($relative_path, '/');
         $real_path = realpath($full_path);
         
-        if (strpos($real_path, $this->base_path) !== 0) {
-            return ['error' => 'Zugriff verweigert'];
+        if (strpos($real_path, $this-&gt;base_path) !== 0) {
+            return ['error' =&gt; 'Zugriff verweigert'];
         }
         
         if (!is_file($real_path)) {
-            return ['error' => 'Datei nicht gefunden'];
+            return ['error' =&gt; 'Datei nicht gefunden'];
         }
         
         $extension = strtolower(pathinfo($real_path, PATHINFO_EXTENSION));
-        if (!in_array($extension, $this->allowed_extensions)) {
-            return ['error' => 'Dateityp nicht unterstützt'];
+        if (!in_array($extension, $this-&gt;allowed_extensions)) {
+            return ['error' =&gt; 'Dateityp nicht unterstützt'];
         }
         
         $size = filesize($real_path);
-        if ($size > $this->max_file_size) {
-            return ['error' => 'Datei zu groß für Vorschau'];
+        if ($size &gt; $this-&gt;max_file_size) {
+            return ['error' =&gt; 'Datei zu groß für Vorschau'];
         }
         
         $content = file_get_contents($real_path);
         if ($content === false) {
-            return ['error' => 'Datei konnte nicht gelesen werden'];
+            return ['error' =&gt; 'Datei konnte nicht gelesen werden'];
         }
         
         return [
-            'content' => $content,
-            'size' => $size,
-            'modified' => filemtime($real_path),
-            'extension' => $extension
+            'content' =&gt; $content,
+            'size' =&gt; $size,
+            'modified' =&gt; filemtime($real_path),
+            'extension' =&gt; $extension
         ];
     }
     
     public function renderBrowser($current_path = '') {
-        $listing = $this->listDirectory($current_path);
+        $listing = $this-&gt;listDirectory($current_path);
         
         if (isset($listing['error'])) {
             return "&lt;div class='alert alert-danger'&gt;{$listing['error']}&lt;/div&gt;";
@@ -1110,7 +1110,7 @@ class FileBrowser {
                                 &lt;/td&gt;
                                 &lt;td&gt;
                                     &lt;?php if (!$item['is_dir']): ?&gt;
-                                        &lt;?= $this->formatFileSize($item['size']) ?&gt;
+                                        &lt;?= $this-&gt;formatFileSize($item['size']) ?&gt;
                                     &lt;?php else: ?&gt;
                                         -
                                     &lt;?php endif; ?&gt;
@@ -1143,7 +1143,7 @@ class FileBrowser {
     
     private function formatFileSize($bytes) {
         $units = ['B', 'KB', 'MB', 'GB'];
-        for ($i = 0; $bytes >= 1024 && $i < 3; $i++) {
+        for ($i = 0; $bytes &gt;= 1024 && $i &lt; 3; $i++) {
             $bytes /= 1024;
         }
         return round($bytes, 1) . ' ' . $units[$i];
@@ -1156,7 +1156,7 @@ $browser = new FileBrowser('.');
 // Vorschau anzeigen
 if (isset($_GET['preview'])) {
     $preview_file = $_GET['preview'];
-    $file_content = $browser->getFileContent($preview_file);
+    $file_content = $browser-&gt;getFileContent($preview_file);
     
     if (isset($file_content['error'])) {
         echo "&lt;div class='alert alert-danger'&gt;{$file_content['error']}&lt;/div&gt;";
@@ -1178,7 +1178,7 @@ if (isset($_GET['preview'])) {
 } else {
     // Browser anzeigen
     $current_path = $_GET['path'] ?? '';
-    echo $browser->renderBrowser($current_path);
+    echo $browser-&gt;renderBrowser($current_path);
 }
 ?&gt;</code></pre>
                                             </div>
@@ -1205,44 +1205,44 @@ class BackupSystem {
     private $max_backup_age = 604800; // 7 Tage
     
     public function __construct($backup_dir = 'backups/') {
-        $this->backup_dir = rtrim($backup_dir, '/') . '/';
-        if (!is_dir($this->backup_dir)) {
-            mkdir($this->backup_dir, 0755, true);
+        $this-&gt;backup_dir = rtrim($backup_dir, '/') . '/';
+        if (!is_dir($this-&gt;backup_dir)) {
+            mkdir($this-&gt;backup_dir, 0755, true);
         }
     }
     
     public function addSourceDirectory($path) {
         if (is_dir($path)) {
-            $this->source_dirs[] = realpath($path);
+            $this-&gt;source_dirs[] = realpath($path);
         }
     }
     
     public function createBackup($name = null) {
         $name = $name ?: 'backup_' . date('Y-m-d_H-i-s');
-        $backup_path = $this->backup_dir . $name;
+        $backup_path = $this-&gt;backup_dir . $name;
         
         if (!mkdir($backup_path, 0755, true)) {
-            return ['success' => false, 'error' => 'Backup-Verzeichnis konnte nicht erstellt werden'];
+            return ['success' =&gt; false, 'error' =&gt; 'Backup-Verzeichnis konnte nicht erstellt werden'];
         }
         
         $manifest = [
-            'name' => $name,
-            'created' => time(),
-            'created_human' => date('c'),
-            'directories' => [],
-            'total_files' => 0,
-            'total_size' => 0,
-            'php_version' => PHP_VERSION,
-            'server' => $_SERVER['SERVER_SOFTWARE'] ?? 'unknown'
+            'name' =&gt; $name,
+            'created' =&gt; time(),
+            'created_human' =&gt; date('c'),
+            'directories' =&gt; [],
+            'total_files' =&gt; 0,
+            'total_size' =&gt; 0,
+            'php_version' =&gt; PHP_VERSION,
+            'server' =&gt; $_SERVER['SERVER_SOFTWARE'] ?? 'unknown'
         ];
         
-        foreach ($this->source_dirs as $source_dir) {
-            $result = $this->backupDirectory($source_dir, $backup_path, basename($source_dir));
+        foreach ($this-&gt;source_dirs as $source_dir) {
+            $result = $this-&gt;backupDirectory($source_dir, $backup_path, basename($source_dir));
             
             $manifest['directories'][] = [
-                'source' => $source_dir,
-                'files' => $result['files'],
-                'size' => $result['size']
+                'source' =&gt; $source_dir,
+                'files' =&gt; $result['files'],
+                'size' =&gt; $result['size']
             ];
             
             $manifest['total_files'] += $result['files'];
@@ -1254,28 +1254,28 @@ class BackupSystem {
         file_put_contents($manifest_file, json_encode($manifest, JSON_PRETTY_PRINT));
         
         // Komprimieren (optional)
-        $archive_file = $this->backup_dir . $name . '.tar.gz';
+        $archive_file = $this-&gt;backup_dir . $name . '.tar.gz';
         if (class_exists('PharData')) {
             try {
                 $phar = new PharData($archive_file);
-                $phar->buildFromDirectory($backup_path);
+                $phar-&gt;buildFromDirectory($backup_path);
                 
                 // Original-Verzeichnis löschen nach erfolgreicher Komprimierung
-                $this->deleteDirectory($backup_path);
+                $this-&gt;deleteDirectory($backup_path);
                 
                 $manifest['archived'] = true;
                 $manifest['archive_file'] = $archive_file;
                 $manifest['archive_size'] = filesize($archive_file);
             } catch (Exception $e) {
-                $manifest['archive_error'] = $e->getMessage();
+                $manifest['archive_error'] = $e-&gt;getMessage();
             }
         }
         
         return [
-            'success' => true,
-            'manifest' => $manifest,
-            'path' => $backup_path,
-            'archive' => $archive_file ?? null
+            'success' =&gt; true,
+            'manifest' =&gt; $manifest,
+            'path' =&gt; $backup_path,
+            'archive' =&gt; $archive_file ?? null
         ];
     }
     
@@ -1297,12 +1297,12 @@ class BackupSystem {
             $item_relative_path = $relative_path . '/' . $item;
             
             // Exclude-Patterns prüfen
-            if ($this->shouldExclude($item_relative_path)) {
+            if ($this-&gt;shouldExclude($item_relative_path)) {
                 continue;
             }
             
             if (is_dir($source_path)) {
-                $sub_result = $this->backupDirectory($source_path, $backup_base, $item_relative_path);
+                $sub_result = $this-&gt;backupDirectory($source_path, $backup_base, $item_relative_path);
                 $files_count += $sub_result['files'];
                 $total_size += $sub_result['size'];
             } else {
@@ -1313,11 +1313,11 @@ class BackupSystem {
             }
         }
         
-        return ['files' => $files_count, 'size' => $total_size];
+        return ['files' =&gt; $files_count, 'size' =&gt; $total_size];
     }
     
     private function shouldExclude($path) {
-        foreach ($this->exclude_patterns as $pattern) {
+        foreach ($this-&gt;exclude_patterns as $pattern) {
             if (fnmatch($pattern, $path)) {
                 return true;
             }
@@ -1329,7 +1329,7 @@ class BackupSystem {
         $backups = [];
         
         // Verzeichnis-Backups
-        $dirs = glob($this->backup_dir . 'backup_*', GLOB_ONLYDIR);
+        $dirs = glob($this-&gt;backup_dir . 'backup_*', GLOB_ONLYDIR);
         foreach ($dirs as $dir) {
             $manifest_file = $dir . '/backup_manifest.json';
             if (file_exists($manifest_file)) {
@@ -1341,15 +1341,15 @@ class BackupSystem {
         }
         
         // Archiv-Backups
-        $archives = glob($this->backup_dir . 'backup_*.tar.gz');
+        $archives = glob($this-&gt;backup_dir . 'backup_*.tar.gz');
         foreach ($archives as $archive) {
             $backups[] = [
-                'name' => basename($archive, '.tar.gz'),
-                'type' => 'archive',
-                'path' => $archive,
-                'size' => filesize($archive),
-                'created' => filemtime($archive),
-                'created_human' => date('c', filemtime($archive))
+                'name' =&gt; basename($archive, '.tar.gz'),
+                'type' =&gt; 'archive',
+                'path' =&gt; $archive,
+                'size' =&gt; filesize($archive),
+                'created' =&gt; filemtime($archive),
+                'created_human' =&gt; date('c', filemtime($archive))
             ];
         }
         
@@ -1362,7 +1362,7 @@ class BackupSystem {
     }
     
     public function restoreBackup($backup_name, $target_dir) {
-        $backup_path = $this->backup_dir . $backup_name;
+        $backup_path = $this-&gt;backup_dir . $backup_name;
         $archive_path = $backup_path . '.tar.gz';
         
         // Prüfen ob Archiv oder Verzeichnis
@@ -1372,24 +1372,24 @@ class BackupSystem {
                 try {
                     $phar = new PharData($archive_path);
                     $temp_dir = sys_get_temp_dir() . '/restore_' . uniqid();
-                    $phar->extractTo($temp_dir);
+                    $phar-&gt;extractTo($temp_dir);
                     $backup_path = $temp_dir;
                 } catch (Exception $e) {
-                    return ['success' => false, 'error' => 'Archiv konnte nicht extrahiert werden: ' . $e->getMessage()];
+                    return ['success' =&gt; false, 'error' =&gt; 'Archiv konnte nicht extrahiert werden: ' . $e-&gt;getMessage()];
                 }
             } else {
-                return ['success' => false, 'error' => 'PharData-Klasse nicht verfügbar für Archiv-Extraktion'];
+                return ['success' =&gt; false, 'error' =&gt; 'PharData-Klasse nicht verfügbar für Archiv-Extraktion'];
             }
         }
         
         if (!is_dir($backup_path)) {
-            return ['success' => false, 'error' => 'Backup nicht gefunden'];
+            return ['success' =&gt; false, 'error' =&gt; 'Backup nicht gefunden'];
         }
         
         // Manifest lesen
         $manifest_file = $backup_path . '/backup_manifest.json';
         if (!file_exists($manifest_file)) {
-            return ['success' => false, 'error' => 'Backup-Manifest nicht gefunden'];
+            return ['success' =&gt; false, 'error' =&gt; 'Backup-Manifest nicht gefunden'];
         }
         
         $manifest = json_decode(file_get_contents($manifest_file), true);
@@ -1397,7 +1397,7 @@ class BackupSystem {
         // Zielverzeichnis erstellen
         if (!is_dir($target_dir)) {
             if (!mkdir($target_dir, 0755, true)) {
-                return ['success' => false, 'error' => 'Zielverzeichnis konnte nicht erstellt werden'];
+                return ['success' =&gt; false, 'error' =&gt; 'Zielverzeichnis konnte nicht erstellt werden'];
             }
         }
         
@@ -1410,7 +1410,7 @@ class BackupSystem {
             $target_restore_dir = $target_dir . '/' . basename($dir_info['source']);
             
             if (is_dir($source_backup_dir)) {
-                $result = $this->restoreDirectory($source_backup_dir, $target_restore_dir);
+                $result = $this-&gt;restoreDirectory($source_backup_dir, $target_restore_dir);
                 $restored_files += $result['files'];
                 $restored_size += $result['size'];
             }
@@ -1418,14 +1418,14 @@ class BackupSystem {
         
         // Temporäres Verzeichnis aufräumen
         if (isset($temp_dir) && is_dir($temp_dir)) {
-            $this->deleteDirectory($temp_dir);
+            $this-&gt;deleteDirectory($temp_dir);
         }
         
         return [
-            'success' => true,
-            'restored_files' => $restored_files,
-            'restored_size' => $restored_size,
-            'original_backup' => $manifest
+            'success' =&gt; true,
+            'restored_files' =&gt; $restored_files,
+            'restored_size' =&gt; $restored_size,
+            'original_backup' =&gt; $manifest
         ];
     }
     
@@ -1445,7 +1445,7 @@ class BackupSystem {
             $target_path = $target . '/' . $item;
             
             if (is_dir($source_path)) {
-                $sub_result = $this->restoreDirectory($source_path, $target_path);
+                $sub_result = $this-&gt;restoreDirectory($source_path, $target_path);
                 $files_count += $sub_result['files'];
                 $total_size += $sub_result['size'];
             } else {
@@ -1456,22 +1456,22 @@ class BackupSystem {
             }
         }
         
-        return ['files' => $files_count, 'size' => $total_size];
+        return ['files' =&gt; $files_count, 'size' =&gt; $total_size];
     }
     
     public function cleanupOldBackups() {
-        $backups = $this->listBackups();
+        $backups = $this-&gt;listBackups();
         $deleted = 0;
-        $cutoff_time = time() - $this->max_backup_age;
+        $cutoff_time = time() - $this-&gt;max_backup_age;
         
         foreach ($backups as $backup) {
-            if ($backup['created'] < $cutoff_time) {
+            if ($backup['created'] &lt; $cutoff_time) {
                 if ($backup['type'] === 'archive') {
                     if (unlink($backup['path'])) {
                         $deleted++;
                     }
                 } else {
-                    if ($this->deleteDirectory($backup['path'])) {
+                    if ($this-&gt;deleteDirectory($backup['path'])) {
                         $deleted++;
                     }
                 }
@@ -1487,32 +1487,32 @@ class BackupSystem {
         $files = array_diff(scandir($dir), ['.', '..']);
         foreach ($files as $file) {
             $path = $dir . '/' . $file;
-            is_dir($path) ? $this->deleteDirectory($path) : unlink($path);
+            is_dir($path) ? $this-&gt;deleteDirectory($path) : unlink($path);
         }
         
         return rmdir($dir);
     }
     
     public function getBackupStatistics() {
-        $backups = $this->listBackups();
+        $backups = $this-&gt;listBackups();
         
         $stats = [
-            'total_backups' => count($backups),
-            'total_size' => 0,
-            'oldest_backup' => null,
-            'newest_backup' => null,
-            'by_type' => ['directory' => 0, 'archive' => 0]
+            'total_backups' =&gt; count($backups),
+            'total_size' =&gt; 0,
+            'oldest_backup' =&gt; null,
+            'newest_backup' =&gt; null,
+            'by_type' =&gt; ['directory' =&gt; 0, 'archive' =&gt; 0]
         ];
         
         foreach ($backups as $backup) {
             $stats['total_size'] += $backup['size'] ?? 0;
             $stats['by_type'][$backup['type']]++;
             
-            if ($stats['oldest_backup'] === null || $backup['created'] < $stats['oldest_backup']['created']) {
+            if ($stats['oldest_backup'] === null || $backup['created'] &lt; $stats['oldest_backup']['created']) {
                 $stats['oldest_backup'] = $backup;
             }
             
-            if ($stats['newest_backup'] === null || $backup['created'] > $stats['newest_backup']['created']) {
+            if ($stats['newest_backup'] === null || $backup['created'] &gt; $stats['newest_backup']['created']) {
                 $stats['newest_backup'] = $backup;
             }
         }
@@ -1523,11 +1523,11 @@ class BackupSystem {
 
 // Backup-System verwenden
 $backup = new BackupSystem('backups/');
-$backup->addSourceDirectory('.');  // Aktuelles Verzeichnis
+$backup-&gt;addSourceDirectory('.');  // Aktuelles Verzeichnis
 
 // Aktionen verarbeiten
 if ($_POST['create_backup'] ?? false) {
-    $result = $backup->createBackup();
+    $result = $backup-&gt;createBackup();
     if ($result['success']) {
         echo "&lt;div class='alert alert-success'&gt;";
         echo "✅ Backup erstellt: {$result['manifest']['name']}&lt;br&gt;";
@@ -1543,7 +1543,7 @@ if ($_POST['restore_backup'] ?? false) {
     $backup_name = $_POST['backup_name'];
     $target_dir = 'restored_' . date('Y-m-d_H-i-s');
     
-    $result = $backup->restoreBackup($backup_name, $target_dir);
+    $result = $backup-&gt;restoreBackup($backup_name, $target_dir);
     if ($result['success']) {
         echo "&lt;div class='alert alert-success'&gt;";
         echo "✅ Backup restauriert in: $target_dir&lt;br&gt;";
@@ -1556,13 +1556,13 @@ if ($_POST['restore_backup'] ?? false) {
 }
 
 if ($_POST['cleanup_backups'] ?? false) {
-    $deleted = $backup->cleanupOldBackups();
+    $deleted = $backup-&gt;cleanupOldBackups();
     echo "&lt;div class='alert alert-info'&gt;🧹 $deleted alte Backups gelöscht&lt;/div&gt;";
 }
 
 // Backup-Übersicht anzeigen
-$backups = $backup->listBackups();
-$stats = $backup->getBackupStatistics();
+$backups = $backup-&gt;listBackups();
+$stats = $backup-&gt;getBackupStatistics();
 
 echo "&lt;div class='row mb-4'&gt;";
 echo "&lt;div class='col-md-3'&gt;";

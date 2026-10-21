@@ -63,7 +63,7 @@ if (bedingung) {
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $alter = 20;
 
-if ($alter >= 18) {
+if ($alter &gt;= 18) {
     echo "Sie sind volljährig!";
 }
 
@@ -73,7 +73,7 @@ if ($wetter === "sonnig") {
 }
 
 $punkte = 85;
-if ($punkte > 90) {
+if ($punkte &gt; 90) {
     echo "Hervorragend! Top-Leistung!";
 }
 ?&gt;</code></pre>
@@ -97,21 +97,21 @@ if ($punkte > 90) {
                                         <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $alter = 16;
 
-if ($alter >= 18) {
+if ($alter &gt;= 18) {
     echo "Willkommen! Sie dürfen rein.";
 } else {
     echo "Tut mir leid, Sie sind zu jung.";
 }
 
 $temperatur = 15;
-if ($temperatur > 25) {
+if ($temperatur &gt; 25) {
     echo "Es ist warm - T-Shirt anziehen!";
 } else {
     echo "Es ist kühl - Jacke nicht vergessen!";
 }
 
 $kontostand = -50;
-if ($kontostand >= 0) {
+if ($kontostand &gt;= 0) {
     echo "Ihr Konto ist gedeckt.";
 } else {
     echo "Achtung: Ihr Konto ist im Minus!";
@@ -135,15 +135,15 @@ if ($kontostand >= 0) {
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $punkte = 78;
 
-if ($punkte >= 90) {
+if ($punkte &gt;= 90) {
     echo "Note: Sehr gut (1)";
-} elseif ($punkte >= 80) {
+} elseif ($punkte &gt;= 80) {
     echo "Note: Gut (2)";
-} elseif ($punkte >= 70) {
+} elseif ($punkte &gt;= 70) {
     echo "Note: Befriedigend (3)";
-} elseif ($punkte >= 60) {
+} elseif ($punkte &gt;= 60) {
     echo "Note: Ausreichend (4)";
-} elseif ($punkte >= 50) {
+} elseif ($punkte &gt;= 50) {
     echo "Note: Mangelhaft (5)";
 } else {
     echo "Note: Ungenügend (6)";
@@ -159,13 +159,13 @@ if ($punkte >= 90) {
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $stunde = date('H'); // Aktuelle Stunde (0-23)
 
-if ($stunde < 6) {
+if ($stunde &lt; 6) {
     $tageszeit = "Frühe Nacht";
     $gruß = "Sie sind aber früh wach!";
-} elseif ($stunde < 12) {
+} elseif ($stunde &lt; 12) {
     $tageszeit = "Morgen";
     $gruß = "Guten Morgen!";
-} elseif ($stunde < 18) {
+} elseif ($stunde &lt; 18) {
     $tageszeit = "Nachmittag";  
     $gruß = "Guten Tag!";
 } else {
@@ -198,7 +198,7 @@ $hat_fuehrerschein = true;
 $ist_nuechtern = true;
 
 // ALLE Bedingungen müssen erfüllt sein
-if ($alter >= 18 && $hat_fuehrerschein && $ist_nuechtern) {
+if ($alter &gt;= 18 && $hat_fuehrerschein && $ist_nuechtern) {
     echo "Darf Auto fahren!";
 } else {
     echo "Darf nicht fahren.";
@@ -208,7 +208,7 @@ if ($alter >= 18 && $hat_fuehrerschein && $ist_nuechtern) {
 $ist_student = true;
 $alter = 22;
 
-if ($ist_student && $alter < 30) {
+if ($ist_student && $alter &lt; 30) {
     echo "20% Studentenrabatt!";
 }
 ?&gt;</code></pre>
@@ -235,7 +235,7 @@ if ($ist_admin || $ist_moderator || $ist_premium) {
 $heute = date('N'); // 1-7 (Mo-So)
 $ist_feiertag = false;
 
-if ($heute >= 6 || $ist_feiertag) {
+if ($heute &gt;= 6 || $ist_feiertag) {
     echo "Heute ist frei! 🎉";
 }
 ?&gt;</code></pre>
@@ -264,7 +264,7 @@ $land = "Deutschland";
 if ($benutzer_typ === "premium") {
     echo "Premium-Benutzer erkannt! 🌟&lt;br&gt;";
     
-    if ($alter >= 18) {
+    if ($alter &gt;= 18) {
         echo "Vollzugriff auf alle Inhalte.&lt;br&gt;";
         
         if ($land === "Deutschland") {
@@ -316,7 +316,7 @@ if (!empty($benutzername) && !empty($passwort)) {
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $alter = 17;
 
-if ($alter >= 18) {
+if ($alter &gt;= 18) {
     $status = "Erwachsen";
 } else {
     $status = "Minderjährig";
@@ -335,7 +335,7 @@ echo $status;
 $alter = 17;
 
 // Syntax: bedingung ? wert_wenn_wahr : wert_wenn_falsch
-$status = ($alter >= 18) ? "Erwachsen" : "Minderjährig";
+$status = ($alter &gt;= 18) ? "Erwachsen" : "Minderjährig";
 
 echo $status;
 
@@ -344,7 +344,7 @@ $wetter = "Regen";
 $aktivität = ($wetter === "Sonne") ? "Schwimmen gehen" : "Film schauen";
 
 $punkte = 95;
-$note = ($punkte >= 90) ? "Sehr gut" : "Gut";
+$note = ($punkte &gt;= 90) ? "Sehr gut" : "Gut";
 
 echo "Bei $wetter: $aktivität";
 echo "Mit $punkte Punkten: Note $note";
@@ -369,13 +369,13 @@ echo "Mit $punkte Punkten: Note $note";
                                         <pre class="mb-0"><code class="language-php text-light">&lt;?php
 // Benutzer-Daten
 $benutzer = [
-    'name' => 'Anna Müller',
-    'alter' => 28,
-    'typ' => 'premium',
-    'punkte' => 1250,
-    'ist_aktiv' => true,
-    'letzte_anmeldung' => '2024-08-30',
-    'sprache' => 'deutsch'
+    'name' =&gt; 'Anna Müller',
+    'alter' =&gt; 28,
+    'typ' =&gt; 'premium',
+    'punkte' =&gt; 1250,
+    'ist_aktiv' =&gt; true,
+    'letzte_anmeldung' =&gt; '2024-08-30',
+    'sprache' =&gt; 'deutsch'
 ];
 
 echo "&lt;div class='card'&gt;";
@@ -383,9 +383,9 @@ echo "&lt;div class='card-header'&gt;";
 
 // Begrüßung basierend auf Tageszeit
 $stunde = date('H');
-if ($stunde < 12) {
+if ($stunde &lt; 12) {
     $begrüßung = "Guten Morgen";
-} elseif ($stunde < 18) {
+} elseif ($stunde &lt; 18) {
     $begrüßung = "Guten Tag";
 } else {
     $begrüßung = "Guten Abend";
@@ -411,16 +411,16 @@ if (!$benutzer['ist_aktiv']) {
     echo "&lt;div class='alert alert-success'&gt;✅ Account ist aktiv&lt;/div&gt;";
     
     // Punkte-Status
-    if ($benutzer['punkte'] >= 2000) {
+    if ($benutzer['punkte'] &gt;= 2000) {
         echo "&lt;p&gt;🏆 Elite-Status erreicht! ({$benutzer['punkte']} Punkte)&lt;/p&gt;";
-    } elseif ($benutzer['punkte'] >= 1000) {
+    } elseif ($benutzer['punkte'] &gt;= 1000) {
         echo "&lt;p&gt;⭐ Fortgeschritten-Status! ({$benutzer['punkte']} Punkte)&lt;/p&gt;";
     } else {
         echo "&lt;p&gt;🔰 Anfänger-Status ({$benutzer['punkte']} Punkte)&lt;/p&gt;";
     }
     
     // Altersbasierte Inhalte
-    $inhalt_typ = ($benutzer['alter'] >= 18) ? "Vollversion" : "Jugendversion";
+    $inhalt_typ = ($benutzer['alter'] &gt;= 18) ? "Vollversion" : "Jugendversion";
     echo "&lt;p&gt;📚 Verfügbare Inhalte: $inhalt_typ&lt;/p&gt;";
     
     // Premium-Features
@@ -459,12 +459,12 @@ if ($alter = 18) {  // = statt ==
 }
 
 // FALSCH: Vergessene Klammern
-if $alter >= 18 {
+if $alter &gt;= 18 {
     echo "Volljährig";
 }
 
 // FALSCH: Fehlende geschweifte Klammern bei mehreren Befehlen
-if ($alter >= 18)
+if ($alter &gt;= 18)
     echo "Volljährig";
     echo "Darf wählen";  // Läuft immer!</code></pre>
                                             </div>
@@ -487,12 +487,12 @@ if ($alter == 18) {
 }
 
 // RICHTIG: Klammern um Bedingung
-if ($alter >= 18) {
+if ($alter &gt;= 18) {
     echo "Volljährig";
 }
 
 // RICHTIG: Geschweifte Klammern
-if ($alter >= 18) {
+if ($alter &gt;= 18) {
     echo "Volljährig";
     echo "Darf wählen";
 }</code></pre>

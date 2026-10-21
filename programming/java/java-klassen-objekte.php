@@ -114,7 +114,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     }
     
     public void setAlter(int alter) {
-        if (alter >= 0 && alter <= 150) {
+        if (alter &gt;= 0 && alter &lt;= 150) {
             this.alter = alter;
         }
     }
@@ -129,11 +129,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     }
     
     public boolean istVolljaehrig() {
-        return alter >= 18;
+        return alter &gt;= 18;
     }
     
     public boolean istRentner() {
-        return alter >= 67;
+        return alter &gt;= 67;
     }
     
     // toString-Methode für schöne Ausgabe
@@ -282,7 +282,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     
     // Setter-Methoden mit Validierung
     public void setPreis(double preis) {
-        if (preis >= 0) {
+        if (preis &gt;= 0) {
             this.preis = preis;
         }
     }
@@ -299,7 +299,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     }
     
     public boolean istNeu() {
-        return getAlter() <= 1;
+        return getAlter() &lt;= 1;
     }
     
     public boolean istGebraucht() {
@@ -331,7 +331,7 @@ public class AutoDemo {
         System.out.println("=== ALLE AUTOS ===");
         Auto[] autos = {auto1, auto2, auto3, auto4, auto5};
         
-        for (int i = 0; i < autos.length; i++) {
+        for (int i = 0; i &lt; autos.length; i++) {
             System.out.println("Auto " + (i+1) + ": " + autos[i]);
             System.out.println("  Alter: " + autos[i].getAlter() + " Jahre");
             System.out.println("  Status: " + (autos[i].istNeu() ? "Neu" : "Gebraucht"));
@@ -430,7 +430,7 @@ public class AutoDemo {
     
     // Public Methoden für Transaktionen
     public boolean einzahlen(double betrag) {
-        if (betrag > 0) {
+        if (betrag &gt; 0) {
             saldo += betrag;
             System.out.println("Eingezahlt: " + betrag + " EUR");
             return true;
@@ -441,11 +441,11 @@ public class AutoDemo {
     }
     
     public boolean abheben(double betrag) {
-        if (betrag > 0 && betrag <= saldo) {
+        if (betrag &gt; 0 && betrag &lt;= saldo) {
             saldo -= betrag;
             System.out.println("Abgehoben: " + betrag + " EUR");
             return true;
-        } else if (betrag <= 0) {
+        } else if (betrag &lt;= 0) {
             System.out.println("Fehler: Betrag muss positiv sein!");
             return false;
         } else {
@@ -556,26 +556,26 @@ public class BankDemo {
     
     public static double potenz(double basis, int exponent) {
         double ergebnis = 1;
-        for (int i = 0; i < Math.abs(exponent); i++) {
+        for (int i = 0; i &lt; Math.abs(exponent); i++) {
             ergebnis *= basis;
         }
-        return exponent < 0 ? 1 / ergebnis : ergebnis;
+        return exponent &lt; 0 ? 1 / ergebnis : ergebnis;
     }
     
     public static int fakultaet(int n) {
-        if (n < 0) return -1; // Fehler
-        if (n <= 1) return 1;
+        if (n &lt; 0) return -1; // Fehler
+        if (n &lt;= 1) return 1;
         
         int ergebnis = 1;
-        for (int i = 2; i <= n; i++) {
+        for (int i = 2; i &lt;= n; i++) {
             ergebnis *= i;
         }
         return ergebnis;
     }
     
     public static boolean istPrimzahl(int zahl) {
-        if (zahl < 2) return false;
-        for (int i = 2; i <= Math.sqrt(zahl); i++) {
+        if (zahl &lt; 2) return false;
+        for (int i = 2; i &lt;= Math.sqrt(zahl); i++) {
             if (zahl % i == 0) return false;
         }
         return true;
@@ -763,7 +763,7 @@ public class Bibliothek {
     }
     
     public boolean buchHinzufuegen(Buch buch) {
-        if (anzahlBuecher < MAX_BUECHER) {
+        if (anzahlBuecher &lt; MAX_BUECHER) {
             buecher[anzahlBuecher] = buch;
             anzahlBuecher++;
             gesamteBuecher++;
@@ -776,7 +776,7 @@ public class Bibliothek {
     }
     
     public Buch buchSuchen(String titel) {
-        for (int i = 0; i < anzahlBuecher; i++) {
+        for (int i = 0; i &lt; anzahlBuecher; i++) {
             if (buecher[i].getTitel().equalsIgnoreCase(titel)) {
                 return buecher[i];
             }
@@ -785,7 +785,7 @@ public class Bibliothek {
     }
     
     public Buch buchSuchenNachId(int id) {
-        for (int i = 0; i < anzahlBuecher; i++) {
+        for (int i = 0; i &lt; anzahlBuecher; i++) {
             if (buecher[i].getId() == id) {
                 return buecher[i];
             }
@@ -834,7 +834,7 @@ public class Bibliothek {
             return;
         }
         
-        for (int i = 0; i < anzahlBuecher; i++) {
+        for (int i = 0; i &lt; anzahlBuecher; i++) {
             System.out.println(buecher[i]);
         }
     }
@@ -843,7 +843,7 @@ public class Bibliothek {
         System.out.println("\n=== VERFÜGBARE BÜCHER ===");
         boolean hatVerfuegbare = false;
         
-        for (int i = 0; i < anzahlBuecher; i++) {
+        for (int i = 0; i &lt; anzahlBuecher; i++) {
             if (!buecher[i].istAusgeliehen()) {
                 System.out.println(buecher[i]);
                 hatVerfuegbare = true;
@@ -859,7 +859,7 @@ public class Bibliothek {
         System.out.println("\n=== AUSGELIEHENE BÜCHER ===");
         boolean hatAusgeliehene = false;
         
-        for (int i = 0; i < anzahlBuecher; i++) {
+        for (int i = 0; i &lt; anzahlBuecher; i++) {
             if (buecher[i].istAusgeliehen()) {
                 System.out.println(buecher[i]);
                 hatAusgeliehene = true;
@@ -931,6 +931,8 @@ class BibliothekenDemo {
                         <?php renderJavaPageNavigation('java-klassen-objekte'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

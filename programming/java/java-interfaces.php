@@ -12,9 +12,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
                     <h1><i class="bi bi-plug text-primary"></i> Java Interfaces</h1>
                     <p class="lead">Verträge zwischen Klassen definieren und Mehrfachvererbung simulieren</p>
                 </div>
-                <div>
-                    </button>
-                </div>
             </div>
 
             <div class="row">
@@ -146,7 +143,7 @@ public class Auto implements Fahrbar {
     
     @Override
     public void beschleunigen() {
-        if (gestartet && geschwindigkeit < MAX_GESCHWINDIGKEIT) {
+        if (gestartet && geschwindigkeit &lt; MAX_GESCHWINDIGKEIT) {
             geschwindigkeit += 10;
             System.out.println(marke + " beschleunigt auf " + geschwindigkeit + " km/h");
         } else if (!gestartet) {
@@ -158,9 +155,9 @@ public class Auto implements Fahrbar {
     
     @Override
     public void bremsen() {
-        if (geschwindigkeit > 0) {
+        if (geschwindigkeit &gt; 0) {
             geschwindigkeit -= 15;
-            if (geschwindigkeit < 0) geschwindigkeit = 0;
+            if (geschwindigkeit &lt; 0) geschwindigkeit = 0;
             System.out.println(marke + " bremst auf " + geschwindigkeit + " km/h");
         } else {
             System.out.println(marke + " steht bereits.");
@@ -288,7 +285,7 @@ public class Motorrad implements Fahrbar {
     public static void testefahrzeug(Fahrbar fahrzeug) {
         System.out.println("\n=== FAHRZEUG-TEST ===");
         fahrzeug.starten();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i &lt; 3; i++) {
             fahrzeug.beschleunigen();
         }
         System.out.println("Endgeschwindigkeit: " + fahrzeug.getGeschwindigkeit());
@@ -644,7 +641,7 @@ public interface Elektrogeraet {
     }
     
     default boolean istStarkverbraucher() {
-        return getLeistung() > 2000; // Über 2000 Watt
+        return getLeistung() &gt; 2000; // Über 2000 Watt
     }
     
     default void energiesparModus() {

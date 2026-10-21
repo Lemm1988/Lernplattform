@@ -133,9 +133,9 @@ def factorial(n):
     global calculation_count
     calculation_count += 1
     
-    if n < 0:
+    if n &lt; 0:
         raise ValueError("Fakultät nicht definiert für negative Zahlen")
-    if n <= 1:
+    if n &lt;= 1:
         return 1
     
     result = 1
@@ -148,7 +148,7 @@ def is_prime(n):
     global calculation_count
     calculation_count += 1
     
-    if n < 2:
+    if n &lt; 2:
         return False
     if n == 2:
         return True
@@ -440,7 +440,7 @@ class Circle:
     
     def __eq__(self, other):
         if isinstance(other, Circle):
-            return abs(self.radius - other.radius) < 1e-10
+            return abs(self.radius - other.radius) &lt; 1e-10
         return False
 
 def create_circle_from_area(area):
@@ -486,7 +486,7 @@ class Rectangle:
     
     def is_square(self):
         """Prüft ob es ein Quadrat ist"""
-        return abs(self.width - self.height) < 1e-10
+        return abs(self.width - self.height) &lt; 1e-10
     
     def aspect_ratio(self):
         """Berechnet das Seitenverhältnis"""
@@ -500,8 +500,8 @@ class Rectangle:
     
     def __eq__(self, other):
         if isinstance(other, Rectangle):
-            return (abs(self.width - other.width) < 1e-10 and 
-                   abs(self.height - other.height) < 1e-10)
+            return (abs(self.width - other.width) &lt; 1e-10 and 
+                   abs(self.height - other.height) &lt; 1e-10)
         return False
 
 def create_square(side_length):
@@ -522,7 +522,7 @@ def validate_positive(value, name="Value"):
     """Validiert dass ein Wert positiv ist"""
     if not isinstance(value, (int, float)):
         raise TypeError(f"{name} must be a number")
-    if value <= 0:
+    if value &lt;= 0:
         raise ValueError(f"{name} must be positive")
     return value
 
@@ -530,7 +530,7 @@ def validate_non_negative(value, name="Value"):
     """Validiert dass ein Wert nicht negativ ist"""
     if not isinstance(value, (int, float)):
         raise TypeError(f"{name} must be a number")
-    if value < 0:
+    if value &lt; 0:
         raise ValueError(f"{name} must be non-negative")
     return value
 
@@ -1151,7 +1151,7 @@ source myproject_env/bin/activate
 pip install requests numpy pandas
 
 # Requirements-Datei erstellen
-pip freeze > requirements.txt
+pip freeze &gt; requirements.txt
 
 # Packages aus Requirements installieren
 pip install -r requirements.txt
@@ -1186,7 +1186,7 @@ if code == 0:
     lines = stdout.strip().split('\n')[2:]  # Header überspringen
     for line in lines[:10]:  # Erste 10 anzeigen
         print(f"   {line}")
-    print(f"   ... (und {len(lines)-10} weitere)" if len(lines) > 10 else "")
+    print(f"   ... (und {len(lines)-10} weitere)" if len(lines) &gt; 10 else "")
 
 # 2. Package-Informationen anzeigen
 print(f"\n2. Package-Informationen für 'pip':")
@@ -1210,19 +1210,19 @@ if code == 0 and stdout.strip():
 # 4. Requirements-Datei simulieren
 print(f"\n4. Requirements-Datei Beispiel:")
 requirements_content = """# Project Dependencies
-requests>=2.25.0
-numpy>=1.20.0
-pandas>=1.3.0
-matplotlib>=3.4.0
+requests&gt;=2.25.0
+numpy&gt;=1.20.0
+pandas&gt;=1.3.0
+matplotlib&gt;=3.4.0
 
 # Development Dependencies
-pytest>=6.0.0
-black>=21.0.0
-flake8>=3.9.0
+pytest&gt;=6.0.0
+black&gt;=21.0.0
+flake8&gt;=3.9.0
 
 # Optional Dependencies
-scipy>=1.7.0  # Für wissenschaftliche Berechnungen
-pillow>=8.0.0  # Für Bildverarbeitung"""
+scipy&gt;=1.7.0  # Für wissenschaftliche Berechnungen
+pillow&gt;=8.0.0  # Für Bildverarbeitung"""
 
 print(requirements_content)
 
@@ -1334,10 +1334,10 @@ setup(
     author_email="dein@email.com",
     packages=find_packages(),
     install_requires=[
-        "requests>=2.25.0",
-        "numpy>=1.20.0"
+        "requests&gt;=2.25.0",
+        "numpy&gt;=1.20.0"
     ],
-    python_requires=">=3.6",
+    python_requires="&gt;=3.6",
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Developers",
@@ -1524,11 +1524,11 @@ class User:
         if skill not in self.skills:
             self.skills.append(skill)
     
-    def has_skill(self, skill: str) -> bool:
+    def has_skill(self, skill: str) -&gt; bool:
         """Prüft ob Benutzer eine Fähigkeit hat"""
         return skill in self.skills
     
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -&gt; Dict[str, Any]:
         """Konvertiert zu Dictionary"""
         return {
             "user_id": self.user_id,
@@ -1568,7 +1568,7 @@ class Task:
     
     def log_time(self, hours: float):
         """Protokolliert Arbeitszeit"""
-        if hours < 0:
+        if hours &lt; 0:
             raise ValueError("Arbeitszeit muss positiv sein")
         self.actual_hours += hours
     
@@ -1576,19 +1576,19 @@ class Task:
         """Markiert Task als abgeschlossen"""
         self.status = TaskStatus.DONE
     
-    def is_overdue(self) -> bool:
+    def is_overdue(self) -&gt; bool:
         """Prüft ob Task überfällig ist"""
         if self.due_date and self.status not in [TaskStatus.DONE]:
-            return date.today() > self.due_date
+            return date.today() &gt; self.due_date
         return False
     
-    def get_progress_percentage(self) -> float:
+    def get_progress_percentage(self) -&gt; float:
         """Berechnet Fortschritt basierend auf Zeitschätzung"""
         if self.estimated_hours == 0:
             return 0.0
         return min(100.0, (self.actual_hours / self.estimated_hours) * 100)
     
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -&gt; Dict[str, Any]:
         """Konvertiert zu Dictionary"""
         return {
             "task_id": self.task_id,
@@ -1640,15 +1640,15 @@ class Project:
         if task not in self.tasks:
             self.tasks.append(task)
     
-    def get_tasks_by_status(self, status: TaskStatus) -> List[Task]:
+    def get_tasks_by_status(self, status: TaskStatus) -&gt; List[Task]:
         """Gibt Tasks nach Status zurück"""
         return [task for task in self.tasks if task.status == status]
     
-    def get_overdue_tasks(self) -> List[Task]:
+    def get_overdue_tasks(self) -&gt; List[Task]:
         """Gibt überfällige Tasks zurück"""
         return [task for task in self.tasks if task.is_overdue()]
     
-    def get_completion_percentage(self) -> float:
+    def get_completion_percentage(self) -&gt; float:
         """Berechnet Projektfortschritt"""
         if not self.tasks:
             return 0.0
@@ -1656,15 +1656,15 @@ class Project:
         completed_tasks = len(self.get_tasks_by_status(TaskStatus.DONE))
         return (completed_tasks / len(self.tasks)) * 100
     
-    def get_total_estimated_hours(self) -> float:
+    def get_total_estimated_hours(self) -&gt; float:
         """Berechnet geschätzte Gesamtstunden"""
         return sum(task.estimated_hours for task in self.tasks)
     
-    def get_total_actual_hours(self) -> float:
+    def get_total_actual_hours(self) -&gt; float:
         """Berechnet tatsächliche Gesamtstunden"""
         return sum(task.actual_hours for task in self.tasks)
     
-    def is_on_schedule(self) -> bool:
+    def is_on_schedule(self) -&gt; bool:
         """Prüft ob Projekt im Zeitplan ist"""
         if not self.end_date:
             return True
@@ -1672,9 +1672,9 @@ class Project:
         if self.status == Status.COMPLETED:
             return True
         
-        return date.today() <= self.end_date
+        return date.today() &lt;= self.end_date
     
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self) -&gt; Dict[str, Any]:
         """Konvertiert zu Dictionary"""
         return {
             "project_id": self.project_id,
@@ -1795,7 +1795,7 @@ class ProjectManager:
         self.db = database_manager
         logger.info("ProjectManager initialisiert")
     
-    def create_project(self, name: str, description: str, owner: User, **kwargs) -> Project:
+    def create_project(self, name: str, description: str, owner: User, **kwargs) -&gt; Project:
         """Erstellt ein neues Projekt"""
         try:
             # Validierung
@@ -1828,13 +1828,13 @@ class ProjectManager:
             logger.error(f"Fehler beim Erstellen des Projekts: {e}")
             raise
     
-    def get_project(self, project_id: str) -> Project:
+    def get_project(self, project_id: str) -&gt; Project:
         """Holt ein Projekt nach ID"""
         if project_id not in self.projects:
             raise ProjectNotFoundError(project_id)
         return self.projects[project_id]
     
-    def update_project(self, project_id: str, **updates) -> Project:
+    def update_project(self, project_id: str, **updates) -&gt; Project:
         """Aktualisiert ein Projekt"""
         project = self.get_project(project_id)
         
@@ -1852,7 +1852,7 @@ class ProjectManager:
         logger.info(f"Projekt {project_id} aktualisiert")
         return project
     
-    def delete_project(self, project_id: str) -> bool:
+    def delete_project(self, project_id: str) -&gt; bool:
         """Löscht ein Projekt"""
         if project_id not in self.projects:
             raise ProjectNotFoundError(project_id)
@@ -1866,7 +1866,7 @@ class ProjectManager:
         return True
     
     def list_projects(self, status: Optional[Status] = None, 
-                     owner: Optional[User] = None) -> List[Project]:
+                     owner: Optional[User] = None) -&gt; List[Project]:
         """Listet Projekte mit optionalen Filtern auf"""
         projects = list(self.projects.values())
         
@@ -1878,7 +1878,7 @@ class ProjectManager:
         
         return projects
     
-    def get_project_statistics(self) -> Dict[str, Any]:
+    def get_project_statistics(self) -&gt; Dict[str, Any]:
         """Gibt Projektstatistiken zurück"""
         projects = list(self.projects.values())
         
@@ -1916,7 +1916,7 @@ class ProjectManager:
         
         return stats
     
-    def search_projects(self, query: str) -> List[Project]:
+    def search_projects(self, query: str) -&gt; List[Project]:
         """Sucht Projekte nach Namen oder Beschreibung"""
         query = query.lower()
         results = []
@@ -1929,7 +1929,7 @@ class ProjectManager:
         
         return results
     
-    def get_user_projects(self, user: User) -> List[Project]:
+    def get_user_projects(self, user: User) -&gt; List[Project]:
         """Gibt alle Projekte eines Benutzers zurück"""
         user_projects = []
         
@@ -1939,7 +1939,7 @@ class ProjectManager:
         
         return user_projects
     
-    def close_project(self, project_id: str) -> Project:
+    def close_project(self, project_id: str) -&gt; Project:
         """Schließt ein Projekt ab"""
         project = self.get_project(project_id)
         project.status = Status.COMPLETED
@@ -2087,7 +2087,7 @@ def demo_project_management_system():
         task = task_manager.create_task(**task_data)
         task.add_tag("web-development")
         web_project.add_task(task)
-        print(f"   ✅ {task.title} -> {task.assignee.name}")
+        print(f"   ✅ {task.title} -&gt; {task.assignee.name}")
     
     # Task-Status Updates simulieren
     print(f"\n🔄 TASK-PROGRESS SIMULIEREN")
@@ -2135,7 +2135,7 @@ def demo_project_management_system():
     
     print(f"   Status-Verteilung:")
     for status, count in system_stats['by_status'].items():
-        if count > 0:
+        if count &gt; 0:
             print(f"      {status}: {count}")
     
     # Reporting demonstrieren
@@ -2246,6 +2246,9 @@ if __name__ == "__main__":
                     <div class="navigation-buttons">
                         <?php renderPythonPageNavigation('python-module'); ?>
                     </div>
+                    </div>
+                </div>
+            </div>
                     </div>
                 </div>
             </div>

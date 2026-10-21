@@ -159,7 +159,7 @@ class MathCalculator:
             self.logger.warning(f"Nicht-Integer Eingabe: {n} ({type(n)})")
             n = int(n)
         
-        if n < 0:
+        if n &lt; 0:
             self.logger.error(f"Negative Eingabe: {n}")
             raise ValueError("Fakultät nur für nicht-negative Zahlen definiert")
         
@@ -238,7 +238,7 @@ def debug_function(func):
             result = func(*args, **kwargs)
             duration = datetime.now() - start_time
             
-            func_logger.debug(f"✅ Rückgabe: {func.__name__}() -> {result!r} [{duration.total_seconds():.3f}s]")
+            func_logger.debug(f"✅ Rückgabe: {func.__name__}() -&gt; {result!r} [{duration.total_seconds():.3f}s]")
             return result
             
         except Exception as e:
@@ -250,7 +250,7 @@ def debug_function(func):
 @debug_function
 def fibonacci(n):
     """Fibonacci-Zahl berechnen (rekursiv, ineffizient für Demo)"""
-    if n <= 1:
+    if n &lt;= 1:
         return n
     return fibonacci(n-1) + fibonacci(n-2)
 
@@ -291,7 +291,7 @@ def inspect_variables(local_vars=None, global_vars=None):
             else:
                 length_info = ""
             
-            print(f"     {name}: {var_type} = {repr(value)[:50]}{'...' if len(repr(value)) > 50 else ''}")
+            print(f"     {name}: {var_type} = {repr(value)[:50]}{'...' if len(repr(value)) &gt; 50 else ''}")
             print(f"       Größe: {var_size} bytes{length_info}")
 
 def debug_algorithm():
@@ -479,7 +479,7 @@ def buggy_function(numbers):
             # Hier könnten wir pdb.set_trace() aufrufen
             pass
         
-        if num < 0:
+        if num &lt; 0:
             print(f"   Negative Zahl gefunden: {num}")
             # Bug: Negative Zahlen nicht behandeln
             total += num * -1  # Sollte absolute Werte verwenden
@@ -494,12 +494,12 @@ pdb_commands = {
     "n": "next - Nächste Zeile",
     "s": "step - In Funktion hinein",
     "c": "continue - Bis zum nächsten Breakpoint",
-    "p <var>": "print - Variable ausgeben",
-    "pp <var>": "pretty print - Variable schön formatiert",
+    "p &lt;var&gt;": "print - Variable ausgeben",
+    "pp &lt;var&gt;": "pretty print - Variable schön formatiert",
     "w": "where - Call Stack anzeigen",
     "u": "up - Frame nach oben",
     "d": "down - Frame nach unten",
-    "b <line>": "break - Breakpoint setzen",
+    "b &lt;line&gt;": "break - Breakpoint setzen",
     "cl": "clear - Breakpoints löschen",
     "q": "quit - Debugger beenden"
 }
@@ -537,7 +537,7 @@ def process_list(data):
     
     for i, item in enumerate(data):
         # Bedingte Breakpoint-Logik (simuliert)
-        debug_condition = (i > 5 and item < 0)
+        debug_condition = (i &gt; 5 and item &lt; 0)
         
         if debug_condition:
             print(f"   🔍 Debug-Punkt erreicht: Index {i}, Wert {item}")
@@ -549,7 +549,7 @@ def process_list(data):
             print(f"     Bisherige Ergebnisse: {results}")
         
         # Verarbeitung
-        processed_item = item * 2 if item > 0 else item
+        processed_item = item * 2 if item &gt; 0 else item
         results.append(processed_item)
     
     return results
@@ -599,7 +599,7 @@ class DebuggingStrategy:
         left, right = 0, len(code_sections) - 1
         iterations = 0
         
-        while left <= right and iterations < 5:  # Max 5 für Demo
+        while left &lt;= right and iterations &lt; 5:  # Max 5 für Demo
             mid = (left + right) // 2
             iterations += 1
             
@@ -694,7 +694,7 @@ class DebuggerSimulator:
         """Call Stack anzeigen"""
         print(f"   📚 Call Stack:")
         if not self.call_stack:
-            print(f"     <main>")
+            print(f"     &lt;main&gt;")
         else:
             for i, frame in enumerate(self.call_stack):
                 indent = "  " * i
@@ -818,17 +818,17 @@ class Calculator:
 
 def fibonacci(n):
     """Fibonacci-Zahl berechnen"""
-    if not isinstance(n, int) or n < 0:
+    if not isinstance(n, int) or n &lt; 0:
         raise ValueError("n muss eine nicht-negative ganze Zahl sein")
     
-    if n <= 1:
+    if n &lt;= 1:
         return n
     
     return fibonacci(n-1) + fibonacci(n-2)
 
 def is_prime(n):
     """Prüft ob eine Zahl eine Primzahl ist"""
-    if not isinstance(n, int) or n < 2:
+    if not isinstance(n, int) or n &lt; 2:
         return False
     
     for i in range(2, int(n ** 0.5) + 1):
@@ -1268,7 +1268,7 @@ class CodeQualityChecker:
         """Prüft Zeilenlänge"""
         long_lines = []
         for i, line in enumerate(lines):
-            if len(line) > max_length:
+            if len(line) &gt; max_length:
                 long_lines.append(f"Zeile {i+1}: {len(line)} Zeichen (max {max_length})")
         
         return long_lines
@@ -1284,9 +1284,9 @@ class CodeQualityChecker:
         complexity_score += function_code.count("try:")
         complexity_score += function_code.count("except")
         
-        if complexity_score > 10:
-            return f"Hohe Komplexität: {complexity_score} (empfohlen: < 10)"
-        elif complexity_score > 5:
+        if complexity_score &gt; 10:
+            return f"Hohe Komplexität: {complexity_score} (empfohlen: &lt; 10)"
+        elif complexity_score &gt; 5:
             return f"Mittlere Komplexität: {complexity_score}"
         else:
             return f"Niedrige Komplexität: {complexity_score}"
@@ -1296,7 +1296,7 @@ quality_checker = CodeQualityChecker()
 
 sample_code = """
 def calculateUserData(userData, tempVar):
-    if userData is not None and len(userData) > 0 and tempVar > 10:
+    if userData is not None and len(userData) &gt; 0 and tempVar &gt; 10:
         result = userData.get('name', 'default') + userData.get('surname', 'default')
         return result
     else:
@@ -1454,7 +1454,7 @@ print(f"\n4. CPU PROFILING:")
 
 def fibonacci_slow(n):
     """Ineffiziente Fibonacci (für Profiling)"""
-    if n <= 1:
+    if n &lt;= 1:
         return n
     return fibonacci_slow(n-1) + fibonacci_slow(n-2)
 
@@ -1465,7 +1465,7 @@ def fibonacci_fast(n):
     def fib_helper(x):
         if x in memo:
             return memo[x]
-        if x <= 1:
+        if x &lt;= 1:
             return x
         memo[x] = fib_helper(x-1) + fib_helper(x-2)
         return memo[x]
@@ -1557,7 +1557,7 @@ class CodeMetrics:
             return 0
         
         comment_ratio = metrics['comment_lines'] / code_lines
-        complexity_per_line = complexity / code_lines if code_lines > 0 else 0
+        complexity_per_line = complexity / code_lines if code_lines &gt; 0 else 0
         
         # Score von 0-100
         score = 100 - (complexity_per_line * 20) + (comment_ratio * 10)
@@ -1660,6 +1660,8 @@ for tool in external_tools:
                         <?php renderPythonPageNavigation('python-debugging'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

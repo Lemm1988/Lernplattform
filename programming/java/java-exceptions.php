@@ -291,7 +291,7 @@ public class TryWithResources {
             db.executeQuery("SELECT * FROM products");
             
             // Exception simulieren
-            if (Math.random() > 0.5) { // 50% Chance
+            if (Math.random() &gt; 0.5) { // 50% Chance
                 throw new RuntimeException("Datenbank-Fehler simuliert");
             }
             
@@ -413,10 +413,10 @@ class Person {
     }
     
     public void setAge(int age) throws InvalidAgeException {
-        if (age < 0) {
+        if (age &lt; 0) {
             throw new InvalidAgeException("Alter kann nicht negativ sein", age);
         }
-        if (age > 150) {
+        if (age &gt; 150) {
             throw new InvalidAgeException("Alter kann nicht über 150 Jahre sein", age);
         }
         this.age = age;
@@ -441,10 +441,10 @@ class BankAccount {
     }
     
     public void withdraw(double amount) {
-        if (amount > balance) {
+        if (amount &gt; balance) {
             throw new InsufficientFundsException(amount, balance);
         }
-        if (amount <= 0) {
+        if (amount &lt;= 0) {
             throw new IllegalArgumentException("Betrag muss positiv sein: " + amount);
         }
         
@@ -453,7 +453,7 @@ class BankAccount {
     }
     
     public void deposit(double amount) {
-        if (amount <= 0) {
+        if (amount &lt;= 0) {
             throw new IllegalArgumentException("Betrag muss positiv sein: " + amount);
         }
         
@@ -870,7 +870,7 @@ public class ExceptionStrategies {
             throw new IllegalArgumentException("Name darf nicht null oder leer sein");
         }
         
-        if (age < 0 || age > 150) {
+        if (age &lt; 0 || age &gt; 150) {
             throw new IllegalArgumentException("Ungültiges Alter: " + age);
         }
         
@@ -910,12 +910,12 @@ public class ExceptionStrategies {
     public static boolean connectToService(String serviceUrl, int maxRetries) {
         int attempts = 0;
         
-        while (attempts < maxRetries) {
+        while (attempts &lt; maxRetries) {
             try {
                 attempts++;
                 
                 // Simuliere Service-Aufruf
-                if (Math.random() < 0.7) { // 30% Erfolgswahrscheinlichkeit
+                if (Math.random() &lt; 0.7) { // 30% Erfolgswahrscheinlichkeit
                     throw new IOException("Service temporär nicht verfügbar");
                 }
                 
@@ -926,7 +926,7 @@ public class ExceptionStrategies {
                 logger.info(String.format("Verbindungsversuch %d/%d fehlgeschlagen: %s", 
                                         attempts, maxRetries, e.getMessage()));
                 
-                if (attempts >= maxRetries) {
+                if (attempts &gt;= maxRetries) {
                     logger.severe("Alle Verbindungsversuche fehlgeschlagen");
                     return false;
                 }
@@ -961,9 +961,9 @@ public class ExceptionStrategies {
             this.timeout = timeout;
         }
         
-        public <T> T execute(SupplierWithException<T> operation) throws Exception {
+        public &lt;T&gt; T execute(SupplierWithException&lt;T&gt; operation) throws Exception {
             if (state == State.OPEN) {
-                if (System.currentTimeMillis() - lastFailureTime >= timeout) {
+                if (System.currentTimeMillis() - lastFailureTime &gt;= timeout) {
                     state = State.HALF_OPEN;
                     System.out.println("Circuit Breaker: HALF_OPEN - Teste Verbindung");
                 } else {
@@ -987,7 +987,7 @@ public class ExceptionStrategies {
                 failureCount++;
                 lastFailureTime = System.currentTimeMillis();
                 
-                if (failureCount >= failureThreshold) {
+                if (failureCount &gt;= failureThreshold) {
                     state = State.OPEN;
                     System.out.println("Circuit Breaker: OPEN - Zu viele Fehler, Service blockiert");
                 }
@@ -997,14 +997,14 @@ public class ExceptionStrategies {
         }
         
         @FunctionalInterface
-        interface SupplierWithException<T> {
+        interface SupplierWithException&lt;T&gt; {
             T get() throws Exception;
         }
     }
     
     // Strategy 5: Exception Translation - Technische in Business-Exceptions
     public static class UserService {
-        private Map<String, String> userDatabase = new HashMap<>();
+        private Map&lt;String, String&gt; userDatabase = new HashMap&lt;&gt;();
         
         public UserService() {
             // Simuliere Benutzer-Datenbank
@@ -1046,21 +1046,21 @@ public class ExceptionStrategies {
     
     // Strategy 6: Bulkhead Pattern - Isolation von Fehlerbereichen
     public static class ServiceManager {
-        private final Map<String, Integer> serviceErrors = new HashMap<>();
+        private final Map&lt;String, Integer&gt; serviceErrors = new HashMap&lt;&gt;();
         private final int maxErrorsPerService = 3;
         
         public boolean callService(String serviceName) {
             // Prüfe Service-Gesundheit
             int errors = serviceErrors.getOrDefault(serviceName, 0);
             
-            if (errors >= maxErrorsPerService) {
+            if (errors &gt;= maxErrorsPerService) {
                 System.out.println("Service " + serviceName + " ist isoliert (zu viele Fehler)");
                 return false;
             }
             
             try {
                 // Simuliere Service-Aufruf
-                if (Math.random() < 0.3) { // 30% Fehlerwahrscheinlichkeit
+                if (Math.random() &lt; 0.3) { // 30% Fehlerwahrscheinlichkeit
                     throw new RuntimeException("Service-Fehler in " + serviceName);
                 }
                 
@@ -1107,10 +1107,10 @@ public class ExceptionStrategies {
         System.out.println("\n--- Circuit Breaker ---");
         CircuitBreaker circuitBreaker = new CircuitBreaker(3, 5000);
         
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i &lt; 10; i++) {
             try {
-                String result = circuitBreaker.execute(() -> {
-                    if (Math.random() < 0.8) { // 80% Fehlerwahrscheinlichkeit
+                String result = circuitBreaker.execute(() -&gt; {
+                    if (Math.random() &lt; 0.8) { // 80% Fehlerwahrscheinlichkeit
                         throw new RuntimeException("Service-Fehler");
                     }
                     return "Service-Antwort";
@@ -1142,7 +1142,7 @@ public class ExceptionStrategies {
         ServiceManager serviceManager = new ServiceManager();
         
         // Teste verschiedene Services
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i &lt; 15; i++) {
             System.out.println("Runde " + (i+1) + ":");
             serviceManager.callService("PaymentService");
             serviceManager.callService("UserService");
@@ -1158,6 +1158,8 @@ public class ExceptionStrategies {
                         <?php renderJavaPageNavigation('java-exceptions'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

@@ -18,7 +18,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
 
-                        <?php renderNavigation('php-variables'); ?>
+                        <?php renderNavigation('php-variablen'); ?>
 
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-code me-2"></i>PHP Variablen</h1>
@@ -89,11 +89,11 @@ echo "Hallo " . $name;
                                         <div class="card border-success">
                                             <div class="card-header bg-success text-white"><small>✅ Korrekte Namen</small></div>
                                             <div class="card-body bg-white text-dark">
-                                                <code>$name<br>
-                                                $alter<br>
-                                                $user_name<br>
-                                                $userAge<br>
-                                                $_private<br>
+                                                <code>$name&lt;br&gt;
+                                                $alter&lt;br&gt;
+                                                $user_name&lt;br&gt;
+                                                $userAge&lt;br&gt;
+                                                $_private&lt;br&gt;
                                                 $kunde123</code>
                                             </div>
                                         </div>
@@ -110,11 +110,11 @@ echo "Hallo " . $name;
                                         <div class="card border-danger">
                                             <div class="card-header bg-danger text-white"><small>❌ Falsche Namen</small></div>
                                             <div class="card-body bg-white text-dark">
-                                                <code>$123abc<br>
-                                                $mein name<br>
-                                                $user-name<br>
-                                                $echo<br>
-                                                $if<br>
+                                                <code>$123abc&lt;br&gt;
+                                                $mein name&lt;br&gt;
+                                                $user-name&lt;br&gt;
+                                                $echo&lt;br&gt;
+                                                $if&lt;br&gt;
                                                 $&dollar;</code>
                                             </div>
                                         </div>
@@ -284,17 +284,17 @@ var_dump($name, $alter, $preis, $aktiv);
                                     </div>
                                 </div>
                             </div>
-                            <br><h3>Ausgabe des Codes:</h3>
-<p>Variable $name ist: string<br>
-Variable $alter ist: integer<br>
-Variable $preis ist: double<br>
-Variable $aktiv ist: boolean<br>
+                            <h3 class="mt-3">Ausgabe des Codes:</h3>
+<pre class="code-output">Variable $name ist: string
+Variable $alter ist: integer
+Variable $preis ist: double
+Variable $aktiv ist: boolean
 
-<h3>Detaillierte Informationen:</h3>
+Detaillierte Informationen:
 string(3) "Max"
 int(25)
 float(19.99)
-bool(true)</p>
+bool(true)</pre>
                         </div>
 
                         <h3>🔄 Variable Scope (Gültigkeitsbereich)</h3>

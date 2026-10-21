@@ -746,6 +746,7 @@ include '../includes/header.php';
                     </div>
                 </div>
             </div>
+            </div>
         </main>
     </div>
 </div>
@@ -799,8 +800,6 @@ include '../includes/header.php';
             </form>
         </div>
     </div>
-</div>
-
 </div>
 
 <style>

@@ -106,9 +106,9 @@ print("10 + 5 =", result)</code></pre>
                                     <div class="comparison-box">
                                         <h6>❌ Andere Sprachen (Java, C++):</h6>
                                         <div class="code-block">
-<pre><code class="language-java">if (alter >= 18) {
+<pre><code class="language-java">if (alter &gt;= 18) {
     System.out.println("Volljährig");
-    if (alter >= 65) {
+    if (alter &gt;= 65) {
         System.out.println("Rentner");
     }
 }</code></pre>
@@ -119,9 +119,9 @@ print("10 + 5 =", result)</code></pre>
                                     <div class="comparison-box">
                                         <h6>✅ Python:</h6>
                                         <div class="code-block">
-<pre><code class="language-python">if alter >= 18:
+<pre><code class="language-python">if alter &gt;= 18:
     print("Volljährig")
-    if alter >= 65:
+    if alter &gt;= 65:
         print("Rentner")</code></pre>
                                         </div>
                                     </div>
@@ -618,12 +618,12 @@ print(f"Alter: {age} Jahre")
 print(f"Geburtsjahr (ca.): {birth_year}")
 
 # Bedingte Ausgaben
-if age >= 18:
+if age &gt;= 18:
     print("✅ Sie sind volljährig")
 else:
     print("❌ Sie sind noch minderjährig")
 
-if years_to_retirement > 0:
+if years_to_retirement &gt; 0:
     print(f"⏰ Bis zur Rente: {years_to_retirement} Jahre")
 elif years_to_retirement == 0:
     print("🎉 Sie sind im Rentenalter!")
@@ -690,6 +690,8 @@ Danke fürs Ausprobieren, Max! 🐍✨
                         <?php renderPythonPageNavigation('python-syntax'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

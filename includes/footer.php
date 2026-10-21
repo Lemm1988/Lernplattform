@@ -14,11 +14,11 @@ if (!defined('DB_HOST')) {
     }
 }
 require_once __DIR__ . '/../includes/functions.php';
-$privacy_url = get_setting('privacy_policy_url', '/datenschutz.php');
-$imprint_url = get_setting('imprint_url', '/impressum.php');
-$terms_url = get_setting('terms_of_service_url', '/agb.php');
-$help_url = get_setting('help_url', '/hilfe.php');
-$contact_url = get_setting('contact_url', '/kontakt.php');
+$privacy_url = get_setting('privacy_policy_url', '/users/datenschutz.php');
+$imprint_url = get_setting('imprint_url', '/users/impressum.php');
+$terms_url = get_setting('terms_of_service_url', '/users/agb.php');
+$help_url = get_setting('help_url', '/users/hilfe.php');
+$contact_url = get_setting('contact_url', '/users/kontakt.php');
 $require_privacy_consent = get_setting('require_privacy_consent', '1');
 $footer_site_title = $site_title_value ?? get_setting('site_title', SITE_TITLE);
 ?>

@@ -142,7 +142,7 @@ public class ListDemo {
         System.out.println("=== ARRAYLIST DEMO ===");
         
         // ArrayList erstellen
-        List<String> namen = new ArrayList<>();
+        List&lt;String&gt; namen = new ArrayList&lt;&gt;();
         
         // Elemente hinzufügen
         namen.add("Anna");
@@ -189,13 +189,13 @@ public class ListDemo {
         
         // 2. Traditionelle for-loop
         System.out.println("Traditionelle for:");
-        for (int i = 0; i < namen.size(); i++) {
+        for (int i = 0; i &lt; namen.size(); i++) {
             System.out.println(i + ": " + namen.get(i));
         }
         
         // 3. Iterator
         System.out.println("Iterator:");
-        Iterator<String> iterator = namen.iterator();
+        Iterator&lt;String&gt; iterator = namen.iterator();
         while (iterator.hasNext()) {
             String name = iterator.next();
             System.out.println("* " + name);
@@ -203,12 +203,12 @@ public class ListDemo {
         
         // 4. forEach mit Lambda (Java 8+)
         System.out.println("forEach mit Lambda:");
-        namen.forEach(name -> System.out.println("» " + name));
+        namen.forEach(name -&gt; System.out.println("» " + name));
         
         System.out.println("\n=== LINKEDLIST DEMO ===");
         
         // LinkedList - implementiert List und Deque
-        LinkedList<Integer> zahlen = new LinkedList<>();
+        LinkedList&lt;Integer&gt; zahlen = new LinkedList&lt;&gt;();
         
         // Elemente hinzufügen
         zahlen.add(10);
@@ -233,19 +233,19 @@ public class ListDemo {
         
         System.out.println("\n=== PERFORMANCE VERGLEICH ===");
         
-        List<Integer> arrayList = new ArrayList<>();
-        List<Integer> linkedList = new LinkedList<>();
+        List&lt;Integer&gt; arrayList = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; linkedList = new LinkedList&lt;&gt;();
         
         // ArrayList: Schnelles Hinzufügen am Ende
         long start = System.nanoTime();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i &lt; 10000; i++) {
             arrayList.add(i);
         }
         long arrayListAdd = System.nanoTime() - start;
         
         // LinkedList: Auch schnelles Hinzufügen am Ende
         start = System.nanoTime();
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i &lt; 10000; i++) {
             linkedList.add(i);
         }
         long linkedListAdd = System.nanoTime() - start;
@@ -255,13 +255,13 @@ public class ListDemo {
         
         // Random Access Test
         start = System.nanoTime();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i &lt; 1000; i++) {
             arrayList.get(i * 5); // Zufälliger Zugriff
         }
         long arrayListGet = System.nanoTime() - start;
         
         start = System.nanoTime();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i &lt; 1000; i++) {
             linkedList.get(i * 5); // Zufälliger Zugriff
         }
         long linkedListGet = System.nanoTime() - start;
@@ -320,7 +320,7 @@ public class SetDemo {
         System.out.println("=== HASHSET DEMO ===");
         
         // HashSet - keine Reihenfolge, schnell
-        Set<String> hashSet = new HashSet<>();
+        Set&lt;String&gt; hashSet = new HashSet&lt;&gt;();
         
         hashSet.add("Banane");
         hashSet.add("Apfel");
@@ -343,7 +343,7 @@ public class SetDemo {
         System.out.println("\n=== TREESET DEMO ===");
         
         // TreeSet - automatisch sortiert
-        Set<Integer> treeSet = new TreeSet<>();
+        Set&lt;Integer&gt; treeSet = new TreeSet&lt;&gt;();
         
         treeSet.add(5);
         treeSet.add(2);
@@ -355,17 +355,17 @@ public class SetDemo {
         System.out.println("TreeSet (sortiert): " + treeSet);
         
         // TreeSet-spezifische Methoden
-        TreeSet<Integer> numbers = (TreeSet<Integer>) treeSet;
+        TreeSet&lt;Integer&gt; numbers = (TreeSet&lt;Integer&gt;) treeSet;
         System.out.println("Erstes Element: " + numbers.first());
         System.out.println("Letztes Element: " + numbers.last());
-        System.out.println("Elemente < 5: " + numbers.headSet(5));
-        System.out.println("Elemente >= 5: " + numbers.tailSet(5));
+        System.out.println("Elemente &lt; 5: " + numbers.headSet(5));
+        System.out.println("Elemente &gt;= 5: " + numbers.tailSet(5));
         System.out.println("Elemente zwischen 2 und 6: " + numbers.subSet(2, 6));
         
         System.out.println("\n=== LINKEDHASHSET DEMO ===");
         
         // LinkedHashSet - behält Einfüge-Reihenfolge bei
-        Set<String> linkedHashSet = new LinkedHashSet<>();
+        Set&lt;String&gt; linkedHashSet = new LinkedHashSet&lt;&gt;();
         
         linkedHashSet.add("Erster");
         linkedHashSet.add("Zweiter");
@@ -376,31 +376,31 @@ public class SetDemo {
         
         System.out.println("\n=== SET OPERATIONEN ===");
         
-        Set<String> set1 = new HashSet<>(Arrays.asList("A", "B", "C", "D"));
-        Set<String> set2 = new HashSet<>(Arrays.asList("C", "D", "E", "F"));
+        Set&lt;String&gt; set1 = new HashSet&lt;&gt;(Arrays.asList("A", "B", "C", "D"));
+        Set&lt;String&gt; set2 = new HashSet&lt;&gt;(Arrays.asList("C", "D", "E", "F"));
         
         System.out.println("Set 1: " + set1);
         System.out.println("Set 2: " + set2);
         
         // Union (Vereinigung)
-        Set<String> union = new HashSet<>(set1);
+        Set&lt;String&gt; union = new HashSet&lt;&gt;(set1);
         union.addAll(set2);
         System.out.println("Union: " + union);
         
         // Intersection (Schnittmenge)
-        Set<String> intersection = new HashSet<>(set1);
+        Set&lt;String&gt; intersection = new HashSet&lt;&gt;(set1);
         intersection.retainAll(set2);
         System.out.println("Intersection: " + intersection);
         
         // Difference (Differenz)
-        Set<String> difference = new HashSet<>(set1);
+        Set&lt;String&gt; difference = new HashSet&lt;&gt;(set1);
         difference.removeAll(set2);
         System.out.println("Difference (Set1 - Set2): " + difference);
         
         // Symmetric Difference (Symmetrische Differenz)
-        Set<String> symDiff = new HashSet<>(set1);
+        Set&lt;String&gt; symDiff = new HashSet&lt;&gt;(set1);
         symDiff.addAll(set2);
-        Set<String> temp = new HashSet<>(set1);
+        Set&lt;String&gt; temp = new HashSet&lt;&gt;(set1);
         temp.retainAll(set2);
         symDiff.removeAll(temp);
         System.out.println("Symmetric Difference: " + symDiff);
@@ -408,18 +408,18 @@ public class SetDemo {
         System.out.println("\n=== PRAKTISCHES BEISPIEL ===");
         
         // Duplikate aus Liste entfernen
-        List<String> listeMitDuplikaten = Arrays.asList(
+        List&lt;String&gt; listeMitDuplikaten = Arrays.asList(
             "Java", "Python", "JavaScript", "Java", "C++", "Python", "Go"
         );
         
         System.out.println("Original Liste: " + listeMitDuplikaten);
         
         // In Set konvertieren (entfernt Duplikate)
-        Set<String> eindeutigeElemente = new HashSet<>(listeMitDuplikaten);
+        Set&lt;String&gt; eindeutigeElemente = new HashSet&lt;&gt;(listeMitDuplikaten);
         System.out.println("Ohne Duplikate: " + eindeutigeElemente);
         
         // Zurück in sortierte Liste
-        List<String> sortierteOhneDuplikate = new ArrayList<>(eindeutigeElemente);
+        List&lt;String&gt; sortierteOhneDuplikate = new ArrayList&lt;&gt;(eindeutigeElemente);
         Collections.sort(sortierteOhneDuplikate);
         System.out.println("Sortiert ohne Duplikate: " + sortierteOhneDuplikate);
         
@@ -427,7 +427,7 @@ public class SetDemo {
         String text = "java ist toll java macht spaß java ist programmierung";
         String[] wörter = text.split(" ");
         
-        Set<String> eindeutigeWörter = new HashSet<>(Arrays.asList(wörter));
+        Set&lt;String&gt; eindeutigeWörter = new HashSet&lt;&gt;(Arrays.asList(wörter));
         System.out.println("\nText: " + text);
         System.out.println("Gesamte Wörter: " + wörter.length);
         System.out.println("Eindeutige Wörter: " + eindeutigeWörter.size());
@@ -484,7 +484,7 @@ public class MapDemo {
         System.out.println("=== HASHMAP DEMO ===");
         
         // HashMap - Schlüssel-Wert-Paare
-        Map<String, Integer> alter = new HashMap<>();
+        Map&lt;String, Integer&gt; alter = new HashMap&lt;&gt;();
         
         // Werte hinzufügen
         alter.put("Anna", 25);
@@ -529,18 +529,18 @@ public class MapDemo {
         
         // 3. Über Einträge iterieren (effizient)
         System.out.println("Über Einträge:");
-        for (Map.Entry<String, Integer> entry : alter.entrySet()) {
-            System.out.println(entry.getKey() + " -> " + entry.getValue());
+        for (Map.Entry&lt;String, Integer&gt; entry : alter.entrySet()) {
+            System.out.println(entry.getKey() + " -&gt; " + entry.getValue());
         }
         
         // 4. forEach mit Lambda (Java 8+)
         System.out.println("forEach mit Lambda:");
-        alter.forEach((name, age) -> System.out.println(name + " (" + age + ")"));
+        alter.forEach((name, age) -&gt; System.out.println(name + " (" + age + ")"));
         
         System.out.println("\n=== TREEMAP DEMO ===");
         
         // TreeMap - automatisch nach Schlüssel sortiert
-        Map<String, String> hauptstädte = new TreeMap<>();
+        Map&lt;String, String&gt; hauptstädte = new TreeMap&lt;&gt;();
         
         hauptstädte.put("Deutschland", "Berlin");
         hauptstädte.put("Frankreich", "Paris");
@@ -549,18 +549,18 @@ public class MapDemo {
         hauptstädte.put("Österreich", "Wien");
         
         System.out.println("TreeMap (sortiert nach Schlüssel):");
-        hauptstädte.forEach((land, stadt) -> 
-            System.out.println(land + " -> " + stadt));
+        hauptstädte.forEach((land, stadt) -&gt; 
+            System.out.println(land + " -&gt; " + stadt));
         
         // TreeMap-spezifische Methoden
-        TreeMap<String, String> tm = (TreeMap<String, String>) hauptstädte;
+        TreeMap&lt;String, String&gt; tm = (TreeMap&lt;String, String&gt;) hauptstädte;
         System.out.println("Erstes Land: " + tm.firstKey());
         System.out.println("Letztes Land: " + tm.lastKey());
         
         System.out.println("\n=== LINKEDHASHMAP DEMO ===");
         
         // LinkedHashMap - behält Einfüge-Reihenfolge
-        Map<String, Double> preise = new LinkedHashMap<>();
+        Map&lt;String, Double&gt; preise = new LinkedHashMap&lt;&gt;();
         
         preise.put("Brot", 1.20);
         preise.put("Milch", 0.89);
@@ -568,7 +568,7 @@ public class MapDemo {
         preise.put("Butter", 1.89);
         
         System.out.println("LinkedHashMap (Einfüge-Reihenfolge):");
-        preise.forEach((produkt, preis) -> 
+        preise.forEach((produkt, preis) -&gt; 
             System.out.println(produkt + ": " + preis + "€"));
         
         System.out.println("\n=== PRAKTISCHE BEISPIELE ===");
@@ -577,7 +577,7 @@ public class MapDemo {
         String text = "java ist toll java macht spaß programmieren mit java ist toll";
         String[] wörter = text.toLowerCase().split(" ");
         
-        Map<String, Integer> wortZähler = new HashMap<>();
+        Map&lt;String, Integer&gt; wortZähler = new HashMap&lt;&gt;();
         
         for (String wort : wörter) {
             wortZähler.put(wort, wortZähler.getOrDefault(wort, 0) + 1);
@@ -585,11 +585,11 @@ public class MapDemo {
         
         System.out.println("Wort-Häufigkeiten:");
         wortZähler.entrySet().stream()
-            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
-            .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
+            .sorted(Map.Entry.&lt;String, Integer&gt;comparingByValue().reversed())
+            .forEach(entry -&gt; System.out.println(entry.getKey() + ": " + entry.getValue()));
         
         // Beispiel 2: Gruppen verwalten
-        Map<String, List<String>> gruppen = new HashMap<>();
+        Map&lt;String, List&lt;String&gt;&gt; gruppen = new HashMap&lt;&gt;();
         
         // Gruppen erstellen
         gruppen.put("Entwickler", Arrays.asList("Alice", "Bob", "Charlie"));
@@ -597,16 +597,16 @@ public class MapDemo {
         gruppen.put("Manager", Arrays.asList("Frank", "Grace"));
         
         System.out.println("\nTeam-Gruppen:");
-        gruppen.forEach((gruppe, mitglieder) -> {
+        gruppen.forEach((gruppe, mitglieder) -&gt; {
             System.out.println(gruppe + " (" + mitglieder.size() + "):");
-            mitglieder.forEach(name -> System.out.println("  - " + name));
+            mitglieder.forEach(name -&gt; System.out.println("  - " + name));
         });
         
         // Beispiel 3: Cache-Implementation
-        Map<String, String> cache = new LinkedHashMap<String, String>(16, 0.75f, true) {
+        Map&lt;String, String&gt; cache = new LinkedHashMap&lt;String, String&gt;(16, 0.75f, true) {
             @Override
-            protected boolean removeEldestEntry(Map.Entry<String, String> eldest) {
-                return size() > 3; // Max 3 Einträge
+            protected boolean removeEldestEntry(Map.Entry&lt;String, String&gt; eldest) {
+                return size() &gt; 3; // Max 3 Einträge
             }
         };
         
@@ -621,12 +621,12 @@ public class MapDemo {
         
         System.out.println("\n=== MAP OPERATIONEN ===");
         
-        Map<String, Integer> map1 = new HashMap<>();
+        Map&lt;String, Integer&gt; map1 = new HashMap&lt;&gt;();
         map1.put("A", 1);
         map1.put("B", 2);
         map1.put("C", 3);
         
-        Map<String, Integer> map2 = new HashMap<>();
+        Map&lt;String, Integer&gt; map2 = new HashMap&lt;&gt;();
         map2.put("B", 20);
         map2.put("C", 30);
         map2.put("D", 4);
@@ -635,13 +635,13 @@ public class MapDemo {
         System.out.println("Map 2: " + map2);
         
         // Maps zusammenführen (Java 8+)
-        Map<String, Integer> merged = new HashMap<>(map1);
-        map2.forEach((key, value) -> merged.merge(key, value, Integer::sum));
+        Map&lt;String, Integer&gt; merged = new HashMap&lt;&gt;(map1);
+        map2.forEach((key, value) -&gt; merged.merge(key, value, Integer::sum));
         System.out.println("Merged (Summe bei Duplikaten): " + merged);
         
         // Nur gemeinsame Schlüssel behalten
-        Map<String, Integer> intersection = new HashMap<>();
-        map1.forEach((key, value) -> {
+        Map&lt;String, Integer&gt; intersection = new HashMap&lt;&gt;();
+        map1.forEach((key, value) -&gt; {
             if (map2.containsKey(key)) {
                 intersection.put(key, value + map2.get(key));
             }
@@ -664,36 +664,36 @@ public class CollectionsUtilityDemo {
         System.out.println("=== COLLECTIONS UTILITY METHODEN ===");
         
         // Liste für Demonstrationen
-        List<Integer> zahlen = new ArrayList<>(Arrays.asList(5, 2, 8, 1, 9, 3, 7, 4, 6));
+        List&lt;Integer&gt; zahlen = new ArrayList&lt;&gt;(Arrays.asList(5, 2, 8, 1, 9, 3, 7, 4, 6));
         System.out.println("Original: " + zahlen);
         
         // 1. Sortieren
-        List<Integer> sortiert = new ArrayList<>(zahlen);
+        List&lt;Integer&gt; sortiert = new ArrayList&lt;&gt;(zahlen);
         Collections.sort(sortiert);
         System.out.println("Sortiert: " + sortiert);
         
         // Rückwärts sortieren
-        List<Integer> rückwärts = new ArrayList<>(zahlen);
+        List&lt;Integer&gt; rückwärts = new ArrayList&lt;&gt;(zahlen);
         Collections.sort(rückwärts, Collections.reverseOrder());
         System.out.println("Rückwärts sortiert: " + rückwärts);
         
         // 2. Umkehren
-        List<Integer> umgekehrt = new ArrayList<>(zahlen);
+        List&lt;Integer&gt; umgekehrt = new ArrayList&lt;&gt;(zahlen);
         Collections.reverse(umgekehrt);
         System.out.println("Umgekehrt: " + umgekehrt);
         
         // 3. Mischen
-        List<Integer> gemischt = new ArrayList<>(zahlen);
+        List&lt;Integer&gt; gemischt = new ArrayList&lt;&gt;(zahlen);
         Collections.shuffle(gemischt);
         System.out.println("Gemischt: " + gemischt);
         
         // Mit festem Seed für reproduzierbare Ergebnisse
-        List<Integer> gemischtSeed = new ArrayList<>(zahlen);
+        List&lt;Integer&gt; gemischtSeed = new ArrayList&lt;&gt;(zahlen);
         Collections.shuffle(gemischtSeed, new Random(42));
         System.out.println("Gemischt (Seed 42): " + gemischtSeed);
         
         // 4. Rotieren
-        List<Integer> rotiert = new ArrayList<>(zahlen);
+        List&lt;Integer&gt; rotiert = new ArrayList&lt;&gt;(zahlen);
         Collections.rotate(rotiert, 3);
         System.out.println("Rotiert um 3: " + rotiert);
         
@@ -702,7 +702,7 @@ public class CollectionsUtilityDemo {
         System.out.println("Maximum: " + Collections.max(zahlen));
         
         // 6. Binäre Suche (nur in sortierter Liste!)
-        List<Integer> sortierteFürSuche = new ArrayList<>(zahlen);
+        List&lt;Integer&gt; sortierteFürSuche = new ArrayList&lt;&gt;(zahlen);
         Collections.sort(sortierteFürSuche);
         int index = Collections.binarySearch(sortierteFürSuche, 5);
         System.out.println("Index von 5 in sortierter Liste: " + index);
@@ -712,32 +712,32 @@ public class CollectionsUtilityDemo {
         System.out.println("Index von 10 (nicht vorhanden): " + nichtVorhanden);
         
         // 7. Häufigkeit zählen
-        List<String> wörter = Arrays.asList("apple", "banana", "apple", "orange", "banana", "apple");
+        List&lt;String&gt; wörter = Arrays.asList("apple", "banana", "apple", "orange", "banana", "apple");
         int appleCount = Collections.frequency(wörter, "apple");
         System.out.println("Häufigkeit von 'apple': " + appleCount);
         
         // 8. Austauschen
-        List<String> tauschListe = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E"));
+        List&lt;String&gt; tauschListe = new ArrayList&lt;&gt;(Arrays.asList("A", "B", "C", "D", "E"));
         System.out.println("Vor Tausch: " + tauschListe);
         Collections.swap(tauschListe, 1, 3); // Tausche Index 1 und 3
-        System.out.println("Nach Tausch (1<->3): " + tauschListe);
+        System.out.println("Nach Tausch (1&lt;-&gt;3): " + tauschListe);
         
         // 9. Füllen
-        List<String> füllListe = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E"));
+        List&lt;String&gt; füllListe = new ArrayList&lt;&gt;(Arrays.asList("A", "B", "C", "D", "E"));
         Collections.fill(füllListe, "X");
         System.out.println("Gefüllt mit X: " + füllListe);
         
         // 10. Kopieren
-        List<String> quelle = Arrays.asList("1", "2", "3", "4", "5");
-        List<String> ziel = new ArrayList<>(Arrays.asList("A", "B", "C", "D", "E"));
+        List&lt;String&gt; quelle = Arrays.asList("1", "2", "3", "4", "5");
+        List&lt;String&gt; ziel = new ArrayList&lt;&gt;(Arrays.asList("A", "B", "C", "D", "E"));
         Collections.copy(ziel, quelle);
         System.out.println("Nach Kopieren: " + ziel);
         
         System.out.println("\n=== UNVERÄNDERLICHE COLLECTIONS ===");
         
         // Unveränderliche Wrapper
-        List<String> veränderbar = new ArrayList<>(Arrays.asList("A", "B", "C"));
-        List<String> unveränderlich = Collections.unmodifiableList(veränderbar);
+        List&lt;String&gt; veränderbar = new ArrayList&lt;&gt;(Arrays.asList("A", "B", "C"));
+        List&lt;String&gt; unveränderlich = Collections.unmodifiableList(veränderbar);
         
         System.out.println("Unveränderliche Liste: " + unveränderlich);
         
@@ -753,18 +753,18 @@ public class CollectionsUtilityDemo {
         System.out.println("Nach Änderung der Original-Liste: " + unveränderlich);
         
         // Singleton Collections
-        Set<String> singletonSet = Collections.singleton("Einziges Element");
-        List<String> singletonList = Collections.singletonList("Einziges Element");
-        Map<String, String> singletonMap = Collections.singletonMap("Key", "Value");
+        Set&lt;String&gt; singletonSet = Collections.singleton("Einziges Element");
+        List&lt;String&gt; singletonList = Collections.singletonList("Einziges Element");
+        Map&lt;String, String&gt; singletonMap = Collections.singletonMap("Key", "Value");
         
         System.out.println("Singleton Set: " + singletonSet);
         System.out.println("Singleton List: " + singletonList);
         System.out.println("Singleton Map: " + singletonMap);
         
         // Leere Collections
-        List<String> leereListe = Collections.emptyList();
-        Set<String> leeresSet = Collections.emptySet();
-        Map<String, String> leereMap = Collections.emptyMap();
+        List&lt;String&gt; leereListe = Collections.emptyList();
+        Set&lt;String&gt; leeresSet = Collections.emptySet();
+        Map&lt;String, String&gt; leereMap = Collections.emptyMap();
         
         System.out.println("Leere Collections - Liste: " + leereListe.size() + 
                           ", Set: " + leeresSet.size() + ", Map: " + leereMap.size());
@@ -772,14 +772,14 @@ public class CollectionsUtilityDemo {
         System.out.println("\n=== SYNCHRONISIERTE COLLECTIONS ===");
         
         // Thread-sichere Wrapper
-        List<String> normaleListe = new ArrayList<>();
-        List<String> synchronisierteListe = Collections.synchronizedList(normaleListe);
+        List&lt;String&gt; normaleListe = new ArrayList&lt;&gt;();
+        List&lt;String&gt; synchronisierteListe = Collections.synchronizedList(normaleListe);
         
-        Set<String> normalesSet = new HashSet<>();
-        Set<String> synchronisierteSet = Collections.synchronizedSet(normalesSet);
+        Set&lt;String&gt; normalesSet = new HashSet&lt;&gt;();
+        Set&lt;String&gt; synchronisierteSet = Collections.synchronizedSet(normalesSet);
         
-        Map<String, String> normaleMap = new HashMap<>();
-        Map<String, String> synchronisierteMap = Collections.synchronizedMap(normaleMap);
+        Map&lt;String, String&gt; normaleMap = new HashMap&lt;&gt;();
+        Map&lt;String, String&gt; synchronisierteMap = Collections.synchronizedMap(normaleMap);
         
         // Wichtig: Iteration muss noch manuell synchronisiert werden
         synchronized(synchronisierteListe) {
@@ -792,7 +792,7 @@ public class CollectionsUtilityDemo {
         
         System.out.println("\n=== CUSTOM COMPARATORS ===");
         
-        List<String> namen = new ArrayList<>(Arrays.asList("Anna", "bob", "Charlie", "diana", "Eva"));
+        List&lt;String&gt; namen = new ArrayList&lt;&gt;(Arrays.asList("Anna", "bob", "Charlie", "diana", "Eva"));
         System.out.println("Namen original: " + namen);
         
         // Case-insensitive Sortierung
@@ -800,7 +800,7 @@ public class CollectionsUtilityDemo {
         System.out.println("Case-insensitive sortiert: " + namen);
         
         // Nach Länge sortieren
-        List<String> namenKopie = new ArrayList<>(Arrays.asList("Anna", "bob", "Charlie", "diana", "Eva"));
+        List&lt;String&gt; namenKopie = new ArrayList&lt;&gt;(Arrays.asList("Anna", "bob", "Charlie", "diana", "Eva"));
         Collections.sort(namenKopie, Comparator.comparing(String::length));
         System.out.println("Nach Länge sortiert: " + namenKopie);
         
@@ -822,6 +822,8 @@ public class CollectionsUtilityDemo {
                         <?php renderJavaPageNavigation('java-collections'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

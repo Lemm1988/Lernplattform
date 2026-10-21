@@ -164,7 +164,7 @@ print(f"person2.age: {person2.age}")  # 30</code></pre>
         self.account_number = f"ACC-{BankAccount.account_count:04d}"
         
         # Erste Transaktion protokollieren
-        if initial_balance > 0:
+        if initial_balance &gt; 0:
             self.transactions.append(f"Initial deposit: ${initial_balance}")
     
     def deposit(self, amount):
@@ -177,7 +177,7 @@ print(f"person2.age: {person2.age}")  # 30</code></pre>
         Returns:
             bool: True wenn erfolgreich, False wenn Fehler
         """
-        if amount <= 0:
+        if amount &lt;= 0:
             print("Einzahlungsbetrag muss positiv sein!")
             return False
         
@@ -188,11 +188,11 @@ print(f"person2.age: {person2.age}")  # 30</code></pre>
     
     def withdraw(self, amount):
         """Geld abheben"""
-        if amount <= 0:
+        if amount &lt;= 0:
             print("Abhebungsbetrag muss positiv sein!")
             return False
         
-        if amount > self.balance:
+        if amount &gt; self.balance:
             print("Nicht genügend Guthaben!")
             return False
         
@@ -374,7 +374,7 @@ print(methods)</code></pre>
             print(f"{self.name} ist nicht in {course_name} eingeschrieben")
             return False
         
-        if not (0 <= grade <= 100):
+        if not (0 &lt;= grade &lt;= 100):
             print("Note muss zwischen 0 und 100 liegen")
             return False
         
@@ -600,7 +600,7 @@ print(f"student2.school_name: {student2.school_name}")  # Klassenattribut</code>
     @staticmethod
     def is_prime(number):
         """Prüft ob eine Zahl eine Primzahl ist"""
-        if number < 2:
+        if number &lt; 2:
             return False
         for i in range(2, int(number ** 0.5) + 1):
             if number % i == 0:
@@ -610,7 +610,7 @@ print(f"student2.school_name: {student2.school_name}")  # Klassenattribut</code>
     @staticmethod
     def factorial(n):
         """Berechnet Fakultät einer Zahl"""
-        if n <= 1:
+        if n &lt;= 1:
             return 1
         return n * MathUtils.factorial(n - 1)
     
@@ -682,7 +682,7 @@ class Temperature:
     @celsius.setter
     def celsius(self, value):
         """Setter für Celsius mit Validierung"""
-        if value < -273.15:
+        if value &lt; -273.15:
             raise ValueError("Temperatur kann nicht unter -273.15°C liegen")
         self._celsius = value
     
@@ -923,23 +923,23 @@ print(f"Nach delattr: {vars(config)}")</code></pre>
         return not self.__eq__(other)
     
     def __lt__(self, other):
-        """Kleiner als: v1 < v2 (basierend auf Länge)"""
+        """Kleiner als: v1 &lt; v2 (basierend auf Länge)"""
         if isinstance(other, Vector):
-            return abs(self) < abs(other)
+            return abs(self) &lt; abs(other)
         return NotImplemented
     
     def __le__(self, other):
-        """Kleiner gleich: v1 <= v2"""
+        """Kleiner gleich: v1 &lt;= v2"""
         return self.__lt__(other) or self.__eq__(other)
     
     def __gt__(self, other):
-        """Größer als: v1 > v2"""
+        """Größer als: v1 &gt; v2"""
         if isinstance(other, Vector):
-            return abs(self) > abs(other)
+            return abs(self) &gt; abs(other)
         return NotImplemented
     
     def __ge__(self, other):
-        """Größer gleich: v1 >= v2"""
+        """Größer gleich: v1 &gt;= v2"""
         return self.__gt__(other) or self.__eq__(other)
     
     # CONTAINER-METHODEN
@@ -1025,8 +1025,8 @@ print(f"abs(v1) = {abs(v1)}")
 print("\n--- VERGLEICHE ---")
 print(f"v1 == v2: {v1 == v2}")
 print(f"v1 != v2: {v1 != v2}")
-print(f"v1 > v2: {v1 > v2}")   # Basierend auf Länge
-print(f"v1 < v2: {v1 < v2}")
+print(f"v1 &gt; v2: {v1 &gt; v2}")   # Basierend auf Länge
+print(f"v1 &lt; v2: {v1 &lt; v2}")
 
 # Container-Operationen
 print("\n--- CONTAINER OPERATIONEN ---")
@@ -1097,7 +1097,7 @@ class SmartList:
     
     def __bool__(self):
         """Wahrheitswert: bool(lst)"""
-        return len(self.items) > 0
+        return len(self.items) &gt; 0
     
     def __reversed__(self):
         """Reversed Iterator: reversed(lst)"""
@@ -1229,7 +1229,7 @@ class Product:
     
     @price.setter
     def price(self, value):
-        if value < 0:
+        if value &lt; 0:
             raise ValueError("Price cannot be negative")
         self._price = float(value)
     
@@ -1239,14 +1239,14 @@ class Product:
     
     @stock.setter
     def stock(self, value):
-        if value < 0:
+        if value &lt; 0:
             raise ValueError("Stock cannot be negative")
         self._stock = int(value)
     
     @property
     def is_available(self):
         """Berechnete Property - verfügbar wenn auf Lager"""
-        return self._stock > 0
+        return self._stock &gt; 0
     
     @property
     def average_rating(self):
@@ -1257,7 +1257,7 @@ class Product:
     
     def add_review(self, rating: int, comment: str, reviewer: str):
         """Bewertung hinzufügen"""
-        if not (1 <= rating <= 5):
+        if not (1 &lt;= rating &lt;= 5):
             raise ValueError("Rating must be between 1 and 5")
         
         review = {
@@ -1268,11 +1268,11 @@ class Product:
         }
         self.reviews.append(review)
     
-    def reserve_stock(self, quantity: int) -> bool:
+    def reserve_stock(self, quantity: int) -&gt; bool:
         """Lager reservieren"""
-        if quantity <= 0:
+        if quantity &lt;= 0:
             return False
-        if quantity > self._stock:
+        if quantity &gt; self._stock:
             return False
         
         self._stock -= quantity
@@ -1323,7 +1323,7 @@ class Product:
     
     def __lt__(self, other):
         if isinstance(other, Product):
-            return self.price < other.price
+            return self.price &lt; other.price
         return NotImplemented
 
 class Customer:
@@ -1361,9 +1361,9 @@ class Customer:
         """Treuepunkte hinzufügen"""
         self.loyalty_points += points
     
-    def redeem_loyalty_points(self, points: int) -> bool:
+    def redeem_loyalty_points(self, points: int) -&gt; bool:
         """Treuepunkte einlösen"""
-        if points <= self.loyalty_points:
+        if points &lt;= self.loyalty_points:
             self.loyalty_points -= points
             return True
         return False
@@ -1404,20 +1404,20 @@ class ShoppingCart:
         self.discount_code = None
         self.discount_amount = 0.0
     
-    def add_item(self, product: Product, quantity: int = 1) -> bool:
+    def add_item(self, product: Product, quantity: int = 1) -&gt; bool:
         """Artikel zum Warenkorb hinzufügen"""
         if not product.is_available:
             print(f"Produkt {product.name} ist nicht verfügbar")
             return False
         
-        if quantity > product.stock:
+        if quantity &gt; product.stock:
             print(f"Nicht genügend Lager für {product.name}")
             return False
         
         # Prüfen ob Produkt bereits im Warenkorb
         for item in self.items:
             if item.product == product:
-                if item.quantity + quantity <= product.stock:
+                if item.quantity + quantity &lt;= product.stock:
                     item.quantity += quantity
                     print(f"{quantity}x {product.name} zum Warenkorb hinzugefügt")
                     return True
@@ -1431,11 +1431,11 @@ class ShoppingCart:
         print(f"{quantity}x {product.name} zum Warenkorb hinzugefügt")
         return True
     
-    def remove_item(self, product: Product, quantity: int = None) -> bool:
+    def remove_item(self, product: Product, quantity: int = None) -&gt; bool:
         """Artikel aus Warenkorb entfernen"""
         for item in self.items:
             if item.product == product:
-                if quantity is None or quantity >= item.quantity:
+                if quantity is None or quantity &gt;= item.quantity:
                     # Komplettes Item entfernen
                     self.items.remove(item)
                     print(f"{product.name} aus Warenkorb entfernt")
@@ -1491,7 +1491,7 @@ class ShoppingCart:
             result += f"  {item}\n"
         
         result += f"Zwischensumme: ${self.subtotal:.2f}\n"
-        if self.discount_amount > 0:
+        if self.discount_amount &gt; 0:
             result += f"Rabatt ({self.discount_code}): -${self.discount_amount:.2f}\n"
         result += f"Gesamt: ${self.total:.2f}"
         
@@ -1543,7 +1543,7 @@ class Order:
         for item in self.items:
             item.product.release_stock(item.quantity)
     
-    def confirm(self) -> bool:
+    def confirm(self) -&gt; bool:
         """Bestellung bestätigen"""
         if self.status == OrderStatus.PENDING:
             self.status = OrderStatus.CONFIRMED
@@ -1557,7 +1557,7 @@ class Order:
             return True
         return False
     
-    def ship(self) -> bool:
+    def ship(self) -&gt; bool:
         """Bestellung versenden"""
         if self.status == OrderStatus.CONFIRMED:
             self.status = OrderStatus.SHIPPED
@@ -1566,7 +1566,7 @@ class Order:
             return True
         return False
     
-    def deliver(self) -> bool:
+    def deliver(self) -&gt; bool:
         """Bestellung als geliefert markieren"""
         if self.status == OrderStatus.SHIPPED:
             self.status = OrderStatus.DELIVERED
@@ -1575,7 +1575,7 @@ class Order:
             return True
         return False
     
-    def cancel(self) -> bool:
+    def cancel(self) -&gt; bool:
         """Bestellung stornieren"""
         if self.status in [OrderStatus.PENDING, OrderStatus.CONFIRMED]:
             self.status = OrderStatus.CANCELLED
@@ -1603,7 +1603,7 @@ class Order:
             summary += f"\n  {item} = ${item.total_price:.2f}"
         
         summary += f"\n\nZwischensumme: ${self.subtotal:.2f}"
-        if self.discount_amount > 0:
+        if self.discount_amount &gt; 0:
             summary += f"\nRabatt ({self.discount_code}): -${self.discount_amount:.2f}"
         summary += f"\nGesamtsumme: ${self.total_amount:.2f}"
         summary += f"\n{'=' * 40}"
@@ -1627,28 +1627,28 @@ class ECommerceStore:
             "LOYAL50": 50.0
         }
     
-    def register_customer(self, name: str, email: str, address: str = "") -> Customer:
+    def register_customer(self, name: str, email: str, address: str = "") -&gt; Customer:
         """Kunden registrieren"""
         customer = Customer(name, email, address)
         self.customers[customer.customer_id] = customer
         print(f"Kunde {name} registriert mit ID {customer.customer_id}")
         return customer
     
-    def get_customer(self, customer_id: str) -> Optional[Customer]:
+    def get_customer(self, customer_id: str) -&gt; Optional[Customer]:
         """Kunde finden"""
         return self.customers.get(customer_id)
     
-    def create_cart(self, customer: Customer) -> ShoppingCart:
+    def create_cart(self, customer: Customer) -&gt; ShoppingCart:
         """Warenkorb erstellen"""
         cart = ShoppingCart(customer)
         self.active_carts[customer.customer_id] = cart
         return cart
     
-    def get_cart(self, customer: Customer) -> Optional[ShoppingCart]:
+    def get_cart(self, customer: Customer) -&gt; Optional[ShoppingCart]:
         """Warenkorb eines Kunden holen"""
         return self.active_carts.get(customer.customer_id)
     
-    def place_order(self, customer: Customer) -> Optional[Order]:
+    def place_order(self, customer: Customer) -&gt; Optional[Order]:
         """Bestellung aufgeben"""
         cart = self.get_cart(customer)
         if not cart or not cart.items:
@@ -1665,7 +1665,7 @@ class ECommerceStore:
             print(f"Bestellung fehlgeschlagen: {e}")
             return None
     
-    def apply_discount_code(self, customer: Customer, code: str) -> bool:
+    def apply_discount_code(self, customer: Customer, code: str) -&gt; bool:
         """Rabattcode einlösen"""
         cart = self.get_cart(customer)
         if not cart:
@@ -1841,6 +1841,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-klassen'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

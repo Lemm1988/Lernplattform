@@ -13,9 +13,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
                     <h1><i class="bi bi-diagram-3 text-primary"></i> Java Datentypen</h1>
                     <p class="lead">Primitive Datentypen und Referenztypen verstehen</p>
                 </div>
-                <div>
-                    </button>
-                </div>
             </div>
 
             <div class="row">
@@ -408,7 +405,7 @@ int i2 = (int) l;       // Potentieller Datenverlust</code></pre>
         String produktName = "Laptop";
         int lagerbestand = 15;
         double preis = 899.99;
-        boolean verfügbar = lagerbestand > 0;
+        boolean verfügbar = lagerbestand &gt; 0;
         char kategorie = 'E'; // E für Elektronik
         
         // Berechnungen
@@ -437,12 +434,12 @@ int i2 = (int) l;       // Potentieller Datenverlust</code></pre>
         // Wrapper-Klassen verwenden
         Integer maxLager = Integer.MAX_VALUE;
         Double minPreis = 0.01;
-        Boolean istTeuer = preis > 500.0;
+        Boolean istTeuer = preis &gt; 500.0;
         
         System.out.println("\nMETAINFO:");
         System.out.println("Maximaler Lagerbestand möglich: " + maxLager);
         System.out.println("Mindestpreis: " + minPreis + " EUR");
-        System.out.println("Ist teuer (>500 EUR): " + istTeuer);
+        System.out.println("Ist teuer (&gt;500 EUR): " + istTeuer);
     }
 }</code></pre>
                         </div>

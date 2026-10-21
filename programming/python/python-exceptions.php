@@ -624,7 +624,7 @@ def validate_age(age):
             valid_range="0-150"
         )
     
-    if age_int < 0 or age_int > 150:
+    if age_int &lt; 0 or age_int &gt; 150:
         raise DetailedValidationError(
             "Age out of valid range",
             field_name="age", 
@@ -670,7 +670,7 @@ test_ages = [25, "abc", -5, 200, "30"]
 for age in test_ages:
     try:
         valid_age = validate_age(age)
-        print(f"✅ Age {age} -> {valid_age}")
+        print(f"✅ Age {age} -&gt; {valid_age}")
     except DetailedValidationError as e:
         print(f"❌ Age {age}: {e}")
         print(f"   Field: {e.field_name}, Invalid: {e.invalid_value}, Range: {e.valid_range}")
@@ -1011,9 +1011,9 @@ class MonitoredService:
         """Gibt Gesundheitsstatus zurück"""
         error_rate = (self.error_count / max(self.operation_count, 1)) * 100
         
-        if error_rate < 5:
+        if error_rate &lt; 5:
             status = "HEALTHY"
-        elif error_rate < 15:
+        elif error_rate &lt; 15:
             status = "WARNING"
         else:
             status = "CRITICAL"
@@ -1097,8 +1097,8 @@ class RetryableOperation:
         print(f"Versuche Verbindung zu {url}...")
         
         # Simuliere zufällige Fehler
-        if random.random() < 0.7:  # 70% Fehlerwahrscheinlichkeit
-            if random.random() < 0.5:
+        if random.random() &lt; 0.7:  # 70% Fehlerwahrscheinlichkeit
+            if random.random() &lt; 0.5:
                 raise ConnectionError("Netzwerkverbindung fehlgeschlagen")
             else:
                 raise TimeoutError("Request-Timeout")
@@ -1152,7 +1152,7 @@ class CircuitBreaker:
     def _should_attempt_reset(self):
         return (
             self.last_failure_time and
-            time.time() - self.last_failure_time >= self.recovery_timeout
+            time.time() - self.last_failure_time &gt;= self.recovery_timeout
         )
     
     def _on_success(self):
@@ -1163,7 +1163,7 @@ class CircuitBreaker:
         self.failure_count += 1
         self.last_failure_time = time.time()
         
-        if self.failure_count >= self.failure_threshold:
+        if self.failure_count &gt;= self.failure_threshold:
             self.state = "OPEN"
 
 class ExternalService:
@@ -1180,7 +1180,7 @@ class ExternalService:
         print(f"Rufe externen Service auf mit: {data}")
         
         # Simuliere Ausfälle
-        if random.random() < 0.8:  # 80% Fehlerwahrscheinlichkeit
+        if random.random() &lt; 0.8:  # 80% Fehlerwahrscheinlichkeit
             raise ConnectionError("Service nicht erreichbar")
         
         return f"Service-Antwort für {data}"
@@ -1346,7 +1346,7 @@ class DataProcessor:
             self.logger.addHandler(file_handler)
             self.logger.addHandler(console_handler)
     
-    def validate_record(self, record: Dict[str, Any], schema: Dict[str, Any]) -> Tuple[bool, List[str]]:
+    def validate_record(self, record: Dict[str, Any], schema: Dict[str, Any]) -&gt; Tuple[bool, List[str]]:
         """Validiert einen Datensatz gegen Schema"""
         errors = []
         
@@ -1385,7 +1385,7 @@ class DataProcessor:
                 if field in record and record[field] is not None:
                     try:
                         value = float(record[field])
-                        if value < min_val or value > max_val:
+                        if value &lt; min_val or value &gt; max_val:
                             errors.append(f"Field '{field}' must be between {min_val} and {max_val}, got: {value}")
                     except (ValueError, TypeError):
                         errors.append(f"Field '{field}' value cannot be compared to range: {record[field]}")
@@ -1396,7 +1396,7 @@ class DataProcessor:
             self.logger.error(f"Unexpected error during validation: {e}")
             return False, [f"Validation system error: {e}"]
     
-    def process_record(self, record: Dict[str, Any], schema: Dict[str, Any]) -> Dict[str, Any]:
+    def process_record(self, record: Dict[str, Any], schema: Dict[str, Any]) -&gt; Dict[str, Any]:
         """Verarbeitet einen einzelnen Datensatz"""
         try:
             # Validierung
@@ -1440,7 +1440,7 @@ class DataProcessor:
             # Unerwartete Fehler wrappen
             raise DataProcessingError(f"Unexpected error processing record: {e}") from e
     
-    def load_data(self, file_path: str) -> List[Dict[str, Any]]:
+    def load_data(self, file_path: str) -&gt; List[Dict[str, Any]]:
         """Lädt Daten aus verschiedenen Dateiformaten"""
         file_path = Path(file_path)
         
@@ -1458,7 +1458,7 @@ class DataProcessor:
         except (PermissionError, OSError) as e:
             raise SystemResourceError(f"Cannot access file {file_path}: {e}")
     
-    def _load_json_data(self, file_path: Path) -> List[Dict[str, Any]]:
+    def _load_json_data(self, file_path: Path) -&gt; List[Dict[str, Any]]:
         """Lädt JSON-Daten mit Fehlerbehandlung"""
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -1476,7 +1476,7 @@ class DataProcessor:
         except UnicodeDecodeError as e:
             raise DataFormatError(f"Encoding error in {file_path}: {e}")
     
-    def _load_csv_data(self, file_path: Path) -> List[Dict[str, Any]]:
+    def _load_csv_data(self, file_path: Path) -&gt; List[Dict[str, Any]]:
         """Lädt CSV-Daten mit Fehlerbehandlung"""
         data = []
         
@@ -1503,7 +1503,7 @@ class DataProcessor:
         except UnicodeDecodeError as e:
             raise DataFormatError(f"Encoding error in {file_path}: {e}")
     
-    def save_results(self, data: List[Dict[str, Any]], output_path: str) -> str:
+    def save_results(self, data: List[Dict[str, Any]], output_path: str) -&gt; str:
         """Speichert verarbeitete Daten"""
         output_path = Path(output_path)
         
@@ -1531,7 +1531,7 @@ class DataProcessor:
         except (PermissionError, OSError) as e:
             raise SystemResourceError(f"Cannot write to {output_path}: {e}")
     
-    def process_with_retry(self, file_path: str, schema: Dict[str, Any], output_path: str) -> ProcessingResult:
+    def process_with_retry(self, file_path: str, schema: Dict[str, Any], output_path: str) -&gt; ProcessingResult:
         """Verarbeitet Daten mit Retry-Mechanismus"""
         last_exception = None
         
@@ -1544,7 +1544,7 @@ class DataProcessor:
                 last_exception = e
                 self.logger.warning(f"Attempt {attempt + 1} failed: {e}")
                 
-                if attempt < self.max_retries:
+                if attempt &lt; self.max_retries:
                     delay = self.retry_delay * (2 ** attempt)  # Exponential backoff
                     self.logger.info(f"Retrying in {delay} seconds...")
                     time.sleep(delay)
@@ -1560,7 +1560,7 @@ class DataProcessor:
         # Sollte nie erreicht werden, aber für Sicherheit
         raise last_exception
     
-    def _process_data_internal(self, file_path: str, schema: Dict[str, Any], output_path: str) -> ProcessingResult:
+    def _process_data_internal(self, file_path: str, schema: Dict[str, Any], output_path: str) -&gt; ProcessingResult:
         """Interne Datenverarbeitung"""
         start_time = time.time()
         processed_records = []
@@ -1582,7 +1582,7 @@ class DataProcessor:
             for i, record in enumerate(raw_data):
                 try:
                     # Timeout prüfen
-                    if time.time() - start_time > self.processing_timeout:
+                    if time.time() - start_time &gt; self.processing_timeout:
                         timeout_handler()
                     
                     processed_record = self.process_record(record, schema)
@@ -1636,17 +1636,17 @@ class DataProcessor:
             self.stats["processing_times"].append(processing_time)
             
             # Warnungen generieren
-            if failed_records > 0:
+            if failed_records &gt; 0:
                 failure_rate = (failed_records / len(raw_data)) * 100
-                if failure_rate > 50:
+                if failure_rate &gt; 50:
                     warnings.append(f"High failure rate: {failure_rate:.1f}%")
-                elif failure_rate > 20:
+                elif failure_rate &gt; 20:
                     warnings.append(f"Moderate failure rate: {failure_rate:.1f}%")
             
             # Status bestimmen
             if failed_records == 0:
                 status = ProcessingStatus.COMPLETED
-            elif len(processed_records) > 0:
+            elif len(processed_records) &gt; 0:
                 status = ProcessingStatus.COMPLETED  # Teilweise erfolgreich
                 warnings.append("Some records failed processing")
             else:
@@ -1685,7 +1685,7 @@ class DataProcessor:
                 processing_time=processing_time
             )
     
-    def get_system_health(self) -> Dict[str, Any]:
+    def get_system_health(self) -&gt; Dict[str, Any]:
         """Gibt System-Gesundheitsstatus zurück"""
         total_operations = len(self.stats["processing_times"])
         
@@ -1696,9 +1696,9 @@ class DataProcessor:
         error_rate = (self.stats["total_errors"] / max(self.stats["total_processed"], 1)) * 100
         
         # Gesundheitsstatus bestimmen
-        if error_rate < 5 and avg_processing_time < 60:
+        if error_rate &lt; 5 and avg_processing_time &lt; 60:
             health_status = "HEALTHY"
-        elif error_rate < 15 and avg_processing_time < 300:
+        elif error_rate &lt; 15 and avg_processing_time &lt; 300:
             health_status = "WARNING"
         else:
             health_status = "CRITICAL"
@@ -1878,6 +1878,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-exceptions'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

@@ -12,9 +12,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
                     <h1><i class="bi bi-braces text-primary"></i> Java Generics</h1>
                     <p class="lead">Typsichere Programmierung mit generischen Typen</p>
                 </div>
-                <div>
-                    </button>
-                </div>
             </div>
 
             <div class="row">
@@ -85,7 +82,7 @@ String s = list.get(0); // Kein Casting nötig</code></pre>
 <pre><code class="language-java">import java.util.*;
 
 // Einfache generische Klasse mit einem Typ-Parameter
-public class Box<T> {
+public class Box&lt;T&gt; {
     private T content;
     
     public Box() {
@@ -119,7 +116,7 @@ public class Box<T> {
 }
 
 // Generische Klasse mit zwei Typ-Parametern
-class Pair<T, U> {
+class Pair&lt;T, U&gt; {
     private T first;
     private U second;
     
@@ -140,13 +137,13 @@ class Pair<T, U> {
     }
     
     // Generische Methode in generischer Klasse
-    public <V> Pair<T, V> replaceSecond(V newSecond) {
-        return new Pair<>(this.first, newSecond);
+    public &lt;V&gt; Pair&lt;T, V&gt; replaceSecond(V newSecond) {
+        return new Pair&lt;&gt;(this.first, newSecond);
     }
 }
 
 // Generische Klasse mit mehreren Constraints
-class OrderedTriple<T extends Comparable<T>, U, V> {
+class OrderedTriple&lt;T extends Comparable&lt;T&gt;, U, V&gt; {
     private T first;
     private U second;
     private V third;
@@ -157,9 +154,9 @@ class OrderedTriple<T extends Comparable<T>, U, V> {
         this.third = third;
     }
     
-    // Können compareTo verwenden, da T extends Comparable<T>
+    // Können compareTo verwenden, da T extends Comparable&lt;T&gt;
     public boolean isFirstSmaller(T other) {
-        return first.compareTo(other) < 0;
+        return first.compareTo(other) &lt; 0;
     }
     
     public T getFirst() { return first; }
@@ -179,20 +176,20 @@ public class GenericClassesDemo {
         // 1. Einfache Box mit verschiedenen Typen
         
         // String-Box
-        Box<String> stringBox = new Box<>();
+        Box&lt;String&gt; stringBox = new Box&lt;&gt;();
         stringBox.put("Hallo Generics!");
         System.out.println("String Box: " + stringBox.get());
         
         // Integer-Box
-        Box<Integer> intBox = new Box<>(42);
+        Box&lt;Integer&gt; intBox = new Box&lt;&gt;(42);
         System.out.println("Integer Box: " + intBox.get());
         
         // Person-Box (eigene Klasse)
-        Box<Person> personBox = new Box<>(new Person("Alice", 25));
+        Box&lt;Person&gt; personBox = new Box&lt;&gt;(new Person("Alice", 25));
         System.out.println("Person Box: " + personBox.get());
         
         // Liste-Box (verschachtelte Generics)
-        Box<List<String>> listBox = new Box<>(Arrays.asList("A", "B", "C"));
+        Box&lt;List&lt;String&gt;&gt; listBox = new Box&lt;&gt;(Arrays.asList("A", "B", "C"));
         System.out.println("Liste Box: " + listBox.get());
         System.out.println("Erste Element: " + listBox.get().get(0));
         
@@ -201,17 +198,17 @@ public class GenericClassesDemo {
         System.out.println("\n--- PAIR KLASSE ---");
         
         // Verschiedene Typ-Kombinationen
-        Pair<String, Integer> nameAge = new Pair<>("Bob", 30);
+        Pair&lt;String, Integer&gt; nameAge = new Pair&lt;&gt;("Bob", 30);
         System.out.println("Name-Alter: " + nameAge);
         
-        Pair<Double, String> priceItem = new Pair<>(19.99, "Buch");
+        Pair&lt;Double, String&gt; priceItem = new Pair&lt;&gt;(19.99, "Buch");
         System.out.println("Preis-Artikel: " + priceItem);
         
-        Pair<Integer, Integer> coordinates = new Pair<>(10, 20);
+        Pair&lt;Integer, Integer&gt; coordinates = new Pair&lt;&gt;(10, 20);
         System.out.println("Koordinaten: " + coordinates);
         
         // Generische Methode verwenden
-        Pair<String, Boolean> nameAvailable = nameAge.replaceSecond(true);
+        Pair&lt;String, Boolean&gt; nameAvailable = nameAge.replaceSecond(true);
         System.out.println("Name-Verfügbar: " + nameAvailable);
         
         // 3. OrderedTriple mit Constraints
@@ -219,42 +216,42 @@ public class GenericClassesDemo {
         System.out.println("\n--- ORDERED TRIPLE ---");
         
         // T muss Comparable implementieren
-        OrderedTriple<String, Integer, Boolean> stringTriple = 
-            new OrderedTriple<>("Alice", 25, true);
+        OrderedTriple&lt;String, Integer, Boolean&gt; stringTriple = 
+            new OrderedTriple&lt;&gt;("Alice", 25, true);
         System.out.println("String Triple: " + stringTriple);
-        System.out.println("'Alice' < 'Bob': " + stringTriple.isFirstSmaller("Bob"));
+        System.out.println("'Alice' &lt; 'Bob': " + stringTriple.isFirstSmaller("Bob"));
         
-        OrderedTriple<Integer, String, Double> intTriple = 
-            new OrderedTriple<>(10, "Test", 3.14);
+        OrderedTriple&lt;Integer, String, Double&gt; intTriple = 
+            new OrderedTriple&lt;&gt;(10, "Test", 3.14);
         System.out.println("Integer Triple: " + intTriple);
-        System.out.println("10 < 20: " + intTriple.isFirstSmaller(20));
+        System.out.println("10 &lt; 20: " + intTriple.isFirstSmaller(20));
         
         // 4. Generics mit Collections
         
         System.out.println("\n--- GENERICS MIT COLLECTIONS ---");
         
         // Box von Listen
-        Box<List<Integer>> numberListBox = new Box<>();
-        List<Integer> numbers = new ArrayList<>();
+        Box&lt;List&lt;Integer&gt;&gt; numberListBox = new Box&lt;&gt;();
+        List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;();
         numbers.add(1);
         numbers.add(2);
         numbers.add(3);
         numberListBox.put(numbers);
         
-        List<Integer> retrievedNumbers = numberListBox.get();
+        List&lt;Integer&gt; retrievedNumbers = numberListBox.get();
         System.out.println("Zahlen aus Box: " + retrievedNumbers);
         
         // Pair von Maps
-        Map<String, Integer> map1 = new HashMap<>();
+        Map&lt;String, Integer&gt; map1 = new HashMap&lt;&gt;();
         map1.put("A", 1);
         map1.put("B", 2);
         
-        Map<String, String> map2 = new HashMap<>();
+        Map&lt;String, String&gt; map2 = new HashMap&lt;&gt;();
         map2.put("X", "Hello");
         map2.put("Y", "World");
         
-        Pair<Map<String, Integer>, Map<String, String>> mapPair = 
-            new Pair<>(map1, map2);
+        Pair&lt;Map&lt;String, Integer&gt;, Map&lt;String, String&gt;&gt; mapPair = 
+            new Pair&lt;&gt;(map1, map2);
         System.out.println("Map Pair: " + mapPair);
         
         // 5. Diamond Operator (Java 7+)
@@ -262,13 +259,13 @@ public class GenericClassesDemo {
         System.out.println("\n--- DIAMOND OPERATOR ---");
         
         // Vor Java 7
-        Box<String> oldStyle = new Box<String>();
+        Box&lt;String&gt; oldStyle = new Box&lt;String&gt;();
         
         // Java 7+ - Diamond Operator
-        Box<String> newStyle = new Box<>();  // Typ wird inferiert
+        Box&lt;String&gt; newStyle = new Box&lt;&gt;();  // Typ wird inferiert
         
         // Funktioniert auch bei komplexeren Typen
-        Box<Map<String, List<Integer>>> complexBox = new Box<>();
+        Box&lt;Map&lt;String, List&lt;Integer&gt;&gt;&gt; complexBox = new Box&lt;&gt;();
         
         System.out.println("Diamond Operator macht Code sauberer!");
         
@@ -288,7 +285,7 @@ public class GenericClassesDemo {
         System.out.println("Raw Box Inhalt: " + content);
         
         // Besser: Generics verwenden
-        Box<Object> objectBox = new Box<>();
+        Box&lt;Object&gt; objectBox = new Box&lt;&gt;();
         objectBox.put("String");
         // objectBox.put(123);  // Würde Compile-Fehler geben
         
@@ -296,8 +293,8 @@ public class GenericClassesDemo {
         
         // 7. Generic Stack Implementation
         
-        class Stack<T> {
-            private List<T> elements = new ArrayList<>();
+        class Stack&lt;T&gt; {
+            private List&lt;T&gt; elements = new ArrayList&lt;&gt;();
             
             public void push(T item) {
                 elements.add(item);
@@ -331,7 +328,7 @@ public class GenericClassesDemo {
             }
         }
         
-        Stack<String> stringStack = new Stack<>();
+        Stack&lt;String&gt; stringStack = new Stack&lt;&gt;();
         stringStack.push("First");
         stringStack.push("Second");
         stringStack.push("Third");
@@ -343,7 +340,7 @@ public class GenericClassesDemo {
         
         // 8. Generic Result Wrapper
         
-        class Result<T, E> {
+        class Result&lt;T, E&gt; {
             private final T value;
             private final E error;
             private final boolean success;
@@ -354,12 +351,12 @@ public class GenericClassesDemo {
                 this.success = success;
             }
             
-            public static <T, E> Result<T, E> success(T value) {
-                return new Result<>(value, null, true);
+            public static &lt;T, E&gt; Result&lt;T, E&gt; success(T value) {
+                return new Result&lt;&gt;(value, null, true);
             }
             
-            public static <T, E> Result<T, E> error(E error) {
-                return new Result<>(null, error, false);
+            public static &lt;T, E&gt; Result&lt;T, E&gt; error(E error) {
+                return new Result&lt;&gt;(null, error, false);
             }
             
             public boolean isSuccess() { return success; }
@@ -372,8 +369,8 @@ public class GenericClassesDemo {
             }
         }
         
-        Result<Integer, String> successResult = Result.success(42);
-        Result<Integer, String> errorResult = Result.error("Division by zero");
+        Result&lt;Integer, String&gt; successResult = Result.success(42);
+        Result&lt;Integer, String&gt; errorResult = Result.error("Division by zero");
         
         System.out.println("Success Result: " + successResult);
         System.out.println("Error Result: " + errorResult);
@@ -417,14 +414,14 @@ import java.util.function.*;
 public class GenericMethods {
     
     // 1. Einfache generische Methode
-    public static <T> void swap(T[] array, int i, int j) {
+    public static &lt;T&gt; void swap(T[] array, int i, int j) {
         T temp = array[i];
         array[i] = array[j];
         array[j] = temp;
     }
     
     // 2. Generische Methode mit Rückgabewert
-    public static <T> T getMiddleElement(T[] array) {
+    public static &lt;T&gt; T getMiddleElement(T[] array) {
         if (array.length == 0) {
             return null;
         }
@@ -432,19 +429,19 @@ public class GenericMethods {
     }
     
     // 3. Generische Methode mit mehreren Typ-Parametern
-    public static <T, U> Pair<T, U> makePair(T first, U second) {
-        return new Pair<>(first, second);
+    public static &lt;T, U&gt; Pair&lt;T, U&gt; makePair(T first, U second) {
+        return new Pair&lt;&gt;(first, second);
     }
     
     // 4. Generische Methode mit Constraints (Bounded Type Parameters)
-    public static <T extends Comparable<T>> T findMax(T[] array) {
+    public static &lt;T extends Comparable&lt;T&gt;&gt; T findMax(T[] array) {
         if (array.length == 0) {
             return null;
         }
         
         T max = array[0];
-        for (int i = 1; i < array.length; i++) {
-            if (array[i].compareTo(max) > 0) {
+        for (int i = 1; i &lt; array.length; i++) {
+            if (array[i].compareTo(max) &gt; 0) {
                 max = array[i];
             }
         }
@@ -452,7 +449,7 @@ public class GenericMethods {
     }
     
     // 5. Generische Methode mit mehreren Constraints
-    public static <T extends Comparable<T> & Cloneable> T findMaxAndClone(T[] array) {
+    public static &lt;T extends Comparable&lt;T&gt; & Cloneable&gt; T findMaxAndClone(T[] array) {
         T max = findMax(array);
         if (max != null) {
             try {
@@ -468,8 +465,8 @@ public class GenericMethods {
     }
     
     // 6. Generische Methode mit Collection-Parametern
-    public static <T> List<T> filterList(List<T> list, Predicate<T> predicate) {
-        List<T> result = new ArrayList<>();
+    public static &lt;T&gt; List&lt;T&gt; filterList(List&lt;T&gt; list, Predicate&lt;T&gt; predicate) {
+        List&lt;T&gt; result = new ArrayList&lt;&gt;();
         for (T item : list) {
             if (predicate.test(item)) {
                 result.add(item);
@@ -479,8 +476,8 @@ public class GenericMethods {
     }
     
     // 7. Generische Methode mit Function
-    public static <T, R> List<R> mapList(List<T> list, Function<T, R> mapper) {
-        List<R> result = new ArrayList<>();
+    public static &lt;T, R&gt; List&lt;R&gt; mapList(List&lt;T&gt; list, Function&lt;T, R&gt; mapper) {
+        List&lt;R&gt; result = new ArrayList&lt;&gt;();
         for (T item : list) {
             result.add(mapper.apply(item));
         }
@@ -488,7 +485,7 @@ public class GenericMethods {
     }
     
     // 8. Generische Methode für Reduce-Operation
-    public static <T> T reduce(List<T> list, T identity, BinaryOperator<T> accumulator) {
+    public static &lt;T&gt; T reduce(List&lt;T&gt; list, T identity, BinaryOperator&lt;T&gt; accumulator) {
         T result = identity;
         for (T item : list) {
             result = accumulator.apply(result, item);
@@ -498,14 +495,14 @@ public class GenericMethods {
     
     // 9. Generische Methode mit Varargs
     @SafeVarargs
-    public static <T> List<T> listOf(T... elements) {
-        List<T> list = new ArrayList<>();
+    public static &lt;T&gt; List&lt;T&gt; listOf(T... elements) {
+        List&lt;T&gt; list = new ArrayList&lt;&gt;();
         Collections.addAll(list, elements);
         return list;
     }
     
     // 10. Generische Methode für Optional-Handling
-    public static <T, R> Optional<R> flatMapOptional(Optional<T> optional, Function<T, Optional<R>> mapper) {
+    public static &lt;T, R&gt; Optional&lt;R&gt; flatMapOptional(Optional&lt;T&gt; optional, Function&lt;T, Optional&lt;R&gt;&gt; mapper) {
         if (optional.isPresent()) {
             return mapper.apply(optional.get());
         }
@@ -536,8 +533,8 @@ public class GenericMethods {
         System.out.println("Mittlere Zahl: " + middleNum);
         
         // 3. Make Pair
-        Pair<String, Integer> nameAge = makePair("Alice", 25);
-        Pair<Boolean, Double> flagValue = makePair(true, 3.14);
+        Pair&lt;String, Integer&gt; nameAge = makePair("Alice", 25);
+        Pair&lt;Boolean, Double&gt; flagValue = makePair(true, 3.14);
         System.out.println("Name-Age Pair: " + nameAge);
         System.out.println("Flag-Value Pair: " + flagValue);
         
@@ -551,80 +548,80 @@ public class GenericMethods {
         System.out.println("Größte Zahl: " + maxValue);
         
         // 5. Filter List
-        List<Integer> numberList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List&lt;Integer&gt; numberList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         
-        List<Integer> evenNumbers = filterList(numberList, n -> n % 2 == 0);
+        List&lt;Integer&gt; evenNumbers = filterList(numberList, n -&gt; n % 2 == 0);
         System.out.println("Gerade Zahlen: " + evenNumbers);
         
-        List<Integer> bigNumbers = filterList(numberList, n -> n > 5);
-        System.out.println("Zahlen > 5: " + bigNumbers);
+        List&lt;Integer&gt; bigNumbers = filterList(numberList, n -&gt; n &gt; 5);
+        System.out.println("Zahlen &gt; 5: " + bigNumbers);
         
-        List<String> longWords = filterList(Arrays.asList("Java", "Hi", "Programming", "Code"),
-                                          s -> s.length() > 4);
+        List&lt;String&gt; longWords = filterList(Arrays.asList("Java", "Hi", "Programming", "Code"),
+                                          s -&gt; s.length() &gt; 4);
         System.out.println("Lange Wörter: " + longWords);
         
         // 6. Map List
-        List<String> wordList = Arrays.asList("java", "python", "javascript");
+        List&lt;String&gt; wordList = Arrays.asList("java", "python", "javascript");
         
-        List<String> upperCaseWords = mapList(wordList, String::toUpperCase);
+        List&lt;String&gt; upperCaseWords = mapList(wordList, String::toUpperCase);
         System.out.println("Großbuchstaben: " + upperCaseWords);
         
-        List<Integer> wordLengths = mapList(wordList, String::length);
+        List&lt;Integer&gt; wordLengths = mapList(wordList, String::length);
         System.out.println("Wort-Längen: " + wordLengths);
         
-        List<Boolean> startWithJ = mapList(wordList, s -> s.startsWith("j"));
+        List&lt;Boolean&gt; startWithJ = mapList(wordList, s -&gt; s.startsWith("j"));
         System.out.println("Startet mit 'j': " + startWithJ);
         
         // 7. Reduce
-        List<Integer> reduceNumbers = Arrays.asList(1, 2, 3, 4, 5);
+        List&lt;Integer&gt; reduceNumbers = Arrays.asList(1, 2, 3, 4, 5);
         
         Integer sum = reduce(reduceNumbers, 0, Integer::sum);
         System.out.println("Summe: " + sum);
         
-        Integer product = reduce(reduceNumbers, 1, (a, b) -> a * b);
+        Integer product = reduce(reduceNumbers, 1, (a, b) -&gt; a * b);
         System.out.println("Produkt: " + product);
         
-        String concatenated = reduce(Arrays.asList("A", "B", "C"), "", (a, b) -> a + b);
+        String concatenated = reduce(Arrays.asList("A", "B", "C"), "", (a, b) -&gt; a + b);
         System.out.println("Konkateniert: " + concatenated);
         
         // 8. List Of (Varargs)
-        List<String> stringList = listOf("A", "B", "C", "D");
+        List&lt;String&gt; stringList = listOf("A", "B", "C", "D");
         System.out.println("String Liste: " + stringList);
         
-        List<Integer> intList = listOf(1, 2, 3, 4, 5);
+        List&lt;Integer&gt; intList = listOf(1, 2, 3, 4, 5);
         System.out.println("Integer Liste: " + intList);
         
-        List<Boolean> boolList = listOf(true, false, true);
+        List&lt;Boolean&gt; boolList = listOf(true, false, true);
         System.out.println("Boolean Liste: " + boolList);
         
         // 9. Typ-Inferenz Beispiele
         
         // Compiler kann Typen ableiten
-        var inferredPair = makePair("Hello", 42);  // Pair<String, Integer>
+        var inferredPair = makePair("Hello", 42);  // Pair&lt;String, Integer&gt;
         System.out.println("Inferred Pair: " + inferredPair);
         
         // Explizite Typ-Angabe manchmal nötig
-        List<String> emptyStringList = GenericMethods.<String>listOf();
+        List&lt;String&gt; emptyStringList = GenericMethods.&lt;String&gt;listOf();
         System.out.println("Leere String Liste: " + emptyStringList);
         
         // 10. Optional Handling
-        Optional<String> optionalValue = Optional.of("Hello");
-        Optional<Integer> mappedValue = flatMapOptional(optionalValue, 
-            s -> s.length() > 0 ? Optional.of(s.length()) : Optional.empty());
+        Optional&lt;String&gt; optionalValue = Optional.of("Hello");
+        Optional&lt;Integer&gt; mappedValue = flatMapOptional(optionalValue, 
+            s -&gt; s.length() &gt; 0 ? Optional.of(s.length()) : Optional.empty());
         
         System.out.println("Optional Wert: " + mappedValue.orElse(0));
         
         // 11. Method Chaining mit Generics
         System.out.println("\n=== METHOD CHAINING ===");
         
-        List<String> processedWords = listOf("java", "python", "javascript", "go")
+        List&lt;String&gt; processedWords = listOf("java", "python", "javascript", "go")
             .stream()
             .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
         
         // Eigene Chain-Methoden
-        List<String> result = filterList(
+        List&lt;String&gt; result = filterList(
             mapList(processedWords, String::toUpperCase),
-            s -> s.length() > 2
+            s -&gt; s.length() &gt; 2
         );
         
         System.out.println("Verarbeitete Wörter: " + result);
@@ -633,9 +630,9 @@ public class GenericMethods {
         System.out.println("\n=== FACTORY METHODS ===");
         
         // Collections factory methods (Java 9+)
-        List<String> immutableList = List.of("A", "B", "C");
-        Set<Integer> immutableSet = Set.of(1, 2, 3);
-        Map<String, Integer> immutableMap = Map.of("A", 1, "B", 2);
+        List&lt;String&gt; immutableList = List.of("A", "B", "C");
+        Set&lt;Integer&gt; immutableSet = Set.of(1, 2, 3);
+        Map&lt;String, Integer&gt; immutableMap = Map.of("A", 1, "B", 2);
         
         System.out.println("Immutable List: " + immutableList);
         System.out.println("Immutable Set: " + immutableSet);
@@ -643,7 +640,7 @@ public class GenericMethods {
     }
     
     // Hilfklasse für Paare (bereits definiert in GenericClassesDemo)
-    static class Pair<T, U> {
+    static class Pair&lt;T, U&gt; {
         private final T first;
         private final U second;
         
@@ -784,18 +781,18 @@ public class WildcardsAndBounds {
         System.out.println("=== WILDCARDS UND BOUNDED TYPES ===");
         
         // Test-Daten erstellen
-        List<Animal> animals = Arrays.asList(
+        List&lt;Animal&gt; animals = Arrays.asList(
             new Dog("Bello"),
             new Cat("Mieze"),
             new Bird("Tweety")
         );
         
-        List<Mammal> mammals = Arrays.asList(
+        List&lt;Mammal&gt; mammals = Arrays.asList(
             new Dog("Rex"),
             new Cat("Whiskers")
         );
         
-        List<Dog> dogs = Arrays.asList(
+        List&lt;Dog&gt; dogs = Arrays.asList(
             new Dog("Buddy"),
             new Dog("Max")
         );
@@ -803,26 +800,26 @@ public class WildcardsAndBounds {
         // 1. Unbound Wildcard (?)
         System.out.println("--- UNBOUND WILDCARD ---");
         
-        printListSize(animals);      // List<Animal>
-        printListSize(mammals);      // List<Mammal>
-        printListSize(dogs);         // List<Dog>
-        printListSize(Arrays.asList("A", "B", "C"));  // List<String>
+        printListSize(animals);      // List&lt;Animal&gt;
+        printListSize(mammals);      // List&lt;Mammal&gt;
+        printListSize(dogs);         // List&lt;Dog&gt;
+        printListSize(Arrays.asList("A", "B", "C"));  // List&lt;String&gt;
         
         // 2. Upper Bound Wildcard (? extends)
         System.out.println("\n--- UPPER BOUND WILDCARD (? extends) ---");
         
         // Producer - können Elemente lesen, aber nicht hinzufügen
-        makeAnimalsSound(animals);   // List<Animal>
-        makeAnimalsSound(mammals);   // List<Mammal> - geht, da Mammal extends Animal
-        makeAnimalsSound(dogs);      // List<Dog> - geht, da Dog extends Animal
+        makeAnimalsSound(animals);   // List&lt;Animal&gt;
+        makeAnimalsSound(mammals);   // List&lt;Mammal&gt; - geht, da Mammal extends Animal
+        makeAnimalsSound(dogs);      // List&lt;Dog&gt; - geht, da Dog extends Animal
         
         // Kann nicht kompiliert werden:
         // makeAnimalsSound(Arrays.asList("String")); // String extends nicht Animal
         
         // Kopieren mit Upper Bound
-        List<Animal> animalsCopy = copyList(animals);
-        List<Animal> mammalsAsAnimals = copyList(mammals);  // Mammal -> Animal
-        List<Animal> dogsAsAnimals = copyList(dogs);        // Dog -> Animal
+        List&lt;Animal&gt; animalsCopy = copyList(animals);
+        List&lt;Animal&gt; mammalsAsAnimals = copyList(mammals);  // Mammal -&gt; Animal
+        List&lt;Animal&gt; dogsAsAnimals = copyList(dogs);        // Dog -&gt; Animal
         
         System.out.println("Kopierte Animals: " + animalsCopy.size());
         System.out.println("Mammals als Animals: " + mammalsAsAnimals.size());
@@ -832,11 +829,11 @@ public class WildcardsAndBounds {
         System.out.println("\n--- LOWER BOUND WILDCARD (? super) ---");
         
         // Consumer - können Elemente hinzufügen, aber nicht typsicher lesen
-        List<Animal> animalList = new ArrayList<>(animals);
-        List<Object> objectList = new ArrayList<>();
+        List&lt;Animal&gt; animalList = new ArrayList&lt;&gt;(animals);
+        List&lt;Object&gt; objectList = new ArrayList&lt;&gt;();
         
-        addDogs(animalList);  // List<Animal> - geht, da Animal super Dog
-        addDogs(objectList);  // List<Object> - geht, da Object super Dog
+        addDogs(animalList);  // List&lt;Animal&gt; - geht, da Animal super Dog
+        addDogs(objectList);  // List&lt;Object&gt; - geht, da Object super Dog
         // addDogs(mammals);  // Würde nicht kompilieren - Mammal ist nicht super von Dog
         
         System.out.println("Animals nach addDogs: " + animalList.size());
@@ -845,9 +842,9 @@ public class WildcardsAndBounds {
         // 4. PECS Prinzip (Producer Extends, Consumer Super)
         System.out.println("\n--- PECS PRINZIP ---");
         
-        List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
-        List<Double> doubles = Arrays.asList(1.1, 2.2, 3.3);
-        List<Number> numbers = new ArrayList<>();
+        List&lt;Integer&gt; integers = Arrays.asList(1, 2, 3, 4, 5);
+        List&lt;Double&gt; doubles = Arrays.asList(1.1, 2.2, 3.3);
+        List&lt;Number&gt; numbers = new ArrayList&lt;&gt;();
         
         // Producer: ? extends Number
         copyNumbers(integers, numbers);  // Integer extends Number
@@ -856,8 +853,8 @@ public class WildcardsAndBounds {
         System.out.println("Kopierte Numbers: " + numbers);
         
         // Consumer: ? super Integer
-        List<Number> numberList = new ArrayList<>();
-        List<Object> objList = new ArrayList<>();
+        List&lt;Number&gt; numberList = new ArrayList&lt;&gt;();
+        List&lt;Object&gt; objList = new ArrayList&lt;&gt;();
         
         addIntegers(numberList);  // Number super Integer
         addIntegers(objList);     // Object super Integer
@@ -868,19 +865,19 @@ public class WildcardsAndBounds {
         // 5. Wildcard Capture
         System.out.println("\n--- WILDCARD CAPTURE ---");
         
-        List<String> stringList = Arrays.asList("A", "B", "C");
+        List&lt;String&gt; stringList = Arrays.asList("A", "B", "C");
         swapElements(stringList, 0, 2);
         System.out.println("Nach Swap: " + stringList);
         
-        List<Integer> intList = new ArrayList<>(Arrays.asList(1, 2, 3));
+        List&lt;Integer&gt; intList = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3));
         swapElements(intList, 0, 1);
         System.out.println("Nach Swap: " + intList);
         
         // 6. Bounded Type Parameters in Klassen
         System.out.println("\n--- BOUNDED TYPE PARAMETERS ---");
         
-        NumberBox<Integer> intBox = new NumberBox<>(42);
-        NumberBox<Double> doubleBox = new NumberBox<>(3.14);
+        NumberBox&lt;Integer&gt; intBox = new NumberBox&lt;&gt;(42);
+        NumberBox&lt;Double&gt; doubleBox = new NumberBox&lt;&gt;(3.14);
         
         System.out.println("Int Box: " + intBox.getValue());
         System.out.println("Double Box: " + doubleBox.getValue());
@@ -888,19 +885,19 @@ public class WildcardsAndBounds {
         System.out.println("Double Box doubled: " + doubleBox.getDoubledValue());
         
         // Vergleichen
-        System.out.println("42 > 3.14: " + intBox.isGreaterThan(doubleBox.getValue()));
+        System.out.println("42 &gt; 3.14: " + intBox.isGreaterThan(doubleBox.getValue()));
         
         // 7. Multiple Bounds
         System.out.println("\n--- MULTIPLE BOUNDS ---");
         
-        ComparableCloneableBox<String> stringBox = new ComparableCloneableBox<>("Hello");
+        ComparableCloneableBox&lt;String&gt; stringBox = new ComparableCloneableBox&lt;&gt;("Hello");
         System.out.println("String Box: " + stringBox.getValue());
         System.out.println("Can compare: " + stringBox.compareTo("World"));
         
         // 8. Generic Method mit Wildcards
         System.out.println("\n--- GENERIC METHODS MIT WILDCARDS ---");
         
-        List&lt;? extends Number> numberProducers = integers;
+        List&lt;? extends Number&gt; numberProducers = integers;
         double sum = sumNumbers(numberProducers);
         System.out.println("Summe der Zahlen: " + sum);
         
@@ -910,11 +907,11 @@ public class WildcardsAndBounds {
         // 9. Intersection Types
         System.out.println("\n--- INTERSECTION TYPES ---");
         
-        List<String> strings = Arrays.asList("Apple", "Banana", "Cherry");
+        List&lt;String&gt; strings = Arrays.asList("Apple", "Banana", "Cherry");
         String maxString = findMax(strings);
         System.out.println("Max String: " + maxString);
         
-        List<Integer> nums = Arrays.asList(3, 1, 4, 1, 5);
+        List&lt;Integer&gt; nums = Arrays.asList(3, 1, 4, 1, 5);
         Integer maxInt = findMax(nums);
         System.out.println("Max Integer: " + maxInt);
     }
@@ -929,15 +926,15 @@ public class WildcardsAndBounds {
     }
     
     // 2. Upper Bound - Producer (lesen, aber nicht schreiben)
-    public static void makeAnimalsSound(List&lt;? extends Animal> animals) {
+    public static void makeAnimalsSound(List&lt;? extends Animal&gt; animals) {
         for (Animal animal : animals) {  // Können als Animal lesen
             animal.makeSound();
         }
         // animals.add(new Dog("New"));  // Kompiliert nicht!
     }
     
-    public static <T> List<T> copyList(List&lt;? extends T> source) {
-        List<T> copy = new ArrayList<>();
+    public static &lt;T&gt; List&lt;T&gt; copyList(List&lt;? extends T&gt; source) {
+        List&lt;T&gt; copy = new ArrayList&lt;&gt;();
         for (T item : source) {
             copy.add(item);  // Können lesen und in Ziel-Liste schreiben
         }
@@ -945,7 +942,7 @@ public class WildcardsAndBounds {
     }
     
     // 3. Lower Bound - Consumer (schreiben, aber nicht typsicher lesen)
-    public static void addDogs(List&lt;? super Dog> list) {
+    public static void addDogs(List&lt;? super Dog&gt; list) {
         list.add(new Dog("Buddy"));    // Können Dog hinzufügen
         list.add(new Dog("Max"));      // Dog oder Subtyp von Dog
         
@@ -954,13 +951,13 @@ public class WildcardsAndBounds {
     }
     
     // 4. PECS Beispiele
-    public static void copyNumbers(List&lt;? extends Number> source, List&lt;? super Number> destination) {
+    public static void copyNumbers(List&lt;? extends Number&gt; source, List&lt;? super Number&gt; destination) {
         for (Number num : source) {  // Producer: extends
             destination.add(num);    // Consumer: super
         }
     }
     
-    public static void addIntegers(List&lt;? super Integer> list) {
+    public static void addIntegers(List&lt;? super Integer&gt; list) {
         list.add(42);
         list.add(100);
     }
@@ -971,14 +968,14 @@ public class WildcardsAndBounds {
     }
     
     // Helper mit captured type
-    private static <T> void swapHelper(List<T> list, int i, int j) {
+    private static &lt;T&gt; void swapHelper(List&lt;T&gt; list, int i, int j) {
         T temp = list.get(i);
         list.set(i, list.get(j));
         list.set(j, temp);
     }
     
     // 6. Sum method mit Upper Bound
-    public static double sumNumbers(List&lt;? extends Number> numbers) {
+    public static double sumNumbers(List&lt;? extends Number&gt; numbers) {
         double sum = 0.0;
         for (Number num : numbers) {
             sum += num.doubleValue();
@@ -987,12 +984,12 @@ public class WildcardsAndBounds {
     }
     
     // 7. Generic method mit Comparable
-    public static <T extends Comparable<T>> T findMax(List<T> list) {
+    public static &lt;T extends Comparable&lt;T&gt;&gt; T findMax(List&lt;T&gt; list) {
         if (list.isEmpty()) return null;
         
         T max = list.get(0);
         for (T item : list) {
-            if (item.compareTo(max) > 0) {
+            if (item.compareTo(max) &gt; 0) {
                 max = item;
             }
         }
@@ -1000,7 +997,7 @@ public class WildcardsAndBounds {
     }
     
     // Bounded Type Parameter Klasse
-    static class NumberBox<T extends Number> {
+    static class NumberBox&lt;T extends Number&gt; {
         private T value;
         
         public NumberBox(T value) {
@@ -1017,12 +1014,12 @@ public class WildcardsAndBounds {
         }
         
         public boolean isGreaterThan(Number other) {
-            return value.doubleValue() > other.doubleValue();
+            return value.doubleValue() &gt; other.doubleValue();
         }
     }
     
     // Multiple Bounds Klasse
-    static class ComparableCloneableBox<T extends Comparable<T> & Cloneable> {
+    static class ComparableCloneableBox&lt;T extends Comparable&lt;T&gt; & Cloneable&gt; {
         private T value;
         
         public ComparableCloneableBox(T value) {
@@ -1059,8 +1056,8 @@ public class TypeErasureAndLimitations {
         System.out.println("=== TYPE ERASURE ===");
         
         // 1. Type Erasure Demonstration
-        List<String> stringList = new ArrayList<>();
-        List<Integer> integerList = new ArrayList<>();
+        List&lt;String&gt; stringList = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; integerList = new ArrayList&lt;&gt;();
         
         // Zur Laufzeit haben beide den gleichen Typ!
         System.out.println("String List Klasse: " + stringList.getClass());
@@ -1074,7 +1071,7 @@ public class TypeErasureAndLimitations {
         List rawList = new ArrayList();
         
         @SuppressWarnings("unchecked")
-        List<String> stringListFromRaw = rawList;  // Unchecked conversion
+        List&lt;String&gt; stringListFromRaw = rawList;  // Unchecked conversion
         
         rawList.add("String");
         rawList.add(42);  // Kann verschiedene Typen hinzufügen!
@@ -1100,14 +1097,14 @@ public class TypeErasureAndLimitations {
         System.out.println("\n--- ARRAY UND GENERICS ---");
         
         // Das funktioniert NICHT:
-        // List<String>[] stringLists = new List<String>[10];  // Compile error
+        // List&lt;String&gt;[] stringLists = new List&lt;String&gt;[10];  // Compile error
         
         // Workaround mit Wildcards:
         @SuppressWarnings("unchecked")
-        List<String>[] stringLists = new List[10];
+        List&lt;String&gt;[] stringLists = new List[10];
         
-        for (int i = 0; i < stringLists.length; i++) {
-            stringLists[i] = new ArrayList<>();
+        for (int i = 0; i &lt; stringLists.length; i++) {
+            stringLists[i] = new ArrayList&lt;&gt;();
             stringLists[i].add("Element " + i);
         }
         
@@ -1116,18 +1113,18 @@ public class TypeErasureAndLimitations {
         // 5. instanceof mit Generics
         System.out.println("\n--- INSTANCEOF MIT GENERICS ---");
         
-        List<String> strings = new ArrayList<>();
-        List<Integer> integers = new ArrayList<>();
+        List&lt;String&gt; strings = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; integers = new ArrayList&lt;&gt;();
         
         // Das funktioniert:
         System.out.println("strings instanceof List: " + (strings instanceof List));
         System.out.println("integers instanceof List: " + (integers instanceof List));
         
         // Das funktioniert NICHT:
-        // System.out.println(strings instanceof List<String>);  // Compile error
+        // System.out.println(strings instanceof List&lt;String&gt;);  // Compile error
         
         // Workaround mit Wildcards:
-        System.out.println("strings instanceof List<&quest;>: " + (strings instanceof List<&quest;>));
+        System.out.println("strings instanceof List&lt;&quest;&gt;: " + (strings instanceof List&lt;&quest;&gt;));
         
         // 6. Reflection und Generics
         System.out.println("\n--- REFLECTION UND GENERICS ---");
@@ -1157,7 +1154,7 @@ public class TypeErasureAndLimitations {
         System.out.println("\n--- GENERIC METHOD LIMITATIONS ---");
         
         // Das funktioniert NICHT:
-        // public static <T> void badMethod() {
+        // public static &lt;T&gt; void badMethod() {
         //     T instance = new T();           // Cannot instantiate
         //     T[] array = new T[10];          // Cannot create array
         //     if (obj instanceof T) { ... }   // Cannot use instanceof
@@ -1171,14 +1168,14 @@ public class TypeErasureAndLimitations {
         System.out.println("\n--- TYPE BOUNDS LIMITATIONS ---");
         
         // Funktioniert:
-        NumberContainer<Integer> intContainer = new NumberContainer<>(42);
-        NumberContainer<Double> doubleContainer = new NumberContainer<>(3.14);
+        NumberContainer&lt;Integer&gt; intContainer = new NumberContainer&lt;&gt;(42);
+        NumberContainer&lt;Double&gt; doubleContainer = new NumberContainer&lt;&gt;(3.14);
         
         System.out.println("Int Container: " + intContainer.getValue());
         System.out.println("Double Container: " + doubleContainer.getValue());
         
         // Funktioniert NICHT:
-        // NumberContainer<String> stringContainer = new NumberContainer<>("Hello");
+        // NumberContainer&lt;String&gt; stringContainer = new NumberContainer&lt;&gt;("Hello");
         
         // 9. Covariance und Contravariance
         System.out.println("\n--- COVARIANCE UND CONTRAVARIANCE ---");
@@ -1192,11 +1189,11 @@ public class TypeErasureAndLimitations {
         }
         
         // Generics sind invariant (sicher!)
-        List<Number> numberList = new ArrayList<Number>();
-        // List<Number> numberList2 = new ArrayList<Integer>();  // Compile Error!
+        List&lt;Number&gt; numberList = new ArrayList&lt;Number&gt;();
+        // List&lt;Number&gt; numberList2 = new ArrayList&lt;Integer&gt;();  // Compile Error!
         
         // Lösung mit Wildcards:
-        List&lt;? extends Number> numberList2 = new ArrayList<Integer>();  // OK
+        List&lt;? extends Number&gt; numberList2 = new ArrayList&lt;Integer&gt;();  // OK
         System.out.println("Wildcard List: " + numberList2.size());
         
         // 10. Heap Pollution
@@ -1206,13 +1203,13 @@ public class TypeErasureAndLimitations {
     
     // Bridge Methods Demonstration  
     public static void demonstrateBridgeMethods() {
-        class Parent<T> {
+        class Parent&lt;T&gt; {
             public T process(T input) {
                 return input;
             }
         }
         
-        class Child extends Parent<String> {
+        class Child extends Parent&lt;String&gt; {
             @Override
             public String process(String input) {  // Overrides erasure: Object process(Object)
                 return input.toUpperCase();
@@ -1238,9 +1235,9 @@ public class TypeErasureAndLimitations {
     }
     
     // Workaround für Instanziierung
-    public static <T> void createInstance(Class<T> clazz, T defaultValue) {
+    public static &lt;T&gt; void createInstance(Class&lt;T&gt; clazz, T defaultValue) {
         try {
-            // Mit Class<T> können wir Instanzen erstellen
+            // Mit Class&lt;T&gt; können wir Instanzen erstellen
             if (clazz == String.class) {
                 @SuppressWarnings("unchecked")
                 T instance = (T) "Created String";
@@ -1258,12 +1255,12 @@ public class TypeErasureAndLimitations {
     @SuppressWarnings("unchecked")
     public static void demonstrateHeapPollution() {
         // Heap Pollution durch Raw Types
-        List<String> stringList = new ArrayList<>();
+        List&lt;String&gt; stringList = new ArrayList&lt;&gt;();
         List rawList = stringList;  // Raw type reference
         
         rawList.add(42);  // Integer zu String List hinzufügen!
         
-        // Heap ist nun "verschmutzt" - List<String> enthält Integer
+        // Heap ist nun "verschmutzt" - List&lt;String&gt; enthält Integer
         System.out.println("List nach Pollution: " + stringList);
         
         try {
@@ -1281,7 +1278,7 @@ public class TypeErasureAndLimitations {
     }
     
     // Helper Klasse für Beispiele
-    static class NumberContainer<T extends Number> {
+    static class NumberContainer&lt;T extends Number&gt; {
         private T value;
         
         public NumberContainer(T value) {
@@ -1296,10 +1293,10 @@ public class TypeErasureAndLimitations {
     // Klasse für Reflection-Beispiele
     static class TypeErasureExample {
         @SuppressWarnings("unused")
-        private List<String> stringList;
+        private List&lt;String&gt; stringList;
         
         @SuppressWarnings("unused")
-        public void processLists(List<String> strings, List<Integer> integers) {
+        public void processLists(List&lt;String&gt; strings, List&lt;Integer&gt; integers) {
             // Method für Reflection
         }
     }

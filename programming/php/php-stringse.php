@@ -18,7 +18,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-strings'); ?>
+                        <?php renderNavigation('php-stringse'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-type me-2"></i>PHP Strings</h1>
@@ -359,7 +359,7 @@ echo "Erweiterung: $erweiterung"; // "pdf"
 // Erste 50 Zeichen für Vorschau
 $langer_text = "Das ist ein sehr langer Text, der gekürzt werden soll...";
 $vorschau = substr($langer_text, 0, 50);
-if (strlen($langer_text) > 50) {
+if (strlen($langer_text) &gt; 50) {
     $vorschau .= "...";
 }
 echo $vorschau;
@@ -547,7 +547,7 @@ printf("Binär: %b", $zahl);               // 11111111
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 // Einfaches Template-System
 function render_template($template, $daten) {
-    foreach ($daten as $key => $value) {
+    foreach ($daten as $key =&gt; $value) {
         $template = str_replace("{{$key}}", $value, $template);
     }
     return $template;
@@ -568,11 +568,11 @@ Mit freundlichen Grüßen
 EMAIL;
 
 $daten = [
-    "name" => "Max Mustermann",
-    "bestellnr" => "B-2024-001",
-    "email" => "max@example.com", 
-    "betrag" => number_format(299.99, 2),
-    "firma" => "Meine Firma GmbH"
+    "name" =&gt; "Max Mustermann",
+    "bestellnr" =&gt; "B-2024-001",
+    "email" =&gt; "max@example.com", 
+    "betrag" =&gt; number_format(299.99, 2),
+    "firma" =&gt; "Meine Firma GmbH"
 ];
 
 echo render_template($email_template, $daten);
@@ -587,14 +587,14 @@ echo format_currency(1234.56); // "1.234,56 €"
 // URL-Template
 function build_url($template, $parameter) {
     return str_replace(
-        array_map(fn($k) => "{{$k}}", array_keys($parameter)),
+        array_map(fn($k) =&gt; "{{$k}}", array_keys($parameter)),
         array_values($parameter),
         $template
     );
 }
 
 $url_template = "https://api.example.com/users/{{user_id}}/posts/{{post_id}}";
-$url = build_url($url_template, ["user_id" => 123, "post_id" => 456]);
+$url = build_url($url_template, ["user_id" =&gt; 123, "post_id" =&gt; 456]);
 echo $url; // "https://api.example.com/users/123/posts/456"
 ?&gt;</code></pre>
                                             </div>
@@ -657,7 +657,7 @@ function sicherer_dateiname($name) {
 // Passwort-Stärke prüfen
 function pruefe_passwort($pw) {
     $fehler = [];
-    if (strlen($pw) < 8) $fehler[] = "Mindestens 8 Zeichen";
+    if (strlen($pw) &lt; 8) $fehler[] = "Mindestens 8 Zeichen";
     if (!preg_match('/[A-Z]/', $pw)) $fehler[] = "Großbuchstabe fehlt";
     if (!preg_match('/[a-z]/', $pw)) $fehler[] = "Kleinbuchstabe fehlt";
     if (!preg_match('/[0-9]/', $pw)) $fehler[] = "Zahl fehlt";
@@ -764,10 +764,10 @@ print_r($parts);
 // Query-String zu Array
 $query = "name=Max&amp;alter=25&amp;stadt=Berlin";
 parse_str($query, $params);
-print_r($params); // ["name" => "Max", "alter" => "25", ...]
+print_r($params); // ["name" =&gt; "Max", "alter" =&gt; "25", ...]
 
 // Array zu Query-String
-$data = ["name" => "Max", "alter" => 25];
+$data = ["name" =&gt; "Max", "alter" =&gt; 25];
 echo http_build_query($data); // "name=Max&amp;alter=25"
 
 // Slug für URLs erstellen
@@ -807,7 +807,7 @@ class ArticleProcessor {
         // Zu Array von Wörtern
         $words = str_word_count($clean, 1);
         
-        if (count($words) <= $max_words) {
+        if (count($words) &lt;= $max_words) {
             return $clean;
         }
         
@@ -821,8 +821,8 @@ class ArticleProcessor {
         
         // Umlaute ersetzen
         $replacements = [
-            'ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss',
-            'Ä' => 'ae', 'Ö' => 'oe', 'Ü' => 'ue'
+            'ä' =&gt; 'ae', 'ö' =&gt; 'oe', 'ü' =&gt; 'ue', 'ß' =&gt; 'ss',
+            'Ä' =&gt; 'ae', 'Ö' =&gt; 'oe', 'Ü' =&gt; 'ue'
         ];
         
         $slug = strtr($slug, $replacements);
@@ -874,7 +874,7 @@ class ArticleProcessor {
         $word_count = str_word_count(strip_tags($content));
         $reading_time = ceil($word_count / 200); // 200 Wörter/Minute
         
-        if ($reading_time <= 1) {
+        if ($reading_time &lt;= 1) {
             return "1 Minute";
         } else {
             return "$reading_time Minuten";
@@ -884,21 +884,21 @@ class ArticleProcessor {
     public function format_publish_date($timestamp, $format = 'd.m.Y H:i') {
         $date = new DateTime($timestamp);
         $now = new DateTime();
-        $diff = $now->diff($date);
+        $diff = $now-&gt;diff($date);
         
         // Relative Zeitangaben für recent posts
-        if ($diff->days == 0) {
-            if ($diff->h == 0) {
-                return "vor {$diff->i} Minuten";
+        if ($diff-&gt;days == 0) {
+            if ($diff-&gt;h == 0) {
+                return "vor {$diff-&gt;i} Minuten";
             } else {
-                return "vor {$diff->h} Stunden";
+                return "vor {$diff-&gt;h} Stunden";
             }
-        } elseif ($diff->days == 1) {
+        } elseif ($diff-&gt;days == 1) {
             return "gestern";
-        } elseif ($diff->days <= 7) {
-            return "vor {$diff->days} Tagen";
+        } elseif ($diff-&gt;days &lt;= 7) {
+            return "vor {$diff-&gt;days} Tagen";
         } else {
-            return $date->format($format);
+            return $date-&gt;format($format);
         }
     }
 }
@@ -908,9 +908,9 @@ $processor = new ArticleProcessor();
 
 // Beispiel-Artikel
 $artikel = [
-    "title" => "Die Zukunft der Künstlichen Intelligenz & Machine Learning",
-    "content" => "&lt;p&gt;Künstliche Intelligenz (KI) wird unsere Welt grundlegend verändern. Von autonomen Fahrzeugen bis hin zu intelligenten Haushalten - die Möglichkeiten sind endlos.&lt;/p&gt;&lt;p&gt;Machine Learning Algorithmen werden immer besser darin, komplexe Muster zu erkennen und Vorhersagen zu treffen. Dies eröffnet neue Möglichkeiten in der Medizin, im Finanzwesen und vielen anderen Bereichen.&lt;/p&gt;&lt;p&gt;Mehr Infos unter: https://www.ki-beispiel.de&lt;/p&gt;",
-    "created_at" => "2024-08-30 14:30:00"
+    "title" =&gt; "Die Zukunft der Künstlichen Intelligenz & Machine Learning",
+    "content" =&gt; "&lt;p&gt;Künstliche Intelligenz (KI) wird unsere Welt grundlegend verändern. Von autonomen Fahrzeugen bis hin zu intelligenten Haushalten - die Möglichkeiten sind endlos.&lt;/p&gt;&lt;p&gt;Machine Learning Algorithmen werden immer besser darin, komplexe Muster zu erkennen und Vorhersagen zu treffen. Dies eröffnet neue Möglichkeiten in der Medizin, im Finanzwesen und vielen anderen Bereichen.&lt;/p&gt;&lt;p&gt;Mehr Infos unter: https://www.ki-beispiel.de&lt;/p&gt;",
+    "created_at" =&gt; "2024-08-30 14:30:00"
 ];
 
 echo "&lt;div class='card mb-4'&gt;";
@@ -918,31 +918,31 @@ echo "&lt;div class='card-header'&gt;";
 echo "&lt;h3&gt;" . htmlspecialchars($artikel["title"]) . "&lt;/h3&gt;";
 
 // Slug erstellen
-$slug = $processor->create_slug($artikel["title"]);
+$slug = $processor-&gt;create_slug($artikel["title"]);
 echo "&lt;small class='text-muted'&gt;URL-Slug: " . $slug . "&lt;/small&gt;&lt;br&gt;";
 
 // Lesedauer
-$reading_time = $processor->generate_reading_time($artikel["content"]);
+$reading_time = $processor-&gt;generate_reading_time($artikel["content"]);
 echo "&lt;small class='text-muted'&gt;Lesedauer: " . $reading_time . "&lt;/small&gt;&lt;br&gt;";
 
 // Datum formatieren
-$formatted_date = $processor->format_publish_date($artikel["created_at"]);
+$formatted_date = $processor-&gt;format_publish_date($artikel["created_at"]);
 echo "&lt;small class='text-muted'&gt;Veröffentlicht: " . $formatted_date . "&lt;/small&gt;";
 
 echo "&lt;/div&gt;";
 echo "&lt;div class='card-body'&gt;";
 
 // Excerpt erstellen
-$excerpt = $processor->create_excerpt($artikel["content"], 30);
+$excerpt = $processor-&gt;create_excerpt($artikel["content"], 30);
 echo "&lt;p class='lead'&gt;" . htmlspecialchars($excerpt) . "&lt;/p&gt;";
 
 // Vollständigen Inhalt verarbeiten
-$processed_content = $processor->process_content($artikel["content"]);
+$processed_content = $processor-&gt;process_content($artikel["content"]);
 echo "&lt;div&gt;" . $processed_content . "&lt;/div&gt;";
 
 // Suchterm hervorheben (Beispiel)
 $search_term = "Machine Learning";
-$highlighted = $processor->highlight_search_term($processed_content, $search_term);
+$highlighted = $processor-&gt;highlight_search_term($processed_content, $search_term);
 echo "&lt;hr&gt;&lt;h4&gt;Mit hervorgehobenem Suchbegriff '$search_term':&lt;/h4&gt;";
 echo "&lt;div&gt;" . $highlighted . "&lt;/div&gt;";
 

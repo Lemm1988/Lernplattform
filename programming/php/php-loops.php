@@ -84,7 +84,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $counter = 1;
 
-while ($counter <= 5) {
+while ($counter &lt;= 5) {
     echo "Durchlauf $counter&lt;br&gt;";
     $counter++;  // WICHTIG: Zähler erhöhen!
 }
@@ -104,7 +104,7 @@ $gekauft = 0;
 
 echo "💰 Startgeld: $geld €&lt;br&gt;";
 
-while ($geld >= $preis) {
+while ($geld &gt;= $preis) {
     $geld -= $preis;
     $gekauft++;
     echo "🛒 Artikel $gekauft gekauft - Geld übrig: $geld €&lt;br&gt;";
@@ -137,7 +137,7 @@ echo "&lt;strong&gt;Ergebnis: $gekauft Artikel gekauft!&lt;/strong&gt;";
                                             <div class="card-body">
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 // for (start; bedingung; änderung)
-for ($i = 1; $i <= 10; $i++) {
+for ($i = 1; $i &lt;= 10; $i++) {
     echo "Zahl: $i&lt;br&gt;";
 }
 ?&gt;</code></pre>
@@ -145,7 +145,7 @@ for ($i = 1; $i <= 10; $i++) {
                                         </div>
                                         <ul class="mt-2">
                                             <li><code>$i = 1</code> - Startwert</li>
-                                            <li><code>$i <= 10</code> - Bedingung</li>
+                                            <li><code>$i &lt;= 10</code> - Bedingung</li>
                                             <li><code>$i++</code> - Nach jedem Durchlauf</li>
                                         </ul>
                                     </div>
@@ -157,8 +157,8 @@ for ($i = 1; $i <= 10; $i++) {
 echo "&lt;h3&gt;🚀 Raketen-Start:&lt;/h3&gt;";
 
 // Rückwärts zählen
-for ($i = 10; $i >= 0; $i--) {
-    if ($i > 0) {
+for ($i = 10; $i &gt;= 0; $i--) {
+    if ($i &gt; 0) {
         echo "&lt;div class='alert alert-warning'&gt;$i...&lt;/div&gt;";
     } else {
         echo "&lt;div class='alert alert-success'&gt;🚀 START!&lt;/div&gt;";
@@ -167,7 +167,7 @@ for ($i = 10; $i >= 0; $i--) {
 
 // Zweier-Schritte
 echo "&lt;h4&gt;Gerade Zahlen 2-20:&lt;/h4&gt;";
-for ($i = 2; $i <= 20; $i += 2) {
+for ($i = 2; $i &lt;= 20; $i += 2) {
     echo "$i ";
 }
 ?&gt;</code></pre>
@@ -200,7 +200,7 @@ echo "&lt;/ul&gt;";
 
 // Mit Index
 echo "&lt;h4&gt;📊 Mit Nummern:&lt;/h4&gt;";
-foreach ($obst as $index => $frucht) {
+foreach ($obst as $index =&gt; $frucht) {
     $nummer = $index + 1;
     echo "$nummer. $frucht&lt;br&gt;";
 }
@@ -214,17 +214,17 @@ foreach ($obst as $index => $frucht) {
                                             <div class="card-body">
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $person = [
-    "Name" => "Max Mustermann",
-    "Alter" => 28,
-    "Stadt" => "Berlin",
-    "Beruf" => "Entwickler"
+    "Name" =&gt; "Max Mustermann",
+    "Alter" =&gt; 28,
+    "Stadt" =&gt; "Berlin",
+    "Beruf" =&gt; "Entwickler"
 ];
 
 echo "&lt;div class='card'&gt;";
 echo "&lt;div class='card-header'&gt;👤 Personendaten&lt;/div&gt;";
 echo "&lt;div class='card-body'&gt;";
 
-foreach ($person as $eigenschaft => $wert) {
+foreach ($person as $eigenschaft =&gt; $wert) {
     echo "&lt;p&gt;&lt;strong&gt;$eigenschaft:&lt;/strong&gt; $wert&lt;/p&gt;";
 }
 
@@ -252,7 +252,7 @@ $zahl = 7;
 echo "&lt;h4&gt;Multiplikationstabelle für $zahl:&lt;/h4&gt;";
 echo "&lt;table class='table'&gt;";
 
-for ($i = 1; $i <= 10; $i++) {
+for ($i = 1; $i &lt;= 10; $i++) {
     $ergebnis = $zahl * $i;
     echo "&lt;tr&gt;";
     echo "&lt;td&gt;$zahl x $i =&lt;/td&gt;";
@@ -275,10 +275,10 @@ echo "&lt;/table&gt;";
                                             <div class="card-body">
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $warenkorb = [
-    "Laptop" => 899.99,
-    "Maus" => 29.99,
-    "Tastatur" => 79.99,
-    "Monitor" => 199.99
+    "Laptop" =&gt; 899.99,
+    "Maus" =&gt; 29.99,
+    "Tastatur" =&gt; 79.99,
+    "Monitor" =&gt; 199.99
 ];
 
 $gesamt = 0;
@@ -286,7 +286,7 @@ $gesamt = 0;
 echo "&lt;h4&gt;🛒 Ihr Warenkorb:&lt;/h4&gt;";
 echo "&lt;ul class='list-group'&gt;";
 
-foreach ($warenkorb as $produkt => $preis) {
+foreach ($warenkorb as $produkt =&gt; $preis) {
     $gesamt += $preis;
     echo "&lt;li class='list-group-item d-flex justify-content-between'&gt;";
     echo "&lt;span&gt;$produkt&lt;/span&gt;";
@@ -317,7 +317,7 @@ $anzahl = count($bewertungen);
 
 echo "&lt;h4&gt;⭐ Bewertungsübersicht:&lt;/h4&gt;";
 
-foreach ($bewertungen as $index => $sterne) {
+foreach ($bewertungen as $index =&gt; $sterne) {
     $summe += $sterne;
     $stern_anzeige = str_repeat("⭐", $sterne);
     
@@ -355,7 +355,7 @@ $gesucht = 9;
 
 echo "Suche nach $gesucht:&lt;br&gt;";
 
-foreach ($zahlen as $index => $zahl) {
+foreach ($zahlen as $index =&gt; $zahl) {
     echo "Position $index: $zahl&lt;br&gt;";
     
     if ($zahl === $gesucht) {
@@ -370,7 +370,7 @@ while (true) {  // Endlosschleife
     echo "Durchlauf $counter&lt;br&gt;";
     $counter++;
     
-    if ($counter >= 5) {
+    if ($counter &gt;= 5) {
         echo "🛑 Abbruch bei 5 Durchläufen";
         break;
     }
@@ -387,7 +387,7 @@ while (true) {  // Endlosschleife
 // Nur gerade Zahlen anzeigen
 echo "Gerade Zahlen von 1-10:&lt;br&gt;";
 
-for ($i = 1; $i <= 10; $i++) {
+for ($i = 1; $i &lt;= 10; $i++) {
     if ($i % 2 !== 0) {  // Ungerade?
         continue;  // Überspringe diesen Durchlauf
     }
@@ -396,10 +396,10 @@ for ($i = 1; $i <= 10; $i++) {
 
 // Fehlerhafte Daten überspringen
 $benutzer = [
-    ["name" => "Max", "email" => "max@test.de"],
-    ["name" => "", "email" => "invalid"],  // Fehlerhaft
-    ["name" => "Anna", "email" => "anna@test.de"],
-    ["name" => "Tom", "email" => ""]  // Fehlerhaft
+    ["name" =&gt; "Max", "email" =&gt; "max@test.de"],
+    ["name" =&gt; "", "email" =&gt; "invalid"],  // Fehlerhaft
+    ["name" =&gt; "Anna", "email" =&gt; "anna@test.de"],
+    ["name" =&gt; "Tom", "email" =&gt; ""]  // Fehlerhaft
 ];
 
 echo "&lt;h4&gt;Gültige Benutzer:&lt;/h4&gt;";
@@ -433,17 +433,17 @@ echo "&lt;table class='table table-bordered'&gt;";
 echo "&lt;thead&gt;&lt;tr&gt;&lt;th&gt;x&lt;/th&gt;";
 
 // Kopfzeile erstellen
-for ($i = 1; $i <= 5; $i++) {
+for ($i = 1; $i &lt;= 5; $i++) {
     echo "&lt;th&gt;$i&lt;/th&gt;";
 }
 echo "&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
 
 // Zeilen erstellen
-for ($zeile = 1; $zeile <= 5; $zeile++) {
+for ($zeile = 1; $zeile &lt;= 5; $zeile++) {
     echo "&lt;tr&gt;&lt;th&gt;$zeile&lt;/th&gt;";
     
     // Spalten in jeder Zeile
-    for ($spalte = 1; $spalte <= 5; $spalte++) {
+    for ($spalte = 1; $spalte &lt;= 5; $spalte++) {
         $ergebnis = $zeile * $spalte;
         
         // Spezielle Formatierung für Quadratzahlen
@@ -461,9 +461,9 @@ echo "&lt;/tbody&gt;&lt;/table&gt;";
 echo "&lt;h4&gt;♟️ Schachbrett-Muster:&lt;/h4&gt;";
 echo "&lt;table class='table table-bordered' style='width:200px; height:200px;'&gt;";
 
-for ($zeile = 1; $zeile <= 8; $zeile++) {
+for ($zeile = 1; $zeile &lt;= 8; $zeile++) {
     echo "&lt;tr&gt;";
-    for ($spalte = 1; $spalte <= 8; $spalte++) {
+    for ($spalte = 1; $spalte &lt;= 8; $spalte++) {
         $klasse = (($zeile + $spalte) % 2 == 0) ? 'table-dark' : 'table-light';
         echo "&lt;td class='$klasse'&gt;&amp;nbsp;&lt;/td&gt;";
     }
@@ -492,7 +492,7 @@ $array = range(1, 1000);
 
 // Array-Länge außerhalb der Schleife berechnen
 $length = count($array);
-for ($i = 0; $i < $length; $i++) {
+for ($i = 0; $i &lt; $length; $i++) {
     // Verarbeitung...
 }
 
@@ -503,7 +503,7 @@ foreach ($array as $value) {
 
 // Frühzeitiger Ausstieg mit break
 foreach ($array as $value) {
-    if ($value > 100) {
+    if ($value &gt; 100) {
         break;  // Nicht alle durchgehen
     }
 }
@@ -526,12 +526,12 @@ foreach ($array as $value) {
 $array = range(1, 1000);
 
 // SCHLECHT: count() in jedem Durchlauf
-for ($i = 0; $i < count($array); $i++) {
+for ($i = 0; $i &lt; count($array); $i++) {
     // count() wird 1000x aufgerufen!
 }
 
 // SCHLECHT: Komplexe Berechnungen in Bedingung
-for ($i = 0; $i < (count($array) * 2 + 10); $i++) {
+for ($i = 0; $i &lt; (count($array) * 2 + 10); $i++) {
     // Berechnung bei jedem Durchlauf
 }
 
@@ -561,32 +561,32 @@ foreach ($big_array as $item1) {
                                         <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $produkte = [
     [
-        "name" => "Gaming Laptop",
-        "preis" => 1299.99,
-        "kategorie" => "Computer",
-        "lager" => 5,
-        "bewertung" => 4.8
+        "name" =&gt; "Gaming Laptop",
+        "preis" =&gt; 1299.99,
+        "kategorie" =&gt; "Computer",
+        "lager" =&gt; 5,
+        "bewertung" =&gt; 4.8
     ],
     [
-        "name" => "Wireless Maus",
-        "preis" => 79.99,
-        "kategorie" => "Zubehör",
-        "lager" => 0,  // Ausverkauft
-        "bewertung" => 4.2
+        "name" =&gt; "Wireless Maus",
+        "preis" =&gt; 79.99,
+        "kategorie" =&gt; "Zubehör",
+        "lager" =&gt; 0,  // Ausverkauft
+        "bewertung" =&gt; 4.2
     ],
     [
-        "name" => "4K Monitor",
-        "preis" => 399.99,
-        "kategorie" => "Monitor",
-        "lager" => 12,
-        "bewertung" => 4.9
+        "name" =&gt; "4K Monitor",
+        "preis" =&gt; 399.99,
+        "kategorie" =&gt; "Monitor",
+        "lager" =&gt; 12,
+        "bewertung" =&gt; 4.9
     ],
     [
-        "name" => "Mechanical Keyboard",
-        "preis" => 159.99,
-        "kategorie" => "Zubehör", 
-        "lager" => 8,
-        "bewertung" => 4.5
+        "name" =&gt; "Mechanical Keyboard",
+        "preis" =&gt; 159.99,
+        "kategorie" =&gt; "Zubehör", 
+        "lager" =&gt; 8,
+        "bewertung" =&gt; 4.5
     ]
 ];
 
@@ -618,7 +618,7 @@ foreach ($kategorien as $kategorie) {
         $kategorie_anzahl++;
         
         // Verfügbarkeits-Status
-        if ($produkt['lager'] > 0) {
+        if ($produkt['lager'] &gt; 0) {
             $status = "&lt;span class='badge bg-success'&gt;Verfügbar ({$produkt['lager']}x)&lt;/span&gt;";
         } else {
             $status = "&lt;span class='badge bg-danger'&gt;Ausverkauft&lt;/span&gt;";
@@ -627,8 +627,8 @@ foreach ($kategorien as $kategorie) {
         // Sterne anzeigen
         $sterne = "";
         $volle_sterne = floor($produkt['bewertung']);
-        for ($i = 1; $i <= 5; $i++) {
-            if ($i <= $volle_sterne) {
+        for ($i = 1; $i &lt;= 5; $i++) {
+            if ($i &lt;= $volle_sterne) {
                 $sterne .= "⭐";
             } else {
                 $sterne .= "⚪";
@@ -646,7 +646,7 @@ foreach ($kategorien as $kategorie) {
     }
     
     // Kategorie-Statistik
-    if ($kategorie_anzahl > 0) {
+    if ($kategorie_anzahl &gt; 0) {
         $durchschnitt = $kategorie_gesamt / $kategorie_anzahl;
         echo "&lt;div class='alert alert-info'&gt;";
         echo "&lt;small&gt;&lt;strong&gt;Kategorie-Statistik:&lt;/strong&gt;&lt;br&gt;";

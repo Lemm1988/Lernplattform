@@ -18,7 +18,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-database'); ?>
+                        <?php renderNavigation('php-datab'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-server me-2"></i>PHP Datenbank</h1>
@@ -103,12 +103,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 // Datenbankverbindung konfigurieren
 $config = [
-    'host' => 'localhost',
-    'dbname' => 'meine_datenbank',
-    'username' => 'db_benutzer',
-    'password' => 'sicheres_passwort',
-    'charset' => 'utf8mb4',
-    'port' => 3306
+    'host' =&gt; 'localhost',
+    'dbname' =&gt; 'meine_datenbank',
+    'username' =&gt; 'db_benutzer',
+    'password' =&gt; 'sicheres_passwort',
+    'charset' =&gt; 'utf8mb4',
+    'port' =&gt; 3306
 ];
 
 try {
@@ -116,11 +116,11 @@ try {
     $dsn = "mysql:host={$config['host']};port={$config['port']};dbname={$config['dbname']};charset={$config['charset']}";
     
     $options = [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,        // Exceptions bei Fehlern
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,   // Assoziative Arrays
-        PDO::ATTR_EMULATE_PREPARES => false,                // Echte Prepared Statements
-        PDO::ATTR_PERSISTENT => false,                      // Keine persistenten Verbindungen
-        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES {$config['charset']} COLLATE utf8mb4_unicode_ci"
+        PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,        // Exceptions bei Fehlern
+        PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC,   // Assoziative Arrays
+        PDO::ATTR_EMULATE_PREPARES =&gt; false,                // Echte Prepared Statements
+        PDO::ATTR_PERSISTENT =&gt; false,                      // Keine persistenten Verbindungen
+        PDO::MYSQL_ATTR_INIT_COMMAND =&gt; "SET NAMES {$config['charset']} COLLATE utf8mb4_unicode_ci"
     ];
     
     $pdo = new PDO($dsn, $config['username'], $config['password'], $options);
@@ -129,7 +129,7 @@ try {
     
 } catch (PDOException $e) {
     // Verbindungsfehler abfangen
-    error_log("DB-Verbindungsfehler: " . $e->getMessage());
+    error_log("DB-Verbindungsfehler: " . $e-&gt;getMessage());
     die("❌ Datenbankverbindung fehlgeschlagen. Bitte versuchen Sie es später erneut.");
 }
 
@@ -139,70 +139,70 @@ class Database {
     private $config;
     
     public function __construct($config) {
-        $this->config = $config;
-        $this->connect();
+        $this-&gt;config = $config;
+        $this-&gt;connect();
     }
     
     private function connect() {
         try {
-            $dsn = "mysql:host={$this->config['host']};port={$this->config['port']};dbname={$this->config['dbname']};charset={$this->config['charset']}";
+            $dsn = "mysql:host={$this-&gt;config['host']};port={$this-&gt;config['port']};dbname={$this-&gt;config['dbname']};charset={$this-&gt;config['charset']}";
             
             $options = [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-                PDO::ATTR_PERSISTENT => false
+                PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC,
+                PDO::ATTR_EMULATE_PREPARES =&gt; false,
+                PDO::ATTR_PERSISTENT =&gt; false
             ];
             
-            $this->pdo = new PDO($dsn, $this->config['username'], $this->config['password'], $options);
+            $this-&gt;pdo = new PDO($dsn, $this-&gt;config['username'], $this-&gt;config['password'], $options);
             
         } catch (PDOException $e) {
-            error_log("Datenbankfehler: " . $e->getMessage());
+            error_log("Datenbankfehler: " . $e-&gt;getMessage());
             throw new Exception("Datenbankverbindung fehlgeschlagen");
         }
     }
     
     public function getPdo() {
-        return $this->pdo;
+        return $this-&gt;pdo;
     }
     
     public function getLastInsertId() {
-        return $this->pdo->lastInsertId();
+        return $this-&gt;pdo-&gt;lastInsertId();
     }
     
     public function beginTransaction() {
-        return $this->pdo->beginTransaction();
+        return $this-&gt;pdo-&gt;beginTransaction();
     }
     
     public function commit() {
-        return $this->pdo->commit();
+        return $this-&gt;pdo-&gt;commit();
     }
     
     public function rollback() {
-        return $this->pdo->rollback();
+        return $this-&gt;pdo-&gt;rollback();
     }
     
     public function query($sql, $params = []) {
         try {
-            $stmt = $this->pdo->prepare($sql);
-            $stmt->execute($params);
+            $stmt = $this-&gt;pdo-&gt;prepare($sql);
+            $stmt-&gt;execute($params);
             return $stmt;
         } catch (PDOException $e) {
-            error_log("SQL-Fehler: " . $e->getMessage() . " | SQL: " . $sql);
+            error_log("SQL-Fehler: " . $e-&gt;getMessage() . " | SQL: " . $sql);
             throw new Exception("Datenbankabfrage fehlgeschlagen");
         }
     }
     
     public function fetch($sql, $params = []) {
-        return $this->query($sql, $params)->fetch();
+        return $this-&gt;query($sql, $params)-&gt;fetch();
     }
     
     public function fetchAll($sql, $params = []) {
-        return $this->query($sql, $params)->fetchAll();
+        return $this-&gt;query($sql, $params)-&gt;fetchAll();
     }
     
     public function execute($sql, $params = []) {
-        return $this->query($sql, $params)->rowCount();
+        return $this-&gt;query($sql, $params)-&gt;rowCount();
     }
 }
 
@@ -211,11 +211,11 @@ $db = new Database($config);
 
 // Verbindungstest
 try {
-    $result = $db->fetch("SELECT VERSION() as mysql_version, NOW() as current_time");
+    $result = $db-&gt;fetch("SELECT VERSION() as mysql_version, NOW() as current_time");
     echo "📊 MySQL Version: {$result['mysql_version']}\n";
     echo "🕐 Server-Zeit: {$result['current_time']}\n";
 } catch (Exception $e) {
-    echo "❌ Verbindungstest fehlgeschlagen: " . $e->getMessage() . "\n";
+    echo "❌ Verbindungstest fehlgeschlagen: " . $e-&gt;getMessage() . "\n";
 }
 ?&gt;</code></pre>
                                             </div>
@@ -231,43 +231,43 @@ class DatabaseConfig {
     
     public static function getConfig($environment = 'development') {
         $configs = [
-            'development' => [
-                'host' => 'localhost',
-                'dbname' => 'dev_database',
-                'username' => 'dev_user',
-                'password' => 'dev_pass',
-                'charset' => 'utf8mb4',
-                'port' => 3306,
-                'options' => [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
+            'development' =&gt; [
+                'host' =&gt; 'localhost',
+                'dbname' =&gt; 'dev_database',
+                'username' =&gt; 'dev_user',
+                'password' =&gt; 'dev_pass',
+                'charset' =&gt; 'utf8mb4',
+                'port' =&gt; 3306,
+                'options' =&gt; [
+                    PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC,
+                    PDO::MYSQL_ATTR_INIT_COMMAND =&gt; "SET NAMES utf8mb4"
                 ]
             ],
-            'production' => [
-                'host' => 'prod-db-server.com',
-                'dbname' => 'production_db',
-                'username' => getenv('DB_USERNAME') ?: 'prod_user',
-                'password' => getenv('DB_PASSWORD') ?: 'secure_prod_pass',
-                'charset' => 'utf8mb4',
-                'port' => 3306,
-                'options' => [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_PERSISTENT => true,  // Persistente Verbindungen in Produktion
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
+            'production' =&gt; [
+                'host' =&gt; 'prod-db-server.com',
+                'dbname' =&gt; 'production_db',
+                'username' =&gt; getenv('DB_USERNAME') ?: 'prod_user',
+                'password' =&gt; getenv('DB_PASSWORD') ?: 'secure_prod_pass',
+                'charset' =&gt; 'utf8mb4',
+                'port' =&gt; 3306,
+                'options' =&gt; [
+                    PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC,
+                    PDO::ATTR_PERSISTENT =&gt; true,  // Persistente Verbindungen in Produktion
+                    PDO::MYSQL_ATTR_INIT_COMMAND =&gt; "SET NAMES utf8mb4"
                 ]
             ],
-            'testing' => [
-                'host' => 'localhost',
-                'dbname' => 'test_database',
-                'username' => 'test_user',
-                'password' => 'test_pass',
-                'charset' => 'utf8mb4',
-                'port' => 3306,
-                'options' => [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            'testing' =&gt; [
+                'host' =&gt; 'localhost',
+                'dbname' =&gt; 'test_database',
+                'username' =&gt; 'test_user',
+                'password' =&gt; 'test_pass',
+                'charset' =&gt; 'utf8mb4',
+                'port' =&gt; 3306,
+                'options' =&gt; [
+                    PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC
                 ]
             ]
         ];
@@ -283,7 +283,7 @@ class ConnectionPool {
     
     public static function getInstance($config_name = 'default') {
         if (!isset(self::$instances[$config_name])) {
-            if (count(self::$instances) >= self::$maxConnections) {
+            if (count(self::$instances) &gt;= self::$maxConnections) {
                 throw new Exception("Maximale Anzahl DB-Verbindungen erreicht");
             }
             
@@ -304,7 +304,7 @@ try {
     $db = ConnectionPool::getInstance('main');
     echo "✅ Verbindung aus Pool erhalten\n";
 } catch (Exception $e) {
-    echo "❌ Verbindungsfehler: " . $e->getMessage() . "\n";
+    echo "❌ Verbindungsfehler: " . $e-&gt;getMessage() . "\n";
 }
 
 // Health-Check Funktion
@@ -313,25 +313,25 @@ function database_health_check($db) {
     
     try {
         // Verbindung testen
-        $result = $db->fetch("SELECT 1 as test");
+        $result = $db-&gt;fetch("SELECT 1 as test");
         $checks['connection'] = $result['test'] === 1;
         
         // Tabellen-Zugriff testen
-        $tables = $db->fetchAll("SHOW TABLES");
-        $checks['tables_accessible'] = count($tables) >= 0;
+        $tables = $db-&gt;fetchAll("SHOW TABLES");
+        $checks['tables_accessible'] = count($tables) &gt;= 0;
         
         // Performance-Test (einfache Abfrage)
         $start = microtime(true);
-        $db->fetch("SELECT NOW()");
+        $db-&gt;fetch("SELECT NOW()");
         $end = microtime(true);
         $checks['query_time'] = round(($end - $start) * 1000, 2); // ms
         
         // Speicher-Info
-        $memory = $db->fetch("SHOW STATUS LIKE 'Innodb_buffer_pool_pages_free'");
+        $memory = $db-&gt;fetch("SHOW STATUS LIKE 'Innodb_buffer_pool_pages_free'");
         $checks['memory_available'] = isset($memory['Value']);
         
     } catch (Exception $e) {
-        $checks['error'] = $e->getMessage();
+        $checks['error'] = $e-&gt;getMessage();
     }
     
     return $checks;
@@ -340,7 +340,7 @@ function database_health_check($db) {
 // Health-Check durchführen
 $health = database_health_check($db);
 echo "\n🏥 Datenbank Health-Check:\n";
-foreach ($health as $check => $result) {
+foreach ($health as $check =&gt; $result) {
     if ($check === 'error') {
         echo "❌ Error: $result\n";
     } elseif ($check === 'query_time') {
@@ -383,10 +383,10 @@ CREATE TABLE IF NOT EXISTS users (
 )";
 
 try {
-    $db->execute($create_table_sql);
+    $db-&gt;execute($create_table_sql);
     echo "✅ Tabelle 'users' bereit\n";
 } catch (Exception $e) {
-    echo "⚠️ Tabelle konnte nicht erstellt werden: " . $e->getMessage() . "\n";
+    echo "⚠️ Tabelle konnte nicht erstellt werden: " . $e-&gt;getMessage() . "\n";
 }
 
 // === READ (SELECT) ===
@@ -400,9 +400,9 @@ function getAllUsers($db, $limit = 50, $offset = 0) {
             ORDER BY created_at DESC 
             LIMIT :limit OFFSET :offset";
     
-    return $db->fetchAll($sql, [
-        ':limit' => (int)$limit,
-        ':offset' => (int)$offset
+    return $db-&gt;fetchAll($sql, [
+        ':limit' =&gt; (int)$limit,
+        ':offset' =&gt; (int)$offset
     ]);
 }
 
@@ -413,7 +413,7 @@ function getUserById($db, $user_id) {
             FROM users 
             WHERE id = :id AND is_active = 1";
     
-    return $db->fetch($sql, [':id' => (int)$user_id]);
+    return $db-&gt;fetch($sql, [':id' =&gt; (int)$user_id]);
 }
 
 // Benutzer nach Username suchen
@@ -423,7 +423,7 @@ function getUserByUsername($db, $username) {
             FROM users 
             WHERE username = :username";
     
-    return $db->fetch($sql, [':username' => $username]);
+    return $db-&gt;fetch($sql, [':username' =&gt; $username]);
 }
 
 // Benutzer suchen mit Filtern
@@ -450,7 +450,7 @@ function searchUsers($db, $search_term = '', $active_only = true) {
             $where_clause
             ORDER BY username ASC";
     
-    return $db->fetchAll($sql, $params);
+    return $db-&gt;fetchAll($sql, $params);
 }
 
 // Erweiterte Abfragen mit JOINs
@@ -464,7 +464,7 @@ function getUsersWithStats($db) {
             GROUP BY u.id
             ORDER BY last_login DESC";
     
-    return $db->fetchAll($sql);
+    return $db-&gt;fetchAll($sql);
 }
 
 // Paginierung mit Zählung
@@ -473,8 +473,8 @@ function getUsersPaginated($db, $page = 1, $per_page = 10, $search = '') {
     
     $conditions = [];
     $params = [
-        ':limit' => (int)$per_page,
-        ':offset' => (int)$offset
+        ':limit' =&gt; (int)$per_page,
+        ':offset' =&gt; (int)$offset
     ];
     
     if (!empty($search)) {
@@ -494,23 +494,23 @@ function getUsersPaginated($db, $page = 1, $per_page = 10, $search = '') {
             ORDER BY created_at DESC 
             LIMIT :limit OFFSET :offset";
     
-    $users = $db->fetchAll($sql, $params);
+    $users = $db-&gt;fetchAll($sql, $params);
     
     // Gesamtanzahl ermitteln
     $count_sql = "SELECT COUNT(*) as total FROM users $where_clause";
     $count_params = $params;
     unset($count_params[':limit'], $count_params[':offset']);
     
-    $total = $db->fetch($count_sql, $count_params)['total'];
+    $total = $db-&gt;fetch($count_sql, $count_params)['total'];
     
     return [
-        'data' => $users,
-        'pagination' => [
-            'current_page' => $page,
-            'per_page' => $per_page,
-            'total' => (int)$total,
-            'total_pages' => ceil($total / $per_page),
-            'has_more' => ($page * $per_page) < $total
+        'data' =&gt; $users,
+        'pagination' =&gt; [
+            'current_page' =&gt; $page,
+            'per_page' =&gt; $per_page,
+            'total' =&gt; (int)$total,
+            'total_pages' =&gt; ceil($total / $per_page),
+            'has_more' =&gt; ($page * $per_page) &lt; $total
         ]
     ];
 }
@@ -527,7 +527,7 @@ try {
          "{$paginated['pagination']['total_pages']} Seiten\n";
     
 } catch (Exception $e) {
-    echo "❌ Fehler beim Lesen: " . $e->getMessage() . "\n";
+    echo "❌ Fehler beim Lesen: " . $e-&gt;getMessage() . "\n";
 }
 ?&gt;</code></pre>
                                             </div>
@@ -568,25 +568,25 @@ function createUser($db, $user_data) {
             VALUES (:username, :email, :password_hash, :first_name, :last_name)";
     
     $params = [
-        ':username' => $user_data['username'],
-        ':email' => $user_data['email'],
-        ':password_hash' => $password_hash,
-        ':first_name' => $user_data['first_name'] ?? null,
-        ':last_name' => $user_data['last_name'] ?? null
+        ':username' =&gt; $user_data['username'],
+        ':email' =&gt; $user_data['email'],
+        ':password_hash' =&gt; $password_hash,
+        ':first_name' =&gt; $user_data['first_name'] ?? null,
+        ':last_name' =&gt; $user_data['last_name'] ?? null
     ];
     
-    $db->execute($sql, $params);
+    $db-&gt;execute($sql, $params);
     
     return [
-        'success' => true,
-        'user_id' => $db->getLastInsertId(),
-        'message' => 'Benutzer erfolgreich erstellt'
+        'success' =&gt; true,
+        'user_id' =&gt; $db-&gt;getLastInsertId(),
+        'message' =&gt; 'Benutzer erfolgreich erstellt'
     ];
 }
 
 // Mehrere Datensätze auf einmal einfügen
 function createMultipleUsers($db, $users_data) {
-    $db->beginTransaction();
+    $db-&gt;beginTransaction();
     
     try {
         $created_users = [];
@@ -596,16 +596,16 @@ function createMultipleUsers($db, $users_data) {
             $created_users[] = $result['user_id'];
         }
         
-        $db->commit();
+        $db-&gt;commit();
         
         return [
-            'success' => true,
-            'created_count' => count($created_users),
-            'user_ids' => $created_users
+            'success' =&gt; true,
+            'created_count' =&gt; count($created_users),
+            'user_ids' =&gt; $created_users
         ];
         
     } catch (Exception $e) {
-        $db->rollback();
+        $db-&gt;rollback();
         throw $e;
     }
 }
@@ -623,9 +623,9 @@ function updateUser($db, $user_id, $update_data) {
     // Erlaubte Felder für Update
     $allowed_fields = ['username', 'email', 'first_name', 'last_name', 'is_active'];
     $update_fields = [];
-    $params = [':id' => (int)$user_id];
+    $params = [':id' =&gt; (int)$user_id];
     
-    foreach ($update_data as $field => $value) {
+    foreach ($update_data as $field =&gt; $value) {
         if (in_array($field, $allowed_fields)) {
             // Spezielle Validierung
             if ($field === 'email' && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
@@ -634,9 +634,9 @@ function updateUser($db, $user_id, $update_data) {
             
             if ($field === 'username') {
                 // Prüfen ob neuer Username bereits vergeben
-                $existing = $db->fetch(
+                $existing = $db-&gt;fetch(
                     "SELECT id FROM users WHERE username = :username AND id != :current_id",
-                    [':username' => $value, ':current_id' => $user_id]
+                    [':username' =&gt; $value, ':current_id' =&gt; $user_id]
                 );
                 if ($existing) {
                     throw new Exception("Benutzername bereits vergeben");
@@ -655,20 +655,20 @@ function updateUser($db, $user_id, $update_data) {
     $sql = "UPDATE users SET " . implode(', ', $update_fields) . " 
             WHERE id = :id";
     
-    $rows_affected = $db->execute($sql, $params);
+    $rows_affected = $db-&gt;execute($sql, $params);
     
     return [
-        'success' => true,
-        'rows_affected' => $rows_affected,
-        'message' => 'Benutzer erfolgreich aktualisiert'
+        'success' =&gt; true,
+        'rows_affected' =&gt; $rows_affected,
+        'message' =&gt; 'Benutzer erfolgreich aktualisiert'
     ];
 }
 
 // Passwort ändern (separater Vorgang)
 function changePassword($db, $user_id, $old_password, $new_password) {
-    $user = $db->fetch(
+    $user = $db-&gt;fetch(
         "SELECT password_hash FROM users WHERE id = :id",
-        [':id' => $user_id]
+        [':id' =&gt; $user_id]
     );
     
     if (!$user) {
@@ -681,41 +681,41 @@ function changePassword($db, $user_id, $old_password, $new_password) {
     }
     
     // Neues Passwort validieren
-    if (strlen($new_password) < 8) {
+    if (strlen($new_password) &lt; 8) {
         throw new Exception("Neues Passwort muss mindestens 8 Zeichen haben");
     }
     
     $new_hash = password_hash($new_password, PASSWORD_DEFAULT);
     
     $sql = "UPDATE users SET password_hash = :password_hash WHERE id = :id";
-    $db->execute($sql, [
-        ':password_hash' => $new_hash,
-        ':id' => $user_id
+    $db-&gt;execute($sql, [
+        ':password_hash' =&gt; $new_hash,
+        ':id' =&gt; $user_id
     ]);
     
-    return ['success' => true, 'message' => 'Passwort erfolgreich geändert'];
+    return ['success' =&gt; true, 'message' =&gt; 'Passwort erfolgreich geändert'];
 }
 
 // === DELETE ===
 
 // Benutzer deaktivieren (Soft-Delete)
 function deactivateUser($db, $user_id) {
-    return updateUser($db, $user_id, ['is_active' => 0]);
+    return updateUser($db, $user_id, ['is_active' =&gt; 0]);
 }
 
 // Benutzer permanent löschen (Hard-Delete)
 function deleteUser($db, $user_id) {
     $sql = "DELETE FROM users WHERE id = :id";
     
-    $rows_affected = $db->execute($sql, [':id' => (int)$user_id]);
+    $rows_affected = $db-&gt;execute($sql, [':id' =&gt; (int)$user_id]);
     
     if ($rows_affected === 0) {
         throw new Exception("Benutzer nicht gefunden oder bereits gelöscht");
     }
     
     return [
-        'success' => true,
-        'message' => 'Benutzer permanent gelöscht'
+        'success' =&gt; true,
+        'message' =&gt; 'Benutzer permanent gelöscht'
     ];
 }
 
@@ -723,11 +723,11 @@ function deleteUser($db, $user_id) {
 try {
     // Neuen Benutzer erstellen
     $new_user_data = [
-        'username' => 'testuser_' . time(),
-        'email' => 'test' . time() . '@example.com',
-        'password' => 'sicheres_passwort123',
-        'first_name' => 'Test',
-        'last_name' => 'Benutzer'
+        'username' =&gt; 'testuser_' . time(),
+        'email' =&gt; 'test' . time() . '@example.com',
+        'password' =&gt; 'sicheres_passwort123',
+        'first_name' =&gt; 'Test',
+        'last_name' =&gt; 'Benutzer'
     ];
     
     $result = createUser($db, $new_user_data);
@@ -735,7 +735,7 @@ try {
     
     // Benutzer aktualisieren
     $update_result = updateUser($db, $result['user_id'], [
-        'first_name' => 'Aktualisierter Test'
+        'first_name' =&gt; 'Aktualisierter Test'
     ]);
     echo "✅ Benutzer aktualisiert\n";
     
@@ -744,7 +744,7 @@ try {
     echo "✅ Benutzer deaktiviert\n";
     
 } catch (Exception $e) {
-    echo "❌ Fehler bei CRUD-Operation: " . $e->getMessage() . "\n";
+    echo "❌ Fehler bei CRUD-Operation: " . $e-&gt;getMessage() . "\n";
 }
 ?&gt;</code></pre>
                                             </div>
@@ -829,7 +829,7 @@ class SecureDatabaseQueries {
     private $db;
     
     public function __construct($database) {
-        $this->db = $database;
+        $this-&gt;db = $database;
     }
     
     // Sichere Benutzer-Authentifizierung
@@ -839,7 +839,7 @@ class SecureDatabaseQueries {
                 FROM users 
                 WHERE username = :username AND is_active = 1";
         
-        $user = $this->db->fetch($sql, [':username' => $username]);
+        $user = $this-&gt;db-&gt;fetch($sql, [':username' =&gt; $username]);
         
         if ($user && password_verify($password, $user['password_hash'])) {
             return $user;
@@ -854,7 +854,7 @@ class SecureDatabaseQueries {
                 FROM products 
                 WHERE name LIKE :search";
         
-        $params = [':search' => '%' . $search_term . '%'];
+        $params = [':search' =&gt; '%' . $search_term . '%'];
         
         // Optionaler Kategorie-Filter
         if ($category_id !== null) {
@@ -862,7 +862,7 @@ class SecureDatabaseQueries {
             $params[':category_id'] = (int)$category_id;
         }
         
-        return $this->db->fetchAll($sql, $params);
+        return $this-&gt;db-&gt;fetchAll($sql, $params);
     }
     
     // Sichere dynamische WHERE-Bedingungen
@@ -886,7 +886,7 @@ class SecureDatabaseQueries {
         }
         
         if (!empty($filters['created_after'])) {
-            $conditions[] = "created_at >= :created_after";
+            $conditions[] = "created_at &gt;= :created_after";
             $params[':created_after'] = $filters['created_after'];
         }
         
@@ -899,30 +899,30 @@ class SecureDatabaseQueries {
                 $where_clause
                 ORDER BY created_at DESC";
         
-        return $this->db->fetchAll($sql, $params);
+        return $this-&gt;db-&gt;fetchAll($sql, $params);
     }
     
     // Sichere Batch-Updates
     public function updateMultipleUsers($updates) {
-        $this->db->beginTransaction();
+        $this-&gt;db-&gt;beginTransaction();
         
         try {
             $sql = "UPDATE users SET first_name = :first_name, last_name = :last_name 
                     WHERE id = :id";
             
             foreach ($updates as $update) {
-                $this->db->execute($sql, [
-                    ':first_name' => $update['first_name'],
-                    ':last_name' => $update['last_name'],
-                    ':id' => (int)$update['id']
+                $this-&gt;db-&gt;execute($sql, [
+                    ':first_name' =&gt; $update['first_name'],
+                    ':last_name' =&gt; $update['last_name'],
+                    ':id' =&gt; (int)$update['id']
                 ]);
             }
             
-            $this->db->commit();
+            $this-&gt;db-&gt;commit();
             return true;
             
         } catch (Exception $e) {
-            $this->db->rollback();
+            $this-&gt;db-&gt;rollback();
             throw $e;
         }
     }
@@ -943,7 +943,7 @@ class SecureDatabaseQueries {
                 FROM users 
                 WHERE id IN ($placeholders)";
         
-        return $this->db->fetchAll($sql, $user_ids);
+        return $this-&gt;db-&gt;fetchAll($sql, $user_ids);
     }
     
     // Sichere Sortierung (Whitelist-Ansatz)
@@ -967,7 +967,7 @@ class SecureDatabaseQueries {
                 WHERE is_active = 1 
                 ORDER BY $sort_by $sort_direction";
         
-        return $this->db->fetchAll($sql);
+        return $this-&gt;db-&gt;fetchAll($sql);
     }
 }
 
@@ -977,22 +977,22 @@ $secure_queries = new SecureDatabaseQueries($db);
 // Beispiele für sichere Abfragen
 try {
     // Sichere Suche
-    $search_results = $secure_queries->searchProducts('laptop', 1);
+    $search_results = $secure_queries-&gt;searchProducts('laptop', 1);
     echo "✅ Sichere Produktsuche: " . count($search_results) . " Ergebnisse\n";
     
     // Sichere Benutzer-IDs
-    $users_by_ids = $secure_queries->getUsersByIds([1, 2, 3, 4, 5]);
+    $users_by_ids = $secure_queries-&gt;getUsersByIds([1, 2, 3, 4, 5]);
     echo "✅ Sichere ID-Abfrage: " . count($users_by_ids) . " Benutzer\n";
     
     // Sichere erweiterte Suche
-    $advanced_search = $secure_queries->searchUsersAdvanced([
-        'username' => 'admin',
-        'is_active' => true
+    $advanced_search = $secure_queries-&gt;searchUsersAdvanced([
+        'username' =&gt; 'admin',
+        'is_active' =&gt; true
     ]);
     echo "✅ Sichere erweiterte Suche: " . count($advanced_search) . " Ergebnisse\n";
     
 } catch (Exception $e) {
-    echo "❌ Fehler bei sicherer Abfrage: " . $e->getMessage() . "\n";
+    echo "❌ Fehler bei sicherer Abfrage: " . $e-&gt;getMessage() . "\n";
 }
 
 echo "&lt;div class='alert alert-success'&gt;
@@ -1026,8 +1026,8 @@ class BlogSystem {
     private $db;
     
     public function __construct($database) {
-        $this->db = $database;
-        $this->createTables();
+        $this-&gt;db = $database;
+        $this-&gt;createTables();
     }
     
     private function createTables() {
@@ -1099,9 +1099,9 @@ class BlogSystem {
         
         foreach ($tables as $sql) {
             try {
-                $this->db->execute($sql);
+                $this-&gt;db-&gt;execute($sql);
             } catch (Exception $e) {
-                error_log("Tabellenerstellung fehlgeschlagen: " . $e->getMessage());
+                error_log("Tabellenerstellung fehlgeschlagen: " . $e-&gt;getMessage());
             }
         }
     }
@@ -1118,11 +1118,11 @@ class BlogSystem {
         }
         
         // Slug generieren
-        $slug = $this->generateSlug($data['title']);
+        $slug = $this-&gt;generateSlug($data['title']);
         
         // Excerpt automatisch erstellen falls nicht vorhanden
         if (empty($data['excerpt'])) {
-            $data['excerpt'] = $this->generateExcerpt($data['content']);
+            $data['excerpt'] = $this-&gt;generateExcerpt($data['content']);
         }
         
         $sql = "INSERT INTO blog_posts (title, slug, content, excerpt, author_id, 
@@ -1131,28 +1131,28 @@ class BlogSystem {
                         :category_id, :status, :featured_image, :published_at)";
         
         $params = [
-            ':title' => $data['title'],
-            ':slug' => $slug,
-            ':content' => $data['content'],
-            ':excerpt' => $data['excerpt'],
-            ':author_id' => (int)$data['author_id'],
-            ':category_id' => $data['category_id'] ? (int)$data['category_id'] : null,
-            ':status' => $data['status'] ?? 'draft',
-            ':featured_image' => $data['featured_image'] ?? null,
-            ':published_at' => ($data['status'] === 'published') ? date('Y-m-d H:i:s') : null
+            ':title' =&gt; $data['title'],
+            ':slug' =&gt; $slug,
+            ':content' =&gt; $data['content'],
+            ':excerpt' =&gt; $data['excerpt'],
+            ':author_id' =&gt; (int)$data['author_id'],
+            ':category_id' =&gt; $data['category_id'] ? (int)$data['category_id'] : null,
+            ':status' =&gt; $data['status'] ?? 'draft',
+            ':featured_image' =&gt; $data['featured_image'] ?? null,
+            ':published_at' =&gt; ($data['status'] === 'published') ? date('Y-m-d H:i:s') : null
         ];
         
-        $this->db->execute($sql, $params);
-        $post_id = $this->db->getLastInsertId();
+        $this-&gt;db-&gt;execute($sql, $params);
+        $post_id = $this-&gt;db-&gt;getLastInsertId();
         
         // Tags verknüpfen
         if (!empty($data['tags'])) {
-            $this->updatePostTags($post_id, $data['tags']);
+            $this-&gt;updatePostTags($post_id, $data['tags']);
         }
         
         // Kategorie-Zähler aktualisieren
         if ($data['category_id']) {
-            $this->updateCategoryCount($data['category_id']);
+            $this-&gt;updateCategoryCount($data['category_id']);
         }
         
         return $post_id;
@@ -1170,10 +1170,10 @@ class BlogSystem {
                 ORDER BY p.published_at DESC
                 LIMIT :limit OFFSET :offset";
         
-        return $this->db->fetchAll($sql, [
-            ':category_slug' => $category_slug,
-            ':limit' => (int)$limit,
-            ':offset' => (int)$offset
+        return $this-&gt;db-&gt;fetchAll($sql, [
+            ':category_slug' =&gt; $category_slug,
+            ':limit' =&gt; (int)$limit,
+            ':offset' =&gt; (int)$offset
         ]);
     }
     
@@ -1185,14 +1185,14 @@ class BlogSystem {
                 LEFT JOIN blog_categories c ON p.category_id = c.id
                 WHERE p.slug = :slug";
         
-        $post = $this->db->fetch($sql, [':slug' => $slug]);
+        $post = $this-&gt;db-&gt;fetch($sql, [':slug' =&gt; $slug]);
         
         if ($post) {
             // Tags laden
-            $post['tags'] = $this->getPostTags($post['id']);
+            $post['tags'] = $this-&gt;getPostTags($post['id']);
             
             // View-Counter erhöhen
-            $this->incrementViews($post['id']);
+            $this-&gt;incrementViews($post['id']);
         }
         
         return $post;
@@ -1210,9 +1210,9 @@ class BlogSystem {
                 ORDER BY p.published_at DESC
                 LIMIT :limit";
         
-        return $this->db->fetchAll($sql, [
-            ':query' => '%' . $query . '%',
-            ':limit' => (int)$limit
+        return $this-&gt;db-&gt;fetchAll($sql, [
+            ':query' =&gt; '%' . $query . '%',
+            ':limit' =&gt; (int)$limit
         ]);
     }
     
@@ -1220,7 +1220,7 @@ class BlogSystem {
     
     public function addComment($post_id, $comment_data) {
         // Spam-Check (vereinfacht)
-        if ($this->isSpam($comment_data['content'])) {
+        if ($this-&gt;isSpam($comment_data['content'])) {
             $status = 'spam';
         } else {
             $status = 'pending'; // Moderation erforderlich
@@ -1232,22 +1232,22 @@ class BlogSystem {
                         :content, :status, :ip_address, :user_agent)";
         
         $params = [
-            ':post_id' => (int)$post_id,
-            ':author_name' => $comment_data['author_name'],
-            ':author_email' => $comment_data['author_email'],
-            ':author_website' => $comment_data['author_website'] ?? null,
-            ':content' => $comment_data['content'],
-            ':status' => $status,
-            ':ip_address' => $_SERVER['REMOTE_ADDR'] ?? null,
-            ':user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? null
+            ':post_id' =&gt; (int)$post_id,
+            ':author_name' =&gt; $comment_data['author_name'],
+            ':author_email' =&gt; $comment_data['author_email'],
+            ':author_website' =&gt; $comment_data['author_website'] ?? null,
+            ':content' =&gt; $comment_data['content'],
+            ':status' =&gt; $status,
+            ':ip_address' =&gt; $_SERVER['REMOTE_ADDR'] ?? null,
+            ':user_agent' =&gt; $_SERVER['HTTP_USER_AGENT'] ?? null
         ];
         
-        $this->db->execute($sql, $params);
+        $this-&gt;db-&gt;execute($sql, $params);
         
         return [
-            'comment_id' => $this->db->getLastInsertId(),
-            'status' => $status,
-            'message' => $status === 'pending' 
+            'comment_id' =&gt; $this-&gt;db-&gt;getLastInsertId(),
+            'status' =&gt; $status,
+            'message' =&gt; $status === 'pending' 
                         ? 'Kommentar wird moderiert' 
                         : 'Kommentar wurde als Spam erkannt'
         ];
@@ -1259,27 +1259,27 @@ class BlogSystem {
                 WHERE post_id = :post_id AND status = :status
                 ORDER BY created_at ASC";
         
-        return $this->db->fetchAll($sql, [
-            ':post_id' => (int)$post_id,
-            ':status' => $status
+        return $this-&gt;db-&gt;fetchAll($sql, [
+            ':post_id' =&gt; (int)$post_id,
+            ':status' =&gt; $status
         ]);
     }
     
     // === KATEGORIEN ===
     
     public function createCategory($name, $description = '') {
-        $slug = $this->generateSlug($name);
+        $slug = $this-&gt;generateSlug($name);
         
         $sql = "INSERT INTO blog_categories (name, slug, description)
                 VALUES (:name, :slug, :description)";
         
-        $this->db->execute($sql, [
-            ':name' => $name,
-            ':slug' => $slug,
-            ':description' => $description
+        $this-&gt;db-&gt;execute($sql, [
+            ':name' =&gt; $name,
+            ':slug' =&gt; $slug,
+            ':description' =&gt; $description
         ]);
         
-        return $this->db->getLastInsertId();
+        return $this-&gt;db-&gt;getLastInsertId();
     }
     
     public function getCategories() {
@@ -1287,32 +1287,32 @@ class BlogSystem {
                 FROM blog_categories
                 ORDER BY name ASC";
         
-        return $this->db->fetchAll($sql);
+        return $this-&gt;db-&gt;fetchAll($sql);
     }
     
     // === TAGS ===
     
     public function updatePostTags($post_id, $tag_names) {
         // Alte Verknüpfungen löschen
-        $this->db->execute("DELETE FROM blog_post_tags WHERE post_id = :post_id", 
-                          [':post_id' => $post_id]);
+        $this-&gt;db-&gt;execute("DELETE FROM blog_post_tags WHERE post_id = :post_id", 
+                          [':post_id' =&gt; $post_id]);
         
         foreach ($tag_names as $tag_name) {
             $tag_name = trim($tag_name);
             if (empty($tag_name)) continue;
             
             // Tag erstellen oder abrufen
-            $tag_id = $this->getOrCreateTag($tag_name);
+            $tag_id = $this-&gt;getOrCreateTag($tag_name);
             
             // Verknüpfung erstellen
-            $this->db->execute(
+            $this-&gt;db-&gt;execute(
                 "INSERT IGNORE INTO blog_post_tags (post_id, tag_id) VALUES (:post_id, :tag_id)",
-                [':post_id' => $post_id, ':tag_id' => $tag_id]
+                [':post_id' =&gt; $post_id, ':tag_id' =&gt; $tag_id]
             );
         }
         
         // Tag-Zähler aktualisieren
-        $this->updateTagCounts();
+        $this-&gt;updateTagCounts();
     }
     
     public function getPostTags($post_id) {
@@ -1322,7 +1322,7 @@ class BlogSystem {
                 WHERE pt.post_id = :post_id
                 ORDER BY t.name";
         
-        return $this->db->fetchAll($sql, [':post_id' => $post_id]);
+        return $this-&gt;db-&gt;fetchAll($sql, [':post_id' =&gt; $post_id]);
     }
     
     // === STATISTIKEN ===
@@ -1331,7 +1331,7 @@ class BlogSystem {
         $stats = [];
         
         // Post-Statistiken
-        $stats['posts'] = $this->db->fetch(
+        $stats['posts'] = $this-&gt;db-&gt;fetch(
             "SELECT 
                 COUNT(*) as total,
                 SUM(CASE WHEN status = 'published' THEN 1 ELSE 0 END) as published,
@@ -1341,7 +1341,7 @@ class BlogSystem {
         );
         
         // Kommentar-Statistiken
-        $stats['comments'] = $this->db->fetch(
+        $stats['comments'] = $this-&gt;db-&gt;fetch(
             "SELECT 
                 COUNT(*) as total,
                 SUM(CASE WHEN status = 'approved' THEN 1 ELSE 0 END) as approved,
@@ -1351,7 +1351,7 @@ class BlogSystem {
         );
         
         // Beliebte Posts
-        $stats['popular_posts'] = $this->db->fetchAll(
+        $stats['popular_posts'] = $this-&gt;db-&gt;fetchAll(
             "SELECT title, slug, views 
              FROM blog_posts 
              WHERE status = 'published' 
@@ -1360,10 +1360,10 @@ class BlogSystem {
         );
         
         // Aktive Kategorien
-        $stats['categories'] = $this->db->fetchAll(
+        $stats['categories'] = $this-&gt;db-&gt;fetchAll(
             "SELECT name, slug, post_count 
              FROM blog_categories 
-             WHERE post_count > 0 
+             WHERE post_count &gt; 0 
              ORDER BY post_count DESC"
         );
         
@@ -1382,7 +1382,7 @@ class BlogSystem {
         $original_slug = $slug;
         $counter = 1;
         
-        while ($this->slugExists($slug)) {
+        while ($this-&gt;slugExists($slug)) {
             $slug = $original_slug . '-' . $counter;
             $counter++;
         }
@@ -1391,16 +1391,16 @@ class BlogSystem {
     }
     
     private function slugExists($slug) {
-        $result = $this->db->fetch(
+        $result = $this-&gt;db-&gt;fetch(
             "SELECT id FROM blog_posts WHERE slug = :slug",
-            [':slug' => $slug]
+            [':slug' =&gt; $slug]
         );
         return $result !== false;
     }
     
     private function generateExcerpt($content, $length = 200) {
         $text = strip_tags($content);
-        if (strlen($text) > $length) {
+        if (strlen($text) &gt; $length) {
             $text = substr($text, 0, $length);
             $text = substr($text, 0, strrpos($text, ' ')) . '...';
         }
@@ -1419,16 +1419,16 @@ class BlogSystem {
         
         // Link-Spam prüfen
         $link_count = preg_match_all('/https?:\/\//', $content);
-        return $link_count > 3;
+        return $link_count &gt; 3;
     }
     
     private function getOrCreateTag($tag_name) {
-        $slug = $this->generateSlug($tag_name);
+        $slug = $this-&gt;generateSlug($tag_name);
         
         // Prüfen ob Tag existiert
-        $existing = $this->db->fetch(
+        $existing = $this-&gt;db-&gt;fetch(
             "SELECT id FROM blog_tags WHERE slug = :slug",
-            [':slug' => $slug]
+            [':slug' =&gt; $slug]
         );
         
         if ($existing) {
@@ -1436,16 +1436,16 @@ class BlogSystem {
         }
         
         // Neuen Tag erstellen
-        $this->db->execute(
+        $this-&gt;db-&gt;execute(
             "INSERT INTO blog_tags (name, slug) VALUES (:name, :slug)",
-            [':name' => $tag_name, ':slug' => $slug]
+            [':name' =&gt; $tag_name, ':slug' =&gt; $slug]
         );
         
-        return $this->db->getLastInsertId();
+        return $this-&gt;db-&gt;getLastInsertId();
     }
     
     private function updateTagCounts() {
-        $this->db->execute(
+        $this-&gt;db-&gt;execute(
             "UPDATE blog_tags t SET post_count = (
                 SELECT COUNT(*) FROM blog_post_tags pt 
                 JOIN blog_posts p ON pt.post_id = p.id 
@@ -1455,19 +1455,19 @@ class BlogSystem {
     }
     
     private function updateCategoryCount($category_id) {
-        $this->db->execute(
+        $this-&gt;db-&gt;execute(
             "UPDATE blog_categories SET post_count = (
                 SELECT COUNT(*) FROM blog_posts 
                 WHERE category_id = :category_id AND status = 'published'
             ) WHERE id = :category_id",
-            [':category_id' => $category_id]
+            [':category_id' =&gt; $category_id]
         );
     }
     
     private function incrementViews($post_id) {
-        $this->db->execute(
+        $this-&gt;db-&gt;execute(
             "UPDATE blog_posts SET views = views + 1 WHERE id = :id",
-            [':id' => $post_id]
+            [':id' =&gt; $post_id]
         );
     }
 }
@@ -1477,31 +1477,31 @@ try {
     $blog = new BlogSystem($db);
     
     // Beispiel-Kategorie erstellen
-    $tech_category_id = $blog->createCategory('Technologie', 'Artikel über Technologie und Programming');
+    $tech_category_id = $blog-&gt;createCategory('Technologie', 'Artikel über Technologie und Programming');
     
     // Beispiel-Post erstellen
-    $post_id = $blog->createPost([
-        'title' => 'Einführung in PHP und MySQL',
-        'content' => 'In diesem Artikel lernen Sie die Grundlagen von PHP und MySQL kennen. PHP ist eine serverseitige Scriptsprache...',
-        'author_id' => 1,
-        'category_id' => $tech_category_id,
-        'status' => 'published',
-        'tags' => ['PHP', 'MySQL', 'Tutorial', 'Webentwicklung']
+    $post_id = $blog-&gt;createPost([
+        'title' =&gt; 'Einführung in PHP und MySQL',
+        'content' =&gt; 'In diesem Artikel lernen Sie die Grundlagen von PHP und MySQL kennen. PHP ist eine serverseitige Scriptsprache...',
+        'author_id' =&gt; 1,
+        'category_id' =&gt; $tech_category_id,
+        'status' =&gt; 'published',
+        'tags' =&gt; ['PHP', 'MySQL', 'Tutorial', 'Webentwicklung']
     ]);
     
     echo "✅ Blog-Post erstellt mit ID: $post_id\n";
     
     // Kommentar hinzufügen
-    $comment_result = $blog->addComment($post_id, [
-        'author_name' => 'Max Mustermann',
-        'author_email' => 'max@example.com',
-        'content' => 'Sehr hilfreicher Artikel! Vielen Dank für die Erklärung.'
+    $comment_result = $blog-&gt;addComment($post_id, [
+        'author_name' =&gt; 'Max Mustermann',
+        'author_email' =&gt; 'max@example.com',
+        'content' =&gt; 'Sehr hilfreicher Artikel! Vielen Dank für die Erklärung.'
     ]);
     
     echo "✅ Kommentar hinzugefügt: {$comment_result['message']}\n";
     
     // Blog-Statistiken
-    $stats = $blog->getBlogStatistics();
+    $stats = $blog-&gt;getBlogStatistics();
     echo "\n📊 Blog-Statistiken:\n";
     echo "Posts gesamt: {$stats['posts']['total']}\n";
     echo "Veröffentlicht: {$stats['posts']['published']}\n";
@@ -1509,7 +1509,7 @@ try {
     echo "Views gesamt: {$stats['posts']['total_views']}\n";
     
 } catch (Exception $e) {
-    echo "❌ Blog-System Fehler: " . $e->getMessage() . "\n";
+    echo "❌ Blog-System Fehler: " . $e-&gt;getMessage() . "\n";
 }
 ?&gt;</code></pre>
                                     </div>

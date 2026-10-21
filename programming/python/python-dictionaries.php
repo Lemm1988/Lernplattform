@@ -406,7 +406,7 @@ print(f"Gerade Quadrate: {even_squares}")
 # String-Manipulationen
 words = ["hello", "world", "python", "programming"]
 word_lengths = {word: len(word) for word in words}
-long_words = {word: len(word) for word in words if len(word) > 5}
+long_words = {word: len(word) for word in words if len(word) &gt; 5}
 
 print(f"Wort-Längen: {word_lengths}")
 print(f"Lange Wörter: {long_words}")
@@ -481,8 +481,8 @@ sales_data = {
     "jun": 1800
 }
 
-# Nur Monate mit Verkäufen > 1000, in EUR umrechnen (1 USD = 0.85 EUR)
-good_months_eur = {month: usd * 0.85 for month, usd in sales_data.items() if usd > 1000}
+# Nur Monate mit Verkäufen &gt; 1000, in EUR umrechnen (1 USD = 0.85 EUR)
+good_months_eur = {month: usd * 0.85 for month, usd in sales_data.items() if usd &gt; 1000}
 print(f"\\nGute Monate (EUR): {good_months_eur}")
 
 # Nested Comprehension für Matrix-Operationen
@@ -568,11 +568,11 @@ print(f"\\n=== FILTERN ===")
 # Produkte über $100
 print("Teure Produkte (über $100):")
 for product, price in products.items():
-    if price > 100:
+    if price &gt; 100:
         print(f"  {product}: ${price:.2f}")
 
 # Mit filter() und lambda
-expensive_products = filter(lambda x: x[1] > 100, products.items())
+expensive_products = filter(lambda x: x[1] &gt; 100, products.items())
 print("\\nTeure Produkte (mit filter):")
 for product, price in expensive_products:
     print(f"  {product}: ${price:.2f}")
@@ -623,13 +623,13 @@ print(f"Engineering Mitarbeiter: {engineering_count}")
 # 9. Dictionary während Iteration ändern (Vorsicht!)
 # ❌ NICHT SO - kann zu RuntimeError führen:
 # for key in products:
-#     if products[key] < 50:
+#     if products[key] &lt; 50:
 #         del products[key]  # Ändert Dictionary während Iteration!
 
 # ✅ SO IST ES RICHTIG:
 to_remove = []
 for product, price in products.items():
-    if price < 50:
+    if price &lt; 50:
         to_remove.append(product)
 
 for product in to_remove:
@@ -919,15 +919,15 @@ import json
 class CRMSystem:
     def __init__(self):
         # Hauptdatenstrukturen
-        self.customers = {}           # customer_id -> customer_data
-        self.orders = {}              # order_id -> order_data
-        self.products = {}            # product_id -> product_data
-        self.interactions = defaultdict(list)  # customer_id -> [interactions]
+        self.customers = {}           # customer_id -&gt; customer_data
+        self.orders = {}              # order_id -&gt; order_data
+        self.products = {}            # product_id -&gt; product_data
+        self.interactions = defaultdict(list)  # customer_id -&gt; [interactions]
         
         # Sekundäre Indizes für schnelle Suche
-        self.customers_by_email = {}  # email -> customer_id
-        self.customers_by_company = defaultdict(list)  # company -> [customer_ids]
-        self.orders_by_customer = defaultdict(list)    # customer_id -> [order_ids]
+        self.customers_by_email = {}  # email -&gt; customer_id
+        self.customers_by_company = defaultdict(list)  # company -&gt; [customer_ids]
+        self.orders_by_customer = defaultdict(list)    # customer_id -&gt; [order_ids]
         
         # Statistiken
         self.stats = {
@@ -1091,11 +1091,11 @@ class CRMSystem:
         old_segment = customer["segment"]
         
         total_spent = customer["total_spent"]
-        if total_spent >= 5000:
+        if total_spent &gt;= 5000:
             new_segment = "premium"
-        elif total_spent >= 1000:
+        elif total_spent &gt;= 1000:
             new_segment = "regular"
-        elif customer["order_count"] > 0:
+        elif customer["order_count"] &gt; 0:
             new_segment = "active"
         else:
             new_segment = "new"
@@ -1136,11 +1136,11 @@ class CRMSystem:
             
             # Ausgaben-Bereich
             if "min_spent" in criteria:
-                if customer["total_spent"] < criteria["min_spent"]:
+                if customer["total_spent"] &lt; criteria["min_spent"]:
                     match = False
             
             if "max_spent" in criteria:
-                if customer["total_spent"] > criteria["max_spent"]:
+                if customer["total_spent"] &gt; criteria["max_spent"]:
                     match = False
             
             if match:
@@ -1220,7 +1220,7 @@ class CRMSystem:
         print(f"  Bestellungen gesamt: {self.stats['total_orders']}")
         print(f"  Gesamtumsatz: ${self.stats['total_revenue']:,.2f}")
         
-        if self.stats['total_customers'] > 0:
+        if self.stats['total_customers'] &gt; 0:
             avg_order_value = self.stats['total_revenue'] / max(self.stats['total_orders'], 1)
             avg_customer_value = self.stats['total_revenue'] / self.stats['total_customers']
             print(f"  Durchschnittlicher Bestellwert: ${avg_order_value:.2f}")
@@ -1383,6 +1383,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-dictionaries'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

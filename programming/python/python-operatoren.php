@@ -355,13 +355,13 @@ print(f"last = {last}")
 
 # Walrus Operator (Python 3.8+) - Zuweisung in Ausdruck
 numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-if (n := len(numbers)) > 5:
+if (n := len(numbers)) &gt; 5:
     print(f"\\nListe hat {n} Elemente (mehr als 5)")
 
 # In while-Schleife
 import random
-print("\\nZufallszahlen bis eine > 0.8 gefunden wird:")
-while (rand := random.random()) <= 0.8:
+print("\\nZufallszahlen bis eine &gt; 0.8 gefunden wird:")
+while (rand := random.random()) &lt;= 0.8:
     print(f"  {rand:.3f}")
 print(f"Gefunden: {rand:.3f}")</code></pre>
                                 </div>
@@ -401,30 +401,30 @@ print(f"Gefunden: {rand:.3f}")</code></pre>
                                             <td>Werte sind ungleich</td>
                                         </tr>
                                         <tr>
-                                            <td><code><</code></td>
+                                            <td><code>&lt;</code></td>
                                             <td>Kleiner als</td>
-                                            <td><code>3 < 5</code></td>
+                                            <td><code>3 &lt; 5</code></td>
                                             <td><code>True</code></td>
                                             <td>Erster Wert ist kleiner</td>
                                         </tr>
                                         <tr>
-                                            <td><code>></code></td>
+                                            <td><code>&gt;</code></td>
                                             <td>Größer als</td>
-                                            <td><code>5 > 3</code></td>
+                                            <td><code>5 &gt; 3</code></td>
                                             <td><code>True</code></td>
                                             <td>Erster Wert ist größer</td>
                                         </tr>
                                         <tr>
-                                            <td><code><=</code></td>
+                                            <td><code>&lt;=</code></td>
                                             <td>Kleiner oder gleich</td>
-                                            <td><code>3 <= 5</code></td>
+                                            <td><code>3 &lt;= 5</code></td>
                                             <td><code>True</code></td>
                                             <td>Erster Wert ist kleiner oder gleich</td>
                                         </tr>
                                         <tr>
-                                            <td><code>>=</code></td>
+                                            <td><code>&gt;=</code></td>
                                             <td>Größer oder gleich</td>
-                                            <td><code>5 >= 5</code></td>
+                                            <td><code>5 &gt;= 5</code></td>
                                             <td><code>True</code></td>
                                             <td>Erster Wert ist größer oder gleich</td>
                                         </tr>
@@ -440,10 +440,10 @@ a, b = 10, 20
 print(f"a = {a}, b = {b}")
 print(f"a == b: {a == b}")   # False
 print(f"a != b: {a != b}")   # True
-print(f"a < b: {a < b}")     # True
-print(f"a > b: {a > b}")     # False
-print(f"a <= b: {a <= b}")   # True
-print(f"a >= b: {a >= b}")   # False
+print(f"a &lt; b: {a &lt; b}")     # True
+print(f"a &gt; b: {a &gt; b}")     # False
+print(f"a &lt;= b: {a &lt;= b}")   # True
+print(f"a &gt;= b: {a &gt;= b}")   # False
 
 # String-Vergleiche (lexikographisch)
 name1 = "Alice"
@@ -452,7 +452,7 @@ name3 = "alice"
 
 print(f"\\nString-Vergleiche:")
 print(f"'{name1}' == '{name2}': {name1 == name2}")           # False
-print(f"'{name1}' < '{name2}': {name1 < name2}")             # True (A kommt vor B)
+print(f"'{name1}' &lt; '{name2}': {name1 &lt; name2}")             # True (A kommt vor B)
 print(f"'{name1}' == '{name3}': {name1 == name3}")           # False (Groß-/Kleinschreibung)
 print(f"'{name1.lower()}' == '{name3}': {name1.lower() == name3}")  # True
 
@@ -467,9 +467,9 @@ print(f"None == 0: {None == 0}")       # False
 # Verkettete Vergleiche
 age = 25
 print(f"\\nVerkettete Vergleiche für Alter {age}:")
-print(f"18 <= {age} < 30: {18 <= age < 30}")    # True
-print(f"0 < {age} <= 100: {0 < age <= 100}")    # True
-print(f"30 <= {age} < 40: {30 <= age < 40}")    # False
+print(f"18 &lt;= {age} &lt; 30: {18 &lt;= age &lt; 30}")    # True
+print(f"0 &lt; {age} &lt;= 100: {0 &lt; age &lt;= 100}")    # True
+print(f"30 &lt;= {age} &lt; 40: {30 &lt;= age &lt; 40}")    # False
 
 # Listen- und Tupelvergleiche (element-weise)
 list1 = [1, 2, 3]
@@ -479,7 +479,7 @@ list3 = [1, 2, 4]
 print(f"\\nListen-Vergleiche:")
 print(f"{list1} == {list2}: {list1 == list2}")   # True
 print(f"{list1} == {list3}: {list1 == list3}")   # False
-print(f"{list1} < {list3}: {list1 < list3}")     # True (3 < 4)
+print(f"{list1} &lt; {list3}: {list1 &lt; list3}")     # True (3 &lt; 4)
 
 # Besondere Fälle
 print(f"\\nBesondere Fälle:")
@@ -493,25 +493,25 @@ print(f"\\nFloat-Vergleiche:")
 result = 0.1 + 0.2
 print(f"0.1 + 0.2 = {result}")
 print(f"0.1 + 0.2 == 0.3: {result == 0.3}")     # False! (Rundungsfehler)
-print(f"abs((0.1 + 0.2) - 0.3) < 1e-10: {abs(result - 0.3) < 1e-10}")  # True
+print(f"abs((0.1 + 0.2) - 0.3) &lt; 1e-10: {abs(result - 0.3) &lt; 1e-10}")  # True
 
 # Sichere Float-Vergleiche
 import math
 def float_equal(a, b, tolerance=1e-9):
-    return abs(a - b) < tolerance
+    return abs(a - b) &lt; tolerance
 
 print(f"Sicherer Float-Vergleich: {float_equal(0.1 + 0.2, 0.3)}")  # True
 
 # In praktischen Anwendungen
 score = 85
 grade = ""
-if score >= 90:
+if score &gt;= 90:
     grade = "A"
-elif score >= 80:
+elif score &gt;= 80:
     grade = "B"  
-elif score >= 70:
+elif score &gt;= 70:
     grade = "C"
-elif score >= 60:
+elif score &gt;= 60:
     grade = "D"
 else:
     grade = "F"
@@ -520,7 +520,7 @@ print(f"\\nNote für {score} Punkte: {grade}")
 
 # Mit Strings
 password = input("Passwort: ")
-if len(password) >= 8:
+if len(password) &gt;= 8:
     print("Passwort ist lang genug")
 else:
     print("Passwort zu kurz (mindestens 8 Zeichen)")
@@ -531,9 +531,9 @@ maximum = numbers[0]
 minimum = numbers[0]
 
 for num in numbers[1:]:
-    if num > maximum:
+    if num &gt; maximum:
         maximum = num
-    if num < minimum:
+    if num &lt; minimum:
         minimum = num
 
 print(f"\\nIn {numbers}: Min = {minimum}, Max = {maximum}")
@@ -639,8 +639,8 @@ age = 25
 has_license = True
 has_car = False
 
-can_drive_alone = age >= 18 and has_license
-can_go_somewhere = has_license and (has_car or age >= 21)  # Kann Taxi nehmen
+can_drive_alone = age &gt;= 18 and has_license
+can_go_somewhere = has_license and (has_car or age &gt;= 21)  # Kann Taxi nehmen
 
 print(f"\\nFahr-Berechtigungen für {age}-Jährigen:")
 print(f"Kann alleine fahren: {can_drive_alone}")
@@ -673,8 +673,8 @@ weather = "sunny"
 temperature = 25
 has_sunscreen = True
 
-good_beach_day = (weather == "sunny" and temperature > 20 and 
-                 (has_sunscreen or temperature < 30))
+good_beach_day = (weather == "sunny" and temperature &gt; 20 and 
+                 (has_sunscreen or temperature &lt; 30))
 
 print(f"\\nStrand-Tag Bewertung:")
 print(f"Wetter: {weather}, Temperatur: {temperature}°C, Sonnenschutz: {has_sunscreen}")
@@ -684,15 +684,15 @@ print(f"Guter Strandtag: {good_beach_day}")
 values = [0, "", [], None, False, "hello", [1, 2], 42]
 print(f"\\nTruthiness-Tests:")
 for value in values:
-    print(f"{repr(value):>8} -> {bool(value)}")
+    print(f"{repr(value):&gt;8} -&gt; {bool(value)}")
 
 # Praktische Anwendungen
 username = input("Benutzername: ")
 password = input("Passwort: ")
 
 # Login-Validierung
-valid_username = username and len(username) >= 3
-valid_password = password and len(password) >= 8
+valid_username = username and len(username) &gt;= 3
+valid_password = password and len(password) &gt;= 8
 can_login = valid_username and valid_password
 
 print(f"\\nLogin-Validierung:")
@@ -720,8 +720,8 @@ evens = [n for n in numbers if n % 2 == 0]
 print(f"\\nGerade Zahlen: {evens}")
 
 # Zahlen die gerade UND größer als 5 sind
-even_and_big = [n for n in numbers if n % 2 == 0 and n > 5]
-print(f"Gerade und > 5: {even_and_big}")
+even_and_big = [n for n in numbers if n % 2 == 0 and n &gt; 5]
+print(f"Gerade und &gt; 5: {even_and_big}")
 
 # Zahlen die gerade ODER durch 3 teilbar sind
 even_or_div3 = [n for n in numbers if n % 2 == 0 or n % 3 == 0]
@@ -729,14 +729,14 @@ print(f"Gerade oder teilbar durch 3: {even_or_div3}")
 
 # all() und any() Funktionen
 print(f"\\nall() und any() Funktionen:")
-all_positive = all(n > 0 for n in numbers)
+all_positive = all(n &gt; 0 for n in numbers)
 print(f"Alle Zahlen positiv: {all_positive}")
 
 any_even = any(n % 2 == 0 for n in numbers)
 print(f"Mindestens eine gerade: {any_even}")
 
-all_small = all(n < 5 for n in numbers)
-print(f"Alle Zahlen < 5: {all_small}")</code></pre>
+all_small = all(n &lt; 5 for n in numbers)
+print(f"Alle Zahlen &lt; 5: {all_small}")</code></pre>
                                 </div>
                             </div>
                         </div>
@@ -883,7 +883,7 @@ def analyze_type(obj):
 print(f"\\nTyp-Analyse:")
 test_objects = [42, "hello", [1, 2, 3], {"key": "value"}]
 for obj in test_objects:
-    print(f"{repr(obj):>15} -> {analyze_type(obj)}")</code></pre>
+    print(f"{repr(obj):&gt;15} -&gt; {analyze_type(obj)}")</code></pre>
                                 </div>
                             </div>
                             
@@ -1044,11 +1044,11 @@ class AdvancedCalculator:
             '&': operator.and_,
             '|': operator.or_,
             '^': operator.xor,
-            '<<': operator.lshift,
-            '>>': operator.rshift
+            '&lt;&lt;': operator.lshift,
+            '&gt;&gt;': operator.rshift
         }
     
-    def calculate(self, expression: str) -> Union[float, int, str]:
+    def calculate(self, expression: str) -&gt; Union[float, int, str]:
         """Berechnet einen mathematischen Ausdruck"""
         try:
             # Sicherheitsprüfung
@@ -1064,7 +1064,7 @@ class AdvancedCalculator:
         except Exception as e:
             return f"Fehler: {str(e)}"
     
-    def _is_safe_expression(self, expr: str) -> bool:
+    def _is_safe_expression(self, expr: str) -&gt; bool:
         """Prüft ob Ausdruck sicher ist (keine gefährlichen Funktionen)"""
         dangerous = ['import', 'exec', 'eval', 'open', '__']
         return not any(word in expr for word in dangerous)
@@ -1100,7 +1100,7 @@ class AdvancedCalculator:
         print("=" * 40)
         
         values = [10, 10.0, '10', 20, 5]
-        comparisons = ['==', '!=', '<', '>', '<=', '>=']
+        comparisons = ['==', '!=', '&lt;', '&gt;', '&lt;=', '&gt;=']
         
         print("Werte:", values)
         print("\\nVergleiche zwischen ersten beiden Werten:")
@@ -1129,7 +1129,7 @@ class AdvancedCalculator:
         print("\\nLogische Verknüpfungen:")
         
         conditions = [
-            ("Kann fahren", "age >= 18 and has_license"),
+            ("Kann fahren", "age &gt;= 18 and has_license"),
             ("Kann reisen", "(has_car or has_money) and has_license"),
             ("Braucht Hilfe", "not has_car and not has_money"),
             ("Vollständig mobil", "has_license and has_car and has_money"),
@@ -1222,7 +1222,7 @@ class AdvancedCalculator:
         for op, value in assignments:
             old_x = x
             exec(f"x {op} {value}")
-            print(f"x {op} {value}: {old_x} -> {x}")
+            print(f"x {op} {value}: {old_x} -&gt; {x}")
     
     def bitwise_demo(self):
         """Demonstriert bitweise Operatoren"""
@@ -1237,12 +1237,12 @@ class AdvancedCalculator:
             ('&', 'AND'),
             ('|', 'OR'),
             ('^', 'XOR'),
-            ('<<', 'Left Shift'),
-            ('>>', 'Right Shift')
+            ('&lt;&lt;', 'Left Shift'),
+            ('&gt;&gt;', 'Right Shift')
         ]
         
         for op, name in bitwise_ops:
-            if op in ['<<', '>>']:
+            if op in ['&lt;&lt;', '&gt;&gt;']:
                 # Für Shift-Operationen verwenden wir a und 2
                 result = eval(f"a {op} 2")
                 print(f"{name:12}: {a} {op} 2 = {result} (binär: {bin(result)})")
@@ -1264,7 +1264,7 @@ class AdvancedCalculator:
         
         while True:
             try:
-                user_input = input("\\n>>> ").strip()
+                user_input = input("\\n&gt;&gt;&gt; ").strip()
                 
                 if user_input.lower() == 'quit':
                     print("Taschenrechner beendet. Auf Wiedersehen!")
@@ -1285,7 +1285,7 @@ class AdvancedCalculator:
                         self.memory += value
                         print(f"Memory: {self.memory}")
                     except:
-                        print("Fehler: Verwenden Sie 'mem+<zahl>'")
+                        print("Fehler: Verwenden Sie 'mem+&lt;zahl&gt;'")
                 elif user_input == 'mem':
                     print(f"Memory: {self.memory}")
                 elif user_input:
@@ -1321,9 +1321,9 @@ class AdvancedCalculator:
         help_text = """
         Verfügbare Operatoren:
         +, -, *, /, //, %, **     Arithmetische Operatoren
-        ==, !=, <, >, <=, >=      Vergleichsoperatoren  
+        ==, !=, &lt;, &gt;, &lt;=, &gt;=      Vergleichsoperatoren  
         and, or, not              Logische Operatoren
-        &, |, ^, <<, >>, ~        Bitweise Operatoren
+        &, |, ^, &lt;&lt;, &gt;&gt;, ~        Bitweise Operatoren
         
         Verfügbare Funktionen:
         math.sqrt(), math.sin(), math.cos(), math.log()
@@ -1334,7 +1334,7 @@ class AdvancedCalculator:
         last    - Letztes Ergebnis
         
         Befehle:
-        mem+<zahl>  - Zu Memory hinzufügen
+        mem+&lt;zahl&gt;  - Zu Memory hinzufügen
         history     - Verlauf anzeigen
         clear       - Alles löschen
         quit        - Beenden
@@ -1406,6 +1406,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-operatoren'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

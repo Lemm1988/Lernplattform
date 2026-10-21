@@ -197,13 +197,13 @@ def is_even(number):
 
 def get_grade(score):
     """Wandelt Punktzahl in Note um"""
-    if score >= 90:
+    if score &gt;= 90:
         return "A"
-    elif score >= 80:
+    elif score &gt;= 80:
         return "B"
-    elif score >= 70:
+    elif score &gt;= 70:
         return "C"
-    elif score >= 60:
+    elif score &gt;= 60:
         return "D"
     else:
         return "F"
@@ -228,7 +228,7 @@ else:
 # Rückgabewerte direkt verwenden
 student_score = 87
 student_grade = get_grade(student_score)
-print(f"Punkte: {student_score} -> Note: {student_grade}")
+print(f"Punkte: {student_score} -&gt; Note: {student_grade}")
 
 # Mehrere Rückgabewerte (Tuple)
 def get_name_and_age():
@@ -462,7 +462,7 @@ def format_message(message, **formatting):
         result = result.upper()
     if formatting.get('bold'):
         result = f"**{result}**"
-    if formatting.get('repeat', 1) > 1:
+    if formatting.get('repeat', 1) &gt; 1:
         result = result * formatting['repeat']
     
     return result
@@ -678,7 +678,7 @@ def wrong_withdrawal(amount):
 def correct_withdrawal(amount):
     """✅ Korrekt: Mit global keyword"""
     global balance
-    if balance >= amount:
+    if balance &gt;= amount:
         balance -= amount
         print(f"Abgebucht: {amount}, Neuer Stand: {balance}")
         return True
@@ -783,7 +783,7 @@ def create_formatter(prefix="", suffix=""):
     return format_text
 
 # Verschiedene Formatter erstellen
-html_bold = create_formatter("<b>", "</b>")
+html_bold = create_formatter("&lt;b&gt;", "&lt;/b&gt;")
 markdown_bold = create_formatter("**", "**")
 quote_formatter = create_formatter('"', '"')
 bracket_formatter = create_formatter("[", "]")
@@ -813,7 +813,7 @@ print(f"Klammern: {bracket_formatter(text)}")</code></pre>
 # Einfache Lambda-Funktionen
 square = lambda x: x ** 2
 add = lambda a, b: a + b
-is_positive = lambda n: n > 0
+is_positive = lambda n: n &gt; 0
 get_length = lambda s: len(s)
 
 # Lambda vs. normale Funktion
@@ -839,9 +839,9 @@ print(f"\\nCalculate 10, 3, 'mul': {calculate(10, 3, 'mul')}")
 print(f"Calculate 10, 3, 'div': {calculate(10, 3, 'div')}")
 
 # Lambda mit Conditional Expression
-max_lambda = lambda a, b: a if a > b else b
-min_lambda = lambda a, b: a if a < b else b
-abs_lambda = lambda x: x if x >= 0 else -x
+max_lambda = lambda a, b: a if a &gt; b else b
+min_lambda = lambda a, b: a if a &lt; b else b
+abs_lambda = lambda x: x if x &gt;= 0 else -x
 
 print(f"\\nMax von 7, 3: {max_lambda(7, 3)}")
 print(f"Min von 7, 3: {min_lambda(7, 3)}")
@@ -879,11 +879,11 @@ print(f"Fahrenheit: {fahrenheit}")
 
 # Lambda mit filter()
 numbers = [-5, -2, -1, 0, 1, 2, 3, 4, 5]
-positive = list(filter(lambda x: x > 0, numbers))
+positive = list(filter(lambda x: x &gt; 0, numbers))
 even = list(filter(lambda x: x % 2 == 0, numbers))
 words = ["Python", "Java", "Go", "JavaScript", "Rust"]
-short_words = list(filter(lambda w: len(w) <= 4, words))
-long_words = list(filter(lambda w: len(w) > 4, words))
+short_words = list(filter(lambda w: len(w) &lt;= 4, words))
+long_words = list(filter(lambda w: len(w) &gt; 4, words))
 
 print(f"\\n=== LAMBDA MIT FILTER ===")
 print(f"All numbers: {numbers}")
@@ -929,7 +929,7 @@ from functools import reduce
 
 numbers = [1, 2, 3, 4, 5]
 product = reduce(lambda a, b: a * b, numbers)
-maximum = reduce(lambda a, b: a if a > b else b, numbers)
+maximum = reduce(lambda a, b: a if a &gt; b else b, numbers)
 concatenated = reduce(lambda a, b: f"{a}-{b}", ["A", "B", "C", "D"])
 
 print(f"\\n=== LAMBDA MIT REDUCE ===")
@@ -969,7 +969,7 @@ def create_validator(condition, error_message):
 # Verschiedene Validatoren
 validators = {
     "not_empty": create_validator(
-        lambda x: len(str(x).strip()) > 0,
+        lambda x: len(str(x).strip()) &gt; 0,
         "Darf nicht leer sein"
     ),
     "is_email": create_validator(
@@ -977,7 +977,7 @@ validators = {
         "Ungültige E-Mail"
     ),
     "min_length": create_validator(
-        lambda x: len(str(x)) >= 8,
+        lambda x: len(str(x)) &gt;= 8,
         "Mindestens 8 Zeichen"
     ),
     "is_numeric": create_validator(
@@ -1049,9 +1049,9 @@ print("Original data:")
 for person in data:
     print(f"  {person}")
 
-# Pipeline: Filtern -> Transformieren -> Sortieren
+# Pipeline: Filtern -&gt; Transformieren -&gt; Sortieren
 # 1. Nur Personen über 27
-adults = list(filter(lambda p: p["age"] > 27, data))
+adults = list(filter(lambda p: p["age"] &gt; 27, data))
 
 # 2. Gehalt in K umwandeln
 salary_in_k = list(map(lambda p: {
@@ -1068,14 +1068,14 @@ for person in sorted_by_salary:
 
 # Lambda Grenzen - wann normale Funktionen besser sind
 # ❌ Zu komplex für Lambda:
-# complex_lambda = lambda x: x**2 if x > 0 else abs(x) if x < 0 else 1
+# complex_lambda = lambda x: x**2 if x &gt; 0 else abs(x) if x &lt; 0 else 1
 
 # ✅ Besser als normale Funktion:
 def complex_calculation(x):
     """Komplexe Berechnung"""
-    if x > 0:
+    if x &gt; 0:
         return x ** 2
-    elif x < 0:
+    elif x &lt; 0:
         return abs(x)
     else:
         return 1
@@ -1102,7 +1102,7 @@ for val in test_values:
 def factorial(n):
     """Berechnet Fakultät rekursiv"""
     # Base Case (Abbruchbedingung)
-    if n <= 1:
+    if n &lt;= 1:
         return 1
     
     # Recursive Case (Selbstaufruf)
@@ -1125,13 +1125,13 @@ for i in range(6):
 # Fibonacci-Zahlen
 def fibonacci_recursive(n):
     """Fibonacci rekursiv (ineffizient)"""
-    if n <= 1:
+    if n &lt;= 1:
         return n
     return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
 
 def fibonacci_iterative(n):
     """Fibonacci iterativ (effizient)"""
-    if n <= 1:
+    if n &lt;= 1:
         return n
     
     a, b = 0, 1
@@ -1145,7 +1145,7 @@ def fibonacci_memo(n, memo={}):
     if n in memo:
         return memo[n]
     
-    if n <= 1:
+    if n &lt;= 1:
         return n
     
     memo[n] = fibonacci_memo(n - 1, memo) + fibonacci_memo(n - 2, memo)
@@ -1153,7 +1153,7 @@ def fibonacci_memo(n, memo={}):
 
 print(f"\\n=== FIBONACCI ===")
 for i in range(10):
-    rec = fibonacci_recursive(i) if i < 8 else "zu langsam"  # Nur kleine Zahlen
+    rec = fibonacci_recursive(i) if i &lt; 8 else "zu langsam"  # Nur kleine Zahlen
     iter_val = fibonacci_iterative(i)
     memo = fibonacci_memo(i)
     print(f"F({i}) = {rec} (rek) | {iter_val} (iter) | {memo} (memo)")
@@ -1200,7 +1200,7 @@ def binary_search(arr, target, left=0, right=None):
         right = len(arr) - 1
     
     # Base case: Element nicht gefunden
-    if left > right:
+    if left &gt; right:
         return -1
     
     # Mittleres Element
@@ -1211,7 +1211,7 @@ def binary_search(arr, target, left=0, right=None):
         return mid
     
     # Rekursive Suche
-    if target < arr[mid]:
+    if target &lt; arr[mid]:
         return binary_search(arr, target, left, mid - 1)
     else:
         return binary_search(arr, target, mid + 1, right)
@@ -1332,13 +1332,13 @@ print(f"Gesamtanzahl Züge: {total_moves}")
 # Quick Sort
 def quicksort(arr):
     """Quick Sort Algorithm"""
-    if len(arr) <= 1:
+    if len(arr) &lt;= 1:
         return arr
     
     pivot = arr[len(arr) // 2]  # Mittleres Element als Pivot
-    left = [x for x in arr if x < pivot]
+    left = [x for x in arr if x &lt; pivot]
     middle = [x for x in arr if x == pivot]
-    right = [x for x in arr if x > pivot]
+    right = [x for x in arr if x &gt; pivot]
     
     return quicksort(left) + middle + quicksort(right)
 
@@ -1373,7 +1373,7 @@ for r in range(1, len(elements) + 1):
     print(f"C({len(elements)},{r}) = {len(combos)} Kombinationen:")
     for combo in combos[:6]:  # Nur erste 6 zeigen
         print(f"  {combo}")
-    if len(combos) > 6:
+    if len(combos) &gt; 6:
         print(f"  ... und {len(combos)-6} weitere")
     print()</code></pre>
                                 </div>
@@ -1396,7 +1396,7 @@ def infinite_recursion(n):
 # 2. Ineffiziente Rekursion
 def bad_fibonacci(n):
     """❌ Exponentiell langsame Fibonacci"""
-    if n <= 1:
+    if n &lt;= 1:
         return n
     return bad_fibonacci(n-1) + bad_fibonacci(n-2)
     # Problem: Gleiche Werte werden immer wieder berechnet
@@ -1408,7 +1408,7 @@ def confusing_recursion(n):
         return 1
     elif n == 3:
         return 2
-    elif n < 0:
+    elif n &lt; 0:
         return 0
     # Zu viele verschiedene Base Cases
 
@@ -1417,7 +1417,7 @@ def confusing_recursion(n):
 def good_recursive_function(n):
     """✅ Gute rekursive Funktion"""
     # 1. Klare Abbruchbedingung
-    if n <= 0:
+    if n &lt;= 0:
         return 0
     
     # 2. Problem wird kleiner
@@ -1485,7 +1485,7 @@ def get_timestamp():
 
 def validate_priority(priority):
     """Validiert Priorität (1-5)"""
-    return isinstance(priority, int) and 1 <= priority <= 5
+    return isinstance(priority, int) and 1 &lt;= priority &lt;= 5
 
 def validate_status(status):
     """Validiert Status"""
@@ -1569,7 +1569,7 @@ def create_multiple_tasks(*task_data):
             task = create_task(**data)
             if task:
                 created_tasks.append(task)
-        elif isinstance(data, (list, tuple)) and len(data) >= 1:
+        elif isinstance(data, (list, tuple)) and len(data) &gt;= 1:
             # Positionelle Argumente
             task = create_task(*data)
             if task:
@@ -1593,7 +1593,7 @@ def find_tasks_by_status(status):
 def find_tasks_by_priority(min_priority=1, max_priority=5):
     """Findet Tasks nach Priorität"""
     return [task for task in tasks 
-            if min_priority <= task["priority"] <= max_priority]
+            if min_priority &lt;= task["priority"] &lt;= max_priority]
 
 def search_tasks(search_term, search_in=["title", "description"]):
     """Sucht in Tasks nach Begriffen"""
@@ -1718,7 +1718,7 @@ def get_overdue_tasks():
         if task.get("due_date") and task["status"] != "done":
             try:
                 due_date = datetime.strptime(task["due_date"], "%Y-%m-%d").date()
-                if due_date < today:
+                if due_date &lt; today:
                     overdue.append(task)
             except ValueError:
                 pass
@@ -1752,9 +1752,9 @@ def filter_tasks(**criteria):
         elif key == "priority":
             filtered = [t for t in filtered if t["priority"] == value]
         elif key == "min_priority":
-            filtered = [t for t in filtered if t["priority"] >= value]
+            filtered = [t for t in filtered if t["priority"] &gt;= value]
         elif key == "max_priority":
-            filtered = [t for t in filtered if t["priority"] <= value]
+            filtered = [t for t in filtered if t["priority"] &lt;= value]
     
     return filtered
 
@@ -1863,7 +1863,7 @@ def create_demo_tasks():
     created = create_multiple_tasks(*demo_tasks)
     
     # Einige Tasks als erledigt markieren
-    if len(created) >= 3:
+    if len(created) &gt;= 3:
         mark_completed(created[0]["id"])
         mark_in_progress(created[1]["id"])
     
@@ -2035,6 +2035,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-funktionen'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

@@ -73,11 +73,11 @@ is_active = True
 nothing = None
 
 # Typ mit type() prüfen
-print(type(number))     # <class 'int'>
-print(type(price))      # <class 'float'>
-print(type(name))       # <class 'str'>
-print(type(is_active))  # <class 'bool'>
-print(type(nothing))    # <class 'NoneType'>
+print(type(number))     # &lt;class 'int'&gt;
+print(type(price))      # &lt;class 'float'&gt;
+print(type(name))       # &lt;class 'str'&gt;
+print(type(is_active))  # &lt;class 'bool'&gt;
+print(type(nothing))    # &lt;class 'NoneType'&gt;
 
 # Mit isinstance() prüfen (empfohlen)
 print(isinstance(number, int))      # True
@@ -332,9 +332,9 @@ print("Name: " + name + ", Alter: " + str(age))
 # Formatierung mit Ausrichtung und Padding
 product = "Laptop"
 price = 999.99
-print(f"{product:<10} | {price:>8.2f} EUR")  # Links ausgerichtet | Rechts ausgerichtet
+print(f"{product:&lt;10} | {price:&gt;8.2f} EUR")  # Links ausgerichtet | Rechts ausgerichtet
 print(f"{product:^15}")  # Zentriert
-print(f"{product:*<15}")  # Mit Sternen aufgefüllt</code></pre>
+print(f"{product:*&lt;15}")  # Mit Sternen aufgefüllt</code></pre>
                             </div>
                         </div>
                         
@@ -377,17 +377,17 @@ print(f"Führerschein: {has_license}")
 
 # Boolean aus Vergleichen
 age = 25
-is_teenager = 13 <= age <= 19
-is_senior = age >= 65
-can_vote = age >= 18
+is_teenager = 13 &lt;= age &lt;= 19
+is_senior = age &gt;= 65
+can_vote = age &gt;= 18
 
 print(f"Teenager: {is_teenager}")    # False
 print(f"Senior: {is_senior}")        # False  
 print(f"Wahlberechtigt: {can_vote}") # True
 
 # Typ prüfen
-print(f"Typ von True: {type(True)}")    # <class 'bool'>
-print(f"Typ von False: {type(False)}")  # <class 'bool'></code></pre>
+print(f"Typ von True: {type(True)}")    # &lt;class 'bool'&gt;
+print(f"Typ von False: {type(False)}")  # &lt;class 'bool'&gt;</code></pre>
                             </div>
                         </div>
                         
@@ -418,10 +418,10 @@ print(f"Kann Drink kaufen: {can_buy_drink}") # False
 x, y = 10, 20
 print(f"{x} == {y}: {x == y}")  # False
 print(f"{x} != {y}: {x != y}")  # True
-print(f"{x} < {y}: {x < y}")    # True
-print(f"{x} > {y}: {x > y}")    # False
-print(f"{x} <= {y}: {x <= y}")  # True
-print(f"{x} >= {y}: {x >= y}")  # False</code></pre>
+print(f"{x} &lt; {y}: {x &lt; y}")    # True
+print(f"{x} &gt; {y}: {x &gt; y}")    # False
+print(f"{x} &lt;= {y}: {x &lt;= y}")  # True
+print(f"{x} &gt;= {y}: {x &gt;= y}")  # False</code></pre>
                             </div>
                         </div>
                         
@@ -445,7 +445,7 @@ falsy_values = [
 
 print("Falsy values:")
 for value in falsy_values:
-    print(f"{repr(value):>8} -> {bool(value)}")
+    print(f"{repr(value):&gt;8} -&gt; {bool(value)}")
 
 print("\nTruthy values:")
 truthy_values = [
@@ -460,7 +460,7 @@ truthy_values = [
 ]
 
 for value in truthy_values:
-    print(f"{repr(value):>15} -> {bool(value)}")
+    print(f"{repr(value):&gt;15} -&gt; {bool(value)}")
 
 # In if-Statements
 def check_value(value):
@@ -518,7 +518,7 @@ user_input = None
 optional_parameter = None
 
 print(f"result: {result}")
-print(f"Typ von None: {type(None)}")    # <class 'NoneType'>
+print(f"Typ von None: {type(None)}")    # &lt;class 'NoneType'&gt;
 
 # None in Funktionen (Default Return)
 def greet(name):
@@ -609,8 +609,8 @@ text_number = "42"
 text_float = "3.14"
 text_bool = "True"
 
-num_int = int(text_number)        # "42" -> 42
-num_float = float(text_float)     # "3.14" -> 3.14
+num_int = int(text_number)        # "42" -&gt; 42
+num_float = float(text_float)     # "3.14" -&gt; 3.14
 # bool("anything") ist True, außer bool("") ist False
 
 print(f"int('{text_number}'): {num_int}")
@@ -622,8 +622,8 @@ print(f"bool(''): {bool('')}")             # False
 number = 123
 float_num = 45.67
 
-str_from_int = str(number)        # 123 -> "123"
-str_from_float = str(float_num)   # 45.67 -> "45.67"
+str_from_int = str(number)        # 123 -&gt; "123"
+str_from_float = str(float_num)   # 45.67 -&gt; "45.67"
 
 print(f"str({number}): '{str_from_int}'")
 print(f"str({float_num}): '{str_from_float}'")
@@ -632,8 +632,8 @@ print(f"str({float_num}): '{str_from_float}'")
 int_val = 10
 float_val = 3.99
 
-int_to_float = float(int_val)     # 10 -> 10.0
-float_to_int = int(float_val)     # 3.99 -> 3 (abgeschnitten!)
+int_to_float = float(int_val)     # 10 -&gt; 10.0
+float_to_int = int(float_val)     # 3.99 -&gt; 3 (abgeschnitten!)
 
 print(f"float({int_val}): {int_to_float}")
 print(f"int({float_val}): {float_to_int}")  # Achtung: wird abgeschnitten!</code></pre>
@@ -754,8 +754,8 @@ def analyze_number(n):
     
     if isinstance(n, int):
         print(f"  Ganze Zahl: Ja")
-        print(f"  Positiv: {n > 0}")
-        print(f"  Negativ: {n < 0}")
+        print(f"  Positiv: {n &gt; 0}")
+        print(f"  Negativ: {n &lt; 0}")
         print(f"  Gerade: {n % 2 == 0}")
         print(f"  Ungerade: {n % 2 == 1}")
         print(f"  Bit-Länge: {n.bit_length()}")
@@ -900,7 +900,7 @@ if __name__ == "__main__":
 ==================================================
 Wert: 42
 Typ: int
-Typ (vollständig): <class 'int'>
+Typ (vollständig): &lt;class 'int'&gt;
 Boolean-Wert: True
 Hash-fähig: True
 
@@ -921,6 +921,8 @@ Drücken Sie Enter für den nächsten Wert...</pre>
                         <?php renderPythonPageNavigation('python-datentypen'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

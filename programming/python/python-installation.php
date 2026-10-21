@@ -464,7 +464,7 @@ pip list
 pip show paketname
 
 # Requirements-Datei erstellen
-pip freeze > requirements.txt
+pip freeze &gt; requirements.txt
 
 # Aus Requirements-Datei installieren
 pip install -r requirements.txt</code></pre>
@@ -628,7 +628,7 @@ conda env remove --name mein_projekt</code></pre>
                                 </div>
                                 <div class="workflow-step">
                                     <div class="step-icon">5</div>
-                                    <div class="step-text">Requirements exportieren: <code>pip freeze > requirements.txt</code></div>
+                                    <div class="step-text">Requirements exportieren: <code>pip freeze &gt; requirements.txt</code></div>
                                 </div>
                             </div>
                         </div>
@@ -767,6 +767,8 @@ Sie können mit Python entwickeln!</pre>
                         <?php renderPythonPageNavigation('python-installation'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

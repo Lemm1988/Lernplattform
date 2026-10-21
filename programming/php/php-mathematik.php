@@ -18,7 +18,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
 
-                        <?php renderNavigation('php-math'); ?>
+                        <?php renderNavigation('php-mathematik'); ?>
 
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-calculator me-2"></i>PHP Mathematik</h1>
@@ -327,7 +327,7 @@ function generiere_passwort($laenge = 12) {
                '0123456789!@#$%^&*';
     
     $passwort = '';
-    for ($i = 0; $i < $laenge; $i++) {
+    for ($i = 0; $i &lt; $laenge; $i++) {
         $passwort .= $zeichen[mt_rand(0, strlen($zeichen) - 1)];
     }
     return $passwort;
@@ -339,7 +339,7 @@ echo "Neues Passwort: " . generiere_passwort(16) . "\n";
 function wuerfel_simulation($anzahl_wuerfe = 1000) {
     $ergebnisse = array_fill(1, 6, 0);
     
-    for ($i = 0; $i < $anzahl_wuerfe; $i++) {
+    for ($i = 0; $i &lt; $anzahl_wuerfe; $i++) {
         $wurf = mt_rand(1, 6);
         $ergebnisse[$wurf]++;
     }
@@ -348,7 +348,7 @@ function wuerfel_simulation($anzahl_wuerfe = 1000) {
 }
 
 $simulation = wuerfel_simulation(6000);
-foreach ($simulation as $zahl => $haeufigkeit) {
+foreach ($simulation as $zahl =&gt; $haeufigkeit) {
     $prozent = ($haeufigkeit / 6000) * 100;
     echo "Zahl $zahl: $haeufigkeit mal (" . 
          round($prozent, 1) . "%)\n";
@@ -398,11 +398,11 @@ echo format_us_dollar(1234.56) . "\n";  // $1,234.56
 
 // Kurze Zahlen (K, M, B)
 function format_kurz($zahl) {
-    if ($zahl >= 1000000000) {
+    if ($zahl &gt;= 1000000000) {
         return round($zahl / 1000000000, 1) . 'B';
-    } elseif ($zahl >= 1000000) {
+    } elseif ($zahl &gt;= 1000000) {
         return round($zahl / 1000000, 1) . 'M';  
-    } elseif ($zahl >= 1000) {
+    } elseif ($zahl &gt;= 1000) {
         return round($zahl / 1000, 1) . 'K';
     }
     return $zahl;
@@ -431,7 +431,7 @@ echo format_prozent(0.75, 0) . "\n";   // 75%
 function format_bytes($bytes, $precision = 2) {
     $units = ['B', 'KB', 'MB', 'GB', 'TB'];
     
-    for ($i = 0; $bytes >= 1024 && $i < 4; $i++) {
+    for ($i = 0; $bytes &gt;= 1024 && $i &lt; 4; $i++) {
         $bytes /= 1024;
     }
     
@@ -443,13 +443,13 @@ echo format_bytes(5242880) . "\n";     // 5 MB
 
 // Römische Zahlen
 function zu_roemisch($zahl) {
-    $werte = [1000=>'M', 900=>'CM', 500=>'D', 400=>'CD',
-              100=>'C', 90=>'XC', 50=>'L', 40=>'XL',
-              10=>'X', 9=>'IX', 5=>'V', 4=>'IV', 1=>'I'];
+    $werte = [1000=&gt;'M', 900=&gt;'CM', 500=&gt;'D', 400=&gt;'CD',
+              100=&gt;'C', 90=&gt;'XC', 50=&gt;'L', 40=&gt;'XL',
+              10=&gt;'X', 9=&gt;'IX', 5=&gt;'V', 4=&gt;'IV', 1=&gt;'I'];
     
     $ergebnis = '';
-    foreach ($werte as $wert => $symbol) {
-        while ($zahl >= $wert) {
+    foreach ($werte as $wert =&gt; $symbol) {
+        while ($zahl &gt;= $wert) {
             $ergebnis .= $symbol;
             $zahl -= $wert;
         }
@@ -467,13 +467,13 @@ function zahl_in_worten($zahl) {
     $zehner = ['', '', 'zwanzig', 'dreißig', 'vierzig', 'fünfzig',
                'sechzig', 'siebzig', 'achtzig', 'neunzig'];
     
-    if ($zahl < 10) return $einer[$zahl];
-    if ($zahl < 20) {
+    if ($zahl &lt; 10) return $einer[$zahl];
+    if ($zahl &lt; 20) {
         $special = ['zehn', 'elf', 'zwölf', 'dreizehn', 'vierzehn',
                    'fünfzehn', 'sechzehn', 'siebzehn', 'achtzehn', 'neunzehn'];
         return $special[$zahl - 10];
     }
-    if ($zahl < 100) {
+    if ($zahl &lt; 100) {
         return $einer[$zahl % 10] . ($zahl % 10 ? 'und' : '') . 
                $zehner[intval($zahl / 10)];
     }
@@ -528,15 +528,15 @@ function berechne_statistiken($daten) {
     $standardabweichung = sqrt($varianz);
     
     return [
-        'anzahl' => $anzahl,
-        'summe' => $summe,
-        'mittelwert' => round($mittelwert, 2),
-        'median' => $median,
-        'minimum' => min($daten),
-        'maximum' => max($daten),
-        'spannweite' => max($daten) - min($daten),
-        'varianz' => round($varianz, 2),
-        'standardabweichung' => round($standardabweichung, 2)
+        'anzahl' =&gt; $anzahl,
+        'summe' =&gt; $summe,
+        'mittelwert' =&gt; round($mittelwert, 2),
+        'median' =&gt; $median,
+        'minimum' =&gt; min($daten),
+        'maximum' =&gt; max($daten),
+        'spannweite' =&gt; max($daten) - min($daten),
+        'varianz' =&gt; round($varianz, 2),
+        'standardabweichung' =&gt; round($standardabweichung, 2)
     ];
 }
 
@@ -602,7 +602,7 @@ function korrelation($x, $y) {
     $sum_x2 = 0;
     $sum_y2 = 0;
     
-    for ($i = 0; $i < $n; $i++) {
+    for ($i = 0; $i &lt; $n; $i++) {
         $sum_xy += $x[$i] * $y[$i];
         $sum_x2 += $x[$i] * $x[$i];
         $sum_y2 += $y[$i] * $y[$i];
@@ -754,7 +754,7 @@ function tilgungsplan($kreditsumme, $zinssatz_jahr, $monate, $anzeige_monate = 3
     echo "&lt;table class='table table-sm'&gt;";
     echo "&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Monat&lt;/th&gt;&lt;th&gt;Rate&lt;/th&gt;&lt;th&gt;Zinsen&lt;/th&gt;&lt;th&gt;Tilgung&lt;/th&gt;&lt;th&gt;Restschuld&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;";
     
-    for ($monat = 1; $monat <= min($anzeige_monate, $monate); $monat++) {
+    for ($monat = 1; $monat &lt;= min($anzeige_monate, $monate); $monat++) {
         $zinsen = $restschuld * $zinssatz_monat;
         $tilgung = $rate - $zinsen;
         $restschuld -= $tilgung;
@@ -800,11 +800,11 @@ function ist_gerade($zahl) {
 }
 
 function ist_primzahl($zahl) {
-    if ($zahl < 2) return false;
+    if ($zahl &lt; 2) return false;
     if ($zahl == 2) return true;
     if ($zahl % 2 == 0) return false;
     
-    for ($i = 3; $i <= sqrt($zahl); $i += 2) {
+    for ($i = 3; $i &lt;= sqrt($zahl); $i += 2) {
         if ($zahl % $i == 0) return false;
     }
     return true;
@@ -812,7 +812,7 @@ function ist_primzahl($zahl) {
 
 function ist_perfekte_zahl($zahl) {
     $summe = 1;
-    for ($i = 2; $i <= sqrt($zahl); $i++) {
+    for ($i = 2; $i &lt;= sqrt($zahl); $i++) {
         if ($zahl % $i == 0) {
             $summe += $i;
             if ($i != $zahl / $i) {
@@ -820,7 +820,7 @@ function ist_perfekte_zahl($zahl) {
             }
         }
     }
-    return $summe == $zahl && $zahl > 1;
+    return $summe == $zahl && $zahl &gt; 1;
 }
 
 // Tests
@@ -830,10 +830,10 @@ echo ist_perfekte_zahl(28) ? "28 ist perfekt\n" : "28 ist nicht perfekt\n";
 
 // Fibonacci-Folge
 function fibonacci($n) {
-    if ($n <= 1) return $n;
+    if ($n &lt;= 1) return $n;
     
     $a = 0; $b = 1;
-    for ($i = 2; $i <= $n; $i++) {
+    for ($i = 2; $i &lt;= $n; $i++) {
         $temp = $a + $b;
         $a = $b;
         $b = $temp;
@@ -842,14 +842,14 @@ function fibonacci($n) {
 }
 
 echo "Fibonacci-Folge: ";
-for ($i = 0; $i < 10; $i++) {
+for ($i = 0; $i &lt; 10; $i++) {
     echo fibonacci($i) . " ";
 }
 echo "\n";
 
 // Fakultät
 function fakultaet($n) {
-    if ($n <= 1) return 1;
+    if ($n &lt;= 1) return 1;
     return $n * fakultaet($n - 1);
 }
 
@@ -857,7 +857,7 @@ echo "5! = " . fakultaet(5) . "\n";  // 120
 
 // Binomialkoeffizient (n über k)
 function binomial($n, $k) {
-    if ($k > $n) return 0;
+    if ($k &gt; $n) return 0;
     if ($k == 0 || $k == $n) return 1;
     
     return fakultaet($n) / (fakultaet($k) * fakultaet($n - $k));

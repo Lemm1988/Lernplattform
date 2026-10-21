@@ -267,17 +267,17 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     
     // void - keine Rückgabe
     public static void druckeTabelle(int bis) {
-        for (int i = 1; i <= bis; i++) {
+        for (int i = 1; i &lt;= bis; i++) {
             System.out.println(i + " x " + i + " = " + (i * i));
         }
     }
     
     // Primitive Rückgabe
     public static int fakultaet(int n) {
-        if (n <= 1) return 1;
+        if (n &lt;= 1) return 1;
         
         int ergebnis = 1;
-        for (int i = 2; i <= n; i++) {
+        for (int i = 2; i &lt;= n; i++) {
             ergebnis *= i;
         }
         return ergebnis;
@@ -291,7 +291,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     // Array-Rückgabe
     public static int[] erstelleZahlenreihe(int start, int ende) {
         int[] reihe = new int[ende - start + 1];
-        for (int i = 0; i < reihe.length; i++) {
+        for (int i = 0; i &lt; reihe.length; i++) {
             reihe[i] = start + i;
         }
         return reihe;
@@ -299,10 +299,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     
     // Bedingte Rückgabe
     public static String bewertePunkte(int punkte) {
-        if (punkte >= 90) return "Ausgezeichnet";
-        else if (punkte >= 80) return "Sehr gut";
-        else if (punkte >= 70) return "Gut";
-        else if (punkte >= 60) return "Ausreichend";
+        if (punkte &gt;= 90) return "Ausgezeichnet";
+        else if (punkte &gt;= 80) return "Sehr gut";
+        else if (punkte &gt;= 70) return "Gut";
+        else if (punkte &gt;= 60) return "Ausreichend";
         else return "Ungenügend";
     }
     
@@ -373,7 +373,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     
     // Überladene max-Methoden
     public static int max(int a, int b) {
-        return (a > b) ? a : b;
+        return (a &gt; b) ? a : b;
     }
     
     public static int max(int a, int b, int c) {
@@ -381,7 +381,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     }
     
     public static double max(double a, double b) {
-        return (a > b) ? a : b;
+        return (a &gt; b) ? a : b;
     }
     
     // Überladene Konstruktor-ähnliche Methoden
@@ -470,7 +470,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     // Klassische Rekursion: Fakultät
     public static long fakultaet(int n) {
         // Basisfall
-        if (n <= 1) {
+        if (n &lt;= 1) {
             return 1;
         }
         // Rekursiver Fall
@@ -479,7 +479,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     
     // Fibonacci-Zahlen
     public static int fibonacci(int n) {
-        if (n <= 1) {
+        if (n &lt;= 1) {
             return n;
         }
         return fibonacci(n - 1) + fibonacci(n - 2);
@@ -489,26 +489,26 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     public static double potenz(double basis, int exponent) {
         if (exponent == 0) return 1;
         if (exponent == 1) return basis;
-        if (exponent < 0) return 1 / potenz(basis, -exponent);
+        if (exponent &lt; 0) return 1 / potenz(basis, -exponent);
         
         return basis * potenz(basis, exponent - 1);
     }
     
     // Summe von 1 bis n
     public static int summe(int n) {
-        if (n <= 0) return 0;
+        if (n &lt;= 0) return 0;
         return n + summe(n - 1);
     }
     
     // Array-Summe rekursiv
     public static int arraySum(int[] array, int index) {
-        if (index >= array.length) return 0;
+        if (index &gt;= array.length) return 0;
         return array[index] + arraySum(array, index + 1);
     }
     
     // String umkehren
     public static String umkehren(String text) {
-        if (text == null || text.length() <= 1) {
+        if (text == null || text.length() &lt;= 1) {
             return text;
         }
         return umkehren(text.substring(1)) + text.charAt(0);
@@ -516,13 +516,13 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     
     // Binärsuche (rekursiv)
     public static int binaerSuche(int[] array, int target, int links, int rechts) {
-        if (links > rechts) return -1; // Nicht gefunden
+        if (links &gt; rechts) return -1; // Nicht gefunden
         
         int mitte = links + (rechts - links) / 2;
         
         if (array[mitte] == target) return mitte;
         
-        if (array[mitte] > target) {
+        if (array[mitte] &gt; target) {
             return binaerSuche(array, target, links, mitte - 1);
         } else {
             return binaerSuche(array, target, mitte + 1, rechts);
@@ -536,7 +536,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         
         // Fibonacci
         System.out.println("\nFibonacci-Zahlen:");
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i &lt;= 10; i++) {
             System.out.print(fibonacci(i) + " ");
         }
         System.out.println();
@@ -603,8 +603,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     
     // Mathematische Utilities
     public static boolean istPrimzahl(int zahl) {
-        if (zahl < 2) return false;
-        for (int i = 2; i <= Math.sqrt(zahl); i++) {
+        if (zahl &lt; 2) return false;
+        for (int i = 2; i &lt;= Math.sqrt(zahl); i++) {
             if (zahl % i == 0) return false;
         }
         return true;
@@ -627,16 +627,16 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     // Array-Utilities
     public static void printArray(int[] array, String titel) {
         System.out.println(titel + ":");
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i &lt; array.length; i++) {
             System.out.print(array[i]);
-            if (i < array.length - 1) System.out.print(", ");
+            if (i &lt; array.length - 1) System.out.print(", ");
         }
         System.out.println();
     }
     
     public static int[] kopieArray(int[] original) {
         int[] kopie = new int[original.length];
-        for (int i = 0; i < original.length; i++) {
+        for (int i = 0; i &lt; original.length; i++) {
             kopie[i] = original[i];
         }
         return kopie;
@@ -654,15 +654,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         return email != null && 
                email.contains("@") && 
                email.contains(".") &&
-               email.indexOf("@") < email.lastIndexOf(".");
+               email.indexOf("@") &lt; email.lastIndexOf(".");
     }
     
     public static boolean istGueltigesAlter(int alter) {
-        return alter >= 0 && alter <= 150;
+        return alter &gt;= 0 && alter &lt;= 150;
     }
     
     public static boolean istStarkesPasswort(String passwort) {
-        if (passwort == null || passwort.length() < 8) return false;
+        if (passwort == null || passwort.length() &lt; 8) return false;
         
         boolean hatGrossbuchstabe = false;
         boolean hatKleinbuchstabe = false;
@@ -723,6 +723,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
                         <?php renderJavaPageNavigation('java-methoden'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

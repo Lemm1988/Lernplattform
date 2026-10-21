@@ -122,14 +122,14 @@ class Animal:
         """Gemeinsame Funktionalität für alle Tiere"""
         print(f"{self.name} isst {food}")
         self.health += 5
-        if self.health > 100:
+        if self.health &gt; 100:
             self.health = 100
     
     def sleep(self):
         """Weitere gemeinsame Funktionalität"""
         print(f"{self.name} schläft")
         self.health += 10
-        if self.health > 100:
+        if self.health &gt; 100:
             self.health = 100
     
     def get_info(self):
@@ -204,7 +204,7 @@ class Cat(Animal):
     
     def use_life(self):
         """Katzen haben 9 Leben"""
-        if self.lives > 0:
+        if self.lives &gt; 0:
             self.lives -= 1
             print(f"{self.name} hat ein Leben verloren. Noch {self.lives} Leben übrig.")
         else:
@@ -285,7 +285,7 @@ print(f"Cat MRO: {Cat.__mro__}")</code></pre>
     def start(self):
         """Fahrzeug starten"""
         if not self.is_running:
-            if self.current_fuel > 0:
+            if self.current_fuel &gt; 0:
                 self.is_running = True
                 print(f"{self.make} {self.model} gestartet")
                 return True
@@ -311,7 +311,7 @@ print(f"Cat MRO: {Cat.__mro__}")</code></pre>
             return False
         
         fuel_needed = distance * 0.1  # 0.1L pro km
-        if fuel_needed > self.current_fuel:
+        if fuel_needed &gt; self.current_fuel:
             print(f"Nicht genug Treibstoff für {distance}km")
             return False
         
@@ -386,7 +386,7 @@ class Car(Vehicle):
         """Gepäck einladen"""
         current_volume = sum(item['volume'] for item in self.trunk_contents)
         
-        if current_volume + volume > self.trunk_capacity:
+        if current_volume + volume &gt; self.trunk_capacity:
             print(f"Kofferraum voll! {item} passt nicht mehr rein")
             return False
         
@@ -396,7 +396,7 @@ class Car(Vehicle):
     
     def board_passenger(self, passenger_name):
         """Passagier einsteigen lassen"""
-        if self.passengers >= self.max_passengers:
+        if self.passengers &gt;= self.max_passengers:
             print(f"Auto voll! {passenger_name} kann nicht einsteigen")
             return False
         
@@ -435,7 +435,7 @@ class ElectricCar(Car):
         print("  - Batteriesystem prüfen")
         print("  - Elektromotor aktivieren")
         
-        if self.current_charge <= 0:
+        if self.current_charge &lt;= 0:
             print("Batterie leer! Auto kann nicht starten")
             return False
         
@@ -456,7 +456,7 @@ class ElectricCar(Car):
             return False
         
         energy_needed = distance * 0.2  # 0.2 kWh pro km
-        if energy_needed > self.current_charge:
+        if energy_needed &gt; self.current_charge:
             print(f"Nicht genug Batterieladung für {distance}km")
             return False
         
@@ -634,7 +634,7 @@ class Flyable:
     
     def land(self):
         """Landen"""
-        if self.altitude > 0:
+        if self.altitude &gt; 0:
             self.altitude = 0
             print("Gelandet!")
             return True
@@ -644,20 +644,20 @@ class Flyable:
     
     def fly_to_altitude(self, target_altitude):
         """Zu bestimmter Höhe fliegen"""
-        if target_altitude > self.max_altitude:
+        if target_altitude &gt; self.max_altitude:
             print(f"Maximale Flughöhe überschritten! Max: {self.max_altitude}m")
             return False
         
-        if target_altitude < 0:
+        if target_altitude &lt; 0:
             print("Flughöhe kann nicht negativ sein!")
             return False
         
         old_altitude = self.altitude
         self.altitude = target_altitude
         
-        if target_altitude > old_altitude:
+        if target_altitude &gt; old_altitude:
             print(f"Steige von {old_altitude}m auf {target_altitude}m")
-        elif target_altitude < old_altitude:
+        elif target_altitude &lt; old_altitude:
             print(f"Sinke von {old_altitude}m auf {target_altitude}m")
         else:
             print(f"Bereits auf {target_altitude}m Höhe")
@@ -675,20 +675,20 @@ class Swimmable:
     
     def dive(self, target_depth):
         """Tauchen"""
-        if target_depth > self.max_depth:
+        if target_depth &gt; self.max_depth:
             print(f"Maximale Tauchtiefe überschritten! Max: {self.max_depth}m")
             return False
         
-        if target_depth < 0:
+        if target_depth &lt; 0:
             print("Tauchtiefe kann nicht negativ sein!")
             return False
         
         old_depth = self.depth
         self.depth = target_depth
         
-        if target_depth > old_depth:
+        if target_depth &gt; old_depth:
             print(f"Tauche von {old_depth}m auf {target_depth}m")
-        elif target_depth < old_depth:
+        elif target_depth &lt; old_depth:
             print(f"Steige von {old_depth}m auf {target_depth}m")
         else:
             print(f"Bereits auf {target_depth}m Tiefe")
@@ -697,7 +697,7 @@ class Swimmable:
     
     def surface(self):
         """Auftauchen"""
-        if self.depth > 0:
+        if self.depth &gt; 0:
             old_depth = self.depth
             self.depth = 0
             print(f"Aufgetaucht von {old_depth}m Tiefe!")
@@ -719,7 +719,7 @@ class Animal:
     def eat(self, food):
         """Essen"""
         self.energy += 10
-        if self.energy > 100:
+        if self.energy &gt; 100:
             self.energy = 100
         print(f"{self.name} isst {food}. Energie: {self.energy}")
     
@@ -971,28 +971,28 @@ class Shape(ABC):
         self._color = "black"
     
     @abstractmethod
-    def area(self) -> float:
+    def area(self) -&gt; float:
         """Abstrakte Methode - muss implementiert werden"""
         pass
     
     @abstractmethod
-    def perimeter(self) -> float:
+    def perimeter(self) -&gt; float:
         """Weitere abstrakte Methode"""
         pass
     
     @property
     @abstractmethod
-    def vertices(self) -> int:
+    def vertices(self) -&gt; int:
         """Abstrakte Property - Anzahl Ecken"""
         pass
     
     # Konkrete Methode (nicht abstrakt)
-    def describe(self) -> str:
+    def describe(self) -&gt; str:
         """Konkrete Methode kann in ABC existieren"""
         return f"{self.name}: {self._color}, Fläche: {self.area():.2f}, Umfang: {self.perimeter():.2f}"
     
     @property
-    def color(self) -> str:
+    def color(self) -&gt; str:
         return self._color
     
     @color.setter
@@ -1022,16 +1022,16 @@ class Rectangle(Shape):
         self.width = width
         self.height = height
     
-    def area(self) -> float:
+    def area(self) -&gt; float:
         """Implementierung der abstrakten Methode"""
         return self.width * self.height
     
-    def perimeter(self) -> float:
+    def perimeter(self) -&gt; float:
         """Implementierung der abstrakten Methode"""
         return 2 * (self.width + self.height)
     
     @property
-    def vertices(self) -> int:
+    def vertices(self) -&gt; int:
         """Implementierung der abstrakten Property"""
         return 4
     
@@ -1046,16 +1046,16 @@ class Circle(Shape):
         super().__init__("Circle")
         self.radius = radius
     
-    def area(self) -> float:
+    def area(self) -&gt; float:
         import math
         return math.pi * self.radius ** 2
     
-    def perimeter(self) -> float:
+    def perimeter(self) -&gt; float:
         import math
         return 2 * math.pi * self.radius
     
     @property
-    def vertices(self) -> int:
+    def vertices(self) -&gt; int:
         return 0  # Kreis hat keine Ecken
     
     def _draw_specific(self):
@@ -1074,23 +1074,23 @@ class Triangle(Shape):
         if not self._is_valid_triangle():
             raise ValueError("Ungültige Dreiecks-Seiten")
     
-    def _is_valid_triangle(self) -> bool:
+    def _is_valid_triangle(self) -&gt; bool:
         """Dreiecksungleichung prüfen"""
-        return (self.side_a + self.side_b > self.side_c and
-                self.side_a + self.side_c > self.side_b and
-                self.side_b + self.side_c > self.side_a)
+        return (self.side_a + self.side_b &gt; self.side_c and
+                self.side_a + self.side_c &gt; self.side_b and
+                self.side_b + self.side_c &gt; self.side_a)
     
-    def area(self) -> float:
+    def area(self) -&gt; float:
         """Heron'sche Formel"""
         import math
         s = self.perimeter() / 2
         return math.sqrt(s * (s - self.side_a) * (s - self.side_b) * (s - self.side_c))
     
-    def perimeter(self) -> float:
+    def perimeter(self) -&gt; float:
         return self.side_a + self.side_b + self.side_c
     
     @property
-    def vertices(self) -> int:
+    def vertices(self) -&gt; int:
         return 3
 
 # ABC Demonstration
@@ -1184,7 +1184,7 @@ try:
         def __le__(self, other):
             ...
     
-    def sort_items(items: List[Comparable]) -> List[Comparable]:
+    def sort_items(items: List[Comparable]) -&gt; List[Comparable]:
         """Sortiert vergleichbare Objekte"""
         return sorted(items)
     
@@ -1195,10 +1195,10 @@ try:
             self.price = price
         
         def __lt__(self, other):
-            return self.price < other.price
+            return self.price &lt; other.price
         
         def __le__(self, other):
-            return self.price <= other.price
+            return self.price &lt;= other.price
         
         def __str__(self):
             return f"{self.name}: ${self.price}"
@@ -1216,7 +1216,7 @@ try:
         print(f"  {product}")
 
 except ImportError:
-    print("Protocol nicht verfügbar (Python < 3.8)")
+    print("Protocol nicht verfügbar (Python &lt; 3.8)")
 
 # Mixin vs. ABC
 class LoggingMixin:
@@ -1318,7 +1318,7 @@ class CSVProcessor(DataProcessor):
     def clean_data(self, data):
         # Leere Zeilen entfernen
         cleaned = [row for row in data if row.strip()]
-        print(f"CSV bereinigt: {len(data)} -> {len(cleaned)} Zeilen")
+        print(f"CSV bereinigt: {len(data)} -&gt; {len(cleaned)} Zeilen")
         return cleaned
     
     def transform_data(self, data):
@@ -1409,13 +1409,13 @@ class PositionMixin:
         self.x += dx
         self.y += dy
     
-    def distance_to(self, other) -> float:
+    def distance_to(self, other) -&gt; float:
         """Distanz zu anderem Objekt"""
         if hasattr(other, 'x') and hasattr(other, 'y'):
             return math.sqrt((self.x - other.x)**2 + (self.y - other.y)**2)
         return float('inf')
     
-    def get_position(self) -> Tuple[float, float]:
+    def get_position(self) -&gt; Tuple[float, float]:
         return (self.x, self.y)
 
 class HealthMixin:
@@ -1427,18 +1427,18 @@ class HealthMixin:
         self.is_alive = True
         super().__init__()
     
-    def take_damage(self, damage: int, damage_type: DamageType = DamageType.PHYSICAL) -> int:
+    def take_damage(self, damage: int, damage_type: DamageType = DamageType.PHYSICAL) -&gt; int:
         """Schaden nehmen"""
         actual_damage = self._calculate_damage_reduction(damage, damage_type)
         self.current_health -= actual_damage
         
-        if self.current_health <= 0:
+        if self.current_health &lt;= 0:
             self.current_health = 0
             self._on_death()
         
         return actual_damage
     
-    def heal(self, amount: int) -> int:
+    def heal(self, amount: int) -&gt; int:
         """Heilen"""
         if not self.is_alive:
             return 0
@@ -1447,7 +1447,7 @@ class HealthMixin:
         self.current_health = min(self.current_health + amount, self.max_health)
         return self.current_health - old_health
     
-    def _calculate_damage_reduction(self, damage: int, damage_type: DamageType) -> int:
+    def _calculate_damage_reduction(self, damage: int, damage_type: DamageType) -&gt; int:
         """Override in Subklassen für Resistenzen"""
         return damage
     
@@ -1457,7 +1457,7 @@ class HealthMixin:
         print(f"{getattr(self, 'name', 'Entity')} ist gestorben!")
     
     @property
-    def health_percentage(self) -> float:
+    def health_percentage(self) -&gt; float:
         return (self.current_health / self.max_health) * 100
 
 class RenderMixin:
@@ -1492,7 +1492,7 @@ class TimestampMixin:
     def update_timestamp(self):
         self.last_updated = datetime.now()
     
-    def get_age_seconds(self) -> float:
+    def get_age_seconds(self) -&gt; float:
         return (datetime.now() - self.created_at).total_seconds()
 
 # Abstrakte Basis-Klassen
@@ -1514,7 +1514,7 @@ class GameObject(ABC, PositionMixin, RenderMixin, TimestampMixin):
     def add_tag(self, tag: str):
         self.tags.add(tag)
     
-    def has_tag(self, tag: str) -> bool:
+    def has_tag(self, tag: str) -&gt; bool:
         return tag in self.tags
     
     def destroy(self):
@@ -1541,7 +1541,7 @@ class LivingEntity(GameObject, HealthMixin):
         }
     
     @abstractmethod
-    def attack(self, target: 'LivingEntity') -> int:
+    def attack(self, target: 'LivingEntity') -&gt; int:
         """Angriff ausführen"""
         pass
     
@@ -1549,7 +1549,7 @@ class LivingEntity(GameObject, HealthMixin):
         """Erfahrung sammeln"""
         self.experience += amount
         # Vereinfachtes Level-System
-        while self.experience >= (self.level * 100):
+        while self.experience &gt;= (self.level * 100):
             self.level_up()
     
     def level_up(self):
@@ -1582,7 +1582,7 @@ class Attackable(ABC):
     """Interface für angreifbare Objekte"""
     
     @abstractmethod
-    def can_be_attacked_by(self, attacker) -> bool:
+    def can_be_attacked_by(self, attacker) -&gt; bool:
         pass
 
 # Konkrete Implementierungen
@@ -1618,11 +1618,11 @@ class Player(LivingEntity, Movable):
         self.update_timestamp()
         
         # Mana-Regeneration
-        if self.mana < self.max_mana:
+        if self.mana &lt; self.max_mana:
             self.mana += delta_time * 2
             self.mana = min(self.mana, self.max_mana)
     
-    def attack(self, target: LivingEntity) -> int:
+    def attack(self, target: LivingEntity) -&gt; int:
         """Spieler-Angriff"""
         if not self.is_alive:
             return 0
@@ -1635,7 +1635,7 @@ class Player(LivingEntity, Movable):
         
         # Kritischer Treffer basierend auf Agility
         crit_chance = self.stats['agility'] * 0.01
-        if random.random() < crit_chance:
+        if random.random() &lt; crit_chance:
             base_damage *= 2
             print(f"{self.name} landet kritischen Treffer!")
         
@@ -1653,7 +1653,7 @@ class Player(LivingEntity, Movable):
         dy = direction[1] * effective_speed
         self.move_by(dx, dy)
     
-    def cast_spell(self, spell_name: str, target=None) -> bool:
+    def cast_spell(self, spell_name: str, target=None) -&gt; bool:
         """Zauber wirken"""
         spells = {
             "fireball": {"cost": 20, "damage": 30 + self.stats['intelligence']},
@@ -1667,7 +1667,7 @@ class Player(LivingEntity, Movable):
         
         spell = spells[spell_name]
         
-        if self.mana < spell["cost"]:
+        if self.mana &lt; spell["cost"]:
             print(f"Nicht genug Mana für {spell_name}!")
             return False
         
@@ -1724,16 +1724,16 @@ class Enemy(LivingEntity, Movable, Attackable):
         if self.target and hasattr(self.target, 'distance_to'):
             distance = self.distance_to(self.target)
             
-            if distance <= self.aggro_range:
+            if distance &lt;= self.aggro_range:
                 # Zum Ziel bewegen
-                if distance > 5:  # Mindestabstand für Angriff
+                if distance &gt; 5:  # Mindestabstand für Angriff
                     direction = self._calculate_direction_to(self.target)
                     self.move(direction, 20 * delta_time)
                 else:
                     # Angreifen
                     self.attack(self.target)
     
-    def _calculate_direction_to(self, target) -> Tuple[float, float]:
+    def _calculate_direction_to(self, target) -&gt; Tuple[float, float]:
         """Richtung zum Ziel berechnen"""
         dx = target.x - self.x
         dy = target.y - self.y
@@ -1744,7 +1744,7 @@ class Enemy(LivingEntity, Movable, Attackable):
         
         return (dx / distance, dy / distance)
     
-    def attack(self, target: LivingEntity) -> int:
+    def attack(self, target: LivingEntity) -&gt; int:
         """Enemy-Angriff"""
         if not self.is_alive:
             return 0
@@ -1761,7 +1761,7 @@ class Enemy(LivingEntity, Movable, Attackable):
         dy = direction[1] * speed
         self.move_by(dx, dy)
     
-    def can_be_attacked_by(self, attacker) -> bool:
+    def can_be_attacked_by(self, attacker) -&gt; bool:
         """Kann von Angreifer angegriffen werden"""
         if attacker.entity_type == EntityType.PLAYER:
             return True
@@ -1801,7 +1801,7 @@ class NPC(LivingEntity):
         """NPC-Update (meist statisch)"""
         self.update_timestamp()
     
-    def attack(self, target: LivingEntity) -> int:
+    def attack(self, target: LivingEntity) -&gt; int:
         """NPCs greifen normalerweise nicht an"""
         print(f"{self.name} weigert sich zu kämpfen!")
         return 0
@@ -1831,9 +1831,9 @@ class Weapon(GameObject):
         """Waffen-Update"""
         self.update_timestamp()
     
-    def use(self) -> bool:
+    def use(self) -&gt; bool:
         """Waffe verwenden (Haltbarkeit reduzieren)"""
-        if self.durability > 0:
+        if self.durability &gt; 0:
             self.durability -= 1
             if self.durability == 0:
                 print(f"{self.name} ist zerbrochen!")
@@ -1866,7 +1866,7 @@ class Projectile(GameObject, Movable):
         
         # Lebensdauer reduzieren
         self.lifetime -= delta_time
-        if self.lifetime <= 0:
+        if self.lifetime &lt;= 0:
             self.destroy()
     
     def move(self, direction: Tuple[float, float], speed: float):
@@ -1961,7 +1961,7 @@ class GameEngine:
             for target in targets:
                 if target != projectile.owner:
                     distance = projectile.distance_to(target)
-                    if distance <= 5.0:  # Kollision
+                    if distance &lt;= 5.0:  # Kollision
                         projectile.hit(target)
 
 def demo_game_engine():
@@ -2108,6 +2108,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-vererbung'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

@@ -134,8 +134,8 @@ matrix = [[i * j for j in range(1, 4)] for i in range(1, 4)]
 print(f"Matrix: {matrix}")
 
 # Mit Bedingungen
-filtered_squares = [x**2 for x in range(20) if x**2 < 50]
-print(f"Quadrate < 50: {filtered_squares}")
+filtered_squares = [x**2 for x in range(20) if x**2 &lt; 50]
+print(f"Quadrate &lt; 50: {filtered_squares}")
 
 # Aus anderen Datenstrukturen
 text = "Python Programming"
@@ -191,7 +191,7 @@ print()
 
 print("Elemente:", end="")
 for fruit in fruits:
-    print(f"{fruit:>7}", end="")
+    print(f"{fruit:&gt;7}", end="")
 print()
 
 print("Negative:", end="")
@@ -778,10 +778,10 @@ print(f"list1 is list5: {list1 is list5}")  # True (gleiches Objekt)
 
 # Größer/Kleiner Vergleiche (lexikographisch)
 print(f"\\nLexikographische Vergleiche:")
-print(f"[1, 2, 3] < [1, 2, 4]: {[1, 2, 3] < [1, 2, 4]}")      # True
-print(f"[1, 2, 3] < [1, 3]: {[1, 2, 3] < [1, 3]}")            # True
-print(f"[1, 2, 3] < [1, 2]: {[1, 2, 3] < [1, 2]}")            # False
-print(f"['a', 'b'] < ['a', 'c']: {['a', 'b'] < ['a', 'c']}")    # True
+print(f"[1, 2, 3] &lt; [1, 2, 4]: {[1, 2, 3] &lt; [1, 2, 4]}")      # True
+print(f"[1, 2, 3] &lt; [1, 3]: {[1, 2, 3] &lt; [1, 3]}")            # True
+print(f"[1, 2, 3] &lt; [1, 2]: {[1, 2, 3] &lt; [1, 2]}")            # False
+print(f"['a', 'b'] &lt; ['a', 'c']: {['a', 'b'] &lt; ['a', 'c']}")    # True
 
 # Set-ähnliche Vergleiche
 def lists_have_same_elements(l1, l2):
@@ -816,7 +816,7 @@ def list_similarity(l1, l2):
     set1, set2 = set(l1), set(l2)
     intersection = len(set1 & set2)
     union = len(set1 | set2)
-    return intersection / union if union > 0 else 0
+    return intersection / union if union &gt; 0 else 0
 
 list_a = [1, 2, 3, 4, 5]
 list_b = [3, 4, 5, 6, 7]
@@ -834,8 +834,8 @@ def compare_lists_detailed(l1, l2):
     differences = []
     
     for i in range(max_len):
-        val1 = l1[i] if i < len(l1) else "FEHLT"
-        val2 = l2[i] if i < len(l2) else "FEHLT"
+        val1 = l1[i] if i &lt; len(l1) else "FEHLT"
+        val2 = l2[i] if i &lt; len(l2) else "FEHLT"
         
         if val1 != val2:
             differences.append(f"Index {i}: {val1} vs {val2}")
@@ -1246,7 +1246,7 @@ class InventoryManager:
             return True, f"Item '{item['name']}' completely removed"
         else:
             # Menge reduzieren
-            if quantity >= item["quantity"]:
+            if quantity &gt;= item["quantity"]:
                 # Komplette Menge entfernen
                 removed_qty = item["quantity"]
                 self.inventory.remove(item)
@@ -1301,18 +1301,18 @@ class InventoryManager:
         
         # Filter nach Mindestmenge
         if "min_quantity" in criteria:
-            results = [item for item in results if item["quantity"] >= criteria["min_quantity"]]
+            results = [item for item in results if item["quantity"] &gt;= criteria["min_quantity"]]
         
         # Filter nach Maximalmenge
         if "max_quantity" in criteria:
-            results = [item for item in results if item["quantity"] <= criteria["max_quantity"]]
+            results = [item for item in results if item["quantity"] &lt;= criteria["max_quantity"]]
         
         # Filter nach Preisbereich
         if "min_price" in criteria:
-            results = [item for item in results if item["price"] >= criteria["min_price"]]
+            results = [item for item in results if item["price"] &gt;= criteria["min_price"]]
         
         if "max_price" in criteria:
-            results = [item for item in results if item["price"] <= criteria["max_price"]]
+            results = [item for item in results if item["price"] &lt;= criteria["max_price"]]
         
         # Filter nach Lieferant
         if "supplier" in criteria:
@@ -1322,7 +1322,7 @@ class InventoryManager:
     
     def get_low_stock_items(self):
         """Gibt Items mit niedrigem Lagerbestand zurück"""
-        return [item for item in self.inventory if item["quantity"] <= self.low_stock_threshold]
+        return [item for item in self.inventory if item["quantity"] &lt;= self.low_stock_threshold]
     
     def get_category_summary(self):
         """Erstellt Zusammenfassung nach Kategorien"""
@@ -1436,14 +1436,14 @@ class InventoryManager:
         print("=" * 80)
         
         # Header
-        print(f"{'ID':>3} {'Name':<20} {'Category':<12} {'Qty':>5} {'Price':>8} {'Value':>10} {'Supplier':<15}")
+        print(f"{'ID':&gt;3} {'Name':&lt;20} {'Category':&lt;12} {'Qty':&gt;5} {'Price':&gt;8} {'Value':&gt;10} {'Supplier':&lt;15}")
         print("-" * 80)
         
         # Items
         for item in display_items:
             value = item["quantity"] * item["price"]
-            print(f"{item['id']:>3} {item['name']:<20} {item['category']:<12} "
-                  f"{item['quantity']:>5} {item['price']:>8.2f} {value:>10.2f} {item['supplier']:<15}")
+            print(f"{item['id']:&gt;3} {item['name']:&lt;20} {item['category']:&lt;12} "
+                  f"{item['quantity']:&gt;5} {item['price']:&gt;8.2f} {value:&gt;10.2f} {item['supplier']:&lt;15}")
     
     def generate_report(self):
         """Generiert detaillierten Inventar-Bericht"""
@@ -1700,6 +1700,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-listen'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

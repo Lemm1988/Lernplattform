@@ -60,13 +60,13 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                                             <tr>
                                                 <td><strong>Associative Array</strong></td>
                                                 <td>Schlüssel-Wert Paare</td>
-                                                <td><code>["name" => "Max"]</code></td>
+                                                <td><code>["name" =&gt; "Max"]</code></td>
                                                 <td>Datensätze, Konfiguration</td>
                                             </tr>
                                             <tr>
                                                 <td><strong>Multidimensional</strong></td>
                                                 <td>Arrays in Arrays</td>
-                                                <td><code>[["name" => "Max"], ["name" => "Anna"]]</code></td>
+                                                <td><code>[["name" =&gt; "Max"], ["name" =&gt; "Anna"]]</code></td>
                                                 <td>Tabellen, komplexe Daten</td>
                                             </tr>
                                         </tbody>
@@ -152,12 +152,12 @@ var_dump($liste);  // Mit Typen
                                             <div class="card-body">
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $benutzer = [
-    "name" => "Max Mustermann",
-    "alter" => 28,
-    "email" => "max@example.com",
-    "stadt" => "Berlin",
-    "aktiv" => true,
-    "registriert" => "2024-01-15"
+    "name" =&gt; "Max Mustermann",
+    "alter" =&gt; 28,
+    "email" =&gt; "max@example.com",
+    "stadt" =&gt; "Berlin",
+    "aktiv" =&gt; true,
+    "registriert" =&gt; "2024-01-15"
 ];
 
 // Zugriff über Schlüssel
@@ -192,21 +192,21 @@ if (isset($benutzer["adresse"])) {
                                             <div class="card-body">
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $config = [
-    "database" => [
-        "host" => "localhost",
-        "port" => 3306,
-        "name" => "meine_db",
-        "user" => "root"
+    "database" =&gt; [
+        "host" =&gt; "localhost",
+        "port" =&gt; 3306,
+        "name" =&gt; "meine_db",
+        "user" =&gt; "root"
     ],
-    "app" => [
-        "name" => "Meine App",
-        "version" => "1.2.3",
-        "debug" => true,
-        "timezone" => "Europe/Berlin"
+    "app" =&gt; [
+        "name" =&gt; "Meine App",
+        "version" =&gt; "1.2.3",
+        "debug" =&gt; true,
+        "timezone" =&gt; "Europe/Berlin"
     ],
-    "email" => [
-        "smtp_host" => "mail.example.com",
-        "from_address" => "noreply@example.com"
+    "email" =&gt; [
+        "smtp_host" =&gt; "mail.example.com",
+        "from_address" =&gt; "noreply@example.com"
     ]
 ];
 
@@ -216,7 +216,7 @@ echo $config["database"]["host"];      // localhost
 echo $config["email"]["from_address"]; // noreply@example.com
 
 // Alle App-Einstellungen durchgehen
-foreach ($config["app"] as $key => $value) {
+foreach ($config["app"] as $key =&gt; $value) {
     echo "$key: $value&lt;br&gt;";
 }
 ?&gt;</code></pre>
@@ -244,14 +244,14 @@ foreach ($städte as $stadt) {
 }
 
 // Mit Index
-foreach ($städte as $index => $stadt) {
+foreach ($städte as $index =&gt; $stadt) {
     echo ($index + 1) . ". $stadt&lt;br&gt;";
 }
 
 // Associative Arrays
-$person = ["name" => "Anna", "alter" => 25];
+$person = ["name" =&gt; "Anna", "alter" =&gt; 25];
 
-foreach ($person as $eigenschaft => $wert) {
+foreach ($person as $eigenschaft =&gt; $wert) {
     echo "$eigenschaft: $wert&lt;br&gt;";
 }
 
@@ -274,23 +274,23 @@ $zahlen = [10, 20, 30, 40, 50];
 $anzahl = count($zahlen);
 
 // Klassische for-Schleife
-for ($i = 0; $i < $anzahl; $i++) {
+for ($i = 0; $i &lt; $anzahl; $i++) {
     echo "Index $i: {$zahlen[$i]}&lt;br&gt;";
 }
 
 // Rückwärts durchgehen
-for ($i = $anzahl - 1; $i >= 0; $i--) {
+for ($i = $anzahl - 1; $i &gt;= 0; $i--) {
     echo "Rückwärts: {$zahlen[$i]}&lt;br&gt;";
 }
 
 // Nur jeden zweiten Wert
-for ($i = 0; $i < $anzahl; $i += 2) {
+for ($i = 0; $i &lt; $anzahl; $i += 2) {
     echo "Jeden 2.: {$zahlen[$i]}&lt;br&gt;";
 }
 
 // Tabelle mit Nummerierung
 echo "&lt;table class='table'&gt;";
-for ($i = 0; $i < count($zahlen); $i++) {
+for ($i = 0; $i &lt; count($zahlen); $i++) {
     echo "&lt;tr&gt;&lt;td&gt;" . ($i+1) . "&lt;/td&gt;";
     echo "&lt;td&gt;{$zahlen[$i]}&lt;/td&gt;&lt;/tr&gt;";
 }
@@ -305,9 +305,9 @@ echo "&lt;/table&gt;";
                                             <div class="card-body">
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 $produkte = [
-    "laptop" => 899,
-    "maus" => 29,
-    "tastatur" => 79
+    "laptop" =&gt; 899,
+    "maus" =&gt; 29,
+    "tastatur" =&gt; 79
 ];
 
 // Array-Pointer zurücksetzen
@@ -391,7 +391,7 @@ var_dump(in_array("Anna", $namen)); // true
 $pos = array_search("Tom", $namen); // 2
 
 // Schlüssel prüfen (bei assoc. Arrays)
-$person = ["name" => "Max", "alter" => 25];
+$person = ["name" =&gt; "Max", "alter" =&gt; 25];
 var_dump(array_key_exists("name", $person)); // true
 
 // Anzahl Elemente
@@ -431,11 +431,11 @@ sort($namen);          // [Alice,Bob,Charlie]
 rsort($zahlen);        // [9,5,4,3,1,1]
 
 // Associative Arrays nach Werten
-$alter = ["Max" => 25, "Anna" => 30, "Tom" => 20];
-asort($alter);         // Tom=>20, Max=>25, Anna=>30
+$alter = ["Max" =&gt; 25, "Anna" =&gt; 30, "Tom" =&gt; 20];
+asort($alter);         // Tom=&gt;20, Max=&gt;25, Anna=&gt;30
 
 // Nach Schlüsseln sortieren
-ksort($alter);         // Anna=>30, Max=>25, Tom=>20
+ksort($alter);         // Anna=&gt;30, Max=&gt;25, Tom=&gt;20
 
 // Benutzerdefiniert sortieren
 usort($namen, function($a, $b) {
@@ -507,15 +507,15 @@ print_r($gerade); // [2, 4, 6, 8, 10]
 
 // Nur große Zahlen
 $gross = array_filter($zahlen, function($n) {
-    return $n > 5;
+    return $n &gt; 5;
 });
 print_r($gross); // [6, 7, 8, 9, 10]
 
 // Aktive Benutzer filtern
 $benutzer = [
-    ["name" => "Max", "aktiv" => true],
-    ["name" => "Anna", "aktiv" => false],
-    ["name" => "Tom", "aktiv" => true]
+    ["name" =&gt; "Max", "aktiv" =&gt; true],
+    ["name" =&gt; "Anna", "aktiv" =&gt; false],
+    ["name" =&gt; "Tom", "aktiv" =&gt; true]
 ];
 
 $aktive = array_filter($benutzer, function($user) {
@@ -549,28 +549,28 @@ print_r($sauber); // ["text", "hello", "world"]
 // Mitarbeiter-Datenbank
 $mitarbeiter = [
     [
-        "id" => 1,
-        "name" => "Max Mustermann",
-        "position" => "Entwickler",
-        "gehalt" => 55000,
-        "abteilung" => "IT",
-        "skills" => ["PHP", "JavaScript", "MySQL"]
+        "id" =&gt; 1,
+        "name" =&gt; "Max Mustermann",
+        "position" =&gt; "Entwickler",
+        "gehalt" =&gt; 55000,
+        "abteilung" =&gt; "IT",
+        "skills" =&gt; ["PHP", "JavaScript", "MySQL"]
     ],
     [
-        "id" => 2,
-        "name" => "Anna Schmidt",
-        "position" => "Designerin", 
-        "gehalt" => 48000,
-        "abteilung" => "Design",
-        "skills" => ["Photoshop", "Illustrator", "CSS"]
+        "id" =&gt; 2,
+        "name" =&gt; "Anna Schmidt",
+        "position" =&gt; "Designerin", 
+        "gehalt" =&gt; 48000,
+        "abteilung" =&gt; "Design",
+        "skills" =&gt; ["Photoshop", "Illustrator", "CSS"]
     ],
     [
-        "id" => 3,
-        "name" => "Tom Weber",
-        "position" => "Manager",
-        "gehalt" => 65000,
-        "abteilung" => "IT",
-        "skills" => ["Führung", "Projektmanagement", "Strategie"]
+        "id" =&gt; 3,
+        "name" =&gt; "Tom Weber",
+        "position" =&gt; "Manager",
+        "gehalt" =&gt; 65000,
+        "abteilung" =&gt; "IT",
+        "skills" =&gt; ["Führung", "Projektmanagement", "Strategie"]
     ]
 ];
 
@@ -727,37 +727,37 @@ $gerade = array_diff($alle_zahlen, $ungerade); // [2, 4]
                                         <pre class="mb-0"><code class="language-php text-light">&lt;?php
 // Produktkatalog
 $produkte = [
-    "laptop-01" => [
-        "name" => "Gaming Laptop",
-        "preis" => 1299.99,
-        "kategorie" => "Computer",
-        "lager" => 5
+    "laptop-01" =&gt; [
+        "name" =&gt; "Gaming Laptop",
+        "preis" =&gt; 1299.99,
+        "kategorie" =&gt; "Computer",
+        "lager" =&gt; 5
     ],
-    "maus-01" => [
-        "name" => "Gaming Maus",
-        "preis" => 79.99, 
-        "kategorie" => "Zubehör",
-        "lager" => 20
+    "maus-01" =&gt; [
+        "name" =&gt; "Gaming Maus",
+        "preis" =&gt; 79.99, 
+        "kategorie" =&gt; "Zubehör",
+        "lager" =&gt; 20
     ],
-    "tastatur-01" => [
-        "name" => "Mechanische Tastatur",
-        "preis" => 159.99,
-        "kategorie" => "Zubehör",
-        "lager" => 15
+    "tastatur-01" =&gt; [
+        "name" =&gt; "Mechanische Tastatur",
+        "preis" =&gt; 159.99,
+        "kategorie" =&gt; "Zubehör",
+        "lager" =&gt; 15
     ],
-    "monitor-01" => [
-        "name" => "4K Monitor",
-        "preis" => 399.99,
-        "kategorie" => "Monitor",
-        "lager" => 8
+    "monitor-01" =&gt; [
+        "name" =&gt; "4K Monitor",
+        "preis" =&gt; 399.99,
+        "kategorie" =&gt; "Monitor",
+        "lager" =&gt; 8
     ]
 ];
 
-// Warenkorb (Produkt-ID => Menge)
+// Warenkorb (Produkt-ID =&gt; Menge)
 $warenkorb = [
-    "laptop-01" => 1,
-    "maus-01" => 2,
-    "tastatur-01" => 1
+    "laptop-01" =&gt; 1,
+    "maus-01" =&gt; 2,
+    "tastatur-01" =&gt; 1
 ];
 
 // Warenkorb-Funktionen
@@ -775,7 +775,7 @@ function warenkorb_entfernen(&$warenkorb, $produkt_id) {
 
 function berechne_gesamtsumme($warenkorb, $produkte) {
     $summe = 0;
-    foreach ($warenkorb as $produkt_id => $menge) {
+    foreach ($warenkorb as $produkt_id =&gt; $menge) {
         if (isset($produkte[$produkt_id])) {
             $summe += $produkte[$produkt_id]["preis"] * $menge;
         }
@@ -793,7 +793,7 @@ function zeige_warenkorb($warenkorb, $produkte) {
     $html .= "&lt;thead&gt;&lt;tr&gt;&lt;th&gt;Produkt&lt;/th&gt;&lt;th&gt;Preis&lt;/th&gt;&lt;th&gt;Menge&lt;/th&gt;&lt;th&gt;Summe&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;";
     $html .= "&lt;tbody&gt;";
     
-    foreach ($warenkorb as $produkt_id => $menge) {
+    foreach ($warenkorb as $produkt_id =&gt; $menge) {
         if (isset($produkte[$produkt_id])) {
             $produkt = $produkte[$produkt_id];
             $einzelpreis = $produkt["preis"];

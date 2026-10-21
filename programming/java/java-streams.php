@@ -93,33 +93,33 @@ public class StreamCreation {
         System.out.println("=== STREAM ERSTELLEN ===");
         
         // 1. Aus Collections
-        List<String> namen = Arrays.asList("Anna", "Bob", "Charlie", "Diana");
-        Stream<String> streamAusListe = namen.stream();
+        List&lt;String&gt; namen = Arrays.asList("Anna", "Bob", "Charlie", "Diana");
+        Stream&lt;String&gt; streamAusListe = namen.stream();
         System.out.println("Aus Liste: " + streamAusListe.count() + " Elemente");
         
         // 2. Aus Arrays
         String[] array = {"Java", "Python", "JavaScript", "C++"};
-        Stream<String> streamAusArray = Arrays.stream(array);
+        Stream&lt;String&gt; streamAusArray = Arrays.stream(array);
         System.out.println("Aus Array: " + streamAusArray.count() + " Elemente");
         
         // 3. Direkt erstellen
-        Stream<String> direkterStream = Stream.of("Eins", "Zwei", "Drei");
+        Stream&lt;String&gt; direkterStream = Stream.of("Eins", "Zwei", "Drei");
         System.out.println("Direkt erstellt: " + direkterStream.count() + " Elemente");
         
         // 4. Leerer Stream
-        Stream<String> leerStream = Stream.empty();
+        Stream&lt;String&gt; leerStream = Stream.empty();
         System.out.println("Leerer Stream: " + leerStream.count() + " Elemente");
         
         // 5. Unendlicher Stream mit iterate()
-        Stream<Integer> zahlenStream = Stream.iterate(0, n -> n + 2)
+        Stream&lt;Integer&gt; zahlenStream = Stream.iterate(0, n -&gt; n + 2)
                                            .limit(10); // Begrenzen auf 10 Elemente
         System.out.println("Iterate (0,2,4,6...): " + zahlenStream.collect(Collectors.toList()));
         
         // 6. Unendlicher Stream mit generate()
-        Stream<Double> zufallsStream = Stream.generate(Math::random)
+        Stream&lt;Double&gt; zufallsStream = Stream.generate(Math::random)
                                            .limit(5);
         System.out.println("Generate (Zufallszahlen): " + 
-                         zufallsStream.map(d -> String.format("%.2f", d))
+                         zufallsStream.map(d -&gt; String.format("%.2f", d))
                                      .collect(Collectors.toList()));
         
         // 7. IntStream, LongStream, DoubleStream
@@ -133,11 +133,11 @@ public class StreamCreation {
         String text = "Hello";
         IntStream charStream = text.chars();
         System.out.println("Chars von 'Hello': " + 
-                         charStream.mapToObj(c -> (char)c)
+                         charStream.mapToObj(c -&gt; (char)c)
                                   .collect(Collectors.toList()));
         
         // 9. Stream aus Regex-Split
-        Stream<String> wortStream = Pattern.compile("\\s+")
+        Stream&lt;String&gt; wortStream = Pattern.compile("\\s+")
                                           .splitAsStream("Java ist eine tolle Programmiersprache");
         System.out.println("Wörter: " + wortStream.collect(Collectors.toList()));
         
@@ -147,7 +147,7 @@ public class StreamCreation {
             Path tempFile = Files.createTempFile("demo", ".txt");
             Files.write(tempFile, Arrays.asList("Zeile 1", "Zeile 2", "Zeile 3"));
             
-            Stream<String> dateiStream = Files.lines(tempFile);
+            Stream&lt;String&gt; dateiStream = Files.lines(tempFile);
             System.out.println("Aus Datei: " + dateiStream.collect(Collectors.toList()));
             
             Files.delete(tempFile); // Cleanup
@@ -157,7 +157,7 @@ public class StreamCreation {
         }
         
         // 11. Parallel Stream
-        List<Integer> grosseListe = IntStream.range(1, 1000000)
+        List&lt;Integer&gt; grosseListe = IntStream.range(1, 1000000)
                                            .boxed()
                                            .collect(Collectors.toList());
         
@@ -177,7 +177,7 @@ public class StreamCreation {
         System.out.println("Parallel: " + summeParallel + " in " + zeitParallel + "ms");
         
         // 12. Builder Pattern
-        Stream<String> builderStream = Stream.<String>builder()
+        Stream&lt;String&gt; builderStream = Stream.&lt;String&gt;builder()
                                            .add("Eins")
                                            .add("Zwei")
                                            .add("Drei")
@@ -225,7 +225,7 @@ public class IntermediateOperations {
     
     public static void main(String[] args) {
         // Testdaten
-        List<Person> personen = Arrays.asList(
+        List&lt;Person&gt; personen = Arrays.asList(
             new Person("Anna", 25, "Berlin", 45000),
             new Person("Bob", 30, "Hamburg", 52000),
             new Person("Charlie", 22, "München", 38000),
@@ -235,48 +235,48 @@ public class IntermediateOperations {
             new Person("Grace", 29, "Berlin", 50000)
         );
         
-        List<Integer> zahlen = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 4, 6);
+        List&lt;Integer&gt; zahlen = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 4, 6);
         
         System.out.println("=== FILTER ===");
         
         // Filter - Elemente nach Bedingung filtern
-        List<Person> berlinPersonen = personen.stream()
-            .filter(p -> p.getStadt().equals("Berlin"))
+        List&lt;Person&gt; berlinPersonen = personen.stream()
+            .filter(p -&gt; p.getStadt().equals("Berlin"))
             .collect(Collectors.toList());
         System.out.println("Personen in Berlin: " + berlinPersonen.size());
         
-        List<Integer> geradeZahlen = zahlen.stream()
-            .filter(n -> n % 2 == 0)
+        List&lt;Integer&gt; geradeZahlen = zahlen.stream()
+            .filter(n -&gt; n % 2 == 0)
             .collect(Collectors.toList());
         System.out.println("Gerade Zahlen: " + geradeZahlen);
         
         // Mehrere Filter kombinieren
-        List<Person> jungeBerliner = personen.stream()
-            .filter(p -> p.getStadt().equals("Berlin"))
-            .filter(p -> p.getAlter() < 30)
+        List&lt;Person&gt; jungeBerliner = personen.stream()
+            .filter(p -&gt; p.getStadt().equals("Berlin"))
+            .filter(p -&gt; p.getAlter() &lt; 30)
             .collect(Collectors.toList());
         System.out.println("Junge Berliner: " + jungeBerliner);
         
         System.out.println("\n=== MAP ===");
         
         // Map - Elemente transformieren
-        List<String> namen = personen.stream()
+        List&lt;String&gt; namen = personen.stream()
             .map(Person::getName)
             .collect(Collectors.toList());
         System.out.println("Alle Namen: " + namen);
         
-        List<String> grossbuchstaben = namen.stream()
+        List&lt;String&gt; grossbuchstaben = namen.stream()
             .map(String::toUpperCase)
             .collect(Collectors.toList());
         System.out.println("Großbuchstaben: " + grossbuchstaben);
         
-        List<Integer> quadrate = zahlen.stream()
-            .map(n -> n * n)
+        List&lt;Integer&gt; quadrate = zahlen.stream()
+            .map(n -&gt; n * n)
             .collect(Collectors.toList());
         System.out.println("Quadrate: " + quadrate);
         
         // Map zu anderen Typen
-        List<Integer> alterListe = personen.stream()
+        List&lt;Integer&gt; alterListe = personen.stream()
             .map(Person::getAlter)
             .collect(Collectors.toList());
         System.out.println("Alle Alter: " + alterListe);
@@ -284,33 +284,33 @@ public class IntermediateOperations {
         System.out.println("\n=== FLATMAP ===");
         
         // FlatMap - Verschachtelte Strukturen flach machen
-        List<List<String>> verschachtelt = Arrays.asList(
+        List&lt;List&lt;String&gt;&gt; verschachtelt = Arrays.asList(
             Arrays.asList("Java", "Python"),
             Arrays.asList("JavaScript", "TypeScript"),
             Arrays.asList("C++", "C#")
         );
         
-        List<String> flach = verschachtelt.stream()
+        List&lt;String&gt; flach = verschachtelt.stream()
             .flatMap(List::stream)
             .collect(Collectors.toList());
         System.out.println("Flach gemacht: " + flach);
         
         // FlatMap mit Strings
-        List<String> sätze = Arrays.asList("Hello World", "Java Streams", "Functional Programming");
-        List<String> wörter = sätze.stream()
-            .flatMap(satz -> Arrays.stream(satz.split(" ")))
+        List&lt;String&gt; sätze = Arrays.asList("Hello World", "Java Streams", "Functional Programming");
+        List&lt;String&gt; wörter = sätze.stream()
+            .flatMap(satz -&gt; Arrays.stream(satz.split(" ")))
             .collect(Collectors.toList());
         System.out.println("Alle Wörter: " + wörter);
         
         System.out.println("\n=== DISTINCT ===");
         
         // Distinct - Duplikate entfernen
-        List<Integer> eindeutig = zahlen.stream()
+        List&lt;Integer&gt; eindeutig = zahlen.stream()
             .distinct()
             .collect(Collectors.toList());
         System.out.println("Eindeutige Zahlen: " + eindeutig);
         
-        List<String> eindeutigeStädte = personen.stream()
+        List&lt;String&gt; eindeutigeStädte = personen.stream()
             .map(Person::getStadt)
             .distinct()
             .collect(Collectors.toList());
@@ -319,49 +319,49 @@ public class IntermediateOperations {
         System.out.println("\n=== SORTED ===");
         
         // Sorted - Sortieren
-        List<Integer> sortiert = zahlen.stream()
+        List&lt;Integer&gt; sortiert = zahlen.stream()
             .distinct()
             .sorted()
             .collect(Collectors.toList());
         System.out.println("Sortierte Zahlen: " + sortiert);
         
-        List<String> sortiertAbsteigend = namen.stream()
+        List&lt;String&gt; sortiertAbsteigend = namen.stream()
             .sorted(Comparator.reverseOrder())
             .collect(Collectors.toList());
         System.out.println("Namen absteigend: " + sortiertAbsteigend);
         
         // Personen nach Alter sortieren
-        List<Person> nachAlter = personen.stream()
+        List&lt;Person&gt; nachAlter = personen.stream()
             .sorted(Comparator.comparingInt(Person::getAlter))
             .collect(Collectors.toList());
         System.out.println("Nach Alter sortiert:");
-        nachAlter.forEach(p -> System.out.println("  " + p));
+        nachAlter.forEach(p -&gt; System.out.println("  " + p));
         
         // Mehrfach-Sortierung: erst nach Stadt, dann nach Alter
-        List<Person> mehrfachSortiert = personen.stream()
+        List&lt;Person&gt; mehrfachSortiert = personen.stream()
             .sorted(Comparator.comparing(Person::getStadt)
                              .thenComparingInt(Person::getAlter))
             .collect(Collectors.toList());
         System.out.println("Nach Stadt, dann Alter:");
-        mehrfachSortiert.forEach(p -> System.out.println("  " + p));
+        mehrfachSortiert.forEach(p -&gt; System.out.println("  " + p));
         
         System.out.println("\n=== LIMIT & SKIP ===");
         
         // Limit - Anzahl begrenzen
-        List<Integer> ersteFünf = zahlen.stream()
+        List&lt;Integer&gt; ersteFünf = zahlen.stream()
             .limit(5)
             .collect(Collectors.toList());
         System.out.println("Erste 5: " + ersteFünf);
         
         // Skip - Elemente überspringen
-        List<Integer> ohneErsteVier = zahlen.stream()
+        List&lt;Integer&gt; ohneErsteVier = zahlen.stream()
             .skip(4)
             .collect(Collectors.toList());
         System.out.println("Ohne erste 4: " + ohneErsteVier);
         
         // Pagination - Skip + Limit
         int page = 1, pageSize = 3;
-        List<Person> seite = personen.stream()
+        List&lt;Person&gt; seite = personen.stream()
             .skip(page * pageSize)
             .limit(pageSize)
             .collect(Collectors.toList());
@@ -370,12 +370,12 @@ public class IntermediateOperations {
         System.out.println("\n=== PEEK ===");
         
         // Peek - Debug/Logging ohne Stream zu ändern
-        List<Integer> verarbeitet = zahlen.stream()
-            .peek(n -> System.out.println("Original: " + n))
-            .filter(n -> n % 2 == 0)
-            .peek(n -> System.out.println("Nach Filter: " + n))
-            .map(n -> n * n)
-            .peek(n -> System.out.println("Nach Map: " + n))
+        List&lt;Integer&gt; verarbeitet = zahlen.stream()
+            .peek(n -&gt; System.out.println("Original: " + n))
+            .filter(n -&gt; n % 2 == 0)
+            .peek(n -&gt; System.out.println("Nach Filter: " + n))
+            .map(n -&gt; n * n)
+            .peek(n -&gt; System.out.println("Nach Map: " + n))
             .limit(3)
             .collect(Collectors.toList());
         System.out.println("Endergebnis: " + verarbeitet);
@@ -383,20 +383,20 @@ public class IntermediateOperations {
         System.out.println("\n=== VERKETTUNG ===");
         
         // Komplexe Verkettung mehrerer Operationen
-        List<String> komplexesPipeline = personen.stream()
-            .filter(p -> p.getAlter() >= 25)                    // Mindestens 25 Jahre
-            .filter(p -> p.getGehalt() >= 45000)                // Mindestens 45k Gehalt
+        List&lt;String&gt; komplexesPipeline = personen.stream()
+            .filter(p -&gt; p.getAlter() &gt;= 25)                    // Mindestens 25 Jahre
+            .filter(p -&gt; p.getGehalt() &gt;= 45000)                // Mindestens 45k Gehalt
             .sorted(Comparator.comparingDouble(Person::getGehalt).reversed()) // Nach Gehalt absteigend
-            .map(p -> p.getName() + " (" + p.getGehalt() + "€)") // Formatierung
+            .map(p -&gt; p.getName() + " (" + p.getGehalt() + "€)") // Formatierung
             .limit(3)                                           // Top 3
             .collect(Collectors.toList());
         
         System.out.println("Top 3 Verdiener (25+, 45k+): " + komplexesPipeline);
         
         // Performance-Optimierung durch frühe Terminierung
-        Optional<Person> erstePersonÜber50k = personen.stream()
-            .peek(p -> System.out.println("Prüfe: " + p.getName()))
-            .filter(p -> p.getGehalt() > 50000)
+        Optional&lt;Person&gt; erstePersonÜber50k = personen.stream()
+            .peek(p -&gt; System.out.println("Prüfe: " + p.getName()))
+            .filter(p -&gt; p.getGehalt() &gt; 50000)
             .findFirst(); // Terminal Operation - stoppt bei erstem Match
         
         System.out.println("Erste Person über 50k: " + 
@@ -417,19 +417,19 @@ import java.util.stream.*;
 public class TerminalOperations {
     
     public static void main(String[] args) {
-        List<Integer> zahlen = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        List<String> wörter = Arrays.asList("Java", "Python", "JavaScript", "C++", "Go", "Rust");
+        List&lt;Integer&gt; zahlen = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List&lt;String&gt; wörter = Arrays.asList("Java", "Python", "JavaScript", "C++", "Go", "Rust");
         
         System.out.println("=== COLLECT ===");
         
         // Collect - Sammeln in verschiedene Collections
-        List<Integer> geradeAsList = zahlen.stream()
-            .filter(n -> n % 2 == 0)
+        List&lt;Integer&gt; geradeAsList = zahlen.stream()
+            .filter(n -&gt; n % 2 == 0)
             .collect(Collectors.toList());
         System.out.println("Gerade als List: " + geradeAsList);
         
-        Set<Integer> geradeAlsSet = zahlen.stream()
-            .filter(n -> n % 2 == 0)
+        Set&lt;Integer&gt; geradeAlsSet = zahlen.stream()
+            .filter(n -&gt; n % 2 == 0)
             .collect(Collectors.toSet());
         System.out.println("Gerade als Set: " + geradeAlsSet);
         
@@ -443,64 +443,64 @@ public class TerminalOperations {
         System.out.println("Mit Präfix/Suffix: " + mitPräfixSuffix);
         
         // Collect in Map
-        Map<Integer, String> längenMap = wörter.stream()
+        Map&lt;Integer, String&gt; längenMap = wörter.stream()
             .collect(Collectors.toMap(
                 String::length,        // Key: Länge
-                w -> w,               // Value: Wort selbst
-                (existing, replacement) -> existing + ", " + replacement // Merge bei Duplikaten
+                w -&gt; w,               // Value: Wort selbst
+                (existing, replacement) -&gt; existing + ", " + replacement // Merge bei Duplikaten
             ));
         System.out.println("Längen-Map: " + längenMap);
         
         // Gruppierung
-        Map<Integer, List<String>> nachLänge = wörter.stream()
+        Map&lt;Integer, List&lt;String&gt;&gt; nachLänge = wörter.stream()
             .collect(Collectors.groupingBy(String::length));
         System.out.println("Gruppiert nach Länge: " + nachLänge);
         
         // Partitionierung (boolean-basierte Gruppierung)
-        Map<Boolean, List<Integer>> partition = zahlen.stream()
-            .collect(Collectors.partitioningBy(n -> n % 2 == 0));
+        Map&lt;Boolean, List&lt;Integer&gt;&gt; partition = zahlen.stream()
+            .collect(Collectors.partitioningBy(n -&gt; n % 2 == 0));
         System.out.println("Gerade/Ungerade: " + partition);
         
         System.out.println("\n=== REDUCE ===");
         
         // Reduce - Elemente zu einem Wert reduzieren
-        Optional<Integer> summe = zahlen.stream()
-            .reduce((a, b) -> a + b);
+        Optional&lt;Integer&gt; summe = zahlen.stream()
+            .reduce((a, b) -&gt; a + b);
         System.out.println("Summe: " + summe.orElse(0));
         
         // Reduce mit Identität
         Integer summeIdentität = zahlen.stream()
-            .reduce(0, (a, b) -> a + b);
+            .reduce(0, (a, b) -&gt; a + b);
         System.out.println("Summe mit Identität: " + summeIdentität);
         
         // Reduce für Maximum
-        Optional<Integer> maximum = zahlen.stream()
+        Optional&lt;Integer&gt; maximum = zahlen.stream()
             .reduce(Integer::max);
         System.out.println("Maximum: " + maximum.orElse(0));
         
         // Reduce für String-Konkatenierung
-        Optional<String> konkateniert = wörter.stream()
-            .reduce((a, b) -> a + " | " + b);
+        Optional&lt;String&gt; konkateniert = wörter.stream()
+            .reduce((a, b) -&gt; a + " | " + b);
         System.out.println("Konkateniert: " + konkateniert.orElse(""));
         
         // Komplexes Reduce
         String zusammengefasst = wörter.stream()
             .reduce("Sprachen: ", 
-                   (partial, element) -> partial + element + " ",
-                   (s1, s2) -> s1 + s2); // Combiner für parallel streams
+                   (partial, element) -&gt; partial + element + " ",
+                   (s1, s2) -&gt; s1 + s2); // Combiner für parallel streams
         System.out.println("Zusammengefasst: " + zusammengefasst.trim());
         
         System.out.println("\n=== AGGREGATION ===");
         
         // Count
         long anzahl = zahlen.stream()
-            .filter(n -> n > 5)
+            .filter(n -&gt; n &gt; 5)
             .count();
-        System.out.println("Anzahl > 5: " + anzahl);
+        System.out.println("Anzahl &gt; 5: " + anzahl);
         
         // Min/Max
-        Optional<Integer> min = zahlen.stream().min(Integer::compareTo);
-        Optional<Integer> max = zahlen.stream().max(Integer::compareTo);
+        Optional&lt;Integer&gt; min = zahlen.stream().min(Integer::compareTo);
+        Optional&lt;Integer&gt; max = zahlen.stream().max(Integer::compareTo);
         System.out.println("Min: " + min.orElse(0) + ", Max: " + max.orElse(0));
         
         // Specialized numeric streams
@@ -521,60 +521,60 @@ public class TerminalOperations {
         
         // anyMatch - mindestens ein Element erfüllt Bedingung
         boolean hatGerade = zahlen.stream()
-            .anyMatch(n -> n % 2 == 0);
+            .anyMatch(n -&gt; n % 2 == 0);
         System.out.println("Hat gerade Zahlen: " + hatGerade);
         
         // allMatch - alle Elemente erfüllen Bedingung
         boolean allePositiv = zahlen.stream()
-            .allMatch(n -> n > 0);
+            .allMatch(n -&gt; n &gt; 0);
         System.out.println("Alle positiv: " + allePositiv);
         
         // noneMatch - kein Element erfüllt Bedingung
         boolean keineNegativ = zahlen.stream()
-            .noneMatch(n -> n < 0);
+            .noneMatch(n -&gt; n &lt; 0);
         System.out.println("Keine negativen: " + keineNegativ);
         
         System.out.println("\n=== FINDING ===");
         
         // findFirst - erstes Element
-        Optional<Integer> erstes = zahlen.stream()
-            .filter(n -> n > 5)
+        Optional&lt;Integer&gt; erstes = zahlen.stream()
+            .filter(n -&gt; n &gt; 5)
             .findFirst();
-        System.out.println("Erstes > 5: " + erstes.orElse(0));
+        System.out.println("Erstes &gt; 5: " + erstes.orElse(0));
         
         // findAny - irgendein Element (für parallele Streams optimiert)
-        Optional<Integer> irgendEins = zahlen.parallelStream()
-            .filter(n -> n > 5)
+        Optional&lt;Integer&gt; irgendEins = zahlen.parallelStream()
+            .filter(n -&gt; n &gt; 5)
             .findAny();
-        System.out.println("Irgendein > 5: " + irgendEins.orElse(0));
+        System.out.println("Irgendein &gt; 5: " + irgendEins.orElse(0));
         
         System.out.println("\n=== FOREACH ===");
         
         // forEach - Aktion für jedes Element
         System.out.print("Zahlen: ");
         zahlen.stream()
-            .filter(n -> n <= 5)
-            .forEach(n -> System.out.print(n + " "));
+            .filter(n -&gt; n &lt;= 5)
+            .forEach(n -&gt; System.out.print(n + " "));
         System.out.println();
         
         // forEachOrdered - Reihenfolge beibehalten (auch bei parallel)
         System.out.print("Geordnet: ");
         zahlen.parallelStream()
-            .filter(n -> n <= 5)
-            .forEachOrdered(n -> System.out.print(n + " "));
+            .filter(n -&gt; n &lt;= 5)
+            .forEachOrdered(n -&gt; System.out.print(n + " "));
         System.out.println();
         
         System.out.println("\n=== TOARRAY ===");
         
         // toArray - Stream zu Array
         Object[] array = wörter.stream()
-            .filter(w -> w.length() > 4)
+            .filter(w -&gt; w.length() &gt; 4)
             .toArray();
         System.out.println("Als Array: " + Arrays.toString(array));
         
         // toArray mit Generator
         String[] stringArray = wörter.stream()
-            .filter(w -> w.length() > 4)
+            .filter(w -&gt; w.length() &gt; 4)
             .toArray(String[]::new);
         System.out.println("Als String[]: " + Arrays.toString(stringArray));
         
@@ -587,16 +587,16 @@ public class TerminalOperations {
         
         // Counting
         Long wortAnzahl = wörter.stream()
-            .filter(w -> w.startsWith("J"))
+            .filter(w -&gt; w.startsWith("J"))
             .collect(Collectors.counting());
         System.out.println("Wörter mit 'J': " + wortAnzahl);
         
         // MaxBy/MinBy
-        Optional<String> längstes = wörter.stream()
+        Optional&lt;String&gt; längstes = wörter.stream()
             .collect(Collectors.maxBy(Comparator.comparing(String::length)));
         System.out.println("Längstes Wort: " + längstes.orElse(""));
         
-        Optional<String> kürzestes = wörter.stream()
+        Optional&lt;String&gt; kürzestes = wörter.stream()
             .collect(Collectors.minBy(Comparator.comparing(String::length)));
         System.out.println("Kürzestes Wort: " + kürzestes.orElse(""));
         
@@ -609,8 +609,8 @@ public class TerminalOperations {
         String customResult = wörter.stream()
             .collect(Collector.of(
                 StringBuilder::new,                    // Supplier
-                (sb, s) -> sb.append(s).append("; "), // Accumulator
-                (sb1, sb2) -> sb1.append(sb2),        // Combiner
+                (sb, s) -&gt; sb.append(s).append("; "), // Accumulator
+                (sb1, sb2) -&gt; sb1.append(sb2),        // Combiner
                 StringBuilder::toString               // Finisher
             ));
         System.out.println("Custom Collector: " + customResult);
@@ -684,7 +684,7 @@ public class PraktischeStreamBeispiele {
     
     public static void main(String[] args) {
         // Testdaten
-        List<Produkt> produkte = Arrays.asList(
+        List&lt;Produkt&gt; produkte = Arrays.asList(
             new Produkt("Laptop", "Elektronik", 999.99, 15),
             new Produkt("Smartphone", "Elektronik", 699.99, 25),
             new Produkt("Schreibtisch", "Möbel", 299.99, 8),
@@ -695,7 +695,7 @@ public class PraktischeStreamBeispiele {
             new Produkt("Sofa", "Möbel", 899.99, 3)
         );
         
-        List<Bestellung> bestellungen = Arrays.asList(
+        List&lt;Bestellung&gt; bestellungen = Arrays.asList(
             new Bestellung("Laptop", 2, LocalDate.of(2023, 1, 15), "Anna"),
             new Bestellung("Smartphone", 1, LocalDate.of(2023, 1, 16), "Bob"),
             new Bestellung("Kaffee", 5, LocalDate.of(2023, 1, 17), "Anna"),
@@ -708,28 +708,28 @@ public class PraktischeStreamBeispiele {
         System.out.println("=== BEISPIEL 1: E-COMMERCE ANALYSEN ===");
         
         // 1. Top 3 teuerste Produkte
-        List<Produkt> teuersteProdukte = produkte.stream()
+        List&lt;Produkt&gt; teuersteProdukte = produkte.stream()
             .sorted(Comparator.comparingDouble(Produkt::getPreis).reversed())
             .limit(3)
             .collect(Collectors.toList());
         
         System.out.println("Top 3 teuerste Produkte:");
-        teuersteProdukte.forEach(p -> System.out.println("  " + p));
+        teuersteProdukte.forEach(p -&gt; System.out.println("  " + p));
         
         // 2. Durchschnittspreis pro Kategorie
-        Map<String, Double> durchschnittspreise = produkte.stream()
+        Map&lt;String, Double&gt; durchschnittspreise = produkte.stream()
             .collect(Collectors.groupingBy(
                 Produkt::getKategorie,
                 Collectors.averagingDouble(Produkt::getPreis)
             ));
         
         System.out.println("\nDurchschnittspreise pro Kategorie:");
-        durchschnittspreise.forEach((kategorie, preis) -> 
+        durchschnittspreise.forEach((kategorie, preis) -&gt; 
             System.out.printf("  %s: %.2f€%n", kategorie, preis));
         
-        // 3. Produkte mit niedrigem Lagerbestand (< 10)
-        List<String> niedrigerBestand = produkte.stream()
-            .filter(p -> p.getLagerbestand() < 10)
+        // 3. Produkte mit niedrigem Lagerbestand (&lt; 10)
+        List&lt;String&gt; niedrigerBestand = produkte.stream()
+            .filter(p -&gt; p.getLagerbestand() &lt; 10)
             .map(Produkt::getName)
             .collect(Collectors.toList());
         
@@ -737,7 +737,7 @@ public class PraktischeStreamBeispiele {
         
         // 4. Gesamtwert des Lagers
         double gesamtwert = produkte.stream()
-            .mapToDouble(p -> p.getPreis() * p.getLagerbestand())
+            .mapToDouble(p -&gt; p.getPreis() * p.getLagerbestand())
             .sum();
         
         System.out.printf("Gesamtwert des Lagers: %.2f€%n", gesamtwert);
@@ -745,23 +745,23 @@ public class PraktischeStreamBeispiele {
         System.out.println("\n=== BEISPIEL 2: BESTELLANALYSEN ===");
         
         // 5. Beliebteste Produkte (nach Bestellmenge)
-        Map<String, Integer> produktBeliebtheit = bestellungen.stream()
+        Map&lt;String, Integer&gt; produktBeliebtheit = bestellungen.stream()
             .collect(Collectors.groupingBy(
                 Bestellung::getProdukt,
                 Collectors.summingInt(Bestellung::getMenge)
             ));
         
-        List<Map.Entry<String, Integer>> beliebteste = produktBeliebtheit.entrySet().stream()
-            .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+        List&lt;Map.Entry&lt;String, Integer&gt;&gt; beliebteste = produktBeliebtheit.entrySet().stream()
+            .sorted(Map.Entry.&lt;String, Integer&gt;comparingByValue().reversed())
             .limit(3)
             .collect(Collectors.toList());
         
         System.out.println("Beliebteste Produkte:");
-        beliebteste.forEach(entry -> 
+        beliebteste.forEach(entry -&gt; 
             System.out.printf("  %s: %d Stück%n", entry.getKey(), entry.getValue()));
         
         // 6. Beste Kunden (nach Anzahl Bestellungen)
-        Map<String, Long> kundenAktivität = bestellungen.stream()
+        Map&lt;String, Long&gt; kundenAktivität = bestellungen.stream()
             .collect(Collectors.groupingBy(
                 Bestellung::getKunde,
                 Collectors.counting()
@@ -769,28 +769,28 @@ public class PraktischeStreamBeispiele {
         
         System.out.println("\nKunden-Aktivität:");
         kundenAktivität.entrySet().stream()
-            .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-            .forEach(entry -> 
+            .sorted(Map.Entry.&lt;String, Long&gt;comparingByValue().reversed())
+            .forEach(entry -&gt; 
                 System.out.printf("  %s: %d Bestellungen%n", entry.getKey(), entry.getValue()));
         
         // 7. Umsatz pro Kunde
-        Map<String, Double> kundenUmsatz = bestellungen.stream()
+        Map&lt;String, Double&gt; kundenUmsatz = bestellungen.stream()
             .collect(Collectors.groupingBy(
                 Bestellung::getKunde,
-                Collectors.summingDouble(b -> {
+                Collectors.summingDouble(b -&gt; {
                     // Preis aus Produkt-Liste holen
                     return produkte.stream()
-                        .filter(p -> p.getName().equals(b.getProdukt()))
+                        .filter(p -&gt; p.getName().equals(b.getProdukt()))
                         .findFirst()
-                        .map(p -> p.getPreis() * b.getMenge())
+                        .map(p -&gt; p.getPreis() * b.getMenge())
                         .orElse(0.0);
                 })
             ));
         
         System.out.println("\nUmsatz pro Kunde:");
         kundenUmsatz.entrySet().stream()
-            .sorted(Map.Entry.<String, Double>comparingByValue().reversed())
-            .forEach(entry -> 
+            .sorted(Map.Entry.&lt;String, Double&gt;comparingByValue().reversed())
+            .forEach(entry -&gt; 
                 System.out.printf("  %s: %.2f€%n", entry.getKey(), entry.getValue()));
         
         System.out.println("\n=== BEISPIEL 3: TEXT-VERARBEITUNG ===");
@@ -800,8 +800,8 @@ public class PraktischeStreamBeispiele {
                      "Funktionale Programmierung ist mächtig.";
         
         // 8. Wort-Häufigkeiten
-        Map<String, Long> wortHäufigkeiten = Arrays.stream(text.toLowerCase().split("\\W+"))
-            .filter(word -> !word.isEmpty())
+        Map&lt;String, Long&gt; wortHäufigkeiten = Arrays.stream(text.toLowerCase().split("\\W+"))
+            .filter(word -&gt; !word.isEmpty())
             .collect(Collectors.groupingBy(
                 Function.identity(),
                 Collectors.counting()
@@ -809,15 +809,15 @@ public class PraktischeStreamBeispiele {
         
         System.out.println("Top 5 häufigste Wörter:");
         wortHäufigkeiten.entrySet().stream()
-            .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+            .sorted(Map.Entry.&lt;String, Long&gt;comparingByValue().reversed())
             .limit(5)
-            .forEach(entry -> 
+            .forEach(entry -&gt; 
                 System.out.printf("  %s: %d mal%n", entry.getKey(), entry.getValue()));
         
         // 9. Buchstaben-Statistiken
-        Map<Character, Long> buchstabenHäufigkeit = text.toLowerCase().chars()
+        Map&lt;Character, Long&gt; buchstabenHäufigkeit = text.toLowerCase().chars()
             .filter(Character::isLetter)
-            .mapToObj(c -> (char) c)
+            .mapToObj(c -&gt; (char) c)
             .collect(Collectors.groupingBy(
                 Function.identity(),
                 Collectors.counting()
@@ -825,27 +825,27 @@ public class PraktischeStreamBeispiele {
         
         System.out.println("\nTop 5 häufigste Buchstaben:");
         buchstabenHäufigkeit.entrySet().stream()
-            .sorted(Map.Entry.<Character, Long>comparingByValue().reversed())
+            .sorted(Map.Entry.&lt;Character, Long&gt;comparingByValue().reversed())
             .limit(5)
-            .forEach(entry -> 
+            .forEach(entry -&gt; 
                 System.out.printf("  %c: %d mal%n", entry.getKey(), entry.getValue()));
         
         System.out.println("\n=== BEISPIEL 4: DATEN-TRANSFORMATION ===");
         
         // 10. Komplexe Transformation und Aggregation
-        Map<String, List<String>> kategorieProdukte = produkte.stream()
+        Map&lt;String, List&lt;String&gt;&gt; kategorieProdukte = produkte.stream()
             .collect(Collectors.groupingBy(
                 Produkt::getKategorie,
                 Collectors.mapping(
-                    p -> p.getName() + " (" + p.getPreis() + "€)",
+                    p -&gt; p.getName() + " (" + p.getPreis() + "€)",
                     Collectors.toList()
                 )
             ));
         
         System.out.println("Produkte nach Kategorien:");
-        kategorieProdukte.forEach((kategorie, liste) -> {
+        kategorieProdukte.forEach((kategorie, liste) -&gt; {
             System.out.println("  " + kategorie + ":");
-            liste.forEach(produkt -> System.out.println("    - " + produkt));
+            liste.forEach(produkt -&gt; System.out.println("    - " + produkt));
         });
         
         // 11. Custom Collector für Statistiken
@@ -858,8 +858,8 @@ public class PraktischeStreamBeispiele {
                          preisStats.getAverage(), preisStats.getSum());
         
         // 12. Partitionierung nach Verfügbarkeit
-        Map<Boolean, List<Produkt>> verfügbarkeit = produkte.stream()
-            .collect(Collectors.partitioningBy(p -> p.getLagerbestand() > 0));
+        Map&lt;Boolean, List&lt;Produkt&gt;&gt; verfügbarkeit = produkte.stream()
+            .collect(Collectors.partitioningBy(p -&gt; p.getLagerbestand() &gt; 0));
         
         System.out.println("\nVerfügbarkeit:");
         System.out.println("  Verfügbar: " + verfügbarkeit.get(true).size() + " Produkte");
@@ -868,14 +868,14 @@ public class PraktischeStreamBeispiele {
         System.out.println("\n=== BEISPIEL 5: PERFORMANCE-VERGLEICH ===");
         
         // Große Datenmenge für Performance-Test
-        List<Integer> grosseDaten = IntStream.range(1, 10_000_000)
+        List&lt;Integer&gt; grosseDaten = IntStream.range(1, 10_000_000)
                                            .boxed()
                                            .collect(Collectors.toList());
         
         // Sequentiell
         long start = System.nanoTime();
         long summeSequential = grosseDaten.stream()
-            .filter(n -> n % 2 == 0)
+            .filter(n -&gt; n % 2 == 0)
             .mapToLong(Integer::longValue)
             .sum();
         long zeitSequential = System.nanoTime() - start;
@@ -883,7 +883,7 @@ public class PraktischeStreamBeispiele {
         // Parallel
         start = System.nanoTime();
         long summeParallel = grosseDaten.parallelStream()
-            .filter(n -> n % 2 == 0)
+            .filter(n -&gt; n % 2 == 0)
             .mapToLong(Integer::longValue)
             .sum();
         long zeitParallel = System.nanoTime() - start;
@@ -901,6 +901,8 @@ public class PraktischeStreamBeispiele {
                         <?php renderJavaPageNavigation('java-streams'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

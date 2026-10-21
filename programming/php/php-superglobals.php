@@ -139,7 +139,7 @@ if (isset($_GET['name'])) {
 // Alle GET-Parameter anzeigen
 if (!empty($_GET)) {
     echo "Übergebene Parameter:\n";
-    foreach ($_GET as $key => $value) {
+    foreach ($_GET as $key =&gt; $value) {
         echo "- $key: $value\n";
     }
 } else {
@@ -218,7 +218,7 @@ if (!empty($suchbegriff)) {
     echo "Suche nach: '$sauberer_begriff'\n";
     
     // Hier würde die Datenbanksuche stattfinden
-    if (strlen($sauberer_begriff) < 3) {
+    if (strlen($sauberer_begriff) &lt; 3) {
         echo "⚠️ Suchbegriff zu kurz (mindestens 3 Zeichen)\n";
     }
 }
@@ -229,7 +229,7 @@ function build_url($base_url, $parameter = []) {
     $params = $_GET;
     
     // Neue Parameter hinzufügen/überschreiben
-    foreach ($parameter as $key => $value) {
+    foreach ($parameter as $key =&gt; $value) {
         if ($value === null) {
             unset($params[$key]);  // Parameter entfernen
         } else {
@@ -246,9 +246,9 @@ function build_url($base_url, $parameter = []) {
 
 // Beispiel-Links generieren
 $aktuelle_url = 'products.php';
-echo "Seite 2: " . build_url($aktuelle_url, ['seite' => 2]) . "\n";
-echo "Nach Preis sortieren: " . build_url($aktuelle_url, ['sort' => 'preis']) . "\n";
-echo "Filter zurücksetzen: " . build_url($aktuelle_url, ['kategorie' => null, 'q' => null]) . "\n";
+echo "Seite 2: " . build_url($aktuelle_url, ['seite' =&gt; 2]) . "\n";
+echo "Nach Preis sortieren: " . build_url($aktuelle_url, ['sort' =&gt; 'preis']) . "\n";
+echo "Filter zurücksetzen: " . build_url($aktuelle_url, ['kategorie' =&gt; null, 'q' =&gt; null]) . "\n";
 
 // GET-Parameter für HTML-Formulare vorfüllen
 $vorname = htmlspecialchars($_GET['vorname'] ?? '');
@@ -292,7 +292,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Alle POST-Daten anzeigen
     if (!empty($_POST)) {
         echo "\nAlle POST-Daten:\n";
-        foreach ($_POST as $key => $value) {
+        foreach ($_POST as $key =&gt; $value) {
             if (is_array($value)) {
                 echo "- $key: " . implode(', ', $value) . "\n";
             } else {
@@ -379,9 +379,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name'] ?? '');
     if (empty($name)) {
         $fehler['name'] = 'Name ist erforderlich';
-    } elseif (strlen($name) < 2) {
+    } elseif (strlen($name) &lt; 2) {
         $fehler['name'] = 'Name muss mindestens 2 Zeichen haben';
-    } elseif (strlen($name) > 50) {
+    } elseif (strlen($name) &gt; 50) {
         $fehler['name'] = 'Name darf maximal 50 Zeichen haben';
     }
     
@@ -397,7 +397,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $passwort = $_POST['passwort'] ?? '';
     if (empty($passwort)) {
         $fehler['passwort'] = 'Passwort ist erforderlich';
-    } elseif (strlen($passwort) < 8) {
+    } elseif (strlen($passwort) &lt; 8) {
         $fehler['passwort'] = 'Passwort muss mindestens 8 Zeichen haben';
     } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/', $passwort)) {
         $fehler['passwort'] = 'Passwort muss Groß-, Kleinbuchstaben und Zahlen enthalten';
@@ -407,7 +407,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $alter = $_POST['alter'] ?? '';
     if (!empty($alter)) {
         $alter = (int) $alter;
-        if ($alter < 13 || $alter > 120) {
+        if ($alter &lt; 13 || $alter &gt; 120) {
             $fehler['alter'] = 'Alter muss zwischen 13 und 120 Jahren liegen';
         }
     }
@@ -462,7 +462,7 @@ if (!$erfolgreich) {
     if (!empty($fehler)) {
         echo "&lt;div class='alert alert-danger'&gt;";
         echo "&lt;h5&gt;Bitte korrigieren Sie folgende Fehler:&lt;/h5&gt;&lt;ul&gt;";
-        foreach ($fehler as $feld => $nachricht) {
+        foreach ($fehler as $feld =&gt; $nachricht) {
             echo "&lt;li&gt;$nachricht&lt;/li&gt;";
         }
         echo "&lt;/ul&gt;&lt;/div&gt;";
@@ -546,7 +546,7 @@ function warenkorb_anzeigen() {
     }
     
     $ausgabe = "Warenkorb:\n";
-    foreach ($warenkorb as $artikel_id => $menge) {
+    foreach ($warenkorb as $artikel_id =&gt; $menge) {
         $ausgabe .= "- Artikel $artikel_id: $menge Stück\n";
     }
     return $ausgabe;
@@ -565,7 +565,7 @@ echo "Session-Speicherpfad: " . session_save_path() . "\n";
 
 // Alle Session-Daten anzeigen
 echo "\nAlle Session-Daten:\n";
-foreach ($_SESSION as $key => $value) {
+foreach ($_SESSION as $key =&gt; $value) {
     if (is_array($value)) {
         echo "- $key: " . json_encode($value) . "\n";
     } else {
@@ -586,15 +586,15 @@ session_start();
 
 // Benutzer-Datenbank (normalerweise aus echter DB)
 $benutzer_db = [
-    'admin' => [
-        'passwort' => password_hash('admin123', PASSWORD_DEFAULT),
-        'rolle' => 'admin',
-        'name' => 'Administrator'
+    'admin' =&gt; [
+        'passwort' =&gt; password_hash('admin123', PASSWORD_DEFAULT),
+        'rolle' =&gt; 'admin',
+        'name' =&gt; 'Administrator'
     ],
-    'user' => [
-        'passwort' => password_hash('user123', PASSWORD_DEFAULT),
-        'rolle' => 'benutzer',
-        'name' => 'Normaler Benutzer'
+    'user' =&gt; [
+        'passwort' =&gt; password_hash('user123', PASSWORD_DEFAULT),
+        'rolle' =&gt; 'benutzer',
+        'name' =&gt; 'Normaler Benutzer'
     ]
 ];
 
@@ -717,7 +717,7 @@ function pruefe_session_timeout($timeout_minuten = 30) {
     if (ist_angemeldet()) {
         $letzte_aktivitaet = $_SESSION['letzte_aktivitaet'] ?? time();
         
-        if ((time() - $letzte_aktivitaet) > ($timeout_minuten * 60)) {
+        if ((time() - $letzte_aktivitaet) &gt; ($timeout_minuten * 60)) {
             benutzer_abmelden();
             return "Session abgelaufen - bitte neu anmelden";
         }
@@ -757,9 +757,9 @@ setcookie('begruessung', $cookie_wert, $ablauf_zeit);
 
 // Cookie mit erweiterten Optionen
 setcookie('benutzer_einstellungen', json_encode([
-    'sprache' => 'de',
-    'design' => 'dark',
-    'benachrichtigungen' => true
+    'sprache' =&gt; 'de',
+    'design' =&gt; 'dark',
+    'benachrichtigungen' =&gt; true
 ]), $ablauf_zeit, '/', '', true, true);
 
 // Cookies lesen
@@ -774,7 +774,7 @@ echo "Design: " . ($einstellungen['design'] ?? 'unbekannt') . "\n";
 // Alle Cookies anzeigen
 if (!empty($_COOKIE)) {
     echo "\nAlle Cookies:\n";
-    foreach ($_COOKIE as $name => $wert) {
+    foreach ($_COOKIE as $name =&gt; $wert) {
         echo "- $name: $wert\n";
     }
 } else {
@@ -824,9 +824,9 @@ function sicheres_cookie_lesen($name, $standard = []) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['cookie_setzen'])) {
         $benutzer_daten = [
-            'name' => $_POST['name'] ?? '',
-            'email' => $_POST['email'] ?? '',
-            'letzter_besuch' => date('Y-m-d H:i:s')
+            'name' =&gt; $_POST['name'] ?? '',
+            'email' =&gt; $_POST['email'] ?? '',
+            'letzter_besuch' =&gt; date('Y-m-d H:i:s')
         ];
         
         sicheres_cookie_setzen('benutzer_daten', $benutzer_daten, 7);
@@ -859,25 +859,25 @@ if (!empty($benutzer_daten)) {
 class CookieManager {
     
     private $standard_optionen = [
-        'ablauf_tage' => 30,
-        'pfad' => '/',
-        'domain' => '',
-        'secure' => true,
-        'httponly' => true,
-        'samesite' => 'Strict'
+        'ablauf_tage' =&gt; 30,
+        'pfad' =&gt; '/',
+        'domain' =&gt; '',
+        'secure' =&gt; true,
+        'httponly' =&gt; true,
+        'samesite' =&gt; 'Strict'
     ];
     
     public function setzen($name, $wert, $optionen = []) {
-        $opts = array_merge($this->standard_optionen, $optionen);
+        $opts = array_merge($this-&gt;standard_optionen, $optionen);
         $ablauf = time() + ($opts['ablauf_tage'] * 24 * 60 * 60);
         
         return setcookie($name, $wert, [
-            'expires' => $ablauf,
-            'path' => $opts['pfad'],
-            'domain' => $opts['domain'],
-            'secure' => $opts['secure'],
-            'httponly' => $opts['httponly'],
-            'samesite' => $opts['samesite']
+            'expires' =&gt; $ablauf,
+            'path' =&gt; $opts['pfad'],
+            'domain' =&gt; $opts['domain'],
+            'secure' =&gt; $opts['secure'],
+            'httponly' =&gt; $opts['httponly'],
+            'samesite' =&gt; $opts['samesite']
         ]);
     }
     
@@ -887,10 +887,10 @@ class CookieManager {
     
     public function loeschen($name) {
         setcookie($name, '', [
-            'expires' => time() - 3600,
-            'path' => '/',
-            'secure' => true,
-            'httponly' => true
+            'expires' =&gt; time() - 3600,
+            'path' =&gt; '/',
+            'secure' =&gt; true,
+            'httponly' =&gt; true
         ]);
         unset($_COOKIE[$name]);
     }
@@ -903,12 +903,12 @@ class CookieManager {
     public function setPraeferenz($kategorie, $einstellungen) {
         $cookie_name = "praef_$kategorie";
         $json = json_encode($einstellungen);
-        return $this->setzen($cookie_name, $json, ['ablauf_tage' => 365]);
+        return $this-&gt;setzen($cookie_name, $json, ['ablauf_tage' =&gt; 365]);
     }
     
     public function getPraeferenz($kategorie, $standard = []) {
         $cookie_name = "praef_$kategorie";
-        $json = $this->lesen($cookie_name);
+        $json = $this-&gt;lesen($cookie_name);
         
         if (!$json) {
             return $standard;
@@ -924,20 +924,20 @@ $cookies = new CookieManager();
 // Theme-Präferenz speichern
 if ($_POST['theme'] ?? false) {
     $theme_einstellungen = [
-        'farbschema' => $_POST['farbschema'] ?? 'hell',
-        'schriftgroesse' => $_POST['schriftgroesse'] ?? 'normal',
-        'sidebar_eingeklappt' => isset($_POST['sidebar_eingeklappt'])
+        'farbschema' =&gt; $_POST['farbschema'] ?? 'hell',
+        'schriftgroesse' =&gt; $_POST['schriftgroesse'] ?? 'normal',
+        'sidebar_eingeklappt' =&gt; isset($_POST['sidebar_eingeklappt'])
     ];
     
-    $cookies->setPraeferenz('theme', $theme_einstellungen);
+    $cookies-&gt;setPraeferenz('theme', $theme_einstellungen);
     echo "Theme-Einstellungen gespeichert!\n";
 }
 
 // Gespeicherte Theme-Präferenzen laden
-$theme = $cookies->getPraeferenz('theme', [
-    'farbschema' => 'hell',
-    'schriftgroesse' => 'normal', 
-    'sidebar_eingeklappt' => false
+$theme = $cookies-&gt;getPraeferenz('theme', [
+    'farbschema' =&gt; 'hell',
+    'schriftgroesse' =&gt; 'normal', 
+    'sidebar_eingeklappt' =&gt; false
 ]);
 
 echo "&lt;div class='card'&gt;";
@@ -1088,15 +1088,15 @@ function get_browser_info() {
     $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
     
     $browsers = [
-        'Chrome' => '/Chrome/i',
-        'Firefox' => '/Firefox/i',
-        'Safari' => '/Safari/i',
-        'Edge' => '/Edg/i',
-        'Opera' => '/Opera|OPR/i',
-        'Internet Explorer' => '/Trident|MSIE/i'
+        'Chrome' =&gt; '/Chrome/i',
+        'Firefox' =&gt; '/Firefox/i',
+        'Safari' =&gt; '/Safari/i',
+        'Edge' =&gt; '/Edg/i',
+        'Opera' =&gt; '/Opera|OPR/i',
+        'Internet Explorer' =&gt; '/Trident|MSIE/i'
     ];
     
-    foreach ($browsers as $browser => $pattern) {
+    foreach ($browsers as $browser =&gt; $pattern) {
         if (preg_match($pattern, $user_agent)) {
             return $browser;
         }
@@ -1121,7 +1121,7 @@ echo "AJAX-Request: " . (ist_ajax_request() ? 'Ja' : 'Nein') . "\n";
 echo "\n&lt;details&gt;&lt;summary&gt;🔍 Alle \$_SERVER Variablen&lt;/summary&gt;";
 echo "&lt;div style='max-height: 300px; overflow-y: auto; font-family: monospace; font-size: 12px;'&gt;";
 ksort($_SERVER);
-foreach ($_SERVER as $key => $value) {
+foreach ($_SERVER as $key =&gt; $value) {
     if (is_array($value)) {
         echo "&lt;div&gt;&lt;strong&gt;$key:&lt;/strong&gt; " . json_encode($value) . "&lt;/div&gt;";
     } else {
@@ -1179,7 +1179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES)) {
     
     echo "&lt;h4&gt;📁 Hochgeladene Dateien:&lt;/h4&gt;";
     
-    foreach ($_FILES as $field_name => $file_info) {
+    foreach ($_FILES as $field_name =&gt; $file_info) {
         echo "&lt;div class='border p-3 mb-3'&gt;";
         echo "&lt;h5&gt;Feld: $field_name&lt;/h5&gt;";
         
@@ -1188,13 +1188,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_FILES)) {
             verarbeite_einzeldatei($file_info, $field_name);
         } else {
             // Multiple Dateien
-            for ($i = 0; $i < count($file_info['name']); $i++) {
+            for ($i = 0; $i &lt; count($file_info['name']); $i++) {
                 $einzeldatei = [
-                    'name' => $file_info['name'][$i],
-                    'type' => $file_info['type'][$i],
-                    'size' => $file_info['size'][$i],
-                    'tmp_name' => $file_info['tmp_name'][$i],
-                    'error' => $file_info['error'][$i]
+                    'name' =&gt; $file_info['name'][$i],
+                    'type' =&gt; $file_info['type'][$i],
+                    'size' =&gt; $file_info['size'][$i],
+                    'tmp_name' =&gt; $file_info['tmp_name'][$i],
+                    'error' =&gt; $file_info['error'][$i]
                 ];
                 
                 echo "&lt;div class='ms-3 mb-2'&gt;";
@@ -1250,14 +1250,14 @@ function verarbeite_einzeldatei($datei, $field_name) {
 
 function get_upload_fehler($error_code) {
     $fehler_texte = [
-        UPLOAD_ERR_OK => null,
-        UPLOAD_ERR_INI_SIZE => 'Datei ist größer als upload_max_filesize',
-        UPLOAD_ERR_FORM_SIZE => 'Datei ist größer als MAX_FILE_SIZE',
-        UPLOAD_ERR_PARTIAL => 'Datei wurde nur teilweise hochgeladen',
-        UPLOAD_ERR_NO_FILE => 'Keine Datei hochgeladen',
-        UPLOAD_ERR_NO_TMP_DIR => 'Temporäres Verzeichnis fehlt',
-        UPLOAD_ERR_CANT_WRITE => 'Fehler beim Schreiben auf Festplatte',
-        UPLOAD_ERR_EXTENSION => 'Upload durch PHP-Extension gestoppt'
+        UPLOAD_ERR_OK =&gt; null,
+        UPLOAD_ERR_INI_SIZE =&gt; 'Datei ist größer als upload_max_filesize',
+        UPLOAD_ERR_FORM_SIZE =&gt; 'Datei ist größer als MAX_FILE_SIZE',
+        UPLOAD_ERR_PARTIAL =&gt; 'Datei wurde nur teilweise hochgeladen',
+        UPLOAD_ERR_NO_FILE =&gt; 'Keine Datei hochgeladen',
+        UPLOAD_ERR_NO_TMP_DIR =&gt; 'Temporäres Verzeichnis fehlt',
+        UPLOAD_ERR_CANT_WRITE =&gt; 'Fehler beim Schreiben auf Festplatte',
+        UPLOAD_ERR_EXTENSION =&gt; 'Upload durch PHP-Extension gestoppt'
     ];
     
     return $fehler_texte[$error_code] ?? "Unbekannter Fehler ($error_code)";
@@ -1265,7 +1265,7 @@ function get_upload_fehler($error_code) {
 
 function format_dategroesse($bytes) {
     $einheiten = ['B', 'KB', 'MB', 'GB'];
-    for ($i = 0; $bytes >= 1024 && $i < 3; $i++) {
+    for ($i = 0; $bytes &gt;= 1024 && $i &lt; 3; $i++) {
         $bytes /= 1024;
     }
     return round($bytes, 2) . ' ' . $einheiten[$i];
@@ -1274,7 +1274,7 @@ function format_dategroesse($bytes) {
 function validiere_datei($datei) {
     // Maximale Dateigröße (5MB)
     $max_groesse = 5 * 1024 * 1024;
-    if ($datei['size'] > $max_groesse) {
+    if ($datei['size'] &gt; $max_groesse) {
         return "Datei zu groß (max. 5MB)";
     }
     
@@ -1317,7 +1317,7 @@ function speichere_datei($datei) {
     // Upload-Verzeichnis erstellen falls nicht vorhanden
     if (!is_dir($upload_dir)) {
         if (!mkdir($upload_dir, 0755, true)) {
-            return ['erfolg' => false, 'fehler' => 'Upload-Verzeichnis konnte nicht erstellt werden'];
+            return ['erfolg' =&gt; false, 'fehler' =&gt; 'Upload-Verzeichnis konnte nicht erstellt werden'];
         }
     }
     
@@ -1336,15 +1336,15 @@ function speichere_datei($datei) {
     // Datei verschieben
     if (move_uploaded_file($datei['tmp_name'], $ziel_pfad)) {
         return [
-            'erfolg' => true,
-            'dateiname' => $dateiname,
-            'pfad' => $ziel_pfad,
-            'url' => '/uploads/' . $dateiname
+            'erfolg' =&gt; true,
+            'dateiname' =&gt; $dateiname,
+            'pfad' =&gt; $ziel_pfad,
+            'url' =&gt; '/uploads/' . $dateiname
         ];
     } else {
         return [
-            'erfolg' => false,
-            'fehler' => 'Datei konnte nicht gespeichert werden'
+            'erfolg' =&gt; false,
+            'fehler' =&gt; 'Datei konnte nicht gespeichert werden'
         ];
     }
 }

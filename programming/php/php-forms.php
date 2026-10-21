@@ -253,7 +253,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $nachricht = filter_input(INPUT_POST, 'nachricht', FILTER_SANITIZE_STRING);
         
         // 3. Eingaben validieren
-        if (empty($name) || strlen($name) < 2) {
+        if (empty($name) || strlen($name) &lt; 2) {
             $fehler[] = 'Name muss mindestens 2 Zeichen haben';
         }
         
@@ -261,7 +261,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $fehler[] = 'Ungültige E-Mail-Adresse';
         }
         
-        if (empty($nachricht) || strlen($nachricht) < 10) {
+        if (empty($nachricht) || strlen($nachricht) &lt; 10) {
             $fehler[] = 'Nachricht muss mindestens 10 Zeichen haben';
         }
         
@@ -277,11 +277,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['form_versuche'] = array_filter(
             $_SESSION['form_versuche'], 
             function($zeit) use ($jetzt, $zeitfenster) {
-                return ($jetzt - $zeit) < $zeitfenster;
+                return ($jetzt - $zeit) &lt; $zeitfenster;
             }
         );
         
-        if (count($_SESSION['form_versuche']) >= $max_versuche) {
+        if (count($_SESSION['form_versuche']) &gt;= $max_versuche) {
             $fehler[] = 'Zu viele Versuche - bitte später erneut probieren';
         } else {
             $_SESSION['form_versuche'][] = $jetzt;
@@ -333,7 +333,7 @@ function sichere_email($input) {
 
 function sicheres_passwort($input) {
     // Passwort-Stärke prüfen
-    if (strlen($input) < 8) return false;
+    if (strlen($input) &lt; 8) return false;
     if (!preg_match('/[A-Z]/', $input)) return false;
     if (!preg_match('/[a-z]/', $input)) return false;
     if (!preg_match('/[0-9]/', $input)) return false;
@@ -353,7 +353,7 @@ function ist_spam($text) {
     
     // Zu viele Links?
     $link_anzahl = preg_match_all('/https?:\/\//', $text);
-    return $link_anzahl > 3;
+    return $link_anzahl &gt; 3;
 }
 ?&gt;</code></pre>
                                             </div>
@@ -371,20 +371,20 @@ class FormValidator {
     private $data = [];
     
     public function validate($rules, $input_data) {
-        $this->data = $input_data;
-        $this->errors = [];
+        $this-&gt;data = $input_data;
+        $this-&gt;errors = [];
         
-        foreach ($rules as $field => $field_rules) {
+        foreach ($rules as $field =&gt; $field_rules) {
             $value = $input_data[$field] ?? '';
             
             foreach ($field_rules as $rule) {
-                if (!$this->checkRule($field, $value, $rule)) {
+                if (!$this-&gt;checkRule($field, $value, $rule)) {
                     break; // Ersten Fehler pro Feld
                 }
             }
         }
         
-        return empty($this->errors);
+        return empty($this-&gt;errors);
     }
     
     private function checkRule($field, $value, $rule) {
@@ -395,58 +395,58 @@ class FormValidator {
         switch ($rule_name) {
             case 'required':
                 if (empty($value)) {
-                    $this->errors[$field] = "$field ist erforderlich";
+                    $this-&gt;errors[$field] = "$field ist erforderlich";
                     return false;
                 }
                 break;
                 
             case 'email':
                 if (!empty($value) && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
-                    $this->errors[$field] = "$field muss eine gültige E-Mail sein";
+                    $this-&gt;errors[$field] = "$field muss eine gültige E-Mail sein";
                     return false;
                 }
                 break;
                 
             case 'min':
-                if (!empty($value) && strlen($value) < (int)$parameter) {
-                    $this->errors[$field] = "$field muss mindestens $parameter Zeichen haben";
+                if (!empty($value) && strlen($value) &lt; (int)$parameter) {
+                    $this-&gt;errors[$field] = "$field muss mindestens $parameter Zeichen haben";
                     return false;
                 }
                 break;
                 
             case 'max':
-                if (strlen($value) > (int)$parameter) {
-                    $this->errors[$field] = "$field darf maximal $parameter Zeichen haben";
+                if (strlen($value) &gt; (int)$parameter) {
+                    $this-&gt;errors[$field] = "$field darf maximal $parameter Zeichen haben";
                     return false;
                 }
                 break;
                 
             case 'numeric':
                 if (!empty($value) && !is_numeric($value)) {
-                    $this->errors[$field] = "$field muss eine Zahl sein";
+                    $this-&gt;errors[$field] = "$field muss eine Zahl sein";
                     return false;
                 }
                 break;
                 
             case 'url':
                 if (!empty($value) && !filter_var($value, FILTER_VALIDATE_URL)) {
-                    $this->errors[$field] = "$field muss eine gültige URL sein";
+                    $this-&gt;errors[$field] = "$field muss eine gültige URL sein";
                     return false;
                 }
                 break;
                 
             case 'regex':
                 if (!empty($value) && !preg_match($parameter, $value)) {
-                    $this->errors[$field] = "$field hat ein ungültiges Format";
+                    $this-&gt;errors[$field] = "$field hat ein ungültiges Format";
                     return false;
                 }
                 break;
                 
             case 'confirmed':
                 $confirm_field = $field . '_confirmation';
-                $confirm_value = $this->data[$confirm_field] ?? '';
+                $confirm_value = $this-&gt;data[$confirm_field] ?? '';
                 if ($value !== $confirm_value) {
-                    $this->errors[$field] = "$field stimmt nicht mit der Bestätigung überein";
+                    $this-&gt;errors[$field] = "$field stimmt nicht mit der Bestätigung überein";
                     return false;
                 }
                 break;
@@ -456,13 +456,13 @@ class FormValidator {
     }
     
     public function getErrors() {
-        return $this->errors;
+        return $this-&gt;errors;
     }
     
     public function getCleanData() {
         $clean = [];
-        foreach ($this->data as $key => $value) {
-            if (!isset($this->errors[$key])) {
+        foreach ($this-&gt;data as $key =&gt; $value) {
+            if (!isset($this-&gt;errors[$key])) {
                 $clean[$key] = htmlspecialchars(trim($value), ENT_QUOTES, 'UTF-8');
             }
         }
@@ -477,18 +477,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     // Validierungsregeln definieren
     $rules = [
-        'name' => ['required', 'min:2', 'max:50'],
-        'email' => ['required', 'email'],
-        'telefon' => ['regex:/^[\d\s\+\-\(\)]+$/'],
-        'website' => ['url'],
-        'alter' => ['numeric', 'min:13', 'max:120'],
-        'passwort' => ['required', 'min:8'],
-        'passwort_confirmation' => ['required', 'confirmed'],
-        'nachricht' => ['required', 'min:10', 'max:1000']
+        'name' =&gt; ['required', 'min:2', 'max:50'],
+        'email' =&gt; ['required', 'email'],
+        'telefon' =&gt; ['regex:/^[\d\s\+\-\(\)]+$/'],
+        'website' =&gt; ['url'],
+        'alter' =&gt; ['numeric', 'min:13', 'max:120'],
+        'passwort' =&gt; ['required', 'min:8'],
+        'passwort_confirmation' =&gt; ['required', 'confirmed'],
+        'nachricht' =&gt; ['required', 'min:10', 'max:1000']
     ];
     
-    if ($validator->validate($rules, $_POST)) {
-        $clean_data = $validator->getCleanData();
+    if ($validator-&gt;validate($rules, $_POST)) {
+        $clean_data = $validator-&gt;getCleanData();
         echo "&lt;div class='alert alert-success'&gt;✅ Alle Daten sind gültig!&lt;/div&gt;";
         
         // Hier würde die weitere Verarbeitung stattfinden
@@ -496,10 +496,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // send_email($clean_data);
         
     } else {
-        $validation_errors = $validator->getErrors();
+        $validation_errors = $validator-&gt;getErrors();
         echo "&lt;div class='alert alert-danger'&gt;";
         echo "&lt;h5&gt;Validierungsfehler:&lt;/h5&gt;&lt;ul&gt;";
-        foreach ($validation_errors as $field => $error) {
+        foreach ($validation_errors as $field =&gt; $error) {
             echo "&lt;li&gt;$error&lt;/li&gt;";
         }
         echo "&lt;/ul&gt;&lt;/div&gt;";
@@ -1047,30 +1047,30 @@ class MultiStepForm {
     private $form_data = [];
     
     public function __construct() {
-        $this->current_step = $_SESSION['form_step'] ?? 1;
-        $this->form_data = $_SESSION['form_data'] ?? [];
+        $this-&gt;current_step = $_SESSION['form_step'] ?? 1;
+        $this-&gt;form_data = $_SESSION['form_data'] ?? [];
         
         // Schritte definieren
-        $this->steps = [
-            1 => [
-                'title' => 'Persönliche Daten',
-                'fields' => ['vorname', 'nachname', 'email', 'telefon'],
-                'required' => ['vorname', 'nachname', 'email']
+        $this-&gt;steps = [
+            1 =&gt; [
+                'title' =&gt; 'Persönliche Daten',
+                'fields' =&gt; ['vorname', 'nachname', 'email', 'telefon'],
+                'required' =&gt; ['vorname', 'nachname', 'email']
             ],
-            2 => [
-                'title' => 'Adresse',
-                'fields' => ['strasse', 'hausnummer', 'plz', 'ort', 'land'],
-                'required' => ['strasse', 'hausnummer', 'plz', 'ort']
+            2 =&gt; [
+                'title' =&gt; 'Adresse',
+                'fields' =&gt; ['strasse', 'hausnummer', 'plz', 'ort', 'land'],
+                'required' =&gt; ['strasse', 'hausnummer', 'plz', 'ort']
             ],
-            3 => [
-                'title' => 'Zahlungsart',
-                'fields' => ['zahlungsart', 'iban', 'karteninhaber'],
-                'required' => ['zahlungsart']
+            3 =&gt; [
+                'title' =&gt; 'Zahlungsart',
+                'fields' =&gt; ['zahlungsart', 'iban', 'karteninhaber'],
+                'required' =&gt; ['zahlungsart']
             ],
-            4 => [
-                'title' => 'Bestätigung',
-                'fields' => ['agb', 'newsletter'],
-                'required' => ['agb']
+            4 =&gt; [
+                'title' =&gt; 'Bestätigung',
+                'fields' =&gt; ['agb', 'newsletter'],
+                'required' =&gt; ['agb']
             ]
         ];
     }
@@ -1080,29 +1080,29 @@ class MultiStepForm {
             
             if (isset($_POST['next_step'])) {
                 // Aktuellen Schritt validieren
-                if ($this->validateCurrentStep()) {
-                    $this->saveStepData();
-                    $this->current_step++;
+                if ($this-&gt;validateCurrentStep()) {
+                    $this-&gt;saveStepData();
+                    $this-&gt;current_step++;
                     
-                    if ($this->current_step > count($this->steps)) {
-                        return $this->completeForm();
+                    if ($this-&gt;current_step &gt; count($this-&gt;steps)) {
+                        return $this-&gt;completeForm();
                     }
                 }
                 
             } elseif (isset($_POST['prev_step'])) {
-                $this->saveStepData();
-                $this->current_step = max(1, $this->current_step - 1);
+                $this-&gt;saveStepData();
+                $this-&gt;current_step = max(1, $this-&gt;current_step - 1);
             }
             
-            $_SESSION['form_step'] = $this->current_step;
-            $_SESSION['form_data'] = $this->form_data;
+            $_SESSION['form_step'] = $this-&gt;current_step;
+            $_SESSION['form_data'] = $this-&gt;form_data;
         }
         
-        return $this->renderCurrentStep();
+        return $this-&gt;renderCurrentStep();
     }
     
     private function validateCurrentStep() {
-        $step = $this->steps[$this->current_step];
+        $step = $this-&gt;steps[$this-&gt;current_step];
         $errors = [];
         
         foreach ($step['required'] as $field) {
@@ -1113,14 +1113,14 @@ class MultiStepForm {
         }
         
         // Spezielle Validierungen
-        if ($this->current_step === 1) {
+        if ($this-&gt;current_step === 1) {
             $email = $_POST['email'] ?? '';
             if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $errors[] = "Ungültige E-Mail-Adresse";
             }
         }
         
-        if ($this->current_step === 2) {
+        if ($this-&gt;current_step === 2) {
             $plz = $_POST['plz'] ?? '';
             if (!empty($plz) && !preg_match('/^\d{5}$/', $plz)) {
                 $errors[] = "PLZ muss 5 Ziffern haben";
@@ -1138,17 +1138,17 @@ class MultiStepForm {
     }
     
     private function saveStepData() {
-        $step = $this->steps[$this->current_step];
+        $step = $this-&gt;steps[$this-&gt;current_step];
         
         foreach ($step['fields'] as $field) {
-            $this->form_data[$field] = $_POST[$field] ?? '';
+            $this-&gt;form_data[$field] = $_POST[$field] ?? '';
         }
     }
     
     private function renderCurrentStep() {
-        $step = $this->steps[$this->current_step];
-        $total_steps = count($this->steps);
-        $progress = ($this->current_step / $total_steps) * 100;
+        $step = $this-&gt;steps[$this-&gt;current_step];
+        $total_steps = count($this-&gt;steps);
+        $progress = ($this-&gt;current_step / $total_steps) * 100;
         
         ob_start();
         ?&gt;
@@ -1157,7 +1157,7 @@ class MultiStepForm {
             &lt;!-- Fortschrittsbalken --&gt;
             &lt;div class="progress mb-4" style="height: 20px;"&gt;
                 &lt;div class="progress-bar bg-primary" style="width: &lt;?= $progress ?&gt;%"&gt;
-                    Schritt &lt;?= $this->current_step ?&gt; von &lt;?= $total_steps ?&gt;
+                    Schritt &lt;?= $this-&gt;current_step ?&gt; von &lt;?= $total_steps ?&gt;
                 &lt;/div&gt;
             &lt;/div&gt;
             
@@ -1165,24 +1165,24 @@ class MultiStepForm {
             
             &lt;form method="post"&gt;
                 &lt;?php
-                switch ($this->current_step) {
+                switch ($this-&gt;current_step) {
                     case 1:
-                        echo $this->renderStep1();
+                        echo $this-&gt;renderStep1();
                         break;
                     case 2:
-                        echo $this->renderStep2();
+                        echo $this-&gt;renderStep2();
                         break;
                     case 3:
-                        echo $this->renderStep3();
+                        echo $this-&gt;renderStep3();
                         break;
                     case 4:
-                        echo $this->renderStep4();
+                        echo $this-&gt;renderStep4();
                         break;
                 }
                 ?&gt;
                 
                 &lt;div class="d-flex justify-content-between mt-4"&gt;
-                    &lt;?php if ($this->current_step > 1): ?&gt;
+                    &lt;?php if ($this-&gt;current_step &gt; 1): ?&gt;
                         &lt;button type="submit" name="prev_step" class="btn btn-outline-secondary"&gt;
                             &lt;i class="bi bi-arrow-left me-2"&gt;&lt;/i&gt;Zurück
                         &lt;/button&gt;
@@ -1191,7 +1191,7 @@ class MultiStepForm {
                     &lt;?php endif; ?&gt;
                     
                     &lt;button type="submit" name="next_step" class="btn btn-primary"&gt;
-                        &lt;?php if ($this->current_step < $total_steps): ?&gt;
+                        &lt;?php if ($this-&gt;current_step &lt; $total_steps): ?&gt;
                             Weiter &lt;i class="bi bi-arrow-right ms-2"&gt;&lt;/i&gt;
                         &lt;?php else: ?&gt;
                             Bestellen &lt;i class="bi bi-check-lg ms-2"&gt;&lt;/i&gt;
@@ -1206,7 +1206,7 @@ class MultiStepForm {
     }
     
     private function renderStep1() {
-        $data = $this->form_data;
+        $data = $this-&gt;form_data;
         return "&lt;div class='row'&gt;
             &lt;div class='col-md-6 mb-3'&gt;
                 &lt;label class='form-label'&gt;Vorname *&lt;/label&gt;
@@ -1232,7 +1232,7 @@ class MultiStepForm {
     }
     
     private function renderStep2() {
-        $data = $this->form_data;
+        $data = $this-&gt;form_data;
         return "&lt;div class='row'&gt;
             &lt;div class='col-md-8 mb-3'&gt;
                 &lt;label class='form-label'&gt;Straße *&lt;/label&gt;
@@ -1266,7 +1266,7 @@ class MultiStepForm {
     }
     
     private function renderStep3() {
-        $data = $this->form_data;
+        $data = $this-&gt;form_data;
         $zahlungsart = $data['zahlungsart'] ?? '';
         return "&lt;div class='mb-3'&gt;
             &lt;label class='form-label'&gt;Zahlungsart wählen: *&lt;/label&gt;
@@ -1302,15 +1302,15 @@ class MultiStepForm {
             &lt;/div&gt;
             &lt;div class='card-body'&gt;
                 &lt;h6&gt;Persönliche Daten:&lt;/h6&gt;
-                &lt;p&gt;{$this->form_data['vorname']} {$this->form_data['nachname']}&lt;br&gt;
-                   {$this->form_data['email']}&lt;/p&gt;
+                &lt;p&gt;{$this-&gt;form_data['vorname']} {$this-&gt;form_data['nachname']}&lt;br&gt;
+                   {$this-&gt;form_data['email']}&lt;/p&gt;
                 
                 &lt;h6&gt;Lieferadresse:&lt;/h6&gt;
-                &lt;p&gt;{$this->form_data['strasse']} {$this->form_data['hausnummer']}&lt;br&gt;
-                   {$this->form_data['plz']} {$this->form_data['ort']}&lt;/p&gt;
+                &lt;p&gt;{$this-&gt;form_data['strasse']} {$this-&gt;form_data['hausnummer']}&lt;br&gt;
+                   {$this-&gt;form_data['plz']} {$this-&gt;form_data['ort']}&lt;/p&gt;
                 
                 &lt;h6&gt;Zahlungsart:&lt;/h6&gt;
-                &lt;p&gt;{$this->form_data['zahlungsart']}&lt;/p&gt;
+                &lt;p&gt;{$this-&gt;form_data['zahlungsart']}&lt;/p&gt;
             &lt;/div&gt;
         &lt;/div&gt;
         
@@ -1332,15 +1332,15 @@ class MultiStepForm {
         
         return "&lt;div class='alert alert-success'&gt;
             &lt;h4&gt;🎉 Bestellung erfolgreich abgeschlossen!&lt;/h4&gt;
-            &lt;p&gt;Vielen Dank für Ihre Bestellung, {$this->form_data['vorname']}!&lt;/p&gt;
-            &lt;p&gt;Sie erhalten in Kürze eine Bestätigungsmail an {$this->form_data['email']}.&lt;/p&gt;
+            &lt;p&gt;Vielen Dank für Ihre Bestellung, {$this-&gt;form_data['vorname']}!&lt;/p&gt;
+            &lt;p&gt;Sie erhalten in Kürze eine Bestätigungsmail an {$this-&gt;form_data['email']}.&lt;/p&gt;
         &lt;/div&gt;";
     }
 }
 
 // Multi-Step Formular verwenden
 $form = new MultiStepForm();
-echo $form->processStep();
+echo $form-&gt;processStep();
 ?&gt;</code></pre>
                                     </div>
                                 </div>

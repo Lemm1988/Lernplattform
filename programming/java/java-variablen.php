@@ -212,7 +212,7 @@ boolean istEingeloggt;
 int maximalePunktzahl;
 
 // Für Zählvariablen
-for (int i = 0; i < 10; i++) {
+for (int i = 0; i &lt; 10; i++) {
     // i ist hier OK
 }
 
@@ -353,6 +353,9 @@ Neues Gehalt: 49500.0 EUR</pre>
                     <div class="navigation-buttons">
                         <?php renderJavaPageNavigation('java-variablen'); ?>
                     </div>
+                    </div>
+                </div>
+            </div>
                     </div>
                 </div>
             </div>

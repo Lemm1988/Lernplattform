@@ -229,7 +229,7 @@ tuple_b = (1, 2, 3)
 tuple_c = (1, 2, 4)
 
 print(f"tuple_a == tuple_b: {tuple_a == tuple_b}")  # True
-print(f"tuple_a < tuple_c: {tuple_a < tuple_c}")    # True (lexikographisch)</code></pre>
+print(f"tuple_a &lt; tuple_c: {tuple_a &lt; tuple_c}")    # True (lexikographisch)</code></pre>
                                 </div>
                             </div>
                             
@@ -511,9 +511,9 @@ rgb1 = RGB(0.5, 0.2, 0.8)        # alpha wird default 1.0
 rgb2 = RGB(0.1, 0.9, 0.3, 0.5)   # alpha explizit gesetzt
 
 print(f"\nFarben:")
-print(f"Color: {color1} -> rot={color1.red}")
-print(f"RGB1: {rgb1} -> alpha={rgb1.alpha}")
-print(f"RGB2: {rgb2} -> alpha={rgb2.alpha}")
+print(f"Color: {color1} -&gt; rot={color1.red}")
+print(f"RGB1: {rgb1} -&gt; alpha={rgb1.alpha}")
+print(f"RGB2: {rgb2} -&gt; alpha={rgb2.alpha}")
 
 # Named Tuple Methoden
 print(f"\n=== NAMED TUPLE METHODEN ===")
@@ -648,8 +648,8 @@ dist_origin_a = distance_2d(origin, point_a)
 dist_a_b = distance_2d(point_a, point_b)
 mid_a_b = midpoint(point_a, point_b)
 
-print(f"Distanz Origin->A: {dist_origin_a:.2f}")
-print(f"Distanz A->B: {dist_a_b:.2f}")
+print(f"Distanz Origin-&gt;A: {dist_origin_a:.2f}")
+print(f"Distanz A-&gt;B: {dist_a_b:.2f}")
 print(f"Mittelpunkt A-B: {mid_a_b}")
 
 # 3D-Geometrie
@@ -684,7 +684,7 @@ print(f"\n=== FARBVERARBEITUNG ===")
 for i, color in enumerate(colors):
     hex_color = rgb_to_hex(color)
     brightness = color_brightness(color)
-    print(f"Farbe {i+1}: RGB{color} -> {hex_color} (Helligkeit: {brightness:.2f})")</code></pre>
+    print(f"Farbe {i+1}: RGB{color} -&gt; {hex_color} (Helligkeit: {brightness:.2f})")</code></pre>
                                 </div>
                             </div>
                             
@@ -781,7 +781,7 @@ def safe_divide(a, b):
 
 def safe_sqrt(x):
     """Sichere Quadratwurzel"""
-    if x < 0:
+    if x &lt; 0:
         return Result(False, None, "Cannot calculate sqrt of negative number")
     
     import math
@@ -815,7 +815,7 @@ files = [
 def format_file_size(size_bytes):
     """Formatiert Dateigröße in lesbarer Form"""
     for unit in ['B', 'KB', 'MB', 'GB']:
-        if size_bytes < 1024:
+        if size_bytes &lt; 1024:
             return f"{size_bytes:.1f} {unit}"
         size_bytes /= 1024
     return f"{size_bytes:.1f} TB"
@@ -825,10 +825,10 @@ total_size = 0
 for file_info in files:
     formatted_size = format_file_size(file_info.size_bytes)
     total_size += file_info.size_bytes
-    print(f"{file_info.name:15} | {formatted_size:>8} | {file_info.created_date} | {file_info.file_type}")
+    print(f"{file_info.name:15} | {formatted_size:&gt;8} | {file_info.created_date} | {file_info.file_type}")
 
 print(f"{'─' * 50}")
-print(f"{'Gesamt:':15} | {format_file_size(total_size):>8}")</code></pre>
+print(f"{'Gesamt:':15} | {format_file_size(total_size):&gt;8}")</code></pre>
                                 </div>
                             </div>
                         </div>
@@ -901,7 +901,7 @@ print(f"\n=== HASHABILITY ===")
 hashable_tuple = (1, 2, 3, "hello")
 try:
     hash_value = hash(hashable_tuple)
-    print(f"Hashable Tupel: {hashable_tuple} -> Hash: {hash_value}")
+    print(f"Hashable Tupel: {hashable_tuple} -&gt; Hash: {hash_value}")
 except TypeError as e:
     print(f"Nicht hashbar: {e}")
 
@@ -1024,11 +1024,11 @@ class SimpleStateMachine:
     def transition(self, new_state):
         current = states[self.current_state]
         if new_state in current.can_transition_to:
-            print(f"Übergang: {self.current_state} -> {new_state}")
+            print(f"Übergang: {self.current_state} -&gt; {new_state}")
             self.current_state = new_state
             return True
         else:
-            print(f"Ungültiger Übergang: {self.current_state} -> {new_state}")
+            print(f"Ungültiger Übergang: {self.current_state} -&gt; {new_state}")
             return False
 
 # State Machine testen
@@ -1127,6 +1127,8 @@ print(f"Cache: {calculation_cache}")</code></pre>
                         <?php renderPythonPageNavigation('python-tupel'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

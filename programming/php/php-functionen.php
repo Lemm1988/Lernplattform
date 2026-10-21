@@ -19,7 +19,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-functions'); ?>
+                        <?php renderNavigation('php-functionen'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-gear me-2"></i>PHP Funktionen</h1>
@@ -180,7 +180,7 @@ $ergebnis = addiere(10, 5) * multipliziere(2, 3);
 echo "Ergebnis: $ergebnis"; // (10+5) * (2*3) = 90
 
 function ist_erwachsen($alter) {
-    return $alter >= 18;
+    return $alter &gt;= 18;
 }
 
 if (ist_erwachsen(20)) {
@@ -197,11 +197,11 @@ if (ist_erwachsen(20)) {
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 function benutzer_info($name, $alter, $email) {
     $info = [
-        'name' => $name,
-        'alter' => $alter,
-        'email' => $email,
-        'erwachsen' => $alter >= 18,
-        'generiert' => date('Y-m-d H:i:s')
+        'name' =&gt; $name,
+        'alter' =&gt; $alter,
+        'email' =&gt; $email,
+        'erwachsen' =&gt; $alter &gt;= 18,
+        'generiert' =&gt; date('Y-m-d H:i:s')
     ];
     return $info;
 }
@@ -218,10 +218,10 @@ echo "&lt;/div&gt;&lt;/div&gt;";
 
 // Funktion mit bedingtem Return
 function note_bewertung($punkte) {
-    if ($punkte >= 90) return "Sehr gut";
-    if ($punkte >= 80) return "Gut";  
-    if ($punkte >= 70) return "Befriedigend";
-    if ($punkte >= 60) return "Ausreichend";
+    if ($punkte &gt;= 90) return "Sehr gut";
+    if ($punkte &gt;= 80) return "Gut";  
+    if ($punkte &gt;= 70) return "Befriedigend";
+    if ($punkte &gt;= 60) return "Ausreichend";
     return "Ungenügend";
 }
 
@@ -347,9 +347,9 @@ echo $original; // Immer noch "Original"
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 // BESSER: Werte als Parameter übergeben
 $config = [
-    'site_name' => 'Meine Website',
-    'version' => '1.0',
-    'debug' => true
+    'site_name' =&gt; 'Meine Website',
+    'version' =&gt; '1.0',
+    'debug' =&gt; true
 ];
 
 function zeige_header($site_config) {
@@ -403,7 +403,7 @@ function ist_email_gueltig($email) {
 }
 
 function ist_passwort_stark($passwort) {
-    if (strlen($passwort) < 8) return false;
+    if (strlen($passwort) &lt; 8) return false;
     if (!preg_match('/[A-Z]/', $passwort)) return false;
     if (!preg_match('/[a-z]/', $passwort)) return false;
     if (!preg_match('/[0-9]/', $passwort)) return false;
@@ -411,7 +411,7 @@ function ist_passwort_stark($passwort) {
 }
 
 function validiere_alter($alter) {
-    return is_numeric($alter) && $alter >= 0 && $alter <= 120;
+    return is_numeric($alter) && $alter &gt;= 0 && $alter &lt;= 120;
 }
 
 // Verwendung
@@ -448,10 +448,10 @@ function berechne_mwst($netto, $satz = 19) {
     $brutto = $netto + $mwst;
     
     return [
-        'netto' => $netto,
-        'mwst' => $mwst,
-        'brutto' => $brutto,
-        'satz' => $satz
+        'netto' =&gt; $netto,
+        'mwst' =&gt; $mwst,
+        'brutto' =&gt; $brutto,
+        'satz' =&gt; $satz
     ];
 }
 
@@ -460,10 +460,10 @@ function berechne_rabatt($preis, $prozent) {
     $endpreis = $preis - $rabatt_betrag;
     
     return [
-        'original' => $preis,
-        'rabatt_prozent' => $prozent,
-        'rabatt_betrag' => $rabatt_betrag,
-        'endpreis' => $endpreis
+        'original' =&gt; $preis,
+        'rabatt_prozent' =&gt; $prozent,
+        'rabatt_betrag' =&gt; $rabatt_betrag,
+        'endpreis' =&gt; $endpreis
     ];
 }
 
@@ -490,7 +490,7 @@ echo "Rabatt: {$angebot['endpreis']}€&lt;br&gt;";
                                                 <pre class="mb-0"><code class="language-php text-light">&lt;?php
 function format_datum($datum, $format = 'd.m.Y') {
     $date_obj = new DateTime($datum);
-    return $date_obj->format($format);
+    return $date_obj-&gt;format($format);
 }
 
 function erstelle_liste($items, $typ = 'ul') {
@@ -595,8 +595,8 @@ echo strtotime('tomorrow'); // Timestamp
 echo mktime(0, 0, 0, 12, 25); // Weihnachten
 
 $date = new DateTime();
-echo $date->format('Y-m-d H:i:s');
-$date->add(new DateInterval('P1D')); // +1 Tag
+echo $date-&gt;format('Y-m-d H:i:s');
+$date-&gt;add(new DateInterval('P1D')); // +1 Tag
 ?&gt;</code></pre>
                                             </div>
                                         </div>
@@ -656,11 +656,11 @@ $grossbuchstaben = verarbeite_daten($namen, function($name) {
 print_r($grossbuchstaben); // ['MAX', 'ANNA', 'TOM']
 
 // Arrow Functions (PHP 7.4+)
-$mal_zwei = fn($x) => $x * 2;
+$mal_zwei = fn($x) =&gt; $x * 2;
 echo $mal_zwei(5); // 10
 
 $preise = [10, 20, 30];
-$mit_steuer = array_map(fn($preis) => $preis * 1.19, $preise);
+$mit_steuer = array_map(fn($preis) =&gt; $preis * 1.19, $preise);
 print_r($mit_steuer);
 ?&gt;</code></pre>
                                     </div>
@@ -727,7 +727,7 @@ function validiere_email($email) {
 
 function validiere_passwort($passwort) {
     $fehler = [];
-    if (strlen($passwort) < 8) $fehler[] = "Mindestens 8 Zeichen";
+    if (strlen($passwort) &lt; 8) $fehler[] = "Mindestens 8 Zeichen";
     if (!preg_match('/[A-Z]/', $passwort)) $fehler[] = "Großbuchstabe fehlt";
     if (!preg_match('/[0-9]/', $passwort)) $fehler[] = "Zahl fehlt";
     return empty($fehler) ? true : $fehler;
@@ -740,26 +740,26 @@ function generiere_benutzer_id() {
 // Benutzer-Funktionen
 function erstelle_benutzer($name, $email, $passwort) {
     // Validierung
-    if (empty($name)) return ['erfolg' => false, 'fehler' => 'Name ist erforderlich'];
-    if (!validiere_email($email)) return ['erfolg' => false, 'fehler' => 'E-Mail ungültig'];
+    if (empty($name)) return ['erfolg' =&gt; false, 'fehler' =&gt; 'Name ist erforderlich'];
+    if (!validiere_email($email)) return ['erfolg' =&gt; false, 'fehler' =&gt; 'E-Mail ungültig'];
     
     $pw_check = validiere_passwort($passwort);
     if ($pw_check !== true) {
-        return ['erfolg' => false, 'fehler' => 'Passwort: ' . implode(', ', $pw_check)];
+        return ['erfolg' =&gt; false, 'fehler' =&gt; 'Passwort: ' . implode(', ', $pw_check)];
     }
     
     // Benutzer erstellen
     $benutzer = [
-        'id' => generiere_benutzer_id(),
-        'name' => trim($name),
-        'email' => strtolower(trim($email)),
-        'passwort_hash' => password_hash($passwort, PASSWORD_DEFAULT),
-        'erstellt' => date('Y-m-d H:i:s'),
-        'aktiv' => true,
-        'rolle' => 'benutzer'
+        'id' =&gt; generiere_benutzer_id(),
+        'name' =&gt; trim($name),
+        'email' =&gt; strtolower(trim($email)),
+        'passwort_hash' =&gt; password_hash($passwort, PASSWORD_DEFAULT),
+        'erstellt' =&gt; date('Y-m-d H:i:s'),
+        'aktiv' =&gt; true,
+        'rolle' =&gt; 'benutzer'
     ];
     
-    return ['erfolg' => true, 'benutzer' => $benutzer];
+    return ['erfolg' =&gt; true, 'benutzer' =&gt; $benutzer];
 }
 
 function benutzer_anmelden($email, $passwort, $benutzer_liste) {
@@ -769,15 +769,15 @@ function benutzer_anmelden($email, $passwort, $benutzer_liste) {
         if ($benutzer['email'] === $email && $benutzer['aktiv']) {
             if (password_verify($passwort, $benutzer['passwort_hash'])) {
                 return [
-                    'erfolg' => true, 
-                    'benutzer' => $benutzer,
-                    'nachricht' => 'Anmeldung erfolgreich!'
+                    'erfolg' =&gt; true, 
+                    'benutzer' =&gt; $benutzer,
+                    'nachricht' =&gt; 'Anmeldung erfolgreich!'
                 ];
             }
         }
     }
     
-    return ['erfolg' => false, 'nachricht' => 'E-Mail oder Passwort falsch'];
+    return ['erfolg' =&gt; false, 'nachricht' =&gt; 'E-Mail oder Passwort falsch'];
 }
 
 function zeige_benutzer_profil($benutzer) {

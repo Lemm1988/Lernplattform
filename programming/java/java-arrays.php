@@ -146,7 +146,7 @@ int[] zahlen = new int[]{10, 20, 30, 40, 50};</code></pre>
         
         // Alle Elemente ausgeben - Methode 1
         System.out.println("\nAlle Elemente (klassische for-Schleife):");
-        for (int i = 0; i < zahlen.length; i++) {
+        for (int i = 0; i &lt; zahlen.length; i++) {
             System.out.println("Index " + i + ": " + zahlen[i]);
         }
         
@@ -171,7 +171,7 @@ int[] zahlen = new int[]{10, 20, 30, 40, 50};</code></pre>
         
         // Sicherer Zugriff
         int index = 3;
-        if (index >= 0 && index < zahlen.length) {
+        if (index &gt;= 0 && index &lt; zahlen.length) {
             System.out.println("Sicherer Zugriff auf zahlen[" + index + "] = " + zahlen[index]);
         } else {
             System.out.println("Index " + index + " ist ungültig!");
@@ -205,8 +205,8 @@ public class ArrayAlgorithmen {
         
         // 3. Maximum finden
         int maximum = zahlen[0];
-        for (int i = 1; i < zahlen.length; i++) {
-            if (zahlen[i] > maximum) {
+        for (int i = 1; i &lt; zahlen.length; i++) {
+            if (zahlen[i] &gt; maximum) {
                 maximum = zahlen[i];
             }
         }
@@ -215,7 +215,7 @@ public class ArrayAlgorithmen {
         // 4. Minimum finden
         int minimum = zahlen[0];
         for (int zahl : zahlen) {
-            if (zahl < minimum) {
+            if (zahl &lt; minimum) {
                 minimum = zahl;
             }
         }
@@ -224,7 +224,7 @@ public class ArrayAlgorithmen {
         // 5. Wert suchen (Linear Search)
         int gesuchterWert = 8;
         int gefundenIndex = -1;
-        for (int i = 0; i < zahlen.length; i++) {
+        for (int i = 0; i &lt; zahlen.length; i++) {
             if (zahlen[i] == gesuchterWert) {
                 gefundenIndex = i;
                 break;
@@ -238,7 +238,7 @@ public class ArrayAlgorithmen {
         
         // 6. Array umkehren
         int[] umgekehrt = new int[zahlen.length];
-        for (int i = 0; i < zahlen.length; i++) {
+        for (int i = 0; i &lt; zahlen.length; i++) {
             umgekehrt[i] = zahlen[zahlen.length - 1 - i];
         }
         System.out.println("Original: " + Arrays.toString(zahlen));
@@ -260,9 +260,9 @@ public class ArrayAlgorithmen {
         
         // 9. Einfache Bubble Sort-Implementierung
         int[] bubbleSortiert = zahlen.clone();
-        for (int i = 0; i < bubbleSortiert.length - 1; i++) {
-            for (int j = 0; j < bubbleSortiert.length - 1 - i; j++) {
-                if (bubbleSortiert[j] > bubbleSortiert[j + 1]) {
+        for (int i = 0; i &lt; bubbleSortiert.length - 1; i++) {
+            for (int j = 0; j &lt; bubbleSortiert.length - 1 - i; j++) {
+                if (bubbleSortiert[j] &gt; bubbleSortiert[j + 1]) {
                     // Tauschen
                     int temp = bubbleSortiert[j];
                     bubbleSortiert[j] = bubbleSortiert[j + 1];
@@ -317,8 +317,8 @@ public class ArrayAlgorithmen {
         
         // 2D-Array ausgeben
         System.out.println("Zahlen-Matrix:");
-        for (int zeile = 0; zeile < zahlenMatrix.length; zeile++) {
-            for (int spalte = 0; spalte < zahlenMatrix[zeile].length; spalte++) {
+        for (int zeile = 0; zeile &lt; zahlenMatrix.length; zeile++) {
+            for (int spalte = 0; spalte &lt; zahlenMatrix[zeile].length; spalte++) {
                 System.out.printf("%3d ", zahlenMatrix[zeile][spalte]);
             }
             System.out.println(); // Neue Zeile
@@ -345,9 +345,9 @@ public class ArrayAlgorithmen {
         jagged[2][0] = 7; jagged[2][1] = 8; jagged[2][2] = 9;
         
         System.out.println("\nJagged Array:");
-        for (int i = 0; i < jagged.length; i++) {
+        for (int i = 0; i &lt; jagged.length; i++) {
             System.out.print("Zeile " + i + ": ");
-            for (int j = 0; j < jagged[i].length; j++) {
+            for (int j = 0; j &lt; jagged[i].length; j++) {
                 System.out.print(jagged[i][j] + " ");
             }
             System.out.println("(Länge: " + jagged[i].length + ")");
@@ -366,15 +366,15 @@ public class ArrayAlgorithmen {
         };
         
         System.out.println("\nTic-Tac-Toe Brett:");
-        for (int i = 0; i < ticTacToe.length; i++) {
-            for (int j = 0; j < ticTacToe[i].length; j++) {
+        for (int i = 0; i &lt; ticTacToe.length; i++) {
+            for (int j = 0; j &lt; ticTacToe[i].length; j++) {
                 System.out.print(ticTacToe[i][j]);
-                if (j < ticTacToe[i].length - 1) {
+                if (j &lt; ticTacToe[i].length - 1) {
                     System.out.print("|");
                 }
             }
             System.out.println();
-            if (i < ticTacToe.length - 1) {
+            if (i &lt; ticTacToe.length - 1) {
                 System.out.println("-----");
             }
         }
@@ -413,7 +413,7 @@ public class ArraysUndMethoden {
     // Array als Rückgabewert
     public static int[] erstelleZahlenreihe(int start, int anzahl) {
         int[] reihe = new int[anzahl];
-        for (int i = 0; i < anzahl; i++) {
+        for (int i = 0; i &lt; anzahl; i++) {
             reihe[i] = start + i;
         }
         return reihe;
@@ -421,7 +421,7 @@ public class ArraysUndMethoden {
     
     // Array verdoppeln (Referenz-Semantik)
     public static void verdoppleWerte(int[] array) {
-        for (int i = 0; i < array.length; i++) {
+        for (int i = 0; i &lt; array.length; i++) {
             array[i] *= 2;
         }
     }
@@ -429,7 +429,7 @@ public class ArraysUndMethoden {
     // Array kopieren
     public static int[] kopiereArray(int[] original) {
         int[] kopie = new int[original.length];
-        for (int i = 0; i < original.length; i++) {
+        for (int i = 0; i &lt; original.length; i++) {
             kopie[i] = original[i];
         }
         return kopie;
@@ -443,8 +443,8 @@ public class ArraysUndMethoden {
         }
         
         int max = zahlen[0];
-        for (int i = 1; i < zahlen.length; i++) {
-            if (zahlen[i] > max) {
+        for (int i = 1; i &lt; zahlen.length; i++) {
+            if (zahlen[i] &gt; max) {
                 max = zahlen[i];
             }
         }
@@ -453,9 +453,9 @@ public class ArraysUndMethoden {
     
     // Array sortieren (Bubble Sort)
     public static void bubbleSort(int[] array) {
-        for (int i = 0; i < array.length - 1; i++) {
-            for (int j = 0; j < array.length - 1 - i; j++) {
-                if (array[j] > array[j + 1]) {
+        for (int i = 0; i &lt; array.length - 1; i++) {
+            for (int j = 0; j &lt; array.length - 1 - i; j++) {
+                if (array[j] &gt; array[j + 1]) {
                     // Tauschen
                     int temp = array[j];
                     array[j] = array[j + 1];
@@ -545,7 +545,7 @@ public class ArraysPraxis {
         double[] noten = new double[faecher.length];
         
         // Noten eingeben
-        for (int i = 0; i < faecher.length; i++) {
+        for (int i = 0; i &lt; faecher.length; i++) {
             System.out.print("Note für " + faecher[i] + ": ");
             noten[i] = scanner.nextDouble();
         }
@@ -557,13 +557,13 @@ public class ArraysPraxis {
         String bestesFach = faecher[0];
         String schlechtesteFach = faecher[0];
         
-        for (int i = 0; i < noten.length; i++) {
+        for (int i = 0; i &lt; noten.length; i++) {
             summe += noten[i];
-            if (noten[i] > beste) {
+            if (noten[i] &gt; beste) {
                 beste = noten[i];
                 bestesFach = faecher[i];
             }
-            if (noten[i] < schlechteste) {
+            if (noten[i] &lt; schlechteste) {
                 schlechteste = noten[i];
                 schlechtesteFach = faecher[i];
             }
@@ -572,7 +572,7 @@ public class ArraysPraxis {
         double durchschnitt = summe / noten.length;
         
         System.out.println("\n--- ZEUGNIS ---");
-        for (int i = 0; i < faecher.length; i++) {
+        for (int i = 0; i &lt; faecher.length; i++) {
             System.out.println(faecher[i] + ": " + noten[i]);
         }
         System.out.println("---------------");
@@ -586,14 +586,14 @@ public class ArraysPraxis {
         int[] haeufigkeit = new int[6]; // Index 0-5 für Würfelwerte 1-6
         
         // Würfeln simulieren
-        for (int i = 0; i < anzahlWuerfe; i++) {
+        for (int i = 0; i &lt; anzahlWuerfe; i++) {
             int wurf = (int)(Math.random() * 6) + 1; // 1-6
             haeufigkeit[wurf - 1]++; // Index 0-5
         }
         
         // Ergebnisse anzeigen
         System.out.println("Ergebnisse nach " + anzahlWuerfe + " Würfen:");
-        for (int i = 0; i < haeufigkeit.length; i++) {
+        for (int i = 0; i &lt; haeufigkeit.length; i++) {
             int wurfelwert = i + 1;
             double prozent = (double) haeufigkeit[i] / anzahlWuerfe * 100;
             System.out.printf("Würfelwert %d: %d mal (%.1f%%)\n", 
@@ -601,7 +601,7 @@ public class ArraysPraxis {
             
             // Einfaches Balkendiagramm
             System.out.print("  ");
-            for (int j = 0; j < haeufigkeit[i] / 10; j++) {
+            for (int j = 0; j &lt; haeufigkeit[i] / 10; j++) {
                 System.out.print("█");
             }
             System.out.println();
@@ -620,7 +620,7 @@ public class ArraysPraxis {
         termine[6] = "Familie besuchen";
         
         System.out.println("Wochenübersicht:");
-        for (int i = 0; i < wochentage.length; i++) {
+        for (int i = 0; i &lt; wochentage.length; i++) {
             System.out.print(wochentage[i] + ": ");
             if (termine[i] != null) {
                 System.out.println(termine[i]);
@@ -648,6 +648,8 @@ public class ArraysPraxis {
                         <?php renderJavaPageNavigation('java-arrays'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

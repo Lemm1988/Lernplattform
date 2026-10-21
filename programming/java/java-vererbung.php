@@ -135,7 +135,7 @@ public class Fahrzeug {
     public double getPreis() { return preis; }
     
     public void setPreis(double preis) {
-        if (preis >= 0) {
+        if (preis &gt;= 0) {
             this.preis = preis;
         }
     }
@@ -174,7 +174,7 @@ public class Auto extends Fahrzeug {
     }
     
     public boolean istKleinwagen() {
-        return anzahlTueren <= 3;
+        return anzahlTueren &lt;= 3;
     }
     
     // Methode der Superklasse überschreiben
@@ -313,7 +313,7 @@ public class Sportwagen extends Auto {
     }
     
     public boolean istSchnell() {
-        return maxGeschwindigkeit > 200 && beschleunigung0bis100 < 6.0;
+        return maxGeschwindigkeit &gt; 200 && beschleunigung0bis100 &lt; 6.0;
     }
     
     // Überschreibung der Überschreibung
@@ -371,7 +371,7 @@ public class Familienauto extends Auto {
     }
     
     public boolean istFuerFamilieGeeignet() {
-        return maxPassagiere >= 5 && kofferraumVolumen >= 400 && getAnzahlTueren() >= 4;
+        return maxPassagiere &gt;= 5 && kofferraumVolumen &gt;= 400 && getAnzahlTueren() &gt;= 4;
     }
     
     @Override
@@ -414,7 +414,7 @@ public class MehrstufigeVererbungDemo {
         
         Fahrzeug[] alleAutos = {basis, normalAuto, ferrari, van};
         
-        for (int i = 0; i < alleAutos.length; i++) {
+        for (int i = 0; i &lt; alleAutos.length; i++) {
             System.out.println("\n--- Fahrzeug " + (i+1) + " ---");
             alleAutos[i].starten(); // Verschiedene Implementierungen!
             alleAutos[i].info();
@@ -810,7 +810,7 @@ class Entwickler extends Mitarbeiter {
         super(name, email, grundgehalt, "IT-Entwicklung");
         this.programmiersprache = programmiersprache;
         this.erfahrungsjahre = erfahrungsjahre;
-        this.istSenior = erfahrungsjahre >= 5;
+        this.istSenior = erfahrungsjahre &gt;= 5;
     }
     
     @Override
@@ -987,7 +987,7 @@ public class MitarbeiterDemo {
             double gehalt = m.berechneGehalt();
             gesamtKosten += gehalt;
             
-            if (gehalt > maxGehalt) {
+            if (gehalt &gt; maxGehalt) {
                 maxGehalt = gehalt;
                 bestBezahlt = m.getName();
             }

@@ -18,7 +18,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-operators'); ?>
+                        <?php renderNavigation('php-operatoren'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-calculator me-2"></i>PHP Operatoren</h1>
@@ -335,7 +335,7 @@ $hat_fuehrerschein = true;
 $ist_nuechtern = true;
 
 // UND (&&) - Alle Bedingungen müssen erfüllt sein
-if ($alter >= 18 && $hat_fuehrerschein && $ist_nuechtern) {
+if ($alter &gt;= 18 && $hat_fuehrerschein && $ist_nuechtern) {
     echo "Darf Auto fahren";
 }
 
@@ -403,7 +403,7 @@ echo "Besucher heute: $besucher_heute";
 
 // Schleifenzähler
 $i = 0;
-while ($i < 5) {
+while ($i &lt; 5) {
     echo "Durchlauf Nr. $i\n";
     $i++;  // Erhöhe Zähler
 }
@@ -416,7 +416,7 @@ echo $produkte[$index++];  // Maus, danach index = 2
 
 // Countdown
 $countdown = 10;
-while ($countdown > 0) {
+while ($countdown &gt; 0) {
     echo "$countdown... ";
     $countdown--;
 }
@@ -443,11 +443,11 @@ echo "Start!";
 $alter = 17;
 
 // Ternary Operator
-$status = ($alter >= 18) ? "Erwachsen" : "Minderjährig";
+$status = ($alter &gt;= 18) ? "Erwachsen" : "Minderjährig";
 echo $status;  // Minderjährig
 
 // Entspricht diesem if-else:
-if ($alter >= 18) {
+if ($alter &gt;= 18) {
     $status = "Erwachsen";
 } else {
     $status = "Minderjährig";
@@ -455,9 +455,9 @@ if ($alter >= 18) {
 
 // Verschachtelt (vorsichtig verwenden!)
 $note = 85;
-$bewertung = ($note >= 90) ? "Sehr gut" : 
-            (($note >= 80) ? "Gut" : 
-            (($note >= 70) ? "Befriedigend" : "Ungenügend"));
+$bewertung = ($note &gt;= 90) ? "Sehr gut" : 
+            (($note &gt;= 80) ? "Gut" : 
+            (($note &gt;= 70) ? "Befriedigend" : "Ungenügend"));
 
 echo "Bewertung: $bewertung";  // Gut
 ?&gt;</code></pre>
@@ -549,17 +549,17 @@ $gemuese = ["Karotte", "Brokkoli"];
 // Array-Vereinigung mit +
 $essen = $obst + $gemuese;
 print_r($essen);
-// Array ( [0] => Apfel [1] => Birne [2] => Karotte [3] => Brokkoli )
+// Array ( [0] =&gt; Apfel [1] =&gt; Birne [2] =&gt; Karotte [3] =&gt; Brokkoli )
 
 // Mit assoziativen Arrays
-$person1 = ["name" => "Max", "alter" => 25];
-$person2 = ["name" => "Anna", "stadt" => "Berlin"];
+$person1 = ["name" =&gt; "Max", "alter" =&gt; 25];
+$person2 = ["name" =&gt; "Anna", "stadt" =&gt; "Berlin"];
 
 $kombiniert = $person1 + $person2;
 print_r($kombiniert);
-// name => Max (aus person1, person2 wird ignoriert!)
-// alter => 25
-// stadt => Berlin
+// name =&gt; Max (aus person1, person2 wird ignoriert!)
+// alter =&gt; 25
+// stadt =&gt; Berlin
 
 // Array-Vergleich
 $a = [1, 2, 3];
@@ -618,13 +618,13 @@ $b = 3;
 $c = 2;
 
 // Ohne Klammern
-$result = $a > $b && $b > $c || $a == 5;
-// Auswertung: 5 > 3 && 3 > 2 || 5 == 5
+$result = $a &gt; $b && $b &gt; $c || $a == 5;
+// Auswertung: 5 &gt; 3 && 3 &gt; 2 || 5 == 5
 //            true && true || true
 //            true || true = true
 
 // Besser mit Klammern
-$result = (($a > $b) && ($b > $c)) || ($a == 5);
+$result = (($a &gt; $b) && ($b &gt; $c)) || ($a == 5);
 echo $result ? "wahr" : "falsch";
 ?&gt;</code></pre>
                                             </div>

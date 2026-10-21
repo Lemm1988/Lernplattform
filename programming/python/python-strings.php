@@ -118,7 +118,7 @@ escape_examples = {
 
 print("Escape-Sequenzen:")
 for escape, description in escape_examples.items():
-    print(f"{escape:4} -> {description}")
+    print(f"{escape:4} -&gt; {description}")
 
 # Unicode-Escape-Sequenzen
 unicode_text = "Unicode: \\u0041\\u0042\\u0043"  # ABC
@@ -471,10 +471,10 @@ print(f"Pi: {pi:.3f}")                          # 3 Dezimalstellen
 print(f"Gehalt gerundet: {salary:.0f}")         # Keine Dezimalstellen
 
 # Ausrichtung und Padding
-print(f"'{name:<10}' (linksbündig)")            # Links ausgerichtet, 10 Zeichen
-print(f"'{name:>10}' (rechtsbündig)")           # Rechts ausgerichtet
+print(f"'{name:&lt;10}' (linksbündig)")            # Links ausgerichtet, 10 Zeichen
+print(f"'{name:&gt;10}' (rechtsbündig)")           # Rechts ausgerichtet
 print(f"'{name:^10}' (zentriert)")              # Zentriert
-print(f"'{name:*<15}' (mit Sternen)")           # Links mit Sternen aufgefüllt
+print(f"'{name:*&lt;15}' (mit Sternen)")           # Links mit Sternen aufgefüllt
 
 # Zahlenformatierung
 big_number = 1234567890
@@ -535,7 +535,7 @@ print("Gehalt: {:.2f} EUR".format(salary))
 print("Gehalt: {:,.2f} EUR".format(salary))     # Mit Tausender-Trennzeichen
 
 # Ausrichtung
-print("'{:<10}' '{:>10}' '{:^10}'".format(name, name, name))
+print("'{:&lt;10}' '{:&gt;10}' '{:^10}'".format(name, name, name))
 
 # Mit Dictionaries
 person = {"name": "Charlie", "age": 35, "city": "Berlin"}
@@ -561,7 +561,7 @@ print("2 Dezimal: {:.2f}".format(number))
 print("Exponential: {:.2e}".format(number))
 print("Prozent: {:.1%}".format(0.1234))
 print("Binär: {:b}".format(255))
-print("Padding: {:0>10}".format(number))         # Mit Nullen aufgefüllt</code></pre>
+print("Padding: {:0&gt;10}".format(number))         # Mit Nullen aufgefüllt</code></pre>
                                 </div>
                             </div>
                             
@@ -650,19 +650,19 @@ print("="*60)
 
 # Header
 methods = ['isdigit', 'isalpha', 'isalnum', 'isspace', 'islower', 'isupper', 'istitle', 'isdecimal', 'isnumeric']
-print(f"{'String':<12}", end="")
+print(f"{'String':&lt;12}", end="")
 for method in methods:
-    print(f"{method:<8}", end="")
+    print(f"{method:&lt;8}", end="")
 print()
 print("-" * 90)
 
 # Test alle Strings gegen alle Methoden
 for name, string in test_strings.items():
-    print(f"{name:<12}", end="")
+    print(f"{name:&lt;12}", end="")
     for method in methods:
         result = getattr(string, method)()
         symbol = "✓" if result else "✗"
-        print(f"{symbol:<8}", end="")
+        print(f"{symbol:&lt;8}", end="")
     print(f" '{string}'")
 
 print("\\nDetaillierte Erklärungen:")
@@ -672,30 +672,30 @@ print("-" * 40)
 print("\\n1. Numerische Prüfungen:")
 numbers = ['123', '123.45', '-123', '+123', '1e10', '∞', '²³']
 for num in numbers:
-    print(f"'{num:<8}' -> digit:{str(num.isdigit()):<5} decimal:{str(num.isdecimal()):<5} numeric:{str(num.isnumeric()):<5}")
+    print(f"'{num:&lt;8}' -&gt; digit:{str(num.isdigit()):&lt;5} decimal:{str(num.isdecimal()):&lt;5} numeric:{str(num.isnumeric()):&lt;5}")
 
 print("\\n2. Alphabet-Prüfungen:")
 texts = ['abc', 'ABC', 'αβγ', '123', 'abc123', 'hello-world']
 for text in texts:
-    print(f"'{text:<12}' -> alpha:{str(text.isalpha()):<5} alnum:{str(text.isalnum()):<5}")
+    print(f"'{text:&lt;12}' -&gt; alpha:{str(text.isalpha()):&lt;5} alnum:{str(text.isalnum()):&lt;5}")
 
 print("\\n3. Case-Prüfungen:")
 cases = ['hello', 'HELLO', 'Hello', 'Hello World', 'hELLO wORLD', '123']
 for case in cases:
-    print(f"'{case:<12}' -> lower:{str(case.islower()):<5} upper:{str(case.isupper()):<5} title:{str(case.istitle()):<5}")
+    print(f"'{case:&lt;12}' -&gt; lower:{str(case.islower()):&lt;5} upper:{str(case.isupper()):&lt;5} title:{str(case.istitle()):&lt;5}")
 
 print("\\n4. Whitespace-Prüfungen:")
 spaces = ['   ', '\\t\\n', '', 'a b', ' hello ']
 for space in spaces:
     display = repr(space)
-    print(f"{display:<12} -> space:{str(space.isspace()):<5}")
+    print(f"{display:&lt;12} -&gt; space:{str(space.isspace()):&lt;5}")
 
 # Praktische Validierungs-Funktionen
 def validate_username(username):
     """Validiert einen Benutzernamen"""
     if not username:
         return False, "Username darf nicht leer sein"
-    if not (3 <= len(username) <= 20):
+    if not (3 &lt;= len(username) &lt;= 20):
         return False, "Username muss 3-20 Zeichen lang sein"
     if not username.isalnum():
         return False, "Username darf nur Buchstaben und Zahlen enthalten"
@@ -716,7 +716,7 @@ def validate_email_simple(email):
     if not local or not domain:
         return False, "Lokaler Teil und Domain sind erforderlich"
     
-    if not domain.count('.') >= 1:
+    if not domain.count('.') &gt;= 1:
         return False, "Domain muss mindestens einen Punkt enthalten"
     
     return True, "E-Mail Format ist gültig"
@@ -725,7 +725,7 @@ def validate_password(password):
     """Validiert ein Passwort"""
     issues = []
     
-    if len(password) < 8:
+    if len(password) &lt; 8:
         issues.append("Mindestens 8 Zeichen")
     if not any(c.isupper() for c in password):
         issues.append("Mindestens ein Großbuchstabe")
@@ -733,7 +733,7 @@ def validate_password(password):
         issues.append("Mindestens ein Kleinbuchstabe")
     if not any(c.isdigit() for c in password):
         issues.append("Mindestens eine Ziffer")
-    if not any(c in '!@#$%^&*()_+-=[]{}|;:,.<>?' for c in password):
+    if not any(c in '!@#$%^&*()_+-=[]{}|;:,.&lt;&gt;?' for c in password):
         issues.append("Mindestens ein Sonderzeichen")
     
     if issues:
@@ -751,7 +751,7 @@ print("\\nUsername-Validierung:")
 for username in usernames:
     is_valid, message = validate_username(username)
     status = "✓" if is_valid else "✗"
-    print(f"{status} '{username:<25}' -> {message}")
+    print(f"{status} '{username:&lt;25}' -&gt; {message}")
 
 # Email Tests  
 emails = ['user@example.com', 'invalid.email', 'user@@domain.com', '@domain.com', 'user@', 'valid@sub.domain.com']
@@ -759,7 +759,7 @@ print("\\nE-Mail-Validierung:")
 for email in emails:
     is_valid, message = validate_email_simple(email)
     status = "✓" if is_valid else "✗"
-    print(f"{status} '{email:<20}' -> {message}")
+    print(f"{status} '{email:&lt;20}' -&gt; {message}")
 
 # Password Tests
 passwords = ['weak', 'StrongPass123!', 'noUPPER123!', 'NOLOWER123!', 'NoDigits!', 'NoSpecial123']
@@ -767,7 +767,7 @@ print("\\nPasswort-Validierung:")
 for password in passwords:
     is_valid, message = validate_password(password)
     status = "✓" if is_valid else "✗"
-    print(f"{status} '{password:<15}' -> {message}")</code></pre>
+    print(f"{status} '{password:&lt;15}' -&gt; {message}")</code></pre>
                             </div>
                         </div>
                     </div>
@@ -826,7 +826,7 @@ class TextAnalyzer:
         }
         
         total = len(self.original_text)
-        percentages = {k: (v / total * 100) if total > 0 else 0 for k, v in analysis.items()}
+        percentages = {k: (v / total * 100) if total &gt; 0 else 0 for k, v in analysis.items()}
         
         return analysis, percentages
     
@@ -869,11 +869,11 @@ class TextAnalyzer:
         avg_chars_per_word = stats['total_characters_no_spaces'] / stats['total_words']
         
         # Vereinfachte Flesch-Reading-Ease-ähnliche Bewertung
-        if avg_words_per_sentence < 10 and avg_chars_per_word < 5:
+        if avg_words_per_sentence &lt; 10 and avg_chars_per_word &lt; 5:
             level = 'Sehr einfach'
-        elif avg_words_per_sentence < 15 and avg_chars_per_word < 6:
+        elif avg_words_per_sentence &lt; 15 and avg_chars_per_word &lt; 6:
             level = 'Einfach'
-        elif avg_words_per_sentence < 20 and avg_chars_per_word < 7:
+        elif avg_words_per_sentence &lt; 20 and avg_chars_per_word &lt; 7:
             level = 'Mittel'
         else:
             level = 'Schwierig'
@@ -908,9 +908,9 @@ class TextAnalyzer:
         german_matches = len(words & german_words)
         english_matches = len(words & english_words)
         
-        if german_matches > english_matches:
+        if german_matches &gt; english_matches:
             return 'Vermutlich Deutsch'
-        elif english_matches > german_matches:
+        elif english_matches &gt; german_matches:
             return 'Vermutlich Englisch'
         else:
             return 'Unbekannt'
@@ -964,7 +964,7 @@ class TextAnalyzer:
                 print(f"  {pattern_type.replace('_', ' ').title()}: {len(matches)} gefunden")
                 for match in matches[:3]:  # Zeige nur erste 3
                     print(f"    - {match}")
-                if len(matches) > 3:
+                if len(matches) &gt; 3:
                     print(f"    ... und {len(matches) - 3} weitere")
         
         # Sprache
@@ -1081,6 +1081,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-strings'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

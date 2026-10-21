@@ -12,9 +12,6 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
                     <h1><i class="bi bi-check-circle text-primary"></i> Java Testing mit JUnit</h1>
                     <p class="lead">Professionelle Unit-Tests und Test-Driven Development</p>
                 </div>
-                <div>
-                    </button>
-                </div>
             </div>
 
             <div class="row">
@@ -109,16 +106,16 @@ class Calculator {
     }
     
     public boolean isPrime(int n) {
-        if (n < 2) return false;
-        for (int i = 2; i <= Math.sqrt(n); i++) {
+        if (n &lt; 2) return false;
+        for (int i = 2; i &lt;= Math.sqrt(n); i++) {
             if (n % i == 0) return false;
         }
         return true;
     }
     
-    public List<Integer> getFactors(int n) {
-        List<Integer> factors = new ArrayList<>();
-        for (int i = 1; i <= n; i++) {
+    public List&lt;Integer&gt; getFactors(int n) {
+        List&lt;Integer&gt; factors = new ArrayList&lt;&gt;();
+        for (int i = 1; i &lt;= n; i++) {
             if (n % i == 0) {
                 factors.add(i);
             }
@@ -193,10 +190,10 @@ public class CalculatorTest {
     @DisplayName("Subtraktion mit verschiedenen Werten")
     void testSubtraction() {
         assertAll("Subtraktion",
-            () -> assertEquals(2, calculator.subtract(5, 3), "5 - 3 = 2"),
-            () -> assertEquals(-2, calculator.subtract(3, 5), "3 - 5 = -2"),
-            () -> assertEquals(0, calculator.subtract(5, 5), "5 - 5 = 0"),
-            () -> assertEquals(5, calculator.subtract(5, 0), "5 - 0 = 5")
+            () -&gt; assertEquals(2, calculator.subtract(5, 3), "5 - 3 = 2"),
+            () -&gt; assertEquals(-2, calculator.subtract(3, 5), "3 - 5 = -2"),
+            () -&gt; assertEquals(0, calculator.subtract(5, 5), "5 - 5 = 0"),
+            () -&gt; assertEquals(5, calculator.subtract(5, 0), "5 - 0 = 5")
         );
     }
     
@@ -215,7 +212,7 @@ public class CalculatorTest {
         // Exception wird erwartet
         ArithmeticException exception = assertThrows(
             ArithmeticException.class,
-            () -> calculator.divide(10, 0),
+            () -&gt; calculator.divide(10, 0),
             "Division durch Null sollte ArithmeticException werfen"
         );
         
@@ -250,27 +247,27 @@ public class CalculatorTest {
     @Test
     @DisplayName("Faktoren berechnen")
     void testGetFactors() {
-        List<Integer> factors12 = calculator.getFactors(12);
+        List&lt;Integer&gt; factors12 = calculator.getFactors(12);
         
         // Collection-Größe prüfen
         assertEquals(6, factors12.size(), "12 sollte 6 Faktoren haben");
         
         // Enthält bestimmte Elemente
         assertAll("Faktoren von 12",
-            () -> assertTrue(factors12.contains(1), "Sollte 1 enthalten"),
-            () -> assertTrue(factors12.contains(2), "Sollte 2 enthalten"),
-            () -> assertTrue(factors12.contains(3), "Sollte 3 enthalten"),
-            () -> assertTrue(factors12.contains(4), "Sollte 4 enthalten"),
-            () -> assertTrue(factors12.contains(6), "Sollte 6 enthalten"),
-            () -> assertTrue(factors12.contains(12), "Sollte 12 enthalten")
+            () -&gt; assertTrue(factors12.contains(1), "Sollte 1 enthalten"),
+            () -&gt; assertTrue(factors12.contains(2), "Sollte 2 enthalten"),
+            () -&gt; assertTrue(factors12.contains(3), "Sollte 3 enthalten"),
+            () -&gt; assertTrue(factors12.contains(4), "Sollte 4 enthalten"),
+            () -&gt; assertTrue(factors12.contains(6), "Sollte 6 enthalten"),
+            () -&gt; assertTrue(factors12.contains(12), "Sollte 12 enthalten")
         );
         
         // Exakte Liste prüfen
-        List<Integer> expected = Arrays.asList(1, 2, 3, 4, 6, 12);
+        List&lt;Integer&gt; expected = Arrays.asList(1, 2, 3, 4, 6, 12);
         assertEquals(expected, factors12, "Faktoren sollten exakt übereinstimmen");
         
         // Leere Liste für 1
-        List<Integer> factors1 = calculator.getFactors(1);
+        List&lt;Integer&gt; factors1 = calculator.getFactors(1);
         assertEquals(Arrays.asList(1), factors1, "Faktoren von 1 sollten nur [1] sein");
     }
     
@@ -286,7 +283,7 @@ public class CalculatorTest {
     @Test
     void testSlowCalculationWithAssertTimeout() {
         // Alternative Timeout-Syntax
-        assertTimeout(Duration.ofMillis(200), () -> {
+        assertTimeout(Duration.ofMillis(200), () -&gt; {
             int result = calculator.slowCalculation(4);
             assertEquals(16, result);
         });
@@ -295,7 +292,7 @@ public class CalculatorTest {
     @Test
     void testSlowCalculationTimeoutPreemptively() {
         // Stoppt sofort bei Timeout (nicht warten bis Ende)
-        assertTimeoutPreemptively(Duration.ofMillis(200), () -> {
+        assertTimeoutPreemptively(Duration.ofMillis(200), () -&gt; {
             return calculator.slowCalculation(3);
         });
     }
@@ -368,7 +365,7 @@ public class CalculatorTest {
             @DisplayName("Division durch sehr kleine Zahl")
             void testDivisionBySmallNumber() {
                 double result = calculator.divide(1, 0.001);
-                assertTrue(result > 999 && result < 1001);
+                assertTrue(result &gt; 999 && result &lt; 1001);
             }
         }
     }
@@ -376,20 +373,20 @@ public class CalculatorTest {
     // 10. Dynamic Tests
     @TestFactory
     @DisplayName("Dynamische Primzahl-Tests")
-    Collection<DynamicTest> dynamicPrimeTests() {
-        List<Integer> primes = Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23);
+    Collection&lt;DynamicTest&gt; dynamicPrimeTests() {
+        List&lt;Integer&gt; primes = Arrays.asList(2, 3, 5, 7, 11, 13, 17, 19, 23);
         
         return primes.stream()
-            .map(prime -> DynamicTest.dynamicTest(
+            .map(prime -&gt; DynamicTest.dynamicTest(
                 "Test ob " + prime + " eine Primzahl ist",
-                () -> assertTrue(calculator.isPrime(prime), prime + " sollte eine Primzahl sein")
+                () -&gt; assertTrue(calculator.isPrime(prime), prime + " sollte eine Primzahl sein")
             ))
             .toList();
     }
     
     @TestFactory
-    Collection<DynamicTest> dynamicFactorTests() {
-        Map<Integer, Integer> numberFactorCounts = Map.of(
+    Collection&lt;DynamicTest&gt; dynamicFactorTests() {
+        Map&lt;Integer, Integer&gt; numberFactorCounts = Map.of(
             1, 1,   // 1 hat 1 Faktor: [1]
             6, 4,   // 6 hat 4 Faktoren: [1, 2, 3, 6]
             12, 6,  // 12 hat 6 Faktoren: [1, 2, 3, 4, 6, 12]
@@ -397,10 +394,10 @@ public class CalculatorTest {
         );
         
         return numberFactorCounts.entrySet().stream()
-            .map(entry -> DynamicTest.dynamicTest(
+            .map(entry -&gt; DynamicTest.dynamicTest(
                 "Anzahl Faktoren von " + entry.getKey() + " sollte " + entry.getValue() + " sein",
-                () -> {
-                    List<Integer> factors = calculator.getFactors(entry.getKey());
+                () -&gt; {
+                    List&lt;Integer&gt; factors = calculator.getFactors(entry.getKey());
                     assertEquals(entry.getValue().intValue(), factors.size());
                 }
             ))
@@ -419,18 +416,18 @@ public class CalculatorTest {
     // Custom Assertion Methods
     private void assertIsPrime(int number) {
         assertTrue(calculator.isPrime(number), 
-                  () -> number + " sollte eine Primzahl sein");
+                  () -&gt; number + " sollte eine Primzahl sein");
     }
     
     private void assertIsNotPrime(int number) {
         assertFalse(calculator.isPrime(number), 
-                   () -> number + " sollte keine Primzahl sein");
+                   () -&gt; number + " sollte keine Primzahl sein");
     }
     
     private void assertFactorCount(int number, int expectedCount) {
-        List<Integer> factors = calculator.getFactors(number);
+        List&lt;Integer&gt; factors = calculator.getFactors(number);
         assertEquals(expectedCount, factors.size(),
-                    () -> number + " sollte " + expectedCount + " Faktoren haben, " +
+                    () -&gt; number + " sollte " + expectedCount + " Faktoren haben, " +
                           "gefunden: " + factors);
     }
 }</code></pre>
@@ -524,9 +521,9 @@ public class ParameterizedTestsDemo {
     void testCalculatorOperations(Operation op) {
         Calculator calc = new Calculator();
         int result = switch (op) {
-            case ADD -> calc.add(op.a, op.b);
-            case SUBTRACT -> calc.subtract(op.a, op.b);
-            case MULTIPLY -> calc.multiply(op.a, op.b);
+            case ADD -&gt; calc.add(op.a, op.b);
+            case SUBTRACT -&gt; calc.subtract(op.a, op.b);
+            case MULTIPLY -&gt; calc.multiply(op.a, op.b);
         };
         assertEquals(op.expected, result, 
                     "Operation " + op.name() + " mit " + op.a + " und " + op.b);
@@ -599,7 +596,7 @@ public class ParameterizedTestsDemo {
         assertEquals(expected, calc.add(a, b));
     }
     
-    static Stream<Arguments> additionProvider() {
+    static Stream&lt;Arguments&gt; additionProvider() {
         return Stream.of(
             Arguments.of(1, 1, 2),
             Arguments.of(2, 3, 5),
@@ -616,7 +613,7 @@ public class ParameterizedTestsDemo {
         assertEquals(expected, StringUtils.countWords(input));
     }
     
-    static Stream<Arguments> wordCountProvider() {
+    static Stream&lt;Arguments&gt; wordCountProvider() {
         return Stream.of(
             Arguments.of("Hello World", 2),
             Arguments.of("Java is awesome", 3),
@@ -657,14 +654,14 @@ public class ParameterizedTestsDemo {
         
         if (testData.shouldThrow) {
             assertThrows(ArithmeticException.class, 
-                () -> calc.divide(testData.dividend, testData.divisor));
+                () -&gt; calc.divide(testData.dividend, testData.divisor));
         } else {
             double result = calc.divide(testData.dividend, testData.divisor);
             assertEquals(testData.expected, result, 0.001);
         }
     }
     
-    static Stream<TestData> divisionProvider() {
+    static Stream&lt;TestData&gt; divisionProvider() {
         return Stream.of(
             new TestData(10, 2, 5.0, false),
             new TestData(15, 3, 5.0, false),
@@ -685,7 +682,7 @@ public class ParameterizedTestsDemo {
     
     static class StringLengthProvider implements ArgumentsProvider {
         @Override
-        public Stream&lt;? extends Arguments> provideArguments(ExtensionContext context) {
+        public Stream&lt;? extends Arguments&gt; provideArguments(ExtensionContext context) {
             return Stream.of(
                 Arguments.of("Hello", 5),
                 Arguments.of("Java", 4),
@@ -728,7 +725,7 @@ public class ParameterizedTestsDemo {
                     "Text-Transformation");
     }
     
-    static Stream<Arguments> mixedParametersProvider() {
+    static Stream&lt;Arguments&gt; mixedParametersProvider() {
         return Stream.of(
             Arguments.of("two", 2, true, "TWO"),
             Arguments.of("three", 3, true, "THREE"),
@@ -753,7 +750,7 @@ public class ParameterizedTestsDemo {
     @ValueSource(ints = {1, 2, 3})
     void testLifecycle(int value) {
         System.out.println("Testing mit Wert: " + value);
-        assertTrue(value > 0);
+        assertTrue(value &gt; 0);
     }
 }</code></pre>
                         </div>
@@ -773,10 +770,10 @@ import java.util.*;
 // Service-Layer Klassen für Mocking-Demonstrationen
 interface UserRepository {
     User findById(Long id);
-    List<User> findAll();
+    List&lt;User&gt; findAll();
     User save(User user);
     void delete(Long id);
-    List<User> findByName(String name);
+    List&lt;User&gt; findByName(String name);
 }
 
 class User {
@@ -858,7 +855,7 @@ class UserService {
         return user;
     }
     
-    public List<User> getAllActiveUsers() {
+    public List&lt;User&gt; getAllActiveUsers() {
         return userRepository.findAll().stream()
                 .filter(User::isActive)
                 .toList();
@@ -874,7 +871,7 @@ class UserService {
                               "Your account has been deactivated.");
     }
     
-    public List<User> searchUsersByName(String name) {
+    public List&lt;User&gt; searchUsersByName(String name) {
         if (name == null || name.trim().isEmpty()) {
             return Collections.emptyList();
         }
@@ -901,10 +898,10 @@ public class MockingDemo {
     private UserService userService;
     
     @Captor
-    private ArgumentCaptor<User> userCaptor;
+    private ArgumentCaptor&lt;User&gt; userCaptor;
     
     @Captor
-    private ArgumentCaptor<String> stringCaptor;
+    private ArgumentCaptor&lt;String&gt; stringCaptor;
     
     // 2. Basic Mocking
     @Test
@@ -947,7 +944,7 @@ public class MockingDemo {
         // Act & Assert
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> userService.createUser(name, email)
+            () -&gt; userService.createUser(name, email)
         );
         
         assertEquals("Invalid email: " + email, exception.getMessage());
@@ -967,7 +964,7 @@ public class MockingDemo {
         // Act & Assert
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> userService.createUser(name, email)
+            () -&gt; userService.createUser(name, email)
         );
         
         assertEquals("Name cannot be empty", exception.getMessage());
@@ -1003,7 +1000,7 @@ public class MockingDemo {
         
         // Email-Argumente erfassen
         verify(emailService).sendEmail(stringCaptor.capture(), stringCaptor.capture(), stringCaptor.capture());
-        List<String> emailArgs = stringCaptor.getAllValues();
+        List&lt;String&gt; emailArgs = stringCaptor.getAllValues();
         
         assertEquals(email, emailArgs.get(0));      // To
         assertEquals("Welcome!", emailArgs.get(1));  // Subject
@@ -1021,7 +1018,7 @@ public class MockingDemo {
         // Act & Assert
         RuntimeException exception = assertThrows(
             RuntimeException.class,
-            () -> userService.getUserById(userId)
+            () -&gt; userService.getUserById(userId)
         );
         
         assertEquals("Database error", exception.getMessage());
@@ -1082,8 +1079,8 @@ public class MockingDemo {
     @DisplayName("Multiple Return Values")
     void testMultipleReturnValues() {
         // Arrange
-        List<User> firstCall = Arrays.asList(new User(1L, "User1", "user1@example.com"));
-        List<User> secondCall = Arrays.asList(
+        List&lt;User&gt; firstCall = Arrays.asList(new User(1L, "User1", "user1@example.com"));
+        List&lt;User&gt; secondCall = Arrays.asList(
             new User(1L, "User1", "user1@example.com"),
             new User(2L, "User2", "user2@example.com")
         );
@@ -1094,10 +1091,10 @@ public class MockingDemo {
             .thenReturn(secondCall);
         
         // Act & Assert
-        List<User> result1 = userService.getAllActiveUsers();
+        List&lt;User&gt; result1 = userService.getAllActiveUsers();
         assertEquals(1, result1.size());
         
-        List<User> result2 = userService.getAllActiveUsers();
+        List&lt;User&gt; result2 = userService.getAllActiveUsers();
         assertEquals(2, result2.size());
         
         verify(userRepository, times(2)).findAll();
@@ -1108,13 +1105,13 @@ public class MockingDemo {
     @DisplayName("Answer Interface verwenden")
     void testWithAnswer() {
         // Arrange - komplexe Mock-Logik mit Answer
-        when(userRepository.save(any(User.class))).thenAnswer(invocation -> {
+        when(userRepository.save(any(User.class))).thenAnswer(invocation -&gt; {
             User user = invocation.getArgument(0);
             user.setId(99L); // Simuliere ID-Generierung
             return user;
         });
         
-        when(emailService.isEmailValid(anyString())).thenAnswer(invocation -> {
+        when(emailService.isEmailValid(anyString())).thenAnswer(invocation -&gt; {
             String email = invocation.getArgument(0);
             return email.contains("@") && email.contains(".");
         });
@@ -1128,7 +1125,7 @@ public class MockingDemo {
         
         // Test mit ungültiger Email
         assertThrows(IllegalArgumentException.class, 
-                    () -> userService.createUser("Test", "invalid-email"));
+                    () -&gt; userService.createUser("Test", "invalid-email"));
     }
     
     // 9. Timeout und Async Testing
@@ -1141,7 +1138,7 @@ public class MockingDemo {
         when(userRepository.save(any(User.class))).thenReturn(new User(1L, "Async User", email));
         
         // Simulate async email sending
-        doAnswer(invocation -> {
+        doAnswer(invocation -&gt; {
             // Simulate delay
             Thread.sleep(50);
             return null;
@@ -1238,11 +1235,11 @@ import java.util.*;
 // 1. SCHRITT: Tests schreiben (RED)
 class StackTDDTest {
     
-    private Stack<Integer> stack;
+    private Stack&lt;Integer&gt; stack;
     
     @BeforeEach
     void setUp() {
-        stack = new Stack<>();
+        stack = new Stack&lt;&gt;();
     }
     
     // Test 1: Neuer Stack sollte leer sein
@@ -1302,26 +1299,26 @@ class StackTDDTest {
     @Test
     @DisplayName("Pop von leerem Stack wirft Exception")
     void testPopFromEmptyStack() {
-        assertThrows(EmptyStackException.class, () -> stack.pop());
+        assertThrows(EmptyStackException.class, () -&gt; stack.pop());
     }
     
     // Test 7: Exception bei Peek von leerem Stack
     @Test
     @DisplayName("Peek von leerem Stack wirft Exception")
     void testPeekFromEmptyStack() {
-        assertThrows(EmptyStackException.class, () -> stack.peek());
+        assertThrows(EmptyStackException.class, () -&gt; stack.peek());
     }
     
     // Test 8: Mehrere Elemente pushen
     @Test
     @DisplayName("Mehrere Elemente handhaben")
     void testMultipleElements() {
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i &lt;= 5; i++) {
             stack.push(i);
             assertEquals(i, stack.size());
         }
         
-        for (int i = 5; i >= 1; i--) {
+        for (int i = 5; i &gt;= 1; i--) {
             assertEquals(i, stack.peek());
             assertEquals(i, stack.pop());
         }
@@ -1336,11 +1333,11 @@ class EmptyStackException extends RuntimeException {
 }
 
 // Erste Implementation - nur Tests zum Laufen bringen
-class Stack<T> {
-    private List<T> elements;
+class Stack&lt;T&gt; {
+    private List&lt;T&gt; elements;
     
     public Stack() {
-        this.elements = new ArrayList<>();
+        this.elements = new ArrayList&lt;&gt;();
     }
     
     public boolean isEmpty() {
@@ -1373,11 +1370,11 @@ class Stack<T> {
 // 3. SCHRITT: Weitere Tests für Edge Cases und Features
 class StackAdvancedTDDTest {
     
-    private Stack<String> stack;
+    private Stack&lt;String&gt; stack;
     
     @BeforeEach
     void setUp() {
-        stack = new Stack<>();
+        stack = new Stack&lt;&gt;();
     }
     
     // Test 9: Null-Werte handhaben
@@ -1398,14 +1395,14 @@ class StackAdvancedTDDTest {
         int count = 10000;
         
         // Push many elements
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i &lt; count; i++) {
             stack.push("Item " + i);
         }
         
         assertEquals(count, stack.size());
         
         // Pop all elements
-        for (int i = count - 1; i >= 0; i--) {
+        for (int i = count - 1; i &gt;= 0; i--) {
             assertEquals("Item " + i, stack.pop());
         }
         
@@ -1427,7 +1424,7 @@ class StackAdvancedTDDTest {
 }
 
 // Erweiterte Implementation nach weiteren Tests
-class ImprovedStack<T> extends Stack<T> {
+class ImprovedStack&lt;T&gt; extends Stack&lt;T&gt; {
     
     @Override
     public String toString() {
@@ -1436,10 +1433,10 @@ class ImprovedStack<T> extends Stack<T> {
         }
         
         StringBuilder sb = new StringBuilder("Stack[");
-        List<T> elements = new ArrayList<>();
+        List&lt;T&gt; elements = new ArrayList&lt;&gt;();
         
         // Temporär alle Elemente entfernen für toString
-        Stack<T> temp = new Stack<>();
+        Stack&lt;T&gt; temp = new Stack&lt;&gt;();
         while (!isEmpty()) {
             temp.push(pop());
         }
@@ -1544,7 +1541,7 @@ class Item {
 }
 
 class ShoppingCart {
-    private Map<Item, Integer> items = new HashMap<>();
+    private Map&lt;Item, Integer&gt; items = new HashMap&lt;&gt;();
     private double discountPercentage = 0.0;
     
     public void addItem(Item item) {
@@ -1557,14 +1554,14 @@ class ShoppingCart {
     
     public double getTotalPrice() {
         double total = items.entrySet().stream()
-            .mapToDouble(entry -> entry.getKey().getPrice() * entry.getValue())
+            .mapToDouble(entry -&gt; entry.getKey().getPrice() * entry.getValue())
             .sum();
         
         return total * (1 - discountPercentage / 100.0);
     }
     
-    public List<Item> getItems() {
-        return new ArrayList<>(items.keySet());
+    public List&lt;Item&gt; getItems() {
+        return new ArrayList&lt;&gt;(items.keySet());
     }
     
     public int getQuantity(Item item) {
@@ -1591,7 +1588,7 @@ public class TDDBestPracticesDemo {
         // 3. REFACTOR: Code verbessern
         // 4. REPEAT: Nächster Test
         
-        Stack<String> stack = new Stack<>();
+        Stack&lt;String&gt; stack = new Stack&lt;&gt;();
         
         // Test dass unsere TDD-Implementation funktioniert
         assertTrue(stack.isEmpty());
@@ -1640,8 +1637,8 @@ assertTrue(condition)
 assertFalse(condition)
 assertNull(object)
 assertNotNull(object)
-assertThrows(Exception.class, () -> {...})
-assertAll(() -> {...}, () -> {...})</code></pre>
+assertThrows(Exception.class, () -&gt; {...})
+assertAll(() -&gt; {...}, () -&gt; {...})</code></pre>
                             </div>
                         </div>
                         

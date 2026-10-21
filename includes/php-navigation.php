@@ -96,7 +96,7 @@ $php_navigation = [
         'icon' => 'form',
         'description' => 'Benutzereingaben verarbeiten'
     ],
-    'php-cookiesessions' => [
+    'php-cookiessessions' => [
         'title' => 'Cookies & Sessions',
         'icon' => 'person-check',
         'description' => 'Benutzer verwalten'

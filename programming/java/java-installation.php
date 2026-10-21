@@ -145,8 +145,8 @@ sudo apt install oracle-java21-installer</code></pre>
                         <h4>Umgebungsvariablen setzen</h4>
                         <div class="code-block">
 <pre><code class="language-bash"># JAVA_HOME in ~/.bashrc hinzufügen
-echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64' >> ~/.bashrc
-echo 'export PATH=$JAVA_HOME/bin:$PATH' >> ~/.bashrc
+echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64' &gt;&gt; ~/.bashrc
+echo 'export PATH=$JAVA_HOME/bin:$PATH' &gt;&gt; ~/.bashrc
 
 # Neu laden
 source ~/.bashrc</code></pre>
@@ -263,6 +263,8 @@ java HelloWorld</code></pre>
                         <?php renderJavaPageNavigation('java-installation'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

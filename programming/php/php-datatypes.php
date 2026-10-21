@@ -297,7 +297,7 @@ $newsletter = TRUE;  // Groß/klein egal
 $debug_mode = FALSE;
 
 // Boolean aus Vergleichen
-$ist_erwachsen = ($alter >= 18);
+$ist_erwachsen = ($alter &gt;= 18);
 $ist_leer = ($benutzername == "");
 $hat_rabatt = ($kunde_typ == "premium");
 

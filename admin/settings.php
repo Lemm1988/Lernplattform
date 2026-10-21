@@ -450,19 +450,26 @@ include '../includes/admin_layout_start.php';
                                         <i class="bi bi-question-circle me-1"></i>Link zur Hilfeseite
                                     </label>
                                     <input type="text" class="form-control" id="help_url" name="help_url" 
-                                           value="<?= htmlspecialchars($settings_array['help_url'] ?? '/hilfe.php') ?>" 
-                                           placeholder="/hilfe.php">
+                                           value="<?= htmlspecialchars($settings_array['help_url'] ?? '/users/hilfe.php') ?>" 
+                                           placeholder="/users/hilfe.php">
                                 </div>
                                 <div class="mb-3">
                                     <label for="contact_url" class="form-label">
                                         <i class="bi bi-telephone me-1"></i>Link zur Kontaktseite
                                     </label>
                                     <input type="text" class="form-control" id="contact_url" name="contact_url" 
-                                           value="<?= htmlspecialchars($settings_array['contact_url'] ?? '/kontakt.php') ?>" 
-                                           placeholder="/kontakt.php">
+                                           value="<?= htmlspecialchars($settings_array['contact_url'] ?? '/users/kontakt.php') ?>" 
+                                           placeholder="/users/kontakt.php">
                                 </div>
                             </div>
+                            <div class="card-footer bg-light">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-save me-2"></i>
+                                    Seiteninformationen speichern
+                                </button>
+                            </div>
                         </div>
+                        </form>
                     </div>
 
                     <!-- Card: DSGVO-Konformität -->
@@ -486,7 +493,7 @@ include '../includes/admin_layout_start.php';
                                     </label>
                                     <input type="text" class="form-control" id="privacy_policy_url" name="privacy_policy_url" 
                                            value="<?= htmlspecialchars($settings_array['privacy_policy_url'] ?? get_setting('privacy_policy_url', PRIVACY_POLICY_URL)) ?>" 
-                                           placeholder="/datenschutz.php">
+                                           placeholder="/users/datenschutz.php">
                                     <small class="form-text text-muted">Pflichtangabe gemäß DSGVO</small>
                                 </div>
                                 <div class="mb-3">
@@ -495,15 +502,15 @@ include '../includes/admin_layout_start.php';
                                     </label>
                                     <input type="text" class="form-control" id="terms_of_service_url" name="terms_of_service_url" 
                                            value="<?= htmlspecialchars($settings_array['terms_of_service_url'] ?? get_setting('terms_of_service_url', TERMS_OF_SERVICE_URL)) ?>" 
-                                           placeholder="/agb.php">
+                                           placeholder="/users/agb.php">
                                 </div>
                                 <div class="mb-3">
                                     <label for="imprint_url" class="form-label">
                                         <i class="bi bi-building me-1"></i>Link zum Impressum
                                     </label>
                                     <input type="text" class="form-control" id="imprint_url" name="imprint_url" 
-                                           value="<?= htmlspecialchars($settings_array['imprint_url'] ?? '/impressum.php') ?>" 
-                                           placeholder="/impressum.php">
+                                           value="<?= htmlspecialchars($settings_array['imprint_url'] ?? '/users/impressum.php') ?>" 
+                                           placeholder="/users/impressum.php">
                                     <small class="form-text text-muted">Pflichtangabe gemäß TMG</small>
                                 </div>
                                 <div class="mb-3 form-check form-switch">

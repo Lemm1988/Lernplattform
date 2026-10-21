@@ -399,7 +399,7 @@ print("\n1. KOMPLETTE DATEI LESEN")
 with open("sample.txt", "r", encoding="utf-8") as f:
     content = f.read()
     print(f"Gesamter Inhalt ({len(content)} Zeichen):")
-    print(content[:100] + "..." if len(content) > 100 else content)
+    print(content[:100] + "..." if len(content) &gt; 100 else content)
 
 # 2. read(size) - bestimmte Anzahl Zeichen lesen
 print("\n2. TEILWEISE LESEN")
@@ -477,7 +477,7 @@ def read_in_chunks(filename, chunk_size=1024):
 chunks = read_in_chunks("sample.txt", chunk_size=50)
 print(f"Datei in {len(chunks)} Chunks gelesen:")
 for i, chunk in enumerate(chunks):
-    print(f"  Chunk {i+1}: {repr(chunk[:30])}{'...' if len(chunk) > 30 else ''}")
+    print(f"  Chunk {i+1}: {repr(chunk[:30])}{'...' if len(chunk) &gt; 30 else ''}")
 
 # 8. CSV-ähnliche Daten lesen
 print("\n8. STRUKTURIERTE DATEN LESEN")
@@ -802,7 +802,7 @@ numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 with open("numbers.bin", "wb") as f:
     for num in numbers:
         # Integer als 4-byte little-endian schreiben
-        f.write(struct.pack("<i", num))
+        f.write(struct.pack("&lt;i", num))
 
 print("Binäre Dateien erstellt")
 
@@ -954,7 +954,7 @@ def write_buffered(n):
     with open("perf_buffered.txt", "w") as f:
         for i in range(n):
             buffer.append(f"Line {i}\n")
-            if len(buffer) >= 100:  # Flush every 100 lines
+            if len(buffer) &gt;= 100:  # Flush every 100 lines
                 f.writelines(buffer)
                 buffer = []
         if buffer:  # Flush remaining
@@ -1161,21 +1161,21 @@ source = test_dir / "documents" / "readme.txt"
 destination = test_dir / "documents" / "readme_copy.txt"
 
 shutil.copy2(source, destination)  # copy2 erhält Metadaten
-print(f"Kopiert: {source} -> {destination}")
+print(f"Kopiert: {source} -&gt; {destination}")
 
 # Verzeichnis kopieren
 source_dir = test_dir / "documents"
 dest_dir = test_dir / "documents_backup"
 
 shutil.copytree(source_dir, dest_dir)
-print(f"Verzeichnis kopiert: {source_dir} -> {dest_dir}")
+print(f"Verzeichnis kopiert: {source_dir} -&gt; {dest_dir}")
 
 # Datei verschieben/umbenennen
 old_path = test_dir / "images" / "photo1.jpg"
 new_path = test_dir / "images" / "photo1_renamed.jpg"
 
 old_path.rename(new_path)
-print(f"Umbenannt: {old_path} -> {new_path}")
+print(f"Umbenannt: {old_path} -&gt; {new_path}")
 
 # 7. Temporäre Dateien und Verzeichnisse
 print("\n7. TEMPORÄRE DATEIEN")
@@ -1245,9 +1245,9 @@ def find_files_by_pattern(directory, pattern, max_size=None, min_size=None):
         if file_path.is_file():
             size = file_path.stat().st_size
             
-            if max_size and size > max_size:
+            if max_size and size &gt; max_size:
                 continue
-            if min_size and size < min_size:
+            if min_size and size &lt; min_size:
                 continue
                 
             matches.append({
@@ -1260,7 +1260,7 @@ def find_files_by_pattern(directory, pattern, max_size=None, min_size=None):
 
 # Alle .txt Dateien unter 100 bytes finden
 small_txt_files = find_files_by_pattern(test_dir, "*.txt", max_size=100)
-print(f"Kleine .txt Dateien (<100 bytes):")
+print(f"Kleine .txt Dateien (&lt;100 bytes):")
 for file_info in small_txt_files:
     print(f"  {file_info['name']}: {file_info['size']} bytes")
 
@@ -1441,7 +1441,7 @@ class FileManager:
             }
             
             self.save_index()
-            self.log_operation("FILE_ADD", f"{source.name} -> {target_path}")
+            self.log_operation("FILE_ADD", f"{source.name} -&gt; {target_path}")
             
             return True, f"Datei hinzugefügt: {file_id}"
             
@@ -1472,17 +1472,17 @@ class FileManager:
             
             # Größe
             if "min_size" in criteria:
-                if metadata["size"] < criteria["min_size"]:
+                if metadata["size"] &lt; criteria["min_size"]:
                     match = False
             
             if "max_size" in criteria:
-                if metadata["size"] > criteria["max_size"]:
+                if metadata["size"] &gt; criteria["max_size"]:
                     match = False
             
             # Datum
             if "after_date" in criteria:
                 file_date = datetime.fromisoformat(metadata["added_to_system"])
-                if file_date < criteria["after_date"]:
+                if file_date &lt; criteria["after_date"]:
                     match = False
             
             if match:
@@ -1539,7 +1539,7 @@ class FileManager:
             metadata["access_count"] += 1
             self.save_index()
             
-            self.log_operation("FILE_EXPORT", f"ID {file_id} -> {target}")
+            self.log_operation("FILE_EXPORT", f"ID {file_id} -&gt; {target}")
             return True, f"Datei exportiert nach {target}"
             
         except Exception as e:
@@ -1576,7 +1576,7 @@ class FileManager:
             if metadata["file_hash"]:
                 hash_groups[metadata["file_hash"]].append((file_id, metadata))
         
-        duplicates = {hash_val: files for hash_val, files in hash_groups.items() if len(files) > 1}
+        duplicates = {hash_val: files for hash_val, files in hash_groups.items() if len(files) &gt; 1}
         return duplicates
     
     def get_statistics(self):
@@ -1599,24 +1599,24 @@ class FileManager:
         
         # Größenverteilung
         size_ranges = {
-            "< 1KB": 0, "1KB - 100KB": 0, "100KB - 1MB": 0, 
-            "1MB - 10MB": 0, "10MB - 100MB": 0, "> 100MB": 0
+            "&lt; 1KB": 0, "1KB - 100KB": 0, "100KB - 1MB": 0, 
+            "1MB - 10MB": 0, "10MB - 100MB": 0, "&gt; 100MB": 0
         }
         
         for metadata in self.file_index.values():
             size = metadata["size"]
-            if size < 1024:
-                size_ranges["< 1KB"] += 1
-            elif size < 100 * 1024:
+            if size &lt; 1024:
+                size_ranges["&lt; 1KB"] += 1
+            elif size &lt; 100 * 1024:
                 size_ranges["1KB - 100KB"] += 1
-            elif size < 1024 * 1024:
+            elif size &lt; 1024 * 1024:
                 size_ranges["100KB - 1MB"] += 1
-            elif size < 10 * 1024 * 1024:
+            elif size &lt; 10 * 1024 * 1024:
                 size_ranges["1MB - 10MB"] += 1
-            elif size < 100 * 1024 * 1024:
+            elif size &lt; 100 * 1024 * 1024:
                 size_ranges["10MB - 100MB"] += 1
             else:
-                size_ranges["> 100MB"] += 1
+                size_ranges["&gt; 100MB"] += 1
         
         # Aktivität
         most_accessed = max(self.file_index.items(), key=lambda x: x[1]["access_count"])
@@ -1639,7 +1639,7 @@ class FileManager:
     def format_size(size_bytes):
         """Formatiert Dateigröße"""
         for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
-            if size_bytes < 1024:
+            if size_bytes &lt; 1024:
                 return f"{size_bytes:.1f} {unit}"
             size_bytes /= 1024
         return f"{size_bytes:.1f} PB"
@@ -1773,7 +1773,7 @@ def demo_file_manager():
         if content:
             metadata = fm.file_index[file_id]
             print(f"📄 {metadata['original_name']}:")
-            print(f"   {content[:100]}{'...' if len(content) > 100 else ''}")
+            print(f"   {content[:100]}{'...' if len(content) &gt; 100 else ''}")
         else:
             print(f"❌ Fehler beim Lesen ID {file_id}: {status}")
     
@@ -1903,6 +1903,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-dateien'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

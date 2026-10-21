@@ -19,7 +19,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-error-handling'); ?>
+                        <?php renderNavigation('php-err'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-bug me-2"></i>Error Handling</h1>
@@ -132,9 +132,9 @@ try {
     echo "Das wird nicht ausgeführt\n";
     
 } catch (Exception $e) {
-    echo "Fehler aufgetreten: " . $e->getMessage() . "\n";
-    echo "Datei: " . $e->getFile() . "\n";
-    echo "Zeile: " . $e->getLine() . "\n";
+    echo "Fehler aufgetreten: " . $e-&gt;getMessage() . "\n";
+    echo "Datei: " . $e-&gt;getFile() . "\n";
+    echo "Zeile: " . $e-&gt;getLine() . "\n";
 } finally {
     echo "Dieser Block wird IMMER ausgeführt\n";
 }
@@ -161,19 +161,19 @@ try {
     echo riskante_operation('validation');
     
 } catch (ValidationException $e) {
-    echo "Validierungsfehler: " . $e->getMessage() . "\n";
+    echo "Validierungsfehler: " . $e-&gt;getMessage() . "\n";
     // Spezielle Behandlung für Validierungsfehler
     
 } catch (DatabaseException $e) {
-    echo "Datenbankfehler: " . $e->getMessage() . "\n";
+    echo "Datenbankfehler: " . $e-&gt;getMessage() . "\n";
     // Log schreiben, Backup-DB verwenden, etc.
     
 } catch (NetworkException $e) {
-    echo "Netzwerkfehler: " . $e->getMessage() . "\n";
+    echo "Netzwerkfehler: " . $e-&gt;getMessage() . "\n";
     // Retry-Logic, Offline-Modus, etc.
     
 } catch (Exception $e) {
-    echo "Unbekannter Fehler: " . $e->getMessage() . "\n";
+    echo "Unbekannter Fehler: " . $e-&gt;getMessage() . "\n";
     // Fallback für alle anderen Exceptions
     
 } finally {
@@ -186,11 +186,11 @@ try {
     
 } catch (Exception $e) {
     echo "\n=== Exception-Details ===\n";
-    echo "Nachricht: " . $e->getMessage() . "\n";
-    echo "Code: " . $e->getCode() . "\n";
-    echo "Datei: " . basename($e->getFile()) . "\n";
-    echo "Zeile: " . $e->getLine() . "\n";
-    echo "Stack Trace:\n" . $e->getTraceAsString() . "\n";
+    echo "Nachricht: " . $e-&gt;getMessage() . "\n";
+    echo "Code: " . $e-&gt;getCode() . "\n";
+    echo "Datei: " . basename($e-&gt;getFile()) . "\n";
+    echo "Zeile: " . $e-&gt;getLine() . "\n";
+    echo "Stack Trace:\n" . $e-&gt;getTraceAsString() . "\n";
 }
 
 // Verschachtelte Try-Catch Blöcke
@@ -198,9 +198,9 @@ function level1() {
     try {
         level2();
     } catch (Exception $e) {
-        echo "Level 1 fängt ab: " . $e->getMessage() . "\n";
+        echo "Level 1 fängt ab: " . $e-&gt;getMessage() . "\n";
         // Exception weiterwerfen (re-throw)
-        throw new Exception("Level 1 Fehler: " . $e->getMessage(), 0, $e);
+        throw new Exception("Level 1 Fehler: " . $e-&gt;getMessage(), 0, $e);
     }
 }
 
@@ -215,11 +215,11 @@ function level3() {
 try {
     level1();
 } catch (Exception $e) {
-    echo "Hauptprogramm fängt ab: " . $e->getMessage() . "\n";
+    echo "Hauptprogramm fängt ab: " . $e-&gt;getMessage() . "\n";
     
     // Previous Exception anzeigen
-    if ($previous = $e->getPrevious()) {
-        echo "Ursprünglicher Fehler: " . $previous->getMessage() . "\n";
+    if ($previous = $e-&gt;getPrevious()) {
+        echo "Ursprünglicher Fehler: " . $previous-&gt;getMessage() . "\n";
     }
 }
 
@@ -230,30 +230,30 @@ class APIException extends Exception {
     
     public function __construct($message, $api_code = 0, $api_response = null, $previous = null) {
         parent::__construct($message, 0, $previous);
-        $this->api_code = $api_code;
-        $this->api_response = $api_response;
+        $this-&gt;api_code = $api_code;
+        $this-&gt;api_response = $api_response;
     }
     
     public function getAPICode() {
-        return $this->api_code;
+        return $this-&gt;api_code;
     }
     
     public function getAPIResponse() {
-        return $this->api_response;
+        return $this-&gt;api_response;
     }
     
     public function __toString() {
-        return __CLASS__ . ": [{$this->api_code}]: {$this->message}\n";
+        return __CLASS__ . ": [{$this-&gt;api_code}]: {$this-&gt;message}\n";
     }
 }
 
 try {
-    throw new APIException("API-Aufruf fehlgeschlagen", 404, ['error' => 'Not Found']);
+    throw new APIException("API-Aufruf fehlgeschlagen", 404, ['error' =&gt; 'Not Found']);
     
 } catch (APIException $e) {
-    echo "API-Fehler: " . $e->getMessage() . "\n";
-    echo "API-Code: " . $e->getAPICode() . "\n";
-    echo "API-Response: " . json_encode($e->getAPIResponse()) . "\n";
+    echo "API-Fehler: " . $e-&gt;getMessage() . "\n";
+    echo "API-Code: " . $e-&gt;getAPICode() . "\n";
+    echo "API-Response: " . json_encode($e-&gt;getAPIResponse()) . "\n";
 }
 ?&gt;</code></pre>
                                             </div>
@@ -267,21 +267,21 @@ try {
 // Custom Error Handler
 function custom_error_handler($errno, $errstr, $errfile, $errline) {
     $error_types = [
-        E_ERROR => 'Fatal Error',
-        E_WARNING => 'Warning',
-        E_PARSE => 'Parse Error',
-        E_NOTICE => 'Notice',
-        E_CORE_ERROR => 'Core Error',
-        E_CORE_WARNING => 'Core Warning',
-        E_COMPILE_ERROR => 'Compile Error',
-        E_COMPILE_WARNING => 'Compile Warning',
-        E_USER_ERROR => 'User Error',
-        E_USER_WARNING => 'User Warning',
-        E_USER_NOTICE => 'User Notice',
-        E_STRICT => 'Strict Notice',
-        E_RECOVERABLE_ERROR => 'Recoverable Error',
-        E_DEPRECATED => 'Deprecated',
-        E_USER_DEPRECATED => 'User Deprecated'
+        E_ERROR =&gt; 'Fatal Error',
+        E_WARNING =&gt; 'Warning',
+        E_PARSE =&gt; 'Parse Error',
+        E_NOTICE =&gt; 'Notice',
+        E_CORE_ERROR =&gt; 'Core Error',
+        E_CORE_WARNING =&gt; 'Core Warning',
+        E_COMPILE_ERROR =&gt; 'Compile Error',
+        E_COMPILE_WARNING =&gt; 'Compile Warning',
+        E_USER_ERROR =&gt; 'User Error',
+        E_USER_WARNING =&gt; 'User Warning',
+        E_USER_NOTICE =&gt; 'User Notice',
+        E_STRICT =&gt; 'Strict Notice',
+        E_RECOVERABLE_ERROR =&gt; 'Recoverable Error',
+        E_DEPRECATED =&gt; 'Deprecated',
+        E_USER_DEPRECATED =&gt; 'User Deprecated'
     ];
     
     $error_type = $error_types[$errno] ?? 'Unknown Error';
@@ -314,9 +314,9 @@ function custom_error_handler($errno, $errstr, $errfile, $errline) {
 // Custom Exception Handler
 function custom_exception_handler($exception) {
     $log_message = "[" . date('Y-m-d H:i:s') . "] ";
-    $log_message .= "Uncaught Exception: " . $exception->getMessage();
-    $log_message .= " in " . basename($exception->getFile());
-    $log_message .= " on line " . $exception->getLine();
+    $log_message .= "Uncaught Exception: " . $exception-&gt;getMessage();
+    $log_message .= " in " . basename($exception-&gt;getFile());
+    $log_message .= " on line " . $exception-&gt;getLine();
     
     // Exception loggen
     error_log($log_message, 3, 'exceptions.log');
@@ -329,7 +329,7 @@ function custom_exception_handler($exception) {
     // In Entwicklungsumgebung: Details anzeigen
     if (defined('DEVELOPMENT') && DEVELOPMENT) {
         echo "&lt;details&gt;&lt;summary&gt;Technische Details (nur Development)&lt;/summary&gt;";
-        echo "&lt;pre&gt;" . htmlspecialchars($exception->__toString()) . "&lt;/pre&gt;";
+        echo "&lt;pre&gt;" . htmlspecialchars($exception-&gt;__toString()) . "&lt;/pre&gt;";
         echo "&lt;/details&gt;";
     }
 }
@@ -372,25 +372,25 @@ class Logger {
     const CRITICAL = 5;
     
     private $level_names = [
-        self::DEBUG => 'DEBUG',
-        self::INFO => 'INFO',
-        self::WARNING => 'WARNING',
-        self::ERROR => 'ERROR',
-        self::CRITICAL => 'CRITICAL'
+        self::DEBUG =&gt; 'DEBUG',
+        self::INFO =&gt; 'INFO',
+        self::WARNING =&gt; 'WARNING',
+        self::ERROR =&gt; 'ERROR',
+        self::CRITICAL =&gt; 'CRITICAL'
     ];
     
     public function __construct($log_file = 'application.log', $log_level = self::INFO) {
-        $this->log_file = $log_file;
-        $this->log_level = $log_level;
+        $this-&gt;log_file = $log_file;
+        $this-&gt;log_level = $log_level;
     }
     
     public function log($level, $message, $context = []) {
-        if ($level < $this->log_level) {
+        if ($level &lt; $this-&gt;log_level) {
             return; // Level zu niedrig
         }
         
         $timestamp = date('Y-m-d H:i:s');
-        $level_name = $this->level_names[$level] ?? 'UNKNOWN';
+        $level_name = $this-&gt;level_names[$level] ?? 'UNKNOWN';
         
         $log_entry = "[$timestamp] [$level_name] $message";
         
@@ -401,19 +401,19 @@ class Logger {
         $log_entry .= PHP_EOL;
         
         // In Datei schreiben
-        file_put_contents($this->log_file, $log_entry, FILE_APPEND | LOCK_EX);
+        file_put_contents($this-&gt;log_file, $log_entry, FILE_APPEND | LOCK_EX);
         
         // Bei kritischen Fehlern: auch per E-Mail benachrichtigen
-        if ($level >= self::CRITICAL) {
-            $this->notifyAdmin($level_name, $message, $context);
+        if ($level &gt;= self::CRITICAL) {
+            $this-&gt;notifyAdmin($level_name, $message, $context);
         }
     }
     
-    public function debug($message, $context = []) { $this->log(self::DEBUG, $message, $context); }
-    public function info($message, $context = []) { $this->log(self::INFO, $message, $context); }
-    public function warning($message, $context = []) { $this->log(self::WARNING, $message, $context); }
-    public function error($message, $context = []) { $this->log(self::ERROR, $message, $context); }
-    public function critical($message, $context = []) { $this->log(self::CRITICAL, $message, $context); }
+    public function debug($message, $context = []) { $this-&gt;log(self::DEBUG, $message, $context); }
+    public function info($message, $context = []) { $this-&gt;log(self::INFO, $message, $context); }
+    public function warning($message, $context = []) { $this-&gt;log(self::WARNING, $message, $context); }
+    public function error($message, $context = []) { $this-&gt;log(self::ERROR, $message, $context); }
+    public function critical($message, $context = []) { $this-&gt;log(self::CRITICAL, $message, $context); }
     
     private function notifyAdmin($level, $message, $context) {
         // E-Mail-Benachrichtigung (vereinfacht)
@@ -425,17 +425,17 @@ class Logger {
     }
     
     public function getLogEntries($lines = 50) {
-        if (!file_exists($this->log_file)) {
+        if (!file_exists($this-&gt;log_file)) {
             return [];
         }
         
-        $entries = file($this->log_file, FILE_IGNORE_NEW_LINES);
+        $entries = file($this-&gt;log_file, FILE_IGNORE_NEW_LINES);
         return array_slice($entries, -$lines);
     }
     
     public function clearLog() {
-        if (file_exists($this->log_file)) {
-            unlink($this->log_file);
+        if (file_exists($this-&gt;log_file)) {
+            unlink($this-&gt;log_file);
         }
     }
 }
@@ -443,14 +443,14 @@ class Logger {
 // Logger verwenden
 $logger = new Logger('app.log', Logger::DEBUG);
 
-$logger->debug("Debug-Information", ['user_id' => 123, 'action' => 'login']);
-$logger->info("Benutzer angemeldet", ['username' => 'max']);
-$logger->warning("Verdächtige Aktivität", ['ip' => '192.168.1.1']);
-$logger->error("Datenbankfehler", ['query' => 'SELECT * FROM users', 'error' => 'Connection timeout']);
-$logger->critical("System überlastet", ['memory_usage' => '95%', 'cpu_load' => '98%']);
+$logger-&gt;debug("Debug-Information", ['user_id' =&gt; 123, 'action' =&gt; 'login']);
+$logger-&gt;info("Benutzer angemeldet", ['username' =&gt; 'max']);
+$logger-&gt;warning("Verdächtige Aktivität", ['ip' =&gt; '192.168.1.1']);
+$logger-&gt;error("Datenbankfehler", ['query' =&gt; 'SELECT * FROM users', 'error' =&gt; 'Connection timeout']);
+$logger-&gt;critical("System überlastet", ['memory_usage' =&gt; '95%', 'cpu_load' =&gt; '98%']);
 
 echo "\n=== Letzte Log-Einträge ===\n";
-$recent_logs = $logger->getLogEntries(5);
+$recent_logs = $logger-&gt;getLogEntries(5);
 foreach ($recent_logs as $entry) {
     echo $entry . "\n";
 }
@@ -514,7 +514,7 @@ class Debug {
         echo "&lt;strong&gt;$message&lt;/strong&gt;&lt;br&gt;";
         echo "&lt;small&gt;";
         
-        foreach ($trace as $i => $frame) {
+        foreach ($trace as $i =&gt; $frame) {
             $file = basename($frame['file'] ?? 'unknown');
             $line = $frame['line'] ?? '?';
             $function = $frame['function'] ?? 'unknown';
@@ -529,8 +529,8 @@ class Debug {
     // Performance-Messung
     public static function startTimer($name = 'default') {
         self::$debug_log[$name] = [
-            'start' => microtime(true),
-            'memory_start' => memory_get_usage()
+            'start' =&gt; microtime(true),
+            'memory_start' =&gt; memory_get_usage()
         ];
     }
     
@@ -604,7 +604,7 @@ class Debug {
     
     private static function formatBytes($bytes) {
         $units = ['B', 'KB', 'MB', 'GB'];
-        for ($i = 0; $bytes >= 1024 && $i < 3; $i++) {
+        for ($i = 0; $bytes &gt;= 1024 && $i &lt; 3; $i++) {
             $bytes /= 1024;
         }
         return round($bytes, 2) . ' ' . $units[$i];
@@ -627,7 +627,7 @@ Debug::startTimer('operation');
 
 // Simuliere aufwändige Operation
 $data = [];
-for ($i = 0; $i < 1000; $i++) {
+for ($i = 0; $i &lt; 1000; $i++) {
     $data[] = md5($i);
 }
 
@@ -635,9 +635,9 @@ Debug::endTimer('operation');
 
 // Variable debuggen
 $test_array = [
-    'name' => 'Max Mustermann',
-    'age' => 30,
-    'hobbies' => ['Programming', 'Gaming', 'Reading']
+    'name' =&gt; 'Max Mustermann',
+    'age' =&gt; 30,
+    'hobbies' =&gt; ['Programming', 'Gaming', 'Reading']
 ];
 
 Debug::dump($test_array, 'Benutzer-Daten');
@@ -665,17 +665,17 @@ Debug::memory();
 
 // SQL-Debug (Simulation)
 Debug::sql(
-    "SELECT * FROM users WHERE age > ? AND city = ?",
+    "SELECT * FROM users WHERE age &gt; ? AND city = ?",
     [25, 'Berlin'],
     0.0234
 );
 
 // Bedingte Debug-Ausgabe
 $user_role = 'admin';
-Debug::if($user_role === 'admin', ['admin_data' => 'sensitive'], 'Admin Debug');
+Debug::if($user_role === 'admin', ['admin_data' =&gt; 'sensitive'], 'Admin Debug');
 
 // Console-Output (für Browser)
-Debug::console(['message' => 'Debug-Info für JavaScript'], 'warn');
+Debug::console(['message' =&gt; 'Debug-Info für JavaScript'], 'warn');
 
 // Debug in Production deaktivieren
 // Debug::enable(false);
@@ -702,23 +702,23 @@ class ErrorMonitor {
     
     public function handleError($errno, $errstr, $errfile, $errline) {
         $error_data = [
-            'type' => 'php_error',
-            'errno' => $errno,
-            'message' => $errstr,
-            'file' => $errfile,
-            'line' => $errline,
-            'timestamp' => time(),
-            'url' => $_SERVER['REQUEST_URI'] ?? 'CLI',
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown',
-            'ip' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1'
+            'type' =&gt; 'php_error',
+            'errno' =&gt; $errno,
+            'message' =&gt; $errstr,
+            'file' =&gt; $errfile,
+            'line' =&gt; $errline,
+            'timestamp' =&gt; time(),
+            'url' =&gt; $_SERVER['REQUEST_URI'] ?? 'CLI',
+            'user_agent' =&gt; $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown',
+            'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1'
         ];
         
-        $this->logError($error_data);
-        $this->checkThreshold();
+        $this-&gt;logError($error_data);
+        $this-&gt;checkThreshold();
         
         // Bei fatalen Fehlern: Ausführung beenden
         if (in_array($errno, [E_ERROR, E_USER_ERROR])) {
-            $this->showErrorPage();
+            $this-&gt;showErrorPage();
             exit(1);
         }
         
@@ -727,21 +727,21 @@ class ErrorMonitor {
     
     public function handleException($exception) {
         $error_data = [
-            'type' => 'exception',
-            'class' => get_class($exception),
-            'message' => $exception->getMessage(),
-            'file' => $exception->getFile(),
-            'line' => $exception->getLine(),
-            'trace' => $exception->getTraceAsString(),
-            'timestamp' => time(),
-            'url' => $_SERVER['REQUEST_URI'] ?? 'CLI',
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown',
-            'ip' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1'
+            'type' =&gt; 'exception',
+            'class' =&gt; get_class($exception),
+            'message' =&gt; $exception-&gt;getMessage(),
+            'file' =&gt; $exception-&gt;getFile(),
+            'line' =&gt; $exception-&gt;getLine(),
+            'trace' =&gt; $exception-&gt;getTraceAsString(),
+            'timestamp' =&gt; time(),
+            'url' =&gt; $_SERVER['REQUEST_URI'] ?? 'CLI',
+            'user_agent' =&gt; $_SERVER['HTTP_USER_AGENT'] ?? 'Unknown',
+            'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1'
         ];
         
-        $this->logError($error_data);
-        $this->checkThreshold();
-        $this->showErrorPage();
+        $this-&gt;logError($error_data);
+        $this-&gt;checkThreshold();
+        $this-&gt;showErrorPage();
     }
     
     private function logError($error_data) {
@@ -750,16 +750,16 @@ class ErrorMonitor {
         file_put_contents('errors.jsonl', $log_entry, FILE_APPEND | LOCK_EX);
         
         // Statistiken aktualisieren
-        $this->updateStats($error_data);
+        $this-&gt;updateStats($error_data);
         
         // Bei schwerwiegenden Fehlern: sofort benachrichtigen
-        if ($this->isCriticalError($error_data)) {
-            $this->sendAlert($error_data);
+        if ($this-&gt;isCriticalError($error_data)) {
+            $this-&gt;sendAlert($error_data);
         }
     }
     
     private function updateStats($error_data) {
-        $stats = $this->loadStats();
+        $stats = $this-&gt;loadStats();
         $minute = floor($error_data['timestamp'] / 60);
         
         // Fehler pro Minute zählen
@@ -785,31 +785,31 @@ class ErrorMonitor {
         // Alte Daten bereinigen (älter als 24h)
         $cutoff = time() - 86400;
         $stats['per_minute'] = array_filter($stats['per_minute'], function($minute) use ($cutoff) {
-            return ($minute * 60) > $cutoff;
+            return ($minute * 60) &gt; $cutoff;
         }, ARRAY_FILTER_USE_KEY);
         
-        $this->saveStats($stats);
+        $this-&gt;saveStats($stats);
     }
     
     private function loadStats() {
-        if (file_exists($this->storage_file)) {
-            $content = file_get_contents($this->storage_file);
+        if (file_exists($this-&gt;storage_file)) {
+            $content = file_get_contents($this-&gt;storage_file);
             return json_decode($content, true) ?: [];
         }
-        return ['per_minute' => [], 'by_type' => [], 'by_file' => []];
+        return ['per_minute' =&gt; [], 'by_type' =&gt; [], 'by_file' =&gt; []];
     }
     
     private function saveStats($stats) {
-        file_put_contents($this->storage_file, json_encode($stats, JSON_PRETTY_PRINT));
+        file_put_contents($this-&gt;storage_file, json_encode($stats, JSON_PRETTY_PRINT));
     }
     
     private function checkThreshold() {
-        $stats = $this->loadStats();
+        $stats = $this-&gt;loadStats();
         $current_minute = floor(time() / 60);
         $errors_this_minute = $stats['per_minute'][$current_minute] ?? 0;
         
-        if ($errors_this_minute >= $this->error_threshold) {
-            $this->sendThresholdAlert($errors_this_minute);
+        if ($errors_this_minute &gt;= $this-&gt;error_threshold) {
+            $this-&gt;sendThresholdAlert($errors_this_minute);
         }
     }
     
@@ -844,7 +844,7 @@ class ErrorMonitor {
         $body .= "Zeit: " . date('Y-m-d H:i:s', $error_data['timestamp']) . "\n";
         
         // E-Mail senden (vereinfacht)
-        error_log("ALERT: $subject\n$body\n", 1, $this->admin_email);
+        error_log("ALERT: $subject\n$body\n", 1, $this-&gt;admin_email);
     }
     
     private function sendThresholdAlert($error_count) {
@@ -852,7 +852,7 @@ class ErrorMonitor {
         $body = "Das System hat $error_count Fehler in der letzten Minute registriert.\n";
         $body .= "Möglicherweise liegt ein systemisches Problem vor.";
         
-        error_log("THRESHOLD ALERT: $subject\n$body\n", 1, $this->admin_email);
+        error_log("THRESHOLD ALERT: $subject\n$body\n", 1, $this-&gt;admin_email);
     }
     
     private function showErrorPage() {
@@ -908,7 +908,7 @@ class ErrorMonitor {
     }
     
     public function getErrorStats() {
-        return $this->loadStats();
+        return $this-&gt;loadStats();
     }
     
     public function getRecentErrors($limit = 50) {
@@ -942,7 +942,7 @@ try {
     echo $undefined_variable;
     
     // Notice
-    $arr = ['key' => 'value'];
+    $arr = ['key' =&gt; 'value'];
     echo $arr['nonexistent'];
     
     // Exception
@@ -953,13 +953,13 @@ try {
 }
 
 // Statistiken anzeigen
-$stats = $monitor->getErrorStats();
+$stats = $monitor-&gt;getErrorStats();
 echo "\nError-Statistiken:\n";
 echo "Nach Typ: " . json_encode($stats['by_type'] ?? []) . "\n";
 echo "Nach Datei: " . json_encode($stats['by_file'] ?? []) . "\n";
 
 // Letzte Fehler anzeigen
-$recent_errors = $monitor->getRecentErrors(5);
+$recent_errors = $monitor-&gt;getRecentErrors(5);
 echo "\nLetzte Fehler:\n";
 foreach ($recent_errors as $error) {
     echo "- {$error['type']}: {$error['message']} in " . basename($error['file']) . ":{$error['line']}\n";
@@ -990,11 +990,11 @@ class ValidationException extends Exception {
     
     public function __construct($message = "Validierungsfehler", $errors = []) {
         parent::__construct($message);
-        $this->validation_errors = $errors;
+        $this-&gt;validation_errors = $errors;
     }
     
     public function getValidationErrors() {
-        return $this->validation_errors;
+        return $this-&gt;validation_errors;
     }
 }
 
@@ -1004,12 +1004,12 @@ class DatabaseException extends Exception {
     
     public function __construct($message, $query = null, $db_error = null) {
         parent::__construct($message);
-        $this->query = $query;
-        $this->db_error = $db_error;
+        $this-&gt;query = $query;
+        $this-&gt;db_error = $db_error;
     }
     
-    public function getQuery() { return $this->query; }
-    public function getDatabaseError() { return $this->db_error; }
+    public function getQuery() { return $this-&gt;query; }
+    public function getDatabaseError() { return $this-&gt;db_error; }
 }
 
 class APIException extends Exception {
@@ -1018,12 +1018,12 @@ class APIException extends Exception {
     
     public function __construct($message, $status_code = 500, $api_response = null) {
         parent::__construct($message);
-        $this->status_code = $status_code;
-        $this->api_response = $api_response;
+        $this-&gt;status_code = $status_code;
+        $this-&gt;api_response = $api_response;
     }
     
-    public function getStatusCode() { return $this->status_code; }
-    public function getAPIResponse() { return $this->api_response; }
+    public function getStatusCode() { return $this-&gt;status_code; }
+    public function getAPIResponse() { return $this-&gt;api_response; }
 }
 
 // === ERROR-SAFE DATABASE CLASS ===
@@ -1035,36 +1035,36 @@ class SafeDatabase {
     private $retry_delay = 1; // Sekunden
     
     public function __construct($dsn, $username, $password, $logger) {
-        $this->logger = $logger;
-        $this->connect($dsn, $username, $password);
+        $this-&gt;logger = $logger;
+        $this-&gt;connect($dsn, $username, $password);
     }
     
     private function connect($dsn, $username, $password) {
         $attempts = 0;
         
-        while ($attempts < $this->retry_attempts) {
+        while ($attempts &lt; $this-&gt;retry_attempts) {
             try {
-                $this->pdo = new PDO($dsn, $username, $password, [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_TIMEOUT => 5,
-                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4"
+                $this-&gt;pdo = new PDO($dsn, $username, $password, [
+                    PDO::ATTR_ERRMODE =&gt; PDO::ERRMODE_EXCEPTION,
+                    PDO::ATTR_DEFAULT_FETCH_MODE =&gt; PDO::FETCH_ASSOC,
+                    PDO::ATTR_TIMEOUT =&gt; 5,
+                    PDO::MYSQL_ATTR_INIT_COMMAND =&gt; "SET NAMES utf8mb4"
                 ]);
                 
-                $this->logger->info("Datenbankverbindung hergestellt");
+                $this-&gt;logger-&gt;info("Datenbankverbindung hergestellt");
                 return;
                 
             } catch (PDOException $e) {
                 $attempts++;
-                $this->logger->warning("DB-Verbindungsversuch $attempts fehlgeschlagen", [
-                    'error' => $e->getMessage(),
-                    'attempts_remaining' => $this->retry_attempts - $attempts
+                $this-&gt;logger-&gt;warning("DB-Verbindungsversuch $attempts fehlgeschlagen", [
+                    'error' =&gt; $e-&gt;getMessage(),
+                    'attempts_remaining' =&gt; $this-&gt;retry_attempts - $attempts
                 ]);
                 
-                if ($attempts < $this->retry_attempts) {
-                    sleep($this->retry_delay);
+                if ($attempts &lt; $this-&gt;retry_attempts) {
+                    sleep($this-&gt;retry_delay);
                 } else {
-                    throw new DatabaseException("Datenbankverbindung nach $attempts Versuchen fehlgeschlagen", null, $e->getMessage());
+                    throw new DatabaseException("Datenbankverbindung nach $attempts Versuchen fehlgeschlagen", null, $e-&gt;getMessage());
                 }
             }
         }
@@ -1073,19 +1073,19 @@ class SafeDatabase {
     public function query($sql, $params = []) {
         $attempts = 0;
         
-        while ($attempts < $this->retry_attempts) {
+        while ($attempts &lt; $this-&gt;retry_attempts) {
             try {
                 $start_time = microtime(true);
                 
-                $stmt = $this->pdo->prepare($sql);
-                $stmt->execute($params);
+                $stmt = $this-&gt;pdo-&gt;prepare($sql);
+                $stmt-&gt;execute($params);
                 
                 $duration = microtime(true) - $start_time;
                 
-                $this->logger->debug("SQL-Query erfolgreich", [
-                    'sql' => $sql,
-                    'params' => $params,
-                    'duration' => round($duration * 1000, 2) . 'ms'
+                $this-&gt;logger-&gt;debug("SQL-Query erfolgreich", [
+                    'sql' =&gt; $sql,
+                    'params' =&gt; $params,
+                    'duration' =&gt; round($duration * 1000, 2) . 'ms'
                 ]);
                 
                 return $stmt;
@@ -1094,20 +1094,20 @@ class SafeDatabase {
                 $attempts++;
                 
                 // Bei bestimmten Fehlern nicht wiederholen
-                if ($this->isFatalDatabaseError($e)) {
-                    throw new DatabaseException("Fataler Datenbankfehler: " . $e->getMessage(), $sql, $e->getMessage());
+                if ($this-&gt;isFatalDatabaseError($e)) {
+                    throw new DatabaseException("Fataler Datenbankfehler: " . $e-&gt;getMessage(), $sql, $e-&gt;getMessage());
                 }
                 
-                $this->logger->warning("SQL-Query Versuch $attempts fehlgeschlagen", [
-                    'sql' => $sql,
-                    'error' => $e->getMessage(),
-                    'attempts_remaining' => $this->retry_attempts - $attempts
+                $this-&gt;logger-&gt;warning("SQL-Query Versuch $attempts fehlgeschlagen", [
+                    'sql' =&gt; $sql,
+                    'error' =&gt; $e-&gt;getMessage(),
+                    'attempts_remaining' =&gt; $this-&gt;retry_attempts - $attempts
                 ]);
                 
-                if ($attempts < $this->retry_attempts) {
-                    sleep($this->retry_delay);
+                if ($attempts &lt; $this-&gt;retry_attempts) {
+                    sleep($this-&gt;retry_delay);
                 } else {
-                    throw new DatabaseException("SQL-Query nach $attempts Versuchen fehlgeschlagen: " . $e->getMessage(), $sql, $e->getMessage());
+                    throw new DatabaseException("SQL-Query nach $attempts Versuchen fehlgeschlagen: " . $e-&gt;getMessage(), $sql, $e-&gt;getMessage());
                 }
             }
         }
@@ -1120,35 +1120,35 @@ class SafeDatabase {
             '23000'  // Integrity constraint violation
         ];
         
-        return in_array($exception->getCode(), $fatal_codes);
+        return in_array($exception-&gt;getCode(), $fatal_codes);
     }
     
     public function fetch($sql, $params = []) {
-        return $this->query($sql, $params)->fetch();
+        return $this-&gt;query($sql, $params)-&gt;fetch();
     }
     
     public function fetchAll($sql, $params = []) {
-        return $this->query($sql, $params)->fetchAll();
+        return $this-&gt;query($sql, $params)-&gt;fetchAll();
     }
     
     public function execute($sql, $params = []) {
-        return $this->query($sql, $params)->rowCount();
+        return $this-&gt;query($sql, $params)-&gt;rowCount();
     }
     
     public function getLastInsertId() {
-        return $this->pdo->lastInsertId();
+        return $this-&gt;pdo-&gt;lastInsertId();
     }
     
     public function beginTransaction() {
-        return $this->pdo->beginTransaction();
+        return $this-&gt;pdo-&gt;beginTransaction();
     }
     
     public function commit() {
-        return $this->pdo->commit();
+        return $this-&gt;pdo-&gt;commit();
     }
     
     public function rollback() {
-        return $this->pdo->rollback();
+        return $this-&gt;pdo-&gt;rollback();
     }
 }
 
@@ -1159,23 +1159,23 @@ class UserService {
     private $logger;
     
     public function __construct($database, $logger) {
-        $this->db = $database;
-        $this->logger = $logger;
+        $this-&gt;db = $database;
+        $this-&gt;logger = $logger;
     }
     
     public function createUser($userData) {
         try {
             // Eingaben validieren
-            $this->validateUserData($userData);
+            $this-&gt;validateUserData($userData);
             
             // Benutzer existiert bereits?
-            $existing = $this->getUserByEmail($userData['email']);
+            $existing = $this-&gt;getUserByEmail($userData['email']);
             if ($existing) {
-                throw new ValidationException("E-Mail-Adresse bereits registriert", ['email' => 'Bereits vergeben']);
+                throw new ValidationException("E-Mail-Adresse bereits registriert", ['email' =&gt; 'Bereits vergeben']);
             }
             
             // Transaktion starten
-            $this->db->beginTransaction();
+            $this-&gt;db-&gt;beginTransaction();
             
             try {
                 // Passwort hashen
@@ -1186,78 +1186,78 @@ class UserService {
                 $sql = "INSERT INTO users (email, password_hash, first_name, last_name, created_at) 
                         VALUES (:email, :password_hash, :first_name, :last_name, NOW())";
                 
-                $this->db->execute($sql, [
-                    ':email' => $userData['email'],
-                    ':password_hash' => $userData['password_hash'],
-                    ':first_name' => $userData['first_name'],
-                    ':last_name' => $userData['last_name']
+                $this-&gt;db-&gt;execute($sql, [
+                    ':email' =&gt; $userData['email'],
+                    ':password_hash' =&gt; $userData['password_hash'],
+                    ':first_name' =&gt; $userData['first_name'],
+                    ':last_name' =&gt; $userData['last_name']
                 ]);
                 
-                $userId = $this->db->getLastInsertId();
+                $userId = $this-&gt;db-&gt;getLastInsertId();
                 
                 // Willkommens-E-Mail senden (kann fehlschlagen ohne Rollback)
                 try {
-                    $this->sendWelcomeEmail($userData['email'], $userData['first_name']);
+                    $this-&gt;sendWelcomeEmail($userData['email'], $userData['first_name']);
                 } catch (Exception $e) {
-                    $this->logger->warning("Willkommens-E-Mail konnte nicht gesendet werden", [
-                        'user_id' => $userId,
-                        'email' => $userData['email'],
-                        'error' => $e->getMessage()
+                    $this-&gt;logger-&gt;warning("Willkommens-E-Mail konnte nicht gesendet werden", [
+                        'user_id' =&gt; $userId,
+                        'email' =&gt; $userData['email'],
+                        'error' =&gt; $e-&gt;getMessage()
                     ]);
                 }
                 
-                $this->db->commit();
+                $this-&gt;db-&gt;commit();
                 
-                $this->logger->info("Benutzer erfolgreich erstellt", [
-                    'user_id' => $userId,
-                    'email' => $userData['email']
+                $this-&gt;logger-&gt;info("Benutzer erfolgreich erstellt", [
+                    'user_id' =&gt; $userId,
+                    'email' =&gt; $userData['email']
                 ]);
                 
                 return [
-                    'success' => true,
-                    'user_id' => $userId,
-                    'message' => 'Benutzer erfolgreich registriert'
+                    'success' =&gt; true,
+                    'user_id' =&gt; $userId,
+                    'message' =&gt; 'Benutzer erfolgreich registriert'
                 ];
                 
             } catch (Exception $e) {
-                $this->db->rollback();
+                $this-&gt;db-&gt;rollback();
                 throw $e;
             }
             
         } catch (ValidationException $e) {
-            $this->logger->info("Benutzer-Registrierung: Validierungsfehler", [
-                'errors' => $e->getValidationErrors(),
-                'email' => $userData['email'] ?? 'unknown'
+            $this-&gt;logger-&gt;info("Benutzer-Registrierung: Validierungsfehler", [
+                'errors' =&gt; $e-&gt;getValidationErrors(),
+                'email' =&gt; $userData['email'] ?? 'unknown'
             ]);
             
             return [
-                'success' => false,
-                'errors' => $e->getValidationErrors(),
-                'message' => 'Eingabedaten ungültig'
+                'success' =&gt; false,
+                'errors' =&gt; $e-&gt;getValidationErrors(),
+                'message' =&gt; 'Eingabedaten ungültig'
             ];
             
         } catch (DatabaseException $e) {
-            $this->logger->error("Benutzer-Registrierung: Datenbankfehler", [
-                'error' => $e->getMessage(),
-                'query' => $e->getQuery(),
-                'email' => $userData['email'] ?? 'unknown'
+            $this-&gt;logger-&gt;error("Benutzer-Registrierung: Datenbankfehler", [
+                'error' =&gt; $e-&gt;getMessage(),
+                'query' =&gt; $e-&gt;getQuery(),
+                'email' =&gt; $userData['email'] ?? 'unknown'
             ]);
             
             return [
-                'success' => false,
-                'message' => 'Ein technischer Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.'
+                'success' =&gt; false,
+                'message' =&gt; 'Ein technischer Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.'
             ];
             
         } catch (Exception $e) {
-            $this->logger->error("Benutzer-Registrierung: Unerwarteter Fehler", [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString(),
-                'email' => $userData['email'] ?? 'unknown'
+            $this-&gt;logger-&gt;error("Benutzer-Registrierung: Unerwarteter Fehler", [
+                'error' =&gt; $e-&gt;getMessage(),
+                'trace' =&gt; $e-&gt;getTraceAsString(),
+                'email' =&gt; $userData['email'] ?? 'unknown'
             ]);
             
             return [
-                'success' => false,
-                'message' => 'Ein unerwarteter Fehler ist aufgetreten.'
+                'success' =&gt; false,
+                'message' =&gt; 'Ein unerwarteter Fehler ist aufgetreten.'
             ];
         }
     }
@@ -1275,7 +1275,7 @@ class UserService {
         // Passwort validieren
         if (empty($data['password'])) {
             $errors['password'] = 'Passwort ist erforderlich';
-        } elseif (strlen($data['password']) < 8) {
+        } elseif (strlen($data['password']) &lt; 8) {
             $errors['password'] = 'Passwort muss mindestens 8 Zeichen haben';
         } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/', $data['password'])) {
             $errors['password'] = 'Passwort muss Groß-, Kleinbuchstaben und Zahlen enthalten';
@@ -1297,66 +1297,66 @@ class UserService {
     
     public function getUserByEmail($email) {
         try {
-            return $this->db->fetch("SELECT * FROM users WHERE email = ?", [$email]);
+            return $this-&gt;db-&gt;fetch("SELECT * FROM users WHERE email = ?", [$email]);
         } catch (DatabaseException $e) {
-            $this->logger->error("Fehler beim Abrufen des Benutzers", ['email' => $email, 'error' => $e->getMessage()]);
+            $this-&gt;logger-&gt;error("Fehler beim Abrufen des Benutzers", ['email' =&gt; $email, 'error' =&gt; $e-&gt;getMessage()]);
             return null;
         }
     }
     
     private function sendWelcomeEmail($email, $firstName) {
         // E-Mail-Service simulieren (kann fehlschlagen)
-        if (rand(1, 10) > 8) { // 20% Chance auf Fehler
+        if (rand(1, 10) &gt; 8) { // 20% Chance auf Fehler
             throw new APIException("E-Mail-Service nicht verfügbar", 503);
         }
         
-        $this->logger->info("Willkommens-E-Mail gesendet", ['email' => $email]);
+        $this-&gt;logger-&gt;info("Willkommens-E-Mail gesendet", ['email' =&gt; $email]);
     }
     
     public function authenticateUser($email, $password) {
         try {
-            $user = $this->getUserByEmail($email);
+            $user = $this-&gt;getUserByEmail($email);
             
             if (!$user) {
-                $this->logger->info("Login-Versuch mit unbekannter E-Mail", ['email' => $email]);
-                return ['success' => false, 'message' => 'Ungültige Anmeldedaten'];
+                $this-&gt;logger-&gt;info("Login-Versuch mit unbekannter E-Mail", ['email' =&gt; $email]);
+                return ['success' =&gt; false, 'message' =&gt; 'Ungültige Anmeldedaten'];
             }
             
             if (!password_verify($password, $user['password_hash'])) {
-                $this->logger->warning("Login-Versuch mit falschem Passwort", [
-                    'user_id' => $user['id'],
-                    'email' => $email
+                $this-&gt;logger-&gt;warning("Login-Versuch mit falschem Passwort", [
+                    'user_id' =&gt; $user['id'],
+                    'email' =&gt; $email
                 ]);
-                return ['success' => false, 'message' => 'Ungültige Anmeldedaten'];
+                return ['success' =&gt; false, 'message' =&gt; 'Ungültige Anmeldedaten'];
             }
             
             // Login-Zeit aktualisieren
-            $this->db->execute("UPDATE users SET last_login = NOW() WHERE id = ?", [$user['id']]);
+            $this-&gt;db-&gt;execute("UPDATE users SET last_login = NOW() WHERE id = ?", [$user['id']]);
             
-            $this->logger->info("Benutzer erfolgreich angemeldet", [
-                'user_id' => $user['id'],
-                'email' => $email
+            $this-&gt;logger-&gt;info("Benutzer erfolgreich angemeldet", [
+                'user_id' =&gt; $user['id'],
+                'email' =&gt; $email
             ]);
             
             return [
-                'success' => true,
-                'user' => [
-                    'id' => $user['id'],
-                    'email' => $user['email'],
-                    'first_name' => $user['first_name'],
-                    'last_name' => $user['last_name']
+                'success' =&gt; true,
+                'user' =&gt; [
+                    'id' =&gt; $user['id'],
+                    'email' =&gt; $user['email'],
+                    'first_name' =&gt; $user['first_name'],
+                    'last_name' =&gt; $user['last_name']
                 ]
             ];
             
         } catch (Exception $e) {
-            $this->logger->error("Fehler bei Benutzer-Authentifizierung", [
-                'email' => $email,
-                'error' => $e->getMessage()
+            $this-&gt;logger-&gt;error("Fehler bei Benutzer-Authentifizierung", [
+                'email' =&gt; $email,
+                'error' =&gt; $e-&gt;getMessage()
             ]);
             
             return [
-                'success' => false,
-                'message' => 'Ein technischer Fehler ist aufgetreten.'
+                'success' =&gt; false,
+                'message' =&gt; 'Ein technischer Fehler ist aufgetreten.'
             ];
         }
     }
@@ -1371,7 +1371,7 @@ class Application {
     
     public function __construct() {
         // Logger initialisieren
-        $this->logger = new Logger('app.log', Logger::DEBUG);
+        $this-&gt;logger = new Logger('app.log', Logger::DEBUG);
         
         // Error-Handler setzen
         set_error_handler([$this, 'handleError']);
@@ -1379,20 +1379,20 @@ class Application {
         
         try {
             // Datenbank initialisieren
-            $this->initializeDatabase();
+            $this-&gt;initializeDatabase();
             
             // Services initialisieren
-            $this->userService = new UserService($this->db, $this->logger);
+            $this-&gt;userService = new UserService($this-&gt;db, $this-&gt;logger);
             
-            $this->logger->info("Anwendung erfolgreich initialisiert");
+            $this-&gt;logger-&gt;info("Anwendung erfolgreich initialisiert");
             
         } catch (Exception $e) {
-            $this->logger->critical("Anwendungsinitialisierung fehlgeschlagen", [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+            $this-&gt;logger-&gt;critical("Anwendungsinitialisierung fehlgeschlagen", [
+                'error' =&gt; $e-&gt;getMessage(),
+                'trace' =&gt; $e-&gt;getTraceAsString()
             ]);
             
-            $this->showMaintenancePage();
+            $this-&gt;showMaintenancePage();
             exit(1);
         }
     }
@@ -1402,7 +1402,7 @@ class Application {
         $username = "root";
         $password = "";
         
-        $this->db = new SafeDatabase($dsn, $username, $password, $this->logger);
+        $this-&gt;db = new SafeDatabase($dsn, $username, $password, $this-&gt;logger);
         
         // Tabelle erstellen falls nicht vorhanden
         $create_table = "CREATE TABLE IF NOT EXISTS users (
@@ -1415,30 +1415,30 @@ class Application {
             last_login TIMESTAMP NULL
         )";
         
-        $this->db->execute($create_table);
+        $this-&gt;db-&gt;execute($create_table);
     }
     
     public function handleError($errno, $errstr, $errfile, $errline) {
-        $this->logger->error("PHP Error", [
-            'errno' => $errno,
-            'message' => $errstr,
-            'file' => basename($errfile),
-            'line' => $errline
+        $this-&gt;logger-&gt;error("PHP Error", [
+            'errno' =&gt; $errno,
+            'message' =&gt; $errstr,
+            'file' =&gt; basename($errfile),
+            'line' =&gt; $errline
         ]);
         
         return false; // PHP's normale Fehlerbehandlung weiterführen
     }
     
     public function handleException($exception) {
-        $this->logger->critical("Uncaught Exception", [
-            'class' => get_class($exception),
-            'message' => $exception->getMessage(),
-            'file' => basename($exception->getFile()),
-            'line' => $exception->getLine(),
-            'trace' => $exception->getTraceAsString()
+        $this-&gt;logger-&gt;critical("Uncaught Exception", [
+            'class' =&gt; get_class($exception),
+            'message' =&gt; $exception-&gt;getMessage(),
+            'file' =&gt; basename($exception-&gt;getFile()),
+            'line' =&gt; $exception-&gt;getLine(),
+            'trace' =&gt; $exception-&gt;getTraceAsString()
         ]);
         
-        $this->showErrorPage();
+        $this-&gt;showErrorPage();
     }
     
     private function showErrorPage() {
@@ -1453,18 +1453,18 @@ class Application {
     
     public function run() {
         try {
-            $this->logger->info("Anwendung gestartet", [
-                'method' => $_SERVER['REQUEST_METHOD'] ?? 'CLI',
-                'url' => $_SERVER['REQUEST_URI'] ?? 'N/A',
-                'ip' => $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1'
+            $this-&gt;logger-&gt;info("Anwendung gestartet", [
+                'method' =&gt; $_SERVER['REQUEST_METHOD'] ?? 'CLI',
+                'url' =&gt; $_SERVER['REQUEST_URI'] ?? 'N/A',
+                'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1'
             ]);
             
             // Demo: Benutzer registrieren
-            $result = $this->userService->createUser([
-                'email' => 'test' . time() . '@example.com',
-                'password' => 'SecurePass123',
-                'first_name' => 'Max',
-                'last_name' => 'Mustermann'
+            $result = $this-&gt;userService-&gt;createUser([
+                'email' =&gt; 'test' . time() . '@example.com',
+                'password' =&gt; 'SecurePass123',
+                'first_name' =&gt; 'Max',
+                'last_name' =&gt; 'Mustermann'
             ]);
             
             if ($result['success']) {
@@ -1472,7 +1472,7 @@ class Application {
                 echo "Benutzer-ID: " . $result['user_id'] . "\n";
                 
                 // Demo: Login
-                $login_result = $this->userService->authenticateUser('test' . (time()-1) . '@example.com', 'SecurePass123');
+                $login_result = $this-&gt;userService-&gt;authenticateUser('test' . (time()-1) . '@example.com', 'SecurePass123');
                 if ($login_result['success']) {
                     echo "✅ Login erfolgreich für: " . $login_result['user']['email'] . "\n";
                 } else {
@@ -1482,16 +1482,16 @@ class Application {
             } else {
                 echo "❌ Registrierung fehlgeschlagen: " . $result['message'] . "\n";
                 if (isset($result['errors'])) {
-                    foreach ($result['errors'] as $field => $error) {
+                    foreach ($result['errors'] as $field =&gt; $error) {
                         echo "  - $field: $error\n";
                     }
                 }
             }
             
         } catch (Exception $e) {
-            $this->logger->error("Fehler in Hauptanwendung", [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
+            $this-&gt;logger-&gt;error("Fehler in Hauptanwendung", [
+                'error' =&gt; $e-&gt;getMessage(),
+                'trace' =&gt; $e-&gt;getTraceAsString()
             ]);
             
             echo "Ein Fehler ist aufgetreten. Details wurden protokolliert.\n";
@@ -1505,10 +1505,10 @@ echo "\n=== Robuste Anwendung Demo ===\n";
 
 try {
     $app = new Application();
-    $app->run();
+    $app-&gt;run();
     
 } catch (Exception $e) {
-    echo "Kritischer Anwendungsfehler: " . $e->getMessage() . "\n";
+    echo "Kritischer Anwendungsfehler: " . $e-&gt;getMessage() . "\n";
 }
 
 echo "\nAnwendung beendet.\n";

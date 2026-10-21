@@ -146,7 +146,7 @@ print(counter)  # Output: 1.0</code></pre>
                             <h4>Moderne Zuweisungsmuster</h4>
                             <div class="code-block">
 <pre><code class="language-python"># Walrus Operator (Python 3.8+)
-if (n := len("Python")) > 5:
+if (n := len("Python")) &gt; 5:
     print(f"'{n}' ist länger als 5 Zeichen")
 
 # Swapping (Werte tauschen)
@@ -181,11 +181,11 @@ is_fun = True          # bool
 nothing = None         # NoneType
 
 # Typ einer Variable überprüfen
-print(type(number))     # <class 'int'>
-print(type(pi))         # <class 'float'>
-print(type(name))       # <class 'str'>
-print(type(is_fun))     # <class 'bool'>
-print(type(nothing))    # <class 'NoneType'>
+print(type(number))     # &lt;class 'int'&gt;
+print(type(pi))         # &lt;class 'float'&gt;
+print(type(name))       # &lt;class 'str'&gt;
+print(type(is_fun))     # &lt;class 'bool'&gt;
+print(type(nothing))    # &lt;class 'NoneType'&gt;
 
 # isinstance() für Typprüfung
 print(isinstance(number, int))     # True
@@ -439,7 +439,7 @@ def calculate_circle_area(radius):
     return PI * radius ** 2
 
 def connect_to_database():
-    if current_connections < MAX_CONNECTIONS:
+    if current_connections &lt; MAX_CONNECTIONS:
         # Verbindung aufbauen
         pass
 
@@ -514,7 +514,7 @@ def calculate_shopping_total():
     subtotal = sum(prices)
     
     # Rabatt anwenden
-    if subtotal >= DISCOUNT_THRESHOLD:
+    if subtotal &gt;= DISCOUNT_THRESHOLD:
         discount_amount = subtotal * DISCOUNT_RATE
         discounted_total = subtotal - discount_amount
         has_discount = True
@@ -537,22 +537,22 @@ def calculate_shopping_total():
     
     print("\nArtikel:")
     for i, (item, price) in enumerate(zip(items, prices), 1):
-        print(f"  {i}. {item:<20} {price:>8.2f}€")
+        print(f"  {i}. {item:&lt;20} {price:&gt;8.2f}€")
     
     print(f"{'-'*32}")
-    print(f"Zwischensumme:        {subtotal:>8.2f}€")
+    print(f"Zwischensumme:        {subtotal:&gt;8.2f}€")
     
     if has_discount:
-        print(f"Rabatt ({DISCOUNT_RATE*100:.0f}%):     {-discount_amount:>8.2f}€")
-        print(f"Nach Rabatt:          {discounted_total:>8.2f}€")
+        print(f"Rabatt ({DISCOUNT_RATE*100:.0f}%):     {-discount_amount:&gt;8.2f}€")
+        print(f"Nach Rabatt:          {discounted_total:&gt;8.2f}€")
     
-    print(f"MwSt ({TAX_RATE*100:.0f}%):          {tax_amount:>8.2f}€")
+    print(f"MwSt ({TAX_RATE*100:.0f}%):          {tax_amount:&gt;8.2f}€")
     print(f"{'='*32}")
-    print(f"GESAMT:               {final_total:>8.2f}€")
+    print(f"GESAMT:               {final_total:&gt;8.2f}€")
     
     # Zusammenfassung
     item_count = len(items)
-    average_price = subtotal / item_count if item_count > 0 else 0
+    average_price = subtotal / item_count if item_count &gt; 0 else 0
     
     print(f"\nZusammenfassung:")
     print(f"  Anzahl Artikel: {item_count}")
@@ -575,7 +575,7 @@ def show_statistics():
     print(f"\n📊 STATISTIKEN")
     print(f"Bediente Kunden heute: {total_customers}")
     
-    if total_customers > 0:
+    if total_customers &gt; 0:
         print("Vielen Dank für Ihren Einkauf! 🛒")
     else:
         print("Noch keine Kunden heute.")
@@ -669,6 +669,8 @@ Zusammenfassung:
                         <?php renderPythonPageNavigation('python-variablen'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

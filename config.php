@@ -74,10 +74,8 @@ define('ALLOWED_FILE_TYPES', ['jpg', 'jpeg', 'png', 'gif', 'pdf', 'doc', 'docx']
 
 // DSGVO-Einstellungen (Fallback-Werte)
 // Die URLs müssen mit den in der settings-Tabelle und im Projekt verwendeten PHP-Dateien übereinstimmen
-//define('PRIVACY_POLICY_URL', '/users/datenschutz.php');
-//define('TERMS_OF_SERVICE_URL', '/users/agb.php');
-define('PRIVACY_POLICY_URL', '/datenschutz.php');
-define('TERMS_OF_SERVICE_URL', '/agb.php');
+define('PRIVACY_POLICY_URL', '/users/datenschutz.php');
+define('TERMS_OF_SERVICE_URL', '/users/agb.php');
 define('REQUIRE_PRIVACY_CONSENT', true);
 define('ALLOW_REGISTRATION', true);
 

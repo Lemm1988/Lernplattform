@@ -92,12 +92,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         boolean hatFuehrerschein = true;
         
         // Einfaches if
-        if (alter >= 18) {
+        if (alter &gt;= 18) {
             System.out.println("Du bist volljährig!");
         }
         
         // if-else
-        if (punkte >= 50) {
+        if (punkte &gt;= 50) {
             System.out.println("Bestanden!");
         } else {
             System.out.println("Leider nicht bestanden.");
@@ -105,16 +105,16 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         
         // if-else if-else (Notensystem)
         char note;
-        if (punkte >= 90) {
+        if (punkte &gt;= 90) {
             note = 'A';
             System.out.println("Ausgezeichnet!");
-        } else if (punkte >= 80) {
+        } else if (punkte &gt;= 80) {
             note = 'B';
             System.out.println("Sehr gut!");
-        } else if (punkte >= 70) {
+        } else if (punkte &gt;= 70) {
             note = 'C';
             System.out.println("Gut!");
-        } else if (punkte >= 60) {
+        } else if (punkte &gt;= 60) {
             note = 'D';
             System.out.println("Ausreichend!");
         } else {
@@ -124,7 +124,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         System.out.println("Deine Note: " + note);
         
         // Verschachtelte if-Anweisungen
-        if (alter >= 18) {
+        if (alter &gt;= 18) {
             if (hatFuehrerschein) {
                 System.out.println("Du kannst Auto fahren!");
             } else {
@@ -135,7 +135,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         }
         
         // Komplexe Bedingungen
-        if (alter >= 18 && hatFuehrerschein && punkte >= 70) {
+        if (alter &gt;= 18 && hatFuehrerschein && punkte &gt;= 70) {
             System.out.println("Du kannst das Praktikum antreten!");
         }
     }
@@ -239,9 +239,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         
         // Moderner switch (Java 14+)
         String wochentagTyp = switch (wochentag) {
-            case 1, 2, 3, 4, 5 -> "Werktag";
-            case 6, 7 -> "Wochenende";
-            default -> "Ungültig";
+            case 1, 2, 3, 4, 5 -&gt; "Werktag";
+            case 6, 7 -&gt; "Wochenende";
+            default -&gt; "Ungültig";
         };
         System.out.println("Tag " + wochentag + " ist ein " + wochentagTyp);
     }
@@ -288,28 +288,28 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
     public static void main(String[] args) {
         // Standard for-Schleife
         System.out.println("Zahlen von 1 bis 5:");
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i &lt;= 5; i++) {
             System.out.println("i = " + i);
         }
         
         // Rückwärts zählen
         System.out.println("\nCountdown:");
-        for (int i = 10; i >= 1; i--) {
+        for (int i = 10; i &gt;= 1; i--) {
             System.out.println(i);
         }
         System.out.println("Start!");
         
         // Schrittweite ändern
         System.out.println("\nGerade Zahlen:");
-        for (int i = 0; i <= 20; i += 2) {
+        for (int i = 0; i &lt;= 20; i += 2) {
             System.out.print(i + " ");
         }
         System.out.println();
         
         // Verschachtelte Schleifen
         System.out.println("\nMultiplikationstabelle:");
-        for (int zeile = 1; zeile <= 5; zeile++) {
-            for (int spalte = 1; spalte <= 5; spalte++) {
+        for (int zeile = 1; zeile &lt;= 5; zeile++) {
+            for (int spalte = 1; spalte &lt;= 5; spalte++) {
                 System.out.printf("%3d", zeile * spalte);
             }
             System.out.println();
@@ -381,14 +381,14 @@ public class WhileSchleifen {
         
         System.out.println("Rate die Zahl zwischen 1 und 100:");
         
-        while (eingabe != geheimeZahl && versuche < 5) {
+        while (eingabe != geheimeZahl && versuche &lt; 5) {
             System.out.print("Dein Tipp: ");
             eingabe = scanner.nextInt();
             versuche++;
             
-            if (eingabe < geheimeZahl) {
+            if (eingabe &lt; geheimeZahl) {
                 System.out.println("Zu klein!");
-            } else if (eingabe > geheimeZahl) {
+            } else if (eingabe &gt; geheimeZahl) {
                 System.out.println("Zu groß!");
             } else {
                 System.out.println("Richtig! Du hast " + versuche + " Versuche gebraucht.");
@@ -433,7 +433,7 @@ public class WhileSchleifen {
         // Zählen mit while
         int i = 1;
         int fakultaet = 1;
-        while (i <= 5) {
+        while (i &lt;= 5) {
             fakultaet *= i;
             i++;
         }
@@ -471,7 +471,7 @@ public class WhileSchleifen {
     public static void main(String[] args) {
         // break - Schleife verlassen
         System.out.println("break-Beispiel:");
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i &lt;= 10; i++) {
             if (i == 6) {
                 System.out.println("Schleife wird bei i=6 beendet");
                 break; // Verlässt die Schleife
@@ -482,7 +482,7 @@ public class WhileSchleifen {
         
         System.out.println("\ncontinue-Beispiel:");
         // continue - Iteration überspringen
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i &lt;= 10; i++) {
             if (i % 2 == 0) { // Gerade Zahlen überspringen
                 continue; // Springt zum nächsten i++
             }
@@ -492,11 +492,11 @@ public class WhileSchleifen {
         
         // Praktisches Beispiel: Primzahlen finden
         System.out.println("\nPrimzahlen von 2 bis 20:");
-        for (int zahl = 2; zahl <= 20; zahl++) {
+        for (int zahl = 2; zahl &lt;= 20; zahl++) {
             boolean istPrim = true;
             
             // Prüfe Teilbarkeit
-            for (int teiler = 2; teiler < zahl; teiler++) {
+            for (int teiler = 2; teiler &lt; zahl; teiler++) {
                 if (zahl % teiler == 0) {
                     istPrim = false;
                     break; // Kein Primzahl, Prüfung beenden
@@ -512,8 +512,8 @@ public class WhileSchleifen {
         // break mit Label (verschachtelte Schleifen)
         System.out.println("\nbreak mit Label:");
         outer: // Label für äußere Schleife
-        for (int i = 1; i <= 3; i++) {
-            for (int j = 1; j <= 3; j++) {
+        for (int i = 1; i &lt;= 3; i++) {
+            for (int j = 1; j &lt;= 3; j++) {
                 if (i == 2 && j == 2) {
                     System.out.println("Breaking out of outer loop");
                     break outer; // Verlässt beide Schleifen
@@ -543,7 +543,7 @@ public class KontrollstrukturenPraxis {
         int maxVersuche = 3;
         boolean angemeldet = false;
         
-        for (int versuch = 1; versuch <= maxVersuche; versuch++) {
+        for (int versuch = 1; versuch &lt;= maxVersuche; versuch++) {
             System.out.print("Passwort eingeben (Versuch " + versuch + "): ");
             String eingabe = scanner.nextLine();
             
@@ -553,7 +553,7 @@ public class KontrollstrukturenPraxis {
                 break;
             } else {
                 int verbleibendeVersuche = maxVersuche - versuch;
-                if (verbleibendeVersuche > 0) {
+                if (verbleibendeVersuche &gt; 0) {
                     System.out.println("Falsches Passwort! " + verbleibendeVersuche + " Versuche übrig.");
                 } else {
                     System.out.println("Zu viele falsche Versuche. Zugang gesperrt!");
@@ -567,24 +567,24 @@ public class KontrollstrukturenPraxis {
             int[] noten = {85, 92, 78, 88, 95, 67, 89, 91, 83, 77};
             
             int summe = 0;
-            int bestenoten = 0; // >= 90
-            int durchgefallen = 0; // < 60
+            int bestenoten = 0; // &gt;= 90
+            int durchgefallen = 0; // &lt; 60
             int beste = noten[0];
             int schlechteste = noten[0];
             
             for (int note : noten) {
                 summe += note;
                 
-                if (note >= 90) {
+                if (note &gt;= 90) {
                     bestenoten++;
                 }
-                if (note < 60) {
+                if (note &lt; 60) {
                     durchgefallen++;
                 }
-                if (note > beste) {
+                if (note &gt; beste) {
                     beste = note;
                 }
-                if (note < schlechteste) {
+                if (note &lt; schlechteste) {
                     schlechteste = note;
                 }
             }
@@ -595,26 +595,26 @@ public class KontrollstrukturenPraxis {
             System.out.println("Durchschnitt: " + String.format("%.2f", durchschnitt));
             System.out.println("Beste Note: " + beste);
             System.out.println("Schlechteste Note: " + schlechteste);
-            System.out.println("Bestenoten (>=90): " + bestenoten);
-            System.out.println("Durchgefallen (<60): " + durchgefallen);
+            System.out.println("Bestenoten (&gt;=90): " + bestenoten);
+            System.out.println("Durchgefallen (&lt;60): " + durchgefallen);
             
             // Notenverteilung
             System.out.println("\nNotenverteilung:");
-            for (char grade = 'A'; grade <= 'F'; grade++) {
+            for (char grade = 'A'; grade &lt;= 'F'; grade++) {
                 int count = 0;
                 for (int note : noten) {
                     char noteGrade;
-                    if (note >= 90) noteGrade = 'A';
-                    else if (note >= 80) noteGrade = 'B';
-                    else if (note >= 70) noteGrade = 'C';
-                    else if (note >= 60) noteGrade = 'D';
+                    if (note &gt;= 90) noteGrade = 'A';
+                    else if (note &gt;= 80) noteGrade = 'B';
+                    else if (note &gt;= 70) noteGrade = 'C';
+                    else if (note &gt;= 60) noteGrade = 'D';
                     else noteGrade = 'F';
                     
                     if (noteGrade == grade) {
                         count++;
                     }
                 }
-                if (count > 0) {
+                if (count &gt; 0) {
                     System.out.println(grade + ": " + count + " Noten");
                 }
             }
@@ -681,6 +681,8 @@ public class KontrollstrukturenPraxis {
                         <?php renderJavaPageNavigation('java-kontrollstrukturen'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

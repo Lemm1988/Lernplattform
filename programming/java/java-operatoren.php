@@ -274,7 +274,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         
         // Häufig in Schleifen verwendet
         System.out.println("\nIn Schleife:");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i &lt; 5; i++) {
             System.out.println("i = " + i);
         }
     }
@@ -347,10 +347,10 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         // Numerische Vergleiche
         System.out.println("alter1 == alter3: " + (alter1 == alter3)); // true
         System.out.println("alter1 != alter2: " + (alter1 != alter2)); // true
-        System.out.println("alter1 > alter2: " + (alter1 > alter2));   // true
-        System.out.println("alter2 < alter1: " + (alter2 < alter1));   // true
-        System.out.println("alter1 >= alter3: " + (alter1 >= alter3)); // true
-        System.out.println("alter2 <= 18: " + (alter2 <= 18));         // true
+        System.out.println("alter1 &gt; alter2: " + (alter1 &gt; alter2));   // true
+        System.out.println("alter2 &lt; alter1: " + (alter2 &lt; alter1));   // true
+        System.out.println("alter1 &gt;= alter3: " + (alter1 &gt;= alter3)); // true
+        System.out.println("alter2 &lt;= 18: " + (alter2 &lt;= 18));         // true
         
         // String-Vergleiche - ACHTUNG!
         String name1 = "Max";
@@ -366,11 +366,11 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         int punkte = 85;
         char note;
         
-        if (punkte >= 90) {
+        if (punkte &gt;= 90) {
             note = 'A';
-        } else if (punkte >= 80) {
+        } else if (punkte &gt;= 80) {
             note = 'B';
-        } else if (punkte >= 70) {
+        } else if (punkte &gt;= 70) {
             note = 'C';
         } else {
             note = 'F';
@@ -477,24 +477,24 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         boolean hatAuto = false;
         
         // UND (&&) - Beide Bedingungen müssen erfüllt sein
-        boolean kannFahren = (alter >= 18) && hatFuehrerschein;
+        boolean kannFahren = (alter &gt;= 18) && hatFuehrerschein;
         System.out.println("Kann fahren: " + kannFahren); // true
         
         // ODER (||) - Mindestens eine Bedingung muss erfüllt sein
-        boolean kannReisen = hatAuto || (alter >= 16);
+        boolean kannReisen = hatAuto || (alter &gt;= 16);
         System.out.println("Kann reisen: " + kannReisen); // true
         
         // NICHT (!) - Kehrt den boolean-Wert um
-        boolean istMinderjährig = !(alter >= 18);
+        boolean istMinderjährig = !(alter &gt;= 18);
         System.out.println("Ist minderjährig: " + istMinderjährig); // false
         
         // Komplexe Bedingungen
-        boolean kannAutoMieten = (alter >= 21) && hatFuehrerschein && !hatAuto;
+        boolean kannAutoMieten = (alter &gt;= 21) && hatFuehrerschein && !hatAuto;
         System.out.println("Kann Auto mieten: " + kannAutoMieten); // false
         
         // Short-Circuit Evaluation
         int x = 0;
-        if (x != 0 && (10/x > 2)) { // Division wird nicht ausgeführt!
+        if (x != 0 && (10/x &gt; 2)) { // Division wird nicht ausgeführt!
             System.out.println("Diese Zeile wird nicht erreicht");
         }
         System.out.println("Kein Fehler dank Short-Circuit");
@@ -529,29 +529,29 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         
         // Klassische if-else-Anweisung
         String status1;
-        if (alter >= 18) {
+        if (alter &gt;= 18) {
             status1 = "volljährig";
         } else {
             status1 = "minderjährig";
         }
         
         // Mit ternärem Operator
-        String status2 = (alter >= 18) ? "volljährig" : "minderjährig";
+        String status2 = (alter &gt;= 18) ? "volljährig" : "minderjährig";
         
         System.out.println("Status: " + status2); // "minderjährig"
         
         // Weitere Beispiele
         int punkte = 85;
-        char note = (punkte >= 90) ? 'A' : (punkte >= 80) ? 'B' : 'C';
+        char note = (punkte &gt;= 90) ? 'A' : (punkte &gt;= 80) ? 'B' : 'C';
         System.out.println("Note: " + note); // 'B'
         
         int zahl = -5;
-        int absolut = (zahl >= 0) ? zahl : -zahl;
+        int absolut = (zahl &gt;= 0) ? zahl : -zahl;
         System.out.println("Absoluter Wert: " + absolut); // 5
         
         // In Methodenaufrufen
         int max = Math.max(10, 20);
-        int min = (10 < 20) ? 10 : 20;
+        int min = (10 &lt; 20) ? 10 : 20;
         System.out.println("Max: " + max + ", Min: " + min);
         
         // Für Ausgaben
@@ -593,7 +593,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
                                     </tr>
                                     <tr>
                                         <td>4</td>
-                                        <td><code>< <= > >=</code></td>
+                                        <td><code>&lt; &lt;= &gt; &gt;=</code></td>
                                         <td>Vergleichsoperatoren</td>
                                     </tr>
                                     <tr>
@@ -637,15 +637,15 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
         System.out.println("(2 + 3) * 4 = " + result2);
         
         // Komplexer Ausdruck
-        boolean complex = 5 > 3 && 2 < 4 || false;
-        // Auswertung: ((5 > 3) && (2 < 4)) || false
+        boolean complex = 5 &gt; 3 && 2 &lt; 4 || false;
+        // Auswertung: ((5 &gt; 3) && (2 &lt; 4)) || false
         //           = (true && true) || false  
         //           = true || false
         //           = true
         System.out.println("Komplexer Ausdruck: " + complex);
         
         // Empfehlung: Klammern für Klarheit verwenden
-        boolean klar = ((5 > 3) && (2 < 4)) || false;
+        boolean klar = ((5 &gt; 3) && (2 &lt; 4)) || false;
         System.out.println("Mit Klammern: " + klar);
     }
 }</code></pre>
@@ -661,6 +661,8 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
                         <?php renderJavaPageNavigation('java-operatoren'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

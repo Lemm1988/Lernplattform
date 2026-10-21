@@ -156,6 +156,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/java-navigation.php';
                     </div>
                 </div>
             </div>
+                    </div>
+                </div>
+            </div>
         </main>
     </div>
 </div>

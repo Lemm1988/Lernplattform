@@ -261,7 +261,7 @@ include 'includes/header.php';
                                             
                                             <!-- Statistik Cards -->
                                             <div class="col-6 col-md-3">
-                                                <a href="quiz/quizes_done.php" class="stat-card-link">
+                                                <a href="/quiz/quizes_done.php" class="stat-card-link">
                                                     <div class="stat-card stat-primary">
                                                         <div class="stat-icon">
                                                             <i class="bi bi-journal-text"></i>

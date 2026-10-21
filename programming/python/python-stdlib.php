@@ -245,7 +245,7 @@ print(f"   Encoding: {sys.getdefaultencoding()}")
 print(f"   Max Integer: {sys.maxsize}")
 
 # Versionsprüfung
-if sys.version_info >= (3, 8):
+if sys.version_info &gt;= (3, 8):
     print("   ✅ Python 3.8+ erkannt")
 else:
     print("   ⚠️ Veraltete Python-Version")
@@ -379,7 +379,7 @@ print(f"   Aktuelle Frame-Tiefe: {len(sys._current_frames())}")
 # Recursion Test (sicher)
 def test_recursion(n, max_depth=10):
     """Sichere Recursion mit Limit"""
-    if n <= 0 or n > max_depth:
+    if n &lt;= 0 or n &gt; max_depth:
         return n
     print(f"   Recursion Level: {n}")
     return test_recursion(n - 1, max_depth)
@@ -403,7 +403,7 @@ def python_info():
 
 def check_requirements(min_version=(3, 6)):
     """Prüft Python-Mindestversion"""
-    if sys.version_info < min_version:
+    if sys.version_info &lt; min_version:
         print(f"❌ Python {'.'.join(map(str, min_version))} erforderlich!")
         print(f"   Aktuelle Version: {'.'.join(map(str, sys.version_info[:2]))}")
         return False
@@ -529,7 +529,7 @@ print(f"   Alter in Jahren: {age.days / 365.25:.1f}")
 
 # Bis zum Termin
 time_to_appointment = appointment - now
-if time_to_appointment.total_seconds() > 0:
+if time_to_appointment.total_seconds() &gt; 0:
     days = time_to_appointment.days
     hours, remainder = divmod(time_to_appointment.seconds, 3600)
     minutes, _ = divmod(remainder, 60)
@@ -552,7 +552,7 @@ formats = [
 
 for fmt in formats:
     formatted = now.strftime(fmt)
-    print(f"   {fmt:<20} -> {formatted}")
+    print(f"   {fmt:&lt;20} -&gt; {formatted}")
 
 # Strings zu Datetime parsen
 date_strings = [
@@ -564,7 +564,7 @@ date_strings = [
 print(f"\n   Parsing von Strings:")
 for date_str, fmt in date_strings:
     parsed = datetime.strptime(date_str, fmt)
-    print(f"   '{date_str}' -> {parsed.date()}")
+    print(f"   '{date_str}' -&gt; {parsed.date()}")
 
 # 5. Wochentage und Kalender
 print(f"\n5. WOCHENTAGE UND KALENDER:")
@@ -587,7 +587,7 @@ month_calendar = calendar.month(today.year, today.month)
 lines = month_calendar.strip().split('\n')
 for line in lines[:5]:
     print(f"   {line}")
-if len(lines) > 5:
+if len(lines) &gt; 5:
     print("   ...")
 
 # 6. Zeitzone-Behandlung
@@ -636,11 +636,11 @@ def age_calculator(birth_date):
     months = today.month - birth_date.month
     days = today.day - birth_date.day
     
-    if days < 0:
+    if days &lt; 0:
         months -= 1
         days += calendar.monthrange(today.year, today.month - 1)[1]
     
-    if months < 0:
+    if months &lt; 0:
         years -= 1
         months += 12
     
@@ -650,7 +650,7 @@ def next_weekday(weekday):
     """Findet nächsten bestimmten Wochentag"""
     today = date.today()
     days_ahead = weekday - today.weekday()
-    if days_ahead <= 0:  # Zielwochentag schon vorbei diese Woche
+    if days_ahead &lt;= 0:  # Zielwochentag schon vorbei diese Woche
         days_ahead += 7
     return today + timedelta(days_ahead)
 
@@ -658,8 +658,8 @@ def working_days_between(start_date, end_date):
     """Berechnet Arbeitstage zwischen zwei Daten"""
     days = 0
     current = start_date
-    while current <= end_date:
-        if current.weekday() < 5:  # Montag=0, Freitag=4
+    while current &lt;= end_date:
+        if current.weekday() &lt; 5:  # Montag=0, Freitag=4
             days += 1
         current += timedelta(days=1)
     return days
@@ -853,7 +853,7 @@ complex_data = {
 # Mit Custom Encoder serialisieren
 custom_json = json.dumps(complex_data, cls=CustomJSONEncoder, indent=2)
 print(f"   Custom Encoded JSON:")
-print(custom_json[:200] + "..." if len(custom_json) > 200 else custom_json)
+print(custom_json[:200] + "..." if len(custom_json) &gt; 200 else custom_json)
 
 # 5. JSON Schema Validation (vereinfacht)
 print(f"\n5. JSON-VALIDIERUNG:")
@@ -869,7 +869,7 @@ def validate_person_json(json_data):
         if field not in json_data:
             return False, f"Fehlendes Feld: {field}"
     
-    if not isinstance(json_data["age"], int) or json_data["age"] < 0:
+    if not isinstance(json_data["age"], int) or json_data["age"] &lt; 0:
         return False, "Alter muss positive Zahl sein"
     
     if "@" not in json_data["email"]:
@@ -977,7 +977,7 @@ large_filename = "large_data.json"
 with open(large_filename, 'w') as f:
     f.write('[\n')
     for i, item in enumerate(generate_large_dataset(100)):  # 100 für Demo
-        if i > 0:
+        if i &gt; 0:
             f.write(',\n')
         json.dump(item, f)
     f.write('\n]')
@@ -996,7 +996,7 @@ def stream_json_array(filename):
 print(f"   Erste 5 Einträge gestreamt:")
 count = 0
 for item in stream_json_array(large_filename):
-    if count >= 5:
+    if count &gt;= 5:
         break
     print(f"     {item['name']}: {item['email']}")
     count += 1
@@ -1265,7 +1265,7 @@ print(f"   Lotto (1000x):")
 winning_nums, lottery_wins = lottery_simulation(1000)
 print(f"     Gewinnzahlen: {sorted(winning_nums)}")
 for matches, count in sorted(lottery_wins.items(), key=lambda x: int(x[0]), reverse=True):
-    if count > 0:
+    if count &gt; 0:
         print(f"     {matches} Richtige: {count}x ({count/10:.1f}%)")
 
 # 5. Spiele und Algorithmen
@@ -1280,10 +1280,10 @@ def number_guessing_game_ai(target_range=(1, 100), max_guesses=7):
     print(f"     KI rät Zahl zwischen {low} und {high}")
     print(f"     Zielzahl: {target} (geheim)")
     
-    while guesses < max_guesses:
+    while guesses &lt; max_guesses:
         guesses += 1
         # Intelligente Strategie: Binäre Suche mit etwas Zufall
-        if random.random() < 0.8:  # 80% optimale Strategie
+        if random.random() &lt; 0.8:  # 80% optimale Strategie
             guess = (low + high) // 2
         else:  # 20% zufällig
             guess = random.randint(low, high)
@@ -1293,7 +1293,7 @@ def number_guessing_game_ai(target_range=(1, 100), max_guesses=7):
         if guess == target:
             print(f" - Treffer! 🎉")
             return guesses
-        elif guess < target:
+        elif guess &lt; target:
             print(f" - Zu niedrig")
             low = guess + 1
         else:
@@ -1701,7 +1701,7 @@ source myproject_env/bin/activate
 pip install requests numpy pandas
 
 # Requirements-Datei erstellen
-pip freeze > requirements.txt
+pip freeze &gt; requirements.txt
 
 # Von Requirements installieren
 pip install -r requirements.txt
@@ -1755,18 +1755,18 @@ for package in common_packages:
 # 3. Requirements.txt Beispiel
 print(f"\n3. REQUIREMENTS.TXT:")
 requirements_content = """# Produktions-Dependencies
-requests>=2.28.0
-numpy>=1.21.0
-pandas>=1.3.0
+requests&gt;=2.28.0
+numpy&gt;=1.21.0
+pandas&gt;=1.3.0
 
 # Development-Dependencies
-pytest>=7.0.0
-black>=22.0.0
-flake8>=4.0.0
+pytest&gt;=7.0.0
+black&gt;=22.0.0
+flake8&gt;=4.0.0
 
 # Optional Dependencies
-matplotlib>=3.5.0  # Für Plotting
-scipy>=1.8.0      # Für wissenschaftliche Berechnungen"""
+matplotlib&gt;=3.5.0  # Für Plotting
+scipy&gt;=1.8.0      # Für wissenschaftliche Berechnungen"""
 
 print(requirements_content)
 
@@ -1825,6 +1825,8 @@ for tip in management_tips:
                         <?php renderPythonPageNavigation('python-stdlib'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

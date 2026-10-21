@@ -19,7 +19,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-constants'); ?>
+                        <?php renderNavigation('php-constanten'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-lock me-2"></i>PHP Konstanten</h1>
@@ -142,9 +142,9 @@ const STANDARD_SPRACHE = "de";
 // Nur skalare Werte und Arrays
 const FARBEN = ["rot", "grün", "blau"];
 const EINSTELLUNGEN = [
-    "timeout" => 30,
-    "retry_count" => 3,
-    "secure" => true
+    "timeout" =&gt; 30,
+    "retry_count" =&gt; 3,
+    "secure" =&gt; true
 ];
 
 // Mathematische Konstanten
@@ -263,9 +263,9 @@ require_once __DIR__ . '/includes/header.php';
 // Für Debugging
 function debug_info() {
     return [
-        'datei' => basename(__FILE__),
-        'zeile' => __LINE__,
-        'funktion' => __FUNCTION__
+        'datei' =&gt; basename(__FILE__),
+        'zeile' =&gt; __LINE__,
+        'funktion' =&gt; __FUNCTION__
     ];
 }
 
@@ -356,7 +356,7 @@ echo "Anzahl Konstanten: " . count($alle_konstanten) . "\n";
 // Nur benutzerdefinierte Konstanten
 $benutzer_konstanten = get_defined_constants(true)['user'];
 echo "Benutzer-Konstanten:\n";
-foreach ($benutzer_konstanten as $name => $wert) {
+foreach ($benutzer_konstanten as $name =&gt; $wert) {
     echo "- $name: $wert\n";
 }
 
@@ -364,13 +364,13 @@ foreach ($benutzer_konstanten as $name => $wert) {
 function konstanten_info($name) {
     if (defined($name)) {
         return [
-            'name' => $name,
-            'wert' => constant($name),
-            'typ' => gettype(constant($name)),
-            'existiert' => true
+            'name' =&gt; $name,
+            'wert' =&gt; constant($name),
+            'typ' =&gt; gettype(constant($name)),
+            'existiert' =&gt; true
         ];
     }
-    return ['existiert' => false];
+    return ['existiert' =&gt; false];
 }
 
 $info = konstanten_info("VERSION");
@@ -424,9 +424,9 @@ function lade_config($datei) {
     if (file_exists($datei)) {
         $config = parse_ini_file($datei, true);
         
-        foreach ($config as $section => $werte) {
+        foreach ($config as $section =&gt; $werte) {
             if (is_array($werte)) {
-                foreach ($werte as $key => $wert) {
+                foreach ($werte as $key =&gt; $wert) {
                     $konstante_name = strtoupper($section . '_' . $key);
                     if (!defined($konstante_name)) {
                         define($konstante_name, $wert);
@@ -500,8 +500,8 @@ if (in_array('InnoDB', DatabaseConfig::ERLAUBTE_ENGINES)) {
 
 // Mit Objekt
 $db_config = new DatabaseConfig();
-echo $db_config->getConnectionString() . "\n";  // localhost:3306
-echo $db_config->isEngineAllowed('InnoDB') ? "Ja" : "Nein"; // Ja
+echo $db_config-&gt;getConnectionString() . "\n";  // localhost:3306
+echo $db_config-&gt;isEngineAllowed('InnoDB') ? "Ja" : "Nein"; // Ja
 
 // Status-Konstanten (Enum-Style)
 class BestellStatus {
@@ -525,11 +525,11 @@ class BestellStatus {
     
     public static function getStatusText($status) {
         $texte = [
-            self::NEU => 'Neue Bestellung',
-            self::IN_BEARBEITUNG => 'Wird bearbeitet',
-            self::VERSANDT => 'Wurde versandt',
-            self::ZUGESTELLT => 'Zugestellt',
-            self::STORNIERT => 'Storniert'
+            self::NEU =&gt; 'Neue Bestellung',
+            self::IN_BEARBEITUNG =&gt; 'Wird bearbeitet',
+            self::VERSANDT =&gt; 'Wurde versandt',
+            self::ZUGESTELLT =&gt; 'Zugestellt',
+            self::STORNIERT =&gt; 'Storniert'
         ];
         
         return $texte[$status] ?? 'Unbekannter Status';
@@ -553,11 +553,11 @@ class HttpStatus {
     public const FORBIDDEN = 403;
     
     public const NACHRICHTEN = [
-        self::OK => 'Erfolgreich',
-        self::NOT_FOUND => 'Nicht gefunden',
-        self::INTERNAL_ERROR => 'Interner Server-Fehler',
-        self::UNAUTHORIZED => 'Nicht autorisiert',
-        self::FORBIDDEN => 'Zugriff verweigert'
+        self::OK =&gt; 'Erfolgreich',
+        self::NOT_FOUND =&gt; 'Nicht gefunden',
+        self::INTERNAL_ERROR =&gt; 'Interner Server-Fehler',
+        self::UNAUTHORIZED =&gt; 'Nicht autorisiert',
+        self::FORBIDDEN =&gt; 'Zugriff verweigert'
     ];
     
     public static function getMessage($code) {
@@ -619,7 +619,7 @@ function getUploadPath() {
 }
 
 function formatFileSize($bytes) {
-    if ($bytes >= MAX_UPLOAD_SIZE) {
+    if ($bytes &gt;= MAX_UPLOAD_SIZE) {
         return "Datei zu groß! Max: " . 
                (MAX_UPLOAD_SIZE / 1024 / 1024) . "MB";
     }
@@ -684,10 +684,10 @@ const ICON_LARGE = '32px';
 // HTML-Generatoren
 function createAlert($message, $type = 'info') {
     $classes = [
-        'success' => ALERT_SUCCESS,
-        'warning' => ALERT_WARNING,
-        'danger' => ALERT_DANGER,
-        'info' => 'alert alert-info'
+        'success' =&gt; ALERT_SUCCESS,
+        'warning' =&gt; ALERT_WARNING,
+        'danger' =&gt; ALERT_DANGER,
+        'info' =&gt; 'alert alert-info'
     ];
     
     $class = $classes[$type] ?? $classes['info'];
@@ -801,13 +801,13 @@ class ECommerceConfig {
     public const STATUS_RUECKSENDUNG = 'rücksendung';
     
     public const ALLE_STATUS = [
-        self::STATUS_NEU => 'Neue Bestellung',
-        self::STATUS_BESTAETIGT => 'Bestätigt',
-        self::STATUS_VERPACKT => 'Verpackt',
-        self::STATUS_VERSANDT => 'Versandt',
-        self::STATUS_ZUGESTELLT => 'Zugestellt',
-        self::STATUS_STORNIERT => 'Storniert',
-        self::STATUS_RUECKSENDUNG => 'Rücksendung'
+        self::STATUS_NEU =&gt; 'Neue Bestellung',
+        self::STATUS_BESTAETIGT =&gt; 'Bestätigt',
+        self::STATUS_VERPACKT =&gt; 'Verpackt',
+        self::STATUS_VERSANDT =&gt; 'Versandt',
+        self::STATUS_ZUGESTELLT =&gt; 'Zugestellt',
+        self::STATUS_STORNIERT =&gt; 'Storniert',
+        self::STATUS_RUECKSENDUNG =&gt; 'Rücksendung'
     ];
     
     // Produktkategorien
@@ -825,11 +825,11 @@ class ECommerceConfig {
     public const ZAHLUNG_NACHNAHME = 'nachnahme';
     
     public const VERFUEGBARE_ZAHLUNGEN = [
-        self::ZAHLUNG_KREDITKARTE => 'Kreditkarte',
-        self::ZAHLUNG_PAYPAL => 'PayPal',
-        self::ZAHLUNG_BANKEINZUG => 'Bankeinzug',
-        self::ZAHLUNG_RECHNUNG => 'Kauf auf Rechnung',
-        self::ZAHLUNG_NACHNAHME => 'Nachnahme'
+        self::ZAHLUNG_KREDITKARTE =&gt; 'Kreditkarte',
+        self::ZAHLUNG_PAYPAL =&gt; 'PayPal',
+        self::ZAHLUNG_BANKEINZUG =&gt; 'Bankeinzug',
+        self::ZAHLUNG_RECHNUNG =&gt; 'Kauf auf Rechnung',
+        self::ZAHLUNG_NACHNAHME =&gt; 'Nachnahme'
     ];
 }
 
@@ -845,15 +845,15 @@ class ShopHelper {
         $brutto_preis = $netto_preis + $mwst_betrag;
         
         return [
-            'netto' => $netto_preis,
-            'mwst_satz' => $mwst_satz,
-            'mwst_betrag' => $mwst_betrag,
-            'brutto' => $brutto_preis
+            'netto' =&gt; $netto_preis,
+            'mwst_satz' =&gt; $mwst_satz,
+            'mwst_betrag' =&gt; $mwst_betrag,
+            'brutto' =&gt; $brutto_preis
         ];
     }
     
     public static function berechneVersandkosten($warenwert) {
-        if ($warenwert >= ECommerceConfig::VERSANDKOSTEN_FREI_AB) {
+        if ($warenwert &gt;= ECommerceConfig::VERSANDKOSTEN_FREI_AB) {
             return 0.0;
         }
         return ECommerceConfig::VERSANDKOSTEN;
@@ -865,8 +865,8 @@ class ShopHelper {
     }
     
     public static function istGueltigeMenge($menge) {
-        return $menge >= ECommerceConfig::MIN_BESTELLMENGE && 
-               $menge <= ECommerceConfig::MAX_BESTELLMENGE;
+        return $menge &gt;= ECommerceConfig::MIN_BESTELLMENGE && 
+               $menge &lt;= ECommerceConfig::MAX_BESTELLMENGE;
     }
     
     public static function getStatusText($status) {
@@ -886,10 +886,10 @@ echo "&lt;/div&gt;&lt;div class='card-body'&gt;";
 
 // Beispiel-Produkt
 $produkt = [
-    'name' => 'Gaming Laptop',
-    'netto_preis' => 1000.00,
-    'kategorie' => ECommerceConfig::KATEGORIE_ELEKTRONIK,
-    'menge' => 1
+    'name' =&gt; 'Gaming Laptop',
+    'netto_preis' =&gt; 1000.00,
+    'kategorie' =&gt; ECommerceConfig::KATEGORIE_ELEKTRONIK,
+    'menge' =&gt; 1
 ];
 
 $preisinfo = ShopHelper::berechneGesamtpreis(
@@ -906,7 +906,7 @@ $versandkosten = ShopHelper::berechneVersandkosten($preisinfo['brutto']);
 $gesamtsumme = $preisinfo['brutto'] + $versandkosten;
 
 echo "&lt;p&gt;&lt;strong&gt;Versandkosten:&lt;/strong&gt; ";
-if ($versandkosten > 0) {
+if ($versandkosten &gt; 0) {
     echo ShopHelper::formatPreis($versandkosten);
 } else {
     echo "&lt;span class='text-success'&gt;Kostenlos&lt;/span&gt; (ab " . 
@@ -925,7 +925,7 @@ echo "&lt;span class='badge bg-info'&gt;" . ShopHelper::getStatusText($aktueller
 
 // Verfügbare Zahlungsmethoden
 echo "&lt;h5&gt;💳 Verfügbare Zahlungsmethoden:&lt;/h5&gt;&lt;ul&gt;";
-foreach (ECommerceConfig::VERFUEGBARE_ZAHLUNGEN as $key => $name) {
+foreach (ECommerceConfig::VERFUEGBARE_ZAHLUNGEN as $key =&gt; $name) {
     echo "&lt;li&gt;$name&lt;/li&gt;";
 }
 echo "&lt;/ul&gt;";

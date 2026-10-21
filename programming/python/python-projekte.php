@@ -182,7 +182,7 @@ class BankAccount:
         
         logger.info(f"Konto erstellt: {account_number} für {owner_name}")
     
-    def deposit(self, amount: Decimal, description: str = "") -> Transaction:
+    def deposit(self, amount: Decimal, description: str = "") -&gt; Transaction:
         """Einzahlung"""
         self._validate_amount(amount)
         
@@ -202,11 +202,11 @@ class BankAccount:
         logger.info(f"Einzahlung: {amount} auf {self.account.account_number}")
         return transaction
     
-    def withdraw(self, amount: Decimal, description: str = "") -> Transaction:
+    def withdraw(self, amount: Decimal, description: str = "") -&gt; Transaction:
         """Abhebung"""
         self._validate_amount(amount)
         
-        if self.account.balance < amount:
+        if self.account.balance &lt; amount:
             raise InsufficientFundsException(
                 f"Nicht genügend Guthaben. Verfügbar: {self.account.balance}, Angefordert: {amount}"
             )
@@ -227,27 +227,27 @@ class BankAccount:
         logger.info(f"Abhebung: {amount} von {self.account.account_number}")
         return transaction
     
-    def get_balance(self) -> Decimal:
+    def get_balance(self) -&gt; Decimal:
         """Kontostand abfragen"""
         return self.account.balance
     
-    def get_statement(self, days: int = 30) -> List[Transaction]:
+    def get_statement(self, days: int = 30) -&gt; List[Transaction]:
         """Kontoauszug für bestimmten Zeitraum"""
         cutoff_date = datetime.datetime.now() - datetime.timedelta(days=days)
         
         recent_transactions = [
             t for t in self.transaction_history 
-            if t.timestamp >= cutoff_date
+            if t.timestamp &gt;= cutoff_date
         ]
         
         return sorted(recent_transactions, key=lambda x: x.timestamp, reverse=True)
     
     def _validate_amount(self, amount: Decimal):
         """Validiert Betrag"""
-        if amount <= 0:
+        if amount &lt;= 0:
             raise InvalidAmountException("Betrag muss positiv sein")
         
-        if amount > Decimal('1000000'):
+        if amount &gt; Decimal('1000000'):
             raise InvalidAmountException("Betrag zu hoch (max. 1.000.000)")
 
 class Bank:
@@ -264,7 +264,7 @@ class Bank:
         logger.info(f"Bank '{name}' initialisiert mit {len(self.accounts)} Konten")
     
     def create_account(self, owner_name: str, initial_deposit: Decimal = Decimal('0.00'),
-                      account_type: str = 'CHECKING') -> BankAccount:
+                      account_type: str = 'CHECKING') -&gt; BankAccount:
         """Neues Konto erstellen"""
         if not owner_name.strip():
             raise ValueError("Eigentümername darf nicht leer sein")
@@ -275,14 +275,14 @@ class Bank:
         account = BankAccount(account_number, owner_name, initial_deposit, account_type)
         self.accounts[account_number] = account
         
-        if initial_deposit > 0:
+        if initial_deposit &gt; 0:
             account.deposit(initial_deposit, "Ersteinzahlung")
         
         self.save_data()
         logger.info(f"Neues Konto erstellt: {account_number} für {owner_name}")
         return account
     
-    def get_account(self, account_number: str) -> BankAccount:
+    def get_account(self, account_number: str) -&gt; BankAccount:
         """Konto abrufen"""
         if account_number not in self.accounts:
             raise InvalidAccountException(f"Konto {account_number} nicht gefunden")
@@ -290,7 +290,7 @@ class Bank:
         return self.accounts[account_number]
     
     def transfer(self, from_account: str, to_account: str, amount: Decimal, 
-                description: str = "") -> tuple[Transaction, Transaction]:
+                description: str = "") -&gt; tuple[Transaction, Transaction]:
         """Überweisung zwischen Konten"""
         source = self.get_account(from_account)
         destination = self.get_account(to_account)
@@ -328,11 +328,11 @@ class Bank:
             logger.error(f"Überweisung fehlgeschlagen, Rollback durchgeführt: {e}")
             raise
     
-    def get_total_deposits(self) -> Decimal:
+    def get_total_deposits(self) -&gt; Decimal:
         """Gesamteinlagen der Bank"""
         return sum(account.get_balance() for account in self.accounts.values())
     
-    def get_account_summary(self) -> Dict:
+    def get_account_summary(self) -&gt; Dict:
         """Zusammenfassung aller Konten"""
         active_accounts = [acc for acc in self.accounts.values() if acc.account.is_active]
         
@@ -343,7 +343,7 @@ class Bank:
             'account_types': self._get_account_type_distribution()
         }
     
-    def _get_account_type_distribution(self) -> Dict[str, int]:
+    def _get_account_type_distribution(self) -&gt; Dict[str, int]:
         """Verteilung der Kontotypen"""
         distribution = {}
         for account in self.accounts.values():
@@ -573,7 +573,7 @@ class DataAnalyzer:
         self.source_file = None
     
     def load_csv(self, filepath: str, delimiter: str = ',', 
-                 encoding: str = 'utf-8', headers: bool = True) -> bool:
+                 encoding: str = 'utf-8', headers: bool = True) -&gt; bool:
         """Lädt CSV-Datei"""
         try:
             self.source_file = filepath
@@ -629,7 +629,7 @@ class DataAnalyzer:
             print(f"❌ Fehler beim Laden der CSV: {e}")
             return False
     
-    def _guess_type(self, value: str) -> str:
+    def _guess_type(self, value: str) -&gt; str:
         """Errät Datentyp basierend auf erstem Wert"""
         if not value or value.lower() in ['null', 'none', '', 'n/a']:
             return 'string'
@@ -654,7 +654,7 @@ class DataAnalyzer:
         
         return 'string'
     
-    def get_column_stats(self, column_name: str) -> Dict[str, Any]:
+    def get_column_stats(self, column_name: str) -&gt; Dict[str, Any]:
         """Berechnet Statistiken für eine Spalte"""
         if column_name not in self.columns:
             return {"error": f"Spalte '{column_name}' nicht gefunden"}
@@ -682,9 +682,9 @@ class DataAnalyzer:
                     stats.update({
                         "mean": statistics.mean(numeric_values),
                         "median": statistics.median(numeric_values),
-                        "mode": statistics.mode(numeric_values) if len(set(numeric_values)) < len(numeric_values) else None,
-                        "std_dev": statistics.stdev(numeric_values) if len(numeric_values) > 1 else 0,
-                        "variance": statistics.variance(numeric_values) if len(numeric_values) > 1 else 0,
+                        "mode": statistics.mode(numeric_values) if len(set(numeric_values)) &lt; len(numeric_values) else None,
+                        "std_dev": statistics.stdev(numeric_values) if len(numeric_values) &gt; 1 else 0,
+                        "variance": statistics.variance(numeric_values) if len(numeric_values) &gt; 1 else 0,
                         "min": min(numeric_values),
                         "max": max(numeric_values),
                         "range": max(numeric_values) - min(numeric_values),
@@ -695,8 +695,8 @@ class DataAnalyzer:
                     sorted_values = sorted(numeric_values)
                     n = len(sorted_values)
                     stats.update({
-                        "q1": sorted_values[n // 4] if n > 0 else 0,
-                        "q3": sorted_values[3 * n // 4] if n > 0 else 0
+                        "q1": sorted_values[n // 4] if n &gt; 0 else 0,
+                        "q3": sorted_values[3 * n // 4] if n &gt; 0 else 0
                     })
             except statistics.StatisticsError:
                 pass
@@ -732,13 +732,13 @@ class DataAnalyzer:
         
         return stats
     
-    def _get_top_values(self, values: List[str], n: int = 5) -> List[tuple]:
+    def _get_top_values(self, values: List[str], n: int = 5) -&gt; List[tuple]:
         """Holt häufigste Werte"""
         from collections import Counter
         counter = Counter(values)
         return counter.most_common(n)
     
-    def generate_report(self) -> Dict[str, Any]:
+    def generate_report(self) -&gt; Dict[str, Any]:
         """Generiert vollständigen Analyse-Report"""
         if not self.columns:
             return {"error": "Keine Daten geladen"}
@@ -767,7 +767,7 @@ class DataAnalyzer:
         total_nulls = sum(col.null_count for col in self.columns.values())
         
         report["data_quality"] = {
-            "completeness": ((total_cells - total_nulls) / total_cells) * 100 if total_cells > 0 else 0,
+            "completeness": ((total_cells - total_nulls) / total_cells) * 100 if total_cells &gt; 0 else 0,
             "total_cells": total_cells,
             "null_cells": total_nulls,
             "quality_score": self._calculate_quality_score()
@@ -775,7 +775,7 @@ class DataAnalyzer:
         
         return report
     
-    def _calculate_quality_score(self) -> float:
+    def _calculate_quality_score(self) -&gt; float:
         """Berechnet Datenqualitäts-Score (0-100)"""
         if not self.columns:
             return 0
@@ -784,7 +784,7 @@ class DataAnalyzer:
         
         # Vollständigkeit (50% Gewichtung)
         total_cells = self.row_count * len(self.columns)
-        if total_cells > 0:
+        if total_cells &gt; 0:
             null_cells = sum(col.null_count for col in self.columns.values())
             completeness = ((total_cells - null_cells) / total_cells) * 100
             factors.append(completeness * 0.5)
@@ -885,7 +885,7 @@ class DemoDataGenerator:
                 quantity = random.randint(1, 50)
                 unit_price = round(random.uniform(10, 2000), 2)
                 revenue = round(quantity * unit_price, 2)
-                discount = round(random.uniform(0, 0.3), 2) if random.random() < 0.3 else 0
+                discount = round(random.uniform(0, 0.3), 2) if random.random() &lt; 0.3 else 0
                 
                 writer.writerow([
                     date.strftime('%Y-%m-%d'),
@@ -1040,8 +1040,8 @@ class Monster:
     gold_reward: int
     loot: List[str] = field(default_factory=list)
     
-    def is_alive(self) -> bool:
-        return self.hp > 0
+    def is_alive(self) -&gt; bool:
+        return self.hp &gt; 0
     
     def take_damage(self, damage: int):
         """Schaden nehmen"""
@@ -1049,7 +1049,7 @@ class Monster:
         self.hp -= actual_damage
         return actual_damage
     
-    def attack_damage(self) -> int:
+    def attack_damage(self) -&gt; int:
         """Angriffs-Schaden berechnen"""
         return self.attack + random.randint(-2, 2)
 
@@ -1063,7 +1063,7 @@ class Room:
     monsters: List[str] = field(default_factory=list)
     visited: bool = False
     
-    def get_full_description(self) -> str:
+    def get_full_description(self) -&gt; str:
         """Vollständige Raum-Beschreibung"""
         desc = [self.description]
         
@@ -1106,21 +1106,21 @@ class Player:
         self.hp = min(self.max_hp, self.hp + amount)
         return self.hp - old_hp
     
-    def take_damage(self, damage: int) -> int:
+    def take_damage(self, damage: int) -&gt; int:
         """Schaden nehmen"""
         actual_damage = max(1, damage - self.get_total_defense())
         self.hp -= actual_damage
         return actual_damage
     
-    def is_alive(self) -> bool:
-        return self.hp > 0
+    def is_alive(self) -&gt; bool:
+        return self.hp &gt; 0
     
     def gain_exp(self, amount: int):
         """Erfahrung sammeln"""
         self.exp += amount
         level_ups = 0
         
-        while self.exp >= self.exp_to_next_level:
+        while self.exp &gt;= self.exp_to_next_level:
             level_ups += 1
             self.exp -= self.exp_to_next_level
             self.level += 1
@@ -1134,7 +1134,7 @@ class Player:
         
         return level_ups
     
-    def get_total_attack(self) -> int:
+    def get_total_attack(self) -&gt; int:
         """Gesamtangriff mit Ausrüstung"""
         total = self.attack
         if self.equipment["weapon"]:
@@ -1142,7 +1142,7 @@ class Player:
             total += 5  # Vereinfacht
         return total
     
-    def get_total_defense(self) -> int:
+    def get_total_defense(self) -&gt; int:
         """Gesamtverteidigung mit Ausrüstung"""
         total = self.defense
         if self.equipment["armor"]:
@@ -1154,14 +1154,14 @@ class Player:
         """Gegenstand aufnehmen"""
         self.inventory.append(item_name)
     
-    def remove_item(self, item_name: str) -> bool:
+    def remove_item(self, item_name: str) -&gt; bool:
         """Gegenstand entfernen"""
         if item_name in self.inventory:
             self.inventory.remove(item_name)
             return True
         return False
     
-    def get_status(self) -> str:
+    def get_status(self) -&gt; str:
         """Status-Information"""
         status = [
             f"=== {self.name} ===",
@@ -1412,7 +1412,7 @@ class GameEngine:
             print(f"❌ '{item_name}' ist hier nicht zu finden.")
             return
         
-        if len(self.player.inventory) >= 20:
+        if len(self.player.inventory) &gt;= 20:
             print("❌ Dein Inventar ist voll!")
             return
         
@@ -1492,7 +1492,7 @@ class GameEngine:
                 print(f"👹 {monster.name} greift zurück und macht {actual_damage} Schaden!")
                 
             elif action in ["fliehen", "flee", "f"]:
-                if random.random() < 0.7:  # 70% Flucht-Chance
+                if random.random() &lt; 0.7:  # 70% Flucht-Chance
                     print("🏃 Du fliehst erfolgreich!")
                     return
                 else:
@@ -1529,12 +1529,12 @@ class GameEngine:
             print(f"   💰 +{monster.gold_reward} Gold")
             print(f"   ⭐ +{monster.exp_reward} EXP")
             
-            if level_ups > 0:
+            if level_ups &gt; 0:
                 print(f"   🎉 LEVEL UP! Neues Level: {self.player.level}")
             
             # Loot droppen
             for loot_item in monster.loot:
-                if random.random() < 0.5:  # 50% Drop-Chance
+                if random.random() &lt; 0.5:  # 50% Drop-Chance
                     room.items.append(loot_item)
                     print(f"   📦 {loot_item} wurde fallen gelassen!")
             
@@ -1548,7 +1548,7 @@ class GameEngine:
         
         parts = command.strip().lower().split()
         cmd = parts[0]
-        args = parts[1:] if len(parts) > 1 else []
+        args = parts[1:] if len(parts) &gt; 1 else []
         
         if cmd in ["hilfe", "help", "h"]:
             self.show_help()
@@ -1592,11 +1592,11 @@ class GameEngine:
 🎯 ADVENTURE-SPIEL BEFEHLE:
 
 Bewegung:
-  gehe/go <richtung>  - Bewege dich (north, south, east, west, up, down)
+  gehe/go &lt;richtung&gt;  - Bewege dich (north, south, east, west, up, down)
 
 Interaktion:
   schaue/look         - Raum erneut betrachten
-  nimm/take <item>    - Gegenstand aufnehmen
+  nimm/take &lt;item&gt;    - Gegenstand aufnehmen
   inventar/inventory  - Inventar anzeigen
   angreifen/attack    - Monster angreifen
 
@@ -1637,7 +1637,7 @@ Beispiele:
             
             elif self.game_state == "playing":
                 try:
-                    command = input(f"\n[{self.player.name}@{self.rooms[self.player.current_room].name}]> ").strip()
+                    command = input(f"\n[{self.player.name}@{self.rooms[self.player.current_room].name}]&gt; ").strip()
                     self.process_command(command)
                     
                     if self.game_state == "quit":
@@ -1857,6 +1857,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-projekte'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

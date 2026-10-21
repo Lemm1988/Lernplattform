@@ -134,8 +134,8 @@ print(f"Gemischt: {mixed}")
 
 # ⚠️ Häufiger Fehler
 not_empty_set = {}  # Das ist ein Dictionary!
-print(f"Typ von {{}}: {type({})}")  # <class 'dict'>
-print(f"Typ von set(): {type(set())}")  # <class 'set'>
+print(f"Typ von {{}}: {type({})}")  # &lt;class 'dict'&gt;
+print(f"Typ von set(): {type(set())}")  # &lt;class 'set'&gt;
 
 # Duplikate werden automatisch entfernt
 with_duplicates = {1, 2, 2, 3, 3, 3, 4}
@@ -255,8 +255,8 @@ set3 = {1, 2, 3, 4}
 print(f"\\n=== SET-VERGLEICHE ===")
 print(f"set1 == set2: {set1 == set2}")  # True
 print(f"set1 == set3: {set1 == set3}")  # False
-print(f"set1 < set3: {set1 < set3}")    # True (Subset-Beziehung)
-print(f"set3 > set1: {set3 > set1}")    # True (Superset-Beziehung)
+print(f"set1 &lt; set3: {set1 &lt; set3}")    # True (Subset-Beziehung)
+print(f"set3 &gt; set1: {set3 &gt; set1}")    # True (Superset-Beziehung)
 
 # Iteration über Sets (Reihenfolge nicht garantiert)
 print(f"\\n=== ITERATION ===")
@@ -344,17 +344,17 @@ print(f"(A-B) ∪ (B-A): {manual_sym_diff}")
 # 5. TEILMENGEN-TESTS (Subset/Superset)
 print(f"\\n=== TEILMENGEN-TESTS ===")
 print(f"C ⊆ A (C ist Teilmenge von A): {set_c.issubset(set_a)}")
-print(f"C <= A: {set_c <= set_a}")
+print(f"C &lt;= A: {set_c &lt;= set_a}")
 print(f"A ⊇ C (A ist Obermenge von C): {set_a.issuperset(set_c)}")
-print(f"A >= C: {set_a >= set_c}")
+print(f"A &gt;= C: {set_a &gt;= set_c}")
 
 # Echte Teilmenge (proper subset)
-print(f"C ⊂ A (C ist echte Teilmenge): {set_c < set_a}")
-print(f"A ⊃ C (A ist echte Obermenge): {set_a > set_c}")
+print(f"C ⊂ A (C ist echte Teilmenge): {set_c &lt; set_a}")
+print(f"A ⊃ C (A ist echte Obermenge): {set_a &gt; set_c}")
 
 # Set mit sich selbst
-print(f"A ⊆ A (Set ist Teilmenge seiner selbst): {set_a <= set_a}")
-print(f"A ⊂ A (Set ist KEINE echte Teilmenge seiner selbst): {set_a < set_a}")
+print(f"A ⊆ A (Set ist Teilmenge seiner selbst): {set_a &lt;= set_a}")
+print(f"A ⊂ A (Set ist KEINE echte Teilmenge seiner selbst): {set_a &lt; set_a}")
 
 # 6. DISJUNKT-TEST (keine gemeinsamen Elemente)
 print(f"\\n=== DISJUNKT-TESTS ===")
@@ -548,7 +548,7 @@ print(f"fs_x: {fs_x}")
 print(f"fs_y: {fs_y}")
 print(f"fs_z: {fs_z}")
 print(f"fs_x == fs_y: {fs_x == fs_y}")
-print(f"fs_x < fs_z: {fs_x < fs_z}")  # Subset-Beziehung
+print(f"fs_x &lt; fs_z: {fs_x &lt; fs_z}")  # Subset-Beziehung
 
 # Frozen Sets sind hashbar
 print(f"\\n=== HASHBARKEIT ===")
@@ -648,7 +648,7 @@ print(f"Erste Buchstaben: {first_letters}")
 # String-Operationen
 names = ["Alice", "bob", "CHARLIE", "diana"]
 normalized_names = {name.lower() for name in names}
-uppercase_names = {name.upper() for name in names if len(name) > 3}
+uppercase_names = {name.upper() for name in names if len(name) &gt; 3}
 
 print(f"Normalisiert: {normalized_names}")
 print(f"Lange Namen (groß): {uppercase_names}")
@@ -689,7 +689,7 @@ print(f"Eindeutige Buchstaben: {unique_chars}")
 
 # Wörter mit bestimmter Länge
 words_in_text = text.split()
-long_words = {word.lower() for word in words_in_text if len(word) > 3}
+long_words = {word.lower() for word in words_in_text if len(word) &gt; 3}
 print(f"Lange Wörter: {long_words}")
 
 # Datenverarbeitung
@@ -709,13 +709,13 @@ print(f"Schülernamen: {student_names}")
 subjects = {student["subject"] for student in students}
 print(f"Fächer: {subjects}")
 
-# Gute Noten (>= 85)
-good_students = {student["name"] for student in students if student["grade"] >= 85}
+# Gute Noten (&gt;= 85)
+good_students = {student["name"] for student in students if student["grade"] &gt;= 85}
 print(f"Gute Schüler: {good_students}")
 
 # Komplexere Filter
 math_students = {student["name"] for student in students 
-                 if student["subject"] == "Math" and student["grade"] > 80}
+                 if student["subject"] == "Math" and student["grade"] &gt; 80}
 print(f"Gute Math-Schüler: {math_students}")
 
 # Set Operations mit Comprehensions
@@ -732,12 +732,12 @@ print(f"Gleich? {diff_comprehension == diff_operation}")
 
 # Conditional Expressions in Comprehensions
 numbers = range(-5, 6)
-abs_values = {abs(x) if x < 0 else x for x in numbers}
+abs_values = {abs(x) if x &lt; 0 else x for x in numbers}
 print(f"Absolute Werte: {abs_values}")
 
 # Transformation mit Funktionen
 def process_word(word):
-    return word.upper() if len(word) > 4 else word.lower()
+    return word.upper() if len(word) &gt; 4 else word.lower()
 
 words = ["hi", "hello", "world", "python", "programming"]
 processed = {process_word(word) for word in words}
@@ -746,8 +746,8 @@ print(f"Verarbeitet: {processed}")
 # Mehrere Bedingungen
 numbers = range(1, 101)
 special_numbers = {x for x in numbers 
-                   if x % 3 == 0 and x % 5 == 0 and x > 20}
-print(f"Spezielle Zahlen (teilbar durch 3 UND 5, >20): {special_numbers}")
+                   if x % 3 == 0 and x % 5 == 0 and x &gt; 20}
+print(f"Spezielle Zahlen (teilbar durch 3 UND 5, &gt;20): {special_numbers}")
 
 # Set von Sets mit Comprehensions (Frozen Sets nötig)
 data = [[1, 2], [3, 4], [1, 2], [5, 6]]
@@ -768,14 +768,14 @@ def time_set_creation():
     comp_set = {x**2 for x in range(10000) if x % 2 == 0}
     comp_time = time.time() - start
     
-    # Generator -> Set
+    # Generator -&gt; Set
     start = time.time()
     gen_set = set(x**2 for x in range(10000) if x % 2 == 0)
     gen_time = time.time() - start
     
     print(f"\\n=== PERFORMANCE ===")
     print(f"Set Comprehension: {comp_time:.4f}s")
-    print(f"Generator -> set(): {gen_time:.4f}s")
+    print(f"Generator -&gt; set(): {gen_time:.4f}s")
     print(f"Gleiche Ergebnisse? {comp_set == gen_set}")
 
 time_set_creation()
@@ -802,7 +802,7 @@ print(f"Python-bezogene Tags: {python_tags}")
 # Tags die mindestens 2x vorkommen
 from collections import Counter
 tag_counts = Counter(tag for post in blog_posts for tag in post["tags"])
-frequent_tags = {tag for tag, count in tag_counts.items() if count >= 2}
+frequent_tags = {tag for tag, count in tag_counts.items() if count &gt;= 2}
 print(f"Häufige Tags (≥2x): {frequent_tags}")</code></pre>
                                 </div>
                             </div>
@@ -886,7 +886,7 @@ class DataAnalyzer:
     
     def find_common_values(self, *dataset_names, field=None):
         """Findet gemeinsame Werte zwischen Datensätzen"""
-        if len(dataset_names) < 2:
+        if len(dataset_names) &lt; 2:
             return set()
         
         sets = []
@@ -990,7 +990,7 @@ class DataAnalyzer:
                         issues["null_values"].add((i, field))
                     elif isinstance(value, str) and value.strip() == "":
                         issues["whitespace_only"].add((i, field))
-                    elif isinstance(value, str) and any(char in value for char in ["<", ">", "script", "null", "undefined"]):
+                    elif isinstance(value, str) and any(char in value for char in ["&lt;", "&gt;", "script", "null", "undefined"]):
                         issues["suspicious_values"].add((i, field, value))
         
         return issues
@@ -1030,7 +1030,7 @@ class DataAnalyzer:
                 profile["data_types"][field] = list(types)
                 
                 # Top-Werte
-                if len(unique_vals) <= 20:  # Nur für kategoriale Daten
+                if len(unique_vals) &lt;= 20:  # Nur für kategoriale Daten
                     value_counts = Counter(values)
                     profile["value_distributions"][field] = dict(value_counts.most_common(10))
         
@@ -1188,12 +1188,12 @@ def demo_data_analysis():
     print("-" * 30)
     
     # Altersgruppen
-    young_customers = {c["id"] for c in customers if c["age"] < 30}
-    middle_customers = {c["id"] for c in customers if 30 <= c["age"] < 50}
-    senior_customers = {c["id"] for c in customers if c["age"] >= 50}
+    young_customers = {c["id"] for c in customers if c["age"] &lt; 30}
+    middle_customers = {c["id"] for c in customers if 30 &lt;= c["age"] &lt; 50}
+    senior_customers = {c["id"] for c in customers if c["age"] &gt;= 50}
     
     print(f"Altersgruppen:")
-    print(f"  Jung (<30): {len(young_customers)}")
+    print(f"  Jung (&lt;30): {len(young_customers)}")
     print(f"  Mittel (30-49): {len(middle_customers)}")
     print(f"  Senior (50+): {len(senior_customers)}")
     
@@ -1209,15 +1209,15 @@ def demo_data_analysis():
     
     # Hochfrequente Käufer (mehrere Bestellungen)
     order_counts = Counter(o["customer_id"] for o in orders)
-    frequent_buyers = {customer_id for customer_id, count in order_counts.items() if count > 2}
+    frequent_buyers = {customer_id for customer_id, count in order_counts.items() if count &gt; 2}
     occasional_buyers = active_customers - frequent_buyers
     
     print(f"\\n🛒 KAUFVERHALTEN")
-    print(f"Häufige Käufer (>2 Bestellungen): {len(frequent_buyers)}")
+    print(f"Häufige Käufer (&gt;2 Bestellungen): {len(frequent_buyers)}")
     print(f"Gelegentliche Käufer (1-2 Bestellungen): {len(occasional_buyers)}")
     
     # Top-Kunden mit Sets identifizieren
-    big_orders = {o["customer_id"] for o in orders if o["quantity"] > 3}
+    big_orders = {o["customer_id"] for o in orders if o["quantity"] &gt; 3}
     frequent_and_big = frequent_buyers & big_orders
     
     print(f"VIP-Kunden (häufig UND große Bestellungen): {len(frequent_and_big)}")
@@ -1270,6 +1270,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-sets'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

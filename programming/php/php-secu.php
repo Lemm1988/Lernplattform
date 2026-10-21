@@ -19,7 +19,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
                     <div class="col-md-4 col-lg-3"></div>
                     <div class="col-md-8 col-lg-9">
                         
-                        <?php renderNavigation('php-security'); ?>
+                        <?php renderNavigation('php-secu'); ?>
                         
                         <div class="d-flex justify-content-between align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2"><i class="bi bi-shield-check me-2"></i>PHP Security</h1>
@@ -274,13 +274,13 @@ class CSPBuilder {
     private $directives = [];
     
     public function addDirective($directive, $sources) {
-        $this->directives[$directive] = is_array($sources) ? $sources : [$sources];
+        $this-&gt;directives[$directive] = is_array($sources) ? $sources : [$sources];
         return $this;
     }
     
     public function build() {
         $policy = [];
-        foreach ($this->directives as $directive => $sources) {
+        foreach ($this-&gt;directives as $directive =&gt; $sources) {
             $policy[] = $directive . ' ' . implode(' ', $sources);
         }
         return implode('; ', $policy);
@@ -288,22 +288,22 @@ class CSPBuilder {
     
     public function getSecureDefault() {
         return $this
-            ->addDirective('default-src', "'self'")
-            ->addDirective('script-src', ["'self'", "'unsafe-inline'"])
-            ->addDirective('style-src', ["'self'", "'unsafe-inline'"])
-            ->addDirective('img-src', ["'self'", 'data:', 'https:'])
-            ->addDirective('connect-src', "'self'")
-            ->addDirective('font-src', ["'self'", 'https:'])
-            ->addDirective('object-src', "'none'")
-            ->addDirective('media-src', "'self'")
-            ->addDirective('frame-src', "'none'")
-            ->build();
+            -&gt;addDirective('default-src', "'self'")
+            -&gt;addDirective('script-src', ["'self'", "'unsafe-inline'"])
+            -&gt;addDirective('style-src', ["'self'", "'unsafe-inline'"])
+            -&gt;addDirective('img-src', ["'self'", 'data:', 'https:'])
+            -&gt;addDirective('connect-src', "'self'")
+            -&gt;addDirective('font-src', ["'self'", 'https:'])
+            -&gt;addDirective('object-src', "'none'")
+            -&gt;addDirective('media-src', "'self'")
+            -&gt;addDirective('frame-src', "'none'")
+            -&gt;build();
     }
 }
 
 // CSP-Header setzen
 $csp = new CSPBuilder();
-$policy = $csp->getSecureDefault();
+$policy = $csp-&gt;getSecureDefault();
 header("Content-Security-Policy: $policy");
 
 // Template-Engine mit Auto-Escaping
@@ -312,25 +312,25 @@ class SafeTemplate {
     private $variables = [];
     
     public function __construct($template_string) {
-        $this->template = $template_string;
+        $this-&gt;template = $template_string;
     }
     
     public function assign($key, $value) {
-        $this->variables[$key] = $value;
+        $this-&gt;variables[$key] = $value;
         return $this;
     }
     
     public function render() {
-        $output = $this->template;
+        $output = $this-&gt;template;
         
         // Variablen ersetzen mit automatischem Escaping
-        foreach ($this->variables as $key => $value) {
+        foreach ($this-&gt;variables as $key =&gt; $value) {
             $escaped_value = safe_output($value);
             $output = str_replace('{{' . $key . '}}', $escaped_value, $output);
         }
         
         // Raw-Variablen (für Admin-Content)
-        foreach ($this->variables as $key => $value) {
+        foreach ($this-&gt;variables as $key =&gt; $value) {
             $output = str_replace('{{{' . $key . '}}}', $value, $output);
         }
         
@@ -346,11 +346,11 @@ $template = new SafeTemplate('
 ');
 
 $template
-    ->assign('name', $_GET['name'] ?? 'Unbekannt')
-    ->assign('message', $_POST['message'] ?? 'Keine Nachricht')
-    ->assign('admin_content', '&lt;em&gt;Nur für Admins&lt;/em&gt;');
+    -&gt;assign('name', $_GET['name'] ?? 'Unbekannt')
+    -&gt;assign('message', $_POST['message'] ?? 'Keine Nachricht')
+    -&gt;assign('admin_content', '&lt;em&gt;Nur für Admins&lt;/em&gt;');
 
-echo $template->render();
+echo $template-&gt;render();
 
 // Input-Validierung und Sanitization
 class InputSanitizer {
@@ -369,8 +369,8 @@ class InputSanitizer {
         $int = filter_var($input, FILTER_VALIDATE_INT);
         if ($int === false) return false;
         
-        if ($min !== null && $int < $min) return false;
-        if ($max !== null && $int > $max) return false;
+        if ($min !== null && $int &lt; $min) return false;
+        if ($max !== null && $int &gt; $max) return false;
         
         return $int;
     }
@@ -440,7 +440,7 @@ class CSRFProtection {
         }
         
         // Alte Tokens aufräumen
-        $this->cleanupExpiredTokens();
+        $this-&gt;cleanupExpiredTokens();
     }
     
     /**
@@ -448,16 +448,16 @@ class CSRFProtection {
      */
     public function generateToken($action = 'default') {
         $token = bin2hex(random_bytes(32));
-        $expires = time() + $this->token_lifetime;
+        $expires = time() + $this-&gt;token_lifetime;
         
-        if (!isset($_SESSION[$this->session_key])) {
-            $_SESSION[$this->session_key] = [];
+        if (!isset($_SESSION[$this-&gt;session_key])) {
+            $_SESSION[$this-&gt;session_key] = [];
         }
         
-        $_SESSION[$this->session_key][$token] = [
-            'action' => $action,
-            'expires' => $expires,
-            'created' => time()
+        $_SESSION[$this-&gt;session_key][$token] = [
+            'action' =&gt; $action,
+            'expires' =&gt; $expires,
+            'created' =&gt; time()
         ];
         
         return $token;
@@ -467,15 +467,15 @@ class CSRFProtection {
      * Token validieren
      */
     public function validateToken($token, $action = 'default') {
-        if (!isset($_SESSION[$this->session_key][$token])) {
+        if (!isset($_SESSION[$this-&gt;session_key][$token])) {
             return false;
         }
         
-        $token_data = $_SESSION[$this->session_key][$token];
+        $token_data = $_SESSION[$this-&gt;session_key][$token];
         
         // Token abgelaufen?
-        if (time() > $token_data['expires']) {
-            unset($_SESSION[$this->session_key][$token]);
+        if (time() &gt; $token_data['expires']) {
+            unset($_SESSION[$this-&gt;session_key][$token]);
             return false;
         }
         
@@ -485,7 +485,7 @@ class CSRFProtection {
         }
         
         // Token nach Verwendung löschen (One-Time-Use)
-        unset($_SESSION[$this->session_key][$token]);
+        unset($_SESSION[$this-&gt;session_key][$token]);
         
         return true;
     }
@@ -494,7 +494,7 @@ class CSRFProtection {
      * HTML-Input-Feld generieren
      */
     public function getTokenField($action = 'default') {
-        $token = $this->generateToken($action);
+        $token = $this-&gt;generateToken($action);
         return "&lt;input type='hidden' name='csrf_token' value='$token'&gt;";
     }
     
@@ -502,7 +502,7 @@ class CSRFProtection {
      * Meta-Tag für AJAX-Requests
      */
     public function getMetaTag($action = 'default') {
-        $token = $this->generateToken($action);
+        $token = $this-&gt;generateToken($action);
         return "&lt;meta name='csrf-token' content='$token'&gt;";
     }
     
@@ -516,7 +516,7 @@ class CSRFProtection {
             throw new SecurityException("CSRF-Token fehlt");
         }
         
-        if (!$this->validateToken($token, $action)) {
+        if (!$this-&gt;validateToken($token, $action)) {
             throw new SecurityException("Ungültiger CSRF-Token");
         }
         
@@ -527,14 +527,14 @@ class CSRFProtection {
      * Abgelaufene Tokens entfernen
      */
     private function cleanupExpiredTokens() {
-        if (!isset($_SESSION[$this->session_key])) {
+        if (!isset($_SESSION[$this-&gt;session_key])) {
             return;
         }
         
         $now = time();
-        foreach ($_SESSION[$this->session_key] as $token => $data) {
-            if ($now > $data['expires']) {
-                unset($_SESSION[$this->session_key][$token]);
+        foreach ($_SESSION[$this-&gt;session_key] as $token =&gt; $data) {
+            if ($now &gt; $data['expires']) {
+                unset($_SESSION[$this-&gt;session_key][$token]);
             }
         }
     }
@@ -543,21 +543,21 @@ class CSRFProtection {
      * Alle Tokens für Benutzer löschen
      */
     public function clearAllTokens() {
-        $_SESSION[$this->session_key] = [];
+        $_SESSION[$this-&gt;session_key] = [];
     }
     
     /**
      * Double-Submit Cookie Pattern
      */
     public function setDoubleSubmitCookie($action = 'default') {
-        $token = $this->generateToken($action);
+        $token = $this-&gt;generateToken($action);
         
         setcookie('csrf_token_' . $action, $token, [
-            'expires' => time() + $this->token_lifetime,
-            'path' => '/',
-            'secure' => isset($_SERVER['HTTPS']),
-            'httponly' => true,
-            'samesite' => 'Strict'
+            'expires' =&gt; time() + $this-&gt;token_lifetime,
+            'path' =&gt; '/',
+            'secure' =&gt; isset($_SERVER['HTTPS']),
+            'httponly' =&gt; true,
+            'samesite' =&gt; 'Strict'
         ]);
         
         return $token;
@@ -575,7 +575,7 @@ class CSRFProtection {
             throw new SecurityException("CSRF-Token stimmt nicht überein");
         }
         
-        return $this->validateToken($form_token, $action);
+        return $this-&gt;validateToken($form_token, $action);
     }
 }
 
@@ -588,24 +588,24 @@ $csrf = new CSRFProtection();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // CSRF-Token prüfen
-        $csrf->verifyRequest('user_settings');
+        $csrf-&gt;verifyRequest('user_settings');
         
         // Formulardaten verarbeiten
         $success_message = "Einstellungen erfolgreich gespeichert!";
         echo "&lt;div class='alert alert-success'&gt;$success_message&lt;/div&gt;";
         
     } catch (SecurityException $e) {
-        $error_message = "Sicherheitsfehler: " . $e->getMessage();
+        $error_message = "Sicherheitsfehler: " . $e-&gt;getMessage();
         echo "&lt;div class='alert alert-danger'&gt;$error_message&lt;/div&gt;";
         
         // Security-Incident loggen
-        error_log("CSRF-Angriff verhindert: " . $e->getMessage() . " - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
+        error_log("CSRF-Angriff verhindert: " . $e-&gt;getMessage() . " - IP: " . ($_SERVER['REMOTE_ADDR'] ?? 'unknown'));
     }
 }
 
 // Sichere Formular-Ausgabe
 echo "&lt;form method='post' action=''&gt;";
-echo $csrf->getTokenField('user_settings');
+echo $csrf-&gt;getTokenField('user_settings');
 echo "&lt;div class='form-group'&gt;";
 echo "&lt;label&gt;Benutzername:&lt;/label&gt;";
 echo "&lt;input type='text' name='username' class='form-control'&gt;";
@@ -614,7 +614,7 @@ echo "&lt;button type='submit' class='btn btn-primary'&gt;Speichern&lt;/button&g
 echo "&lt;/form&gt;";
 
 // Meta-Tag für AJAX
-echo $csrf->getMetaTag('ajax_requests');
+echo $csrf-&gt;getMetaTag('ajax_requests');
 
 // JavaScript für AJAX-Requests
 echo "&lt;script&gt;
@@ -635,7 +635,7 @@ function secureAjaxRequest(url, data, callback) {
         },
         body: JSON.stringify(data)
     })
-    .then(response => response.json())
+    .then(response =&gt; response.json())
     .then(callback);
 }
 &lt;/script&gt;";
@@ -643,12 +643,12 @@ function secureAjaxRequest(url, data, callback) {
 // SameSite-Cookies für zusätzlichen Schutz
 function setSecureCookie($name, $value, $expires = 0) {
     setcookie($name, $value, [
-        'expires' => $expires,
-        'path' => '/',
-        'domain' => $_SERVER['HTTP_HOST'] ?? '',
-        'secure' => isset($_SERVER['HTTPS']),
-        'httponly' => true,
-        'samesite' => 'Strict'
+        'expires' =&gt; $expires,
+        'path' =&gt; '/',
+        'domain' =&gt; $_SERVER['HTTP_HOST'] ?? '',
+        'secure' =&gt; isset($_SERVER['HTTPS']),
+        'httponly' =&gt; true,
+        'samesite' =&gt; 'Strict'
     ]);
 }
 
@@ -674,7 +674,7 @@ function checkReferer($allowed_domains = []) {
 if ($_POST['delete_account'] ?? false) {
     try {
         // 1. CSRF-Token prüfen
-        $csrf->verifyRequest('delete_account');
+        $csrf-&gt;verifyRequest('delete_account');
         
         // 2. Referer prüfen
         if (!checkReferer()) {
@@ -690,7 +690,7 @@ if ($_POST['delete_account'] ?? false) {
         echo "&lt;div class='alert alert-success'&gt;Account wurde gelöscht&lt;/div&gt;";
         
     } catch (SecurityException $e) {
-        echo "&lt;div class='alert alert-danger'&gt;Sicherheitsfehler: " . $e->getMessage() . "&lt;/div&gt;";
+        echo "&lt;div class='alert alert-danger'&gt;Sicherheitsfehler: " . $e-&gt;getMessage() . "&lt;/div&gt;";
     }
 }
 
@@ -721,7 +721,7 @@ class SecureAuth {
     private $password_min_length = 12;
     
     public function __construct() {
-        $this->configureSession();
+        $this-&gt;configureSession();
     }
     
     private function configureSession() {
@@ -740,7 +740,7 @@ class SecureAuth {
         }
         
         // Session-Timeout prüfen
-        $this->checkSessionTimeout();
+        $this-&gt;checkSessionTimeout();
     }
     
     /**
@@ -753,27 +753,27 @@ class SecureAuth {
         }
         
         // Passwort-Stärke prüfen
-        $this->validatePasswordStrength($password);
+        $this-&gt;validatePasswordStrength($password);
         
         // Benutzer bereits vorhanden?
-        if ($this->userExists($email)) {
+        if ($this-&gt;userExists($email)) {
             throw new SecurityException("E-Mail bereits registriert");
         }
         
         // Passwort sicher hashen
         $password_hash = password_hash($password, PASSWORD_ARGON2ID, [
-            'memory_cost' => 65536, // 64 MB
-            'time_cost' => 4,       // 4 Iterationen
-            'threads' => 3          // 3 Threads
+            'memory_cost' =&gt; 65536, // 64 MB
+            'time_cost' =&gt; 4,       // 4 Iterationen
+            'threads' =&gt; 3          // 3 Threads
         ]);
         
         // Benutzer in Datenbank speichern (simuliert)
         $user_data = array_merge($additional_data, [
-            'email' => $email,
-            'password_hash' => $password_hash,
-            'created_at' => date('Y-m-d H:i:s'),
-            'email_verified' => false,
-            'two_factor_enabled' => false
+            'email' =&gt; $email,
+            'password_hash' =&gt; $password_hash,
+            'created_at' =&gt; date('Y-m-d H:i:s'),
+            'email_verified' =&gt; false,
+            'two_factor_enabled' =&gt; false
         ]);
         
         // Verification-Token generieren
@@ -781,11 +781,11 @@ class SecureAuth {
         $user_data['verification_token'] = $verification_token;
         
         // E-Mail-Verification senden
-        $this->sendVerificationEmail($email, $verification_token);
+        $this-&gt;sendVerificationEmail($email, $verification_token);
         
         return [
-            'success' => true,
-            'message' => 'Registrierung erfolgreich. Bitte prüfen Sie Ihre E-Mails.'
+            'success' =&gt; true,
+            'message' =&gt; 'Registrierung erfolgreich. Bitte prüfen Sie Ihre E-Mails.'
         ];
     }
     
@@ -794,15 +794,15 @@ class SecureAuth {
      */
     public function login($email, $password, $remember_me = false) {
         // Rate-Limiting prüfen
-        if ($this->isAccountLocked($email)) {
-            $remaining = $this->getLockoutTimeRemaining($email);
+        if ($this-&gt;isAccountLocked($email)) {
+            $remaining = $this-&gt;getLockoutTimeRemaining($email);
             throw new SecurityException("Account temporär gesperrt. Versuchen Sie es in $remaining Minuten erneut.");
         }
         
         // Benutzer abrufen
-        $user = $this->getUserByEmail($email);
+        $user = $this-&gt;getUserByEmail($email);
         if (!$user) {
-            $this->recordFailedLogin($email);
+            $this-&gt;recordFailedLogin($email);
             throw new SecurityException("Ungültige Anmeldedaten");
         }
         
@@ -813,25 +813,25 @@ class SecureAuth {
         
         // Passwort prüfen
         if (!password_verify($password, $user['password_hash'])) {
-            $this->recordFailedLogin($email);
+            $this-&gt;recordFailedLogin($email);
             throw new SecurityException("Ungültige Anmeldedaten");
         }
         
         // Passwort-Hash aktualisieren falls nötig
         if (password_needs_rehash($user['password_hash'], PASSWORD_ARGON2ID)) {
             $new_hash = password_hash($password, PASSWORD_ARGON2ID);
-            $this->updatePasswordHash($user['id'], $new_hash);
+            $this-&gt;updatePasswordHash($user['id'], $new_hash);
         }
         
         // Failed-Login-Counter zurücksetzen
-        $this->clearFailedLogins($email);
+        $this-&gt;clearFailedLogins($email);
         
         // Session initialisieren
-        $this->initializeUserSession($user);
+        $this-&gt;initializeUserSession($user);
         
         // Remember-Me Token
         if ($remember_me) {
-            $this->setRememberMeToken($user['id']);
+            $this-&gt;setRememberMeToken($user['id']);
         }
         
         // 2FA prüfen
@@ -840,18 +840,18 @@ class SecureAuth {
             $_SESSION['2fa_user_id'] = $user['id'];
             
             return [
-                'success' => true,
-                'requires_2fa' => true,
-                'message' => '2FA-Code erforderlich'
+                'success' =&gt; true,
+                'requires_2fa' =&gt; true,
+                'message' =&gt; '2FA-Code erforderlich'
             ];
         }
         
         // Login-Event loggen
-        $this->logSecurityEvent('successful_login', $user['id']);
+        $this-&gt;logSecurityEvent('successful_login', $user['id']);
         
         return [
-            'success' => true,
-            'user' => $this->sanitizeUserData($user)
+            'success' =&gt; true,
+            'user' =&gt; $this-&gt;sanitizeUserData($user)
         ];
     }
     
@@ -861,8 +861,8 @@ class SecureAuth {
     private function validatePasswordStrength($password) {
         $errors = [];
         
-        if (strlen($password) < $this->password_min_length) {
-            $errors[] = "Passwort muss mindestens {$this->password_min_length} Zeichen haben";
+        if (strlen($password) &lt; $this-&gt;password_min_length) {
+            $errors[] = "Passwort muss mindestens {$this-&gt;password_min_length} Zeichen haben";
         }
         
         if (!preg_match('/[a-z]/', $password)) {
@@ -893,7 +893,7 @@ class SecureAuth {
         
         // Entropy prüfen (vereinfacht)
         $unique_chars = count(array_unique(str_split($password)));
-        if ($unique_chars < 8) {
+        if ($unique_chars &lt; 8) {
             $errors[] = "Passwort ist nicht vielfältig genug";
         }
         
@@ -915,9 +915,9 @@ class SecureAuth {
         $_SESSION[$key][] = time();
         
         // Alte Versuche entfernen (älter als Lockout-Duration)
-        $cutoff = time() - $this->lockout_duration;
+        $cutoff = time() - $this-&gt;lockout_duration;
         $_SESSION[$key] = array_filter($_SESSION[$key], function($timestamp) use ($cutoff) {
-            return $timestamp > $cutoff;
+            return $timestamp &gt; $cutoff;
         });
     }
     
@@ -925,7 +925,7 @@ class SecureAuth {
         $key = 'failed_logins_' . hash('sha256', $email);
         $attempts = $_SESSION[$key] ?? [];
         
-        return count($attempts) >= $this->max_login_attempts;
+        return count($attempts) &gt;= $this-&gt;max_login_attempts;
     }
     
     private function getLockoutTimeRemaining($email) {
@@ -937,7 +937,7 @@ class SecureAuth {
         }
         
         $oldest_attempt = min($attempts);
-        $unlock_time = $oldest_attempt + $this->lockout_duration;
+        $unlock_time = $oldest_attempt + $this-&gt;lockout_duration;
         $remaining_seconds = $unlock_time - time();
         
         return max(0, ceil($remaining_seconds / 60)); // Minuten
@@ -965,14 +965,14 @@ class SecureAuth {
             return;
         }
         
-        if (time() - $_SESSION['last_activity'] > $this->session_timeout) {
-            $this->logout();
+        if (time() - $_SESSION['last_activity'] &gt; $this-&gt;session_timeout) {
+            $this-&gt;logout();
             throw new SecurityException("Session abgelaufen");
         }
         
         // Session-Hijacking-Schutz
         if (isset($_SESSION['ip_address']) && $_SESSION['ip_address'] !== ($_SERVER['REMOTE_ADDR'] ?? 'unknown')) {
-            $this->logout();
+            $this-&gt;logout();
             throw new SecurityException("Session-Sicherheitsverletzung");
         }
         
@@ -991,8 +991,8 @@ class SecureAuth {
         $time_step = floor(time() / 30);
         
         // Aktuelle Zeit + 1 Schritt in beide Richtungen prüfen
-        for ($i = -1; $i <= 1; $i++) {
-            $expected_code = $this->calculateTOTP($secret, $time_step + $i);
+        for ($i = -1; $i &lt;= 1; $i++) {
+            $expected_code = $this-&gt;calculateTOTP($secret, $time_step + $i);
             if (hash_equals($expected_code, $code)) {
                 return true;
             }
@@ -1006,9 +1006,9 @@ class SecureAuth {
         $hash = hash_hmac('sha1', pack('N*', 0, $time_step), base32_decode($secret), true);
         $offset = ord($hash[19]) & 0xf;
         $code = (
-            ((ord($hash[$offset + 0]) & 0x7f) << 24) |
-            ((ord($hash[$offset + 1]) & 0xff) << 16) |
-            ((ord($hash[$offset + 2]) & 0xff) << 8) |
+            ((ord($hash[$offset + 0]) & 0x7f) &lt;&lt; 24) |
+            ((ord($hash[$offset + 1]) & 0xff) &lt;&lt; 16) |
+            ((ord($hash[$offset + 2]) & 0xff) &lt;&lt; 8) |
             (ord($hash[$offset + 3]) & 0xff)
         ) % 1000000;
         
@@ -1020,12 +1020,12 @@ class SecureAuth {
      */
     private function logSecurityEvent($event, $user_id = null, $additional_data = []) {
         $log_entry = [
-            'timestamp' => date('Y-m-d H:i:s'),
-            'event' => $event,
-            'user_id' => $user_id,
-            'ip_address' => $_SERVER['REMOTE_ADDR'] ?? 'unknown',
-            'user_agent' => $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
-            'additional_data' => $additional_data
+            'timestamp' =&gt; date('Y-m-d H:i:s'),
+            'event' =&gt; $event,
+            'user_id' =&gt; $user_id,
+            'ip_address' =&gt; $_SERVER['REMOTE_ADDR'] ?? 'unknown',
+            'user_agent' =&gt; $_SERVER['HTTP_USER_AGENT'] ?? 'unknown',
+            'additional_data' =&gt; $additional_data
         ];
         
         // In echten Anwendungen: In Datenbank oder Log-Datei schreiben
@@ -1042,9 +1042,9 @@ class SecureAuth {
     
     private function sanitizeUserData($user) {
         return [
-            'id' => $user['id'],
-            'email' => $user['email'],
-            'created_at' => $user['created_at']
+            'id' =&gt; $user['id'],
+            'email' =&gt; $user['email'],
+            'created_at' =&gt; $user['created_at']
         ];
     }
     
@@ -1104,21 +1104,21 @@ class SecurityFramework {
     private $blacklist;
     
     public function __construct($config = []) {
-        $this->config = array_merge([
-            'max_request_size' => 10485760, // 10MB
-            'max_file_uploads' => 10,
-            'allowed_file_types' => ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
-            'rate_limit_requests' => 1000,
-            'rate_limit_window' => 3600,
-            'honeypot_enabled' => true,
-            'csrf_protection' => true,
-            'xss_protection' => true,
-            'sql_injection_protection' => true
+        $this-&gt;config = array_merge([
+            'max_request_size' =&gt; 10485760, // 10MB
+            'max_file_uploads' =&gt; 10,
+            'allowed_file_types' =&gt; ['jpg', 'jpeg', 'png', 'pdf', 'doc', 'docx'],
+            'rate_limit_requests' =&gt; 1000,
+            'rate_limit_window' =&gt; 3600,
+            'honeypot_enabled' =&gt; true,
+            'csrf_protection' =&gt; true,
+            'xss_protection' =&gt; true,
+            'sql_injection_protection' =&gt; true
         ], $config);
         
-        $this->logger = new SecurityLogger();
-        $this->initializeFilters();
-        $this->setupSecurityHeaders();
+        $this-&gt;logger = new SecurityLogger();
+        $this-&gt;initializeFilters();
+        $this-&gt;setupSecurityHeaders();
     }
     
     /**
@@ -1126,24 +1126,24 @@ class SecurityFramework {
      */
     public function validateRequest() {
         // Request-Größe prüfen
-        $this->checkRequestSize();
+        $this-&gt;checkRequestSize();
         
         // Rate-Limiting
-        $this->checkRateLimit();
+        $this-&gt;checkRateLimit();
         
         // IP-Whitelist/Blacklist
-        $this->checkIPRestrictions();
+        $this-&gt;checkIPRestrictions();
         
         // User-Agent-Prüfung
-        $this->checkUserAgent();
+        $this-&gt;checkUserAgent();
         
         // Honeypot-Prüfung
-        if ($this->config['honeypot_enabled']) {
-            $this->checkHoneypot();
+        if ($this-&gt;config['honeypot_enabled']) {
+            $this-&gt;checkHoneypot();
         }
         
         // Input-Validierung
-        $this->validateInputs();
+        $this-&gt;validateInputs();
         
         return true;
     }
@@ -1153,12 +1153,12 @@ class SecurityFramework {
      */
     private function setupSecurityHeaders() {
         $headers = [
-            'X-Content-Type-Options' => 'nosniff',
-            'X-Frame-Options' => 'DENY',
-            'X-XSS-Protection' => '1; mode=block',
-            'Referrer-Policy' => 'strict-origin-when-cross-origin',
-            'Permissions-Policy' => 'camera=(), microphone=(), geolocation=()',
-            'Strict-Transport-Security' => 'max-age=31536000; includeSubDomains; preload'
+            'X-Content-Type-Options' =&gt; 'nosniff',
+            'X-Frame-Options' =&gt; 'DENY',
+            'X-XSS-Protection' =&gt; '1; mode=block',
+            'Referrer-Policy' =&gt; 'strict-origin-when-cross-origin',
+            'Permissions-Policy' =&gt; 'camera=(), microphone=(), geolocation=()',
+            'Strict-Transport-Security' =&gt; 'max-age=31536000; includeSubDomains; preload'
         ];
         
         // Content-Security-Policy
@@ -1175,7 +1175,7 @@ class SecurityFramework {
         ];
         $headers['Content-Security-Policy'] = implode('; ', $csp_rules);
         
-        foreach ($headers as $name => $value) {
+        foreach ($headers as $name =&gt; $value) {
             if (!headers_sent()) {
                 header("$name: $value");
             }
@@ -1204,7 +1204,7 @@ class SecurityFramework {
                 
                 $filter_options = [];
                 if ($min !== null || $max !== null) {
-                    $filter_options['options'] = ['min_range' => $min, 'max_range' => $max];
+                    $filter_options['options'] = ['min_range' =&gt; $min, 'max_range' =&gt; $max];
                 }
                 
                 return filter_var($input, FILTER_VALIDATE_INT, $flags, $filter_options);
@@ -1245,7 +1245,7 @@ class SecurityFramework {
                 $input = substr($input, 0, $max_length);
                 
                 // XSS-Schutz
-                if ($this->config['xss_protection']) {
+                if ($this-&gt;config['xss_protection']) {
                     $input = htmlspecialchars($input, ENT_QUOTES | ENT_HTML5, 'UTF-8');
                 }
                 
@@ -1271,10 +1271,10 @@ class SecurityFramework {
         
         foreach ($sql_patterns as $pattern) {
             if (preg_match($pattern, $input)) {
-                $this->logger->logThreat('sql_injection_attempt', [
-                    'input' => $input,
-                    'pattern' => $pattern,
-                    'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+                $this-&gt;logger-&gt;logThreat('sql_injection_attempt', [
+                    'input' =&gt; $input,
+                    'pattern' =&gt; $pattern,
+                    'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? 'unknown'
                 ]);
                 return true;
             }
@@ -1292,14 +1292,14 @@ class SecurityFramework {
         }
         
         // Dateigröße prüfen
-        $max_size = $this->config['max_file_size'] ?? 5242880; // 5MB
-        if ($file['size'] > $max_size) {
+        $max_size = $this-&gt;config['max_file_size'] ?? 5242880; // 5MB
+        if ($file['size'] &gt; $max_size) {
             throw new SecurityException("Datei zu groß");
         }
         
         // Dateiendung prüfen
         $extension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
-        if (!in_array($extension, $this->config['allowed_file_types'])) {
+        if (!in_array($extension, $this-&gt;config['allowed_file_types'])) {
             throw new SecurityException("Dateityp nicht erlaubt");
         }
         
@@ -1309,12 +1309,12 @@ class SecurityFramework {
         finfo_close($finfo);
         
         $allowed_mimes = [
-            'jpg' => 'image/jpeg',
-            'jpeg' => 'image/jpeg',
-            'png' => 'image/png',
-            'pdf' => 'application/pdf',
-            'doc' => 'application/msword',
-            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+            'jpg' =&gt; 'image/jpeg',
+            'jpeg' =&gt; 'image/jpeg',
+            'png' =&gt; 'image/png',
+            'pdf' =&gt; 'application/pdf',
+            'doc' =&gt; 'application/msword',
+            'docx' =&gt; 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
         ];
         
         if (!isset($allowed_mimes[$extension]) || $allowed_mimes[$extension] !== $mime_type) {
@@ -1327,10 +1327,10 @@ class SecurityFramework {
         fclose($handle);
         
         $magic_bytes = [
-            'jpg' => ["\xFF\xD8\xFF"],
-            'jpeg' => ["\xFF\xD8\xFF"],
-            'png' => ["\x89\x50\x4E\x47"],
-            'pdf' => ["%PDF"]
+            'jpg' =&gt; ["\xFF\xD8\xFF"],
+            'jpeg' =&gt; ["\xFF\xD8\xFF"],
+            'png' =&gt; ["\x89\x50\x4E\x47"],
+            'pdf' =&gt; ["%PDF"]
         ];
         
         if (isset($magic_bytes[$extension])) {
@@ -1350,7 +1350,7 @@ class SecurityFramework {
         // Virus-Scan (falls ClamAV verfügbar)
         if (class_exists('ClamAV')) {
             $clamav = new ClamAV();
-            if (!$clamav->scanFile($file['tmp_name'])) {
+            if (!$clamav-&gt;scanFile($file['tmp_name'])) {
                 throw new SecurityException("Virus gefunden");
             }
         }
@@ -1370,22 +1370,22 @@ class SecurityFramework {
         }
         
         $now = time();
-        $window_start = $now - $this->config['rate_limit_window'];
+        $window_start = $now - $this-&gt;config['rate_limit_window'];
         
         // Alte Requests entfernen
         $_SESSION[$key] = array_filter($_SESSION[$key], function($timestamp) use ($window_start) {
-            return $timestamp > $window_start;
+            return $timestamp &gt; $window_start;
         });
         
         // Aktuellen Request hinzufügen
         $_SESSION[$key][] = $now;
         
         // Limit prüfen
-        if (count($_SESSION[$key]) > $this->config['rate_limit_requests']) {
-            $this->logger->logThreat('rate_limit_exceeded', [
-                'ip' => $ip,
-                'requests' => count($_SESSION[$key]),
-                'limit' => $this->config['rate_limit_requests']
+        if (count($_SESSION[$key]) &gt; $this-&gt;config['rate_limit_requests']) {
+            $this-&gt;logger-&gt;logThreat('rate_limit_exceeded', [
+                'ip' =&gt; $ip,
+                'requests' =&gt; count($_SESSION[$key]),
+                'limit' =&gt; $this-&gt;config['rate_limit_requests']
             ]);
             
             http_response_code(429);
@@ -1401,10 +1401,10 @@ class SecurityFramework {
         
         foreach ($honeypot_fields as $field) {
             if (!empty($_POST[$field])) {
-                $this->logger->logThreat('honeypot_triggered', [
-                    'field' => $field,
-                    'value' => $_POST[$field],
-                    'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+                $this-&gt;logger-&gt;logThreat('honeypot_triggered', [
+                    'field' =&gt; $field,
+                    'value' =&gt; $_POST[$field],
+                    'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? 'unknown'
                 ]);
                 
                 // Bot erkannt - Request blockieren
@@ -1439,15 +1439,15 @@ class SecurityFramework {
         
         $inputs = array_merge($_GET, $_POST, $_COOKIE);
         
-        foreach ($inputs as $key => $value) {
+        foreach ($inputs as $key =&gt; $value) {
             if (is_string($value)) {
                 foreach ($dangerous_patterns as $pattern) {
                     if (preg_match($pattern, $value)) {
-                        $this->logger->logThreat('malicious_input_detected', [
-                            'key' => $key,
-                            'value' => $value,
-                            'pattern' => $pattern,
-                            'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+                        $this-&gt;logger-&gt;logThreat('malicious_input_detected', [
+                            'key' =&gt; $key,
+                            'value' =&gt; $value,
+                            'pattern' =&gt; $pattern,
+                            'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? 'unknown'
                         ]);
                         
                         throw new SecurityException("Schädliche Eingabe erkannt");
@@ -1463,7 +1463,7 @@ class SecurityFramework {
     private function checkRequestSize() {
         $content_length = $_SERVER['CONTENT_LENGTH'] ?? 0;
         
-        if ($content_length > $this->config['max_request_size']) {
+        if ($content_length &gt; $this-&gt;config['max_request_size']) {
             throw new SecurityException("Request zu groß");
         }
     }
@@ -1475,16 +1475,16 @@ class SecurityFramework {
         $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
         
         // Blacklist prüfen
-        if (isset($this->blacklist['ips']) && in_array($ip, $this->blacklist['ips'])) {
-            $this->logger->logThreat('blacklisted_ip_blocked', ['ip' => $ip]);
+        if (isset($this-&gt;blacklist['ips']) && in_array($ip, $this-&gt;blacklist['ips'])) {
+            $this-&gt;logger-&gt;logThreat('blacklisted_ip_blocked', ['ip' =&gt; $ip]);
             http_response_code(403);
             throw new SecurityException("IP-Adresse blockiert");
         }
         
         // Whitelist prüfen (falls aktiv)
-        if (isset($this->whitelist['ips']) && !empty($this->whitelist['ips'])) {
-            if (!in_array($ip, $this->whitelist['ips'])) {
-                $this->logger->logThreat('non_whitelisted_ip_blocked', ['ip' => $ip]);
+        if (isset($this-&gt;whitelist['ips']) && !empty($this-&gt;whitelist['ips'])) {
+            if (!in_array($ip, $this-&gt;whitelist['ips'])) {
+                $this-&gt;logger-&gt;logThreat('non_whitelisted_ip_blocked', ['ip' =&gt; $ip]);
                 http_response_code(403);
                 throw new SecurityException("IP-Adresse nicht autorisiert");
             }
@@ -1499,8 +1499,8 @@ class SecurityFramework {
         
         // Leerer User-Agent (verdächtig)
         if (empty($user_agent)) {
-            $this->logger->logThreat('empty_user_agent', [
-                'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+            $this-&gt;logger-&gt;logThreat('empty_user_agent', [
+                'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? 'unknown'
             ]);
             // Warnung, aber nicht blockieren
         }
@@ -1513,9 +1513,9 @@ class SecurityFramework {
         
         foreach ($bot_patterns as $pattern) {
             if (preg_match($pattern, $user_agent)) {
-                $this->logger->logThreat('bot_detected', [
-                    'user_agent' => $user_agent,
-                    'ip' => $_SERVER['REMOTE_ADDR'] ?? 'unknown'
+                $this-&gt;logger-&gt;logThreat('bot_detected', [
+                    'user_agent' =&gt; $user_agent,
+                    'ip' =&gt; $_SERVER['REMOTE_ADDR'] ?? 'unknown'
                 ]);
                 // Je nach Policy: blockieren oder durchlassen
                 break;
@@ -1528,19 +1528,19 @@ class SecurityFramework {
      */
     private function initializeFilters() {
         // Blacklist bekannter schädlicher IPs/User-Agents
-        $this->blacklist = [
-            'ips' => [
+        $this-&gt;blacklist = [
+            'ips' =&gt; [
                 // Beispiel-IPs (in echter Anwendung aus Datenbank laden)
                 '192.168.1.100', '10.0.0.50'
             ],
-            'user_agents' => [
+            'user_agents' =&gt; [
                 'BadBot/1.0', 'Scraper/2.0'
             ]
         ];
         
         // Whitelist vertrauensvoller IPs
-        $this->whitelist = [
-            'ips' => [
+        $this-&gt;whitelist = [
+            'ips' =&gt; [
                 // Admin-IPs, vertrauensvolle Partner
             ]
         ];
@@ -1550,7 +1550,7 @@ class SecurityFramework {
      * Security-Report generieren
      */
     public function generateSecurityReport() {
-        $threats = $this->logger->getThreats();
+        $threats = $this-&gt;logger-&gt;getThreats();
         $stats = [];
         
         foreach ($threats as $threat) {
@@ -1562,10 +1562,10 @@ class SecurityFramework {
         }
         
         return [
-            'total_threats' => count($threats),
-            'threat_types' => $stats,
-            'recent_threats' => array_slice($threats, -10),
-            'top_threat_ips' => $this->getTopThreatIPs($threats)
+            'total_threats' =&gt; count($threats),
+            'threat_types' =&gt; $stats,
+            'recent_threats' =&gt; array_slice($threats, -10),
+            'top_threat_ips' =&gt; $this-&gt;getTopThreatIPs($threats)
         ];
     }
     
@@ -1592,20 +1592,20 @@ class SecurityLogger {
     
     public function logThreat($type, $data) {
         $entry = [
-            'timestamp' => date('Y-m-d H:i:s'),
-            'type' => $type,
-            'data' => $data
+            'timestamp' =&gt; date('Y-m-d H:i:s'),
+            'type' =&gt; $type,
+            'data' =&gt; $data
         ];
         
-        $this->threats[] = $entry;
+        $this-&gt;threats[] = $entry;
         
         // In Datei schreiben
         $log_line = json_encode($entry) . PHP_EOL;
-        file_put_contents($this->log_file, $log_line, FILE_APPEND | LOCK_EX);
+        file_put_contents($this-&gt;log_file, $log_line, FILE_APPEND | LOCK_EX);
         
         // Bei kritischen Bedrohungen: sofort benachrichtigen
-        if ($this->isCriticalThreat($type)) {
-            $this->sendAlert($entry);
+        if ($this-&gt;isCriticalThreat($type)) {
+            $this-&gt;sendAlert($entry);
         }
     }
     
@@ -1625,30 +1625,30 @@ class SecurityLogger {
     }
     
     public function getThreats($limit = 100) {
-        return array_slice($this->threats, -$limit);
+        return array_slice($this-&gt;threats, -$limit);
     }
 }
 
 // Security-Framework verwenden
 try {
     $security = new SecurityFramework([
-        'max_request_size' => 5242880, // 5MB
-        'rate_limit_requests' => 100,
-        'honeypot_enabled' => true
+        'max_request_size' =&gt; 5242880, // 5MB
+        'rate_limit_requests' =&gt; 100,
+        'honeypot_enabled' =&gt; true
     ]);
     
     // Request validieren
-    $security->validateRequest();
+    $security-&gt;validateRequest();
     
     // Eingaben sicher verarbeiten
-    $username = $security->sanitizeInput($_POST['username'] ?? '', 'string', ['max_length' => 50]);
-    $email = $security->sanitizeInput($_POST['email'] ?? '', 'email');
-    $age = $security->sanitizeInput($_POST['age'] ?? '', 'int', ['min' => 13, 'max' => 120]);
+    $username = $security-&gt;sanitizeInput($_POST['username'] ?? '', 'string', ['max_length' =&gt; 50]);
+    $email = $security-&gt;sanitizeInput($_POST['email'] ?? '', 'email');
+    $age = $security-&gt;sanitizeInput($_POST['age'] ?? '', 'int', ['min' =&gt; 13, 'max' =&gt; 120]);
     
     echo "&lt;div class='alert alert-success'&gt;Request erfolgreich validiert und Eingaben bereinigt!&lt;/div&gt;";
     
     // Security-Report
-    $report = $security->generateSecurityReport();
+    $report = $security-&gt;generateSecurityReport();
     echo "&lt;div class='alert alert-info'&gt;";
     echo "&lt;h6&gt;🛡️ Security-Report:&lt;/h6&gt;";
     echo "Bedrohungen gesamt: " . $report['total_threats'] . "&lt;br&gt;";
@@ -1659,7 +1659,7 @@ try {
     
 } catch (SecurityException $e) {
     http_response_code(403);
-    echo "&lt;div class='alert alert-danger'&gt;Sicherheitsfehler: " . $e->getMessage() . "&lt;/div&gt;";
+    echo "&lt;div class='alert alert-danger'&gt;Sicherheitsfehler: " . $e-&gt;getMessage() . "&lt;/div&gt;";
 } catch (Exception $e) {
     http_response_code(500);
     echo "&lt;div class='alert alert-danger'&gt;Systemfehler aufgetreten&lt;/div&gt;";

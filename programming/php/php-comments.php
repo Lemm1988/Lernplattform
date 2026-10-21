@@ -405,7 +405,7 @@ echo "Das hier wieder schon!";
                                 <div class="card">
                                     <div class="card-body text-center">
                                         <h6>Nächstes Thema</h6>
-                                        <a href="php-variableen.php" class="btn btn-primary">
+                                        <a href="php-variablen.php" class="btn btn-primary">
                                             <i class="bi bi-code me-2"></i>PHP Variablen
                                         </a>
                                     </div>

@@ -135,12 +135,12 @@ else:
                                 <div class="code-block">
 <pre><code class="language-python"># Einfache Bedingung
 age = 18
-if age >= 18:
+if age &gt;= 18:
     print("Du bist volljährig!")
 
 # if-else
 temperature = 22
-if temperature > 25:
+if temperature &gt; 25:
     print("Es ist warm draußen")
 else:
     print("Es ist nicht so warm")
@@ -148,16 +148,16 @@ else:
 # Mehrere Bedingungen mit elif
 score = 85
 
-if score >= 90:
+if score &gt;= 90:
     grade = "A"
     print("Excellent!")
-elif score >= 80:
+elif score &gt;= 80:
     grade = "B"
     print("Good job!")
-elif score >= 70:
+elif score &gt;= 70:
     grade = "C"
     print("Satisfactory")
-elif score >= 60:
+elif score &gt;= 60:
     grade = "D"
     print("Needs improvement")
 else:
@@ -171,12 +171,12 @@ weather = "sunny"
 temperature = 28
 
 if weather == "sunny":
-    if temperature > 25:
+    if temperature &gt; 25:
         print("Perfektes Strandwetter!")
     else:
         print("Sonnig aber kühl")
 else:
-    if temperature > 25:
+    if temperature &gt; 25:
         print("Warm aber nicht sonnig")
     else:
         print("Kalt und nicht sonnig")
@@ -213,7 +213,7 @@ else:
 
 # Ternary Operator (Kurzform)
 age = 20
-status = "adult" if age >= 18 else "minor"
+status = "adult" if age &gt;= 18 else "minor"
 print(f"Status: {status}")
 
 # Mit not-Operator
@@ -392,7 +392,7 @@ for num, letter in zip_longest(list1, list2, fillvalue='X'):
 <pre><code class="language-python"># Einfache while-Schleife
 count = 0
 print("Countdown:")
-while count < 5:
+while count &lt; 5:
     print(f"Count: {count}")
     count += 1  # Wichtig: Bedingung muss sich ändern!
 
@@ -422,7 +422,7 @@ max_attempts = 3
 
 print(f"\\nErrate die Zahl zwischen 1 und 10! Du hast {max_attempts} Versuche.")
 
-while attempts < max_attempts:
+while attempts &lt; max_attempts:
     try:
         guess = int(input("Dein Tipp: "))
         attempts += 1
@@ -431,13 +431,13 @@ while attempts < max_attempts:
             print(f"🎉 Richtig! Die Zahl war {secret_number}")
             print(f"Du hast {attempts} Versuche gebraucht")
             break
-        elif guess < secret_number:
+        elif guess &lt; secret_number:
             print("Zu niedrig!")
         else:
             print("Zu hoch!")
         
         remaining = max_attempts - attempts
-        if remaining > 0:
+        if remaining &gt; 0:
             print(f"Noch {remaining} Versuche übrig")
             
     except ValueError:
@@ -451,7 +451,7 @@ fruits = ["apple", "banana", "orange"]
 index = 0
 
 print("\\nFrüchte mit while-Schleife:")
-while index < len(fruits):
+while index &lt; len(fruits):
     print(f"{index}: {fruits[index]}")
     index += 1
 
@@ -463,16 +463,16 @@ daily_expense = 15
 print(f"\\nBudget-Simulation:")
 print(f"Startguthaben: {balance}€")
 
-while balance > 0 and day <= 10:
+while balance &gt; 0 and day &lt;= 10:
     balance -= daily_expense
     print(f"Tag {day}: -{daily_expense}€, Guthaben: {balance}€")
     
-    if balance < daily_expense:
+    if balance &lt; daily_expense:
         print("⚠️ Warnung: Guthaben reicht nicht für den nächsten Tag!")
     
     day += 1
 
-if balance <= 0:
+if balance &lt;= 0:
     print("💸 Geld ist alle!")
 else:
     print(f"✅ Nach 10 Tagen noch {balance}€ übrig")</code></pre>
@@ -486,13 +486,13 @@ else:
                                     <div class="code-block">
 <pre><code class="language-python"># ❌ ENDLOSSCHLEIFE - Vermeiden!
 # count = 0
-# while count < 5:
+# while count &lt; 5:
 #     print(count)
 #     # count wird nie erhöht - läuft ewig!
 
 # ✅ Korrekt - Bedingung ändert sich
 count = 0
-while count < 5:
+while count &lt; 5:
     print(count)
     count += 1  # Bedingung wird irgendwann False
 
@@ -500,12 +500,12 @@ while count < 5:
 count = 0
 max_iterations = 1000  # Sicherheitsnetz
 
-while count < 5 and max_iterations > 0:
+while count &lt; 5 and max_iterations &gt; 0:
     print(count)
     count += 1
     max_iterations -= 1
 
-if max_iterations <= 0:
+if max_iterations &lt;= 0:
     print("Schleife wurde wegen Sicherheitslimit beendet")</code></pre>
                                     </div>
                                 </div>
@@ -549,7 +549,7 @@ while True:  # Endlosschleife mit break
         break
     else:
         print("❌ Falsches Passwort")
-        if attempts >= 3:
+        if attempts &gt;= 3:
             print("🔒 Zu viele Fehlversuche - Konto gesperrt")
             break
         else:
@@ -589,7 +589,7 @@ for name in names:
         continue
     
     # Namen mit weniger als 3 Zeichen überspringen
-    if len(name.strip()) < 3:
+    if len(name.strip()) &lt; 3:
         print(f"'{name}' zu kurz - übersprungen")
         continue
     
@@ -602,15 +602,15 @@ print("\\nZahlen-Filter (nur positive Zahlen):")
 numbers = [-2, 5, -1, 8, 0, 3, -4, 7]
 index = 0
 
-while index < len(numbers):
+while index &lt; len(numbers):
     current = numbers[index]
     index += 1  # Wichtig: Index erhöhen vor continue!
     
-    if current <= 0:
+    if current &lt;= 0:
         print(f"Übersprungen: {current} (nicht positiv)")
         continue
     
-    print(f"Verarbeitet: {current} -> Quadrat: {current**2}")
+    print(f"Verarbeitet: {current} -&gt; Quadrat: {current**2}")
 
 # Praktisches Beispiel: Dateiverarbeitung simulieren
 files = ["doc1.txt", "image.jpg", "doc2.txt", "video.mp4", "doc3.txt"]
@@ -636,7 +636,7 @@ def future_function():
 
 # pass in if-Anweisungen
 age = 25
-if age >= 18:
+if age &gt;= 18:
     pass  # Vorerst nichts tun
 else:
     print("Zu jung")
@@ -744,12 +744,12 @@ print(f"Gerade: {even_numbers}")
 print(f"Ungerade: {odd_numbers}")
 
 # Mehrere Bedingungen
-big_even = [x for x in range(1, 101) if x % 2 == 0 and x > 50]
-print(f"Gerade und > 50: {big_even}")
+big_even = [x for x in range(1, 101) if x % 2 == 0 and x &gt; 50]
+print(f"Gerade und &gt; 50: {big_even}")
 
 # Mit String-Bedingungen
 words = ["python", "java", "javascript", "go", "rust", "swift"]
-long_words = [word for word in words if len(word) > 4]
+long_words = [word for word in words if len(word) &gt; 4]
 j_words = [word for word in words if word.startswith('j')]
 
 print(f"\\nLange Wörter: {long_words}")
@@ -758,8 +758,8 @@ print(f"J-Wörter: {j_words}")
 # If-else in Expression (Ternary)
 # Syntax: [expression_if_true if condition else expression_if_false for item in iterable]
 numbers = [-2, -1, 0, 1, 2, 3]
-abs_values = [x if x >= 0 else -x for x in numbers]
-signs = ["positive" if x > 0 else "negative" if x < 0 else "zero" for x in numbers]
+abs_values = [x if x &gt;= 0 else -x for x in numbers]
+signs = ["positive" if x &gt; 0 else "negative" if x &lt; 0 else "zero" for x in numbers]
 
 print(f"\\nOriginal: {numbers}")
 print(f"Absolut: {abs_values}")
@@ -767,7 +767,7 @@ print(f"Vorzeichen: {signs}")
 
 # Komplexeres Beispiel: Noten berechnen
 scores = [95, 87, 78, 92, 65, 88, 76, 89, 91, 73]
-grades = ["A" if score >= 90 else "B" if score >= 80 else "C" if score >= 70 else "D" if score >= 60 else "F" 
+grades = ["A" if score &gt;= 90 else "B" if score &gt;= 80 else "C" if score &gt;= 70 else "D" if score &gt;= 60 else "F" 
           for score in scores]
 
 print(f"\\nPunkte: {scores}")
@@ -775,7 +775,7 @@ print(f"Noten: {grades}")
 
 # Mit Funktionsaufrufen
 def is_prime(n):
-    if n < 2:
+    if n &lt; 2:
         return False
     for i in range(2, int(n**0.5) + 1):
         if n % i == 0:
@@ -904,7 +904,7 @@ class StudentManager:
             print(f"Verfügbare Fächer: {', '.join(self.subjects)}")
             return False
         
-        if not (1 <= grade <= 6):
+        if not (1 &lt;= grade &lt;= 6):
             print("❌ Note muss zwischen 1 und 6 liegen!")
             return False
         
@@ -981,15 +981,15 @@ class StudentManager:
             name = student['name']
             avg = self.calculate_average(student_id)
             
-            print(f"ID: {student_id:4} | {name:<20}", end="")
+            print(f"ID: {student_id:4} | {name:&lt;20}", end="")
             
             if avg is not None:
                 # Bewertung basierend auf Durchschnitt
-                if avg <= 2.0:
+                if avg &lt;= 2.0:
                     rating = "Sehr gut ⭐⭐⭐"
-                elif avg <= 3.0:
+                elif avg &lt;= 3.0:
                     rating = "Gut ⭐⭐"
-                elif avg <= 4.0:
+                elif avg &lt;= 4.0:
                     rating = "Befriedigend ⭐"
                 else:
                     rating = "Verbesserung nötig ⚠️"
@@ -1014,9 +1014,9 @@ class StudentManager:
             
             if subject_grades:
                 avg = round(mean(subject_grades), 2)
-                print(f"{subject:<15} | {student_count:2} Schüler | Ø {avg:4.2f} | {len(subject_grades):2} Noten")
+                print(f"{subject:&lt;15} | {student_count:2} Schüler | Ø {avg:4.2f} | {len(subject_grades):2} Noten")
             else:
-                print(f"{subject:<15} | Keine Noten vorhanden")
+                print(f"{subject:&lt;15} | Keine Noten vorhanden")
         
         # Top-Schüler
         print(f"\\n🏆 TOP-SCHÜLER:")
@@ -1029,7 +1029,7 @@ class StudentManager:
         
         # Notenverteilung
         grade_dist, total = self.get_grade_distribution()
-        if total > 0:
+        if total &gt; 0:
             print(f"\\n📈 NOTENVERTEILUNG ({total} Noten insgesamt):")
             print("-" * 40)
             
@@ -1064,7 +1064,7 @@ def interactive_demo():
     for student_id in manager.students.keys():
         for subject in manager.subjects:
             # Nicht für jedes Fach Noten vergeben
-            if random.random() > 0.3:  # 70% Chance für Note
+            if random.random() &gt; 0.3:  # 70% Chance für Note
                 num_grades = random.randint(1, 4)
                 for _ in range(num_grades):
                     grade = random.choices(
@@ -1122,9 +1122,9 @@ def interactive_demo():
                             grades = student['grades'][subject]
                             if grades:
                                 avg = manager.calculate_average(student_id, subject)
-                                print(f"{subject:<15}: {grades} (Ø {avg})")
+                                print(f"{subject:&lt;15}: {grades} (Ø {avg})")
                             else:
-                                print(f"{subject:<15}: Keine Noten")
+                                print(f"{subject:&lt;15}: Keine Noten")
                         
                         total_avg = manager.calculate_average(student_id)
                         if total_avg:
@@ -1203,6 +1203,8 @@ if __name__ == "__main__":
                         <?php renderPythonPageNavigation('python-kontrollstrukturen'); ?>
                     </div>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
         </main>

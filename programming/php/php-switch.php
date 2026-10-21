@@ -424,7 +424,7 @@ switch ($spieler_aktion) {
     case "kampf":
     case "fight":
     case "angriff":
-        if ($spieler_level >= 10) {
+        if ($spieler_level &gt;= 10) {
             echo "⚔️ Du greifst den Gegner an!";
             $schaden = rand(10, 20);
             echo "&lt;br&gt;💥 Du machst $schaden Schadenspunkte!";
