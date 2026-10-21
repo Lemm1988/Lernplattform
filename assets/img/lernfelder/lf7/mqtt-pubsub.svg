@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="mq-title mq-desc">
+  <title id="mq-title">MQTT: Publish und Subscribe über einen Broker</title>
+  <desc id="mq-desc">Links zwei Publisher: Ein Temperatursensor in Haus 1 veröffentlicht unter dem Topic gewaechshaus/haus1/temperatur den Wert 23,4; ein Feuchtesensor in Haus 1 veröffentlicht unter gewaechshaus/haus1/feuchte den Wert 61. In der Mitte der Broker, der alle Nachrichten annimmt und an die Abonnenten verteilt. Rechts drei Subscriber: Das Dashboard abonniert gewaechshaus/# und erhält alles; die Lüftersteuerung abonniert gewaechshaus/+/temperatur und erhält nur Temperaturen aller Häuser; die Datenbank abonniert ebenfalls gewaechshaus/#. Publisher und Subscriber kennen sich nicht, sie kennen nur den Broker und die Topics.</desc>
+  <defs><marker id="mq-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .tp { font-family: Consolas, monospace; font-size: 10.5px; fill: #0a58ca; }
+    .pub { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+    .sub { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+    .w { stroke: #495057; stroke-width: 1.8; fill: none; marker-end: url(#mq-a); }
+  </style>
+  <text x="20" y="22" style="font-size:12px;font-weight:700">Publisher</text>
+  <text x="700" y="22" text-anchor="end" style="font-size:12px;font-weight:700">Subscriber</text>
+  <rect class="pub" x="20" y="44" width="150" height="50" rx="7"/><text class="h" x="95" y="65">Temperatursensor</text><text class="s" x="95" y="82">Haus 1</text>
+  <rect class="pub" x="20" y="166" width="150" height="50" rx="7"/><text class="h" x="95" y="187">Feuchtesensor</text><text class="s" x="95" y="204">Haus 1</text>
+  <rect x="290" y="100" width="140" height="70" rx="10" fill="#343a40"/><text class="h" x="360" y="130" style="fill:#fff">Broker</text><text class="s" x="360" y="148" style="fill:#ced4da">verteilt nach Topic</text>
+  <path class="w" d="M170,69 C230,69 240,122 286,122"/>
+  <path class="w" d="M170,191 C230,191 240,150 286,150"/>
+  <text class="tp" x="20" y="114">publish gewaechshaus/haus1/temperatur</text><text class="s" x="95" y="128" style="text-anchor:middle">Nutzlast: 23.4</text>
+  <text class="tp" x="20" y="236">publish gewaechshaus/haus1/feuchte</text><text class="s" x="95" y="250" style="text-anchor:middle">Nutzlast: 61</text>
+  <rect class="sub" x="550" y="28" width="150" height="50" rx="7"/><text class="h" x="625" y="49">Dashboard</text><text class="s" x="625" y="66">erhält alles</text>
+  <path class="w" d="M430,135 C490,135 490,53 546,53"/>
+  <text class="tp" x="700" y="92" text-anchor="end">subscribe gewaechshaus/#</text>
+  <rect class="sub" x="550" y="110" width="150" height="50" rx="7"/><text class="h" x="625" y="131">Lüftersteuerung</text><text class="s" x="625" y="148">nur Temperaturen</text>
+  <path class="w" d="M430,135 C490,135 490,135 546,135"/>
+  <text class="tp" x="700" y="174" text-anchor="end">subscribe gewaechshaus/+/temperatur</text>
+  <rect class="sub" x="550" y="192" width="150" height="50" rx="7"/><text class="h" x="625" y="213">Datenbank</text><text class="s" x="625" y="230">erhält alles</text>
+  <path class="w" d="M430,135 C490,135 490,217 546,217"/>
+  <text class="tp" x="700" y="256" text-anchor="end">subscribe gewaechshaus/#</text>
+  <text class="s" x="360" y="214">Broker ↔ Clients: TCP, Port 1883</text>
+  <text class="s" x="360" y="229">bzw. 8883 mit TLS</text>
+  <text class="s" x="360" y="284" style="font-size:11px">+ = genau eine Ebene · # = alle weiteren Ebenen (nur am Ende) · Publisher und Subscriber kennen sich nicht</text>
+</svg>

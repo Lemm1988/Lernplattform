@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="za-title za-desc">
+  <title id="za-title">Zustandsautomat einer Bewässerungssteuerung</title>
+  <desc id="za-desc">Zustandsdiagramm. Der Normalbetrieb umfasst drei Zustände. Startzustand ist BEREIT. Wenn die Bodenfeuchte unter 30 Prozent fällt, wechselt der Automat nach BEWÄSSERN und öffnet das Ventil. Nach 5 Minuten oder wenn die Feuchte 45 Prozent erreicht, wechselt er nach VERSICKERN und schließt das Ventil. Nach 30 Minuten kehrt er nach BEREIT zurück. Aus jedem Zustand des Normalbetriebs führt ein Sensorfehler oder ein leerer Tank in den Zustand STÖRUNG; dabei wird das Ventil geschlossen und ein Alarm gesendet. Nach dem Quittieren, wenn der Fehler behoben ist, geht es zurück nach BEREIT.</desc>
+  <defs><marker id="za-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .st { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.6; }
+    .er { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.6; }
+    .n { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .a { font-size: 10.5px; fill: #0a58ca; text-anchor: middle; }
+    .w { stroke: #495057; stroke-width: 1.7; fill: none; marker-end: url(#za-a); }
+  </style>
+  <rect x="20" y="28" width="510" height="172" rx="14" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <text x="32" y="46" style="font-size:11px;font-weight:700;fill:#495057">Normalbetrieb</text>
+  <circle cx="96" cy="62" r="6" fill="#212529"/><path class="w" d="M96,68 V86"/>
+  <rect class="st" x="36" y="90" width="120" height="50" rx="12"/><text class="n" x="96" y="114">BEREIT</text><text class="s" x="96" y="130">Ventil zu</text>
+  <rect class="st" x="216" y="90" width="120" height="50" rx="12"/><text class="n" x="276" y="114">BEWÄSSERN</text><text class="s" x="276" y="130">Ventil offen</text>
+  <rect class="st" x="396" y="90" width="120" height="50" rx="12"/><text class="n" x="456" y="114">VERSICKERN</text><text class="s" x="456" y="130">Ventil zu, warten</text>
+  <path class="w" d="M156,115 H212"/><text class="s" x="186" y="72">Boden &lt; 30 %</text><text class="a" x="186" y="85">/ Ventil auf</text>
+  <path class="w" d="M336,115 H392"/><text class="s" x="366" y="60">5 min vorbei</text><text class="s" x="366" y="72">oder Boden ≥ 45 %</text><text class="a" x="366" y="85">/ Ventil zu</text>
+  <path class="w" d="M456,140 V176 H116 V144"/><text class="s" x="286" y="192">30 min vorbei</text>
+  <rect class="er" x="580" y="90" width="120" height="50" rx="12"/><text class="n" x="640" y="114">STÖRUNG</text><text class="s" x="640" y="130">Ventil zu</text>
+  <path class="w" d="M530,115 H576"/>
+  <text class="s" x="640" y="58">Sensorfehler oder</text><text class="s" x="640" y="70">Tank leer</text><text class="a" x="640" y="83">/ Ventil zu, Alarm</text>
+  <path class="w" d="M640,140 V232 H76 V144"/>
+  <text class="s" x="360" y="250">quittieren [Fehler behoben]</text>
+</svg>

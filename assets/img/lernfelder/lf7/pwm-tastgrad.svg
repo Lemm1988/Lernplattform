@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-labelledby="pw-title pw-desc">
+  <title id="pw-title">PWM-Signale mit 25, 50 und 75 Prozent Tastgrad</title>
+  <desc id="pw-desc">Drei Rechtecksignale zwischen 0 und 5 Volt mit gleicher Periodendauer T. Beim Tastgrad 25 Prozent ist das Signal ein Viertel jeder Periode eingeschaltet, der Mittelwert beträgt 1,25 Volt. Bei 50 Prozent ist es die halbe Periode eingeschaltet, Mittelwert 2,5 Volt. Bei 75 Prozent drei Viertel, Mittelwert 3,75 Volt. Die Frequenz bleibt gleich, nur die Einschaltdauer t ein ändert sich. Formel: Tastgrad gleich t ein durch T, Mittelwert gleich Tastgrad mal 5 Volt.</desc>
+  <style>text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; } .ax { font-size: 10.5px; fill: #495057; } .lab { font-size: 13px; font-weight: 700; } .s { font-size: 11px; fill: #343a40; } .m { font-size: 11.5px; font-weight: 700; fill: #212529; } .g { stroke: #e9ecef; stroke-width: 1; }</style>
+  <line x1="130" y1="18" x2="154" y2="18" stroke="#2a78d6" stroke-width="2"/><text class="s" x="160" y="22">PWM-Signal (0 V / 5 V)</text>
+  <line x1="320" y1="18" x2="344" y2="18" stroke="#eb6834" stroke-width="2" stroke-dasharray="6 4"/><text class="s" x="350" y="22">Mittelwert</text>
+  <line class="g" x1="130.0" y1="50" x2="130.0" y2="112"/>
+  <line class="g" x1="237.5" y1="50" x2="237.5" y2="112"/>
+  <line class="g" x1="345.0" y1="50" x2="345.0" y2="112"/>
+  <line class="g" x1="452.5" y1="50" x2="452.5" y2="112"/>
+  <line class="g" x1="560.0" y1="50" x2="560.0" y2="112"/>
+  <polyline points="130.0,108 130.0,56 156.9,56 156.9,108 237.5,108 237.5,108 237.5,56 264.4,56 264.4,108 345.0,108 345.0,108 345.0,56 371.9,56 371.9,108 452.5,108 452.5,108 452.5,56 479.4,56 479.4,108 560.0,108" fill="none" stroke="#2a78d6" stroke-width="2"/>
+  <line x1="130" y1="95.0" x2="560" y2="95.0" stroke="#eb6834" stroke-width="2" stroke-dasharray="6 4"/>
+  <text class="lab" x="20" y="78">25 %</text><text class="ax" x="20" y="94">Tastgrad</text>
+  <text class="ax" x="122" y="60" text-anchor="end">5 V</text><text class="ax" x="122" y="112" text-anchor="end">0 V</text>
+  <text class="m" x="574" y="99.0">Ø 1,25 V</text>
+  <path d="M130,42 v-5 H156.9 v5" fill="none" stroke="#495057" stroke-width="1.2"/>
+  <text class="s" x="143.4" y="34" text-anchor="middle">t<tspan dy="3" font-size="8">ein</tspan></text>
+  <path d="M237.5,42 v-5 H345.0 v5" fill="none" stroke="#495057" stroke-width="1.2"/>
+  <text class="s" x="291.2" y="34" text-anchor="middle">Periode T = 1 / f</text>
+  <line class="g" x1="130.0" y1="140" x2="130.0" y2="202"/>
+  <line class="g" x1="237.5" y1="140" x2="237.5" y2="202"/>
+  <line class="g" x1="345.0" y1="140" x2="345.0" y2="202"/>
+  <line class="g" x1="452.5" y1="140" x2="452.5" y2="202"/>
+  <line class="g" x1="560.0" y1="140" x2="560.0" y2="202"/>
+  <polyline points="130.0,198 130.0,146 183.8,146 183.8,198 237.5,198 237.5,198 237.5,146 291.2,146 291.2,198 345.0,198 345.0,198 345.0,146 398.8,146 398.8,198 452.5,198 452.5,198 452.5,146 506.2,146 506.2,198 560.0,198" fill="none" stroke="#2a78d6" stroke-width="2"/>
+  <line x1="130" y1="172.0" x2="560" y2="172.0" stroke="#eb6834" stroke-width="2" stroke-dasharray="6 4"/>
+  <text class="lab" x="20" y="168">50 %</text><text class="ax" x="20" y="184">Tastgrad</text>
+  <text class="ax" x="122" y="150" text-anchor="end">5 V</text><text class="ax" x="122" y="202" text-anchor="end">0 V</text>
+  <text class="m" x="574" y="176.0">Ø 2,50 V</text>
+  <line class="g" x1="130.0" y1="230" x2="130.0" y2="292"/>
+  <line class="g" x1="237.5" y1="230" x2="237.5" y2="292"/>
+  <line class="g" x1="345.0" y1="230" x2="345.0" y2="292"/>
+  <line class="g" x1="452.5" y1="230" x2="452.5" y2="292"/>
+  <line class="g" x1="560.0" y1="230" x2="560.0" y2="292"/>
+  <polyline points="130.0,288 130.0,236 210.6,236 210.6,288 237.5,288 237.5,288 237.5,236 318.1,236 318.1,288 345.0,288 345.0,288 345.0,236 425.6,236 425.6,288 452.5,288 452.5,288 452.5,236 533.1,236 533.1,288 560.0,288" fill="none" stroke="#2a78d6" stroke-width="2"/>
+  <line x1="130" y1="249.0" x2="560" y2="249.0" stroke="#eb6834" stroke-width="2" stroke-dasharray="6 4"/>
+  <text class="lab" x="20" y="258">75 %</text><text class="ax" x="20" y="274">Tastgrad</text>
+  <text class="ax" x="122" y="240" text-anchor="end">5 V</text><text class="ax" x="122" y="292" text-anchor="end">0 V</text>
+  <text class="m" x="574" y="253.0">Ø 3,75 V</text>
+  <text class="s" x="574" y="300">Tastgrad = t<tspan dy="3" font-size="8">ein</tspan><tspan dy="-3"> / T</tspan></text>
+  <text class="s" x="574" y="316">Ø U = Tastgrad · 5 V</text>
+</svg>

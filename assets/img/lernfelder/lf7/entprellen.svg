@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="ep-title ep-desc">
+  <title id="ep-title">Prellen eines Tasters und Entprellen in Software</title>
+  <desc id="ep-desc">Zeitachse von 0 bis 60 Millisekunden. Oben das Rohsignal am Pin: Beim Drücken nach 10 Millisekunden springt der Pegel mehrfach zwischen LOW und HIGH hin und her, bis er nach etwa 16 Millisekunden stabil HIGH bleibt. Das ist das Prellen der mechanischen Kontakte. Unten das entprellte Signal: Die Software übernimmt den neuen Zustand erst, wenn er 20 Millisekunden lang stabil war, also bei 36 Millisekunden. So zählt ein Tastendruck genau einmal.</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .ax { font-size: 10.5px; fill: #495057; }
+    .lab { font-size: 11.5px; font-weight: 700; }
+    .s { font-size: 11px; fill: #343a40; }
+    .g { stroke: #e9ecef; stroke-width: 1; }
+  </style>
+  <line class="g" x1="150.0" y1="30" x2="150.0" y2="200"/><text class="ax" x="150.0" y="216" text-anchor="middle">0</text>
+  <line class="g" x1="240.0" y1="30" x2="240.0" y2="200"/><text class="ax" x="240.0" y="216" text-anchor="middle">10</text>
+  <line class="g" x1="330.0" y1="30" x2="330.0" y2="200"/><text class="ax" x="330.0" y="216" text-anchor="middle">20</text>
+  <line class="g" x1="420.0" y1="30" x2="420.0" y2="200"/><text class="ax" x="420.0" y="216" text-anchor="middle">30</text>
+  <line class="g" x1="510.0" y1="30" x2="510.0" y2="200"/><text class="ax" x="510.0" y="216" text-anchor="middle">40</text>
+  <line class="g" x1="600.0" y1="30" x2="600.0" y2="200"/><text class="ax" x="600.0" y="216" text-anchor="middle">50</text>
+  <line class="g" x1="690.0" y1="30" x2="690.0" y2="200"/><text class="ax" x="690.0" y="216" text-anchor="middle">60</text>
+  <text class="ax" x="420.0" y="234" text-anchor="middle">Zeit in ms</text>
+  <line x1="150" y1="200" x2="690" y2="200" stroke="#495057" stroke-width="1.2"/>
+  <text class="lab" x="14" y="77">Rohsignal am Pin</text><text class="ax" x="128" y="56" text-anchor="end">HIGH</text><text class="ax" x="128" y="96" text-anchor="end">LOW</text>
+  <polyline points="150.0,92 240.0,92 240.0,52 249.0,52 249.0,92 259.8,92 259.8,52 265.2,52 265.2,92 276.0,92 276.0,52 280.5,52 280.5,92 294.0,92 294.0,52 690.0,52" fill="none" stroke="#2a78d6" stroke-width="2"/>
+  <text class="lab" x="14" y="157">entprellt</text><text class="ax" x="128" y="136" text-anchor="end">HIGH</text><text class="ax" x="128" y="176" text-anchor="end">LOW</text>
+  <polyline points="150.0,172 474.0,172 474.0,132 690.0,132" fill="none" stroke="#eb6834" stroke-width="2"/>
+  <path d="M240.0,38 v-6 H294.0 v6" fill="none" stroke="#495057" stroke-width="1.2"/><text class="s" x="267.0" y="26" text-anchor="middle">Prellen</text>
+  <path d="M294.0,118 v-6 H474.0 v6" fill="none" stroke="#495057" stroke-width="1.2"/><text class="s" x="384.0" y="107" text-anchor="middle">20 ms stabil abwarten</text>
+  <line x1="474.0" y1="52" x2="474.0" y2="132" stroke="#6c757d" stroke-width="1" stroke-dasharray="3 3"/>
+  <text class="s" x="483.0" y="152">Zustand übernommen:</text><text class="s" x="483.0" y="166">ein Tastendruck</text>
+</svg>

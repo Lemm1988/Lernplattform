@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="nz-title nz-desc">
+  <title id="nz-title">Netzsegmentierung: Büro-IT, DMZ, OT-Zone und IoT-Segment</title>
+  <desc id="nz-desc">Von links nach rechts: das Internet, eine Firewall, dann drei getrennte Zonen. Die Büro-IT mit PCs und Servern. Eine DMZ mit MQTT-Broker und Update-Server, über die Daten zwischen den Zonen ausgetauscht werden. Hinter einer weiteren Firewall die OT-Zone mit Steuerungen und Bedienpanel sowie ein eigenes IoT-Segment mit Sensoren und Gateway. Die Geräte im IoT-Segment bauen nur ausgehende, verschlüsselte Verbindungen zum Broker in der DMZ auf; aus dem Internet und der Büro-IT ist kein direkter Zugriff auf OT und IoT erlaubt. Fernwartung läuft über ein VPN mit Mehrfaktor-Anmeldung und wird protokolliert.</desc>
+  <defs><marker id="nz-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .fw { fill: #b02a37; }
+    .fwt { font-size: 10px; font-weight: 700; fill: #fff; text-anchor: middle; }
+    .w { stroke: #495057; stroke-width: 1.6; fill: none; marker-end: url(#nz-a); }
+    .x { stroke: #b02a37; stroke-width: 2.2; }
+  </style>
+  <ellipse cx="60" cy="150" rx="48" ry="30" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.4"/><text class="h" x="60" y="154">Internet</text>
+  <rect class="fw" x="118" y="40" width="26" height="220" rx="4"/><text class="fwt" x="131" y="155" transform="rotate(-90 131 150)">Firewall</text>
+  <rect x="160" y="30" width="170" height="100" rx="10" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.4"/>
+  <text class="h" x="245" y="52">Büro-IT</text><text class="s" x="245" y="72">PCs, Mail, ERP</text><text class="s" x="245" y="88">Dateiserver</text>
+  <rect x="160" y="170" width="170" height="100" rx="10" fill="#fff3cd" stroke="#eda100" stroke-width="1.4"/>
+  <text class="h" x="245" y="192">DMZ</text><text class="s" x="245" y="212">MQTT-Broker (TLS)</text><text class="s" x="245" y="228">Update-Server</text><text class="s" x="245" y="244">VPN-Zugang (MFA)</text>
+  <rect class="fw" x="350" y="40" width="26" height="220" rx="4"/><text class="fwt" x="363" y="155" transform="rotate(-90 363 150)">Firewall</text>
+  <rect x="396" y="30" width="300" height="110" rx="10" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/>
+  <text class="h" x="546" y="52">OT-Zone</text><text class="s" x="546" y="72">Steuerungen (SPS), Bedienpanel</text><text class="s" x="546" y="88">Verfügbarkeit hat Vorrang</text><text class="s" x="546" y="104">nur freigegebene Verbindungen</text>
+  <rect x="396" y="160" width="300" height="110" rx="10" fill="#d1e7dd" stroke="#198754" stroke-width="1.4"/>
+  <text class="h" x="546" y="182">IoT-Segment (eigenes VLAN)</text><text class="s" x="546" y="202">Sensoren, Gateway</text><text class="s" x="546" y="218">nur ausgehend: MQTT über TLS</text><text class="s" x="546" y="234">zum Broker in der DMZ</text>
+  <path class="w" d="M396,215 H334"/><text class="s" x="365" y="290" style="font-weight:700;fill:#198754">erlaubt: IoT → Broker</text>
+  <path d="M330,80 H392" stroke="#495057" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <path d="M354,71 l18,18 M372,71 l-18,18" stroke="#fff" stroke-width="2.6"/>
+  <path class="w" d="M104,166 C130,196 132,214 156,222"/><text class="s" x="96" y="200" style="font-weight:700">VPN</text>
+  <text class="s" x="246" y="152" style="font-weight:700;fill:#b02a37">kein direkter Zugriff Büro → OT</text>
+</svg>

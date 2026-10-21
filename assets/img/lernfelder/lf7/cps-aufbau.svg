@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="ca-title ca-desc">
+  <title id="ca-title">Aufbau eines cyber-physischen Systems</title>
+  <desc id="ca-desc">Unten der physische Prozess, zum Beispiel ein Gewächshaus mit Temperatur und Feuchte. Sensoren messen Temperatur, Feuchte und Licht und liefern Werte an das eingebettete System, einen Mikrocontroller mit Software. Dieser entscheidet und steuert Aktoren wie Lüfter, Heizung und Bewässerungsventil, die wiederum auf den physischen Prozess wirken. Oben ist das System vernetzt: Es sendet Messwerte über ein Gateway in die Cloud, wo Dashboard, Speicherung und Auswertung laufen, und empfängt von dort neue Sollwerte. Cyber, also Software und Netz, und physische Welt sind in einem Kreislauf verbunden.</desc>
+  <defs>
+    <marker id="ca-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .ph { fill: #d1e7dd; stroke: #198754; stroke-width: 1.5; }
+      .se { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .ak { fill: #ffe5d0; stroke: #fd7e14; stroke-width: 1.4; }
+      .mc { fill: #343a40; }
+      .mct { fill: #fff; font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .cl { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#ca-arr); fill: none; }
+      .net { stroke: #6f42c1; stroke-width: 1.6; stroke-dasharray: 5 4; marker-start: url(#ca-arr); marker-end: url(#ca-arr); fill: none; }
+      .lab { font-size: 10.5px; font-weight: 700; fill: #6f42c1; }
+    </style>
+  </defs>
+  <ellipse class="cl" cx="360" cy="34" rx="150" ry="24"/><text class="h" x="360" y="30">Cloud / Server</text><text class="s" x="360" y="46">Dashboard, Speicherung, Auswertung</text>
+  <path class="net" d="M360,60 V86"/><text class="lab" x="368" y="78">Netz: WLAN, LoRaWAN, MQTT …</text>
+  <rect class="mc" x="270" y="90" width="180" height="56" rx="8"/><text class="mct" x="360" y="114">Eingebettetes System</text><text class="c" x="360" y="132" style="fill:#ced4da;font-size:10.5px">Mikrocontroller + Software</text>
+  <rect class="se" x="40" y="96" width="170" height="44" rx="6"/><text class="h" x="125" y="114">Sensoren</text><text class="s" x="125" y="130">Temperatur, Feuchte, Licht</text>
+  <rect class="ak" x="510" y="96" width="170" height="44" rx="6"/><text class="h" x="595" y="114">Aktoren</text><text class="s" x="595" y="130">Lüfter, Heizung, Ventil</text>
+  <path class="ar" d="M210,118 H266"/><path class="ar" d="M450,118 H506"/>
+  <text class="s" x="238" y="110">messen</text><text class="s" x="478" y="110">stellen</text>
+  <rect class="ph" x="40" y="190" width="640" height="56" rx="10"/><text class="h" x="360" y="214">Physischer Prozess</text><text class="s" x="360" y="232">z. B. Gewächshaus: Temperatur, Luftfeuchte, Bodenfeuchte</text>
+  <path class="ar" d="M125,190 V144"/><path class="ar" d="M595,144 V186"/>
+  <text class="s" x="80" y="170">erfassen</text><text class="s" x="640" y="170">wirken</text>
+</svg>

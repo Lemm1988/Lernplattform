@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="rk-title rk-desc">
+  <title id="rk-title">Steuerung und Regelung</title>
+  <desc id="rk-desc">Oben eine Steuerung, offene Wirkungskette: Eine Zeitschaltuhr schaltet die Heizung jeden Morgen für zwei Stunden ein; ob es danach warm genug ist, wird nicht geprüft. Störgrößen wie ein offenes Fenster bleiben unbemerkt. Unten eine Regelung, geschlossener Kreis: Der Sollwert 21 Grad wird mit dem gemessenen Istwert verglichen; die Regelabweichung geht an den Regler, der die Heizung als Stellglied ansteuert; die Raumtemperatur ist die Regelgröße, ein Sensor misst sie und meldet den Istwert zurück. Störgrößen wie ein offenes Fenster werden ausgeglichen.</desc>
+  <defs>
+    <marker id="rk-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .b { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .p { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .st { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 11.5px; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .t { font-weight: 700; font-size: 12.5px; }
+      .ar { stroke: #495057; stroke-width: 1.6; marker-end: url(#rk-arr); fill: none; }
+      .sum { fill: #fff; stroke: #212529; stroke-width: 1.5; }
+    </style>
+  </defs>
+  <text class="t" x="14" y="20">Steuerung – offene Wirkungskette</text>
+  <rect class="b" x="40" y="32" width="140" height="40" rx="6"/><text class="h" x="110" y="50">Zeitschaltuhr</text><text class="s" x="110" y="64">6–8 Uhr „an“</text>
+  <rect class="b" x="250" y="32" width="140" height="40" rx="6"/><text class="h" x="320" y="50">Heizung</text><text class="s" x="320" y="64">Stellglied</text>
+  <rect class="p" x="460" y="32" width="140" height="40" rx="6"/><text class="h" x="530" y="50">Raumtemperatur</text><text class="s" x="530" y="64">wird nicht gemessen</text>
+  <path class="ar" d="M180,52 H246"/><path class="ar" d="M390,52 H456"/>
+  <rect class="st" x="620" y="32" width="90" height="40" rx="6"/><text class="h" x="665" y="50">Störgröße</text><text class="s" x="665" y="64">Fenster offen</text>
+  <path class="ar" d="M620,52 H604"/>
+  <text class="s" x="320" y="94" style="fill:#b02a37">Ob es warm genug ist, prüft niemand.</text>
+
+  <text class="t" x="14" y="128">Regelung – geschlossener Regelkreis</text>
+  <text class="s" x="30" y="162" style="text-anchor:start">Sollwert 21 °C</text>
+  <path class="ar" d="M30,170 H137"/>
+  <circle class="sum" cx="150" cy="170" r="13"/><text class="c" x="150" y="175" style="font-size:13px;font-weight:700">−</text>
+  <path class="ar" d="M163,170 H240"/><text class="s" x="200" y="162">Abweichung</text>
+  <rect class="b" x="244" y="150" width="110" height="40" rx="6"/><text class="h" x="299" y="168">Regler</text><text class="s" x="299" y="182">Mikrocontroller</text>
+  <path class="ar" d="M354,170 H396"/>
+  <rect class="b" x="400" y="150" width="110" height="40" rx="6"/><text class="h" x="455" y="168">Heizung</text><text class="s" x="455" y="182">Stellglied</text>
+  <path class="ar" d="M510,170 H546"/>
+  <rect class="p" x="550" y="150" width="120" height="40" rx="6"/><text class="h" x="610" y="168">Raumtemperatur</text><text class="s" x="610" y="182">Regelgröße</text>
+  <rect class="st" x="555" y="104" width="110" height="22" rx="5"/><text class="s" x="610" y="119">Störgröße: Fenster</text><path class="ar" d="M610,126 V146"/>
+  <path class="ar" d="M610,190 V226 H150 V185"/>
+  <rect class="b" x="350" y="212" width="120" height="28" rx="6"/><text class="h" x="410" y="230">Sensor misst Istwert</text>
+  <text class="s" x="360" y="260" style="font-size:11px">Rückführung: Der Istwert wird ständig mit dem Sollwert verglichen – Störungen werden ausgeglichen.</text>
+</svg>

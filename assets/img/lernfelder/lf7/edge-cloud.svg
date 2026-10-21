@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="ec-title ec-desc">
+  <title id="ec-title">Geräte, Edge und Cloud</title>
+  <desc id="ec-desc">Drei Ebenen von links nach rechts. Geräteebene: Sensoren und Aktoren am Prozess, verbunden über Funk oder Feldbus, etwa Zigbee, BLE, LoRa oder Modbus. Edge-Gateway vor Ort: übersetzt Protokolle, filtert und verdichtet Daten, regelt zeitkritische Dinge lokal und puffert bei Netzausfall. Cloud oder Rechenzentrum: speichert Zeitreihen, wertet aus, zeigt Dashboards, verteilt Updates und verbindet mehrere Standorte. Zwischen Edge und Cloud läuft meist MQTT oder HTTPS über das Internet. Nach links nimmt die Reaktionszeit ab und die Unabhängigkeit vom Internet zu, nach rechts nehmen Speicher und Rechenleistung zu.</desc>
+  <defs><marker id="ec-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12.5px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .w { stroke: #495057; stroke-width: 1.8; fill: none; marker-start: url(#ec-a); marker-end: url(#ec-a); }
+    .lab { font-size: 10.5px; font-weight: 700; fill: #6f42c1; text-anchor: middle; }
+  </style>
+  <rect x="20" y="20" width="190" height="170" rx="10" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/>
+  <text class="h" x="115" y="42">Geräte</text>
+  <text class="s" x="115" y="64">Sensoren, Aktoren,</text><text class="s" x="115" y="78">Mikrocontroller</text>
+  <text class="s" x="115" y="104">• messen und schalten</text><text class="s" x="115" y="120">• oft Batterie</text><text class="s" x="115" y="136">• wenig Rechenleistung</text>
+  <rect x="265" y="20" width="190" height="170" rx="10" fill="#fff3cd" stroke="#eda100" stroke-width="1.4"/>
+  <text class="h" x="360" y="42">Edge-Gateway</text><text class="s" x="360" y="58">vor Ort</text>
+  <text class="s" x="360" y="84">• Protokolle übersetzen</text><text class="s" x="360" y="100">• filtern, verdichten</text><text class="s" x="360" y="116">• zeitkritisch lokal regeln</text><text class="s" x="360" y="132">• puffern bei Netzausfall</text><text class="s" x="360" y="148">• Zugriffe absichern</text>
+  <rect x="510" y="20" width="190" height="170" rx="10" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.4"/>
+  <text class="h" x="605" y="42">Cloud / Rechenzentrum</text>
+  <text class="s" x="605" y="84">• Zeitreihen speichern</text><text class="s" x="605" y="100">• auswerten, Prognosen</text><text class="s" x="605" y="116">• Dashboards, Alarme</text><text class="s" x="605" y="132">• Updates verteilen</text><text class="s" x="605" y="148">• Standorte verbinden</text>
+  <path class="w" d="M214,105 H261"/><path class="w" d="M459,105 H506"/>
+  <text class="lab" x="237" y="210">Zigbee, BLE,</text><text class="lab" x="237" y="224">LoRa, Modbus</text>
+  <text class="lab" x="482" y="210">MQTT, HTTPS</text><text class="lab" x="482" y="224">über Internet</text>
+  <path d="M600,252 H120" stroke="#1baf7a" stroke-width="2" marker-end="url(#ec-a)"/>
+  <text class="s" x="360" y="246" style="font-size:11px">schneller, unabhängig vom Internet, Daten bleiben vor Ort</text>
+  <path d="M120,268 H600" stroke="#6c757d" stroke-width="2" marker-end="url(#ec-a)"/>
+  <text class="s" x="360" y="280" style="font-size:11px">mehr Speicher, mehr Rechenleistung, Überblick über alle Standorte</text>
+</svg>

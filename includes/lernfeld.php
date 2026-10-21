@@ -15,7 +15,6 @@ require_once __DIR__ . '/../config.php';
 
 /**
  * Stammdaten der Lernfelder nach dem Rahmenlehrplan Fachinformatiker/-in Anwendungsentwicklung (2020).
- * 'legacy_title' = bisheriger Titel, solange das Lernfeld noch nicht überarbeitet ist.
  */
 function lernfeld_meta() {
     return [
@@ -25,7 +24,7 @@ function lernfeld_meta() {
         'LF4'  => ['title' => 'Schutzbedarfsanalyse im eigenen Arbeitsbereich durchführen', 'icon' => 'shield-lock', 'ap' => 'AP1'],
         'LF5'  => ['title' => 'Software zur Verwaltung von Daten anpassen', 'icon' => 'database', 'ap' => 'AP1 + AP2'],
         'LF6'  => ['title' => 'Serviceanfragen bearbeiten', 'icon' => 'headset', 'ap' => 'AP1'],
-        'LF7'  => ['title' => 'Cyber-physische Systeme ergänzen', 'icon' => 'cpu', 'ap' => 'AP2', 'legacy_title' => 'IT-Sicherheit'],
+        'LF7'  => ['title' => 'Cyber-physische Systeme ergänzen', 'icon' => 'cpu', 'ap' => 'AP2'],
         'LF8'  => ['title' => 'Daten systemübergreifend bereitstellen', 'icon' => 'arrow-left-right', 'ap' => 'AP2'],
         'LF9'  => ['title' => 'Netzwerke und Dienste bereitstellen', 'icon' => 'hdd-network', 'ap' => 'AP2'],
         'LF10' => ['title' => 'Benutzerschnittstellen gestalten und entwickeln', 'icon' => 'window-stack', 'ap' => 'AP2'],
@@ -34,7 +33,7 @@ function lernfeld_meta() {
     ];
 }
 
-/** Lädt Metadaten und Kapitel eines Lernfelds; Kapitel aus content.php (neues oder altes Format). */
+/** Lädt Metadaten und Kapitel eines Lernfelds aus content.php. */
 function lernfeld_load($lf_key) {
     $meta = lernfeld_meta()[$lf_key] ?? null;
     $file = __DIR__ . '/../Learningfields/' . $lf_key . '/content.php';
@@ -45,10 +44,6 @@ function lernfeld_load($lf_key) {
     $chapters = null;
     $lf_info = [];
     include $file;
-    $legacy_var = strtolower($lf_key) . 'Chapters';
-    if ($chapters === null && isset($$legacy_var)) {
-        $chapters = $$legacy_var;
-    }
     return array_merge($meta, ['key' => $lf_key, 'chapters' => $chapters ?? []], $lf_info);
 }
 
@@ -114,7 +109,7 @@ function lernfeld_quiz_button($lf_key) {
 /** Übersichtsseite eines Lernfelds */
 function render_lernfeld_overview($lf_key) {
     $lf = lernfeld_load($lf_key);
-    $title = $lf['legacy_title'] ?? $lf['title'];
+    $title = $lf['title'];
     lernfeld_page_start($lf_key, $lf_key . ': ' . $title);
     $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 
@@ -124,10 +119,6 @@ function render_lernfeld_overview($lf_key) {
     echo '<h1 class="h2 mb-3">' . $e($title) . '</h1>';
     if (!empty($lf['description'])) {
         echo '<p class="lead">' . $e($lf['description']) . '</p>';
-    }
-    if (!empty($lf['legacy_title'])) {
-        echo '<div class="alert alert-info small">Dieses Lernfeld wird gerade nach dem Rahmenlehrplan („'
-            . $e($lf['title']) . '“) überarbeitet.</div>';
     }
     echo '<div class="d-flex flex-wrap gap-2">';
     $first = array_key_first($lf['chapters']);
@@ -175,7 +166,7 @@ function render_lernfeld_chapter($lf_key, $chapter_key) {
     $next = $keys[$index + 1] ?? null;
     $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
     $chapter_title = preg_replace('/^\d+\.\s*/', '', $chapter['title']);
-    $lf_title = $lf['legacy_title'] ?? $lf['title'];
+    $lf_title = $lf['title'];
 
     lernfeld_page_start($lf_key, $lf_key . ' · ' . $chapter_title);
 

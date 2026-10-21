@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-labelledby="uu-title uu-desc">
+  <title id="uu-title">Zusammenhang von USB und UART</title>
+  <desc id="uu-desc">Links ein PC mit Terminalprogramm oder Arduino-IDE. Er sieht einen virtuellen COM-Port, unter Windows zum Beispiel COM3, unter Linux /dev/ttyUSB0. Über ein USB-Kabel mit den Leitungen D plus und D minus, differenziell und paketbasiert, ist er mit einem USB-UART-Wandlerchip auf dem Board verbunden. Dieser Chip übersetzt die USB-Pakete in ein einfaches UART-Signal auf den Leitungen TX und RX, das zum Mikrocontroller führt. Für das Programm auf beiden Seiten sieht es so aus, als wären PC und Mikrocontroller direkt seriell verbunden.</desc>
+  <defs><marker id="uu-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .w { stroke: #495057; stroke-width: 2; fill: none; marker-start: url(#uu-a); marker-end: url(#uu-a); }
+    .lab { font-size: 11px; font-weight: 700; text-anchor: middle; }
+  </style>
+  <rect x="20" y="40" width="170" height="80" rx="8" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.4"/>
+  <text class="h" x="105" y="62">PC</text><text class="s" x="105" y="80">Terminal / IDE</text>
+  <rect x="38" y="90" width="134" height="22" rx="4" fill="#fff3cd" stroke="#eda100"/><text class="s" x="105" y="105" style="font-weight:700">virtueller COM-Port</text>
+  <path class="w" d="M194,80 H282"/>
+  <text class="lab" x="238" y="70">USB</text><text class="s" x="238" y="98">D+ / D−</text><text class="s" x="238" y="112">Pakete, 5 V</text>
+  <rect x="286" y="20" width="410" height="120" rx="10" fill="none" stroke="#adb5bd" stroke-width="1.4" stroke-dasharray="6 4"/>
+  <text x="300" y="36" style="font-size:10.5px;fill:#6c757d">Entwicklungsboard</text>
+  <rect x="300" y="48" width="150" height="70" rx="8" fill="#ffe5d0" stroke="#fd7e14" stroke-width="1.4"/>
+  <text class="h" x="375" y="72">USB-UART-Wandler</text><text class="s" x="375" y="90">übersetzt USB ↔ UART</text><text class="s" x="375" y="105">z. B. CH340, CP2102</text>
+  <path class="w" d="M454,72 H530"/><path class="w" d="M454,96 H530"/>
+  <text class="lab" x="492" y="66">TX/RX</text><text class="s" x="492" y="112">3,3 V-Pegel</text>
+  <rect x="534" y="48" width="150" height="70" rx="8" fill="#343a40"/>
+  <text class="h" x="609" y="78" style="fill:#fff">Mikrocontroller</text><text class="s" x="609" y="96" style="fill:#ced4da">UART-Peripherie</text>
+  <text class="s" x="360" y="170" style="font-size:11px">Windows: COM3 · Linux: /dev/ttyUSB0 oder /dev/ttyACM0 · Baudrate in beiden Programmen gleich einstellen</text>
+  <text class="s" x="360" y="188" style="font-size:11px">Manche Controller haben USB direkt eingebaut und melden sich als USB-CDC-Gerät – für den PC sieht das genauso aus.</text>
+</svg>

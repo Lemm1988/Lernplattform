@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="mc-title mc-desc">
+  <title id="mc-title">Aufbau eines Mikrocontrollers</title>
+  <desc id="mc-desc">Ein Mikrocontroller vereint auf einem Chip einen Prozessorkern, Flash-Speicher für das Programm, Arbeitsspeicher für Variablen sowie Takt und Watchdog. Über einen internen Bus sind sie mit den Peripheriemodulen verbunden: GPIO für digitale Ein- und Ausgänge wie Taster und LED; ADC für analoge Sensoren wie NTC oder Potenziometer; Timer und PWM für Servos und das Dimmen von LEDs; UART für PC oder GPS-Modul; I2C für Sensoren und Displays; SPI für Displays und SD-Karten. Die Peripherie ist über Pins mit der Außenwelt verbunden.</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .core { fill: #343a40; } .ct { fill: #fff; font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .mem { fill: #fff3cd; stroke: #eda100; stroke-width: 1.4; }
+    .p { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+    .bus { stroke: #6c757d; stroke-width: 4; }
+    .c { stroke: #6c757d; stroke-width: 2; }
+    .pin { stroke: #495057; stroke-width: 2; }
+  </style>
+  <rect x="20" y="16" width="680" height="214" rx="12" fill="#f8f9fa" stroke="#495057" stroke-width="2"/>
+  <text x="34" y="34" style="font-size:11px;font-weight:700;fill:#495057">MIKROCONTROLLER – ein Chip</text>
+  <rect class="core" x="40" y="44" width="150" height="54" rx="7"/><text class="ct" x="115" y="68">CPU-Kern</text><text class="s" x="115" y="85" style="fill:#ced4da">rechnet, steuert</text>
+  <rect class="mem" x="210" y="44" width="150" height="54" rx="7"/><text class="h" x="285" y="68">Flash</text><text class="s" x="285" y="85">Programm, bleibt erhalten</text>
+  <rect class="mem" x="380" y="44" width="150" height="54" rx="7"/><text class="h" x="455" y="68">RAM</text><text class="s" x="455" y="85">Variablen, flüchtig</text>
+  <rect class="mem" x="550" y="44" width="134" height="54" rx="7"/><text class="h" x="617" y="68">Takt, Watchdog</text><text class="s" x="617" y="85">Zeitbasis, Neustart</text>
+  <line class="c" x1="115" y1="98" x2="115" y2="124"/>
+  <line class="c" x1="285" y1="98" x2="285" y2="124"/>
+  <line class="c" x1="455" y1="98" x2="455" y2="124"/>
+  <line class="c" x1="617" y1="98" x2="617" y2="124"/>
+  <line class="bus" x1="40" y1="126" x2="684" y2="126"/><text x="196" y="119" style="font-size:10px;fill:#6c757d">interner Bus</text>
+  <line class="c" x1="83" y1="128" x2="83" y2="156"/>
+  <rect class="p" x="34" y="156" width="98" height="50" rx="6"/><text class="h" x="83" y="177">GPIO</text><text class="s" x="83" y="194">digital ein/aus</text>
+  <line class="pin" x1="83" y1="206" x2="83" y2="244"/><rect x="77" y="226" width="12" height="8" fill="#adb5bd"/>
+  <text class="s" x="83" y="262">Taster,</text><text class="s" x="83" y="277">LED</text>
+  <line class="c" x1="193" y1="128" x2="193" y2="156"/>
+  <rect class="p" x="144" y="156" width="98" height="50" rx="6"/><text class="h" x="193" y="177">ADC</text><text class="s" x="193" y="194">analog → Zahl</text>
+  <line class="pin" x1="193" y1="206" x2="193" y2="244"/><rect x="187" y="226" width="12" height="8" fill="#adb5bd"/>
+  <text class="s" x="193" y="262">NTC,</text><text class="s" x="193" y="277">Potenziometer</text>
+  <line class="c" x1="303" y1="128" x2="303" y2="156"/>
+  <rect class="p" x="254" y="156" width="98" height="50" rx="6"/><text class="h" x="303" y="177">Timer / PWM</text><text class="s" x="303" y="194">Takt, Pulse</text>
+  <line class="pin" x1="303" y1="206" x2="303" y2="244"/><rect x="297" y="226" width="12" height="8" fill="#adb5bd"/>
+  <text class="s" x="303" y="262">Servo,</text><text class="s" x="303" y="277">LED dimmen</text>
+  <line class="c" x1="413" y1="128" x2="413" y2="156"/>
+  <rect class="p" x="364" y="156" width="98" height="50" rx="6"/><text class="h" x="413" y="177">UART</text><text class="s" x="413" y="194">seriell, 2 Leitungen</text>
+  <line class="pin" x1="413" y1="206" x2="413" y2="244"/><rect x="407" y="226" width="12" height="8" fill="#adb5bd"/>
+  <text class="s" x="413" y="262">PC,</text><text class="s" x="413" y="277">GPS-Modul</text>
+  <line class="c" x1="523" y1="128" x2="523" y2="156"/>
+  <rect class="p" x="474" y="156" width="98" height="50" rx="6"/><text class="h" x="523" y="177">I²C</text><text class="s" x="523" y="194">Bus, 2 Leitungen</text>
+  <line class="pin" x1="523" y1="206" x2="523" y2="244"/><rect x="517" y="226" width="12" height="8" fill="#adb5bd"/>
+  <text class="s" x="523" y="262">Sensoren,</text><text class="s" x="523" y="277">Display</text>
+  <line class="c" x1="633" y1="128" x2="633" y2="156"/>
+  <rect class="p" x="584" y="156" width="98" height="50" rx="6"/><text class="h" x="633" y="177">SPI</text><text class="s" x="633" y="194">Bus, 4 Leitungen</text>
+  <line class="pin" x1="633" y1="206" x2="633" y2="244"/><rect x="627" y="226" width="12" height="8" fill="#adb5bd"/>
+  <text class="s" x="633" y="262">Display,</text><text class="s" x="633" y="277">SD-Karte</text>
+</svg>

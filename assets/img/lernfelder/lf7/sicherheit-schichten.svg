@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="ss-title ss-desc">
+  <title id="ss-title">Verteidigung in der Tiefe für cyber-physische Systeme</title>
+  <desc id="ss-desc">Vier ineinanderliegende Schutzschichten. Außen die Organisation: Geräteinventar, Patch-Management, Umgang mit Schwachstellenmeldungen, Notfallplan und Schulung. Darin das Netzwerk: Segmentierung in IoT-VLAN und OT-Zone, Firewall, kein direkter Internetzugang der Geräte, VPN für Fernwartung. Darin die Kommunikation: TLS, etwa MQTT über Port 8883, Gerätezertifikate und Zugriffsrechte je Topic. Im Kern das Gerät selbst: Secure Boot, signierte Updates, eindeutige Passwörter und abgeschaltete Debug-Schnittstellen. Fällt eine Schicht, hält die nächste.</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .n { font-weight: 700; font-size: 12.5px; }
+    .s { font-size: 11px; fill: #343a40; }
+  </style>
+  <rect x="20" y="14" width="280" height="262" rx="16" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.6"/>
+  <text class="n" x="160" y="33" text-anchor="middle">Organisation</text>
+  <rect x="48" y="42" width="224" height="206" rx="14" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.6"/>
+  <text class="n" x="160" y="61" text-anchor="middle">Netzwerk</text>
+  <rect x="76" y="70" width="168" height="150" rx="12" fill="#d1e7dd" stroke="#198754" stroke-width="1.6"/>
+  <text class="n" x="160" y="89" text-anchor="middle">Kommunikation</text>
+  <rect x="104" y="98" width="112" height="94" rx="10" fill="#fff3cd" stroke="#eda100" stroke-width="1.6"/>
+  <text class="n" x="160" y="117" text-anchor="middle">Gerät</text>
+  <text class="s" x="160" y="150" text-anchor="middle" style="font-style:italic">Fällt eine Schicht,</text><text class="s" x="160" y="165" text-anchor="middle" style="font-style:italic">hält die nächste.</text>
+  <rect x="330" y="29" width="12" height="12" rx="2" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.4"/>
+  <text class="n" x="350" y="40">Organisation</text>
+  <text class="s" x="350" y="57">Geräteinventar, Patch-Management,</text><text class="s" x="350" y="72">Schwachstellenmeldungen, Notfallplan, Schulung</text>
+  <rect x="330" y="91" width="12" height="12" rx="2" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/>
+  <text class="n" x="350" y="102">Netzwerk</text>
+  <text class="s" x="350" y="119">Segmentierung (IoT-VLAN, OT-Zone), Firewall,</text><text class="s" x="350" y="134">kein direkter Internetzugang, VPN für Fernwartung</text>
+  <rect x="330" y="153" width="12" height="12" rx="2" fill="#d1e7dd" stroke="#198754" stroke-width="1.4"/>
+  <text class="n" x="350" y="164">Kommunikation</text>
+  <text class="s" x="350" y="181">TLS (z. B. MQTT über Port 8883),</text><text class="s" x="350" y="196">Gerätezertifikate, Zugriffsrechte je Topic</text>
+  <rect x="330" y="215" width="12" height="12" rx="2" fill="#fff3cd" stroke="#eda100" stroke-width="1.4"/>
+  <text class="n" x="350" y="226">Gerät</text>
+  <text class="s" x="350" y="243">Secure Boot, signierte Updates, eindeutige</text><text class="s" x="350" y="258">Passwörter, Debug-Schnittstellen abgeschaltet</text>
+</svg>

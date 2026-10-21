@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="led-title led-desc">
+  <title id="led-title">Vorwiderstand für eine LED berechnen</title>
+  <desc id="led-desc">Ein GPIO-Ausgang liefert im Zustand HIGH 3,3 Volt. Der Strom fließt durch einen Vorwiderstand R und eine rote LED nach Masse. An der LED fallen etwa 2,0 Volt ab, am Widerstand der Rest, 1,3 Volt. Für 10 Milliampere ergibt sich R gleich 1,3 Volt durch 10 Milliampere gleich 130 Ohm. Der nächstgrößere Normwert der Reihe E12 ist 150 Ohm; damit fließen etwa 8,7 Milliampere, und am Widerstand werden rund 11 Milliwatt in Wärme umgesetzt.</desc>
+  <defs><marker id="led-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b02a37"/></marker>
+  <marker id="led-arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#eda100"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .w { stroke: #212529; stroke-width: 2; fill: none; }
+    .l { font-size: 12px; } .b { font-weight: 700; }
+    .s { font-size: 11px; fill: #343a40; }
+    .u { font-size: 11.5px; font-weight: 700; fill: #0a58ca; text-anchor: middle; }
+  </style>
+  <rect x="20" y="52" width="130" height="44" rx="6" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.5"/>
+  <text class="l b" x="85" y="71" text-anchor="middle">GPIO (Ausgang)</text><text class="s" x="85" y="87" text-anchor="middle">HIGH = 3,3 V</text>
+  <path class="w" d="M150,74 H250"/>
+  <rect x="250" y="62" width="80" height="24" fill="#fff" stroke="#212529" stroke-width="2"/><text class="l b" x="290" y="79" text-anchor="middle">R</text>
+  <path class="w" d="M330,74 H420"/>
+  <path d="M420,58 V90 L452,74 Z" fill="#f8d7da" stroke="#212529" stroke-width="2"/><path class="w" d="M452,58 V90"/>
+  <path d="M458,52 l12,-14" stroke="#eda100" stroke-width="1.6" marker-end="url(#led-arr2)"/><path d="M468,58 l12,-14" stroke="#eda100" stroke-width="1.6" marker-end="url(#led-arr2)"/>
+  <text class="s" x="436" y="112" text-anchor="middle">LED (rot)</text>
+  <path class="w" d="M452,74 H560 V100"/>
+  <path class="w" d="M546,100 h28 M551,105 h18 M556,110 h8"/><text class="s" x="580" y="108">GND</text>
+  <path d="M180,64 h50" stroke="#b02a37" stroke-width="1.6" marker-end="url(#led-arr)"/><text class="s" x="205" y="58" text-anchor="middle" style="fill:#b02a37">I</text>
+  <path d="M250,44 H330" stroke="#0a58ca" stroke-width="1.2"/><path d="M250,40 v8 M330,40 v8" stroke="#0a58ca" stroke-width="1.2"/>
+  <text class="u" x="290" y="34">U<tspan dy="3" font-size="9">R</tspan><tspan dy="-3"> = 1,3 V</tspan></text>
+  <path d="M416,30 H456" stroke="#0a58ca" stroke-width="1.2"/><path d="M416,26 v8 M456,26 v8" stroke="#0a58ca" stroke-width="1.2"/>
+  <text class="u" x="436" y="20">U<tspan dy="3" font-size="9">LED</tspan><tspan dy="-3"> ≈ 2,0 V</tspan></text>
+
+  <rect x="20" y="134" width="680" height="110" rx="8" fill="#f8f9fa" stroke="#ced4da"/>
+  <text class="l b" x="36" y="156">1. Spannung am Widerstand:</text><text class="l" x="250" y="156">U<tspan dy="3" font-size="9">R</tspan><tspan dy="-3"> = 3,3 V − 2,0 V = 1,3 V</tspan></text>
+  <text class="l b" x="36" y="178">2. Widerstand für 10 mA:</text><text class="l" x="250" y="178">R = U<tspan dy="3" font-size="9">R</tspan><tspan dy="-3"> / I = 1,3 V / 0,010 A = 130 Ω</tspan></text>
+  <text class="l b" x="36" y="200">3. Normwert (E12) wählen:</text><text class="l" x="250" y="200">nächstgrößer: 150 Ω → I = 1,3 V / 150 Ω ≈ 8,7 mA (sicher unter dem Pin-Limit)</text>
+  <text class="l b" x="36" y="222">4. Verlustleistung:</text><text class="l" x="250" y="222">P = U<tspan dy="3" font-size="9">R</tspan><tspan dy="-3"> · I = 1,3 V · 8,7 mA ≈ 11 mW → ein 1/8-W-Widerstand reicht</tspan></text>
+</svg>

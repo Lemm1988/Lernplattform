@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 302" role="img" aria-labelledby="i2-title i2-desc">
+  <title id="i2-title">I2C-Bus mit drei Teilnehmern und Telegramm</title>
+  <desc id="i2-desc">Ein Mikrocontroller als Controller ist über zwei gemeinsame Leitungen, SDA für Daten und SCL für den Takt, mit drei Targets verbunden: einem Klimasensor mit Adresse 0x76, einem OLED-Display mit Adresse 0x3C und einer Echtzeituhr mit Adresse 0x68. Beide Leitungen sind über Pull-up-Widerstände mit 3,3 Volt verbunden, alle Teilnehmer teilen die Masse. Darunter ein Telegramm: Startbedingung, 7 Bit Adresse, ein Bit Lesen oder Schreiben, Bestätigung ACK durch das Target, 8 Bit Daten, ACK, Stoppbedingung.</desc>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 11.5px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .mono { font-family: Consolas, monospace; font-size: 11.5px; font-weight: 700; text-anchor: middle; }
+    .r { fill: #fff; stroke: #212529; stroke-width: 1.6; }
+  </style>
+  <path d="M60,30 H690" stroke="#b02a37" stroke-width="1.6"/><text x="20" y="34" style="font-size:11px;font-weight:700">3,3 V</text>
+  <path d="M120,30 V40" stroke="#212529" stroke-width="1.6"/><rect class="r" x="114" y="40" width="12" height="30"/><path d="M120,70 V96" stroke="#212529" stroke-width="1.6"/>
+  <path d="M160,30 V40" stroke="#212529" stroke-width="1.6"/><rect class="r" x="154" y="40" width="12" height="30"/><path d="M160,70 V116" stroke="#212529" stroke-width="1.6"/>
+  <text class="s" x="140" y="58" style="font-size:10px">R</text><text class="s" x="200" y="50" style="font-size:10px">Pull-ups,</text><text class="s" x="200" y="63" style="font-size:10px">z. B. 4,7 kΩ</text>
+  <circle cx="120" cy="96" r="3.5" fill="#2a78d6"/><circle cx="160" cy="116" r="3.5" fill="#eb6834"/>
+  <path d="M60,96 H690" stroke="#2a78d6" stroke-width="2.4"/><text x="694" y="100" style="font-size:11px;font-weight:700;fill:#0a58ca">SDA</text>
+  <path d="M60,116 H690" stroke="#eb6834" stroke-width="2.4"/><text x="694" y="120" style="font-size:11px;font-weight:700;fill:#c4511a">SCL</text>
+  <rect x="20" y="136" width="130" height="50" rx="7" fill="#343a40"/><text class="h" x="85" y="158" style="fill:#fff">Controller</text><text class="s" x="85" y="174" style="fill:#ced4da">Mikrocontroller</text>
+  <path d="M70,96 V136 M90,116 V136" stroke="#212529" stroke-width="1.6"/><circle cx="70" cy="96" r="3.5" fill="#2a78d6"/><circle cx="90" cy="116" r="3.5" fill="#eb6834"/>
+  <path d="M290,96 V136 M310,116 V136" stroke="#212529" stroke-width="1.6"/><circle cx="290" cy="96" r="3.5" fill="#2a78d6"/><circle cx="310" cy="116" r="3.5" fill="#eb6834"/>
+  <rect x="238" y="136" width="124" height="50" rx="7" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/><text class="h" x="300" y="156">Klimasensor</text><text class="mono" x="300" y="175">Adresse 0x76</text>
+  <path d="M440,96 V136 M460,116 V136" stroke="#212529" stroke-width="1.6"/><circle cx="440" cy="96" r="3.5" fill="#2a78d6"/><circle cx="460" cy="116" r="3.5" fill="#eb6834"/>
+  <rect x="388" y="136" width="124" height="50" rx="7" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/><text class="h" x="450" y="156">OLED-Display</text><text class="mono" x="450" y="175">Adresse 0x3C</text>
+  <path d="M590,96 V136 M610,116 V136" stroke="#212529" stroke-width="1.6"/><circle cx="590" cy="96" r="3.5" fill="#2a78d6"/><circle cx="610" cy="116" r="3.5" fill="#eb6834"/>
+  <rect x="538" y="136" width="124" height="50" rx="7" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/><text class="h" x="600" y="156">Echtzeituhr</text><text class="mono" x="600" y="175">Adresse 0x68</text>
+  <text x="20" y="216" style="font-size:11.5px;font-weight:700">Telegramm (vereinfacht)</text>
+  <rect x="40" y="226" width="30" height="30" fill="#f8d7da" stroke="#fff" stroke-width="2"/><text class="h" x="55.0" y="245">S</text>
+  <text class="s" x="55.0" y="274">Start</text>
+  <rect x="70" y="226" width="196" height="30" fill="#e7f1ff" stroke="#fff" stroke-width="2"/><text class="h" x="168.0" y="245">Adresse (7 Bit)</text>
+  <text class="s" x="168.0" y="274">z. B. 0x76</text>
+  <rect x="266" y="226" width="44" height="30" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="h" x="288.0" y="245">R/W</text>
+  <text class="s" x="288.0" y="274">0 = schreiben</text>
+  <rect x="310" y="226" width="44" height="30" fill="#d1e7dd" stroke="#fff" stroke-width="2"/><text class="h" x="332.0" y="245">ACK</text>
+  <text class="s" x="332.0" y="290">vom Target</text>
+  <rect x="354" y="226" width="196" height="30" fill="#e7f1ff" stroke="#fff" stroke-width="2"/><text class="h" x="452.0" y="245">Daten (8 Bit)</text>
+  <text class="s" x="452.0" y="274">Registerwert</text>
+  <rect x="550" y="226" width="44" height="30" fill="#d1e7dd" stroke="#fff" stroke-width="2"/><text class="h" x="572.0" y="245">ACK</text>
+  <rect x="594" y="226" width="30" height="30" fill="#f8d7da" stroke="#fff" stroke-width="2"/><text class="h" x="609.0" y="245">P</text>
+  <text class="s" x="609.0" y="274">Stopp</text>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 310" role="img" aria-labelledby="eb-title eb-desc">
+  <title id="eb-title">Energiebilanz eines batteriebetriebenen Sensorknotens</title>
+  <desc id="eb-desc">Oben schematisch, nicht maßstäblich, der Stromverlauf: Der Knoten schläft mit 0,02 Milliampere, wacht einmal pro Messintervall für 1 Sekunde auf, misst und funkt mit 50 Milliampere und schläft wieder. Unten ein Balkendiagramm der Laufzeit mit einer 2000-Milliamperestunden-Batterie: ohne Schlafmodus 1,7 Tage, bei einer Messung pro Minute 97,7 Tage, alle 5 Minuten 446,6 Tage, alle 10 Minuten 806,7 Tage. Die Laufzeit hängt vor allem davon ab, wie selten der Knoten aufwacht.</desc>
+  <style>text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; } .ax { font-size: 10.5px; fill: #495057; } .s { font-size: 11px; fill: #343a40; } .b { font-weight: 700; } .g { stroke: #e9ecef; stroke-width: 1; }</style>
+  <text class="s b" x="20" y="18">Stromverlauf (schematisch, nicht maßstäblich)</text>
+  <polyline points="90,90 150,90 150,34 174,34 174,90 330,90 330,34 354,34 354,90 510,90 510,34 534,34 534,90 640,90" fill="none" stroke="#2a78d6" stroke-width="2"/>
+  <text class="ax" x="82" y="38" text-anchor="end">50 mA</text><text class="ax" x="82" y="94" text-anchor="end">0,02 mA</text>
+  <text class="s" x="182" y="46">aktiv: messen und funken, 1 s</text>
+  <text class="s" x="240" y="82" text-anchor="middle">schlafen</text><text class="s" x="420" y="82" text-anchor="middle">schlafen</text>
+  <path d="M150,102 v6 H330 v-6" fill="none" stroke="#495057" stroke-width="1.2"/><text class="s" x="240" y="122" text-anchor="middle">Messintervall</text>
+  <text class="s" x="640" y="122" text-anchor="end">Ø I = (I<tspan dy="3" font-size="8">aktiv</tspan><tspan dy="-3"> · t</tspan><tspan dy="3" font-size="8">aktiv</tspan><tspan dy="-3"> + I</tspan><tspan dy="3" font-size="8">schlaf</tspan><tspan dy="-3"> · t</tspan><tspan dy="3" font-size="8">schlaf</tspan><tspan dy="-3">) / T</tspan></text>
+  <text class="s b" x="20" y="148">Laufzeit mit 2000 mAh (ohne Selbstentladung)</text>
+  <line class="g" x1="170.0" y1="160" x2="170.0" y2="274"/><text class="ax" x="170.0" y="288" text-anchor="middle">0</text>
+  <line class="g" x1="270.0" y1="160" x2="270.0" y2="274"/><text class="ax" x="270.0" y="288" text-anchor="middle">200</text>
+  <line class="g" x1="370.0" y1="160" x2="370.0" y2="274"/><text class="ax" x="370.0" y="288" text-anchor="middle">400</text>
+  <line class="g" x1="470.0" y1="160" x2="470.0" y2="274"/><text class="ax" x="470.0" y="288" text-anchor="middle">600</text>
+  <line class="g" x1="570.0" y1="160" x2="570.0" y2="274"/><text class="ax" x="570.0" y="288" text-anchor="middle">800</text>
+  <text class="ax" x="395.0" y="304" text-anchor="middle">Tage</text>
+  <text class="s" x="162" y="176" text-anchor="end">ohne Schlafmodus</text>
+  <rect x="170" y="162" width="2.0" height="20" rx="4" fill="#2a78d6"/>
+  <text class="s b" x="180.0" y="176">1,7 Tage</text>
+  <text class="s" x="162" y="206" text-anchor="end">Messung jede Minute</text>
+  <rect x="170" y="192" width="48.8" height="20" rx="4" fill="#2a78d6"/>
+  <text class="s b" x="226.8" y="206">97,7 Tage</text>
+  <text class="s" x="162" y="236" text-anchor="end">alle 5 Minuten</text>
+  <rect x="170" y="222" width="223.3" height="20" rx="4" fill="#2a78d6"/>
+  <text class="s b" x="401.3" y="236">446,6 Tage</text>
+  <text class="s" x="162" y="266" text-anchor="end">alle 10 Minuten</text>
+  <rect x="170" y="252" width="403.4" height="20" rx="4" fill="#2a78d6"/>
+  <text class="s b" x="581.4" y="266">806,7 Tage</text>
+</svg>

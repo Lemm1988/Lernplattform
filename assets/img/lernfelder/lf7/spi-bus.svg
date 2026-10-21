@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="sp-title sp-desc">
+  <title id="sp-title">SPI-Bus mit zwei Peripheriegeräten</title>
+  <desc id="sp-desc">Ein Mikrocontroller als Controller ist mit einem Display und einer SD-Karte verbunden. Drei Leitungen sind gemeinsam: SCLK für den Takt, MOSI für Daten vom Controller zum Gerät und MISO für Daten vom Gerät zum Controller. Jedes Gerät hat eine eigene Chip-Select-Leitung, CS1 und CS2. Ist CS LOW, ist das Gerät ausgewählt; nur dieses Gerät antwortet auf MISO. Gesendet und empfangen wird gleichzeitig, also vollduplex.</desc>
+  <defs><marker id="sp-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; }
+    .pin { font-family: Consolas, monospace; font-size: 11px; font-weight: 700; }
+  </style>
+  <rect x="20" y="40" width="150" height="170" rx="8" fill="#343a40"/>
+  <text class="h" x="95" y="64" style="fill:#fff">Controller</text><text class="s" x="95" y="80" text-anchor="middle" style="fill:#ced4da">Mikrocontroller</text>
+  <text class="pin" x="160" y="108" text-anchor="end" style="fill:#fff">SCLK</text>
+  <path d="M170,104 H610" stroke="#2a78d6" stroke-width="2.4"/>
+  <text class="s" x="200" y="100">Takt vom Controller</text>
+  <text class="pin" x="160" y="132" text-anchor="end" style="fill:#fff">MOSI</text>
+  <path d="M170,128 H610" stroke="#1baf7a" stroke-width="2.4"/>
+  <text class="s" x="200" y="124">Controller → Gerät</text>
+  <text class="pin" x="160" y="156" text-anchor="end" style="fill:#fff">MISO</text>
+  <path d="M170,152 H610" stroke="#eb6834" stroke-width="2.4"/>
+  <text class="s" x="200" y="148">Gerät → Controller</text>
+  <rect x="320" y="60" width="120" height="30" rx="6" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/><text class="h" x="380" y="80">Display</text>
+  <path d="M350,104 V90" stroke="#2a78d6" stroke-width="1.8"/><circle cx="350" cy="104" r="3.5" fill="#2a78d6"/>
+  <path d="M370,128 V90" stroke="#1baf7a" stroke-width="1.8"/><circle cx="370" cy="128" r="3.5" fill="#1baf7a"/>
+  <path d="M390,152 V90" stroke="#eb6834" stroke-width="1.8"/><circle cx="390" cy="152" r="3.5" fill="#eb6834"/>
+  <path d="M170,180 H420 V90" fill="none" stroke="#6f42c1" stroke-width="1.8"/>
+  <text class="pin" x="160" y="184" text-anchor="end" style="fill:#fff">CS1</text>
+  <rect x="520" y="60" width="120" height="30" rx="6" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/><text class="h" x="580" y="80">SD-Karte</text>
+  <path d="M550,104 V90" stroke="#2a78d6" stroke-width="1.8"/><circle cx="550" cy="104" r="3.5" fill="#2a78d6"/>
+  <path d="M570,128 V90" stroke="#1baf7a" stroke-width="1.8"/><circle cx="570" cy="128" r="3.5" fill="#1baf7a"/>
+  <path d="M590,152 V90" stroke="#eb6834" stroke-width="1.8"/><circle cx="590" cy="152" r="3.5" fill="#eb6834"/>
+  <path d="M170,198 H620 V90" fill="none" stroke="#6f42c1" stroke-width="1.8"/>
+  <text class="pin" x="160" y="202" text-anchor="end" style="fill:#fff">CS2</text>
+  <text class="s" x="200" y="176" style="fill:#6f42c1">je Gerät eine CS-Leitung (aktiv LOW)</text>
+  <text class="s" x="20" y="238">Ablauf: CS des Geräts auf LOW ziehen → Controller taktet SCLK → bei jedem Takt wandert ein Bit über MOSI hin und eines über MISO zurück</text>
+  <text class="s" x="20" y="256">→ CS wieder HIGH. Keine Adressen, keine Bestätigung, dafür sehr schnell (MHz-Bereich) und vollduplex.</text>
+</svg>

@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img" aria-labelledby="sv-title sv-desc">
+  <title id="sv-title">Servo-Ansteuerung mit PWM bei 50 Hertz</title>
+  <desc id="sv-desc">Ein Servo erhält alle 20 Millisekunden einen Impuls, also mit 50 Hertz. Die Länge des Impulses bestimmt den Winkel: 1 Millisekunde entspricht 0 Grad, Tastgrad 5 Prozent; 1,5 Millisekunden entsprechen 90 Grad, Mittelstellung, Tastgrad 7,5 Prozent; 2 Millisekunden entsprechen 180 Grad, Tastgrad 10 Prozent. Rechts ist jeweils der Servohebel in der entsprechenden Stellung gezeichnet. Die genauen Grenzwerte stehen im Datenblatt des Servos.</desc>
+  <style>text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; } .ax { font-size: 10.5px; fill: #495057; } .lab { font-size: 12.5px; font-weight: 700; } .s { font-size: 11px; fill: #343a40; } .g { stroke: #e9ecef; stroke-width: 1; }</style>
+  <line class="g" x1="110.0" y1="36" x2="110.0" y2="84"/>
+  <line class="g" x1="191.8" y1="36" x2="191.8" y2="84"/>
+  <line class="g" x1="273.6" y1="36" x2="273.6" y2="84"/>
+  <line class="g" x1="355.5" y1="36" x2="355.5" y2="84"/>
+  <line class="g" x1="437.3" y1="36" x2="437.3" y2="84"/>
+  <polyline points="110.0,80 110.0,40 126.4,40 126.4,80 437.3,80 437.3,40 453.6,40 453.6,80 470.0,80" fill="none" stroke="#2a78d6" stroke-width="2"/>
+  <text class="lab" x="16" y="58">1 ms</text>
+  <text class="ax" x="16" y="74">Tastgrad 5 %</text>
+  <text class="s" x="132.4" y="52">Impuls 1 ms</text>
+  <rect x="516" y="68" width="88" height="26" rx="4" fill="#e9ecef" stroke="#6c757d"/>
+  <path d="M524,74 A36,36 0 0 1 596,74" fill="none" stroke="#ced4da" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="560" y1="74" x2="526.0" y2="74.0" stroke="#eb6834" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="560" cy="74" r="6" fill="#495057"/>
+  <text class="lab" x="620" y="78">0°</text>
+  <line class="g" x1="110.0" y1="122" x2="110.0" y2="170"/>
+  <line class="g" x1="191.8" y1="122" x2="191.8" y2="170"/>
+  <line class="g" x1="273.6" y1="122" x2="273.6" y2="170"/>
+  <line class="g" x1="355.5" y1="122" x2="355.5" y2="170"/>
+  <line class="g" x1="437.3" y1="122" x2="437.3" y2="170"/>
+  <polyline points="110.0,166 110.0,126 134.5,126 134.5,166 437.3,166 437.3,126 461.8,126 461.8,166 470.0,166" fill="none" stroke="#2a78d6" stroke-width="2"/>
+  <text class="lab" x="16" y="144">1,5 ms</text>
+  <text class="ax" x="16" y="160">Tastgrad 7,5 %</text>
+  <text class="s" x="140.5" y="138">Impuls 1,5 ms</text>
+  <rect x="516" y="154" width="88" height="26" rx="4" fill="#e9ecef" stroke="#6c757d"/>
+  <path d="M524,160 A36,36 0 0 1 596,160" fill="none" stroke="#ced4da" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="560" y1="160" x2="560.0" y2="126.0" stroke="#eb6834" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="560" cy="160" r="6" fill="#495057"/>
+  <text class="lab" x="620" y="164">90°</text>
+  <line class="g" x1="110.0" y1="208" x2="110.0" y2="256"/>
+  <line class="g" x1="191.8" y1="208" x2="191.8" y2="256"/>
+  <line class="g" x1="273.6" y1="208" x2="273.6" y2="256"/>
+  <line class="g" x1="355.5" y1="208" x2="355.5" y2="256"/>
+  <line class="g" x1="437.3" y1="208" x2="437.3" y2="256"/>
+  <polyline points="110.0,252 110.0,212 142.7,212 142.7,252 437.3,252 437.3,212 470.0,212 470.0,252 470.0,252" fill="none" stroke="#2a78d6" stroke-width="2"/>
+  <text class="lab" x="16" y="230">2 ms</text>
+  <text class="ax" x="16" y="246">Tastgrad 10 %</text>
+  <text class="s" x="148.7" y="224">Impuls 2 ms</text>
+  <rect x="516" y="240" width="88" height="26" rx="4" fill="#e9ecef" stroke="#6c757d"/>
+  <path d="M524,246 A36,36 0 0 1 596,246" fill="none" stroke="#ced4da" stroke-width="1.2" stroke-dasharray="3 3"/>
+  <line x1="560" y1="246" x2="594.0" y2="246.0" stroke="#eb6834" stroke-width="6" stroke-linecap="round"/>
+  <circle cx="560" cy="246" r="6" fill="#495057"/>
+  <text class="lab" x="620" y="250">180°</text>
+  <line x1="110" y1="260" x2="470" y2="260" stroke="#495057" stroke-width="1.2"/>
+  <text class="ax" x="110.0" y="276" text-anchor="middle">0</text>
+  <text class="ax" x="191.8" y="276" text-anchor="middle">5</text>
+  <text class="ax" x="273.6" y="276" text-anchor="middle">10</text>
+  <text class="ax" x="355.5" y="276" text-anchor="middle">15</text>
+  <text class="ax" x="437.3" y="276" text-anchor="middle">20</text>
+  <text class="ax" x="290.0" y="292" text-anchor="middle">Zeit in ms – Periode 20 ms (50 Hz)</text>
+  <text class="s" x="516" y="292">Hebelstellung (Draufsicht)</text>
+</svg>
