@@ -1,8 +1,8 @@
 # Datenbank - Tabellen-Übersicht
 
 **Basierend auf:** `dbsXXXXXXXX.sql`  
-**Anzahl Tabellen:** 32  
-**Letzte Aktualisierung:** 27. Januar 2025
+**Anzahl Tabellen:** 30  
+**Letzte Aktualisierung:** 21. Oktober 2026 (entfernt: `admin_security_log`, `protected_emails`)
 
 ---
 
@@ -25,9 +25,8 @@
 - `user_activity_logs` - Aktivitäts-Logs
 - `user_online_status` - Online-Status
 
-### 3. Admin & Verwaltung (4 Tabellen)
+### 3. Admin & Verwaltung (3 Tabellen)
 - `admin_ip_whitelist` - IP-Whitelist für Admin-Bereich
-- `admin_security_log` - Sicherheits-Logs
 - `log_entries` - System-Logs
 - `section_user_access` - Individuelle Zugriffsrechte
 
@@ -45,9 +44,10 @@
 - `site_section_headers` - Navigations-Header
 - `posts` - Startseiten-Beiträge
 
-### 6. Kommunikation (2 Tabellen)
+### 6. Kommunikation (1 Tabelle)
 - `contact_messages` - Kontaktformular-Nachrichten
-- `protected_emails` - Geschützte E-Mail-Adressen
+
+Geschützte E-Mail-Adressen stehen seit Oktober 2026 nicht mehr in der Datenbank, sondern in `PROTECTED_EMAILS` (`config.local.php`).
 
 ### 7. Weitere (3 Tabellen)
 - `user_progress` - Lernfortschritt
@@ -61,37 +61,35 @@
 | # | Tabelle | Kategorie | Zeilen (ca.) | Beschreibung |
 |---|---------|-----------|--------------|--------------|
 | 1 | `admin_ip_whitelist` | Admin | 2 | IP-Whitelist für Admin-Zugriff |
-| 2 | `admin_security_log` | Admin | 2 | Sicherheits-Logs |
-| 3 | `answer_options` | Quiz | 6000+ | Antwortmöglichkeiten zu Fragen |
-| 4 | `contact_messages` | Kommunikation | - | Kontaktformular-Nachrichten |
-| 5 | `learning_fields` | Quiz | 22 | Lernfelder (LF 1-12, Scrum, Linux) |
-| 6 | `login_attempts` | Auth | - | Login-Versuche (Rate Limiting) |
-| 7 | `log_entries` | System | - | System-Logs |
-| 8 | `news_articles` | News | - | News-Artikel |
-| 9 | `news_article_tags` | News | - | Artikel-Tag-Verknüpfungen |
-| 10 | `news_categories` | News | - | News-Kategorien |
-| 11 | `news_drafts` | News | - | News-Entwürfe |
-| 12 | `news_media` | News | - | Medien-Dateien |
-| 13 | `news_tags` | News | - | News-Tags |
-| 14 | `password_resets` | Auth | - | Passwort-Reset-Tokens |
-| 15 | `posts` | System | - | Startseiten-Beiträge |
-| 16 | `protected_emails` | Kommunikation | - | Geschützte E-Mail-Adressen |
-| 17 | `questions` | Quiz | 2000+ | Quiz-Fragen |
-| 18 | `quiz_sessions` | Quiz | 8+ | Quiz-Durchläufe |
-| 19 | `reward_points_audit` | Quiz | 3+ | IT-Coins Audit-Log |
-| 20 | `section_user_access` | Admin | - | Individuelle Zugriffsrechte |
-| 21 | `settings` | System | 10+ | Systemeinstellungen |
-| 22 | `site_sections` | System | 48+ | Navigations-Seiten |
-| 23 | `site_section_headers` | System | 8+ | Navigations-Header |
-| 24 | `user_activity_logs` | User | - | Aktivitäts-Logs |
-| 25 | `user_answer_selections` | Quiz | 20+ | Multiple-Choice-Auswahlen |
-| 26 | `user_answers` | Quiz | 100+ | Benutzer-Antworten |
-| 27 | `user_logins` | User | - | Login-Historie |
-| 28 | `user_logs` | User | - | Benutzer-Logs |
-| 29 | `user_online_status` | User | - | Online-Status |
-| 30 | `user_progress` | User | - | Lernfortschritt |
-| 31 | `user_quiz_rewards` | Quiz | 3+ | IT-Coins Belohnungen |
-| 32 | `users` | User | 12+ | Benutzer |
+| 2 | `answer_options` | Quiz | 6000+ | Antwortmöglichkeiten zu Fragen |
+| 3 | `contact_messages` | Kommunikation | - | Kontaktformular-Nachrichten |
+| 4 | `learning_fields` | Quiz | 22 | Lernfelder (LF 1-12, Scrum, Linux) |
+| 5 | `login_attempts` | Auth | - | Login-Versuche (Rate Limiting) |
+| 6 | `log_entries` | System | - | System-Logs |
+| 7 | `news_articles` | News | - | News-Artikel |
+| 8 | `news_article_tags` | News | - | Artikel-Tag-Verknüpfungen |
+| 9 | `news_categories` | News | - | News-Kategorien |
+| 10 | `news_drafts` | News | - | News-Entwürfe |
+| 11 | `news_media` | News | - | Medien-Dateien |
+| 12 | `news_tags` | News | - | News-Tags |
+| 13 | `password_resets` | Auth | - | Passwort-Reset-Tokens |
+| 14 | `posts` | System | - | Startseiten-Beiträge |
+| 15 | `questions` | Quiz | 2000+ | Quiz-Fragen |
+| 16 | `quiz_sessions` | Quiz | 8+ | Quiz-Durchläufe |
+| 17 | `reward_points_audit` | Quiz | 3+ | IT-Coins Audit-Log |
+| 18 | `section_user_access` | Admin | - | Individuelle Zugriffsrechte |
+| 19 | `settings` | System | 10+ | Systemeinstellungen |
+| 20 | `site_sections` | System | 48+ | Navigations-Seiten |
+| 21 | `site_section_headers` | System | 8+ | Navigations-Header |
+| 22 | `user_activity_logs` | User | - | Aktivitäts-Logs |
+| 23 | `user_answer_selections` | Quiz | 20+ | Multiple-Choice-Auswahlen |
+| 24 | `user_answers` | Quiz | 100+ | Benutzer-Antworten |
+| 25 | `user_logins` | User | - | Login-Historie |
+| 26 | `user_logs` | User | - | Benutzer-Logs |
+| 27 | `user_online_status` | User | - | Online-Status |
+| 28 | `user_progress` | User | - | Lernfortschritt |
+| 29 | `user_quiz_rewards` | Quiz | 3+ | IT-Coins Belohnungen |
+| 30 | `users` | User | 12+ | Benutzer |
 
 ---
 

@@ -249,43 +249,4 @@ function log_logout_for_stats($user_id) {
     }
 }
 
-/**
- * Erweiterte Statistiken abrufen
- */
-function get_enhanced_statistics($start_date, $end_date) {
-    global $pdo;
-    
-    $stats = [];
-    
-    try {
-        // Online-Benutzer (erweiterte Methode)
-        $stats['online_users'] = get_online_users_count();
-        
-        // Aktive Benutzer (mit Aktivitäten in den letzten 24h)
-        $stmt = $pdo->prepare("
-            SELECT COUNT(DISTINCT user_id) 
-            FROM user_activity_logs 
-            WHERE created_at >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
-        ");
-        $stmt->execute();
-        $stats['active_users_24h'] = $stmt->fetchColumn();
-        
-        // Quiz-Statistiken aus Aktivitäts-Logs
-        $stmt = $pdo->prepare("
-            SELECT 
-                COUNT(CASE WHEN activity_type = 'quiz_completed' THEN 1 END) as completed,
-                COUNT(CASE WHEN activity_type = 'quiz_abandoned' THEN 1 END) as abandoned,
-                COUNT(CASE WHEN activity_type = 'quiz_start' THEN 1 END) as started
-            FROM user_activity_logs 
-            WHERE created_at BETWEEN ? AND ?
-        ");
-        $stmt->execute([$start_date, $end_date . ' 23:59:59']);
-        $stats['quiz_activities'] = $stmt->fetch();
-        
-        return $stats;
-    } catch (Exception $e) {
-        error_log("Erweiterte Statistiken Fehler: " . $e->getMessage());
-        return [];
-    }
-}
 ?>

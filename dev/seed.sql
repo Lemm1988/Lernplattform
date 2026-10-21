@@ -59,7 +59,13 @@ INSERT INTO `site_sections` (`id`, `name`, `url_path`, `icon`, `section_type`, `
 (35, 'WiSo',               '/Learningfields/WiSo/index.php',             'bi-briefcase',        'pruefung', 1, 'admin,moderator,student'),
 (36, 'IT-Fachenglisch',    '/Learningfields/Englisch/index.php',         'bi-translate',        'pruefung', 2, 'admin,moderator,student'),
 (40, 'Scrum Foundation',   '/Learningfields/Scrum/Scrum_Fundation_index.php', 'bi-people',      'agil', 1, 'admin,moderator,student'),
-(50, 'SQL-Trainer',        '/games/sql-trainer/index.php',               'bi-database',         'games', 1, 'admin,moderator,student');
+(49, 'Alle Spiele',        '/games/index.php',                           'bi-grid',             'games', 0, 'admin,moderator,student'),
+(50, 'SQL-Trainer',        '/games/sql-trainer/index.php',               'bi-database',         'games', 1, 'admin,moderator,student'),
+(51, 'Netzplan-Trainer',   '/games/netzplan/index.php',                  'bi-diagram-3',        'games', 2, 'admin,moderator,student'),
+(52, 'Diagramm-Trainer',   '/games/diagramme/index.php',                 'bi-bounding-box',     'games', 3, 'admin,moderator,student'),
+(53, 'Pseudocode-Trainer', '/games/pseudocode/index.php',                'bi-code-square',      'games', 4, 'admin,moderator,student'),
+(54, 'Mathe-Trainer',      '/games/mathe/index.php',                     'bi-calculator',       'games', 5, 'admin,moderator,student'),
+(55, 'WiSo-Trainer',       '/games/wiso/index.php',                      'bi-briefcase',        'games', 6, 'admin,moderator,student');
 
 INSERT INTO `settings` (`setting_key`, `setting_value`, `description`) VALUES
 ('site_title', 'Lernplattform (lokal)', 'Titel der Website'),

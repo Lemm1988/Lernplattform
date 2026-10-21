@@ -14,19 +14,6 @@ unique_ip	BTREE	Ja	Nein	ip_address	2	A	Nein
 added_by	BTREE	Nein	Nein	added_by	1	A	Ja	
 idx_admin_ip_whitelist_active	BTREE	Nein	Nein	is_active	1	A	Nein	
 idx_admin_ip_whitelist_ip	BTREE	Nein	Nein	ip_address	2	A	Nein	
-admin_security_log
-Spalte	Typ	Null	Standard	Kommentare
-id (Primärschlüssel)	int	Nein		
-user_id	int	Ja	NULL	
-action	varchar(255)	Nein		
-details	text	Ja	NULL	
-ip_address	varchar(45)	Ja	NULL	
-user_agent	text	Ja	NULL	
-created_at	timestamp	Ja	CURRENT_TIMESTAMP	
-Indizes
-Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
-PRIMARY	BTREE	Ja	Nein	id	2	A	Nein	
-user_id	BTREE	Nein	Nein	user_id	1	A	Ja	
 answer_options
 Spalte	Typ	Null	Standard	Kommentare
 id (Primärschlüssel)	int	Nein		
@@ -209,16 +196,6 @@ Indizes
 Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
 PRIMARY	BTREE	Ja	Nein	id	1	A	Nein	
 idx_posts_created_at	BTREE	Nein	Nein	created_at	1	A	Nein	
-protected_emails
-Spalte	Typ	Null	Standard	Kommentare
-id (Primärschlüssel)	int	Nein		
-email	varchar(255)	Nein		
-reason	varchar(255)	Ja	NULL	
-created_at	timestamp	Ja	CURRENT_TIMESTAMP	
-Indizes
-Schlüsselname	Typ	Unique	Gepackt	Spalte	Kardinalität	Kollation	Null	Kommentar
-PRIMARY	BTREE	Ja	Nein	id	4	A	Nein	
-email	BTREE	Ja	Nein	email	4	A	Nein	
 questions
 Spalte	Typ	Null	Standard	Kommentare
 id (Primärschlüssel)	int	Nein		

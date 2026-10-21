@@ -41,22 +41,6 @@ CREATE TABLE `admin_ip_whitelist` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `admin_security_log`
---
-
-CREATE TABLE `admin_security_log` (
-  `id` int NOT NULL COMMENT 'Primärschlüssel',
-  `user_id` int DEFAULT NULL COMMENT 'Benutzer-ID (falls vorhanden)',
-  `action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Aktion (z.B. SECURITY_AUDIT)',
-  `details` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'Details zur Aktion',
-  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'IP-Adresse des Benutzers',
-  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT 'User-Agent des Browsers',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Erstellungsdatum'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Tabellenstruktur für Tabelle `answer_options`
 --
 
@@ -264,19 +248,6 @@ CREATE TABLE `posts` (
   `content` text NOT NULL COMMENT 'Inhalt des Beitrags',
   `created_at` datetime NOT NULL COMMENT 'Erstellungsdatum'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- --------------------------------------------------------
-
---
--- Tabellenstruktur für Tabelle `protected_emails`
---
-
-CREATE TABLE `protected_emails` (
-  `id` int NOT NULL COMMENT 'Primärschlüssel',
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Geschützte E-Mail-Adresse (eindeutig)',
-  `reason` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL COMMENT 'Grund für den Schutz',
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Erstellungsdatum'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -573,13 +544,6 @@ ALTER TABLE `admin_ip_whitelist`
   ADD KEY `idx_admin_ip_whitelist_ip` (`ip_address`);
 
 --
--- Indizes für die Tabelle `admin_security_log`
---
-ALTER TABLE `admin_security_log`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
 -- Indizes für die Tabelle `answer_options`
 --
 ALTER TABLE `answer_options`
@@ -677,13 +641,6 @@ ALTER TABLE `password_resets`
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_posts_created_at` (`created_at`);
-
---
--- Indizes für die Tabelle `protected_emails`
---
-ALTER TABLE `protected_emails`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- Indizes für die Tabelle `questions`
@@ -927,12 +884,6 @@ ALTER TABLE `admin_ip_whitelist`
   ADD CONSTRAINT `admin_ip_whitelist_ibfk_1` FOREIGN KEY (`added_by`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
--- Constraints der Tabelle `admin_security_log`
---
-ALTER TABLE `admin_security_log`
-  ADD CONSTRAINT `admin_security_log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
-
---
 -- Constraints der Tabelle `answer_options`
 --
 ALTER TABLE `answer_options`
@@ -1058,13 +1009,11 @@ COMMIT;
 -- Fehlendes AUTO_INCREMENT ergänzen (siehe migrations/2026-10-20_auto_increment.sql)
 --
 ALTER TABLE `admin_ip_whitelist`     MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
-ALTER TABLE `admin_security_log`     MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
 ALTER TABLE `contact_messages`       MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
 ALTER TABLE `news_drafts`            MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
 ALTER TABLE `news_media`             MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
 ALTER TABLE `password_resets`        MODIFY `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
 ALTER TABLE `posts`                  MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
-ALTER TABLE `protected_emails`       MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
 ALTER TABLE `reward_points_audit`    MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
 ALTER TABLE `section_user_access`    MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';
 ALTER TABLE `settings`               MODIFY `id` int NOT NULL AUTO_INCREMENT COMMENT 'Primärschlüssel';

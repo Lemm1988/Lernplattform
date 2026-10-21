@@ -167,11 +167,6 @@ Dieses Dokument beschreibt alle Foreign-Key-Beziehungen zwischen den Tabellen.
 - **Referenz:** `users.id`
 - **Zweck:** Wer hat die IP hinzugefügt
 
-#### `admin_security_log` → `users`
-- **Spalte:** `admin_security_log.user_id`
-- **Referenz:** `users.id`
-- **Zweck:** Sicherheits-Log-Eintrag
-
 #### `section_user_access` → `site_sections`
 - **Spalte:** `section_user_access.section_id`
 - **Referenz:** `site_sections.id`

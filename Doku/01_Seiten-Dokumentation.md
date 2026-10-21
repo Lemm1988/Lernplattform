@@ -628,73 +628,114 @@
 ### `programming/php/` - PHP-Tutorials
 **Zweck:** PHP-Lerninhalte  
 **Zugriff:** Öffentlich/Eingeloggte Benutzer  
+**Navigation:** `includes/php-navigation.php` (Reihenfolge = Weiter/Zurück)  
 **Seiten:**
-- `php-intro.php` - Einführung
-- `php-syntax.php` - Syntax
+- `php-index.php` - Was ist PHP?
+- `php-install.php` - Installation
+- `php-syntax.php` - Grundsyntax
+- `php-comments.php` - Kommentare
 - `php-variablen.php` - Variablen
-- `php-datentypen.php` - Datentypen
+- `php-echo-print.php` - Echo & Print
+- `php-datatypes.php` - Datentypen
 - `php-operatoren.php` - Operatoren
-- `php-kontrollstrukturen.php` - Kontrollstrukturen
-- `php-funktionen.php` - Funktionen
+- `php-if-else.php` - If/Else
+- `php-switch.php` - Switch
+- `php-loops.php` - Schleifen
+- `php-functionen.php` - Funktionen
 - `php-arrays.php` - Arrays
-- `php-oopin.php` - OOP
-- `php-datab.php` - Datenbanken
+- `php-stringse.php` - Strings
+- `php-mathematik.php` - Mathematik
+- `php-constanten.php` - Konstanten
+- `php-superglobals.php` - Superglobale
 - `php-forms.php` - Formulare
-- `php-secu.php` - Sicherheit
 - `php-cookiessessions.php` - Cookies & Sessions
-- ... (weitere)
+- `php-dateien.php` - Dateien
+- `php-datab.php` - Datenbank
+- `php-oopin.php` - OOP
+- `php-err.php` - Fehlerbehandlung
+- `php-secu.php` - Sicherheit
 
 ---
 
 ### `programming/java/` - Java-Tutorials
 **Zweck:** Java-Lerninhalte  
 **Zugriff:** Öffentlich/Eingeloggte Benutzer  
+**Navigation:** `includes/java-navigation.php`  
 **Seiten:**
-- `java-intro.php` - Einführung
-- `java-syntax.php` - Syntax
+- `java-index.php` - Übersicht
+- `java-intro.php` - Was ist Java?
+- `java-installation.php` - Installation
+- `java-syntax.php` - Grundsyntax
 - `java-variablen.php` - Variablen
 - `java-datentypen.php` - Datentypen
 - `java-operatoren.php` - Operatoren
 - `java-kontrollstrukturen.php` - Kontrollstrukturen
 - `java-arrays.php` - Arrays
-- `java-klassen-objekte.php` - Klassen & Objekte
 - `java-methoden.php` - Methoden
+- `java-klassen-objekte.php` - Klassen & Objekte
 - `java-vererbung.php` - Vererbung
 - `java-interfaces.php` - Interfaces
-- `java-lambda.php` - Lambda-Ausdrücke
 - `java-collections.php` - Collections
-- `java-streams.php` - Streams
-- `java-exceptions.php` - Exceptions
+- `java-exceptions.php` - Exception Handling
+- `java-streams.php` - Stream API
+- `java-lambda.php` - Lambda-Ausdrücke
 - `java-generics.php` - Generics
-- `java-testing.php` - Testing
-- ... (weitere)
+- `java-annotations.php` - Annotations
+- `java-testing.php` - JUnit Testing
 
 ---
 
 ### `programming/python/` - Python-Tutorials
 **Zweck:** Python-Lerninhalte  
 **Zugriff:** Öffentlich/Eingeloggte Benutzer  
+**Navigation:** `includes/python-navigation.php`  
 **Seiten:**
-- `python-intro.php` - Einführung
-- `python-syntax.php` - Syntax
+- `python-index.php` - Übersicht
+- `python-intro.php` - Was ist Python?
+- `python-installation.php` - Installation
+- `python-syntax.php` - Grundsyntax
 - `python-variablen.php` - Variablen
 - `python-datentypen.php` - Datentypen
+- `python-strings.php` - Strings
 - `python-operatoren.php` - Operatoren
-- `python-kontrollstrukturen.php` - Kontrollstrukturen
-- `python-funktionen.php` - Funktionen
 - `python-listen.php` - Listen
 - `python-tupel.php` - Tupel
-- `python-dictionaries.php` - Dictionaries
 - `python-sets.php` - Sets
+- `python-dictionaries.php` - Dictionaries
+- `python-kontrollstrukturen.php` - Kontrollstrukturen
+- `python-funktionen.php` - Funktionen
+- `python-module.php` - Module & Packages
+- `python-dateien.php` - Dateien
+- `python-exceptions.php` - Exceptions
 - `python-klassen.php` - Klassen
 - `python-vererbung.php` - Vererbung
-- `python-exceptions.php` - Exceptions
-- `python-dateien.php` - Dateien
-- `python-module.php` - Module
 - `python-stdlib.php` - Standardbibliothek
 - `python-debugging.php` - Debugging
 - `python-projekte.php` - Projekte
-- ... (weitere)
+- `python-testing.php` - Testing
+
+---
+
+### `programming/c.php`, `cpp.php`, `javascript.php` - Spracheinführungen
+**Zweck:** Je eine Einführungsseite (Steckbrief, Grundlagen, Besonderheiten, Übung mit Lösung, Prüfungsbezug)  
+**Zugriff:** Eingeloggte Benutzer
+
+---
+
+### `games/` - IT-Games
+**Zweck:** Lernspiele mit zufällig erzeugten Aufgaben und sofortigem Feedback  
+**Zugriff:** Eingeloggte Benutzer; Fortschritt im localStorage des Browsers  
+**Technik:** gemeinsamer Kern `assets/js/games/game-core.js` (Layout, Prüfen/Tipp/Lösung, Statistik), Gestaltung `assets/css/games.css`  
+**Seiten:**
+- `games/index.php` - Übersicht aller Spiele mit Fortschritt
+- `games/sql-trainer/` - SQL-Abfragen in 14 Leveln (sql.js im Browser)
+- `games/netzplan/` - Netzpläne: Vorwärts-/Rückwärtsrechnung, Puffer, kritischer Pfad, Verzögerungen, Vorgangsliste
+- `games/diagramme/` - UML-Beziehungen, Klassen, ER-Kardinalitäten, Use Cases (mit Live-Vorschau), Diagrammtypen erkennen
+- `games/pseudocode/` - Schreibtischtest, Ausgabe bestimmen, Code-Puzzle, Lückentext, Fehler finden (14 Algorithmen)
+- `games/mathe/` - Zahlensysteme, Subnetting, Datenmengen, Übertragungszeit, RAID, Strom/USV, Kalkulation, Investition
+- `games/wiso/` - Fallentscheidungen, Zahlen & Fristen, Kündigungsfristen (§ 622 BGB), Urlaubsanspruch, Sozialversicherung
+
+Neue Spiele brauchen einen Eintrag in `site_sections` (Bereich `games`), damit sie in der Seitenleiste erscheinen.
 
 ---
 

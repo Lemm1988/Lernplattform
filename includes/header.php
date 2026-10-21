@@ -60,6 +60,9 @@ if (!isset($site_description_value)) {
 
     <!-- Custom CSS -->
     <link href="/assets/css/style.css" rel="stylesheet">
+    <?php foreach ($extra_css ?? [] as $css_file): ?>
+    <link href="<?= htmlspecialchars($css_file) ?>" rel="stylesheet">
+    <?php endforeach; ?>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">

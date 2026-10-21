@@ -1,0 +1,399 @@
+/* IT-Games: gemeinsame Gestaltung (Netzplan, Diagramme, Pseudocode, Mathe, WiSo) */
+
+.game-page {
+    --game-ok: #1baf7a;
+    --game-bad: #d63c3c;
+    --game-accent: var(--color-primary, #21808d);
+    --game-muted: #6c757d;
+    --game-surface: #f8f9fa;
+    --game-line: #ced4da;
+}
+
+.game-intro {
+    max-width: 75ch;
+}
+
+.game-modes .list-group-item {
+    border-left: 0;
+    border-right: 0;
+    font-size: 0.925rem;
+}
+
+.game-modes .list-group-item.active {
+    background-color: var(--game-accent);
+    border-color: var(--game-accent);
+}
+
+.game-stats .progress {
+    height: 6px;
+}
+
+.game-task {
+    min-height: 6rem;
+}
+
+.game-task .game-num {
+    max-width: 9rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.game-task table .game-num {
+    max-width: 4.5rem;
+    min-width: 3.25rem;
+    padding-left: 0.35rem;
+    padding-right: 0.35rem;
+    text-align: center;
+}
+
+.game-task .form-control.is-valid,
+.game-task .form-select.is-valid {
+    background-image: none;
+    padding-right: 0.5rem;
+}
+
+.game-task .form-control.is-invalid,
+.game-task .form-select.is-invalid {
+    background-image: none;
+    padding-right: 0.5rem;
+}
+
+.game-question {
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+.game-question code,
+.game-solution code {
+    font-size: 0.95em;
+}
+
+.game-fieldrow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin-bottom: 0.6rem;
+}
+
+.game-fieldrow > label {
+    min-width: 12rem;
+    margin: 0;
+}
+
+.game-unit {
+    color: var(--game-muted);
+    font-size: 0.9rem;
+}
+
+.game-solution {
+    border-left: 4px solid var(--game-ok);
+    background: var(--game-surface);
+    border-radius: 0.375rem;
+    padding: 0.85rem 1rem;
+}
+
+.game-solution h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.game-solution ol,
+.game-solution ul {
+    margin-bottom: 0;
+    padding-left: 1.25rem;
+}
+
+.game-steps li + li {
+    margin-top: 0.25rem;
+}
+
+/* Diagramme und Netzpläne */
+.game-figure {
+    background: #fff;
+    border: 1px solid var(--game-line);
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.game-figure svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.game-figure svg text {
+    fill: #212529;
+}
+
+.game-figure .np-node rect:not(.np-frame) {
+    fill: #fff;
+    stroke: #495057;
+    stroke-width: 1.2;
+}
+
+.game-figure .np-node.np-critical rect.np-frame {
+    stroke: #eb6834;
+    stroke-width: 2.5;
+}
+
+.game-figure .np-node .np-value {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+
+.game-figure .np-node .np-value.np-wrong {
+    fill: var(--game-bad);
+}
+
+.game-figure .np-node .np-label {
+    fill: #495057;
+}
+
+.game-figure .np-edge {
+    stroke: #6c757d;
+    stroke-width: 1.4;
+    fill: none;
+}
+
+.game-figure .np-edge.np-critical {
+    stroke: #eb6834;
+    stroke-width: 2.4;
+}
+
+/* Tabellen in Aufgaben */
+.game-table {
+    font-size: 0.9rem;
+}
+
+.game-table th {
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.game-table td,
+.game-table th {
+    vertical-align: middle;
+}
+
+/* Pseudocode */
+.game-code {
+    background: #1f2328;
+    color: #e6edf3;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    white-space: pre;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+}
+
+.game-code .kw {
+    color: #ff9f7a;
+    font-weight: 600;
+}
+
+.game-code .cm {
+    color: #8b949e;
+    font-style: italic;
+}
+
+.game-code-lines {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 0.9rem;
+}
+
+.game-code-lines li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border: 1px solid var(--game-line);
+    border-radius: 0.375rem;
+    background: #fff;
+    padding: 0.3rem 0.4rem;
+    margin-bottom: 0.3rem;
+    white-space: pre;
+}
+
+.game-code-lines li .game-code-text {
+    flex: 1 1 auto;
+    overflow-x: auto;
+}
+
+.game-code-lines li.is-valid {
+    border-color: var(--game-ok);
+    background: rgba(27, 175, 122, 0.08);
+}
+
+.game-code-lines li.is-invalid {
+    border-color: var(--game-bad);
+    background: rgba(214, 60, 60, 0.07);
+}
+
+.game-code-lines li.is-selected {
+    border-color: var(--game-accent);
+    box-shadow: 0 0 0 2px rgba(42, 120, 214, 0.25);
+}
+
+.game-code-lines .btn {
+    padding: 0.05rem 0.4rem;
+    line-height: 1.2;
+}
+
+.game-line-pick {
+    cursor: pointer;
+}
+
+.game-line-pick:hover {
+    border-color: var(--game-accent);
+}
+
+/* Auswahlkarten (Multiple Choice) */
+.game-choices {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.game-choice {
+    display: flex;
+    gap: 0.6rem;
+    align-items: flex-start;
+    border: 1px solid var(--game-line);
+    border-radius: 0.5rem;
+    padding: 0.6rem 0.8rem;
+    cursor: pointer;
+    background: #fff;
+    margin: 0;
+}
+
+.game-choice:hover {
+    border-color: var(--game-accent);
+}
+
+.game-choice input {
+    margin-top: 0.3rem;
+    flex: 0 0 auto;
+}
+
+.game-choice.is-valid {
+    border-color: var(--game-ok);
+    background: rgba(27, 175, 122, 0.08);
+}
+
+.game-choice.is-invalid {
+    border-color: var(--game-bad);
+    background: rgba(214, 60, 60, 0.07);
+}
+
+.game-scenario {
+    background: var(--game-surface);
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Spieleübersicht */
+.games-hub .game-card {
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.games-hub .game-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.games-hub .game-card .game-icon {
+    width: 3rem;
+    height: 3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.75rem;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+/* Unter 992 px: Aufgabentypen als waagerecht wischbare Leiste statt langer Liste */
+@media (max-width: 991.98px) {
+    .game-modes {
+        flex-direction: row;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scrollbar-width: thin;
+    }
+
+    .game-modes .list-group-item {
+        flex: 0 0 auto;
+        width: auto;
+        white-space: nowrap;
+        border-top: 0;
+        border-bottom: 0;
+        border-right: 1px solid var(--bs-list-group-border-color);
+    }
+
+    .game-stats .progress {
+        display: none;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .game-fieldrow > label {
+        min-width: 100%;
+    }
+
+    .game-buttons .btn {
+        flex: 1 1 auto;
+    }
+
+    .game-task table .game-num {
+        min-width: 2.75rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .games-hub .game-card {
+        transition: none;
+    }
+}
+
+.game-code-lines .kw {
+    color: #b4441c;
+    font-weight: 600;
+}
+
+/* Diagramm-Trainer: Auswahlfelder neben der Live-Vorschau */
+.game-diagram-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 0.75rem 1rem;
+    margin-bottom: 1rem;
+}
+
+.game-diagram-controls label {
+    font-size: 0.9rem;
+    margin-bottom: 0.25rem;
+}
+
+.game-member-table td:first-child {
+    font-family: "Cascadia Code", Consolas, "Courier New", monospace;
+    font-size: 0.875rem;
+}
+
+/* style.css positioniert Radio-Buttons und Checkboxen global absolut – in den Spielen stehen sie im Textfluss */
+.game-page .form-check-input[type="radio"],
+.game-page .form-check-input[type="checkbox"] {
+    position: static;
+    display: inline-block;
+    vertical-align: middle;
+    flex: 0 0 auto;
+    margin: 0.15rem 0 0;
+}
