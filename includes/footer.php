@@ -20,13 +20,14 @@ $terms_url = get_setting('terms_of_service_url', '/agb.php');
 $help_url = get_setting('help_url', '/hilfe.php');
 $contact_url = get_setting('contact_url', '/kontakt.php');
 $require_privacy_consent = get_setting('require_privacy_consent', '1');
+$footer_site_title = $site_title_value ?? get_setting('site_title', SITE_TITLE);
 ?>
 
     <!-- Footer -->
     <footer>
         <div class="footer-container">
             <div class="footer-left">
-                <h6><i class="bi bi-mortarboard me-1"></i>YourDomain</h6>
+                <h6><i class="bi bi-mortarboard me-1"></i><?= htmlspecialchars($footer_site_title) ?></h6>
                 <small>Deine Vorbereitung für die Zukunft!</small>
             </div>
             
@@ -41,7 +42,7 @@ $require_privacy_consent = get_setting('require_privacy_consent', '1');
             </div>
             
             <div class="footer-right">
-                <small>&copy; <?= date('Y') ?> YourDomain</small>
+                <small>&copy; <?= date('Y') ?> <?= htmlspecialchars($footer_site_title) ?></small>
             </div>
         </div>
     </footer>

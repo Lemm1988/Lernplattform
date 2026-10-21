@@ -1769,6 +1769,11 @@ footer a.text-white {
     #sidebarToggle {
         display: block !important;
     }
+
+    /* Platz für den fest positionierten Sidebar-Button, damit er das Logo nicht verdeckt */
+    body:has(#sidebarToggle) .navbar-brand {
+        margin-left: 3rem;
+    }
 }
 
 /* Programming/Quiz Styling */
