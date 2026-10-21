@@ -7,7 +7,7 @@
 --   Die Fragen werden dem Lernfeld mit lf_number 'LF12' (oder '12') zugeordnet; gibt es das nicht,
 --   bricht der Import mit einem Fehler ab (learning_field_id darf nicht NULL sein).
 
-SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF12', '12') ORDER BY id LIMIT 1);
+SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF12', '12', 'LF12A') ORDER BY id LIMIT 1);
 
 -- Frage 1
 INSERT INTO questions (learning_field_id, question_text, explanation, question_type, points, difficulty, is_approved) VALUES (@lf, 'Wer erstellt das Lastenheft?', 'Das Lastenheft enthält die Forderungen des Auftraggebers (Was und wofür?). Der Auftragnehmer antwortet mit dem Pflichtenheft (Wie und womit?).', 'single', 2, 'easy', 1);

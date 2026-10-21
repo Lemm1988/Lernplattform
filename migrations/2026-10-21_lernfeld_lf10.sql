@@ -7,7 +7,7 @@
 
 UPDATE `learning_fields`
 SET `title` = 'Benutzerschnittstellen gestalten und entwickeln'
-WHERE REPLACE(UPPER(`lf_number`), ' ', '') IN ('LF10', '10');
+WHERE REPLACE(UPPER(`lf_number`), ' ', '') IN ('LF10', '10', 'LF10A');
 
 UPDATE `site_sections`
 SET `name` = 'LF10 Benutzerschnittstellen', `icon` = 'bi-window-stack'

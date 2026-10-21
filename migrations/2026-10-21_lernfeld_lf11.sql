@@ -7,7 +7,7 @@
 
 UPDATE `learning_fields`
 SET `title` = 'Funktionalität in Anwendungen realisieren'
-WHERE REPLACE(UPPER(`lf_number`), ' ', '') IN ('LF11', '11');
+WHERE REPLACE(UPPER(`lf_number`), ' ', '') IN ('LF11', '11', 'LF11A');
 
 UPDATE `site_sections`
 SET `name` = 'LF11 Funktionalität realisieren', `icon` = 'bi-gear-wide-connected'

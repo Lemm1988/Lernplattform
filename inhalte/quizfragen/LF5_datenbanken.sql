@@ -7,7 +7,7 @@
 --   Die Fragen werden dem Lernfeld mit lf_number 'LF5' (oder '5') zugeordnet; gibt es das nicht,
 --   bricht der Import mit einem Fehler ab (learning_field_id darf nicht NULL sein).
 
-SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF5', '5') ORDER BY id LIMIT 1);
+SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF5', '5', 'LF5A') ORDER BY id LIMIT 1);
 
 -- Frage 1
 INSERT INTO questions (learning_field_id, question_text, explanation, question_type, points, difficulty, is_approved) VALUES (@lf, 'Welche Aussage beschreibt einen Primärschlüssel korrekt?', 'Ein Primärschlüssel ist eindeutig und NOT NULL. Er darf aus mehreren Spalten bestehen (zusammengesetzter Schlüssel) und muss nicht numerisch sein. Der Verweis auf eine andere Tabelle ist die Aufgabe eines Fremdschlüssels. Eine Sortierung garantiert nur ORDER BY.', 'single', 2, 'easy', 1);

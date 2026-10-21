@@ -7,7 +7,7 @@
 --   Die Fragen werden dem Lernfeld mit lf_number 'LF11' (oder '11') zugeordnet; gibt es das nicht,
 --   bricht der Import mit einem Fehler ab (learning_field_id darf nicht NULL sein).
 
-SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF11', '11') ORDER BY id LIMIT 1);
+SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF11', '11', 'LF11A') ORDER BY id LIMIT 1);
 
 -- Frage 1
 INSERT INTO questions (learning_field_id, question_text, explanation, question_type, points, difficulty, is_approved) VALUES (@lf, 'Welche Eigenschaft eines Algorithmus verlangt, dass er nach endlich vielen Schritten anhält?', 'Finitheit (genauer: dynamische Finitheit bzw. Terminierung). Determiniertheit bedeutet gleiches Ergebnis bei gleicher Eingabe, Allgemeingültigkeit die Lösung einer ganzen Problemklasse.', 'single', 2, 'easy', 1);

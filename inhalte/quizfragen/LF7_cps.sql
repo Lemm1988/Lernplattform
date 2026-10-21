@@ -7,7 +7,7 @@
 --   Die Fragen werden dem Lernfeld mit lf_number 'LF7' (oder '7') zugeordnet; gibt es das nicht,
 --   bricht der Import mit einem Fehler ab (learning_field_id darf nicht NULL sein).
 
-SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF7', '7') ORDER BY id LIMIT 1);
+SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF7', '7', 'LF7A') ORDER BY id LIMIT 1);
 
 -- Frage 1
 INSERT INTO questions (learning_field_id, question_text, explanation, question_type, points, difficulty, is_approved) VALUES (@lf, 'Was kennzeichnet ein cyber-physisches System?', 'Ein CPS koppelt einen physischen Prozess über Sensoren und Aktoren mit Software und ist meist vernetzt.', 'single', 2, 'easy', 1);

@@ -7,7 +7,7 @@
 --   Die Fragen werden dem Lernfeld mit lf_number 'LF10' (oder '10') zugeordnet; gibt es das nicht,
 --   bricht der Import mit einem Fehler ab (learning_field_id darf nicht NULL sein).
 
-SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF10', '10') ORDER BY id LIMIT 1);
+SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF10', '10', 'LF10A') ORDER BY id LIMIT 1);
 
 -- Frage 1
 INSERT INTO questions (learning_field_id, question_text, explanation, question_type, points, difficulty, is_approved) VALUES (@lf, 'Welche Aussage beschreibt User Experience (UX) nach ISO 9241-210?', 'UX umfasst die Wahrnehmungen und Reaktionen einer Person aus der tatsächlichen und der erwarteten Benutzung – also auch Erwartungen vorher und Eindrücke danach. Die Bedienoberfläche selbst ist das UI.', 'single', 2, 'easy', 1);

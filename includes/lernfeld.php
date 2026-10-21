@@ -58,10 +58,11 @@ function lernfeld_quiz_info($lf_key) {
             SELECT lf.id, COUNT(q.id) AS fragen
             FROM learning_fields lf
             LEFT JOIN questions q ON q.learning_field_id = lf.id AND q.is_approved = 1
-            WHERE REPLACE(UPPER(lf.lf_number), ' ', '') IN (?, ?)
+            WHERE REPLACE(UPPER(lf.lf_number), ' ', '') IN (?, ?, ?)
             GROUP BY lf.id ORDER BY lf.id LIMIT 1
         ");
-        $stmt->execute([$lf_key, substr($lf_key, 2)]);
+        // "LF7", "7" oder – für LF10 bis LF12 – die Fachrichtungsvariante "LF 10a" (Anwendungsentwicklung)
+        $stmt->execute([$lf_key, substr($lf_key, 2), strtoupper($lf_key) . 'A']);
         return $stmt->fetch() ?: null;
     } catch (PDOException $e) {
         return null;

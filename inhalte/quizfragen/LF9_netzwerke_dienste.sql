@@ -7,7 +7,7 @@
 --   Die Fragen werden dem Lernfeld mit lf_number 'LF9' (oder '9') zugeordnet; gibt es das nicht,
 --   bricht der Import mit einem Fehler ab (learning_field_id darf nicht NULL sein).
 
-SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF9', '9') ORDER BY id LIMIT 1);
+SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF9', '9', 'LF9A') ORDER BY id LIMIT 1);
 
 -- Frage 1
 INSERT INTO questions (learning_field_id, question_text, explanation, question_type, points, difficulty, is_approved) VALUES (@lf, 'Wie lang darf eine fest verlegte Twisted-Pair-Strecke im Tertiärbereich höchstens sein?', '90 m fest verlegtes Kabel plus höchstens 10 m Patchkabel ergeben die 100 m, die Ethernet über Kupfer schafft.', 'single', 2, 'easy', 1);

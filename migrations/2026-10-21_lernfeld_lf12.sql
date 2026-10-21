@@ -7,7 +7,7 @@
 
 UPDATE `learning_fields`
 SET `title` = 'Kundenspezifische Anwendungsentwicklung durchführen'
-WHERE REPLACE(UPPER(`lf_number`), ' ', '') IN ('LF12', '12');
+WHERE REPLACE(UPPER(`lf_number`), ' ', '') IN ('LF12', '12', 'LF12A');
 
 UPDATE `site_sections`
 SET `name` = 'LF12 Kundenprojekt'

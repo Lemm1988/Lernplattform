@@ -7,7 +7,7 @@
 --   Die Fragen werden dem Lernfeld mit lf_number 'LF8' (oder '8') zugeordnet; gibt es das nicht,
 --   bricht der Import mit einem Fehler ab (learning_field_id darf nicht NULL sein).
 
-SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF8', '8') ORDER BY id LIMIT 1);
+SET @lf := (SELECT id FROM learning_fields WHERE REPLACE(UPPER(lf_number), ' ', '') IN ('LF8', '8', 'LF8A') ORDER BY id LIMIT 1);
 
 -- Frage 1
 INSERT INTO questions (learning_field_id, question_text, explanation, question_type, points, difficulty, is_approved) VALUES (@lf, 'Welche Merkmale beschreiben gute Datenqualität?', 'Datenqualität bedeutet, dass Daten für ihren Zweck taugen: korrekt, vollständig, konsistent, eindeutig, aktuell, einheitlich. Eine große Datenmenge sagt nichts über die Qualität aus – veraltete Massendaten sind eher ein Risiko.', 'multiple', 2, 'easy', 1);
