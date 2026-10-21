@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="hs-title hs-desc">
+  <title id="hs-title">Festplatte und SSD im Vergleich</title>
+  <desc id="hs-desc">Links eine Festplatte, schematisch: rotierende Magnetscheiben und ein Arm mit Schreib-Lese-Kopf, der zur richtigen Spur fahren muss. Daraus folgen Zugriffszeiten von einigen Millisekunden, Empfindlichkeit gegen Stöße und Geräusch, dafür ein niedriger Preis pro Terabyte. Rechts eine M.2-NVMe-SSD: Controller, Flash-Speicherchips und oft ein Cache, keine beweglichen Teile. Zugriffe dauern nur Mikrosekunden, sie ist leise und robust, aber Speicherzellen vertragen nur eine begrenzte Zahl an Schreibvorgängen, angegeben als TBW.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .case { fill: #e9ecef; stroke: #495057; stroke-width: 1.6; }
+      .pl { fill: #adb5bd; stroke: #6c757d; stroke-width: 1.2; }
+      .arm { stroke: #343a40; stroke-width: 6; stroke-linecap: round; }
+      .pcb { fill: #198754; stroke: #146c43; stroke-width: 1.4; }
+      .chip { fill: #212529; }
+      .ct { fill: #fff; font-size: 9.5px; font-weight: 700; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 13px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .p { font-size: 11px; fill: #146c43; }
+      .m { font-size: 11px; fill: #b02a37; }
+    </style>
+  </defs>
+  <text class="h" x="20" y="22">HDD – Festplatte</text>
+  <rect class="case" x="20" y="34" width="150" height="190" rx="10"/>
+  <circle class="pl" cx="95" cy="112" r="62"/><circle cx="95" cy="112" r="40" fill="none" stroke="#ced4da" stroke-width="1"/><circle cx="95" cy="112" r="10" fill="#6c757d"/>
+  <path d="M60,60 A62,62 0 0 1 150,80" fill="none" stroke="#495057" stroke-width="1.4" stroke-dasharray="4 3"/>
+  <circle cx="148" cy="200" r="9" fill="#495057"/><line class="arm" x1="148" y1="200" x2="112" y2="132"/>
+  <text class="s" x="188" y="60">rotierende Magnetscheiben</text><text class="s" x="188" y="76">(5400 oder 7200 U/min)</text>
+  <text class="s" x="188" y="104">Arm mit Schreib-Lese-Kopf</text>
+  <text class="p" x="188" y="140">+ günstig pro Terabyte</text>
+  <text class="m" x="188" y="160">− Zugriffszeit einige ms</text>
+  <text class="m" x="188" y="180">− stoßempfindlich, laut</text>
+  <text class="s" x="188" y="206">Archiv, NAS, Backup</text>
+
+  <text class="h" x="380" y="22">SSD – M.2 NVMe</text>
+  <rect class="pcb" x="380" y="60" width="300" height="70" rx="6"/>
+  <rect x="380" y="76" width="10" height="38" fill="#ffc107"/>
+  <rect class="chip" x="400" y="72" width="50" height="46" rx="3"/><text class="ct" x="425" y="99">Controller</text>
+  <rect class="chip" x="462" y="72" width="44" height="46" rx="3"/><text class="ct" x="484" y="99">Cache</text>
+  <rect class="chip" x="518" y="72" width="64" height="46" rx="3"/><text class="ct" x="550" y="99">Flash</text>
+  <rect class="chip" x="594" y="72" width="64" height="46" rx="3"/><text class="ct" x="626" y="99">Flash</text>
+  <circle cx="672" cy="95" r="5" fill="#fff" stroke="#146c43"/>
+  <text class="s" x="380" y="150">keine beweglichen Teile, Anschluss über PCI Express</text>
+  <text class="p" x="380" y="172">+ Zugriffe in Mikrosekunden, leise, robust</text>
+  <text class="p" x="380" y="190">+ NVMe bis mehrere GB/s, SATA-SSD bis ca. 550 MB/s</text>
+  <text class="m" x="380" y="208">− Schreibzyklen begrenzt (TBW), teurer pro TB</text>
+  <text class="s" x="380" y="230">Betriebssystem, Programme, Arbeitsdaten</text>
+</svg>

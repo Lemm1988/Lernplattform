@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="bs-title bs-desc">
+  <title id="bs-title">Ablauf einer Beschaffung</title>
+  <desc id="bs-desc">Zehn Schritte in zwei Reihen. Oben: Bedarf ermitteln, Anfrage stellen, Angebote vergleichen, bestellen, Auftragsbestätigung prüfen. Unten: Wareneingang prüfen, inventarisieren, installieren und testen, übergeben mit Abnahmeprotokoll, Rechnung prüfen und fristgerecht zahlen. Mit der Bestellung auf ein Angebot hin kommt der Kaufvertrag zustande. Fehlt die Lieferung oder ist sie mangelhaft, folgen Mahnung bzw. Mängelrüge.</desc>
+  <defs>
+    <marker id="bs-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .a { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .b { fill: #d1e7dd; stroke: #198754; stroke-width: 1.3; }
+      .n { font-weight: 800; font-size: 11px; fill: #0a58ca; }
+      .h { font-weight: 700; font-size: 11px; text-anchor: middle; }
+      .ar { stroke: #495057; stroke-width: 1.5; marker-end: url(#bs-arr); fill: none; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .w { font-size: 10.5px; fill: #b02a37; }
+    </style>
+  </defs>
+  <rect class="a" x="14" y="20" width="118" height="46" rx="6"/><text class="n" x="14" y="15">1</text><text class="h" x="73" y="48">Bedarf ermitteln</text>
+  <rect class="a" x="156" y="20" width="118" height="46" rx="6"/><text class="n" x="156" y="15">2</text><text class="h" x="215" y="48">Anfrage stellen</text>
+  <rect class="a" x="298" y="20" width="118" height="46" rx="6"/><text class="n" x="298" y="15">3</text><text class="h" x="357" y="48">Angebote vergleichen</text>
+  <rect class="a" x="440" y="20" width="118" height="46" rx="6"/><text class="n" x="440" y="15">4</text><text class="h" x="499" y="48">bestellen</text>
+  <rect class="a" x="582" y="20" width="124" height="46" rx="6"/><text class="n" x="582" y="15">5</text><text class="h" x="644" y="42">Auftragsbestätigung</text><text class="h" x="644" y="56">prüfen</text>
+  <path class="ar" d="M132,43 H152"/><path class="ar" d="M274,43 H294"/><path class="ar" d="M416,43 H436"/><path class="ar" d="M558,43 H578"/>
+  <text class="s" x="440" y="84">Angebot + Bestellung = Kaufvertrag</text>
+  <path class="ar" d="M644,66 V104 H74 V122"/>
+  <rect class="b" x="14" y="126" width="118" height="46" rx="6"/><text class="n" x="14" y="121">6</text><text class="h" x="73" y="148">Wareneingang</text><text class="h" x="73" y="162">prüfen</text>
+  <rect class="b" x="156" y="126" width="118" height="46" rx="6"/><text class="n" x="156" y="121">7</text><text class="h" x="215" y="154">inventarisieren</text>
+  <rect class="b" x="298" y="126" width="118" height="46" rx="6"/><text class="n" x="298" y="121">8</text><text class="h" x="357" y="148">installieren</text><text class="h" x="357" y="162">und testen</text>
+  <rect class="b" x="440" y="126" width="118" height="46" rx="6"/><text class="n" x="440" y="121">9</text><text class="h" x="499" y="148">übergeben,</text><text class="h" x="499" y="162">Abnahmeprotokoll</text>
+  <rect class="b" x="582" y="126" width="124" height="46" rx="6"/><text class="n" x="582" y="121">10</text><text class="h" x="644" y="148">Rechnung prüfen,</text><text class="h" x="644" y="162">fristgerecht zahlen</text>
+  <path class="ar" d="M132,149 H152"/><path class="ar" d="M274,149 H294"/><path class="ar" d="M416,149 H436"/><path class="ar" d="M558,149 H578"/>
+  <text class="w" x="14" y="196">Lieferung bleibt aus → Mahnung, Nachfrist (Lieferverzug)</text>
+  <text class="w" x="14" y="214">Lieferung mangelhaft → sofort Mängelrüge, bei Kaufleuten unverzüglich (§ 377 HGB)</text>
+  <text class="s" x="440" y="196">Skontofrist im Blick behalten:</text><text class="s" x="440" y="214">Zahlungsziel und Skonto stehen in der Rechnung</text>
+</svg>

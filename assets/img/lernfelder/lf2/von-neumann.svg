@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="vn-title vn-desc">
+  <title id="vn-title">EVA-Prinzip und Von-Neumann-Architektur</title>
+  <desc id="vn-desc">Oben das EVA-Prinzip: Eingabe, zum Beispiel Tastatur oder Maus, dann Verarbeitung im Prozessor, dann Ausgabe, zum Beispiel auf Monitor oder Drucker, dazu Speicherung. Darunter die Von-Neumann-Architektur: Die CPU besteht aus Steuerwerk, Rechenwerk (ALU) und Registern. Über ein gemeinsames Bussystem aus Datenbus, Adressbus und Steuerbus ist sie mit dem Arbeitsspeicher verbunden, in dem Programme und Daten gemeinsam liegen, und mit dem Ein- und Ausgabewerk für die Peripherie. Weil Befehle und Daten denselben Bus nutzen, entsteht ein Engpass, der Von-Neumann-Flaschenhals; Caches mildern ihn.</desc>
+  <defs>
+    <marker id="vn-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .e { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .v { fill: #343a40; }
+      .vt { fill: #fff; font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .a { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .sp { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .cpu { fill: #f8f9fa; stroke: #343a40; stroke-width: 1.6; }
+      .in { fill: #fff; stroke: #6c757d; stroke-width: 1.2; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#vn-arr); fill: none; }
+      .bus { stroke: #6f42c1; stroke-width: 6; }
+      .bl { font-size: 10.5px; font-weight: 700; fill: #6f42c1; }
+    </style>
+  </defs>
+  <rect class="e" x="20" y="16" width="150" height="44" rx="6"/><text class="h c" x="95" y="36">Eingabe</text><text class="s c" x="95" y="51">Tastatur, Maus, Scanner</text>
+  <rect class="v" x="220" y="16" width="150" height="44" rx="6"/><text class="vt" x="295" y="36">Verarbeitung</text><text class="c" x="295" y="51" style="fill:#ced4da;font-size:10.5px">Prozessor</text>
+  <rect class="a" x="420" y="16" width="150" height="44" rx="6"/><text class="h c" x="495" y="36">Ausgabe</text><text class="s c" x="495" y="51">Monitor, Drucker</text>
+  <rect class="sp" x="600" y="16" width="106" height="44" rx="6"/><text class="h c" x="653" y="36">Speicherung</text><text class="s c" x="653" y="51">SSD, Cloud</text>
+  <path class="ar" d="M170,38 H216"/><path class="ar" d="M370,38 H416"/><path class="ar" d="M570,38 H596"/>
+
+  <text class="h" x="20" y="96">Von-Neumann-Architektur</text>
+  <rect class="cpu" x="20" y="108" width="230" height="118" rx="8"/><text class="h" x="32" y="128">CPU</text>
+  <rect class="in" x="32" y="138" width="98" height="34" rx="4"/><text class="h c" x="81" y="152" style="font-size:11px">Steuerwerk</text><text class="s c" x="81" y="165">holt, dekodiert</text>
+  <rect class="in" x="140" y="138" width="98" height="34" rx="4"/><text class="h c" x="189" y="152" style="font-size:11px">Rechenwerk</text><text class="s c" x="189" y="165">ALU</text>
+  <rect class="in" x="32" y="182" width="206" height="32" rx="4"/><text class="h c" x="135" y="202" style="font-size:11px">Register, Cache</text>
+
+  <rect class="sp" x="300" y="108" width="190" height="118" rx="8"/><text class="h c" x="395" y="132">Arbeitsspeicher</text>
+  <text class="s c" x="395" y="156">Programme und Daten</text><text class="s c" x="395" y="172">im selben Speicher</text>
+  <rect class="e" x="540" y="108" width="166" height="118" rx="8"/><text class="h c" x="623" y="132">Ein-/Ausgabewerk</text>
+  <text class="s c" x="623" y="156">USB, Grafik, Netz,</text><text class="s c" x="623" y="172">Massenspeicher</text>
+
+  <line class="bus" x1="20" y1="250" x2="706" y2="250"/>
+  <line class="bus" x1="135" y1="226" x2="135" y2="250"/><line class="bus" x1="395" y1="226" x2="395" y2="250"/><line class="bus" x1="623" y1="226" x2="623" y2="250"/>
+  <text class="bl" x="20" y="274">Bussystem: Datenbus · Adressbus · Steuerbus – Befehle und Daten teilen sich den Weg (Von-Neumann-Flaschenhals)</text>
+</svg>

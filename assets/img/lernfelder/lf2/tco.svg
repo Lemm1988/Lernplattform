@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 218" role="img" aria-labelledby="tc-title tc-desc">
+  <title id="tc-title">Gesamtkosten über vier Jahre</title>
+  <desc id="tc-desc">Gestapelte Balken der Gesamtkosten über vier Jahre. PC A: Anschaffung 1100 Euro, Strom 197,12 Euro, Support 320 Euro, zusammen 1617,12 Euro. PC B: Anschaffung 950 Euro, Strom 280 Euro, Support 480 Euro, zusammen 1710 Euro. Der günstigere Anschaffungspreis von PC B wird durch höhere laufende Kosten mehr als aufgezehrt.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .lab { font-size: 12px; font-weight: 700; text-anchor: end; }
+      .tot { font-size: 12px; font-weight: 700; }
+      .tk { font-size: 10.5px; fill: #6c757d; text-anchor: middle; }
+      .grid { stroke: #e9ecef; stroke-width: 1; }
+      .lg { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <rect x="150" y="14" width="12" height="12" rx="2" fill="#2a78d6"/><text class="lg" x="167" y="24">Anschaffung</text>
+  <rect x="254.3" y="14" width="12" height="12" rx="2" fill="#eb6834"/><text class="lg" x="271.3" y="24">Strom (4 Jahre)</text>
+  <rect x="383.8" y="14" width="12" height="12" rx="2" fill="#1baf7a"/><text class="lg" x="400.8" y="24">Support (4 Jahre)</text>
+  <line class="grid" x1="150.0" y1="52" x2="150.0" y2="146"/><text class="tk" x="150.0" y="162">0</text>
+  <line class="grid" x1="272.5" y1="52" x2="272.5" y2="146"/><text class="tk" x="272.5" y="162">500</text>
+  <line class="grid" x1="395.0" y1="52" x2="395.0" y2="146"/><text class="tk" x="395.0" y="162">1.000</text>
+  <line class="grid" x1="517.5" y1="52" x2="517.5" y2="146"/><text class="tk" x="517.5" y="162">1.500</text>
+  <line class="grid" x1="640.0" y1="52" x2="640.0" y2="146"/><text class="tk" x="640.0" y="162">2.000</text>
+  <text class="lab" x="140" y="77.0">PC A</text>
+  <rect x="150.0" y="58" width="267.5" height="30" fill="#2a78d6"/>
+  <rect x="419.5" y="58" width="46.3" height="30" fill="#eb6834"/>
+  <rect x="467.8" y="58" width="76.4" height="30" fill="#1baf7a"/>
+  <text class="tot" x="554.2" y="77.0">1.617,12 €</text>
+  <text class="lab" x="140" y="129.0">PC B</text>
+  <rect x="150.0" y="110" width="230.8" height="30" fill="#2a78d6"/>
+  <rect x="382.8" y="110" width="66.6" height="30" fill="#eb6834"/>
+  <rect x="451.4" y="110" width="115.6" height="30" fill="#1baf7a"/>
+  <text class="tot" x="577.0" y="129.0">1.710 €</text>
+</svg>

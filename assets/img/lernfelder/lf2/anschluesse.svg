@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="an-title an-desc">
+  <title id="an-title">Häufige Anschlüsse am Arbeitsplatz</title>
+  <desc id="an-desc">Schematische Buchsen. USB-A: flach und rechteckig, nur in einer Richtung steckbar, bis 10 Gbit/s. USB-C: klein, abgerundet, beidseitig steckbar; je nach Standard USB, Thunderbolt, Bildsignal und Stromversorgung bis 240 Watt. HDMI: Trapezform, Bild und Ton, typisch für Monitore und Beamer. DisplayPort: eine abgeschrägte Ecke, Bild und Ton, Monitore mit hoher Auflösung und Bildrate, Daisy Chain möglich. RJ45: Netzwerk mit Rastnase.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .shell { fill: #e9ecef; stroke: #343a40; stroke-width: 1.8; }
+      .in { fill: #343a40; }
+      .h { font-weight: 700; font-size: 12.5px; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    </style>
+  </defs>
+  <rect class="shell" x="32" y="40" width="80" height="28" rx="2"/><rect class="in" x="40" y="48" width="64" height="9"/>
+  <text class="h" x="72" y="104">USB-A</text><text class="s" x="72" y="122">eine Steckrichtung</text><text class="s" x="72" y="138">bis 10 Gbit/s</text>
+
+  <rect class="shell" x="186" y="44" width="68" height="22" rx="11"/><rect class="in" x="198" y="52" width="44" height="6" rx="3"/>
+  <text class="h" x="220" y="104">USB-C</text><text class="s" x="220" y="122">beidseitig steckbar</text><text class="s" x="220" y="138">USB4, Thunderbolt,</text><text class="s" x="220" y="154">Bild, Strom bis 240 W</text>
+
+  <path class="shell" d="M326,40 H410 V58 L400,70 H336 L326,58 Z"/><rect class="in" x="336" y="48" width="64" height="8"/>
+  <text class="h" x="368" y="104">HDMI</text><text class="s" x="368" y="122">Bild und Ton</text><text class="s" x="368" y="138">Monitor, Beamer, TV</text>
+
+  <path class="shell" d="M474,40 H556 V70 H484 L474,60 Z"/><rect class="in" x="486" y="49" width="60" height="9"/>
+  <text class="h" x="515" y="104">DisplayPort</text><text class="s" x="515" y="122">hohe Auflösung, Bildrate</text><text class="s" x="515" y="138">mehrere Monitore in Reihe</text>
+
+  <path class="shell" d="M622,34 H686 V76 H668 V84 H640 V76 H622 Z"/><rect class="in" x="630" y="42" width="48" height="6"/>
+  <text class="h" x="654" y="104">RJ45</text><text class="s" x="654" y="122">Netzwerk</text><text class="s" x="654" y="138">mit Rastnase</text>
+  <text x="20" y="194" style="font-size:11px;fill:#343a40">Bei USB-C entscheidet nicht die Buchse, sondern was dahintersteckt: Ein Port kann nur USB 2.0 können oder 40 Gbit/s, Bild und 100 W.</text>
+  <text x="20" y="212" style="font-size:11px;fill:#343a40">Auf die Symbole am Gerät und im Datenblatt achten – auch Kabel unterscheiden sich in Datenrate und Ladeleistung.</text>
+</svg>

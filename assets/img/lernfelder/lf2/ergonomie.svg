@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="eg-title eg-desc">
+  <title id="eg-title">Ergonomischer Bildschirmarbeitsplatz</title>
+  <desc id="eg-desc">Seitenansicht einer sitzenden Person am Schreibtisch. Die oberste Bildschirmzeile liegt leicht unter Augenhöhe, der Blick geht leicht nach unten. Der Sehabstand beträgt etwa 50 bis 70 Zentimeter, bei großen Monitoren mehr. Die Unterarme liegen etwa waagerecht auf, der Winkel im Ellbogen beträgt mindestens 90 Grad. Die Füße stehen flach auf dem Boden, die Oberschenkel sind etwa waagerecht. Der Stuhl stützt den unteren Rücken. Der Bildschirm steht seitlich zum Fenster, damit nichts blendet oder spiegelt. Ein höhenverstellbarer Tisch erlaubt den Wechsel zwischen Sitzen und Stehen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .body { stroke: #495057; stroke-width: 9; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+      .head { fill: #adb5bd; }
+      .desk { fill: #ced4da; }
+      .chair { stroke: #6c757d; stroke-width: 6; stroke-linecap: round; fill: none; }
+      .mon { fill: #343a40; }
+      .sight { stroke: #0d6efd; stroke-width: 1.5; stroke-dasharray: 6 4; }
+      .dim { stroke: #fd7e14; stroke-width: 1.4; }
+      .s { font-size: 11px; fill: #343a40; }
+      .n { font-weight: 800; font-size: 12px; fill: #fff; text-anchor: middle; }
+      .nb { fill: #0d6efd; }
+    </style>
+  </defs>
+  <rect class="desk" x="200" y="160" width="230" height="10" rx="2"/><rect class="desk" x="410" y="170" width="10" height="110"/>
+  <rect class="mon" x="402" y="80" width="10" height="66"/><rect x="392" y="146" width="30" height="14" fill="#6c757d"/>
+  <rect x="300" y="152" width="70" height="8" rx="2" fill="#495057"/>
+  <path class="chair" d="M86,210 H170 M110,210 V150 M120,210 V270 M90,270 H150"/>
+  <circle class="head" cx="140" cy="68" r="22"/>
+  <path class="body" d="M132,92 L118,200"/>
+  <path class="body" d="M126,120 L170,160 L296,156"/>
+  <path class="body" d="M118,200 L212,204 L216,276 L246,276"/>
+  <line class="sight" x1="158" y1="66" x2="404" y2="88"/><line class="sight" x1="158" y1="66" x2="404" y2="140"/>
+  <line class="dim" x1="162" y1="34" x2="400" y2="34"/><line class="dim" x1="162" y1="28" x2="162" y2="40"/><line class="dim" x1="400" y1="28" x2="400" y2="40"/>
+  <text class="s c" x="281" y="26">ca. 50–70 cm</text>
+
+  <circle class="nb" cx="456" cy="82" r="10"/><text class="n" x="456" y="86">1</text><text class="s" x="472" y="86">oberste Zeile leicht unter Augenhöhe</text>
+  <circle class="nb" cx="456" cy="112" r="10"/><text class="n" x="456" y="116">2</text><text class="s" x="472" y="116">Blick leicht nach unten</text>
+  <circle class="nb" cx="456" cy="142" r="10"/><text class="n" x="456" y="146">3</text><text class="s" x="472" y="146">Unterarme waagerecht, Ellbogen ≥ 90°</text>
+  <circle class="nb" cx="456" cy="172" r="10"/><text class="n" x="456" y="176">4</text><text class="s" x="472" y="176">Rücken gestützt, Oberschenkel waagerecht</text>
+  <circle class="nb" cx="456" cy="202" r="10"/><text class="n" x="456" y="206">5</text><text class="s" x="472" y="206">Füße flach auf dem Boden</text>
+  <circle class="nb" cx="456" cy="232" r="10"/><text class="n" x="456" y="236">6</text><text class="s" x="472" y="236">Bildschirm seitlich zum Fenster</text>
+  <circle class="nb" cx="456" cy="262" r="10"/><text class="n" x="456" y="266">7</text><text class="s" x="472" y="266">Sitzen und Stehen abwechseln</text>
+</svg>

@@ -20,7 +20,7 @@ require_once __DIR__ . '/../config.php';
 function lernfeld_meta() {
     return [
         'LF1'  => ['title' => 'Das Unternehmen und die eigene Rolle im Betrieb beschreiben', 'icon' => 'building', 'ap' => 'AP1'],
-        'LF2'  => ['title' => 'Arbeitsplätze nach Kundenwunsch ausstatten', 'icon' => 'pc-display', 'ap' => 'AP1', 'legacy_title' => 'Geschäftsprozesse und betriebliche Organisation'],
+        'LF2'  => ['title' => 'Arbeitsplätze nach Kundenwunsch ausstatten', 'icon' => 'pc-display', 'ap' => 'AP1'],
         'LF3'  => ['title' => 'Clients in Netzwerke einbinden', 'icon' => 'diagram-3', 'ap' => 'AP1'],
         'LF4'  => ['title' => 'Schutzbedarfsanalyse im eigenen Arbeitsbereich durchführen', 'icon' => 'shield-lock', 'ap' => 'AP1'],
         'LF5'  => ['title' => 'Software zur Verwaltung von Daten anpassen', 'icon' => 'database', 'ap' => 'AP1 + AP2'],
@@ -164,8 +164,9 @@ function render_lernfeld_overview($lf_key) {
 function render_lernfeld_chapter($lf_key, $chapter_key) {
     $lf = lernfeld_load($lf_key);
     if (!isset($lf['chapters'][$chapter_key])) {
-        http_response_code(404);
-        exit('Kapitel nicht gefunden.');
+        // Kapitel gibt es nach der Überarbeitung nicht mehr (alte Lesezeichen) → zur Übersicht
+        header('Location: /Learningfields/' . rawurlencode($lf_key) . '/index.php', true, 302);
+        exit;
     }
     $chapter = $lf['chapters'][$chapter_key];
     $keys = array_keys($lf['chapters']);

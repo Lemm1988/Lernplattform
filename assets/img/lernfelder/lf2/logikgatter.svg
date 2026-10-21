@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 258" role="img" aria-labelledby="lg2-title lg2-desc">
+  <title id="lg2-title">Logikgatter nach DIN EN 60617 mit Wahrheitstabellen</title>
+  <desc id="lg2-desc">Fünf Gatter mit Schaltzeichen und Wahrheitstabelle. UND, Zeichen &amp;: Ausgang 1 nur, wenn beide Eingänge 1 sind. ODER, Zeichen größer gleich 1: Ausgang 1, wenn mindestens ein Eingang 1 ist. NICHT, Zeichen 1 mit Kreis am Ausgang: kehrt den Eingang um. XOR, Zeichen =1: Ausgang 1, wenn genau ein Eingang 1 ist. NAND, Zeichen &amp; mit Kreis am Ausgang: die Umkehrung von UND.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .g { fill: #fff; stroke: #212529; stroke-width: 1.6; }
+      .w { stroke: #212529; stroke-width: 1.6; }
+      .sym { font-size: 14px; font-weight: 700; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .t { font-family: ui-monospace, Consolas, monospace; font-size: 11px; text-anchor: middle; }
+      .th { font-family: ui-monospace, Consolas, monospace; font-size: 11px; font-weight: 700; text-anchor: middle; fill: #495057; }
+      .one { fill: #d1e7dd; }
+    </style>
+  </defs>
+  <text class="h" x="72" y="20">UND (AND)</text>
+  <rect class="g" x="50" y="32" width="44" height="54"/><text class="sym" x="72" y="64">&amp;</text>
+  <line class="w" x1="32" y1="46" x2="50" y2="46"/><line class="w" x1="32" y1="72" x2="50" y2="72"/><text class="t" x="26" y="50">A</text><text class="t" x="26" y="76">B</text>
+  <line class="w" x1="94" y1="59" x2="116" y2="59"/>
+  <text class="t" x="122" y="63">Y</text>
+  <text class="th" x="42" y="112">A</text><text class="th" x="72" y="112">B</text><text class="th" x="102" y="112">Y</text>
+  <text class="t" x="42" y="130">0</text><text class="t" x="72" y="130">0</text><text class="t" x="102" y="130">0</text>
+  <text class="t" x="42" y="148">0</text><text class="t" x="72" y="148">1</text><text class="t" x="102" y="148">0</text>
+  <text class="t" x="42" y="166">1</text><text class="t" x="72" y="166">0</text><text class="t" x="102" y="166">0</text>
+  <rect class="one" x="92" y="172" width="20" height="16" rx="2"/>
+  <text class="t" x="42" y="184">1</text><text class="t" x="72" y="184">1</text><text class="t" x="102" y="184">1</text>
+  <text class="h" x="216" y="20">ODER (OR)</text>
+  <rect class="g" x="194" y="32" width="44" height="54"/><text class="sym" x="216" y="64">≥1</text>
+  <line class="w" x1="176" y1="46" x2="194" y2="46"/><line class="w" x1="176" y1="72" x2="194" y2="72"/><text class="t" x="170" y="50">A</text><text class="t" x="170" y="76">B</text>
+  <line class="w" x1="238" y1="59" x2="260" y2="59"/>
+  <text class="t" x="266" y="63">Y</text>
+  <text class="th" x="186" y="112">A</text><text class="th" x="216" y="112">B</text><text class="th" x="246" y="112">Y</text>
+  <text class="t" x="186" y="130">0</text><text class="t" x="216" y="130">0</text><text class="t" x="246" y="130">0</text>
+  <rect class="one" x="236" y="136" width="20" height="16" rx="2"/>
+  <text class="t" x="186" y="148">0</text><text class="t" x="216" y="148">1</text><text class="t" x="246" y="148">1</text>
+  <rect class="one" x="236" y="154" width="20" height="16" rx="2"/>
+  <text class="t" x="186" y="166">1</text><text class="t" x="216" y="166">0</text><text class="t" x="246" y="166">1</text>
+  <rect class="one" x="236" y="172" width="20" height="16" rx="2"/>
+  <text class="t" x="186" y="184">1</text><text class="t" x="216" y="184">1</text><text class="t" x="246" y="184">1</text>
+  <text class="h" x="360" y="20">NICHT (NOT)</text>
+  <rect class="g" x="338" y="32" width="44" height="54"/><text class="sym" x="360" y="64">1</text>
+  <line class="w" x1="320" y1="59" x2="338" y2="59"/><text class="t" x="314" y="63">A</text>
+  <circle cx="386" cy="59" r="4" fill="#fff" stroke="#212529" stroke-width="1.6"/><line class="w" x1="390" y1="59" x2="404" y2="59"/>
+  <text class="t" x="410" y="63">Y</text>
+  <text class="th" x="345" y="112">A</text><text class="th" x="375" y="112">Y</text>
+  <rect class="one" x="365" y="118" width="20" height="16" rx="2"/>
+  <text class="t" x="345" y="130">0</text><text class="t" x="375" y="130">1</text>
+  <text class="t" x="345" y="148">1</text><text class="t" x="375" y="148">0</text>
+  <text class="h" x="504" y="20">XOR</text>
+  <rect class="g" x="482" y="32" width="44" height="54"/><text class="sym" x="504" y="64">=1</text>
+  <line class="w" x1="464" y1="46" x2="482" y2="46"/><line class="w" x1="464" y1="72" x2="482" y2="72"/><text class="t" x="458" y="50">A</text><text class="t" x="458" y="76">B</text>
+  <line class="w" x1="526" y1="59" x2="548" y2="59"/>
+  <text class="t" x="554" y="63">Y</text>
+  <text class="th" x="474" y="112">A</text><text class="th" x="504" y="112">B</text><text class="th" x="534" y="112">Y</text>
+  <text class="t" x="474" y="130">0</text><text class="t" x="504" y="130">0</text><text class="t" x="534" y="130">0</text>
+  <rect class="one" x="524" y="136" width="20" height="16" rx="2"/>
+  <text class="t" x="474" y="148">0</text><text class="t" x="504" y="148">1</text><text class="t" x="534" y="148">1</text>
+  <rect class="one" x="524" y="154" width="20" height="16" rx="2"/>
+  <text class="t" x="474" y="166">1</text><text class="t" x="504" y="166">0</text><text class="t" x="534" y="166">1</text>
+  <text class="t" x="474" y="184">1</text><text class="t" x="504" y="184">1</text><text class="t" x="534" y="184">0</text>
+  <text class="h" x="648" y="20">NAND</text>
+  <rect class="g" x="626" y="32" width="44" height="54"/><text class="sym" x="648" y="64">&amp;</text>
+  <line class="w" x1="608" y1="46" x2="626" y2="46"/><line class="w" x1="608" y1="72" x2="626" y2="72"/><text class="t" x="602" y="50">A</text><text class="t" x="602" y="76">B</text>
+  <circle cx="674" cy="59" r="4" fill="#fff" stroke="#212529" stroke-width="1.6"/><line class="w" x1="678" y1="59" x2="692" y2="59"/>
+  <text class="t" x="698" y="63">Y</text>
+  <text class="th" x="618" y="112">A</text><text class="th" x="648" y="112">B</text><text class="th" x="678" y="112">Y</text>
+  <rect class="one" x="668" y="118" width="20" height="16" rx="2"/>
+  <text class="t" x="618" y="130">0</text><text class="t" x="648" y="130">0</text><text class="t" x="678" y="130">1</text>
+  <rect class="one" x="668" y="136" width="20" height="16" rx="2"/>
+  <text class="t" x="618" y="148">0</text><text class="t" x="648" y="148">1</text><text class="t" x="678" y="148">1</text>
+  <rect class="one" x="668" y="154" width="20" height="16" rx="2"/>
+  <text class="t" x="618" y="166">1</text><text class="t" x="648" y="166">0</text><text class="t" x="678" y="166">1</text>
+  <text class="t" x="618" y="184">1</text><text class="t" x="648" y="184">1</text><text class="t" x="678" y="184">0</text>
+  <text x="20" y="214" style="font-size:11px;fill:#343a40">Kreis am Ausgang = Negation. NAND ist universell: Aus NAND-Gattern lassen sich alle anderen Gatter bauen.</text>
+  <text x="20" y="232" style="font-size:11px;fill:#343a40">In der CPU setzen Milliarden solcher Gatter aus Transistoren Rechnen und Speichern um –</text>
+  <text x="20" y="248" style="font-size:11px;fill:#343a40">ein Halbaddierer etwa addiert zwei Bits mit XOR (Summe) und UND (Übertrag).</text>
+</svg>

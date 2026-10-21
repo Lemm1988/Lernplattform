@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 210" role="img" aria-labelledby="fi-title fi-desc">
+  <title id="fi-title">Gesamtkosten der Finanzierungsarten für 25 PCs</title>
+  <desc id="fi-desc">Balkendiagramm der Gesamtkosten über drei Jahre für eine Ausstattung im Wert von 30.000 Euro. Kauf aus Eigenmitteln: 30.000 Euro, die Liquidität sinkt aber sofort. Kredit über drei Jahre mit 5 Prozent als Annuitätendarlehen: 33.048,77 Euro, davon 3.048,77 Euro Zinsen. Leasing mit 36 Monatsraten zu 950 Euro: 34.200 Euro, dafür ist je nach Vertrag Service enthalten und die Geräte werden nach drei Jahren getauscht.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .lab { font-size: 12px; font-weight: 700; text-anchor: end; }
+      .val { font-size: 12px; font-weight: 700; }
+      .s { font-size: 10.5px; fill: #495057; }
+      .tk { font-size: 10.5px; fill: #6c757d; text-anchor: middle; }
+      .grid { stroke: #e9ecef; stroke-width: 1; }
+    </style>
+  </defs>
+  <line class="grid" x1="200.0" y1="14" x2="200.0" y2="158"/><text class="tk" x="200.0" y="174">0</text>
+  <line class="grid" x1="300.0" y1="14" x2="300.0" y2="158"/><text class="tk" x="300.0" y="174">10.000 €</text>
+  <line class="grid" x1="400.0" y1="14" x2="400.0" y2="158"/><text class="tk" x="400.0" y="174">20.000 €</text>
+  <line class="grid" x1="500.0" y1="14" x2="500.0" y2="158"/><text class="tk" x="500.0" y="174">30.000 €</text>
+  <line class="grid" x1="600.0" y1="14" x2="600.0" y2="158"/><text class="tk" x="600.0" y="174">40.000 €</text>
+  <text class="lab" x="190" y="36">Kauf aus Eigenmitteln</text><rect x="200" y="20" width="300.0" height="26" rx="0" fill="#2a78d6"/><rect x="496.0" y="20" width="4" height="26" rx="2" fill="#2a78d6"/>
+  <text class="val" x="508.0" y="33">30.000 €</text><text class="s" x="508.0" y="47">Liquidität sinkt sofort</text>
+  <text class="lab" x="190" y="82">Kredit (3 Jahre, 5 %)</text><rect x="200" y="66" width="330.5" height="26" rx="0" fill="#2a78d6"/><rect x="526.5" y="66" width="4" height="26" rx="2" fill="#2a78d6"/>
+  <text class="val" x="538.5" y="79">33.048,77 €</text><text class="s" x="538.5" y="93">davon 3.048,77 € Zinsen</text>
+  <text class="lab" x="190" y="128">Leasing (36 × 950 €)</text><rect x="200" y="112" width="342.0" height="26" rx="0" fill="#2a78d6"/><rect x="538.0" y="112" width="4" height="26" rx="2" fill="#2a78d6"/>
+  <text class="val" x="550.0" y="125">34.200 €</text><text class="s" x="550.0" y="139">Service je nach Vertrag inklusive</text>
+  <text class="s" x="20" y="200" style="font-size:11px">Reine Kosten sind nur ein Kriterium: Liquidität, Service, Technologiewechsel und Bilanzierung zählen mit.</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="dn66-title dn66-desc">
+  <title id="dn66-title">Datenträgervernichtung nach DIN 66399</title>
+  <desc id="dn66-desc">Die Norm ordnet Datenträger Materialklassen zu: P Papier, F Filme wie Mikrofilm, O optische Datenträger wie DVD, T magnetische Datenträger wie Disketten oder Magnetkarten, H Festplatten mit magnetischem Speicher, E elektronische Datenträger wie SSD, USB-Stick und Speicherkarte. Aus dem Schutzbedarf ergibt sich die Schutzklasse: 1 normal, 2 hoch, 3 sehr hoch. Jede Schutzklasse lässt bestimmte Sicherheitsstufen zu: Schutzklasse 1 die Stufen 1 bis 3, Schutzklasse 2 die Stufen 3 bis 5, Schutzklasse 3 die Stufen 4 bis 7. Je höher die Stufe, desto kleiner die Partikel. Beispiel: H-3 heißt Festplatte, Sicherheitsstufe 3.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .mk { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .L { font-weight: 800; font-size: 16px; fill: #0a58ca; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12px; }
+      .th { font-weight: 700; font-size: 11px; fill: #495057; text-anchor: middle; }
+      .on { fill: #198754; }
+      .off { fill: #f1f3f5; }
+      .n { font-size: 11px; font-weight: 700; text-anchor: middle; }
+    </style>
+  </defs>
+  <text class="h" x="20" y="22">Materialklassen</text>
+  <rect class="mk" x="20" y="34" width="100" height="56" rx="6"/><text class="L" x="70" y="58">P</text><text class="s" x="70" y="78">Papier</text>
+  <rect class="mk" x="132" y="34" width="100" height="56" rx="6"/><text class="L" x="182" y="58">F</text><text class="s" x="182" y="78">Filme</text>
+  <rect class="mk" x="244" y="34" width="100" height="56" rx="6"/><text class="L" x="294" y="58">O</text><text class="s" x="294" y="78">CD, DVD</text>
+  <rect class="mk" x="356" y="34" width="100" height="56" rx="6"/><text class="L" x="406" y="58">T</text><text class="s" x="406" y="78">Magnetkarten</text>
+  <rect class="mk" x="468" y="34" width="100" height="56" rx="6"/><text class="L" x="518" y="58">H</text><text class="s" x="518" y="78">Festplatten</text>
+  <rect class="mk" x="580" y="34" width="120" height="56" rx="6"/><text class="L" x="640" y="58">E</text><text class="s" x="640" y="78">SSD, USB-Stick</text>
+
+  <text class="h" x="20" y="126">Schutzklasse → zulässige Sicherheitsstufen</text>
+  <text class="th" x="250" y="146">1</text><text class="th" x="290" y="146">2</text><text class="th" x="330" y="146">3</text><text class="th" x="370" y="146">4</text><text class="th" x="410" y="146">5</text><text class="th" x="450" y="146">6</text><text class="th" x="490" y="146">7</text>
+  <text x="20" y="168" style="font-size:11px">Schutzklasse 1 – normal</text>
+  <rect class="on" x="236" y="156" width="28" height="18" rx="3"/><rect class="on" x="276" y="156" width="28" height="18" rx="3"/><rect class="on" x="316" y="156" width="28" height="18" rx="3"/><rect class="off" x="356" y="156" width="28" height="18" rx="3"/><rect class="off" x="396" y="156" width="28" height="18" rx="3"/><rect class="off" x="436" y="156" width="28" height="18" rx="3"/><rect class="off" x="476" y="156" width="28" height="18" rx="3"/>
+  <text x="20" y="192" style="font-size:11px">Schutzklasse 2 – hoch</text>
+  <rect class="off" x="236" y="180" width="28" height="18" rx="3"/><rect class="off" x="276" y="180" width="28" height="18" rx="3"/><rect class="on" x="316" y="180" width="28" height="18" rx="3"/><rect class="on" x="356" y="180" width="28" height="18" rx="3"/><rect class="on" x="396" y="180" width="28" height="18" rx="3"/><rect class="off" x="436" y="180" width="28" height="18" rx="3"/><rect class="off" x="476" y="180" width="28" height="18" rx="3"/>
+  <text x="20" y="216" style="font-size:11px">Schutzklasse 3 – sehr hoch</text>
+  <rect class="off" x="236" y="204" width="28" height="18" rx="3"/><rect class="off" x="276" y="204" width="28" height="18" rx="3"/><rect class="off" x="316" y="204" width="28" height="18" rx="3"/><rect class="on" x="356" y="204" width="28" height="18" rx="3"/><rect class="on" x="396" y="204" width="28" height="18" rx="3"/><rect class="on" x="436" y="204" width="28" height="18" rx="3"/><rect class="on" x="476" y="204" width="28" height="18" rx="3"/>
+  <text x="530" y="150" style="font-size:11px;font-weight:700">Sicherheitsstufe</text>
+  <text x="530" y="168" style="font-size:11px">höher = kleinere Partikel</text>
+  <text x="530" y="194" style="font-size:11px;font-weight:700">Schreibweise</text>
+  <text x="530" y="212" style="font-size:11px">H-3 = Festplatte, Stufe 3</text>
+  <text x="20" y="244" style="font-size:11px;fill:#343a40">Die Schutzklasse folgt aus dem Schutzbedarf der Daten (LF4). Der Entsorger bestätigt die Vernichtung schriftlich.</text>
+</svg>

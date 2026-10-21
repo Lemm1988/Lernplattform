@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 478" role="img" aria-labelledby="kk-title kk-desc">
+  <title id="kk-title">Kalkulationsschema für ein Notebook</title>
+  <desc id="kk-desc">Bezugskalkulation: Listeneinkaufspreis 900 Euro minus 10 Prozent Liefererrabatt (90 Euro) ergibt den Zieleinkaufspreis 810 Euro, minus 2 Prozent Skonto (16,20 Euro) den Bareinkaufspreis 793,80 Euro, plus 15 Euro Bezugskosten den Bezugspreis 808,80 Euro. Verkaufskalkulation: plus 20 Prozent Handlungskosten (161,76 Euro) ergibt Selbstkosten 970,56 Euro, plus 10 Prozent Gewinn (97,06 Euro) den Barverkaufspreis 1067,62 Euro, plus 2 Prozent Kundenskonto im Hundert (21,79 Euro) den Zielverkaufspreis 1089,41 Euro, plus 5 Prozent Kundenrabatt im Hundert (57,34 Euro) den Listenverkaufspreis netto 1146,75 Euro, plus 19 Prozent Umsatzsteuer (217,88 Euro) den Bruttopreis 1364,63 Euro.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .l { font-size: 12px; }
+      .b { font-size: 12px; font-weight: 700; }
+      .p { font-size: 11px; fill: #495057; }
+      .v { font-family: ui-monospace, Consolas, monospace; font-size: 12px; text-anchor: end; }
+      .vb { font-family: ui-monospace, Consolas, monospace; font-size: 12px; font-weight: 700; text-anchor: end; }
+      .k { fill: #e7f1ff; }
+      .sec { font-size: 11px; font-weight: 700; fill: #495057; letter-spacing: .04em; }
+    </style>
+  </defs>
+  <text class="sec" x="20" y="24">BEZUGSKALKULATION (EINKAUF)</text><text class="sec" x="420" y="24">PREIS JE STÜCK</text>
+  <text class="l" x="24" y="54">Listeneinkaufspreis</text><text class="p" x="300" y="54"></text><text class="v" x="550" y="54">900,00 €</text>
+  <text class="l" x="24" y="78">− Liefererrabatt</text><text class="p" x="300" y="78">10 %</text><text class="v" x="550" y="78">90,00 €</text>
+  <text class="b" x="24" y="102">= Zieleinkaufspreis</text><text class="p" x="300" y="102"></text><text class="vb" x="550" y="102">810,00 €</text>
+  <text class="l" x="24" y="126">− Liefererskonto</text><text class="p" x="300" y="126">2 %</text><text class="v" x="550" y="126">16,20 €</text>
+  <text class="b" x="24" y="150">= Bareinkaufspreis</text><text class="p" x="300" y="150"></text><text class="vb" x="550" y="150">793,80 €</text>
+  <text class="l" x="24" y="174">+ Bezugskosten</text><text class="p" x="300" y="174">Fracht</text><text class="v" x="550" y="174">15,00 €</text>
+  <rect class="k" x="16" y="182" width="548" height="22" rx="3"/>
+  <text class="b" x="24" y="198">= Bezugspreis</text><text class="p" x="300" y="198">Einstandspreis</text><text class="vb" x="550" y="198">808,80 €</text>
+  <line x1="20" y1="205" x2="560" y2="205" stroke="#adb5bd" stroke-width="1"/><text class="sec" x="580" y="218">VERKAUFS-</text><text class="sec" x="580" y="232">KALKULATION</text>
+  <text class="l" x="24" y="222">+ Handlungskosten</text><text class="p" x="300" y="222">20 %</text><text class="v" x="550" y="222">161,76 €</text>
+  <text class="b" x="24" y="246">= Selbstkosten</text><text class="p" x="300" y="246"></text><text class="vb" x="550" y="246">970,56 €</text>
+  <text class="l" x="24" y="270">+ Gewinn</text><text class="p" x="300" y="270">10 %</text><text class="v" x="550" y="270">97,06 €</text>
+  <text class="b" x="24" y="294">= Barverkaufspreis</text><text class="p" x="300" y="294"></text><text class="vb" x="550" y="294">1.067,62 €</text>
+  <text class="l" x="24" y="318">+ Kundenskonto</text><text class="p" x="300" y="318">2 % i. H.</text><text class="v" x="550" y="318">21,79 €</text>
+  <text class="b" x="24" y="342">= Zielverkaufspreis</text><text class="p" x="300" y="342"></text><text class="vb" x="550" y="342">1.089,41 €</text>
+  <text class="l" x="24" y="366">+ Kundenrabatt</text><text class="p" x="300" y="366">5 % i. H.</text><text class="v" x="550" y="366">57,34 €</text>
+  <rect class="k" x="16" y="374" width="548" height="22" rx="3"/>
+  <text class="b" x="24" y="390">= Listenverkaufspreis netto</text><text class="p" x="300" y="390"></text><text class="vb" x="550" y="390">1.146,75 €</text>
+  <text class="l" x="24" y="414">+ Umsatzsteuer</text><text class="p" x="300" y="414">19 %</text><text class="v" x="550" y="414">217,88 €</text>
+  <rect class="k" x="16" y="422" width="548" height="22" rx="3"/>
+  <text class="b" x="24" y="438">= Listenverkaufspreis brutto</text><text class="p" x="300" y="438"></text><text class="vb" x="550" y="438">1.364,63 €</text>
+  <text class="p" x="20" y="464">i. H. = im Hundert: Skonto und Rabatt beziehen sich auf den höheren Preis, deshalb Basis ÷ 98 × 2 bzw. ÷ 95 × 5. Rundung je Stufe auf Cent.</text>
+</svg>

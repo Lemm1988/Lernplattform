@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 340" role="img" aria-labelledby="ap-title ap-desc">
+  <title id="ap-title">Muster eines Abnahmeprotokolls</title>
+  <desc id="ap-desc">Ein ausgefülltes Muster-Abnahmeprotokoll mit erfundenen Firmen. Projekt: Ausstattung von 12 Arbeitsplätzen. Auftraggeber: Muster Steuerberatung GmbH, Auftragnehmer: IT-Service Beispiel KG. Geprüfte Leistungen: 12 Notebooks mit Docking-Station installiert und in die Domäne aufgenommen, in Ordnung. 12 Monitore montiert, ein Monitor mit Pixelfehler. Netzwerkdrucker eingerichtet, in Ordnung. Einweisung der Mitarbeitenden durchgeführt, in Ordnung. Mangel: Monitor Seriennummer endet auf 4471, Austausch bis zum 28. des Monats. Ergebnis: abgenommen mit dem genannten Mangel. Unterschriften beider Seiten mit Datum.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .pg { fill: #fff; stroke: #adb5bd; stroke-width: 1.4; }
+      .h { font-weight: 800; font-size: 15px; }
+      .k { font-size: 10.5px; fill: #6c757d; }
+      .v { font-size: 11.5px; }
+      .th { font-size: 10.5px; font-weight: 700; fill: #495057; }
+      .row { fill: #f8f9fa; }
+      .ok { fill: #146c43; font-weight: 700; font-size: 11.5px; }
+      .no { fill: #b02a37; font-weight: 700; font-size: 11.5px; }
+      .sig { stroke: #495057; stroke-width: 1; }
+      .hand { font-family: "Segoe Script", "Brush Script MT", cursive; font-size: 15px; fill: #0a58ca; }
+      .box { fill: none; stroke: #495057; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <rect class="pg" x="14" y="10" width="692" height="320" rx="6"/>
+  <text class="h" x="30" y="38">Abnahmeprotokoll</text><text class="k" x="560" y="38">Muster – erfundene Firmen</text>
+  <text class="k" x="30" y="60">Projekt</text><text class="v" x="120" y="60">Ausstattung von 12 Arbeitsplätzen</text>
+  <text class="k" x="30" y="78">Auftraggeber</text><text class="v" x="120" y="78">Muster Steuerberatung GmbH</text>
+  <text class="k" x="380" y="78">Auftragnehmer</text><text class="v" x="470" y="78">IT-Service Beispiel KG</text>
+  <text class="th" x="30" y="104">Leistung</text><text class="th" x="520" y="104">Ergebnis</text>
+  <rect class="row" x="24" y="110" width="672" height="20"/><text class="v" x="30" y="124">12 Notebooks mit Docking-Station installiert, in Domäne aufgenommen</text><text class="ok" x="520" y="124">✓ in Ordnung</text>
+  <text class="v" x="30" y="144">12 Monitore montiert und angeschlossen</text><text class="no" x="520" y="144">✗ 1 Mangel</text>
+  <rect class="row" x="24" y="150" width="672" height="20"/><text class="v" x="30" y="164">Netzwerkdrucker eingerichtet, Testdruck von allen Plätzen</text><text class="ok" x="520" y="164">✓ in Ordnung</text>
+  <text class="v" x="30" y="184">Einweisung der Mitarbeitenden (Docking, Drucken, Anmeldung)</text><text class="ok" x="520" y="184">✓ in Ordnung</text>
+  <text class="k" x="30" y="210">Mängel</text><text class="v" x="120" y="210">Monitor SN …4471: Pixelfehler – Austausch bis 28. des Monats</text>
+  <text class="k" x="30" y="236">Ergebnis</text>
+  <rect class="box" x="120" y="226" width="12" height="12"/><text class="v" x="138" y="236">abgenommen</text>
+  <rect class="box" x="240" y="226" width="12" height="12"/><path d="M242,232 l3,4 l6,-8" stroke="#0a58ca" stroke-width="2" fill="none"/><text class="v" x="258" y="236">abgenommen mit Mängeln</text>
+  <rect class="box" x="430" y="226" width="12" height="12"/><text class="v" x="448" y="236">nicht abgenommen</text>
+  <line class="sig" x1="30" y1="300" x2="300" y2="300"/><text class="hand" x="40" y="294">E. Berger</text><text class="k" x="30" y="316">Datum, Unterschrift Auftraggeber</text>
+  <line class="sig" x1="400" y1="300" x2="680" y2="300"/><text class="hand" x="410" y="294">T. Novak</text><text class="k" x="400" y="316">Datum, Unterschrift Auftragnehmer</text>
+</svg>

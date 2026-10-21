@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="sh-title sh-desc">
+  <title id="sh-title">Speicherhierarchie</title>
+  <desc id="sh-desc">Eine Pyramide von schnell und klein oben nach langsam und groß unten. Register in der CPU: Zugriff unter einer Nanosekunde, wenige Byte. Cache L1 bis L3: etwa 1 bis 20 Nanosekunden, Kilobyte bis einige zehn Megabyte. Arbeitsspeicher RAM: etwa 100 Nanosekunden, Gigabyte. SSD: etwa 0,1 Millisekunden, Terabyte. Festplatte HDD: etwa 5 bis 10 Millisekunden, viele Terabyte. Die oberen Ebenen sind flüchtig, ab der SSD bleiben Daten ohne Strom erhalten. Die Werte sind Größenordnungen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ax { stroke: #495057; stroke-width: 1.4; }
+      .lab { font-size: 11px; font-weight: 700; fill: #495057; }
+    </style>
+    <marker id="sh-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+  </defs>
+  <polygon points="240,20 280,20 300,58 220,58" fill="#0d6efd"/><text class="h" x="260" y="44" style="fill:#fff">Register</text>
+  <polygon points="220,62 300,62 322,100 198,100" fill="#3d8bfd"/><text class="h" x="260" y="86" style="fill:#fff">Cache L1–L3</text>
+  <polygon points="198,104 322,104 344,142 176,142" fill="#6ea8fe"/><text class="h" x="260" y="128">RAM</text>
+  <polygon points="176,146 344,146 366,184 154,184" fill="#9ec5fe"/><text class="h" x="260" y="170">SSD</text>
+  <polygon points="154,188 366,188 388,226 132,226" fill="#cfe2ff"/><text class="h" x="260" y="212">HDD</text>
+  <line class="ax" x1="100" y1="226" x2="100" y2="24" marker-end="url(#sh-arr)"/><text class="lab" x="20" y="124">schneller,</text><text class="lab" x="20" y="140">teurer</text>
+  <line class="ax" x1="420" y1="24" x2="420" y2="226" marker-end="url(#sh-arr)"/><text class="lab" x="20" y="250">Werte sind Größenordnungen</text>
+
+  <text class="s" x="440" y="44">&lt; 1 ns · wenige Byte</text>
+  <text class="s" x="440" y="86">ca. 1–20 ns · KB bis einige 10 MB</text>
+  <text class="s" x="440" y="128">ca. 100 ns · Gigabyte</text>
+  <text class="s" x="440" y="170">ca. 0,1 ms · Terabyte</text>
+  <text class="s" x="440" y="212">ca. 5–10 ms · viele Terabyte</text>
+  <text class="lab" x="440" y="250">größer, günstiger pro GB ↓</text>
+  <text class="s" x="624" y="104" style="font-weight:700;fill:#0a58ca">flüchtig</text>
+  <line class="ax" x1="614" y1="30" x2="614" y2="142"/>
+  <text class="s" x="624" y="190" style="font-weight:700;fill:#146c43">nicht flüchtig</text>
+  <line class="ax" x1="614" y1="150" x2="614" y2="226"/>
+</svg>
