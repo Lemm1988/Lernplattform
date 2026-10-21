@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img" aria-labelledby="rt-title rt-desc">
+  <title id="rt-title">Zwei Router und die Routingtabelle von R1</title>
+  <desc id="rt-desc">LAN A mit 192.168.10.0/24 hängt an Router R1, Interface G0/0 mit der Adresse .1. R1 ist über das Transfernetz 10.0.0.0/30 mit Router R2 verbunden: R1 hat 10.0.0.1, R2 hat 10.0.0.2. An R2 hängen LAN B mit 192.168.20.0/24 und der Internetzugang. Die Routingtabelle von R1 enthält zwei direkt angeschlossene Netze, 192.168.10.0/24 über G0/0 und 10.0.0.0/30 über G0/1, eine statische Route zu 192.168.20.0/24 über den Next Hop 10.0.0.2 und die Default-Route 0.0.0.0/0 ebenfalls über 10.0.0.2.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .lan { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .rt { fill: #343a40; }
+      .rtt { fill: #fff; font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .ln { stroke: #495057; stroke-width: 2.2; }
+      .net { fill: #f8f9fa; stroke: #adb5bd; stroke-width: 1.4; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
+      .th { font-size: 11px; font-weight: 700; fill: #495057; }
+      .row { fill: #f8f9fa; }
+    </style>
+  </defs>
+  <!-- Topologie -->
+  <rect class="lan" x="20" y="56" width="140" height="58" rx="6"/><text class="h c" x="90" y="80">LAN A</text><text class="m c" x="90" y="99">192.168.10.0/24</text>
+  <line class="ln" x1="160" y1="85" x2="200" y2="85"/>
+  <rect class="rt" x="200" y="63" width="70" height="44" rx="8"/><text class="rtt" x="235" y="90">R1</text>
+  <text class="s c" x="182" y="50">G0/0</text><text class="m c" x="182" y="128">.1</text>
+  <line class="ln" x1="270" y1="85" x2="440" y2="85"/>
+  <text class="m c" x="355" y="78">10.0.0.0/30</text><text class="s c" x="355" y="102">Transfernetz</text>
+  <text class="s" x="276" y="56">G0/1</text><text class="m" x="276" y="128">.1</text>
+  <text class="s" x="404" y="56">G0/1</text><text class="m" x="420" y="128">.2</text>
+  <rect class="rt" x="440" y="63" width="70" height="44" rx="8"/><text class="rtt" x="475" y="90">R2</text>
+  <line class="ln" x1="510" y1="85" x2="560" y2="85"/>
+  <rect class="lan" x="560" y="56" width="140" height="58" rx="6"/><text class="h c" x="630" y="80">LAN B</text><text class="m c" x="630" y="99">192.168.20.0/24</text>
+  <line class="ln" x1="475" y1="107" x2="475" y2="142"/>
+  <ellipse class="net" cx="475" cy="160" rx="62" ry="19"/><text class="h c" x="475" y="165">Internet</text>
+
+  <!-- Tabelle -->
+  <text class="h" x="20" y="206">Routingtabelle von R1</text>
+  <text class="th" x="20" y="228">Ziel</text><text class="th" x="190" y="228">Next Hop</text><text class="th" x="300" y="228">Interface</text><text class="th" x="390" y="228">Typ</text><text class="th" x="440" y="228">Bedeutung</text>
+  <rect class="row" x="14" y="234" width="692" height="20"/>
+  <text class="m" x="20" y="248">192.168.10.0/24</text><text class="m" x="190" y="248">direkt</text><text class="m" x="300" y="248">G0/0</text><text class="m" x="390" y="248">C</text><text class="s" x="440" y="248">direkt angeschlossen (connected)</text>
+  <text class="m" x="20" y="268">10.0.0.0/30</text><text class="m" x="190" y="268">direkt</text><text class="m" x="300" y="268">G0/1</text><text class="m" x="390" y="268">C</text><text class="s" x="440" y="268">direkt angeschlossen (connected)</text>
+  <rect class="row" x="14" y="274" width="692" height="20"/>
+  <text class="m" x="20" y="288">192.168.20.0/24</text><text class="m" x="190" y="288">10.0.0.2</text><text class="m" x="300" y="288">G0/1</text><text class="m" x="390" y="288">S</text><text class="s" x="440" y="288">statische Route zu LAN B</text>
+  <text class="m" x="20" y="308">0.0.0.0/0</text><text class="m" x="190" y="308">10.0.0.2</text><text class="m" x="300" y="308">G0/1</text><text class="m" x="390" y="308">S</text><text class="s" x="440" y="308">Default-Route: alle übrigen Ziele</text>
+</svg>

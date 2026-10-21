@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="dn-title dn-desc">
+  <title id="dn-title">DNS-Namensauflösung</title>
+  <desc id="dn-desc">Schritt 1: Der Client fragt seinen DNS-Resolver nach www.example.org; das ist eine rekursive Anfrage, der Resolver liefert die fertige Antwort. Schritt 2 und 3: Der Resolver fragt einen Root-Server und bekommt einen Verweis auf die Server für .org. Schritt 4 und 5: Er fragt einen .org-Server und bekommt einen Verweis auf ns1.example.org. Schritt 6 und 7: Er fragt den autoritativen Server für example.org und bekommt den A-Record 203.0.113.80. Schritt 8: Der Resolver gibt die Antwort an den Client und speichert sie für die Dauer der TTL im Cache.</desc>
+  <defs>
+    <marker id="dn-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .cl { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .res { fill: #343a40; }
+      .srv { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .bt { fill: #fff; font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .bs { fill: #ced4da; font-size: 10.5px; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .n { font-weight: 700; font-size: 11.5px; fill: #0a58ca; }
+      .ln { stroke: #495057; stroke-width: 1.6; marker-start: url(#dn-arr); marker-end: url(#dn-arr); }
+    </style>
+  </defs>
+  <rect class="cl" x="20" y="116" width="110" height="48" rx="6"/><text class="h c" x="75" y="138">Client</text><text class="s c" x="75" y="154">Browser, ping …</text>
+  <line class="ln" x1="134" y1="140" x2="226" y2="140"/>
+  <text class="n" x="140" y="130">1</text><text class="m" x="150" y="130">www…?</text>
+  <text class="n" x="140" y="158">8</text><text class="m" x="150" y="158">Antwort</text>
+  <rect class="res" x="230" y="112" width="150" height="56" rx="6"/><text class="bt" x="305" y="136">DNS-Resolver</text><text class="bs" x="305" y="154">rekursiv · mit Cache</text>
+
+  <line class="ln" x1="384" y1="124" x2="466" y2="44"/>
+  <line class="ln" x1="384" y1="140" x2="466" y2="140"/>
+  <line class="ln" x1="384" y1="156" x2="466" y2="236"/>
+  <text class="n" x="410" y="74">2/3</text><text class="n" x="410" y="132">4/5</text><text class="n" x="410" y="214">6/7</text>
+
+  <rect class="srv" x="470" y="20" width="240" height="48" rx="6"/><text class="h" x="482" y="40">Root-Server „.“</text><text class="s" x="482" y="57">Verweis: „frag die .org-Server“</text>
+  <rect class="srv" x="470" y="116" width="240" height="48" rx="6"/><text class="h" x="482" y="136">TLD-Server .org</text><text class="s" x="482" y="153">Verweis: „frag ns1.example.org“</text>
+  <rect class="srv" x="470" y="212" width="240" height="48" rx="6"/><text class="h" x="482" y="232">autoritativ für example.org</text><text class="s" x="482" y="249">Antwort: <tspan class="m">www  A  203.0.113.80</tspan></text>
+
+  <text class="s" x="20" y="214">Client → Resolver: <tspan font-weight="700">rekursiv</tspan></text>
+  <text class="s" x="20" y="230">(will die fertige Antwort)</text>
+  <text class="s" x="20" y="252">Resolver → Server: <tspan font-weight="700">iterativ</tspan></text>
+  <text class="s" x="20" y="268">(bekommt Verweise)</text>
+  <text class="s" x="20" y="292">Antworten bleiben für ihre TTL im Cache – die nächste Anfrage braucht nur Schritt 1 und 8.</text>
+</svg>

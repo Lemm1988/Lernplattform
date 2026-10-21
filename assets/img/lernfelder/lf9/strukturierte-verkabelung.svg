@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="sv-title sv-desc">
+  <title id="sv-title">Strukturierte Verkabelung nach EN 50173</title>
+  <desc id="sv-desc">Zwei Gebäude auf einem Firmengelände. Der Primärbereich verbindet den Standortverteiler in Gebäude A mit dem Gebäudeverteiler in Gebäude B, meist mit Lichtwellenleiter über große Entfernungen. Der Sekundärbereich führt in jedem Gebäude vom Gebäudeverteiler senkrecht zu den Etagenverteilern, mit Lichtwellenleiter oder Kupfer. Der Tertiärbereich verbindet den Etagenverteiler horizontal mit den Anschlussdosen an den Arbeitsplätzen, mit Twisted-Pair-Kupferkabel: höchstens 90 Meter fest verlegt plus 10 Meter Patchkabel, insgesamt 100 Meter.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .bld { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.4; }
+      .floor { stroke: #ced4da; stroke-width: 1; }
+      .dist { fill: #343a40; }
+      .dt { fill: #fff; font-size: 10px; font-weight: 700; text-anchor: middle; }
+      .pri { stroke: #fd7e14; stroke-width: 3.5; fill: none; }
+      .sek { stroke: #6f42c1; stroke-width: 3; fill: none; }
+      .ter { stroke: #0d6efd; stroke-width: 2; fill: none; }
+      .dose { fill: #fff; stroke: #0d6efd; stroke-width: 1.5; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #495057; }
+    </style>
+  </defs>
+  <!-- Gebäude A -->
+  <rect class="bld" x="20" y="40" width="230" height="200" rx="4"/><text class="h" x="30" y="32">Gebäude A</text>
+  <line class="floor" x1="20" y1="110" x2="250" y2="110"/><line class="floor" x1="20" y1="175" x2="250" y2="175"/>
+  <!-- Gebäude B -->
+  <rect class="bld" x="390" y="40" width="230" height="200" rx="4"/><text class="h" x="400" y="32">Gebäude B</text>
+  <line class="floor" x1="390" y1="110" x2="620" y2="110"/><line class="floor" x1="390" y1="175" x2="620" y2="175"/>
+
+  <!-- Verteiler -->
+  <rect class="dist" x="40" y="196" width="40" height="30" rx="3"/><text class="dt" x="60" y="215">SV</text>
+  <rect class="dist" x="410" y="196" width="40" height="30" rx="3"/><text class="dt" x="430" y="215">GV</text>
+  <rect class="dist" x="40" y="66" width="40" height="30" rx="3"/><text class="dt" x="60" y="85">EV</text>
+  <rect class="dist" x="40" y="130" width="40" height="30" rx="3"/><text class="dt" x="60" y="149">EV</text>
+  <rect class="dist" x="410" y="66" width="40" height="30" rx="3"/><text class="dt" x="430" y="85">EV</text>
+  <rect class="dist" x="410" y="130" width="40" height="30" rx="3"/><text class="dt" x="430" y="149">EV</text>
+
+  <!-- Primär -->
+  <path class="pri" d="M80,211 H410"/>
+  <!-- Sekundär -->
+  <path class="sek" d="M60,196 V160 M60,130 V96"/><path class="sek" d="M430,196 V160 M430,130 V96"/>
+  <!-- Tertiär -->
+  <path class="ter" d="M80,81 H220 M80,145 H220 M450,81 H590 M450,145 H590"/>
+  <rect class="dose" x="140" y="74" width="12" height="14" rx="2"/><rect class="dose" x="220" y="74" width="12" height="14" rx="2"/>
+  <rect class="dose" x="140" y="138" width="12" height="14" rx="2"/><rect class="dose" x="220" y="138" width="12" height="14" rx="2"/>
+  <rect class="dose" x="510" y="74" width="12" height="14" rx="2"/><rect class="dose" x="590" y="74" width="12" height="14" rx="2"/>
+  <rect class="dose" x="510" y="138" width="12" height="14" rx="2"/><rect class="dose" x="590" y="138" width="12" height="14" rx="2"/>
+
+  <!-- Legende -->
+  <path class="pri" d="M640,60 H668"/><text class="h" x="640" y="50" style="font-size:11.5px">Primär</text>
+  <text class="s" x="640" y="78">Gebäude ↔</text><text class="s" x="640" y="92">Gebäude, LWL</text>
+  <path class="sek" d="M640,120 H668"/><text class="h" x="640" y="110" style="font-size:11.5px">Sekundär</text>
+  <text class="s" x="640" y="138">Steigbereich,</text><text class="s" x="640" y="152">LWL/Kupfer</text>
+  <path class="ter" d="M640,180 H668"/><text class="h" x="640" y="170" style="font-size:11.5px">Tertiär</text>
+  <text class="s" x="640" y="198">Etage → Dose,</text><text class="s" x="640" y="212">Kupfer ≤ 90 m</text>
+  <text class="s" x="20" y="262">SV = Standortverteiler · GV = Gebäudeverteiler · EV = Etagenverteiler</text>
+  <rect class="dose" x="640" y="228" width="12" height="14" rx="2"/><text class="s" x="658" y="240">Dose</text>
+  <text class="s" x="20" y="276">Tertiärbereich: 90 m fest verlegt + 10 m Patchkabel = 100 m Übertragungsstrecke</text>
+</svg>

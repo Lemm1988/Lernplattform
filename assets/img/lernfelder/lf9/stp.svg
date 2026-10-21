@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="st-title st-desc">
+  <title id="st-title">Spanning Tree löst eine Schleife auf</title>
+  <desc id="st-desc">Drei Switches sind im Dreieck verbunden, damit beim Ausfall einer Leitung ein zweiter Weg existiert. Ohne Spanning Tree würden Broadcasts endlos kreisen. Alle haben die Priorität 32768; Switch 1 hat die kleinste MAC-Adresse und wird Root Bridge. Switch 2 und Switch 3 wählen jeweils ihren direkten Port zu Switch 1 als Root Port. Auf der Leitung zwischen Switch 2 und Switch 3 wird der Port von Switch 2 Designated Port, weil Switch 2 die kleinere Bridge-ID hat; der Port von Switch 3 wird blockiert. Fällt eine Leitung zu Switch 1 aus, wird der blockierte Port freigeschaltet.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .sw { fill: #343a40; } .root { fill: #198754; }
+      .swt { fill: #fff; font-weight: 700; font-size: 12px; }
+      .sws { fill: #ced4da; font-size: 9.5px; }
+      .ln { stroke: #0d6efd; stroke-width: 3; }
+      .blk { stroke: #adb5bd; stroke-width: 3; stroke-dasharray: 7 5; }
+      .pl { font-size: 10.5px; font-weight: 700; }
+      .s { font-size: 11.5px; fill: #343a40; text-anchor: start; }
+      .h { font-weight: 700; font-size: 12.5px; text-anchor: start; }
+    </style>
+  </defs>
+  <line class="ln" x1="200" y1="62" x2="90" y2="190"/>
+  <line class="ln" x1="200" y1="62" x2="310" y2="190"/>
+  <line class="blk" x1="120" y1="205" x2="280" y2="205"/>
+  <rect class="root" x="145" y="24" width="110" height="44" rx="6"/><text class="swt" x="200" y="44">Switch 1</text><text class="sws" x="200" y="59">Root Bridge</text>
+  <rect class="sw" x="35" y="186" width="110" height="44" rx="6"/><text class="swt" x="90" y="206">Switch 2</text><text class="sws" x="90" y="221">…:02</text>
+  <rect class="sw" x="255" y="186" width="110" height="44" rx="6"/><text class="swt" x="310" y="206">Switch 3</text><text class="sws" x="310" y="221">…:03</text>
+  <text class="pl" x="96" y="168" style="fill:#0d6efd">RP</text><text class="pl" x="304" y="168" style="fill:#0d6efd">RP</text>
+  <text class="pl" x="160" y="84" style="fill:#198754">DP</text><text class="pl" x="242" y="84" style="fill:#198754">DP</text>
+  <text class="pl" x="160" y="198" style="fill:#198754">DP</text>
+  <text class="pl" x="222" y="198" style="fill:#b02a37">blockiert</text>
+  <text class="sws" x="200" y="14" style="fill:#495057;font-size:10.5px">Priorität 32768 · MAC …:01</text>
+
+  <text class="h" x="400" y="30">So entscheidet STP</text>
+  <text class="s" x="400" y="54">1. Root Bridge: kleinste Bridge-ID</text>
+  <text class="s" x="416" y="70">(Priorität, dann MAC-Adresse) → Switch 1</text>
+  <text class="s" x="400" y="94">2. Jeder andere Switch wählt den Port mit</text>
+  <text class="s" x="416" y="110">den geringsten Pfadkosten zur Root:</text>
+  <text class="s" x="416" y="126">Root Port (RP)</text>
+  <text class="s" x="400" y="150">3. Je Leitung leitet ein Designated Port (DP)</text>
+  <text class="s" x="416" y="166">weiter – hier der von Switch 2 (kleinere ID)</text>
+  <text class="s" x="400" y="190">4. Alle übrigen Ports werden blockiert</text>
+  <text class="s" x="416" y="206">→ keine Schleife, aber ein Reserveweg</text>
+  <text class="s" x="400" y="236" style="font-style:italic">RSTP (802.1w) schaltet in Sekunden statt bis zu 50 s um.</text>
+</svg>

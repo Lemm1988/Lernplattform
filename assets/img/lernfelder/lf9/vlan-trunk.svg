@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="vt-title vt-desc">
+  <title id="vt-title">VLANs mit Access-Ports, Trunk und Router-on-a-Stick</title>
+  <desc id="vt-desc">Zwei Switches, A und B, sind über einen Trunk verbunden, der Frames aus VLAN 10 und VLAN 20 mit 802.1Q-Tag transportiert. An Switch A hängen zwei Geräte in VLAN 10 und eines in VLAN 20, an Switch B zwei in VLAN 20 und eines in VLAN 10, jeweils an Access-Ports ohne Tag. Ein Router ist über einen weiteren Trunk an Switch A angeschlossen und hat für jedes VLAN ein Subinterface mit der Gateway-Adresse 192.168.10.1 bzw. 192.168.20.1. Nur über diesen Router können die beiden VLANs miteinander kommunizieren.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .sw { fill: #343a40; }
+      .swt { fill: #fff; font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .v10 { stroke: #0d6efd; stroke-width: 2.6; }
+      .v20 { stroke: #fd7e14; stroke-width: 2.6; }
+      .p10 { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .p20 { fill: #fff3e6; stroke: #fd7e14; stroke-width: 1.4; }
+      .pt { font-size: 11px; font-weight: 700; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11.5px; fill: #343a40; }
+      .c { text-anchor: middle; }
+    </style>
+  </defs>
+  <!-- Router -->
+  <rect class="sw" x="90" y="18" width="140" height="40" rx="6"/><text class="swt" x="160" y="43">Router</text>
+  <line class="v10" x1="154" y1="58" x2="154" y2="110"/><line class="v20" x1="166" y1="58" x2="166" y2="110"/>
+  <text class="s" x="176" y="88">Trunk</text>
+  <text class="h" x="270" y="30">Router-on-a-Stick</text>
+  <text class="s" x="270" y="48">Subinterface .10 → Gateway 192.168.10.1</text>
+  <text class="s" x="270" y="64">Subinterface .20 → Gateway 192.168.20.1</text>
+  <text class="s" x="270" y="80">Nur hier kommt VLAN 10 zu VLAN 20.</text>
+
+  <!-- Switches + Trunk -->
+  <rect class="sw" x="60" y="110" width="200" height="40" rx="6"/><text class="swt" x="160" y="135">Switch A</text>
+  <rect class="sw" x="460" y="110" width="200" height="40" rx="6"/><text class="swt" x="560" y="135">Switch B</text>
+  <line class="v10" x1="260" y1="124" x2="460" y2="124"/><line class="v20" x1="260" y1="136" x2="460" y2="136"/>
+  <text class="s c" x="360" y="114">Trunk: Frames mit 802.1Q-Tag</text>
+  <text class="s c" x="360" y="156">VLAN 10 und 20 auf einem Kabel</text>
+
+  <!-- Access-Ports -->
+  <line class="v10" x1="90" y1="150" x2="90" y2="200"/><line class="v20" x1="160" y1="150" x2="160" y2="200"/><line class="v10" x1="230" y1="150" x2="230" y2="200"/>
+  <line class="v20" x1="486" y1="150" x2="486" y2="200"/><line class="v10" x1="560" y1="150" x2="560" y2="200"/><line class="v20" x1="634" y1="150" x2="634" y2="200"/>
+  <rect class="p10" x="60" y="200" width="60" height="34" rx="5"/><text class="pt" x="90" y="221">PC · 10</text>
+  <rect class="p20" x="130" y="200" width="60" height="34" rx="5"/><text class="pt" x="160" y="221">PC · 20</text>
+  <rect class="p10" x="200" y="200" width="60" height="34" rx="5"/><text class="pt" x="230" y="221">PC · 10</text>
+  <rect class="p20" x="456" y="200" width="60" height="34" rx="5"/><text class="pt" x="486" y="221">PC · 20</text>
+  <rect class="p10" x="522" y="200" width="76" height="34" rx="5"/><text class="pt" x="560" y="221">Server · 10</text>
+  <rect class="p20" x="604" y="200" width="60" height="34" rx="5"/><text class="pt" x="634" y="221">PC · 20</text>
+  <text class="s c" x="360" y="190">Access-Ports: ohne Tag,</text>
+  <text class="s c" x="360" y="206">genau ein VLAN je Port</text>
+
+  <!-- Legende -->
+  <line class="v10" x1="60" y1="262" x2="88" y2="262"/><text class="s" x="96" y="266"><tspan font-weight="700">VLAN 10</tspan> Verwaltung · 192.168.10.0/24</text>
+  <line class="v20" x1="390" y1="262" x2="418" y2="262"/><text class="s" x="426" y="266"><tspan font-weight="700">VLAN 20</tspan> Produktion · 192.168.20.0/24</text>
+</svg>

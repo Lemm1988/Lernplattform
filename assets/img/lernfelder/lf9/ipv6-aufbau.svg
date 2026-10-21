@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="v6-title v6-desc">
+  <title id="v6-title">Aufbau und Kurzschreibweise einer IPv6-Adresse</title>
+  <desc id="v6-desc">Eine IPv6-Adresse hat 128 Bit. Typisch sind 48 Bit Global Routing Prefix vom Provider, 16 Bit Subnetz-ID für die eigenen Netze und 64 Bit Interface-ID für das Gerät. Präfix /64 bildet den Netzanteil. Beispiel: 2001:0db8:0a0b als Routing-Präfix, 0012 als Subnetz-ID, 3e52:82ff:fe1a:7f04 als Interface-ID. Darunter die zwei Kürzungsregeln: Aus 2001:0db8:0a0b:0000:0000:0000:00ff:0001 wird durch Weglassen führender Nullen 2001:db8:a0b:0:0:0:ff:1 und durch Ersetzen der längsten Nullfolge mit zwei Doppelpunkten 2001:db8:a0b::ff:1. Der Doppelpunkt-Doppelpunkt darf nur einmal vorkommen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .ft { font-size: 12px; font-weight: 700; }
+      .fs { font-size: 10.5px; fill: #495057; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; }
+      .s { font-size: 11.5px; fill: #343a40; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .br { stroke: #6c757d; stroke-width: 1.2; fill: none; }
+      .em { fill: #b02a37; font-weight: 700; }
+    </style>
+  </defs>
+  <!-- Klammern -->
+  <path class="br" d="M20,34 V28 H360 V34"/><text class="s c" x="190" y="22">Präfix /64 = Netzanteil</text>
+  <path class="br" d="M362,34 V28 H700 V34"/><text class="s c" x="531" y="22">Hostanteil</text>
+  <!-- 128-Bit-Balken -->
+  <rect x="20" y="38" width="255" height="44" fill="#cfe2ff" stroke="#fff" stroke-width="2"/>
+  <rect x="275" y="38" width="85" height="44" fill="#d1e7dd" stroke="#fff" stroke-width="2"/>
+  <rect x="360" y="38" width="340" height="44" fill="#ffe5d0" stroke="#fff" stroke-width="2"/>
+  <text class="ft c" x="147" y="57">Global Routing Prefix</text><text class="fs c" x="147" y="73">48 Bit · vom Provider</text>
+  <text class="ft c" x="317" y="57">Subnetz-ID</text><text class="fs c" x="317" y="73">16 Bit</text>
+  <text class="ft c" x="530" y="57">Interface-ID</text><text class="fs c" x="530" y="73">64 Bit · vom Gerät</text>
+  <text class="m c" x="147" y="102">2001:0db8:0a0b</text>
+  <text class="m c" x="317" y="102">0012</text>
+  <text class="m c" x="530" y="102">3e52:82ff:fe1a:7f04</text>
+
+  <!-- Kürzen -->
+  <text class="h" x="20" y="140">Kürzen in zwei Regeln</text>
+  <text class="s" x="20" y="164">ausgeschrieben</text>
+  <text class="m" x="250" y="164">2001:<tspan class="em">0</tspan>db8:<tspan class="em">0</tspan>a0b:<tspan class="em">000</tspan>0:<tspan class="em">000</tspan>0:<tspan class="em">000</tspan>0:<tspan class="em">00</tspan>ff:<tspan class="em">000</tspan>1</text>
+  <text class="s" x="20" y="190">1. führende Nullen weg</text>
+  <text class="m" x="250" y="190">2001:db8:a0b:<tspan class="em">0:0:0</tspan>:ff:1</text>
+  <text class="s" x="20" y="216">2. längste 0-Folge → ::</text>
+  <text class="m" x="250" y="216">2001:db8:a0b<tspan class="em">::</tspan>ff:1</text>
+  <text class="s" x="20" y="250">„::“ nur einmal pro Adresse – sonst wäre unklar, wie viele Nullblöcke wo fehlen. Bei gleich langen Folgen kürzt man die erste.</text>
+</svg>

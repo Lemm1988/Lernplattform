@@ -27,7 +27,7 @@ function lernfeld_meta() {
         'LF6'  => ['title' => 'Serviceanfragen bearbeiten', 'icon' => 'headset', 'ap' => 'AP1', 'legacy_title' => 'IT-Systeme integrieren'],
         'LF7'  => ['title' => 'Cyber-physische Systeme ergänzen', 'icon' => 'cpu', 'ap' => 'AP2', 'legacy_title' => 'IT-Sicherheit'],
         'LF8'  => ['title' => 'Daten systemübergreifend bereitstellen', 'icon' => 'arrow-left-right', 'ap' => 'AP2'],
-        'LF9'  => ['title' => 'Netzwerke und Dienste bereitstellen', 'icon' => 'hdd-network', 'ap' => 'AP2', 'legacy_title' => 'Öffentliche Netze und Dienste'],
+        'LF9'  => ['title' => 'Netzwerke und Dienste bereitstellen', 'icon' => 'hdd-network', 'ap' => 'AP2'],
         'LF10' => ['title' => 'Benutzerschnittstellen gestalten und entwickeln', 'icon' => 'window-stack', 'ap' => 'AP2'],
         'LF11' => ['title' => 'Funktionalität in Anwendungen realisieren', 'icon' => 'gear-wide-connected', 'ap' => 'AP2'],
         'LF12' => ['title' => 'Kundenspezifische Anwendungsentwicklung durchführen', 'icon' => 'kanban', 'ap' => 'AP2'],

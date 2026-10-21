@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="sk-title sk-desc">
+  <title id="sk-title">SSH-Anmeldung mit Schlüsselpaar</title>
+  <desc id="sk-desc">Auf dem Admin-PC liegen der private Schlüssel ~/.ssh/id_ed25519, der den Rechner nie verlässt und mit einer Passphrase geschützt ist, und der öffentliche Schlüssel id_ed25519.pub. Schritt 1, einmalig: Der öffentliche Schlüssel wird auf dem Server in ~/.ssh/authorized_keys eingetragen, etwa mit ssh-copy-id. Schritt 2: Bei der Anmeldung verlangt der Server einen Beweis. Schritt 3: Der Client signiert Daten der Sitzung mit dem privaten Schlüssel. Der Server prüft die Signatur mit dem hinterlegten öffentlichen Schlüssel und lässt den Benutzer ein. Kein Passwort geht über das Netz.</desc>
+  <defs>
+    <marker id="sk-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .box { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .msg { stroke: #495057; stroke-width: 1.6; marker-end: url(#sk-arr); }
+      .n { font-weight: 700; font-size: 11.5px; fill: #0a58ca; }
+      .priv { fill: #b02a37; } .pub { fill: #198754; }
+    </style>
+    <g id="sk-key"><circle cx="0" cy="0" r="6"/><rect x="4" y="-2" width="16" height="4"/><rect x="14" y="2" width="3" height="4"/><rect x="18" y="2" width="2" height="3"/><circle cx="0" cy="0" r="2.2" fill="#fff"/></g>
+  </defs>
+  <rect class="box" x="20" y="20" width="240" height="150" rx="8"/><text class="h" x="34" y="42">Admin-PC</text>
+  <use href="#sk-key" x="44" y="66" class="priv"/><text class="s" x="72" y="64" style="font-weight:700">privater Schlüssel</text>
+  <text class="m" x="72" y="80">~/.ssh/id_ed25519</text><text class="s" x="72" y="96">verlässt den PC nie, Passphrase</text>
+  <use href="#sk-key" x="44" y="126" class="pub"/><text class="s" x="72" y="124" style="font-weight:700">öffentlicher Schlüssel</text>
+  <text class="m" x="72" y="140">~/.ssh/id_ed25519.pub</text><text class="s" x="72" y="156">darf jeder sehen</text>
+
+  <rect class="box" x="460" y="20" width="240" height="150" rx="8"/><text class="h" x="474" y="42">Server</text>
+  <use href="#sk-key" x="484" y="66" class="pub"/><text class="m" x="512" y="64">~/.ssh/authorized_keys</text>
+  <text class="s" x="512" y="80">enthält den öffentlichen Schlüssel</text>
+  <text class="s" x="474" y="120">prüft die Signatur mit dem</text><text class="s" x="474" y="136">öffentlichen Schlüssel</text>
+  <text class="s" x="474" y="156" style="font-weight:700;fill:#146c43">→ Zugang</text>
+
+  <line class="msg" x1="262" y1="60" x2="456" y2="60"/><text class="n" x="270" y="52">1</text><text class="s" x="282" y="52">einmalig: .pub hinterlegen</text>
+  <line class="msg" x1="458" y1="102" x2="264" y2="102"/><text class="n" x="270" y="94">2</text><text class="s" x="282" y="94">Server verlangt einen Beweis</text>
+  <line class="msg" x1="262" y1="144" x2="456" y2="144"/><text class="n" x="270" y="136">3</text><text class="s" x="282" y="136">Signatur mit privatem Schlüssel</text>
+
+  <text class="n" x="20" y="204">Befehle:</text><text class="m" x="80" y="204">ssh-keygen -t ed25519</text><text class="m" x="260" y="204">ssh-copy-id admin@server</text><text class="m" x="460" y="204">ssh admin@server</text>
+  <text class="s" x="20" y="230">Kein Passwort geht über das Netz. Danach in /etc/ssh/sshd_config: PasswordAuthentication no, PermitRootLogin no.</text>
+  <text class="s" x="20" y="250">Wer den privaten Schlüssel hat, kommt hinein – deshalb Passphrase und sichere Aufbewahrung.</text>
+</svg>

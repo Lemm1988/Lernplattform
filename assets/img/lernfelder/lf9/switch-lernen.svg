@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="sl-title sl-desc">
+  <title id="sl-title">Wie ein Switch seine MAC-Adresstabelle lernt</title>
+  <desc id="sl-desc">Ein Switch mit vier Ports; an Port 1 hängt PC A, an Port 2 PC B, an Port 3 PC C, an Port 4 ein Drucker. Schritt 1: A sendet an B. Der Switch lernt aus der Absenderadresse, dass A an Port 1 hängt. B ist noch unbekannt, also flutet er den Frame an alle anderen Ports. Schritt 2: B antwortet A. Der Switch lernt B an Port 2 und leitet gezielt nur an Port 1 weiter, weil A bekannt ist. Schritt 3: Ein Broadcast an FF:FF:FF:FF:FF:FF geht immer an alle Ports außer dem Eingangsport. Einträge veralten nach einiger Zeit, typisch 300 Sekunden.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .sw { fill: #343a40; }
+      .swt { fill: #fff; font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .pc { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .pt { font-size: 11px; font-weight: 700; text-anchor: middle; }
+      .ln { stroke: #adb5bd; stroke-width: 2; }
+      .flood { stroke: #fd7e14; stroke-width: 2.6; }
+      .uni { stroke: #198754; stroke-width: 2.6; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11.5px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .tb { fill: #fff; stroke: #dee2e6; stroke-width: 1.1; }
+      .new { fill: #d1e7dd; }
+    </style>
+  </defs>
+  <!-- Topologie -->
+  <rect class="sw" x="120" y="110" width="140" height="40" rx="6"/><text class="swt" x="190" y="135">Switch</text>
+  <line class="flood" x1="190" y1="110" x2="190" y2="66"/>
+  <line class="uni" x1="135" y1="150" x2="70" y2="196"/>
+  <line class="flood" x1="245" y1="150" x2="310" y2="196"/>
+  <line class="flood" x1="260" y1="130" x2="320" y2="130"/>
+  <rect class="pc" x="30" y="196" width="80" height="34" rx="5"/><text class="pt" x="70" y="217">A · Port 1</text>
+  <rect class="pc" x="150" y="32" width="80" height="34" rx="5"/><text class="pt" x="190" y="53">B · Port 2</text>
+  <rect class="pc" x="270" y="196" width="80" height="34" rx="5"/><text class="pt" x="310" y="217">C · Port 3</text>
+  <rect class="pc" x="320" y="113" width="80" height="34" rx="5"/><text class="pt" x="360" y="134">Drucker · 4</text>
+  <text class="s" x="20" y="256"><tspan fill="#198754" font-weight="700">grün</tspan>: A sendet · <tspan fill="#b35c00" font-weight="700">orange</tspan>: Ziel unbekannt → an alle anderen Ports</text>
+
+  <!-- Schritte -->
+  <text class="h" x="430" y="22">1. A sendet an B</text>
+  <text class="s" x="430" y="40">lernt: A an Port 1 · B unbekannt → fluten</text>
+  <rect class="tb" x="430" y="48" width="280" height="44" rx="4"/>
+  <text class="m" x="440" y="64" style="font-weight:700">MAC</text><text class="m" x="560" y="64" style="font-weight:700">Port</text>
+  <rect class="new" x="434" y="70" width="272" height="16"/><text class="m" x="440" y="82">A</text><text class="m" x="560" y="82">1</text>
+
+  <text class="h" x="430" y="114">2. B antwortet A</text>
+  <text class="s" x="430" y="132">lernt: B an Port 2 · A bekannt → nur Port 1</text>
+  <rect class="tb" x="430" y="140" width="280" height="60" rx="4"/>
+  <text class="m" x="440" y="156" style="font-weight:700">MAC</text><text class="m" x="560" y="156" style="font-weight:700">Port</text>
+  <text class="m" x="440" y="174">A</text><text class="m" x="560" y="174">1</text>
+  <rect class="new" x="434" y="180" width="272" height="16"/><text class="m" x="440" y="192">B</text><text class="m" x="560" y="192">2</text>
+
+  <text class="h" x="430" y="222">3. Broadcast (FF:FF:FF:FF:FF:FF)</text>
+  <text class="s" x="430" y="240">immer an alle Ports außer dem Eingang</text>
+  <text class="s" x="430" y="258">Einträge veralten nach ca. 300 s (Aging)</text>
+</svg>

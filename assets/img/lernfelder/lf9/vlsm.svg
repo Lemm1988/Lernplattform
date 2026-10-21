@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 262" role="img" aria-labelledby="vl-title vl-desc">
+  <title id="vl-title">VLSM: 192.168.50.0/24 nach Bedarf aufgeteilt</title>
+  <desc id="vl-desc">Das Netz 192.168.50.0/24 wird mit variabler Subnetzmaske aufgeteilt, die größte Anforderung zuerst. Produktion mit 100 Hosts erhält 192.168.50.0/25, Verwaltung mit 50 Hosts 192.168.50.128/26, Gäste mit 20 Hosts 192.168.50.192/27, Server mit 10 Hosts 192.168.50.224/28, zwei Router-Transfernetze je ein /30 ab 192.168.50.240 und 192.168.50.244. Frei bleibt 192.168.50.248/29.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .in { font-size: 11.5px; font-weight: 700; text-anchor: middle; }
+      .co { font-size: 11px; text-anchor: end; }
+      .lead { stroke: #6c757d; stroke-width: 1; }
+      .th { font-size: 11px; font-weight: 700; fill: #495057; }
+      .td { font-size: 11.5px; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
+      .tick { font-size: 10.5px; fill: #495057; text-anchor: middle; }
+    </style>
+  </defs>
+  <text class="td" x="20" y="20" style="font-weight:700">192.168.50.0/24 – größte Anforderung zuerst</text>
+  <rect x="20.00" y="62" width="340.00" height="34" fill="#2a78d6" stroke="#fff" stroke-width="2"/>
+  <text class="in" x="190.0" y="83" style="fill:#fff">Produktion /25</text>
+  <rect x="360.00" y="62" width="170.00" height="34" fill="#eb6834" stroke="#fff" stroke-width="2"/>
+  <text class="in" x="445.0" y="83" style="fill:#212529">Verwaltung /26</text>
+  <rect x="530.00" y="62" width="85.00" height="34" fill="#1baf7a" stroke="#fff" stroke-width="2"/>
+  <text class="in" x="572.5" y="83" style="fill:#212529">Gäste /27</text>
+  <rect x="615.00" y="62" width="42.50" height="34" fill="#eda100" stroke="#fff" stroke-width="2"/>
+  <line class="lead" x1="636.2" y1="62" x2="636.2" y2="48"/><text class="co" x="632.2" y="52">Server /28</text>
+  <rect x="657.50" y="62" width="10.62" height="34" fill="#e87ba4" stroke="#fff" stroke-width="2"/>
+  <line class="lead" x1="668.1" y1="62" x2="668.1" y2="34"/><text class="co" x="664.1" y="38">2 × Transfer /30</text>
+  <rect x="668.12" y="62" width="10.62" height="34" fill="#e87ba4" stroke="#fff" stroke-width="2"/>
+  <rect x="678.75" y="62" width="21.25" height="34" fill="#dee2e6" stroke="#fff" stroke-width="2"/>
+  <line class="lead" x1="689.4" y1="62" x2="689.4" y2="20"/><text class="co" x="685.4" y="24">frei /29</text>
+  <text class="tick" x="20.0" y="110">.0</text>
+  <text class="tick" x="360.0" y="110">.128</text>
+  <text class="tick" x="530.0" y="110">.192</text>
+  <text class="tick" x="615.0" y="110">.224</text>
+  <text class="tick" x="700" y="110" style="text-anchor:end">.255</text>
+  <text class="th" x="40" y="134">Bedarf</text><text class="th" x="170" y="134">Netz</text><text class="th" x="320" y="134">nutzbare Adressen</text><text class="th" x="470" y="134">Broadcast</text><text class="th" x="570" y="134">Anzahl</text>
+  <rect x="20" y="142" width="12" height="12" rx="2" fill="#2a78d6"/><text class="td" x="40" y="152">Produktion (100)</text><text class="m" x="170" y="152">192.168.50.0/25</text><text class="m" x="320" y="152">.1 – .126</text><text class="m" x="470" y="152">.127</text><text class="m" x="570" y="152">126</text>
+  <rect x="20" y="159" width="12" height="12" rx="2" fill="#eb6834"/><text class="td" x="40" y="169">Verwaltung (50)</text><text class="m" x="170" y="169">192.168.50.128/26</text><text class="m" x="320" y="169">.129 – .190</text><text class="m" x="470" y="169">.191</text><text class="m" x="570" y="169">62</text>
+  <rect x="20" y="176" width="12" height="12" rx="2" fill="#1baf7a"/><text class="td" x="40" y="186">Gäste (20)</text><text class="m" x="170" y="186">192.168.50.192/27</text><text class="m" x="320" y="186">.193 – .222</text><text class="m" x="470" y="186">.223</text><text class="m" x="570" y="186">30</text>
+  <rect x="20" y="193" width="12" height="12" rx="2" fill="#eda100"/><text class="td" x="40" y="203">Server (10)</text><text class="m" x="170" y="203">192.168.50.224/28</text><text class="m" x="320" y="203">.225 – .238</text><text class="m" x="470" y="203">.239</text><text class="m" x="570" y="203">14</text>
+  <rect x="20" y="210" width="12" height="12" rx="2" fill="#e87ba4"/><text class="td" x="40" y="220">Transfer R1–R2</text><text class="m" x="170" y="220">192.168.50.240/30</text><text class="m" x="320" y="220">.241 – .242</text><text class="m" x="470" y="220">.243</text><text class="m" x="570" y="220">2</text>
+  <rect x="20" y="227" width="12" height="12" rx="2" fill="#e87ba4"/><text class="td" x="40" y="237">Transfer R1–R3</text><text class="m" x="170" y="237">192.168.50.244/30</text><text class="m" x="320" y="237">.245 – .246</text><text class="m" x="470" y="237">.247</text><text class="m" x="570" y="237">2</text>
+  <rect x="20" y="244" width="12" height="12" rx="2" fill="#dee2e6"/><text class="td" x="40" y="254">frei</text><text class="m" x="170" y="254">192.168.50.248/29</text><text class="m" x="320" y="254">–</text><text class="m" x="470" y="254">–</text><text class="m" x="570" y="254">8 Adressen</text>
+</svg>

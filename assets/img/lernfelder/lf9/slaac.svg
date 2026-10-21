@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="sa-title sa-desc">
+  <title id="sa-title">IPv6-Autokonfiguration mit SLAAC</title>
+  <desc id="sa-desc">Ablauf der zustandslosen Autokonfiguration. Erstens bildet der Host eine Link-Local-Adresse aus fe80::/64 und seiner Interface-ID und prüft per Duplicate Address Detection, ob sie frei ist. Zweitens fragt er mit einer Router Solicitation an die Multicast-Adresse ff02::2 nach Routern. Drittens antwortet der Router mit einem Router Advertisement: Präfix 2001:db8:a0b:12::/64, er selbst als Standardgateway über seine Link-Local-Adresse, dazu die Flags M und O. Viertens bildet der Host aus Präfix und Interface-ID seine globale Adresse, zum Beispiel 2001:db8:a0b:12:3e52:82ff:fe1a:7f04, und prüft auch diese per DAD. Einen DHCP-Server braucht es dafür nicht.</desc>
+  <defs>
+    <marker id="sa-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .box { fill: #343a40; }
+      .bt { fill: #fff; font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .life { stroke: #adb5bd; stroke-width: 1.5; stroke-dasharray: 5 4; }
+      .msg { stroke: #495057; stroke-width: 1.6; marker-end: url(#sa-arr); }
+      .note { fill: #f8f9fa; stroke: #ced4da; stroke-width: 1; }
+      .ml { font-size: 12px; font-weight: 700; }
+      .s { font-size: 11px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .n { font-weight: 700; font-size: 12px; fill: #0a58ca; }
+    </style>
+  </defs>
+  <rect class="box" x="70" y="14" width="160" height="34" rx="6"/><text class="bt" x="150" y="36">Host (neu im Netz)</text>
+  <rect class="box" x="490" y="14" width="160" height="34" rx="6"/><text class="bt" x="570" y="36">Router</text>
+  <line class="life" x1="150" y1="48" x2="150" y2="238"/><line class="life" x1="570" y1="48" x2="570" y2="238"/>
+
+  <rect class="note" x="160" y="58" width="320" height="34" rx="4"/>
+  <text class="n" x="170" y="73">1</text><text class="s" x="184" y="73">Link-Local bilden: fe80:: + Interface-ID</text>
+  <text class="s" x="184" y="87">DAD: „Benutzt jemand diese Adresse?“</text>
+
+  <line class="msg" x1="150" y1="118" x2="566" y2="118"/>
+  <text class="n" x="170" y="110">2</text><text class="ml" x="184" y="110">Router Solicitation</text><text class="m" x="330" y="110">→ ff02::2 (alle Router)</text>
+
+  <line class="msg" x1="570" y1="168" x2="154" y2="168"/>
+  <text class="n" x="170" y="140">3</text><text class="ml" x="184" y="140">Router Advertisement</text>
+  <text class="m" x="184" y="156">Präfix 2001:db8:a0b:12::/64 · Gateway fe80::1 · M/O</text>
+
+  <rect class="note" x="160" y="180" width="400" height="50" rx="4"/>
+  <text class="n" x="170" y="196">4</text><text class="s" x="184" y="196">Präfix + Interface-ID = globale Adresse:</text>
+  <text class="m" x="184" y="211">2001:db8:a0b:12:3e52:82ff:fe1a:7f04</text>
+  <text class="s" x="184" y="225">dann wieder DAD</text>
+
+  <text class="s" x="20" y="256"><tspan font-weight="700">M-Flag</tspan>: Adresse per DHCPv6 holen (stateful) · <tspan font-weight="700">O-Flag</tspan>: nur Zusatzinfos wie DNS per DHCPv6 (stateless)</text>
+  <text class="s" x="20" y="276">DNS-Server kann das Router Advertisement auch direkt mitliefern (RDNSS).</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="th-title th-desc">
+  <title id="th-title">TCP-Drei-Wege-Handshake</title>
+  <desc id="th-desc">Der Client sendet ein SYN mit der Sequenznummer 1000 und wechselt in den Zustand SYN-SENT; der Server wartet im Zustand LISTEN. Der Server antwortet mit SYN und ACK, eigener Sequenznummer 5000 und Bestätigungsnummer 1001, und wechselt nach SYN-RECEIVED. Der Client bestätigt mit ACK, Sequenznummer 1001 und Bestätigungsnummer 5001. Danach sind beide im Zustand ESTABLISHED und können Daten in beide Richtungen senden. Der Abbau erfolgt mit FIN und ACK von beiden Seiten.</desc>
+  <defs>
+    <marker id="th-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .box { fill: #343a40; }
+      .bt { fill: #fff; font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .life { stroke: #adb5bd; stroke-width: 1.5; stroke-dasharray: 5 4; }
+      .msg { stroke: #495057; stroke-width: 1.6; marker-end: url(#th-arr); }
+      .ml { font-size: 12px; font-weight: 700; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .st { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; fill: #0a58ca; }
+      .s { font-size: 11px; fill: #343a40; }
+      .est { fill: #d1e7dd; }
+    </style>
+  </defs>
+  <rect class="box" x="90" y="14" width="120" height="34" rx="6"/><text class="bt" x="150" y="36">Client</text>
+  <rect class="box" x="510" y="14" width="120" height="34" rx="6"/><text class="bt" x="570" y="36">Server</text>
+  <line class="life" x1="150" y1="48" x2="150" y2="238"/><line class="life" x1="570" y1="48" x2="570" y2="238"/>
+  <text class="st" x="580" y="66">LISTEN</text>
+
+  <line class="msg" x1="150" y1="78" x2="566" y2="98"/>
+  <text class="ml c" x="330" y="74">SYN</text><text class="m" x="372" y="74">seq=1000</text>
+  <text class="st" x="140" y="82" style="text-anchor:end">SYN-SENT</text>
+
+  <line class="msg" x1="570" y1="122" x2="154" y2="142"/>
+  <text class="ml c" x="300" y="118">SYN, ACK</text><text class="m" x="360" y="118">seq=5000, ack=1001</text>
+  <text class="st" x="580" y="126">SYN-RECEIVED</text>
+
+  <line class="msg" x1="150" y1="166" x2="566" y2="186"/>
+  <text class="ml c" x="330" y="162">ACK</text><text class="m" x="372" y="162">seq=1001, ack=5001</text>
+  <text class="st" x="140" y="170" style="text-anchor:end">ESTABLISHED</text>
+  <text class="st" x="580" y="190">ESTABLISHED</text>
+
+  <rect class="est" x="150" y="204" width="420" height="26" rx="4"/>
+  <text class="s c" x="360" y="221">Verbindung steht – Daten fließen in beide Richtungen</text>
+  <text class="s" x="20" y="262">ack = nächste erwartete Sequenznummer (empfangene seq + 1 beim SYN)</text>
+  <text class="s" x="20" y="280">Abbau: FIN → ACK von der einen, FIN → ACK von der anderen Seite</text>
+</svg>

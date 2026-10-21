@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="lv-title lv-desc">
+  <title id="lv-title">Wichtige Verzeichnisse unter Linux</title>
+  <desc id="lv-desc">Verzeichnisbaum ab dem Wurzelverzeichnis /. Unter /etc liegen Konfigurationsdateien, etwa /etc/ssh/sshd_config. Unter /home liegen die Verzeichnisse der Benutzer, /root ist das Home des Administrators. /var enthält veränderliche Daten wie Logs in /var/log und Webseiten in /var/www. /usr enthält Programme und Bibliotheken. /tmp ist für temporäre Dateien. /dev enthält Gerätedateien wie /dev/sda. /proc zeigt Kernel- und Prozessinformationen als virtuelle Dateien. /boot enthält Kernel und Bootloader.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .root { fill: #343a40; }
+      .rt { fill: #fff; font-family: ui-monospace, Consolas, monospace; font-size: 15px; font-weight: 700; text-anchor: middle; }
+      .tr { stroke: #adb5bd; stroke-width: 1.5; fill: none; }
+      .d { font-family: ui-monospace, Consolas, monospace; font-size: 13px; font-weight: 700; fill: #0a58ca; }
+      .s { font-size: 11.5px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; fill: #495057; }
+    </style>
+  </defs>
+  <rect class="root" x="20" y="12" width="40" height="30" rx="5"/><text class="rt" x="40" y="33">/</text>
+  <path class="tr" d="M40,42 V256 M40,64 H62 M40,88 H62 M40,112 H62 M40,136 H62 M40,160 H62 M40,184 H62 M40,208 H62 M40,232 H62 M40,256 H62"/>
+  <text class="d" x="68" y="68">/etc</text><text class="s" x="150" y="68">Konfiguration</text><text class="m" x="300" y="68">/etc/ssh/sshd_config · /etc/apache2/ · /etc/passwd</text>
+  <text class="d" x="68" y="92">/home</text><text class="s" x="150" y="92">Daten der Benutzer</text><text class="m" x="300" y="92">/home/anna</text>
+  <text class="d" x="68" y="116">/root</text><text class="s" x="150" y="116">Home des Administrators</text>
+  <text class="d" x="68" y="140">/var</text><text class="s" x="150" y="140">veränderliche Daten</text><text class="m" x="300" y="140">/var/log (Logs) · /var/www (Webseiten) · /var/lib/mysql</text>
+  <text class="d" x="68" y="164">/usr</text><text class="s" x="150" y="164">Programme, Bibliotheken</text><text class="m" x="300" y="164">/usr/bin · /usr/local/bin (eigene Skripte)</text>
+  <text class="d" x="68" y="188">/tmp</text><text class="s" x="150" y="188">temporäre Dateien</text><text class="m" x="300" y="188">für alle beschreibbar, Sticky Bit</text>
+  <text class="d" x="68" y="212">/dev</text><text class="s" x="150" y="212">Gerätedateien</text><text class="m" x="300" y="212">/dev/sda (erste Festplatte)</text>
+  <text class="d" x="68" y="236">/proc</text><text class="s" x="150" y="236">Kernel- und Prozessinfos</text><text class="m" x="300" y="236">virtuell, z. B. /proc/cpuinfo</text>
+  <text class="d" x="68" y="260">/boot</text><text class="s" x="150" y="260">Kernel und Bootloader</text>
+</svg>

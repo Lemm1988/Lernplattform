@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="dz-title dz-desc">
+  <title id="dz-title">DMZ zwischen zwei Firewalls</title>
+  <desc id="dz-desc">Zwischen Internet und internem LAN liegen zwei Firewalls; dazwischen die DMZ mit Webserver und Mail-Relay. Regeln: Aus dem Internet ist nur die DMZ erreichbar, und dort nur Port 443 für den Webserver und Port 25 für das Mail-Relay. Aus dem Internet ins LAN ist alles gesperrt. Aus der DMZ ins LAN darf nur der Webserver die Datenbank auf Port 3306 erreichen. Aus dem LAN ins Internet und in die DMZ ist der Zugriff erlaubt; Antworten lässt die Firewall per Stateful Inspection zurück.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .net { fill: #f8f9fa; stroke: #adb5bd; stroke-width: 1.4; }
+      .fw { fill: #b02a37; }
+      .fwt { fill: #fff; font-weight: 700; font-size: 11.5px; text-anchor: middle; }
+      .zone { fill: #fff8e1; stroke: #eda100; stroke-width: 1.4; stroke-dasharray: 6 4; }
+      .lan { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .srv { fill: #fff; stroke: #6c757d; stroke-width: 1.2; }
+      .ln { stroke: #495057; stroke-width: 2.2; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ok { fill: #146c43; font-weight: 700; }
+      .no { fill: #b02a37; font-weight: 700; }
+    </style>
+  </defs>
+  <ellipse class="net" cx="70" cy="120" rx="56" ry="26"/><text class="h c" x="70" y="125">Internet</text>
+  <line class="ln" x1="126" y1="120" x2="160" y2="120"/>
+  <rect class="fw" x="160" y="94" width="76" height="52" rx="6"/><text class="fwt" x="198" y="116">Firewall</text><text class="fwt" x="198" y="132">außen</text>
+  <line class="ln" x1="236" y1="120" x2="268" y2="120"/>
+  <rect class="zone" x="268" y="36" width="186" height="168" rx="8"/><text class="h" x="280" y="56">DMZ</text>
+  <rect class="srv" x="290" y="68" width="142" height="44" rx="5"/><text class="h c" x="361" y="87" style="font-size:12px">Webserver</text><text class="s c" x="361" y="103">HTTPS 443</text>
+  <rect class="srv" x="290" y="134" width="142" height="44" rx="5"/><text class="h c" x="361" y="153" style="font-size:12px">Mail-Relay</text><text class="s c" x="361" y="169">SMTP 25</text>
+  <line class="ln" x1="454" y1="120" x2="486" y2="120"/>
+  <rect class="fw" x="486" y="94" width="76" height="52" rx="6"/><text class="fwt" x="524" y="116">Firewall</text><text class="fwt" x="524" y="132">innen</text>
+  <line class="ln" x1="562" y1="120" x2="594" y2="120"/>
+  <rect class="lan" x="594" y="56" width="116" height="128" rx="8"/><text class="h" x="606" y="78">LAN</text>
+  <text class="s" x="606" y="102">Clients</text><text class="s" x="606" y="120">Datenbank</text><text class="s" x="606" y="138">Dateiserver</text><text class="s" x="606" y="156">Domänencontroller</text>
+
+  <text class="s" x="20" y="234"><tspan class="ok">✓ erlaubt</tspan>  Internet → DMZ: nur 443 und 25</text>
+  <text class="s" x="20" y="254"><tspan class="no">✗ gesperrt</tspan>  Internet → LAN: alles</text>
+  <text class="s" x="370" y="234"><tspan class="ok">✓ erlaubt</tspan>  DMZ → LAN: nur Webserver → Datenbank 3306</text>
+  <text class="s" x="370" y="254"><tspan class="ok">✓ erlaubt</tspan>  LAN → DMZ/Internet, Antworten per Stateful Inspection</text>
+  <text class="s" x="20" y="280">Wird der Webserver gehackt, steht der Angreifer in der DMZ – nicht im LAN.</text>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="ib-title ib-desc">
+  <title id="ib-title">IPv4-Adresse 192.168.10.77/26 binär zerlegt</title>
+  <desc id="ib-desc">Die Adresse 192.168.10.77 mit Präfix /26 binär: Die ersten 26 Bit sind der Netzanteil, die letzten 6 Bit der Hostanteil. Die Maske /26 besteht aus 26 Einsen und 6 Nullen, dezimal 255.255.255.192. Die Netzadresse entsteht durch UND-Verknüpfung von Adresse und Maske, also alle Hostbits auf 0: 192.168.10.64. Die Broadcastadresse hat alle Hostbits auf 1: 192.168.10.127. Nutzbar sind 2 hoch 6 minus 2, also 62 Adressen von 192.168.10.65 bis 192.168.10.126.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .b { font-family: ui-monospace, Consolas, monospace; font-size: 13px; text-anchor: middle; }
+      .l { font-size: 12px; font-weight: 700; }
+      .d { font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+      .nb { fill: #cfe2ff; } .hb { fill: #ffe5d0; }
+      .s { font-size: 11.5px; fill: #343a40; }
+      .cut { stroke: #b02a37; stroke-width: 1.6; stroke-dasharray: 4 3; }
+    </style>
+  </defs>
+  <text class="s" x="320" y="24" style="text-anchor:middle;font-weight:700;fill:#0a58ca">Netzanteil: 26 Bit</text>
+  <text class="s" x="548" y="24" style="text-anchor:middle;font-weight:700;fill:#b35c00">Host: 6 Bit</text>
+  <rect class="nb" x="127" y="40" width="382" height="26" rx="3"/>
+  <rect class="hb" x="510" y="40" width="81" height="26" rx="3"/>
+  <text class="l" x="20" y="58">IP-Adresse</text>
+  <text class="b" x="136.5" y="58">1</text><text class="b" x="149.5" y="58">1</text><text class="b" x="162.5" y="58">0</text><text class="b" x="175.5" y="58">0</text><text class="b" x="188.5" y="58">0</text><text class="b" x="201.5" y="58">0</text><text class="b" x="214.5" y="58">0</text><text class="b" x="227.5" y="58">0</text><text class="b" x="254.5" y="58">1</text><text class="b" x="267.5" y="58">0</text><text class="b" x="280.5" y="58">1</text><text class="b" x="293.5" y="58">0</text><text class="b" x="306.5" y="58">1</text><text class="b" x="319.5" y="58">0</text><text class="b" x="332.5" y="58">0</text><text class="b" x="345.5" y="58">0</text><text class="b" x="372.5" y="58">0</text><text class="b" x="385.5" y="58">0</text><text class="b" x="398.5" y="58">0</text><text class="b" x="411.5" y="58">0</text><text class="b" x="424.5" y="58">1</text><text class="b" x="437.5" y="58">0</text><text class="b" x="450.5" y="58">1</text><text class="b" x="463.5" y="58">0</text><text class="b" x="490.5" y="58">0</text><text class="b" x="503.5" y="58">1</text><text class="b" x="516.5" y="58">0</text><text class="b" x="529.5" y="58">0</text><text class="b" x="542.5" y="58">1</text><text class="b" x="555.5" y="58">1</text><text class="b" x="568.5" y="58">0</text><text class="b" x="581.5" y="58">1</text>
+  <text class="b" x="240.5" y="58">.</text>
+  <text class="b" x="358.5" y="58">.</text>
+  <text class="b" x="476.5" y="58">.</text>
+  <text class="d" x="600" y="58">192.168.10.77</text>
+  <rect class="nb" x="127" y="76" width="382" height="26" rx="3"/>
+  <rect class="hb" x="510" y="76" width="81" height="26" rx="3"/>
+  <text class="l" x="20" y="94">Maske /26</text>
+  <text class="b" x="136.5" y="94">1</text><text class="b" x="149.5" y="94">1</text><text class="b" x="162.5" y="94">1</text><text class="b" x="175.5" y="94">1</text><text class="b" x="188.5" y="94">1</text><text class="b" x="201.5" y="94">1</text><text class="b" x="214.5" y="94">1</text><text class="b" x="227.5" y="94">1</text><text class="b" x="254.5" y="94">1</text><text class="b" x="267.5" y="94">1</text><text class="b" x="280.5" y="94">1</text><text class="b" x="293.5" y="94">1</text><text class="b" x="306.5" y="94">1</text><text class="b" x="319.5" y="94">1</text><text class="b" x="332.5" y="94">1</text><text class="b" x="345.5" y="94">1</text><text class="b" x="372.5" y="94">1</text><text class="b" x="385.5" y="94">1</text><text class="b" x="398.5" y="94">1</text><text class="b" x="411.5" y="94">1</text><text class="b" x="424.5" y="94">1</text><text class="b" x="437.5" y="94">1</text><text class="b" x="450.5" y="94">1</text><text class="b" x="463.5" y="94">1</text><text class="b" x="490.5" y="94">1</text><text class="b" x="503.5" y="94">1</text><text class="b" x="516.5" y="94">0</text><text class="b" x="529.5" y="94">0</text><text class="b" x="542.5" y="94">0</text><text class="b" x="555.5" y="94">0</text><text class="b" x="568.5" y="94">0</text><text class="b" x="581.5" y="94">0</text>
+  <text class="b" x="240.5" y="94">.</text>
+  <text class="b" x="358.5" y="94">.</text>
+  <text class="b" x="476.5" y="94">.</text>
+  <text class="d" x="600" y="94">255.255.255.192</text>
+  <rect class="nb" x="127" y="112" width="382" height="26" rx="3"/>
+  <rect class="hb" x="510" y="112" width="81" height="26" rx="3"/>
+  <text class="l" x="20" y="130">Netzadresse</text>
+  <text class="b" x="136.5" y="130">1</text><text class="b" x="149.5" y="130">1</text><text class="b" x="162.5" y="130">0</text><text class="b" x="175.5" y="130">0</text><text class="b" x="188.5" y="130">0</text><text class="b" x="201.5" y="130">0</text><text class="b" x="214.5" y="130">0</text><text class="b" x="227.5" y="130">0</text><text class="b" x="254.5" y="130">1</text><text class="b" x="267.5" y="130">0</text><text class="b" x="280.5" y="130">1</text><text class="b" x="293.5" y="130">0</text><text class="b" x="306.5" y="130">1</text><text class="b" x="319.5" y="130">0</text><text class="b" x="332.5" y="130">0</text><text class="b" x="345.5" y="130">0</text><text class="b" x="372.5" y="130">0</text><text class="b" x="385.5" y="130">0</text><text class="b" x="398.5" y="130">0</text><text class="b" x="411.5" y="130">0</text><text class="b" x="424.5" y="130">1</text><text class="b" x="437.5" y="130">0</text><text class="b" x="450.5" y="130">1</text><text class="b" x="463.5" y="130">0</text><text class="b" x="490.5" y="130">0</text><text class="b" x="503.5" y="130">1</text><text class="b" x="516.5" y="130">0</text><text class="b" x="529.5" y="130">0</text><text class="b" x="542.5" y="130">0</text><text class="b" x="555.5" y="130">0</text><text class="b" x="568.5" y="130">0</text><text class="b" x="581.5" y="130">0</text>
+  <text class="b" x="240.5" y="130">.</text>
+  <text class="b" x="358.5" y="130">.</text>
+  <text class="b" x="476.5" y="130">.</text>
+  <text class="d" x="600" y="130">192.168.10.64</text>
+  <rect class="nb" x="127" y="148" width="382" height="26" rx="3"/>
+  <rect class="hb" x="510" y="148" width="81" height="26" rx="3"/>
+  <text class="l" x="20" y="166">Broadcast</text>
+  <text class="b" x="136.5" y="166">1</text><text class="b" x="149.5" y="166">1</text><text class="b" x="162.5" y="166">0</text><text class="b" x="175.5" y="166">0</text><text class="b" x="188.5" y="166">0</text><text class="b" x="201.5" y="166">0</text><text class="b" x="214.5" y="166">0</text><text class="b" x="227.5" y="166">0</text><text class="b" x="254.5" y="166">1</text><text class="b" x="267.5" y="166">0</text><text class="b" x="280.5" y="166">1</text><text class="b" x="293.5" y="166">0</text><text class="b" x="306.5" y="166">1</text><text class="b" x="319.5" y="166">0</text><text class="b" x="332.5" y="166">0</text><text class="b" x="345.5" y="166">0</text><text class="b" x="372.5" y="166">0</text><text class="b" x="385.5" y="166">0</text><text class="b" x="398.5" y="166">0</text><text class="b" x="411.5" y="166">0</text><text class="b" x="424.5" y="166">1</text><text class="b" x="437.5" y="166">0</text><text class="b" x="450.5" y="166">1</text><text class="b" x="463.5" y="166">0</text><text class="b" x="490.5" y="166">0</text><text class="b" x="503.5" y="166">1</text><text class="b" x="516.5" y="166">1</text><text class="b" x="529.5" y="166">1</text><text class="b" x="542.5" y="166">1</text><text class="b" x="555.5" y="166">1</text><text class="b" x="568.5" y="166">1</text><text class="b" x="581.5" y="166">1</text>
+  <text class="b" x="240.5" y="166">.</text>
+  <text class="b" x="358.5" y="166">.</text>
+  <text class="b" x="476.5" y="166">.</text>
+  <text class="d" x="600" y="166">192.168.10.127</text>
+  <line class="cut" x1="509" y1="32" x2="509" y2="178"/>
+  <text class="s" x="20" y="200">Netzadresse = Adresse UND Maske (alle Hostbits 0) · Broadcast = alle Hostbits 1</text>
+  <text class="s" x="20" y="218">Nutzbar: 2<tspan baseline-shift="super" font-size="8">6</tspan> − 2 = 62 Adressen, 192.168.10.65 bis 192.168.10.126</text>
+</svg>

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 310" role="img" aria-labelledby="vp-title vp-desc">
+  <title id="vp-title">VPN: Site-to-Site, Remote Access und Tunnelmodus</title>
+  <desc id="vp-desc">Oben verbindet ein Site-to-Site-Tunnel mit IPsec das Netz der Zentrale 10.1.0.0/16 über das Internet mit dem Netz der Filiale 10.2.0.0/16. Ein Laptop im Homeoffice baut einen eigenen Remote-Access-Tunnel zur Zentrale auf. Unten die Kapselung im Tunnelmodus: Das Originalpaket von 10.1.5.20 an 10.2.3.40 wird vollständig verschlüsselt und in ein neues Paket zwischen den öffentlichen Adressen der Gateways, 198.51.100.1 und 203.0.113.9, mit ESP-Header und Authentifizierungsdaten verpackt.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .site { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .net { fill: #f8f9fa; stroke: #adb5bd; stroke-width: 1.4; }
+      .tube { fill: #d1e7dd; stroke: #198754; stroke-width: 1.6; }
+      .ra { stroke: #198754; stroke-width: 8; fill: none; opacity: 0.35; }
+      .ra2 { stroke: #198754; stroke-width: 1.6; stroke-dasharray: 5 4; fill: none; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .f { stroke: #6c757d; stroke-width: 1.1; }
+      .enc { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; stroke-dasharray: 4 3; }
+    </style>
+  </defs>
+  <ellipse class="net" cx="360" cy="70" rx="120" ry="46"/><text class="h c" x="360" y="40">Internet</text>
+  <rect class="tube" x="170" y="58" width="380" height="24" rx="12"/><text class="s c" x="360" y="74" style="font-weight:700;fill:#146c43">Site-to-Site-Tunnel (IPsec)</text>
+  <text class="s c" x="360" y="104">verschlüsselt und authentifiziert</text>
+  <rect class="site" x="20" y="36" width="150" height="68" rx="6"/><text class="h c" x="95" y="62">Zentrale</text><text class="m c" x="95" y="80">10.1.0.0/16</text><text class="s c" x="95" y="96">VPN-Gateway .1</text>
+  <rect class="site" x="550" y="36" width="150" height="68" rx="6"/><text class="h c" x="625" y="62">Filiale</text><text class="m c" x="625" y="80">10.2.0.0/16</text><text class="s c" x="625" y="96">VPN-Gateway</text>
+
+  <path class="ra" d="M290,150 H95 V104"/><path class="ra2" d="M290,150 H95 V104"/>
+  <text class="s" x="106" y="140" style="font-weight:700;fill:#146c43">Remote Access</text>
+  <rect class="site" x="290" y="130" width="150" height="40" rx="6"/><text class="h c" x="365" y="148" style="font-size:12px">Homeoffice-Laptop</text><text class="s c" x="365" y="163">VPN-Client</text>
+  <text class="s" x="460" y="148">eigener Tunnel pro Gerät,</text><text class="s" x="460" y="163">z. B. WireGuard, IPsec, SSL-VPN</text>
+
+  <text class="h" x="20" y="200">Tunnelmodus: Paket im Paket</text>
+  <text class="s" x="20" y="226">Original</text>
+  <rect x="110" y="212" width="200" height="22" fill="#fff" class="f"/><text class="m c" x="210" y="227">IP 10.1.5.20 → 10.2.3.40</text>
+  <rect x="310" y="212" width="90" height="22" fill="#fff" class="f"/><text class="m c" x="355" y="227">Daten</text>
+  <text class="s" x="20" y="262">im Tunnel</text>
+  <rect x="110" y="248" width="200" height="22" fill="#fff" class="f"/><text class="m c" x="210" y="263">IP 198.51.100.1 → 203.0.113.9</text>
+  <rect x="310" y="248" width="44" height="22" fill="#fff" class="f"/><text class="m c" x="332" y="263">ESP</text>
+  <rect class="enc" x="354" y="248" width="290" height="22"/><text class="m c" x="499" y="263">IP 10.1.5.20 → 10.2.3.40 · Daten</text>
+  <rect x="644" y="248" width="56" height="22" fill="#fff" class="f"/><text class="m c" x="672" y="263">Auth</text>
+  <text class="s" x="354" y="288" style="fill:#146c43;font-weight:700">verschlüsselt</text>
+  <text class="s" x="430" y="288">– außen sieht man nur die beiden Gateways</text>
+</svg>

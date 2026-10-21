@@ -20,7 +20,7 @@ INSERT INTO `learning_fields` (`id`, `lf_number`, `title`, `description`, `speci
 (6,  'LF6',  'IT-Systeme integrieren', NULL, 'all', 6),
 (7,  'LF7',  'IT-Sicherheit', NULL, 'all', 7),
 (8,  'LF8',  'Daten systemübergreifend bereitstellen', NULL, 'all', 8),
-(9,  'LF9',  'Öffentliche Netze und Dienste', NULL, 'all', 9),
+(9,  'LF9',  'Netzwerke und Dienste bereitstellen', NULL, 'all', 9),
 (10, 'LF10', 'Benutzerschnittstellen gestalten und entwickeln', NULL, 'all', 10),
 (11, 'LF11', 'Funktionalität in Anwendungen realisieren', NULL, 'all', 11),
 (12, 'LF12', 'Kundenspezifische Anwendungsentwicklung durchführen', NULL, 'all', 12);
@@ -46,7 +46,7 @@ INSERT INTO `site_sections` (`id`, `name`, `url_path`, `icon`, `section_type`, `
 (15, 'LF6 Systeme integrieren',          '/Learningfields/LF6/index.php',  'bi-plug',         'lernfelder', 6,  'admin,moderator,student'),
 (16, 'LF7 IT-Sicherheit',                '/Learningfields/LF7/index.php',  'bi-shield-lock',  'lernfelder', 7,  'admin,moderator,student'),
 (17, 'LF8 Daten bereitstellen',          '/Learningfields/LF8/index.php',  'bi-arrow-left-right', 'lernfelder', 8,  'admin,moderator,student'),
-(18, 'LF9 Netze & Dienste',              '/Learningfields/LF9/index.php',  'bi-globe',        'lernfelder', 9,  'admin,moderator,student'),
+(18, 'LF9 Netzwerke & Dienste',          '/Learningfields/LF9/index.php',  'bi-hdd-network',  'lernfelder', 9,  'admin,moderator,student'),
 (19, 'LF10 Benutzerschnittstellen',     '/Learningfields/LF10/index.php', 'bi-window-stack', 'lernfelder', 10, 'admin,moderator,student'),
 (20, 'LF11 Funktionalität realisieren', '/Learningfields/LF11/index.php', 'bi-gear-wide-connected', 'lernfelder', 11, 'admin,moderator,student'),
 (21, 'LF12 Kundenprojekt',              '/Learningfields/LF12/index.php', 'bi-kanban',       'lernfelder', 12, 'admin,moderator,student'),
