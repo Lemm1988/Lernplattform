@@ -22,7 +22,7 @@ function lernfeld_meta() {
         'LF1'  => ['title' => 'Das Unternehmen und die eigene Rolle im Betrieb beschreiben', 'icon' => 'building', 'ap' => 'AP1'],
         'LF2'  => ['title' => 'Arbeitsplätze nach Kundenwunsch ausstatten', 'icon' => 'pc-display', 'ap' => 'AP1', 'legacy_title' => 'Geschäftsprozesse und betriebliche Organisation'],
         'LF3'  => ['title' => 'Clients in Netzwerke einbinden', 'icon' => 'diagram-3', 'ap' => 'AP1', 'legacy_title' => 'Informationsquellen und Arbeitsmethoden'],
-        'LF4'  => ['title' => 'Schutzbedarfsanalyse im eigenen Arbeitsbereich durchführen', 'icon' => 'shield-lock', 'ap' => 'AP1', 'legacy_title' => 'Benutzerunterstützung und kundenorientierte Kommunikation'],
+        'LF4'  => ['title' => 'Schutzbedarfsanalyse im eigenen Arbeitsbereich durchführen', 'icon' => 'shield-lock', 'ap' => 'AP1'],
         'LF5'  => ['title' => 'Software zur Verwaltung von Daten anpassen', 'icon' => 'database', 'ap' => 'AP1 + AP2'],
         'LF6'  => ['title' => 'Serviceanfragen bearbeiten', 'icon' => 'headset', 'ap' => 'AP1', 'legacy_title' => 'IT-Systeme integrieren'],
         'LF7'  => ['title' => 'Cyber-physische Systeme ergänzen', 'icon' => 'cpu', 'ap' => 'AP2', 'legacy_title' => 'IT-Sicherheit'],
@@ -197,8 +197,10 @@ function render_lernfeld_chapter($lf_key, $chapter_key) {
         echo '</ul></div>';
     }
 
-    // Inhalt stammt aus den eigenen Lernfeld-Dateien (vertrauenswürdiges HTML)
-    echo '<div class="lf-content">' . $chapter['content'] . '</div>';
+    // Inhalt stammt aus den eigenen Lernfeld-Dateien (vertrauenswürdiges HTML).
+    // Tabellen in einen scrollbaren Container legen – die Karte schneidet Überstand sonst ab (Handy).
+    $content = preg_replace(['/<table\b/', '#</table>#'], ['<div class="table-responsive"><table', '</table></div>'], $chapter['content']);
+    echo '<div class="lf-content">' . $content . '</div>';
 
     $lists = [
         'examples' => ['Praxisbeispiele', 'ul'],

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="br-title br-desc">
+  <title id="br-title">Von der Bedrohung zum Schaden</title>
+  <desc id="br-desc">Eine Bedrohung, zum Beispiel Ransomware in einem E-Mail-Anhang, trifft auf eine Schwachstelle, etwa ein ungepatchtes Office-Programm und fehlende Schulung. Daraus wird ein Sicherheitsvorfall: Dateien auf dem Fileserver sind verschlüsselt. Der Schaden: drei Tage Stillstand, Wiederherstellungskosten und verärgerte Kunden. Das Risiko ergibt sich aus Eintrittswahrscheinlichkeit mal Schadenshöhe. Vorbeugende Maßnahmen wie Patches und Schulungen setzen an der Schwachstelle an, begrenzende Maßnahmen wie Backups und ein Notfallplan verringern den Schaden.</desc>
+  <defs>
+    <marker id="br-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .b { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.4; }
+      .w { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .v { fill: #ffe5d0; stroke: #fd7e14; stroke-width: 1.4; }
+      .d { fill: #e2e3e5; stroke: #6c757d; stroke-width: 1.4; }
+      .m { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.8; marker-end: url(#br-arr); fill: none; }
+      .ms { stroke: #198754; stroke-width: 1.5; stroke-dasharray: 5 4; marker-end: url(#br-arr); fill: none; }
+    </style>
+  </defs>
+  <rect class="b" x="14" y="20" width="150" height="74" rx="6"/><text class="h c" x="89" y="40">Bedrohung</text>
+  <text class="s c" x="89" y="60">Ransomware im</text><text class="s c" x="89" y="76">E-Mail-Anhang</text>
+  <rect class="w" x="196" y="20" width="150" height="74" rx="6"/><text class="h c" x="271" y="40">Schwachstelle</text>
+  <text class="s c" x="271" y="60">Office ohne Update,</text><text class="s c" x="271" y="76">keine Schulung</text>
+  <rect class="v" x="378" y="20" width="150" height="74" rx="6"/><text class="h c" x="453" y="40">Sicherheitsvorfall</text>
+  <text class="s c" x="453" y="60">Dateien auf dem</text><text class="s c" x="453" y="76">Server verschlüsselt</text>
+  <rect class="d" x="560" y="20" width="150" height="74" rx="6"/><text class="h c" x="635" y="40">Schaden</text>
+  <text class="s c" x="635" y="60">3 Tage Stillstand,</text><text class="s c" x="635" y="76">Kosten, Image</text>
+  <path class="ar" d="M164,57 H192"/><path class="ar" d="M346,57 H374"/><path class="ar" d="M528,57 H556"/>
+  <text class="s c" x="180" y="112">trifft auf</text>
+
+  <rect class="m" x="160" y="150" width="222" height="52" rx="6"/><text class="h c" x="271" y="171">vorbeugen</text><text class="s c" x="271" y="189">Patches, Schulung, Anhänge filtern</text>
+  <rect class="m" x="460" y="150" width="250" height="52" rx="6"/><text class="h c" x="585" y="171">begrenzen</text><text class="s c" x="585" y="189">Offline-Backup, Notfallplan, Rechte</text>
+  <path class="ms" d="M271,150 V98"/><path class="ms" d="M585,150 V122 H635 V98"/>
+  <text class="s" x="14" y="236" style="font-weight:700">Risiko = Eintrittswahrscheinlichkeit × Schadenshöhe</text>
+  <text class="s" x="14" y="254">Ohne Schwachstelle bleibt die Bedrohung wirkungslos – ohne Bedrohung schadet die Schwachstelle nicht.</text>
+</svg>

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="si-title si-desc">
+  <title id="si-title">Digitale Signatur erstellen und prüfen</title>
+  <desc id="si-desc">Anna signiert: Aus dem Dokument berechnet eine Hashfunktion wie SHA-256 einen Hashwert. Diesen Hashwert verarbeitet Anna mit ihrem privaten Schlüssel zur Signatur und schickt Dokument und Signatur an Ben. Ben prüft: Er berechnet selbst den Hashwert A des erhaltenen Dokuments. Aus der Signatur gewinnt er mit Annas öffentlichem Schlüssel den Hashwert B. Stimmen A und B überein, ist das Dokument unverändert (Integrität), stammt von Anna (Authentizität) und Anna kann die Signatur nicht abstreiten (Verbindlichkeit). Verschlüsselt ist das Dokument dadurch nicht.</desc>
+  <defs>
+    <marker id="si-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <g id="si-key"><circle cx="0" cy="0" r="6"/><rect x="4" y="-2" width="16" height="4"/><rect x="14" y="2" width="3" height="4"/><rect x="18" y="2" width="2" height="3"/><circle cx="0" cy="0" r="2.2" fill="#fff"/></g>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .bx { fill: #fff; stroke: #6c757d; stroke-width: 1.3; }
+      .hv { fill: #f1f3f5; stroke: #6c757d; stroke-width: 1.3; }
+      .sig { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .op { fill: #343a40; }
+      .opt { fill: #fff; font-size: 10.5px; font-weight: 700; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; }
+      .ar { stroke: #495057; stroke-width: 1.6; marker-end: url(#si-arr); fill: none; }
+      .pub { fill: #198754; } .priv { fill: #b02a37; }
+      .res { fill: #d1e7dd; stroke: #198754; stroke-width: 1.5; }
+      .ok { fill: #146c43; font-weight: 700; }
+      .sep { stroke: #dee2e6; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <text class="h" x="20" y="22">Anna signiert</text>
+  <rect class="bx" x="20" y="38" width="100" height="32" rx="4"/><text class="s c" x="70" y="58">Dokument</text>
+  <rect class="op" x="150" y="38" width="90" height="32" rx="6"/><text class="opt" x="195" y="58">SHA-256</text>
+  <rect class="hv" x="270" y="38" width="110" height="32" rx="4"/><text class="m c" x="325" y="58">Hash 3f9a…c1</text>
+  <rect class="op" x="410" y="38" width="120" height="32" rx="6"/><text class="opt" x="470" y="58">mit Schlüssel</text>
+  <rect class="sig" x="560" y="38" width="100" height="32" rx="4"/><text class="s c" x="610" y="58" style="font-weight:700">Signatur</text>
+  <path class="ar" d="M120,54 H146"/><path class="ar" d="M240,54 H266"/><path class="ar" d="M380,54 H406"/><path class="ar" d="M530,54 H556"/>
+  <use href="#si-key" x="456" y="88" class="priv"/><text class="s" x="484" y="92">Annas privater Schlüssel</text>
+  <text class="s" x="20" y="112">Dokument und Signatur gehen an Ben.</text>
+  <line class="sep" x1="20" y1="126" x2="700" y2="126"/>
+
+  <text class="h" x="20" y="150">Ben prüft</text>
+  <rect class="bx" x="20" y="164" width="100" height="32" rx="4"/><text class="s c" x="70" y="184">Dokument</text>
+  <rect class="op" x="150" y="164" width="90" height="32" rx="6"/><text class="opt" x="195" y="184">SHA-256</text>
+  <rect class="hv" x="270" y="164" width="110" height="32" rx="4"/><text class="m c" x="325" y="184">Hash A</text>
+  <rect class="sig" x="20" y="222" width="100" height="32" rx="4"/><text class="s c" x="70" y="242" style="font-weight:700">Signatur</text>
+  <rect class="op" x="150" y="222" width="90" height="32" rx="6"/><text class="opt" x="195" y="242">mit Schlüssel</text>
+  <rect class="hv" x="270" y="222" width="110" height="32" rx="4"/><text class="m c" x="325" y="242">Hash B</text>
+  <path class="ar" d="M120,180 H146"/><path class="ar" d="M240,180 H266"/><path class="ar" d="M120,238 H146"/><path class="ar" d="M240,238 H266"/>
+  <use href="#si-key" x="166" y="272" class="pub"/><text class="s" x="194" y="276">Annas öffentlicher Schlüssel</text>
+  <path class="ar" d="M380,180 H400 V200 H416"/><path class="ar" d="M380,238 H400 V218 H416"/>
+  <rect class="res" x="420" y="160" width="280" height="100" rx="8"/><text class="h" x="434" y="182">A = B?</text>
+  <text class="s" x="434" y="202"><tspan class="ok">✓</tspan> unverändert (Integrität)</text>
+  <text class="s" x="434" y="220"><tspan class="ok">✓</tspan> stammt von Anna (Authentizität)</text>
+  <text class="s" x="434" y="238"><tspan class="ok">✓</tspan> nicht abstreitbar (Verbindlichkeit)</text>
+  <text class="s" x="434" y="254" style="font-style:italic">Verschlüsselt ist das Dokument nicht.</text>
+</svg>

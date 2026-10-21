@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="xo-title xo-desc">
+  <title id="xo-title">Verschlüsseln und Entschlüsseln mit XOR</title>
+  <desc id="xo-desc">Links das Verschlüsseln: Klartext A ist 01000001, der Schlüssel 00101010. Bitweise XOR ergibt 01101011, hexadezimal 6B, das Zeichen k. Rechts das Entschlüsseln: Geheimtext 01101011 XOR derselbe Schlüssel 00101010 ergibt wieder 01000001, also A. Wahrheitstabelle: 0 XOR 0 ist 0, 0 XOR 1 ist 1, 1 XOR 0 ist 1, 1 XOR 1 ist 0. Ein Bit kippt genau dort, wo der Schlüssel eine 1 hat.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .l { font-size: 11px; fill: #343a40; }
+      .b { font-family: ui-monospace, Consolas, monospace; font-size: 14px; text-anchor: middle; }
+      .r { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
+      .k1 { fill: #fff3cd; }
+      .ln { stroke: #212529; stroke-width: 1.3; }
+      .s { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <text class="h" x="20" y="24">Verschlüsseln</text>
+  <rect class="k1" x="158" y="36" width="24" height="88" rx="3"/>
+  <rect class="k1" x="206" y="36" width="24" height="88" rx="3"/>
+  <rect class="k1" x="254" y="36" width="24" height="88" rx="3"/>
+  <text class="l" x="20" y="54">Klartext</text><text class="b" x="122" y="54">0</text><text class="b" x="146" y="54">1</text><text class="b" x="170" y="54">0</text><text class="b" x="194" y="54">0</text><text class="b" x="218" y="54">0</text><text class="b" x="242" y="54">0</text><text class="b" x="266" y="54">0</text><text class="b" x="290" y="54">1</text><text class="r" x="310" y="54">'A'</text>
+  <text class="l" x="20" y="80">Schlüssel</text><text class="b" x="122" y="80">0</text><text class="b" x="146" y="80">0</text><text class="b" x="170" y="80">1</text><text class="b" x="194" y="80">0</text><text class="b" x="218" y="80">1</text><text class="b" x="242" y="80">0</text><text class="b" x="266" y="80">1</text><text class="b" x="290" y="80">0</text><text class="r" x="310" y="80"></text>
+  <text class="l" x="20" y="114">Geheimtext</text><text class="b" x="122" y="114">0</text><text class="b" x="146" y="114">1</text><text class="b" x="170" y="114">1</text><text class="b" x="194" y="114">0</text><text class="b" x="218" y="114">1</text><text class="b" x="242" y="114">0</text><text class="b" x="266" y="114">1</text><text class="b" x="290" y="114">1</text><text class="r" x="310" y="114">0x6B 'k'</text>
+  <line class="ln" x1="108" y1="88" x2="304" y2="88"/><text class="l" x="94" y="84">⊕</text>
+  <text class="h" x="380" y="24">Entschlüsseln</text>
+  <rect class="k1" x="518" y="36" width="24" height="88" rx="3"/>
+  <rect class="k1" x="566" y="36" width="24" height="88" rx="3"/>
+  <rect class="k1" x="614" y="36" width="24" height="88" rx="3"/>
+  <text class="l" x="380" y="54">Geheimtext</text><text class="b" x="482" y="54">0</text><text class="b" x="506" y="54">1</text><text class="b" x="530" y="54">1</text><text class="b" x="554" y="54">0</text><text class="b" x="578" y="54">1</text><text class="b" x="602" y="54">0</text><text class="b" x="626" y="54">1</text><text class="b" x="650" y="54">1</text><text class="r" x="670" y="54">'k'</text>
+  <text class="l" x="380" y="80">Schlüssel</text><text class="b" x="482" y="80">0</text><text class="b" x="506" y="80">0</text><text class="b" x="530" y="80">1</text><text class="b" x="554" y="80">0</text><text class="b" x="578" y="80">1</text><text class="b" x="602" y="80">0</text><text class="b" x="626" y="80">1</text><text class="b" x="650" y="80">0</text><text class="r" x="670" y="80"></text>
+  <text class="l" x="380" y="114">Klartext</text><text class="b" x="482" y="114">0</text><text class="b" x="506" y="114">1</text><text class="b" x="530" y="114">0</text><text class="b" x="554" y="114">0</text><text class="b" x="578" y="114">0</text><text class="b" x="602" y="114">0</text><text class="b" x="626" y="114">0</text><text class="b" x="650" y="114">1</text><text class="r" x="670" y="114">'A'</text>
+  <line class="ln" x1="468" y1="88" x2="664" y2="88"/><text class="l" x="454" y="84">⊕</text>
+  <text class="s" x="20" y="164"><tspan font-weight="700">XOR (⊕):</tspan>  0 ⊕ 0 = 0   ·   0 ⊕ 1 = 1   ·   1 ⊕ 0 = 1   ·   1 ⊕ 1 = 0</text>
+  <rect class="k1" x="20" y="178" width="16" height="14" rx="2"/><text class="s" x="42" y="189">Spalten, in denen der Schlüssel 1 ist: Dort kippt das Bit.</text>
+  <text class="s" x="20" y="214">Zweimal XOR mit demselben Schlüssel ergibt wieder das Original – ein symmetrisches Verfahren.</text>
+</svg>

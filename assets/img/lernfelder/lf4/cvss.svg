@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-labelledby="cv-title cv-desc">
+  <title id="cv-title">CVSS-Skala für den Schweregrad von Schwachstellen</title>
+  <desc id="cv-desc">Das Common Vulnerability Scoring System bewertet Schwachstellen von 0,0 bis 10,0. 0,0 bedeutet keine Auswirkung, 0,1 bis 3,9 niedrig, 4,0 bis 6,9 mittel, 7,0 bis 8,9 hoch und 9,0 bis 10,0 kritisch. Als Beispiel ist die Lücke Log4Shell, CVE-2021-44228, mit 10,0 markiert. In den Wert fließen unter anderem ein, ob der Angriff über das Netz möglich ist, wie komplex er ist, ob Rechte oder eine Mitwirkung des Opfers nötig sind und welche Schutzziele betroffen sind.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .tick { font-size: 10.5px; fill: #495057; text-anchor: middle; }
+      .lab { font-size: 11.5px; font-weight: 700; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; }
+      .mk { stroke: #212529; stroke-width: 1.5; }
+    </style>
+  </defs>
+  <!-- Skala 0..10 auf x 40..680 (64 px je Punkt) -->
+  <rect x="40" y="70" width="6.4" height="34" fill="#adb5bd"/>
+  <rect x="46.4" y="70" width="249.6" height="34" fill="#d1e7dd" stroke="#fff" stroke-width="2"/>
+  <rect x="296" y="70" width="192" height="34" fill="#fff3cd" stroke="#fff" stroke-width="2"/>
+  <rect x="488" y="70" width="128" height="34" fill="#ffe5d0" stroke="#fff" stroke-width="2"/>
+  <rect x="616" y="70" width="64" height="34" fill="#f8d7da" stroke="#fff" stroke-width="2"/>
+  <text class="lab" x="171" y="92">niedrig</text><text class="lab" x="392" y="92">mittel</text><text class="lab" x="552" y="92">hoch</text><text class="lab" x="648" y="92">kritisch</text>
+  <text class="tick" x="40" y="120">0</text><text class="tick" x="296" y="120">4,0</text><text class="tick" x="488" y="120">7,0</text><text class="tick" x="616" y="120">9,0</text><text class="tick" x="680" y="120">10</text>
+  <text class="s" x="40" y="62">0,0 = keine</text>
+  <line class="mk" x1="680" y1="40" x2="680" y2="70"/><text class="s" x="676" y="36" style="text-anchor:end;font-weight:700">Log4Shell (CVE-2021-44228): 10,0</text>
+  <text class="s" x="40" y="150">Bewertet u. a.: Angriff über das Netz möglich? Wie komplex? Rechte oder Mitwirkung des Opfers nötig?</text>
+  <text class="s" x="40" y="168">Welche Schutzziele sind betroffen – Vertraulichkeit, Integrität, Verfügbarkeit?</text>
+  <text class="s" x="40" y="190">Der Wert beschreibt die Schwachstelle, nicht das Risiko im eigenen Betrieb: Das hängt vom Einsatz ab.</text>
+</svg>

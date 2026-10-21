@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="zz-title zz-desc">
+  <title id="zz-title">Zutritt, Zugang, Zugriff</title>
+  <desc id="zz-desc">Drei ineinanderliegende Schutzschichten. Außen die Zutrittskontrolle für Gebäude und Räume: Wer darf hinein? Mittel sind Schlüssel oder Chipkarte, Besucherregelung, Videoüberwachung und Alarmanlage. In der Mitte die Zugangskontrolle für IT-Systeme: Wer darf das System benutzen? Mittel sind Anmeldung mit mehreren Faktoren, Bildschirmsperre und Kontosperre nach Fehlversuchen. Innen die Zugriffskontrolle für Daten: Wer darf welche Daten lesen oder ändern? Mittel sind Rollen und Rechte, Verschlüsselung und Protokollierung. Merksatz: Zutritt zum Raum, Zugang zum System, Zugriff auf die Daten.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .l1 { fill: #fff8e1; stroke: #b98900; stroke-width: 1.5; }
+      .l2 { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .l3 { fill: #d1e7dd; stroke: #198754; stroke-width: 1.5; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .q { font-size: 11px; fill: #495057; font-style: italic; }
+      .s { font-size: 11px; fill: #343a40; }
+      .doc { fill: #fff; stroke: #198754; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <rect class="l1" x="20" y="14" width="380" height="252" rx="10"/><text class="h" x="34" y="36">Zutritt</text><text class="q" x="90" y="36">Gebäude, Serverraum</text>
+  <rect class="l2" x="56" y="52" width="308" height="200" rx="10"/><text class="h" x="70" y="74">Zugang</text><text class="q" x="128" y="74">IT-System</text>
+  <rect class="l3" x="92" y="90" width="236" height="148" rx="10"/><text class="h" x="106" y="112">Zugriff</text><text class="q" x="160" y="112">Daten</text>
+  <path class="doc" d="M180,130 h44 l14,14 v64 h-58 z"/><path class="doc" d="M224,130 v14 h14"/>
+  <text class="s c" x="209" y="182">Kunden-</text><text class="s c" x="209" y="196">daten</text>
+
+  <text class="h" x="430" y="34">Zutrittskontrolle</text><text class="q" x="430" y="50">Wer darf in den Raum?</text>
+  <text class="s" x="430" y="66">Schlüssel, Chipkarte, Besucherbuch,</text><text class="s" x="430" y="80">Videoüberwachung, Alarmanlage</text>
+  <text class="h" x="430" y="114">Zugangskontrolle</text><text class="q" x="430" y="130">Wer darf das System benutzen?</text>
+  <text class="s" x="430" y="146">Anmeldung mit MFA, Bildschirmsperre,</text><text class="s" x="430" y="160">Kontosperre nach Fehlversuchen</text>
+  <text class="h" x="430" y="194">Zugriffskontrolle</text><text class="q" x="430" y="210">Wer darf welche Daten lesen, ändern?</text>
+  <text class="s" x="430" y="226">Rollen und Rechte, Verschlüsselung,</text><text class="s" x="430" y="240">Protokollierung</text>
+  <text class="s" x="430" y="266" style="font-weight:700">Raum → System → Daten</text>
+</svg>

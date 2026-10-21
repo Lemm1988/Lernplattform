@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="zk-title zk-desc">
+  <title id="zk-title">Zertifikatskette einer HTTPS-Verbindung</title>
+  <desc id="zk-desc">Die Root-CA hat ein selbstsigniertes Zertifikat, das im Vertrauensspeicher von Browser oder Betriebssystem vorinstalliert ist. Sie signiert das Zertifikat einer Zwischen-CA. Die Zwischen-CA signiert das Serverzertifikat für www.example.org, das den öffentlichen Schlüssel des Servers, den Namen, die Gültigkeitsdauer und den Aussteller enthält. Der Browser prüft: Führt die Kette zu einer vertrauenswürdigen Root? Passt der Name zur aufgerufenen Adresse? Ist das Zertifikat gültig und nicht widerrufen?</desc>
+  <defs>
+    <marker id="zk-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .root { fill: #d1e7dd; stroke: #198754; stroke-width: 1.5; }
+      .int { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .srv { fill: #fff; stroke: #495057; stroke-width: 1.5; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#zk-arr); fill: none; }
+      .ok { fill: #146c43; font-weight: 700; }
+    </style>
+  </defs>
+  <rect class="root" x="20" y="20" width="190" height="110" rx="8"/><text class="h" x="34" y="44">Root-CA</text>
+  <text class="s" x="34" y="66">selbstsigniert</text><text class="s" x="34" y="84">vorinstalliert im Vertrauens-</text><text class="s" x="34" y="100">speicher von Browser und OS</text>
+  <rect class="int" x="265" y="20" width="190" height="110" rx="8"/><text class="h" x="279" y="44">Zwischen-CA</text>
+  <text class="s" x="279" y="66">von der Root signiert</text><text class="s" x="279" y="84">stellt die Serverzertifikate</text><text class="s" x="279" y="100">aus; Root bleibt offline</text>
+  <rect class="srv" x="510" y="20" width="190" height="110" rx="8"/><text class="h" x="524" y="44">Serverzertifikat</text>
+  <text class="m" x="524" y="64">www.example.org</text><text class="s" x="524" y="82">öffentlicher Schlüssel,</text><text class="s" x="524" y="98">gültig bis, Aussteller</text><text class="s" x="524" y="114">Signatur der Zwischen-CA</text>
+  <path class="ar" d="M210,75 H261"/><path class="ar" d="M455,75 H506"/>
+  <text class="s c" x="237" y="66">signiert</text><text class="s c" x="482" y="66">signiert</text>
+
+  <text class="h" x="20" y="166">Der Browser prüft</text>
+  <text class="s" x="20" y="188"><tspan class="ok">✓</tspan> Kette führt zu einer vertrauenswürdigen Root</text>
+  <text class="s" x="20" y="208"><tspan class="ok">✓</tspan> Name im Zertifikat passt zur aufgerufenen Adresse</text>
+  <text class="s" x="380" y="188"><tspan class="ok">✓</tspan> innerhalb der Gültigkeitsdauer</text>
+  <text class="s" x="380" y="208"><tspan class="ok">✓</tspan> nicht widerrufen</text>
+  <text class="s" x="20" y="236">Schlägt eine Prüfung fehl, warnt der Browser. Diese Warnung nie einfach wegklicken.</text>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-labelledby="ph-title ph-desc">
+  <title id="ph-title">Warnzeichen einer Phishing-Mail</title>
+  <desc id="ph-desc">Eine erfundene Phishing-Mail der fiktiven Musterbank mit fünf markierten Warnzeichen. 1: Die Absenderadresse sicherheit@musterbank-konto-check.example gehört nicht zur Bank. 2: Der Betreff erzeugt Zeitdruck und droht mit Kontosperrung in 24 Stunden. 3: Die Anrede ist unpersönlich, Sehr geehrter Kunde. 4: Der Button Jetzt bestätigen führt beim Darüberfahren mit der Maus auf eine fremde Adresse, musterbank.login-verify.example. 5: Ein unerwarteter Anhang Kontoauszug.zip. Grundregel: Banken fragen nie per E-Mail nach Passwörtern oder TANs; im Zweifel die bekannte Nummer anrufen, nicht die aus der Mail.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .mail { fill: #fff; stroke: #adb5bd; stroke-width: 1.4; }
+      .hd { fill: #f1f3f5; }
+      .k { font-size: 11px; fill: #6c757d; }
+      .v { font-size: 11px; }
+      .b { font-size: 11.5px; fill: #343a40; }
+      .btn { fill: #0d6efd; }
+      .btt { fill: #fff; font-weight: 700; font-size: 11.5px; text-anchor: middle; }
+      .tip { fill: #212529; }
+      .tipt { fill: #fff; font-family: ui-monospace, Consolas, monospace; font-size: 10px; }
+      .att { fill: #f8f9fa; stroke: #ced4da; }
+      .n { fill: #b02a37; }
+      .nt { fill: #fff; font-weight: 700; font-size: 11px; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <rect class="mail" x="14" y="14" width="440" height="302" rx="8"/>
+  <rect class="hd" x="15" y="15" width="438" height="62" rx="7"/>
+  <text class="k" x="28" y="36">Von:</text><text class="v" x="80" y="36">Musterbank &lt;sicherheit@musterbank-konto-check.example&gt;</text>
+  <text class="k" x="28" y="54">An:</text><text class="v" x="80" y="54">anna.schmidt@firma.example</text>
+  <text class="k" x="28" y="70">Betreff:</text><text class="v" x="80" y="70" style="font-weight:700">Dringend: Ihr Konto wird in 24 Stunden gesperrt!</text>
+  <text class="b" x="28" y="104">Sehr geehrter Kunde,</text>
+  <text class="b" x="28" y="128">bei einer Routineprüfung haben wir ungewöhnliche Aktivitäten</text>
+  <text class="b" x="28" y="144">festgestellt. Bestätigen Sie Ihre Zugangsdaten sofort, sonst</text>
+  <text class="b" x="28" y="160">wird Ihr Konto aus Sicherheitsgründen gesperrt.</text>
+  <rect class="btn" x="28" y="176" width="150" height="30" rx="5"/><text class="btt" x="103" y="196">Jetzt bestätigen</text>
+  <rect class="tip" x="130" y="212" width="296" height="22" rx="4"/><text class="tipt" x="138" y="227">https://musterbank.login-verify.example/konto</text>
+  <text class="b" x="28" y="258">Ihr Musterbank-Sicherheitsteam</text>
+  <rect class="att" x="28" y="272" width="170" height="30" rx="5"/><text class="v" x="40" y="292">📎 Kontoauszug.zip (84 KB)</text>
+
+  <circle class="n" cx="440" cy="32" r="9"/><text class="nt" x="440" y="36">1</text>
+  <circle class="n" cx="440" cy="66" r="9"/><text class="nt" x="440" y="70">2</text>
+  <circle class="n" cx="160" cy="100" r="9"/><text class="nt" x="160" y="104">3</text>
+  <circle class="n" cx="440" cy="223" r="9"/><text class="nt" x="440" y="227">4</text>
+  <circle class="n" cx="212" cy="287" r="9"/><text class="nt" x="212" y="291">5</text>
+
+  <text class="h" x="476" y="30">Warnzeichen</text>
+  <circle class="n" cx="482" cy="51" r="8"/><text class="nt" x="482" y="55">1</text><text class="s" x="496" y="55">Absender-Domain gehört nicht</text><text class="s" x="496" y="70">zur Bank (genau lesen!)</text>
+  <circle class="n" cx="482" cy="95" r="8"/><text class="nt" x="482" y="99">2</text><text class="s" x="496" y="99">Zeitdruck und Drohung</text>
+  <circle class="n" cx="482" cy="125" r="8"/><text class="nt" x="482" y="129">3</text><text class="s" x="496" y="129">unpersönliche Anrede</text>
+  <circle class="n" cx="482" cy="155" r="8"/><text class="nt" x="482" y="159">4</text><text class="s" x="496" y="159">Link-Ziel weicht ab – mit der</text><text class="s" x="496" y="174">Maus darüberfahren, nicht klicken</text>
+  <circle class="n" cx="482" cy="199" r="8"/><text class="nt" x="482" y="203">5</text><text class="s" x="496" y="203">unerwarteter Anhang (.zip,</text><text class="s" x="496" y="218">.html, Office mit Makros)</text>
+  <text class="s" x="476" y="258" style="font-weight:700">Banken fragen nie per Mail nach</text>
+  <text class="s" x="476" y="274" style="font-weight:700">Passwort oder TAN.</text>
+  <text class="s" x="476" y="296">Im Zweifel die bekannte Nummer</text><text class="s" x="476" y="311">anrufen – nicht die aus der Mail.</text>
+</svg>

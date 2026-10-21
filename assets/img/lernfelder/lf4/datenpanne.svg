@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="dp-title dp-desc">
+  <title id="dp-title">Ablauf bei einer Datenpanne</title>
+  <desc id="dp-desc">Zeitleiste ab dem Moment, in dem das Unternehmen von der Panne erfährt, bis 72 Stunden. Sofort: intern melden an Vorgesetzte, Datenschutzbeauftragten und Informationssicherheitsbeauftragten. In den ersten Stunden: eindämmen, etwa Passwörter ändern, Gerät fernlöschen, Mail zurückrufen, und bewerten, welche Daten und wie viele Personen betroffen sind und wie hoch das Risiko ist. Spätestens nach 72 Stunden: Meldung an die Datenschutz-Aufsichtsbehörde nach Artikel 33, außer die Panne führt voraussichtlich zu keinem Risiko. Bei hohem Risiko zusätzlich die betroffenen Personen unverzüglich informieren, Artikel 34. In jedem Fall den Vorfall dokumentieren.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .tl { stroke: #495057; stroke-width: 2.5; }
+      .tk { stroke: #495057; stroke-width: 1.5; }
+      .tt { font-size: 11px; fill: #495057; text-anchor: middle; font-weight: 700; }
+      .bx { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .dl { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.6; }
+      .nb { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .con { stroke: #adb5bd; stroke-width: 1.2; stroke-dasharray: 3 3; }
+    </style>
+  </defs>
+  <line class="tl" x1="40" y1="120" x2="680" y2="120"/>
+  <line class="tk" x1="40" y1="112" x2="40" y2="128"/><line class="tk" x1="253" y1="114" x2="253" y2="126"/><line class="tk" x1="467" y1="114" x2="467" y2="126"/><line class="tk" x1="680" y1="108" x2="680" y2="132"/>
+  <text class="tt" x="40" y="144">0 h</text><text class="tt" x="253" y="144">24 h</text><text class="tt" x="467" y="144">48 h</text><text class="tt" x="680" y="144">72 h</text>
+
+  <rect class="bx" x="14" y="14" width="190" height="72" rx="6"/><text class="h" x="26" y="34">sofort: intern melden</text>
+  <text class="s" x="26" y="52">Vorgesetzte, Datenschutz-</text><text class="s" x="26" y="67">beauftragte/r, ISB</text>
+  <line class="con" x1="40" y1="86" x2="40" y2="112"/>
+  <rect class="bx" x="222" y="14" width="250" height="72" rx="6"/><text class="h" x="234" y="34">erste Stunden: eindämmen, bewerten</text>
+  <text class="s" x="234" y="52">Passwörter ändern, fernlöschen …</text><text class="s" x="234" y="67">Welche Daten? Wie viele? Welches Risiko?</text>
+  <line class="con" x1="120" y1="86" x2="120" y2="112"/>
+  <rect class="dl" x="490" y="14" width="216" height="72" rx="6"/><text class="h" x="502" y="34">spätestens 72 h: Meldung</text>
+  <text class="s" x="502" y="52">an die Aufsichtsbehörde (Art. 33),</text><text class="s" x="502" y="67">außer voraussichtlich kein Risiko</text>
+  <line class="con" x1="680" y1="86" x2="680" y2="108"/>
+
+  <rect class="nb" x="14" y="166" width="340" height="56" rx="6"/><text class="h" x="26" y="186">bei hohem Risiko für die Personen</text>
+  <text class="s" x="26" y="204">zusätzlich die Betroffenen unverzüglich informieren (Art. 34)</text>
+  <rect class="nb" x="366" y="166" width="340" height="56" rx="6"/><text class="h" x="378" y="186">immer</text>
+  <text class="s" x="378" y="204">Vorfall, Folgen und Maßnahmen dokumentieren</text>
+  <text class="s" x="14" y="252">Die Frist beginnt, sobald das Unternehmen von der Panne weiß – auch am Wochenende.</text>
+</svg>

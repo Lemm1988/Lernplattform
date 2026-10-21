@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="sa-title sa-desc">
+  <title id="sa-title">Symmetrische und asymmetrische Verschlüsselung</title>
+  <desc id="sa-desc">Oben symmetrisch: Anna verschlüsselt den Klartext mit einem geheimen Schlüssel, Ben entschlüsselt mit demselben Schlüssel. Beide müssen ihn vorher sicher austauschen. Beispiel AES, schnell. Unten asymmetrisch: Anna verschlüsselt mit Bens öffentlichem Schlüssel, den jeder kennen darf. Entschlüsseln kann nur Ben mit seinem privaten Schlüssel. Beispiel RSA oder elliptische Kurven, langsamer, aber ohne vorherigen geheimen Schlüsselaustausch.</desc>
+  <defs>
+    <marker id="sa-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <g id="sa-key"><circle cx="0" cy="0" r="6"/><rect x="4" y="-2" width="16" height="4"/><rect x="14" y="2" width="3" height="4"/><rect x="18" y="2" width="2" height="3"/><circle cx="0" cy="0" r="2.2" fill="#fff"/></g>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .bx { fill: #fff; stroke: #6c757d; stroke-width: 1.3; }
+      .ct { fill: #f1f3f5; stroke: #6c757d; stroke-width: 1.3; }
+      .op { fill: #343a40; }
+      .opt { fill: #fff; font-size: 10.5px; font-weight: 700; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .p { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .ar { stroke: #495057; stroke-width: 1.6; marker-end: url(#sa-arr); fill: none; }
+      .sec { fill: #6f42c1; } .pub { fill: #198754; } .priv { fill: #b02a37; }
+      .sep { stroke: #dee2e6; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <text class="h" x="20" y="22">Symmetrisch – ein gemeinsamer geheimer Schlüssel</text>
+  <text class="p" x="20" y="66">Anna</text>
+  <rect class="bx" x="70" y="48" width="100" height="28" rx="4"/><text class="s c" x="120" y="66">Klartext</text>
+  <rect class="op" x="200" y="46" width="100" height="32" rx="6"/><text class="opt" x="250" y="66">verschlüsseln</text>
+  <rect class="ct" x="330" y="48" width="100" height="28" rx="4"/><text class="m c" x="380" y="66">x7#Qp!9z</text>
+  <rect class="op" x="460" y="46" width="100" height="32" rx="6"/><text class="opt" x="510" y="66">entschlüsseln</text>
+  <rect class="bx" x="590" y="48" width="80" height="28" rx="4"/><text class="s c" x="630" y="66">Klartext</text><text class="p" x="680" y="66">Ben</text>
+  <path class="ar" d="M170,62 H196"/><path class="ar" d="M300,62 H326"/><path class="ar" d="M430,62 H456"/><path class="ar" d="M560,62 H586"/>
+  <use href="#sa-key" x="238" y="96" class="sec"/><use href="#sa-key" x="498" y="96" class="sec"/>
+  <text class="s" x="268" y="100">geheimer Schlüssel</text><text class="s" x="528" y="100">derselbe Schlüssel</text>
+  <text class="s" x="20" y="126">schnell (z. B. AES) – aber der Schlüssel muss vorher sicher zu Ben gelangen</text>
+  <line class="sep" x1="20" y1="144" x2="700" y2="144"/>
+
+  <text class="h" x="20" y="170">Asymmetrisch – Schlüsselpaar des Empfängers</text>
+  <text class="p" x="20" y="214">Anna</text>
+  <rect class="bx" x="70" y="196" width="100" height="28" rx="4"/><text class="s c" x="120" y="214">Klartext</text>
+  <rect class="op" x="200" y="194" width="100" height="32" rx="6"/><text class="opt" x="250" y="214">verschlüsseln</text>
+  <rect class="ct" x="330" y="196" width="100" height="28" rx="4"/><text class="m c" x="380" y="214">Lk2$wR0e</text>
+  <rect class="op" x="460" y="194" width="100" height="32" rx="6"/><text class="opt" x="510" y="214">entschlüsseln</text>
+  <rect class="bx" x="590" y="196" width="80" height="28" rx="4"/><text class="s c" x="630" y="214">Klartext</text><text class="p" x="680" y="214">Ben</text>
+  <path class="ar" d="M170,210 H196"/><path class="ar" d="M300,210 H326"/><path class="ar" d="M430,210 H456"/><path class="ar" d="M560,210 H586"/>
+  <use href="#sa-key" x="238" y="244" class="pub"/><use href="#sa-key" x="498" y="244" class="priv"/>
+  <text class="s" x="268" y="248">Bens öffentlicher Schlüssel</text><text class="s" x="528" y="248">Bens privater Schlüssel</text>
+  <text class="s" x="20" y="278">kein geheimer Austausch nötig (z. B. RSA, elliptische Kurven) – aber deutlich langsamer</text>
+</svg>

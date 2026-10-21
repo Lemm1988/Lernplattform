@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="sz-title sz-desc">
+  <title id="sz-title">Die Schutzziele der Informationssicherheit</title>
+  <desc id="sz-desc">Ein Dreieck mit den drei Grundwerten: Vertraulichkeit bedeutet, dass nur Berechtigte Informationen lesen können. Integrität bedeutet, dass Daten unverändert und vollständig sind. Verfügbarkeit bedeutet, dass Systeme und Daten nutzbar sind, wenn sie gebraucht werden. Rechts weitere Schutzziele: Authentizität (Ist der Absender echt? Mittel: Zertifikat, Signatur), Verbindlichkeit oder Nichtabstreitbarkeit (Eine Handlung lässt sich nicht leugnen. Mittel: digitale Signatur) und Zurechenbarkeit (Wer hat was getan? Mittel: persönliche Konten und Protokollierung).</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .tri { fill: #f8f9fa; stroke: #adb5bd; stroke-width: 1.5; }
+      .v { fill: #cfe2ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .i { fill: #d1e7dd; stroke: #198754; stroke-width: 1.5; }
+      .a { fill: #ffe5d0; stroke: #fd7e14; stroke-width: 1.5; }
+      .h { font-weight: 700; font-size: 13px; }
+      .s { font-size: 11.5px; fill: #343a40; }
+      .e { font-size: 10.5px; fill: #495057; font-style: italic; }
+      .ph { font-weight: 700; font-size: 12.5px; }
+    </style>
+  </defs>
+  <path class="tri" d="M200,58 L100,212 L300,212 Z"/>
+  <text class="s c" x="200" y="150" style="font-weight:700">Informations-</text><text class="s c" x="200" y="166" style="font-weight:700">sicherheit</text>
+  <rect class="v" x="110" y="14" width="180" height="48" rx="6"/><text class="h c" x="200" y="34">Vertraulichkeit</text><text class="s c" x="200" y="52">nur Berechtigte lesen</text>
+  <rect class="i" x="14" y="206" width="176" height="48" rx="6"/><text class="h c" x="102" y="226">Integrität</text><text class="s c" x="102" y="244">unverändert, vollständig</text>
+  <rect class="a" x="210" y="206" width="176" height="48" rx="6"/><text class="h c" x="298" y="226">Verfügbarkeit</text><text class="s c" x="298" y="244">nutzbar, wenn gebraucht</text>
+  <text class="e c" x="200" y="278">Englisch: Confidentiality, Integrity, Availability („CIA“)</text>
+
+  <text class="ph" x="420" y="30">Weitere Schutzziele</text>
+  <text class="h" x="420" y="62" style="font-size:12px">Authentizität</text>
+  <text class="s" x="420" y="79">Ist der Absender bzw. die Quelle echt?</text><text class="e" x="420" y="95">Zertifikat, Signatur, Anmeldung</text>
+  <text class="h" x="420" y="128" style="font-size:12px">Verbindlichkeit (Nichtabstreitbarkeit)</text>
+  <text class="s" x="420" y="145">Eine Handlung lässt sich nicht leugnen.</text><text class="e" x="420" y="161">qualifizierte digitale Signatur</text>
+  <text class="h" x="420" y="194" style="font-size:12px">Zurechenbarkeit</text>
+  <text class="s" x="420" y="211">Wer hat was wann getan?</text><text class="e" x="420" y="227">persönliche Konten, Protokollierung</text>
+</svg>

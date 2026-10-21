@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-labelledby="sv-title sv-desc">
+  <title id="sv-title">Vererbung des Schutzbedarfs nach dem Maximumprinzip</title>
+  <desc id="sv-desc">Beispiel eines Softwarehauses. Anwendungen mit Schutzbedarf für Vertraulichkeit, Integrität und Verfügbarkeit: A1 Lohnbuchhaltung hoch, hoch, normal. A3 Ticketsystem normal, normal, hoch. A2 Git-Server hoch, hoch, normal. A4 Firmen-Website normal, hoch, normal. Server S1 betreibt A1 und A3 und erbt je Schutzziel den höchsten Wert: hoch, hoch, hoch. Server S2 betreibt A2: hoch, hoch, normal. S3 beim Webhoster betreibt A4: normal, hoch, normal. Der Serverraum enthält S1 und S2 und erbt hoch, hoch, hoch.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .bx { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 11.5px; }
+      .bt { font-size: 10.5px; font-weight: 700; text-anchor: middle; }
+      .row { font-size: 10.5px; font-weight: 700; fill: #495057; letter-spacing: .04em; }
+      .ln { stroke: #6c757d; stroke-width: 1.5; }
+      .s { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <text class="row" x="20" y="28">ANWENDUNGEN</text>
+  <rect class="bx" x="20" y="36" width="160" height="58" rx="6"/><text class="h" x="28" y="55">A1 Lohnbuchhaltung</text><rect x="28" y="66" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="51" y="79">V: H</text><rect x="78" y="66" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="101" y="79">I: H</text><rect x="128" y="66" width="46" height="18" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="151" y="79">A: N</text>
+  <rect class="bx" x="195" y="36" width="160" height="58" rx="6"/><text class="h" x="203" y="55">A3 Ticketsystem</text><rect x="203" y="66" width="46" height="18" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="226" y="79">V: N</text><rect x="253" y="66" width="46" height="18" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="276" y="79">I: N</text><rect x="303" y="66" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="326" y="79">A: H</text>
+  <rect class="bx" x="370" y="36" width="160" height="58" rx="6"/><text class="h" x="378" y="55">A2 Git-Server</text><rect x="378" y="66" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="401" y="79">V: H</text><rect x="428" y="66" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="451" y="79">I: H</text><rect x="478" y="66" width="46" height="18" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="501" y="79">A: N</text>
+  <rect class="bx" x="545" y="36" width="160" height="58" rx="6"/><text class="h" x="553" y="55">A4 Firmen-Website</text><rect x="553" y="66" width="46" height="18" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="576" y="79">V: N</text><rect x="603" y="66" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="626" y="79">I: H</text><rect x="653" y="66" width="46" height="18" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="676" y="79">A: N</text>
+  <text class="row" x="20" y="140">IT-SYSTEME</text>
+  <line class="ln" x1="100" y1="94" x2="150" y2="148"/><line class="ln" x1="275" y1="94" x2="230" y2="148"/><line class="ln" x1="450" y1="94" x2="450" y2="148"/><line class="ln" x1="625" y1="94" x2="625" y2="148"/>
+  <rect class="bx" x="95" y="148" width="190" height="58" rx="6"/><text class="h" x="103" y="167">S1 Server intern (A1, A3)</text><rect x="103" y="178" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="126" y="191">V: H</text><rect x="153" y="178" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="176" y="191">I: H</text><rect x="203" y="178" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="226" y="191">A: H</text>
+  <rect class="bx" x="370" y="148" width="160" height="58" rx="6"/><text class="h" x="378" y="167">S2 Git-Server</text><rect x="378" y="178" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="401" y="191">V: H</text><rect x="428" y="178" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="451" y="191">I: H</text><rect x="478" y="178" width="46" height="18" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="501" y="191">A: N</text>
+  <rect class="bx" x="545" y="148" width="160" height="58" rx="6"/><text class="h" x="553" y="167">S3 beim Webhoster</text><rect x="553" y="178" width="46" height="18" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="576" y="191">V: N</text><rect x="603" y="178" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="626" y="191">I: H</text><rect x="653" y="178" width="46" height="18" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="676" y="191">A: N</text>
+  <text class="s" x="545" y="224">extern: Vertrag und AVV prüfen</text>
+  <text class="row" x="20" y="252">RÄUME</text>
+  <line class="ln" x1="190" y1="206" x2="190" y2="260"/><line class="ln" x1="450" y1="206" x2="450" y2="260"/>
+  <rect class="bx" x="95" y="260" width="435" height="58" rx="6"/><text class="h" x="103" y="279">Serverraum (S1, S2)</text><rect x="103" y="290" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="126" y="303">V: H</text><rect x="153" y="290" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="176" y="303">I: H</text><rect x="203" y="290" width="46" height="18" rx="4" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="226" y="303">A: H</text>
+  <rect x="560" y="262" width="26" height="15" rx="3" fill="#d1e7dd" stroke="#198754"/><text class="bt" x="573" y="273.5">N</text><text class="s" x="594" y="274">normal</text>
+  <rect x="560" y="282" width="26" height="15" rx="3" fill="#fff3cd" stroke="#b98900"/><text class="bt" x="573" y="293.5">H</text><text class="s" x="594" y="294">hoch</text>
+  <rect x="560" y="302" width="26" height="15" rx="3" fill="#f8d7da" stroke="#b02a37"/><text class="bt" x="573" y="313.5">SH</text><text class="s" x="594" y="314">sehr hoch</text>
+  <text class="s" x="290" y="285" style="font-weight:700">Maximumprinzip:</text><text class="s" x="290" y="301">je Schutzziel der höchste Wert</text>
+</svg>

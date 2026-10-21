@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="pb-title pb-desc">
+  <title id="pb-title">Personenbezogen, pseudonymisiert, anonymisiert</title>
+  <desc id="pb-desc">Links personenbezogene Daten, zum Beispiel Anna Schmidt, anna@example.org, kaufte am 3. März drei Artikel. Die DSGVO gilt. Pfeil: Namen durch eine Kennung ersetzen, Zuordnungstabelle getrennt und geschützt aufbewahren. Mitte pseudonymisierte Daten: Kunde K-4711 kaufte am 3. März drei Artikel. Mit der Zuordnungstabelle ist die Person wieder bestimmbar, deshalb gilt die DSGVO weiter, das Risiko ist aber geringer. Pfeil: Personenbezug endgültig entfernen, etwa durch Zusammenfassen. Rechts anonymisierte Daten: Im März kauften 120 Kunden aus Köln im Schnitt 2,4 Artikel. Die DSGVO gilt nicht mehr. Hinweis: Wenige Merkmale zusammen wie Postleitzahl, Geburtsdatum und Geschlecht können eine Person wieder identifizierbar machen.</desc>
+  <defs>
+    <marker id="pb-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .p1 { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.4; }
+      .p2 { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .p3 { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#pb-arr); fill: none; }
+      .al { font-size: 10.5px; fill: #495057; text-anchor: middle; }
+    </style>
+  </defs>
+  <rect class="p1" x="14" y="16" width="200" height="140" rx="8"/><text class="h c" x="114" y="38">personenbezogen</text>
+  <text class="m" x="26" y="64">Anna Schmidt,</text><text class="m" x="26" y="80">anna@example.org,</text><text class="m" x="26" y="96">kaufte am 3.3.</text><text class="m" x="26" y="112">3 Artikel</text>
+  <text class="s" x="26" y="142" style="font-weight:700">DSGVO gilt</text>
+  <rect class="p2" x="260" y="16" width="200" height="140" rx="8"/><text class="h c" x="360" y="38">pseudonymisiert</text>
+  <text class="m" x="272" y="64">Kunde K-4711</text><text class="m" x="272" y="80">kaufte am 3.3.</text><text class="m" x="272" y="96">3 Artikel</text>
+  <text class="s" x="272" y="124">Zuordnung K-4711 → Anna</text><text class="s" x="272" y="142" style="font-weight:700">DSGVO gilt, Risiko geringer</text>
+  <rect class="p3" x="506" y="16" width="200" height="140" rx="8"/><text class="h c" x="606" y="38">anonymisiert</text>
+  <text class="m" x="518" y="64">Im März kauften</text><text class="m" x="518" y="80">120 Kunden aus Köln</text><text class="m" x="518" y="96">im Schnitt 2,4 Artikel</text>
+  <text class="s" x="518" y="142" style="font-weight:700">DSGVO gilt nicht</text>
+  <path class="ar" d="M214,86 H256"/><path class="ar" d="M460,86 H502"/>
+  <text class="al" x="237" y="176">Name durch</text><text class="al" x="237" y="190">Kennung ersetzen</text>
+  <text class="al" x="483" y="176">Bezug endgültig</text><text class="al" x="483" y="190">entfernen</text>
+  <text class="s" x="14" y="218">Vorsicht: Wenige Merkmale zusammen (PLZ, Geburtsdatum, Geschlecht) können eine Person wieder identifizierbar machen.</text>
+</svg>

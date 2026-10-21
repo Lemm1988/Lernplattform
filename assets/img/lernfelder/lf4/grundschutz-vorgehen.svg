@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="gv-title gv-desc">
+  <title id="gv-title">Vorgehen nach IT-Grundschutz (Standard-Absicherung)</title>
+  <desc id="gv-desc">Acht Schritte nach BSI-Standard 200-2. 1 Initiierung: Leitlinie der Leitung, Rollen und Budget. 2 Strukturanalyse: Geschäftsprozesse, Anwendungen, IT-Systeme, Räume und Netze erfassen. 3 Schutzbedarfsfeststellung: normal, hoch oder sehr hoch je Zielobjekt. 4 Modellierung: passende Bausteine aus dem IT-Grundschutz-Kompendium zuordnen. 5 IT-Grundschutz-Check: Soll-Ist-Vergleich, ob Anforderungen erfüllt, teilweise erfüllt, nicht erfüllt oder entbehrlich sind. 6 Risikoanalyse nach BSI-Standard 200-3 bei hohem Schutzbedarf oder wenn kein Baustein passt. 7 Umsetzung: Maßnahmen priorisieren, Kosten, Termine und Verantwortliche festlegen. 8 Aufrechterhaltung: prüfen und verbessern, bei Änderungen wiederholen. Daneben: Basis-Absicherung setzt nur die Basis-Anforderungen um und eignet sich als Einstieg; Kern-Absicherung schützt zuerst die wichtigsten Werte.</desc>
+  <defs>
+    <marker id="gv-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .bx { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .hi { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .ra { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .n { font-weight: 800; font-size: 14px; fill: #0a58ca; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 10.8px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#gv-arr); fill: none; }
+      .note { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <rect class="bx" x="20" y="16" width="210" height="72" rx="6"/><text class="n" x="30" y="38">1</text><text class="h" x="46" y="38">Initiierung</text>
+  <text class="s" x="30" y="58">Leitlinie der Leitung,</text><text class="s" x="30" y="74">Rollen und Budget</text>
+  <rect class="bx" x="255" y="16" width="210" height="72" rx="6"/><text class="n" x="265" y="38">2</text><text class="h" x="281" y="38">Strukturanalyse</text>
+  <text class="s" x="265" y="58">Prozesse, Anwendungen, IT-Systeme,</text><text class="s" x="265" y="74">Räume und Netze erfassen</text>
+  <rect class="hi" x="490" y="16" width="210" height="72" rx="6"/><text class="n" x="500" y="38">3</text><text class="h" x="516" y="38">Schutzbedarfsfeststellung</text>
+  <text class="s" x="500" y="58">normal, hoch oder sehr hoch</text><text class="s" x="500" y="74">je Zielobjekt (Kapitel 4)</text>
+
+  <rect class="bx" x="490" y="116" width="210" height="72" rx="6"/><text class="n" x="500" y="138">4</text><text class="h" x="516" y="138">Modellierung</text>
+  <text class="s" x="500" y="158">passende Bausteine aus dem</text><text class="s" x="500" y="174">Kompendium zuordnen</text>
+  <rect class="bx" x="255" y="116" width="210" height="72" rx="6"/><text class="n" x="265" y="138">5</text><text class="h" x="281" y="138">IT-Grundschutz-Check</text>
+  <text class="s" x="265" y="158">Soll-Ist-Vergleich: erfüllt, teilweise,</text><text class="s" x="265" y="174">nicht erfüllt oder entbehrlich</text>
+  <rect class="ra" x="20" y="116" width="210" height="72" rx="6"/><text class="n" x="30" y="138">6</text><text class="h" x="46" y="138">Risikoanalyse (200-3)</text>
+  <text class="s" x="30" y="158">bei hohem Schutzbedarf oder</text><text class="s" x="30" y="174">wenn kein Baustein passt</text>
+
+  <rect class="bx" x="20" y="216" width="210" height="72" rx="6"/><text class="n" x="30" y="238">7</text><text class="h" x="46" y="238">Umsetzung</text>
+  <text class="s" x="30" y="258">Maßnahmen priorisieren, Kosten,</text><text class="s" x="30" y="274">Termine, Verantwortliche</text>
+  <rect class="bx" x="255" y="216" width="210" height="72" rx="6"/><text class="n" x="265" y="238">8</text><text class="h" x="281" y="238">Aufrechterhaltung</text>
+  <text class="s" x="265" y="258">prüfen und verbessern (PDCA),</text><text class="s" x="265" y="274">bei Änderungen wiederholen</text>
+
+  <path class="ar" d="M230,52 H251"/><path class="ar" d="M465,52 H486"/><path class="ar" d="M595,88 V112"/>
+  <path class="ar" d="M490,152 H469"/><path class="ar" d="M255,152 H234"/><path class="ar" d="M125,188 V212"/><path class="ar" d="M230,252 H251"/>
+
+  <text class="note" x="490" y="232" style="font-weight:700">Andere Wege nach 200-2:</text>
+  <text class="note" x="490" y="250">Basis-Absicherung: nur Basis-</text>
+  <text class="note" x="490" y="264">Anforderungen, schneller Einstieg</text>
+  <text class="note" x="490" y="282">Kern-Absicherung: Kronjuwelen zuerst</text>
+</svg>

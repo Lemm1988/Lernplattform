@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 310" role="img" aria-labelledby="rm-title rm-desc">
+  <title id="rm-title">Risikomatrix</title>
+  <desc id="rm-desc">Eine Matrix mit vier Stufen der Eintrittswahrscheinlichkeit (selten, möglich, wahrscheinlich, häufig, von unten nach oben) und vier Stufen der Schadenshöhe (gering, begrenzt, beträchtlich, existenzbedrohend, von links nach rechts). Das Risiko ergibt sich aus dem Produkt der Stufen: gering, mittel, hoch oder sehr hoch. Eingetragen sind vier Beispiele: 1 Mitarbeiter klickt Phishing-Link, wahrscheinlich und beträchtlich, sehr hohes Risiko. 2 Festplattendefekt bei vorhandenem RAID, möglich und begrenzt, mittleres Risiko. 3 Brand im Serverraum, selten und existenzbedrohend, mittleres Risiko. 4 Ransomware ohne Offline-Backup, möglich und existenzbedrohend, hohes Risiko.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .cl { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .ax { font-size: 11px; font-weight: 700; fill: #495057; }
+      .tk { font-size: 10.5px; fill: #343a40; }
+      .n { fill: #212529; }
+      .nt { fill: #fff; font-weight: 700; font-size: 11px; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <rect x="160" y="190" width="88" height="52" fill="#d1e7dd" stroke="#fff" stroke-width="2"/><text class="cl" x="204.0" y="234">gering</text>
+  <rect x="248" y="190" width="88" height="52" fill="#d1e7dd" stroke="#fff" stroke-width="2"/><text class="cl" x="292.0" y="234">gering</text>
+  <rect x="336" y="190" width="88" height="52" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="cl" x="380.0" y="234">mittel</text>
+  <rect x="424" y="190" width="88" height="52" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="cl" x="468.0" y="234">mittel</text>
+  <rect x="160" y="138" width="88" height="52" fill="#d1e7dd" stroke="#fff" stroke-width="2"/><text class="cl" x="204.0" y="182">gering</text>
+  <rect x="248" y="138" width="88" height="52" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="cl" x="292.0" y="182">mittel</text>
+  <rect x="336" y="138" width="88" height="52" fill="#ffe5d0" stroke="#fff" stroke-width="2"/><text class="cl" x="380.0" y="182">hoch</text>
+  <rect x="424" y="138" width="88" height="52" fill="#ffe5d0" stroke="#fff" stroke-width="2"/><text class="cl" x="468.0" y="182">hoch</text>
+  <rect x="160" y="86" width="88" height="52" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="cl" x="204.0" y="130">mittel</text>
+  <rect x="248" y="86" width="88" height="52" fill="#ffe5d0" stroke="#fff" stroke-width="2"/><text class="cl" x="292.0" y="130">hoch</text>
+  <rect x="336" y="86" width="88" height="52" fill="#f8d7da" stroke="#fff" stroke-width="2"/><text class="cl" x="380.0" y="130">sehr hoch</text>
+  <rect x="424" y="86" width="88" height="52" fill="#f8d7da" stroke="#fff" stroke-width="2"/><text class="cl" x="468.0" y="130">sehr hoch</text>
+  <rect x="160" y="34" width="88" height="52" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="cl" x="204.0" y="78">mittel</text>
+  <rect x="248" y="34" width="88" height="52" fill="#ffe5d0" stroke="#fff" stroke-width="2"/><text class="cl" x="292.0" y="78">hoch</text>
+  <rect x="336" y="34" width="88" height="52" fill="#f8d7da" stroke="#fff" stroke-width="2"/><text class="cl" x="380.0" y="78">sehr hoch</text>
+  <rect x="424" y="34" width="88" height="52" fill="#f8d7da" stroke="#fff" stroke-width="2"/><text class="cl" x="468.0" y="78">sehr hoch</text>
+  <text class="tk" x="152" y="220.0" style="text-anchor:end">selten</text>
+  <text class="tk" x="152" y="168.0" style="text-anchor:end">möglich</text>
+  <text class="tk" x="152" y="116.0" style="text-anchor:end">wahrscheinlich</text>
+  <text class="tk" x="152" y="64.0" style="text-anchor:end">häufig</text>
+  <text class="tk c" x="204.0" y="258">gering</text>
+  <text class="tk c" x="292.0" y="258">begrenzt</text>
+  <text class="tk c" x="380.0" y="258">beträchtlich</text>
+  <text class="tk c" x="468.0" y="258">existenz-</text>
+  <text class="tk c" x="468.0" y="271">bedrohend</text>
+  <text class="ax" x="20" y="20">↑ Eintrittswahrscheinlichkeit</text>
+  <text class="ax c" x="336" y="290">Schadenshöhe →</text>
+  <circle class="n" cx="380.0" cy="104.0" r="10"/><text class="nt" x="380.0" y="108.0">1</text>
+  <circle class="n" cx="292.0" cy="156.0" r="10"/><text class="nt" x="292.0" y="160.0">2</text>
+  <circle class="n" cx="468.0" cy="208.0" r="10"/><text class="nt" x="468.0" y="212.0">3</text>
+  <circle class="n" cx="468.0" cy="156.0" r="10"/><text class="nt" x="468.0" y="160.0">4</text>
+  <circle class="n" cx="536" cy="44" r="8"/><text class="nt" x="536" y="48">1</text><text class="s" x="550" y="48">Mitarbeiter klickt</text>
+  <text class="s" x="550" y="62">Phishing-Link</text>
+  <circle class="n" cx="536" cy="82" r="8"/><text class="nt" x="536" y="86">2</text><text class="s" x="550" y="86">Festplattendefekt</text>
+  <text class="s" x="550" y="100">(RAID vorhanden)</text>
+  <circle class="n" cx="536" cy="120" r="8"/><text class="nt" x="536" y="124">3</text><text class="s" x="550" y="124">Brand im Serverraum</text>
+  <circle class="n" cx="536" cy="158" r="8"/><text class="nt" x="536" y="162">4</text><text class="s" x="550" y="162">Ransomware ohne</text>
+  <text class="s" x="550" y="176">Offline-Backup</text>
+  <text class="s" x="528" y="212" style="font-weight:700">Risiko = Wahrscheinlichkeit</text><text class="s" x="528" y="226" style="font-weight:700">× Schadenshöhe</text>
+</svg>
