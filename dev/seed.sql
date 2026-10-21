@@ -14,7 +14,7 @@ INSERT INTO `users` (`id`, `username`, `email`, `password_hash`, `role`, `is_act
 INSERT INTO `learning_fields` (`id`, `lf_number`, `title`, `description`, `specialization`, `sort_order`) VALUES
 (1,  'LF1',  'Unternehmen und eigene Rolle', NULL, 'all', 1),
 (2,  'LF2',  'Geschäftsprozesse und betriebliche Organisation', NULL, 'all', 2),
-(3,  'LF3',  'Informationsquellen und Arbeitsmethoden', NULL, 'all', 3),
+(3,  'LF3',  'Clients in Netzwerke einbinden', NULL, 'all', 3),
 (4,  'LF4',  'Schutzbedarfsanalyse im eigenen Arbeitsbereich durchführen', NULL, 'all', 4),
 (5,  'LF5',  'Software zur Verwaltung von Daten anpassen', NULL, 'all', 5),
 (6,  'LF6',  'Serviceanfragen bearbeiten', NULL, 'all', 6),
@@ -40,7 +40,7 @@ INSERT INTO `site_sections` (`id`, `name`, `url_path`, `icon`, `section_type`, `
 (5,  'Nachrichten',        '/users/kontakt.php',                         'bi-envelope',         'main', 5, 'admin,moderator,student'),
 (10, 'LF1 Unternehmen & Rolle',          '/Learningfields/LF1/index.php',  'bi-building',     'lernfelder', 1,  'admin,moderator,student'),
 (11, 'LF2 Geschäftsprozesse',            '/Learningfields/LF2/index.php',  'bi-diagram-3',    'lernfelder', 2,  'admin,moderator,student'),
-(12, 'LF3 Arbeitsmethoden',              '/Learningfields/LF3/index.php',  'bi-search',       'lernfelder', 3,  'admin,moderator,student'),
+(12, 'LF3 Clients im Netzwerk',          '/Learningfields/LF3/index.php',  'bi-diagram-3',    'lernfelder', 3,  'admin,moderator,student'),
 (13, 'LF4 Schutzbedarfsanalyse',         '/Learningfields/LF4/index.php',  'bi-shield-lock',  'lernfelder', 4,  'admin,moderator,student'),
 (14, 'LF5 Daten verwalten',            '/Learningfields/LF5/index.php',  'bi-database',     'lernfelder', 5,  'admin,moderator,student'),
 (15, 'LF6 Serviceanfragen',              '/Learningfields/LF6/index.php',  'bi-headset',      'lernfelder', 6,  'admin,moderator,student'),

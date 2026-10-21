@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="wk2-title wk2-desc">
+  <title id="wk2-title">WLAN-Kanäle im 2,4-GHz-Band</title>
+  <desc id="wk2-desc">Im 2,4-GHz-Band liegen in Europa 13 Kanäle im Abstand von 5 MHz, die Mittenfrequenzen reichen von 2412 MHz (Kanal 1) bis 2472 MHz (Kanal 13). Ein Kanal ist etwa 20 MHz breit, deshalb überlappen benachbarte Kanäle. Überlappungsfrei sind zum Beispiel die Kanäle 1, 6 und 11; sie sind farbig hervorgehoben. Access Points in Reichweite zueinander sollten nicht überlappende Kanäle nutzen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .ax { stroke: #495057; stroke-width: 1.4; }
+      .tk { font-size: 10.5px; fill: #495057; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; }
+      .h { font-weight: 700; font-size: 12px; }
+    </style>
+  </defs>
+  <path d="M95.7,150 L126.2,80 L232.9,80 L263.3,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M133.8,150 L164.3,80 L271.0,80 L301.4,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M171.9,150 L202.4,80 L309.0,80 L339.5,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M210.0,150 L240.5,80 L347.1,80 L377.6,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M286.2,150 L316.7,80 L423.3,80 L453.8,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M324.3,150 L354.8,80 L461.4,80 L491.9,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M362.4,150 L392.9,80 L499.5,80 L530.0,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M400.5,150 L431.0,80 L537.6,80 L568.1,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M476.7,150 L507.1,80 L613.8,80 L644.3,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M514.8,150 L545.2,80 L651.9,80 L682.4,150" fill="none" stroke="#ced4da" stroke-width="1.2"/>
+  <path d="M57.6,150 L88.1,60 L194.8,60 L225.2,150 Z" fill="#0d6efd" fill-opacity="0.18" stroke="#0d6efd" stroke-width="2"/>
+  <text class="h c" x="141.4" y="52" style="fill:#0d6efd">Kanal 1</text>
+  <path d="M248.1,150 L278.6,60 L385.2,60 L415.7,150 Z" fill="#198754" fill-opacity="0.18" stroke="#198754" stroke-width="2"/>
+  <text class="h c" x="331.9" y="52" style="fill:#198754">Kanal 6</text>
+  <path d="M438.6,150 L469.0,60 L575.7,60 L606.2,150 Z" fill="#fd7e14" fill-opacity="0.18" stroke="#fd7e14" stroke-width="2"/>
+  <text class="h c" x="522.4" y="52" style="fill:#fd7e14">Kanal 11</text>
+  <line class="ax" x1="50" y1="150" x2="690" y2="150"/>
+  <line class="ax" x1="141.4" y1="150" x2="141.4" y2="155"/><text class="tk" x="141.4" y="168">1</text>
+  <line class="ax" x1="179.5" y1="150" x2="179.5" y2="155"/><text class="tk" x="179.5" y="168">2</text>
+  <line class="ax" x1="217.6" y1="150" x2="217.6" y2="155"/><text class="tk" x="217.6" y="168">3</text>
+  <line class="ax" x1="255.7" y1="150" x2="255.7" y2="155"/><text class="tk" x="255.7" y="168">4</text>
+  <line class="ax" x1="293.8" y1="150" x2="293.8" y2="155"/><text class="tk" x="293.8" y="168">5</text>
+  <line class="ax" x1="331.9" y1="150" x2="331.9" y2="155"/><text class="tk" x="331.9" y="168">6</text>
+  <line class="ax" x1="370.0" y1="150" x2="370.0" y2="155"/><text class="tk" x="370.0" y="168">7</text>
+  <line class="ax" x1="408.1" y1="150" x2="408.1" y2="155"/><text class="tk" x="408.1" y="168">8</text>
+  <line class="ax" x1="446.2" y1="150" x2="446.2" y2="155"/><text class="tk" x="446.2" y="168">9</text>
+  <line class="ax" x1="484.3" y1="150" x2="484.3" y2="155"/><text class="tk" x="484.3" y="168">10</text>
+  <line class="ax" x1="522.4" y1="150" x2="522.4" y2="155"/><text class="tk" x="522.4" y="168">11</text>
+  <line class="ax" x1="560.5" y1="150" x2="560.5" y2="155"/><text class="tk" x="560.5" y="168">12</text>
+  <line class="ax" x1="598.6" y1="150" x2="598.6" y2="155"/><text class="tk" x="598.6" y="168">13</text>
+  <text class="tk" x="141.4" y="184">2412</text>
+  <text class="tk" x="331.9" y="184">2437</text>
+  <text class="tk" x="522.4" y="184">2462</text>
+  <text class="tk" x="598.6" y="184">2472</text>
+  <text class="s" x="50" y="184" style="text-anchor:end;font-size:10.5px">MHz</text>
+  <text class="s" x="50" y="210">Kanalabstand 5 MHz, Kanalbreite ca. 20 MHz → benachbarte Kanäle überlappen. Überlappungsfrei: 1, 6, 11.</text>
+</svg>

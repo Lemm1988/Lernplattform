@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" role="img" aria-labelledby="dx-title dx-desc">
+  <title id="dx-title">Simplex, Halbduplex, Vollduplex</title>
+  <desc id="dx-desc">Simplex: Daten fließen nur in eine Richtung von A nach B, etwa beim Rundfunk. Halbduplex: Beide Richtungen sind möglich, aber nur abwechselnd, etwa beim Funkgerät, im WLAN oder am Hub. Vollduplex: Beide Seiten senden gleichzeitig, etwa beim Telefonat oder an einem Switch-Port.</desc>
+  <defs>
+    <marker id="dx-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#0d6efd"/></marker>
+    <marker id="dx-arr2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#fd7e14"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .bx { fill: #343a40; }
+      .bt { fill: #fff; font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .a1 { stroke: #0d6efd; stroke-width: 2.4; marker-end: url(#dx-arr); }
+      .a2 { stroke: #fd7e14; stroke-width: 2.4; marker-end: url(#dx-arr2); }
+      .a2d { stroke: #fd7e14; stroke-width: 2.4; stroke-dasharray: 6 4; marker-end: url(#dx-arr2); }
+      .a1d { stroke: #0d6efd; stroke-width: 2.4; stroke-dasharray: 6 4; marker-end: url(#dx-arr); }
+      .h { font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; text-anchor: middle; }
+    </style>
+  </defs>
+  <text class="h" x="120" y="22">Simplex</text>
+  <rect class="bx" x="20" y="48" width="40" height="40" rx="6"/><text class="bt" x="40" y="73">A</text>
+  <rect class="bx" x="180" y="48" width="40" height="40" rx="6"/><text class="bt" x="200" y="73">B</text>
+  <line class="a1" x1="64" y1="68" x2="174" y2="68"/>
+  <text class="s" x="120" y="118">nur eine Richtung</text><text class="s" x="120" y="134">Rundfunk, Sensor → Anzeige</text>
+
+  <text class="h" x="360" y="22">Halbduplex</text>
+  <rect class="bx" x="260" y="48" width="40" height="40" rx="6"/><text class="bt" x="280" y="73">A</text>
+  <rect class="bx" x="420" y="48" width="40" height="40" rx="6"/><text class="bt" x="440" y="73">B</text>
+  <line class="a1" x1="304" y1="60" x2="414" y2="60"/><line class="a2d" x1="414" y1="78" x2="304" y2="78"/>
+  <text class="s" x="360" y="118">beide Richtungen, abwechselnd</text><text class="s" x="360" y="134">Funkgerät, WLAN, Hub</text>
+
+  <text class="h" x="600" y="22">Vollduplex</text>
+  <rect class="bx" x="500" y="48" width="40" height="40" rx="6"/><text class="bt" x="520" y="73">A</text>
+  <rect class="bx" x="660" y="48" width="40" height="40" rx="6"/><text class="bt" x="680" y="73">B</text>
+  <line class="a1" x1="544" y1="60" x2="654" y2="60"/><line class="a2" x1="654" y1="78" x2="544" y2="78"/>
+  <text class="s" x="600" y="118">beide Richtungen gleichzeitig</text><text class="s" x="600" y="134">Telefon, Switch-Port</text>
+  <text class="s" x="360" y="168">Ein Gigabit-Port im Vollduplex überträgt 1 Gbit/s in jede Richtung gleichzeitig.</text>
+</svg>

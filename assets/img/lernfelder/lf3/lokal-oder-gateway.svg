@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="lg-title lg-desc">
+  <title id="lg-title">Wie ein Client entscheidet: direkt oder über das Gateway</title>
+  <desc id="lg-desc">Ein PC mit 192.168.10.23 und Maske 255.255.255.0 will ein Paket senden. Er verknüpft seine eigene Adresse und die Zieladresse jeweils per UND mit der Maske. Ergibt sich dasselbe Netz, liegt das Ziel lokal: Er ermittelt per ARP die MAC-Adresse des Ziels und sendet direkt, zum Beispiel an 192.168.10.80. Ist das Netz verschieden, schickt er den Frame an die MAC-Adresse des Standardgateways 192.168.10.1, zum Beispiel für 192.168.20.5 oder eine Adresse im Internet. Die Ziel-IP im Paket bleibt in beiden Fällen die des eigentlichen Ziels.</desc>
+  <defs>
+    <marker id="lg-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .st { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .dc { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .ok { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .gw { fill: #ffe5d0; stroke: #fd7e14; stroke-width: 1.4; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .ar { stroke: #495057; stroke-width: 1.6; marker-end: url(#lg-arr); fill: none; }
+    </style>
+  </defs>
+  <rect class="st" x="20" y="20" width="250" height="56" rx="6"/><text class="h" x="32" y="40">PC</text>
+  <text class="m" x="32" y="58">192.168.10.23 / 255.255.255.0</text><text class="m" x="32" y="72">Gateway 192.168.10.1</text>
+  <path class="ar" d="M145,76 V100"/>
+  <rect class="dc" x="20" y="104" width="250" height="56" rx="28"/><text class="h c" x="145" y="126">eigene IP UND Maske</text><text class="h c" x="145" y="144">= Ziel-IP UND Maske?</text>
+  <path class="ar" d="M270,132 H330 V60 H366"/><text class="s" x="290" y="124">ja: lokal</text>
+  <path class="ar" d="M270,132 H330 V200 H366"/><text class="s" x="244" y="180">nein: entfernt</text>
+  <rect class="ok" x="370" y="24" width="336" height="72" rx="8"/><text class="h" x="382" y="44">direkt zustellen</text>
+  <text class="s" x="382" y="62">ARP: „Wer hat 192.168.10.80?“ → MAC des Ziels</text>
+  <text class="s" x="382" y="80">Frame geht direkt an den Zielrechner</text>
+  <rect class="gw" x="370" y="164" width="336" height="72" rx="8"/><text class="h" x="382" y="184">an das Standardgateway</text>
+  <text class="s" x="382" y="202">ARP: „Wer hat 192.168.10.1?“ → MAC des Routers</text>
+  <text class="s" x="382" y="220">z. B. für 192.168.20.5 oder 8.8.8.8</text>
+  <text class="s" x="20" y="196">Die Ziel-IP im Paket bleibt immer</text><text class="s" x="20" y="212">die des eigentlichen Ziels – nur die</text><text class="s" x="20" y="228">Ziel-MAC zeigt auf das Gateway.</text>
+</svg>

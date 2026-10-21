@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 320" role="img" aria-labelledby="cm-title cm-desc">
+  <title id="cm-title">Zugriffsverfahren CSMA/CD und CSMA/CA</title>
+  <desc id="cm-desc">Links CSMA/CD, Collision Detection, im klassischen Ethernet mit Hub und Halbduplex: Medium abhören; ist es frei, senden und dabei mithören; wird eine Kollision erkannt, ein Störsignal senden, eine zufällige Zeit warten und neu beginnen; sonst ist die Übertragung fertig. Rechts CSMA/CA, Collision Avoidance, im WLAN: Medium abhören; ist es frei, zusätzlich eine zufällige Zeit warten, optional mit RTS und CTS das Medium reservieren, dann senden. Der Empfänger bestätigt jeden Frame mit einem ACK; kommt kein ACK, wird erneut gesendet. Funk kann Kollisionen beim Senden nicht erkennen, deshalb versucht WLAN sie zu vermeiden.</desc>
+  <defs>
+    <marker id="cm-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .st { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .dc { fill: #fff3cd; stroke: #b98900; stroke-width: 1.3; }
+      .ok { fill: #d1e7dd; stroke: #198754; stroke-width: 1.3; }
+      .bad { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 13px; }
+      .t { font-size: 11px; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.5; marker-end: url(#cm-arr); fill: none; }
+    </style>
+  </defs>
+  <text class="h" x="20" y="22">CSMA/CD – Collision Detection</text><text class="s" x="20" y="38">klassisches Ethernet mit Hub (halbduplex)</text>
+  <rect class="st" x="60" y="50" width="200" height="28" rx="5"/><text class="t" x="160" y="68">Medium abhören</text>
+  <rect class="dc" x="60" y="94" width="200" height="28" rx="14"/><text class="t" x="160" y="112">frei?</text>
+  <rect class="st" x="60" y="138" width="200" height="28" rx="5"/><text class="t" x="160" y="156">senden und dabei mithören</text>
+  <rect class="dc" x="60" y="182" width="200" height="28" rx="14"/><text class="t" x="160" y="200">Kollision erkannt?</text>
+  <rect class="ok" x="60" y="232" width="200" height="28" rx="5"/><text class="t" x="160" y="250">fertig</text>
+  <rect class="bad" x="276" y="182" width="64" height="58" rx="5"/><text class="t" x="308" y="200">Jam-</text><text class="t" x="308" y="214">Signal,</text><text class="t" x="308" y="228">warten</text>
+  <path class="ar" d="M160,78 V90"/><path class="ar" d="M160,122 V134"/><path class="ar" d="M160,166 V178"/><path class="ar" d="M160,210 V228"/>
+  <text class="s" x="166" y="132">ja</text><text class="s" x="166" y="224">nein</text>
+  <path class="ar" d="M60,108 H40 V64 H56"/><text class="s" x="12" y="90">nein</text>
+  <path class="ar" d="M260,196 H272"/><text class="s" x="262" y="190">ja</text>
+  <path class="ar" d="M308,182 V64 H264"/>
+
+  <text class="h" x="380" y="22">CSMA/CA – Collision Avoidance</text><text class="s" x="380" y="38">WLAN: Funk erkennt Kollisionen nicht beim Senden</text>
+  <rect class="st" x="420" y="50" width="200" height="28" rx="5"/><text class="t" x="520" y="68">Medium abhören</text>
+  <rect class="dc" x="420" y="94" width="200" height="28" rx="14"/><text class="t" x="520" y="112">frei?</text>
+  <rect class="st" x="420" y="138" width="200" height="28" rx="5"/><text class="t" x="520" y="156">zufällige Zeit warten (Backoff)</text>
+  <rect class="st" x="420" y="182" width="200" height="28" rx="5"/><text class="t" x="520" y="200">optional RTS/CTS, dann senden</text>
+  <rect class="dc" x="420" y="226" width="200" height="28" rx="14"/><text class="t" x="520" y="244">ACK erhalten?</text>
+  <rect class="ok" x="420" y="276" width="200" height="28" rx="5"/><text class="t" x="520" y="294">fertig</text>
+  <path class="ar" d="M520,78 V90"/><path class="ar" d="M520,122 V134"/><path class="ar" d="M520,166 V178"/><path class="ar" d="M520,210 V222"/><path class="ar" d="M520,254 V272"/>
+  <text class="s" x="526" y="132">ja</text><text class="s" x="526" y="268">ja</text>
+  <path class="ar" d="M420,108 H400 V64 H416"/><text class="s" x="372" y="90">nein</text>
+  <path class="ar" d="M620,240 H660 V64 H624"/><text class="s" x="630" y="234">nein</text>
+  <text class="s" x="20" y="300">In geswitchten Netzen mit Vollduplex gibt es</text><text class="s" x="20" y="314">keine Kollisionen – CSMA/CD ist dort inaktiv.</text>
+</svg>

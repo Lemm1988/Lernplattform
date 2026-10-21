@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 284" role="img" aria-labelledby="ka-title ka-desc">
+  <title id="ka-title">Kapselung beim Senden</title>
+  <desc id="ka-desc">Beim Senden reicht jede Schicht die Daten nach unten und fügt einen eigenen Kopf hinzu. Die Anwendung erzeugt die Daten, etwa eine HTTP-Anfrage. Die Transportschicht setzt den TCP-Header mit Ports davor und bildet ein Segment. Die Vermittlungsschicht ergänzt den IP-Header mit IP-Adressen zum Paket. Die Sicherungsschicht setzt den Ethernet-Header mit MAC-Adressen davor und die Prüfsumme FCS dahinter, das ergibt den Frame. Die Bitübertragungsschicht überträgt ihn als Signale. Beim Empfänger wird in umgekehrter Reihenfolge ausgepackt.</desc>
+  <defs>
+    <marker id="ka-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .d { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.2; }
+      .t { fill: #d1e7dd; stroke: #198754; stroke-width: 1.2; }
+      .i { fill: #fff3cd; stroke: #b98900; stroke-width: 1.2; }
+      .e { fill: #ffe5d0; stroke: #fd7e14; stroke-width: 1.2; }
+      .b { font-size: 10.5px; font-weight: 700; text-anchor: middle; }
+      .lb { font-size: 11px; font-weight: 700; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .bits { font-family: ui-monospace, Consolas, monospace; font-size: 11px; fill: #495057; }
+      .ar { stroke: #495057; stroke-width: 1.5; marker-end: url(#ka-arr); }
+    </style>
+  </defs>
+  <text class="lb" x="14" y="38">Anwendung</text>
+  <rect class="d" x="400" y="22" width="200" height="26" rx="3"/><text class="b" x="500" y="39">Daten (z. B. HTTP-Anfrage)</text>
+  <text class="lb" x="14" y="86">Transport</text><text class="s" x="14" y="100">→ Segment</text>
+  <rect class="t" x="300" y="70" width="100" height="26" rx="3"/><text class="b" x="350" y="87">TCP-Header</text>
+  <rect class="d" x="400" y="70" width="200" height="26" rx="3"/><text class="b" x="500" y="87">Daten</text>
+  <text class="lb" x="14" y="134">Vermittlung</text><text class="s" x="14" y="148">→ Paket</text>
+  <rect class="i" x="200" y="118" width="100" height="26" rx="3"/><text class="b" x="250" y="135">IP-Header</text>
+  <rect class="t" x="300" y="118" width="100" height="26" rx="3"/><text class="b" x="350" y="135">TCP</text>
+  <rect class="d" x="400" y="118" width="200" height="26" rx="3"/><text class="b" x="500" y="135">Daten</text>
+  <text class="lb" x="14" y="182">Sicherung</text><text class="s" x="14" y="196">→ Frame</text>
+  <rect class="e" x="100" y="166" width="100" height="26" rx="3"/><text class="b" x="150" y="183">Ethernet-Header</text>
+  <rect class="i" x="200" y="166" width="100" height="26" rx="3"/><text class="b" x="250" y="183">IP</text>
+  <rect class="t" x="300" y="166" width="100" height="26" rx="3"/><text class="b" x="350" y="183">TCP</text>
+  <rect class="d" x="400" y="166" width="200" height="26" rx="3"/><text class="b" x="500" y="183">Daten</text>
+  <rect class="e" x="600" y="166" width="60" height="26" rx="3"/><text class="b" x="630" y="183">FCS</text>
+  <text class="lb" x="14" y="230">Bitübertragung</text>
+  <text class="bits" x="150" y="230">0110100101110010 0100101101011100 1110001011010010 0101 …</text>
+  <line class="ar" x1="680" y1="30" x2="680" y2="220"/><text class="s" x="672" y="250" style="text-anchor:end">Senden: einpacken · Empfangen: auspacken</text>
+  <text class="s" x="14" y="272"><tspan font-weight="700">TCP-Header:</tspan> Ports · <tspan font-weight="700">IP-Header:</tspan> IP-Adressen · <tspan font-weight="700">Ethernet-Header:</tspan> MAC-Adressen · <tspan font-weight="700">FCS:</tspan> Prüfsumme</text>
+</svg>

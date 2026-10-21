@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="us-title us-desc">
+  <title id="us-title">USV-Typen nach EN 62040-3</title>
+  <desc id="us-desc">Drei Bauarten unterbrechungsfreier Stromversorgungen. VFD, Offline oder Standby: Die Last hängt direkt am Netz; fällt es aus, schaltet ein Umschalter auf den Wechselrichter mit Akku um, mit kurzer Umschaltzeit. Günstig, für Arbeitsplatz-PCs. VI, Line-Interactive: Ein Spannungsregler gleicht Über- und Unterspannung aus, bei Ausfall übernimmt der Akku. Mittlere Preisklasse, für kleine Server und Netzwerktechnik. VFI, Online oder Doppelwandler: Der Strom läuft immer über Gleichrichter, Akku und Wechselrichter; die Last ist vollständig vom Netz entkoppelt, ohne Umschaltzeit. Teurer, für Server und Rechenzentren.</desc>
+  <defs>
+    <marker id="us-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .bx { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.2; }
+      .bat { fill: #d1e7dd; stroke: #198754; stroke-width: 1.2; }
+      .ld { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.2; }
+      .t { font-size: 10px; font-weight: 700; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .p { stroke: #fd7e14; stroke-width: 2.2; fill: none; marker-end: url(#us-arr); }
+      .sb { stroke: #adb5bd; stroke-width: 1.6; stroke-dasharray: 4 3; fill: none; marker-end: url(#us-arr); }
+    </style>
+  </defs>
+  <text class="h" x="14" y="22">VFD – Offline/Standby</text>
+  <rect class="bx" x="14" y="36" width="56" height="28" rx="4"/><text class="t" x="42" y="54">Netz</text>
+  <rect class="bx" x="120" y="36" width="70" height="28" rx="4"/><text class="t" x="155" y="54">Umschalter</text>
+  <rect class="ld" x="236" y="36" width="56" height="28" rx="4"/><text class="t" x="264" y="54">Last</text>
+  <rect class="bat" x="120" y="78" width="70" height="26" rx="4"/><text class="t" x="155" y="95">Akku + WR</text>
+  <path class="p" d="M70,50 H116"/><path class="p" d="M190,50 H232"/><path class="sb" d="M155,78 V68"/>
+  <text class="s" x="320" y="46">Last direkt am Netz; bei Ausfall Umschaltung (Millisekunden)</text>
+  <text class="s" x="320" y="62">günstig · Arbeitsplatz-PCs</text>
+
+  <text class="h" x="14" y="128">VI – Line-Interactive</text>
+  <rect class="bx" x="14" y="142" width="56" height="28" rx="4"/><text class="t" x="42" y="160">Netz</text>
+  <rect class="bx" x="120" y="142" width="70" height="28" rx="4"/><text class="t" x="155" y="160">Regler</text>
+  <rect class="ld" x="236" y="142" width="56" height="28" rx="4"/><text class="t" x="264" y="160">Last</text>
+  <rect class="bat" x="120" y="184" width="70" height="26" rx="4"/><text class="t" x="155" y="201">Akku + WR</text>
+  <path class="p" d="M70,156 H116"/><path class="p" d="M190,156 H232"/><path class="sb" d="M155,184 V174"/>
+  <text class="s" x="320" y="152">gleicht Über-/Unterspannung aus; kurze Umschaltung</text>
+  <text class="s" x="320" y="168">mittel · kleine Server, Netzwerktechnik</text>
+
+  <text class="h" x="14" y="234">VFI – Online/Doppelwandler</text>
+  <rect class="bx" x="14" y="242" width="56" height="24" rx="4"/><text class="t" x="42" y="258">Netz</text>
+  <rect class="bx" x="96" y="242" width="72" height="24" rx="4"/><text class="t" x="132" y="258">Gleichrichter</text>
+  <rect class="bat" x="186" y="242" width="44" height="24" rx="4"/><text class="t" x="208" y="258">Akku</text>
+  <rect class="bx" x="248" y="242" width="72" height="24" rx="4"/><text class="t" x="284" y="258">Wechselr.</text>
+  <rect class="ld" x="338" y="242" width="44" height="24" rx="4"/><text class="t" x="360" y="258">Last</text>
+  <path class="p" d="M70,254 H92"/><path class="p" d="M168,254 H182"/><path class="p" d="M230,254 H244"/><path class="p" d="M320,254 H334"/>
+  <text class="s" x="400" y="250">immer über Akku-Zwischenkreis: vom Netz entkoppelt,</text>
+  <text class="s" x="400" y="264">keine Umschaltzeit · teurer · Server, Rechenzentrum</text>
+</svg>

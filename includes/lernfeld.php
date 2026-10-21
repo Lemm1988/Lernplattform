@@ -21,7 +21,7 @@ function lernfeld_meta() {
     return [
         'LF1'  => ['title' => 'Das Unternehmen und die eigene Rolle im Betrieb beschreiben', 'icon' => 'building', 'ap' => 'AP1'],
         'LF2'  => ['title' => 'Arbeitsplätze nach Kundenwunsch ausstatten', 'icon' => 'pc-display', 'ap' => 'AP1', 'legacy_title' => 'Geschäftsprozesse und betriebliche Organisation'],
-        'LF3'  => ['title' => 'Clients in Netzwerke einbinden', 'icon' => 'diagram-3', 'ap' => 'AP1', 'legacy_title' => 'Informationsquellen und Arbeitsmethoden'],
+        'LF3'  => ['title' => 'Clients in Netzwerke einbinden', 'icon' => 'diagram-3', 'ap' => 'AP1'],
         'LF4'  => ['title' => 'Schutzbedarfsanalyse im eigenen Arbeitsbereich durchführen', 'icon' => 'shield-lock', 'ap' => 'AP1'],
         'LF5'  => ['title' => 'Software zur Verwaltung von Daten anpassen', 'icon' => 'database', 'ap' => 'AP1 + AP2'],
         'LF6'  => ['title' => 'Serviceanfragen bearbeiten', 'icon' => 'headset', 'ap' => 'AP1'],

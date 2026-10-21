@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="ud-title ud-desc">
+  <title id="ud-title">Rechenweg für die Übertragungsdauer</title>
+  <desc id="ud-desc">Drei Schritte am Beispiel einer Datei von 4,7 GB über eine Leitung mit 100 Mbit/s. Schritt 1: Datenmenge in Byte umrechnen, hier 4,7 GB gleich 4,7 mal 10 hoch 9 Byte, weil GB dezimal gemeint ist. Schritt 2: mal 8 in Bit, ergibt 37,6 mal 10 hoch 9 Bit. Schritt 3: durch die Datenrate in Bit pro Sekunde teilen, 100 mal 10 hoch 6 Bit pro Sekunde, ergibt 376 Sekunden, also 6 Minuten 16 Sekunden. Merkregel: Datenraten sind immer dezimal und in Bit; Dateigrößen können in Byte und binär angegeben sein, etwa MiB.</desc>
+  <defs>
+    <marker id="ud-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .b1 { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .b2 { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .b3 { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .n { font-weight: 800; font-size: 13px; fill: #0a58ca; }
+      .h { font-weight: 700; font-size: 12px; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#ud-arr); fill: none; }
+    </style>
+  </defs>
+  <text class="h" x="20" y="22">Beispiel: 4,7 GB über 100 Mbit/s</text>
+  <rect class="b1" x="20" y="36" width="200" height="96" rx="8"/><text class="n" x="32" y="58">1</text><text class="h" x="48" y="58">in Byte umrechnen</text>
+  <text class="m" x="32" y="86">4,7 GB</text><text class="m" x="32" y="106">= 4,7 · 10⁹ Byte</text><text class="s" x="32" y="124">GB dezimal, GiB binär</text>
+  <rect class="b2" x="260" y="36" width="200" height="96" rx="8"/><text class="n" x="272" y="58">2</text><text class="h" x="288" y="58">mal 8 → Bit</text>
+  <text class="m" x="272" y="86">4,7 · 10⁹ · 8</text><text class="m" x="272" y="106">= 37,6 · 10⁹ Bit</text>
+  <rect class="b3" x="500" y="36" width="200" height="96" rx="8"/><text class="n" x="512" y="58">3</text><text class="h" x="528" y="58">durch Datenrate</text>
+  <text class="m" x="512" y="86">37,6 · 10⁹ / 10⁸</text><text class="m" x="512" y="106">= 376 s ≈ 6 min 16 s</text>
+  <path class="ar" d="M220,84 H256"/><path class="ar" d="M460,84 H496"/>
+  <text class="h" x="20" y="166">Übertragungsdauer = Datenmenge in Bit ÷ Datenrate in Bit/s</text>
+  <text class="s" x="20" y="190">Datenraten (Mbit/s, Gbit/s) sind immer dezimal: 1 Mbit/s = 1.000.000 Bit/s.</text>
+  <text class="s" x="20" y="208">Dateigrößen können binär angegeben sein: 1 MiB = 1.048.576 Byte – Windows zeigt „MB“, meint aber MiB.</text>
+  <text class="s" x="20" y="226">Mit Protokoll-Overhead dauert es länger: Nutzbar sind oft nur 90–95 % der Bruttorate.</text>
+</svg>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="be-title be-desc">
+  <title id="be-title">Freigabe- und NTFS-Berechtigungen</title>
+  <desc id="be-desc">Greift ein Benutzer über das Netz auf einen Ordner zu, muss er zwei Filter passieren: zuerst die Freigabeberechtigung, dann die NTFS-Berechtigung. Wirksam ist die restriktivere der beiden. Beispiel: Freigabe erlaubt Ändern, NTFS erlaubt nur Lesen, wirksam ist Lesen. Wer lokal am Server angemeldet ist, durchläuft nur die NTFS-Berechtigung. Innerhalb von NTFS addieren sich die Rechte aus mehreren Gruppen; ein ausdrückliches Verweigern hat jedoch Vorrang.</desc>
+  <defs>
+    <marker id="be-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .us { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .fs { fill: #fff3cd; stroke: #b98900; stroke-width: 1.5; }
+      .nt { fill: #ffe5d0; stroke: #fd7e14; stroke-width: 1.5; }
+      .fo { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#be-arr); fill: none; }
+    </style>
+  </defs>
+  <rect class="us" x="14" y="40" width="120" height="44" rx="6"/><text class="h c" x="74" y="60">Zugriff über</text><text class="h c" x="74" y="76">das Netz</text>
+  <rect class="fs" x="180" y="30" width="140" height="64" rx="6"/><text class="h c" x="250" y="54">Freigabe</text><text class="s c" x="250" y="72">hier: Ändern</text>
+  <rect class="nt" x="366" y="30" width="140" height="64" rx="6"/><text class="h c" x="436" y="54">NTFS</text><text class="s c" x="436" y="72">hier: Lesen</text>
+  <rect class="fo" x="552" y="30" width="154" height="64" rx="6"/><text class="h c" x="629" y="54">Ordner</text><text class="s c" x="629" y="72">wirksam: Lesen</text>
+  <path class="ar" d="M134,62 H176"/><path class="ar" d="M320,62 H362"/><path class="ar" d="M506,62 H548"/>
+  <rect class="us" x="14" y="122" width="120" height="44" rx="6"/><text class="h c" x="74" y="142">lokal am</text><text class="h c" x="74" y="158">Server</text>
+  <path class="ar" d="M134,144 H420 V98"/>
+  <text class="s" x="180" y="138">nur NTFS gilt</text>
+  <text class="s" x="14" y="196"><tspan font-weight="700">Netz:</tspan> wirksam ist die restriktivere von Freigabe- und NTFS-Berechtigung.</text>
+  <text class="s" x="14" y="214"><tspan font-weight="700">NTFS:</tspan> Rechte mehrerer Gruppen addieren sich – ein ausdrückliches „Verweigern“ hat Vorrang.</text>
+</svg>

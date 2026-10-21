@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="ra-title ra-desc">
+  <title id="ra-title">RAID-Level im Vergleich</title>
+  <desc id="ra-desc">Vier RAID-Level als Datenblöcke auf Festplatten. RAID 0 verteilt die Blöcke A1 bis A6 abwechselnd auf zwei Platten: volle Kapazität, schneller, aber jeder Plattenausfall zerstört alles. RAID 1 spiegelt jeden Block auf zwei Platten: halbe Kapazität, ein Ausfall verkraftbar. RAID 5 verteilt Datenblöcke und Paritätsblöcke über drei oder mehr Platten: Kapazität n minus 1, ein Ausfall verkraftbar. RAID 10 bildet Spiegelpaare und verteilt die Daten über diese Paare: halbe Kapazität, ab vier Platten, ein Ausfall je Spiegelpaar verkraftbar.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .b { font-size: 10px; font-weight: 700; text-anchor: middle; }
+      .disk { fill: #f8f9fa; stroke: #495057; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .sub { font-size: 10.5px; fill: #495057; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .pair { fill: none; stroke: #0d6efd; stroke-width: 1.2; stroke-dasharray: 4 3; }
+    </style>
+  </defs>
+  <text class="h" x="82" y="22">RAID 0</text><text class="sub" x="82" y="38">Striping</text>
+  <rect class="disk" x="39.0" y="54" width="40" height="92" rx="5"/><rect x="42.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="59.0" y="74">A1</text><rect x="42.0" y="88" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="59.0" y="102">A3</text><rect x="42.0" y="116" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="59.0" y="130">A5</text>
+  <rect class="disk" x="85.0" y="54" width="40" height="92" rx="5"/><rect x="88.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="105.0" y="74">A2</text><rect x="88.0" y="88" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="105.0" y="102">A4</text><rect x="88.0" y="116" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="105.0" y="130">A6</text>
+  <text class="s" x="82" y="176">n × Kapazität</text>
+  <text class="s" x="82" y="192">kein Ausfall verkraftbar</text>
+  <text class="h" x="258" y="22">RAID 1</text><text class="sub" x="258" y="38">Spiegelung</text>
+  <rect class="disk" x="215.0" y="54" width="40" height="92" rx="5"/><rect x="218.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="235.0" y="74">A1</text><rect x="218.0" y="88" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="235.0" y="102">A2</text><rect x="218.0" y="116" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="235.0" y="130">A3</text>
+  <rect class="disk" x="261.0" y="54" width="40" height="92" rx="5"/><rect x="264.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="281.0" y="74">A1</text><rect x="264.0" y="88" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="281.0" y="102">A2</text><rect x="264.0" y="116" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="281.0" y="130">A3</text>
+  <text class="s" x="258" y="176">1 × Kapazität (2 Platten)</text>
+  <text class="s" x="258" y="192">1 Ausfall verkraftbar</text>
+  <text class="h" x="432" y="22">RAID 5</text><text class="sub" x="432" y="38">Striping + Parität</text>
+  <rect class="disk" x="366.0" y="54" width="40" height="92" rx="5"/><rect x="369.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="386.0" y="74">A1</text><rect x="369.0" y="88" width="34" height="20" rx="2" fill="#d1e7dd" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="386.0" y="102">B1</text><rect x="369.0" y="116" width="34" height="20" rx="2" fill="#f8d7da" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="386.0" y="130">Cp</text>
+  <rect class="disk" x="412.0" y="54" width="40" height="92" rx="5"/><rect x="415.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="432.0" y="74">A2</text><rect x="415.0" y="88" width="34" height="20" rx="2" fill="#f8d7da" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="432.0" y="102">Bp</text><rect x="415.0" y="116" width="34" height="20" rx="2" fill="#fff3cd" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="432.0" y="130">C1</text>
+  <rect class="disk" x="458.0" y="54" width="40" height="92" rx="5"/><rect x="461.0" y="60" width="34" height="20" rx="2" fill="#f8d7da" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="478.0" y="74">Ap</text><rect x="461.0" y="88" width="34" height="20" rx="2" fill="#d1e7dd" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="478.0" y="102">B2</text><rect x="461.0" y="116" width="34" height="20" rx="2" fill="#fff3cd" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="478.0" y="130">C2</text>
+  <text class="s" x="432" y="176">(n − 1) × Kapazität, ab 3</text>
+  <text class="s" x="432" y="192">1 Ausfall verkraftbar</text>
+  <text class="h" x="618" y="22">RAID 10</text><text class="sub" x="618" y="38">Spiegel, gestriped</text>
+  <rect class="pair" x="527.0" y="48" width="90.0" height="104" rx="6"/>
+  <rect class="pair" x="619.0" y="48" width="90.0" height="104" rx="6"/>
+  <rect class="disk" x="529.0" y="54" width="40" height="92" rx="5"/><rect x="532.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="549.0" y="74">A1</text><rect x="532.0" y="88" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="549.0" y="102">A3</text><rect x="532.0" y="116" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="549.0" y="130">A5</text>
+  <rect class="disk" x="575.0" y="54" width="40" height="92" rx="5"/><rect x="578.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="595.0" y="74">A1</text><rect x="578.0" y="88" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="595.0" y="102">A3</text><rect x="578.0" y="116" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="595.0" y="130">A5</text>
+  <rect class="disk" x="621.0" y="54" width="40" height="92" rx="5"/><rect x="624.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="641.0" y="74">A2</text><rect x="624.0" y="88" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="641.0" y="102">A4</text><rect x="624.0" y="116" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="641.0" y="130">A6</text>
+  <rect class="disk" x="667.0" y="54" width="40" height="92" rx="5"/><rect x="670.0" y="60" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="687.0" y="74">A2</text><rect x="670.0" y="88" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="687.0" y="102">A4</text><rect x="670.0" y="116" width="34" height="20" rx="2" fill="#cfe2ff" stroke="#6c757d" stroke-width="0.8"/><text class="b" x="687.0" y="130">A6</text>
+  <text class="s" x="618" y="176">n ÷ 2 × Kapazität, ab 4</text>
+  <text class="s" x="618" y="192">1 Ausfall je Spiegelpaar</text>
+  <rect x="20" y="222" width="14" height="12" fill="#f8d7da" stroke="#6c757d" stroke-width="0.8"/><text x="40" y="232" style="font-size:10.5px">Paritätsblock (z. B. Ap = A1 ⊕ A2) – daraus lässt sich ein fehlender Block zurückrechnen</text>
+  <text x="20" y="252" style="font-size:11px;font-weight:700">RAID schützt vor Plattenausfall – nicht vor Löschen, Ransomware oder Brand. RAID ist kein Backup.</text>
+</svg>

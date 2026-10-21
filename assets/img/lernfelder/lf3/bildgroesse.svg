@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" role="img" aria-labelledby="bg-title bg-desc">
+  <title id="bg-title">Größe einer unkomprimierten Bilddatei</title>
+  <desc id="bg-desc">Ein Bild besteht aus Pixeln in Breite mal Höhe. Jedes Pixel speichert seine Farbe mit einer Farbtiefe, bei Echtfarben 24 Bit, also je 8 Bit für Rot, Grün und Blau. Größe in Byte gleich Breite mal Höhe mal Farbtiefe in Bit geteilt durch 8. Beispiel Full HD: 1920 mal 1080 Pixel mal 24 Bit geteilt durch 8 gleich 6.220.800 Byte, rund 6,22 MB oder 5,93 MiB. Komprimierte Formate wie JPEG oder PNG sind deutlich kleiner.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .px { stroke: #fff; stroke-width: 1; }
+      .h { font-weight: 700; font-size: 12px; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .dim { stroke: #495057; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <g>
+    <rect class="px" x="40" y="30" width="20" height="20" fill="#0d6efd"/><rect class="px" x="60" y="30" width="20" height="20" fill="#3d8bfd"/><rect class="px" x="80" y="30" width="20" height="20" fill="#6ea8fe"/><rect class="px" x="100" y="30" width="20" height="20" fill="#9ec5fe"/><rect class="px" x="120" y="30" width="20" height="20" fill="#cfe2ff"/><rect class="px" x="140" y="30" width="20" height="20" fill="#e7f1ff"/>
+    <rect class="px" x="40" y="50" width="20" height="20" fill="#198754"/><rect class="px" x="60" y="50" width="20" height="20" fill="#479f76"/><rect class="px" x="80" y="50" width="20" height="20" fill="#75b798"/><rect class="px" x="100" y="50" width="20" height="20" fill="#a3cfbb"/><rect class="px" x="120" y="50" width="20" height="20" fill="#d1e7dd"/><rect class="px" x="140" y="50" width="20" height="20" fill="#e8f3ee"/>
+    <rect class="px" x="40" y="70" width="20" height="20" fill="#fd7e14"/><rect class="px" x="60" y="70" width="20" height="20" fill="#fd9843"/><rect class="px" x="80" y="70" width="20" height="20" fill="#feb272"/><rect class="px" x="100" y="70" width="20" height="20" fill="#fecba1"/><rect class="px" x="120" y="70" width="20" height="20" fill="#ffe5d0"/><rect class="px" x="140" y="70" width="20" height="20" fill="#fff2e8"/>
+    <rect class="px" x="40" y="90" width="20" height="20" fill="#6f42c1"/><rect class="px" x="60" y="90" width="20" height="20" fill="#8c68cd"/><rect class="px" x="80" y="90" width="20" height="20" fill="#a98eda"/><rect class="px" x="100" y="90" width="20" height="20" fill="#c5b3e6"/><rect class="px" x="120" y="90" width="20" height="20" fill="#e2d9f3"/><rect class="px" x="140" y="90" width="20" height="20" fill="#f0ecf9"/>
+  </g>
+  <line class="dim" x1="40" y1="122" x2="160" y2="122"/><text class="s c" x="100" y="138">Breite (Pixel)</text>
+  <line class="dim" x1="172" y1="30" x2="172" y2="110"/><text class="s" x="180" y="74">Höhe</text>
+  <rect x="80" y="70" width="20" height="20" fill="none" stroke="#212529" stroke-width="2"/>
+  <text class="s" x="40" y="164">1 Pixel = R 8 Bit + G 8 Bit + B 8 Bit</text><text class="s" x="40" y="180">= 24 Bit Farbtiefe (Echtfarben)</text>
+
+  <text class="h" x="290" y="44">Größe = Breite × Höhe × Farbtiefe ÷ 8</text>
+  <text class="s" x="290" y="62">Ergebnis in Byte (unkomprimiert)</text>
+  <text class="h" x="290" y="98">Beispiel Full HD</text>
+  <text class="m" x="290" y="120">1920 × 1080 × 24 Bit ÷ 8</text>
+  <text class="m" x="290" y="140">= 6.220.800 Byte</text>
+  <text class="m" x="290" y="160">≈ 6,22 MB ≈ 5,93 MiB</text>
+  <text class="s" x="290" y="190">Bei 8 Bit Farbtiefe (256 Farben) wäre es ein Drittel.</text>
+  <text class="s" x="290" y="206">JPEG und PNG komprimieren – die Datei ist dann deutlich kleiner.</text>
+</svg>

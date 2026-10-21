@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-labelledby="ks-title ks-desc">
+  <title id="ks-title">Schirmung von Twisted-Pair-Kabeln</title>
+  <desc id="ks-desc">Querschnitte durch drei Kabel mit je vier verdrillten Adernpaaren. U/UTP: ohne Gesamtschirm und ohne Paarschirm. F/UTP: eine Folie um alle Paare, die Paare selbst ungeschirmt. S/FTP: ein Drahtgeflecht um alle Paare und zusätzlich eine Folie um jedes einzelne Paar, sehr störsicher, aber dicker und teurer. Benennung: Vor dem Schrägstrich steht der Gesamtschirm, nach dem Schrägstrich der Paarschirm. U bedeutet ungeschirmt, F Folie, S Geflecht.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .jk { fill: #f8f9fa; stroke: #495057; stroke-width: 2; }
+      .foil { fill: none; stroke: #adb5bd; stroke-width: 3; }
+      .braid { fill: none; stroke: #6c757d; stroke-width: 3; stroke-dasharray: 2 2; }
+      .pf { fill: none; stroke: #adb5bd; stroke-width: 2; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; text-anchor: middle; }
+      .l { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <circle class="jk" cx="120" cy="90" r="56"/><circle cx="139.8" cy="101.3" r="6" fill="#fd7e14" stroke="#fd7e14" stroke-width="2"/><circle cx="131.3" cy="109.8" r="6" fill="#fff" stroke="#fd7e14" stroke-width="2"/><circle cx="108.7" cy="109.8" r="6" fill="#198754" stroke="#198754" stroke-width="2"/><circle cx="100.2" cy="101.3" r="6" fill="#fff" stroke="#198754" stroke-width="2"/><circle cx="100.2" cy="78.7" r="6" fill="#0d6efd" stroke="#0d6efd" stroke-width="2"/><circle cx="108.7" cy="70.2" r="6" fill="#fff" stroke="#0d6efd" stroke-width="2"/><circle cx="131.3" cy="70.2" r="6" fill="#8d5524" stroke="#8d5524" stroke-width="2"/><circle cx="139.8" cy="78.7" r="6" fill="#fff" stroke="#8d5524" stroke-width="2"/>
+  <text class="h" x="120" y="172">U/UTP</text><text class="s" x="120" y="190">ungeschirmt</text><text class="s" x="120" y="206">günstig, dünn, Büro-Standard</text>
+  <circle class="jk" cx="360" cy="90" r="56"/><circle class="foil" cx="360" cy="90" r="48"/><circle cx="379.8" cy="101.3" r="6" fill="#fd7e14" stroke="#fd7e14" stroke-width="2"/><circle cx="371.3" cy="109.8" r="6" fill="#fff" stroke="#fd7e14" stroke-width="2"/><circle cx="348.7" cy="109.8" r="6" fill="#198754" stroke="#198754" stroke-width="2"/><circle cx="340.2" cy="101.3" r="6" fill="#fff" stroke="#198754" stroke-width="2"/><circle cx="340.2" cy="78.7" r="6" fill="#0d6efd" stroke="#0d6efd" stroke-width="2"/><circle cx="348.7" cy="70.2" r="6" fill="#fff" stroke="#0d6efd" stroke-width="2"/><circle cx="371.3" cy="70.2" r="6" fill="#8d5524" stroke="#8d5524" stroke-width="2"/><circle cx="379.8" cy="78.7" r="6" fill="#fff" stroke="#8d5524" stroke-width="2"/>
+  <text class="h" x="360" y="172">F/UTP</text><text class="s" x="360" y="190">Folie um alle Paare</text><text class="s" x="360" y="206">besserer Schutz vor Störungen</text>
+  <circle class="jk" cx="600" cy="90" r="56"/><circle class="braid" cx="600" cy="90" r="48"/><circle class="pf" cx="615.6" cy="105.6" r="16"/><circle cx="619.8" cy="101.3" r="6" fill="#fd7e14" stroke="#fd7e14" stroke-width="2"/><circle cx="611.3" cy="109.8" r="6" fill="#fff" stroke="#fd7e14" stroke-width="2"/><circle class="pf" cx="584.4" cy="105.6" r="16"/><circle cx="588.7" cy="109.8" r="6" fill="#198754" stroke="#198754" stroke-width="2"/><circle cx="580.2" cy="101.3" r="6" fill="#fff" stroke="#198754" stroke-width="2"/><circle class="pf" cx="584.4" cy="74.4" r="16"/><circle cx="580.2" cy="78.7" r="6" fill="#0d6efd" stroke="#0d6efd" stroke-width="2"/><circle cx="588.7" cy="70.2" r="6" fill="#fff" stroke="#0d6efd" stroke-width="2"/><circle class="pf" cx="615.6" cy="74.4" r="16"/><circle cx="611.3" cy="70.2" r="6" fill="#8d5524" stroke="#8d5524" stroke-width="2"/><circle cx="619.8" cy="78.7" r="6" fill="#fff" stroke="#8d5524" stroke-width="2"/>
+  <text class="h" x="600" y="172">S/FTP</text><text class="s" x="600" y="190">Geflecht gesamt + Folie je Paar</text><text class="s" x="600" y="206">sehr störsicher, dick, teurer</text>
+  <text class="l" x="20" y="232"><tspan font-weight="700">Benennung X/YTP:</tspan> X = Gesamtschirm, Y = Paarschirm · U ungeschirmt, F Folie, S Geflecht, SF beides · TP = Twisted Pair</text>
+</svg>

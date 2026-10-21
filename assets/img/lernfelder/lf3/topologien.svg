@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-labelledby="tp-title tp-desc">
+  <title id="tp-title">Netzwerk-Topologien</title>
+  <desc id="tp-desc">Fünf Topologien. Bus: alle Geräte an einer gemeinsamen Leitung; ein Kabelbruch legt alles lahm, historisch. Ring: jedes Gerät mit zwei Nachbarn verbunden, Daten laufen im Kreis. Stern: alle Geräte an einem zentralen Switch, heute Standard im LAN; fällt der Switch aus, ist das Segment weg. Erweiterter Stern oder Baum: mehrere Sterne über Ebenen verbunden, typisch für Firmennetze. Vermascht: viele Wege zwischen den Knoten, sehr ausfallsicher, aber aufwendig, etwa im Internet-Backbone.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .ln { stroke: #495057; stroke-width: 2; fill: none; }
+      .nd { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .hub { fill: #343a40; }
+      .h { font-weight: 700; font-size: 12.5px; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    </style>
+  </defs>
+  <line class="ln" x1="16" y1="90" x2="128" y2="90"/>
+  <line class="ln" x1="28" y1="90" x2="28" y2="60"/><circle class="nd" cx="28.0" cy="60.0" r="8"/>
+  <line class="ln" x1="58" y1="90" x2="58" y2="120"/><circle class="nd" cx="58.0" cy="120.0" r="8"/>
+  <line class="ln" x1="88" y1="90" x2="88" y2="60"/><circle class="nd" cx="88.0" cy="60.0" r="8"/>
+  <line class="ln" x1="118" y1="90" x2="118" y2="120"/><circle class="nd" cx="118.0" cy="120.0" r="8"/>
+  <circle class="ln" cx="216" cy="90" r="40"/><circle class="nd" cx="216.0" cy="50.0" r="8"/><circle class="nd" cx="250.6" cy="70.0" r="8"/><circle class="nd" cx="250.6" cy="110.0" r="8"/><circle class="nd" cx="216.0" cy="130.0" r="8"/><circle class="nd" cx="181.4" cy="110.0" r="8"/><circle class="nd" cx="181.4" cy="70.0" r="8"/>
+<line class="ln" x1="360" y1="90" x2="404.0" y2="90.0"/><line class="ln" x1="360" y1="90" x2="382.0" y2="128.1"/><line class="ln" x1="360" y1="90" x2="338.0" y2="128.1"/><line class="ln" x1="360" y1="90" x2="316.0" y2="90.0"/><line class="ln" x1="360" y1="90" x2="338.0" y2="51.9"/><line class="ln" x1="360" y1="90" x2="382.0" y2="51.9"/><rect class="hub" x="348" y="78" width="24" height="24" rx="4"/><circle class="nd" cx="404.0" cy="90.0" r="8"/><circle class="nd" cx="382.0" cy="128.1" r="8"/><circle class="nd" cx="338.0" cy="128.1" r="8"/><circle class="nd" cx="316.0" cy="90.0" r="8"/><circle class="nd" cx="338.0" cy="51.9" r="8"/><circle class="nd" cx="382.0" cy="51.9" r="8"/>
+<line class="ln" x1="504" y1="46" x2="468" y2="92"/>
+<line class="ln" x1="504" y1="46" x2="540" y2="92"/>
+<line class="ln" x1="468" y1="92" x2="448" y2="136"/>
+<line class="ln" x1="468" y1="92" x2="468" y2="136"/>
+<line class="ln" x1="468" y1="92" x2="488" y2="136"/>
+<line class="ln" x1="540" y1="92" x2="520" y2="136"/>
+<line class="ln" x1="540" y1="92" x2="540" y2="136"/>
+<line class="ln" x1="540" y1="92" x2="560" y2="136"/>
+<rect class="hub" x="493" y="35" width="22" height="22" rx="4"/><rect class="hub" x="459" y="83" width="18" height="18" rx="3"/><rect class="hub" x="531" y="83" width="18" height="18" rx="3"/><circle class="nd" cx="448.0" cy="136.0" r="7"/><circle class="nd" cx="468.0" cy="136.0" r="7"/><circle class="nd" cx="488.0" cy="136.0" r="7"/><circle class="nd" cx="520.0" cy="136.0" r="7"/><circle class="nd" cx="540.0" cy="136.0" r="7"/><circle class="nd" cx="560.0" cy="136.0" r="7"/>
+<line class="ln" x1="648.0" y1="46.0" x2="689.8" y2="76.4"/><line class="ln" x1="689.8" y1="76.4" x2="673.9" y2="125.6"/><line class="ln" x1="673.9" y1="125.6" x2="622.1" y2="125.6"/><line class="ln" x1="622.1" y1="125.6" x2="606.2" y2="76.4"/><line class="ln" x1="606.2" y1="76.4" x2="648.0" y2="46.0"/><line class="ln" x1="648.0" y1="46.0" x2="673.9" y2="125.6"/><line class="ln" x1="689.8" y1="76.4" x2="622.1" y2="125.6"/><line class="ln" x1="673.9" y1="125.6" x2="606.2" y2="76.4"/><line class="ln" x1="648.0" y1="46.0" x2="622.1" y2="125.6"/><circle class="nd" cx="648.0" cy="46.0" r="8"/><circle class="nd" cx="689.8" cy="76.4" r="8"/><circle class="nd" cx="673.9" cy="125.6" r="8"/><circle class="nd" cx="622.1" cy="125.6" r="8"/><circle class="nd" cx="606.2" cy="76.4" r="8"/>
+  <text class="h" x="72" y="22">Bus</text><text class="s" x="72" y="176">eine gemeinsame Leitung;</text><text class="s" x="72" y="191">Kabelbruch: alles weg</text>
+  <text class="h" x="216" y="22">Ring</text><text class="s" x="216" y="176">Daten laufen im Kreis;</text><text class="s" x="216" y="191">historisch (Token Ring)</text>
+  <text class="h" x="360" y="22">Stern</text><text class="s" x="360" y="176">zentraler Switch;</text><text class="s" x="360" y="191">heute Standard im LAN</text>
+  <text class="h" x="504" y="22">Baum</text><text class="s" x="504" y="176">Sterne über Ebenen;</text><text class="s" x="504" y="191">typisch im Firmennetz</text>
+  <text class="h" x="648" y="22">Vermascht</text><text class="s" x="648" y="176">viele Wege, ausfallsicher;</text><text class="s" x="648" y="191">Backbone, Internet</text>
+  <text class="s" x="360" y="228" style="font-size:11px">Physische Topologie = wie die Kabel liegen; logische Topologie = wie die Daten fließen.</text>
+</svg>

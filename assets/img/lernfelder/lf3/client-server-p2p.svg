@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="cs-title cs-desc">
+  <title id="cs-title">Client-Server und Peer-to-Peer</title>
+  <desc id="cs-desc">Links das Client-Server-Modell: Vier Clients stellen Anfragen an einen zentralen Server, der Dienste wie Dateiablage, Anmeldung oder Datenbank bereitstellt und Antworten zurückschickt. Vorteile: zentrale Verwaltung, Rechte und Datensicherung an einer Stelle. Nachteil: Der Server ist ein zentraler Ausfallpunkt und kostet mehr. Rechts Peer-to-Peer: Vier gleichberechtigte Rechner sind direkt verbunden, jeder ist zugleich Client und Server. Vorteile: einfach und günstig für wenige Geräte. Nachteile: keine zentrale Verwaltung, Rechte und Sicherung an jedem Gerät einzeln.</desc>
+  <defs>
+    <marker id="cs-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .srv { fill: #343a40; }
+      .srt { fill: #fff; font-weight: 700; font-size: 11.5px; text-anchor: middle; }
+      .cl { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .pe { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .t { font-size: 10.5px; font-weight: 700; text-anchor: middle; }
+      .ln { stroke: #495057; stroke-width: 1.5; marker-start: url(#cs-arr); marker-end: url(#cs-arr); }
+      .lp { stroke: #198754; stroke-width: 1.5; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <text class="h" x="20" y="22">Client-Server</text>
+  <rect class="srv" x="126" y="76" width="118" height="44" rx="6"/><text class="srt" x="185" y="96">Server</text><text class="c" x="185" y="111" style="fill:#ced4da;font-size:10px">Dateien, Anmeldung</text>
+  <rect class="cl" x="20" y="36" width="70" height="30" rx="5"/><text class="t" x="55" y="55">Client</text>
+  <rect class="cl" x="280" y="36" width="70" height="30" rx="5"/><text class="t" x="315" y="55">Client</text>
+  <rect class="cl" x="20" y="130" width="70" height="30" rx="5"/><text class="t" x="55" y="149">Client</text>
+  <rect class="cl" x="280" y="130" width="70" height="30" rx="5"/><text class="t" x="315" y="149">Client</text>
+  <line class="ln" x1="92" y1="58" x2="124" y2="86"/><line class="ln" x1="278" y1="58" x2="246" y2="86"/>
+  <line class="ln" x1="92" y1="140" x2="124" y2="112"/><line class="ln" x1="278" y1="140" x2="246" y2="112"/>
+  <text class="s" x="20" y="190">+ zentral verwaltet: Rechte, Updates, Backup</text>
+  <text class="s" x="20" y="208">− Server ist zentraler Ausfallpunkt, teurer</text>
+  <text class="s" x="20" y="226">Beispiele: Fileserver, Webserver, Domäne</text>
+
+  <text class="h" x="400" y="22">Peer-to-Peer</text>
+  <rect class="pe" x="420" y="36" width="80" height="30" rx="5"/><text class="t" x="460" y="55">Peer</text>
+  <rect class="pe" x="600" y="36" width="80" height="30" rx="5"/><text class="t" x="640" y="55">Peer</text>
+  <rect class="pe" x="420" y="130" width="80" height="30" rx="5"/><text class="t" x="460" y="149">Peer</text>
+  <rect class="pe" x="600" y="130" width="80" height="30" rx="5"/><text class="t" x="640" y="149">Peer</text>
+  <line class="lp" x1="500" y1="51" x2="600" y2="51"/><line class="lp" x1="500" y1="145" x2="600" y2="145"/>
+  <line class="lp" x1="460" y1="66" x2="460" y2="130"/><line class="lp" x1="640" y1="66" x2="640" y2="130"/>
+  <line class="lp" x1="500" y1="66" x2="600" y2="130"/><line class="lp" x1="600" y1="66" x2="500" y2="130"/>
+  <text class="s" x="400" y="190">+ einfach, günstig für wenige Geräte</text>
+  <text class="s" x="400" y="208">− Rechte und Sicherung an jedem Gerät einzeln</text>
+  <text class="s" x="400" y="226">Beispiele: Arbeitsgruppe, Dateitausch</text>
+</svg>

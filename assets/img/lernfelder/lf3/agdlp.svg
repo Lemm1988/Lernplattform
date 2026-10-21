@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-labelledby="ag-title ag-desc">
+  <title id="ag-title">Rechtevergabe nach AGDLP</title>
+  <desc id="ag-desc">Accounts, also Benutzerkonten wie Anna und Ben, werden Mitglied einer globalen Gruppe nach Rolle, zum Beispiel G_Vertrieb. Die globale Gruppe wird Mitglied einer domänenlokalen Gruppe nach Ressource und Recht, zum Beispiel DL_Angebote_Ändern. Nur diese domänenlokale Gruppe erhält die Berechtigung auf den Ordner Angebote. Wechselt jemand die Abteilung, ändert man nur die Gruppenmitgliedschaft.</desc>
+  <defs>
+    <marker id="ag-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .a { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .g { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .dl { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .p { fill: #ffe5d0; stroke: #fd7e14; stroke-width: 1.4; }
+      .L { font-weight: 800; font-size: 20px; fill: #0a58ca; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 11.5px; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; text-anchor: middle; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#ag-arr); fill: none; }
+    </style>
+  </defs>
+  <text class="L" x="85" y="26">A</text><text class="L" x="265" y="26">G</text><text class="L" x="455" y="26">DL</text><text class="L" x="635" y="26">P</text>
+  <rect class="a" x="20" y="40" width="130" height="80" rx="8"/><text class="h" x="85" y="60">Accounts</text><text class="m" x="85" y="82">anna</text><text class="m" x="85" y="98">ben</text>
+  <rect class="g" x="200" y="40" width="130" height="80" rx="8"/><text class="h" x="265" y="60">globale Gruppe</text><text class="s" x="265" y="76">nach Rolle</text><text class="m" x="265" y="98">G_Vertrieb</text>
+  <rect class="dl" x="380" y="40" width="150" height="80" rx="8"/><text class="h" x="455" y="60">domänenlokale Gruppe</text><text class="s" x="455" y="76">nach Ressource + Recht</text><text class="m" x="455" y="98">DL_Angebote_Ändern</text>
+  <rect class="p" x="580" y="40" width="120" height="80" rx="8"/><text class="h" x="640" y="60">Permission</text><text class="s" x="640" y="76">Berechtigung auf</text><text class="m" x="640" y="98">\\fs01\Angebote</text>
+  <path class="ar" d="M150,80 H196"/><path class="ar" d="M330,80 H376"/><path class="ar" d="M530,80 H576"/>
+  <text class="s" x="173" y="72">Mitglied</text><text class="s" x="353" y="72">Mitglied</text><text class="s" x="553" y="72">erhält</text>
+  <text class="s" x="360" y="156" style="font-size:11px">Rechte nie direkt an Personen vergeben. Wechselt jemand die Abteilung, ändert sich nur die Gruppenmitgliedschaft –</text>
+  <text class="s" x="360" y="174" style="font-size:11px">und welche Gruppe was darf, steht an genau einer Stelle.</text>
+</svg>

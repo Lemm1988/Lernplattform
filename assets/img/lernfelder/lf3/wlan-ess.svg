@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-labelledby="we-title we-desc">
+  <title id="we-title">WLAN im Infrastrukturmodus mit Roaming</title>
+  <desc id="we-desc">Zwei Access Points hängen per Kabel am Switch und senden dieselbe SSID „Firma“, AP 1 auf Kanal 1 und AP 2 auf Kanal 11. Ihre Funkzellen überlappen leicht. Ein Laptop bewegt sich von der Zelle des AP 1 in die Zelle des AP 2 und wechselt dabei automatisch den Access Point, ohne dass der Nutzer etwas tun muss: Roaming. Mehrere Access Points mit derselben SSID bilden ein Extended Service Set.</desc>
+  <defs>
+    <marker id="we-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .cell1 { fill: #0d6efd; fill-opacity: 0.08; stroke: #0d6efd; stroke-width: 1.4; stroke-dasharray: 5 4; }
+      .cell2 { fill: #fd7e14; fill-opacity: 0.08; stroke: #fd7e14; stroke-width: 1.4; stroke-dasharray: 5 4; }
+      .ap { fill: #343a40; }
+      .apt { fill: #fff; font-weight: 700; font-size: 11px; text-anchor: middle; }
+      .sw { fill: #495057; }
+      .ln { stroke: #495057; stroke-width: 2; }
+      .lap { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .ar { stroke: #495057; stroke-width: 1.6; stroke-dasharray: 5 4; marker-end: url(#we-arr); fill: none; }
+      .h { font-weight: 700; font-size: 11.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <circle class="cell1" cx="210" cy="130" r="110"/><circle class="cell2" cx="430" cy="130" r="110"/>
+  <rect class="sw" x="270" y="12" width="100" height="26" rx="4"/><text class="apt" x="320" y="30">Switch</text>
+  <line class="ln" x1="300" y1="38" x2="210" y2="110"/><line class="ln" x1="340" y1="38" x2="430" y2="110"/>
+  <rect class="ap" x="175" y="110" width="70" height="30" rx="6"/><text class="apt" x="210" y="130">AP 1</text>
+  <rect class="ap" x="395" y="110" width="70" height="30" rx="6"/><text class="apt" x="430" y="130">AP 2</text>
+  <text class="s c" x="210" y="160" style="fill:#0a58ca">SSID „Firma“, Kanal 1</text>
+  <text class="s c" x="430" y="160" style="fill:#b35c00">SSID „Firma“, Kanal 11</text>
+  <rect class="lap" x="130" y="190" width="50" height="26" rx="4"/><text class="c" x="155" y="207" style="font-size:10.5px;font-weight:700">Laptop</text>
+  <path class="ar" d="M184,203 C260,215 380,215 450,200"/>
+  <text class="h" x="560" y="40">Begriffe</text>
+  <text class="s" x="560" y="62">SSID: Name des Netzes</text>
+  <text class="s" x="560" y="82">BSS: ein AP mit Clients</text>
+  <text class="s" x="560" y="102">ESS: mehrere APs,</text><text class="s" x="560" y="118">gleiche SSID</text>
+  <text class="s" x="560" y="138">Nachbar-APs auf nicht</text><text class="s" x="560" y="154">überlappenden Kanälen</text>
+  <text class="s" x="560" y="178">Roaming: Client wechselt</text><text class="s" x="560" y="194">den AP ohne Zutun des Nutzers</text>
+</svg>
