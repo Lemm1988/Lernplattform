@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="ib-title ib-desc">
+  <title id="ib-title">Tabellenscan gegenüber Indexsuche</title>
+  <desc id="ib-desc">Links ein vollständiger Tabellenscan: Um eine E-Mail-Adresse zu finden, liest die Datenbank alle rund 200.000 Zeilen nacheinander; gemessen 188 Millisekunden je Abfrage, EXPLAIN zeigt type ALL. Rechts eine Indexsuche über einen B-Baum: Die Wurzel verweist je nach Anfangsbuchstaben auf einen Zwischenknoten, dieser auf ein Blatt, das Blatt auf genau eine Zeile; gemessen 0,5 Millisekunden, EXPLAIN zeigt type ref und rows 1. Ein Index beschleunigt das Suchen, kostet aber Speicher und macht Einfügen und Ändern etwas langsamer.</desc>
+  <defs>
+    <marker id="ib-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#198754"/></marker>
+    <marker id="ib-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b02a37"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 13px; }
+      .row { fill: #f1f3f5; stroke: #ced4da; stroke-width: 1; }
+      .hit { fill: #d1e7dd; stroke: #198754; stroke-width: 1.6; }
+      .nd { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; }
+      .s { font-size: 11.5px; fill: #495057; }
+      .big { font-weight: 700; font-size: 15px; }
+    </style>
+  </defs>
+  <!-- Scan -->
+  <text class="h" x="170" y="18">ohne Index: alle Zeilen lesen</text>
+  <rect class="row" x="40" y="30" width="200" height="12"/><rect class="row" x="40" y="44" width="200" height="12"/><rect class="row" x="40" y="58" width="200" height="12"/>
+  <rect class="row" x="40" y="72" width="200" height="12"/><rect class="row" x="40" y="86" width="200" height="12"/><rect class="row" x="40" y="100" width="200" height="12"/>
+  <rect class="row" x="40" y="114" width="200" height="12"/><rect class="hit" x="40" y="128" width="200" height="12"/><rect class="row" x="40" y="142" width="200" height="12"/>
+  <rect class="row" x="40" y="156" width="200" height="12"/>
+  <text class="m" x="140" y="137">kunde123456@…</text>
+  <path d="M252,30 V168" stroke="#b02a37" stroke-width="2" marker-end="url(#ib-r)" style="stroke-dasharray:4 3"/>
+  <text class="s" x="290" y="96" style="text-anchor:start">…</text>
+  <text class="m" x="140" y="188">EXPLAIN: type=ALL, rows≈200.000</text>
+  <text class="big" x="140" y="214" style="fill:#b02a37">188 ms</text><text class="s" x="140" y="232">je Abfrage (gemessen)</text>
+
+  <line x1="330" y1="10" x2="330" y2="240" stroke="#dee2e6"/>
+
+  <!-- B-Baum -->
+  <text class="h" x="525" y="18">mit Index: B-Baum durchlaufen</text>
+  <rect class="nd" x="455" y="30" width="140" height="24" rx="4"/><text class="m" x="525" y="46">a–j | k–r | s–z</text>
+  <rect class="nd" x="360" y="84" width="110" height="24" rx="4"/><text class="m" x="415" y="100">a…</text>
+  <rect class="nd" x="480" y="84" width="110" height="24" rx="4" style="stroke-width:2.2"/><text class="m" x="535" y="100">kunde1… | kunde2…</text>
+  <rect class="nd" x="600" y="84" width="110" height="24" rx="4"/><text class="m" x="655" y="100">s…</text>
+  <rect class="nd" x="440" y="138" width="190" height="24" rx="4" style="stroke-width:2.2"/><text class="m" x="535" y="154">… kunde123456@… → Zeile</text>
+  <rect class="hit" x="470" y="178" width="130" height="18" rx="3"/><text class="m" x="535" y="191">genau 1 Zeile</text>
+  <path d="M500,54 L415,82" stroke="#adb5bd" stroke-width="1.3"/><path d="M525,54 L535,82" stroke="#198754" stroke-width="2.2" marker-end="url(#ib-a)"/><path d="M560,54 L655,82" stroke="#adb5bd" stroke-width="1.3"/>
+  <path d="M535,108 V136" stroke="#198754" stroke-width="2.2" marker-end="url(#ib-a)"/>
+  <path d="M535,162 V176" stroke="#198754" stroke-width="2.2" marker-end="url(#ib-a)"/>
+  <text class="m" x="430" y="214" style="text-anchor:start">type=ref, rows=1</text>
+  <text class="big" x="640" y="214" style="fill:#146c43">0,5 ms</text><text class="s" x="640" y="232">je Abfrage</text>
+</svg>

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="vs-title vs-desc">
+  <title id="vs-title">Physisches Schema der Verleih-Datenbank</title>
+  <desc id="vs-desc">Vier Tabellen mit Spalten, Datentypen und Regeln. filiale: filial_nr INT, Primärschlüssel, automatisch hochgezählt; ort VARCHAR 50, Pflichtfeld. fahrrad: rahmen_nr VARCHAR 20, Primärschlüssel; modell VARCHAR 80, Pflicht; tagespreis DECIMAL 6,2 mit Prüfung größer 0; filial_nr Fremdschlüssel auf filiale mit ON DELETE RESTRICT. kunde: kunden_nr INT, Primärschlüssel, automatisch; name VARCHAR 60, Pflicht; email VARCHAR 100, eindeutig; newsletter BOOLEAN, Standard FALSE. ausleihe: ausleih_nr INT, Primärschlüssel; kunden_nr Fremdschlüssel auf kunde mit ON DELETE CASCADE; rahmen_nr Fremdschlüssel auf fahrrad; von DATE, Pflicht; bis DATE, Prüfung bis größer gleich von.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .hd { fill: #0d6efd; }
+      .ht { fill: #fff; font-weight: 700; font-size: 12.5px; }
+      .bd { fill: #fff; stroke: #0d6efd; stroke-width: 1.3; }
+      .c { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .t { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; fill: #6c757d; }
+      .k { font-size: 9.5px; font-weight: 700; fill: #b35c00; }
+      .r { font-size: 10px; fill: #6f42c1; }
+      .fk { stroke: #d63384; stroke-width: 1.5; fill: none; }
+      .fl { font-size: 10px; fill: #d63384; font-weight: 600; }
+    </style>
+  </defs>
+  <!-- filiale -->
+  <rect class="hd" x="10" y="20" width="170" height="22" rx="3"/><text class="ht" x="18" y="36">filiale</text>
+  <rect class="bd" x="10" y="42" width="170" height="46"/>
+  <text class="k" x="16" y="58">PK</text><text class="c" x="34" y="58">filial_nr</text><text class="t" x="108" y="58">INT AI</text>
+  <text class="c" x="34" y="78">ort</text><text class="t" x="108" y="78">VARCHAR(50)</text>
+
+  <!-- fahrrad -->
+  <rect class="hd" x="250" y="20" width="200" height="22" rx="3"/><text class="ht" x="258" y="36">fahrrad</text>
+  <rect class="bd" x="250" y="42" width="200" height="108"/>
+  <text class="k" x="256" y="58">PK</text><text class="c" x="274" y="58">rahmen_nr</text><text class="t" x="358" y="58">VARCHAR(20)</text>
+  <text class="c" x="274" y="78">modell</text><text class="t" x="358" y="78">VARCHAR(80)</text>
+  <text class="c" x="274" y="98">tagespreis</text><text class="t" x="358" y="98">DECIMAL(6,2)</text>
+  <text class="k" x="256" y="118">FK</text><text class="c" x="274" y="118">filial_nr</text><text class="t" x="358" y="118">INT</text>
+  <text class="c" x="274" y="138">angeschafft_am</text><text class="t" x="380" y="138">DATE</text>
+  <text class="r" x="250" y="166">CHECK (tagespreis &gt; 0)</text>
+
+  <!-- kunde -->
+  <rect class="hd" x="530" y="20" width="180" height="22" rx="3"/><text class="ht" x="538" y="36">kunde</text>
+  <rect class="bd" x="530" y="42" width="180" height="86"/>
+  <text class="k" x="536" y="58">PK</text><text class="c" x="554" y="58">kunden_nr</text><text class="t" x="636" y="58">INT AI</text>
+  <text class="c" x="554" y="78">name</text><text class="t" x="636" y="78">VARCHAR(60)</text>
+  <text class="k" x="536" y="98">UQ</text><text class="c" x="554" y="98">email</text><text class="t" x="636" y="98">VARCHAR(100)</text>
+  <text class="c" x="554" y="118">newsletter</text><text class="t" x="636" y="118">BOOLEAN</text>
+  <text class="r" x="530" y="144">DEFAULT FALSE bei newsletter</text>
+
+  <!-- ausleihe -->
+  <rect class="hd" x="380" y="184" width="200" height="22" rx="3"/><text class="ht" x="388" y="200">ausleihe</text>
+  <rect class="bd" x="380" y="206" width="200" height="56"/>
+  <text class="k" x="386" y="222">PK</text><text class="c" x="404" y="222">ausleih_nr</text><text class="t" x="490" y="222">INT AI</text>
+  <text class="k" x="386" y="238">FK</text><text class="c" x="404" y="238">kunden_nr, rahmen_nr</text>
+  <text class="c" x="404" y="254">von, bis</text><text class="t" x="490" y="254">DATE</text>
+  <text class="r" x="380" y="278">CHECK (bis &gt;= von)</text>
+
+  <!-- Fremdschlüssel -->
+  <path class="fk" d="M250,114 H215 V54 H180"/><text class="fl" x="186" y="104">RESTRICT</text>
+  <path class="fk" d="M420,184 V150"/><text class="fl" x="426" y="172">rahmen_nr</text>
+  <path class="fk" d="M580,234 H700 V128"/><text class="fl" x="596" y="228">CASCADE</text>
+  <text class="r" x="10" y="232">Alle Spalten außer angeschafft_am, telefon</text>
+  <text class="r" x="10" y="246">und bis sind NOT NULL.</text>
+  <text class="r" x="10" y="262">AI = AUTO_INCREMENT, UQ = UNIQUE</text>
+</svg>

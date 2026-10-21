@@ -9,7 +9,7 @@ return [
         'das DAO-Muster erklären',
     ],
     'content' => <<<'INHALT'
-<p>Die Abfragegrundlagen (SELECT, JOIN, GROUP BY) findest du in <a href="/Learningfields/LF5/kapitel3.php">LF5 Kapitel 3</a>
+<p>Die Abfragegrundlagen (SELECT, JOIN, GROUP BY) findest du in <a href="/Learningfields/LF5/kapitel7.php">LF5 Kapitel 7</a>
 und zum Üben im <a href="/games/sql-trainer/index.php">SQL-Trainer</a>. Hier geht es um den Aufbau der Datenbank und um den Zugriff aus Programmen.</p>
 
 <h6>Tabellen mit Regeln anlegen (DDL)</h6>
@@ -48,7 +48,7 @@ REVOKE UPDATE ON bank.* FROM 'shop_app'@'localhost';</code></pre>
 
 <h6>Transaktionen</h6>
 <p>Eine Transaktion bündelt mehrere Anweisungen zu einer Einheit: <strong>alles oder nichts</strong> (ACID, siehe
-<a href="/Learningfields/LF5/kapitel6.php">LF5 Kapitel 6</a>).</p>
+<a href="/Learningfields/LF5/kapitel8.php">LF5 Kapitel 8</a>).</p>
 <pre class="bg-light border rounded p-3"><code>START TRANSACTION;
 UPDATE konto SET saldo = saldo - 50 WHERE id = 1;
 UPDATE konto SET saldo = saldo + 50 WHERE id = 2;

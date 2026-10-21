@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="pd-title pd-desc">
+  <title id="pd-title">Daten im Programm, in der Datei und die Grenzen von Dateien</title>
+  <desc id="pd-desc">Links die Kundendaten im Arbeitsspeicher eines Programms als Liste von Datensätzen mit Nummer, Name und Ort. Mit speichern werden sie in die Textdatei kunden.csv geschrieben, mit laden wieder eingelesen; die Datei enthält eine Kopfzeile und eine Zeile pro Kunde, getrennt durch Semikolon. Rechts die Grenzen von Dateien: Schreiben zwei Programme gleichzeitig, gehen Änderungen verloren; jede Suche liest die ganze Datei; es gibt keine Regeln, sodass doppelte Nummern oder falsche Schreibweisen möglich sind; jede Änderung schreibt die komplette Datei neu; Zugriffsrechte gibt es nur für die ganze Datei. Diese Probleme löst ein Datenbanksystem.</desc>
+  <defs>
+    <marker id="pd-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0d6efd"/></marker>
+    <marker id="pd-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#198754"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .box { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .file { fill: #fff8e1; stroke: #f0ad4e; stroke-width: 1.3; }
+      .warn { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.3; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .s { font-size: 11.5px; fill: #343a40; }
+      .c { font-family: ui-monospace, Consolas, monospace; font-size: 11px; fill: #0d6efd; text-anchor: middle; }
+    </style>
+  </defs>
+  <text class="h" x="110" y="18">im Programm (Arbeitsspeicher)</text>
+  <rect class="box" x="10" y="28" width="200" height="132" rx="8"/>
+  <text class="m" x="20" y="50">kunden = [</text>
+  <text class="m" x="30" y="70">{nr: 1001, name: "Meier",</text><text class="m" x="44" y="84">ort: "Köln"},</text>
+  <text class="m" x="30" y="104">{nr: 1002, name: "Kaya",</text><text class="m" x="44" y="118">ort: "Bonn"},</text>
+  <text class="m" x="30" y="138">…</text><text class="m" x="20" y="152">]</text>
+
+  <path d="M210,74 H262" stroke="#0d6efd" stroke-width="1.8" fill="none" marker-end="url(#pd-a)"/><text class="c" x="236" y="66">speichern</text>
+  <path d="M264,118 H212" stroke="#198754" stroke-width="1.8" fill="none" marker-end="url(#pd-b)"/><text class="c" x="238" y="134" style="fill:#198754">laden</text>
+
+  <text class="h" x="370" y="18">in der Datei kunden.csv</text>
+  <path class="file" d="M266,28 H456 L474,46 V160 H266 Z"/>
+  <text class="m" x="278" y="58">nr;name;ort</text>
+  <text class="m" x="278" y="80">1001;Meier;Köln</text>
+  <text class="m" x="278" y="102">1002;Kaya;Bonn</text>
+  <text class="m" x="278" y="124">1003;Schulz;Köln</text>
+  <text class="s" x="278" y="148" style="font-style:italic;font-size:11px">nur Text – ohne Regeln</text>
+
+  <text class="h" x="598" y="18">Grenzen von Dateien</text>
+  <rect class="warn" x="488" y="28" width="222" height="200" rx="8"/>
+  <text class="s" x="498" y="52">⚠ zwei Programme schreiben</text><text class="s" x="514" y="68">gleichzeitig → Änderung weg</text>
+  <text class="s" x="498" y="92">⚠ jede Suche liest alles</text>
+  <text class="s" x="498" y="116">⚠ keine Regeln: Nr. doppelt,</text><text class="s" x="514" y="132">„Köln“ und „Koeln“</text>
+  <text class="s" x="498" y="156">⚠ jede Änderung schreibt</text><text class="s" x="514" y="172">die ganze Datei neu</text>
+  <text class="s" x="498" y="196">⚠ Rechte nur für die</text><text class="s" x="514" y="212">ganze Datei</text>
+
+  <text class="s" x="240" y="200" style="text-anchor:middle;font-weight:600">Für kleine Datenmengen und den Austausch</text>
+  <text class="s" x="240" y="218" style="text-anchor:middle;font-weight:600">reichen Dateien – sonst: Datenbank (Kapitel 3).</text>
+</svg>

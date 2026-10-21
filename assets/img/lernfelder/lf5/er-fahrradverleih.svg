@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="er-title er-desc">
+  <title id="er-title">ER-Modell eines Fahrradverleihs in Chen-Notation</title>
+  <desc id="er-desc">Drei Entitätstypen als Rechtecke: Filiale mit den Attributen FilialNr als Schlüssel und Ort; Fahrrad mit RahmenNr als Schlüssel, Modell und Tagespreis; Kunde mit KundenNr als Schlüssel, Name und Telefon. Beziehung besitzt zwischen Filiale und Fahrrad mit der Kardinalität 1 zu n: Eine Filiale besitzt viele Fahrräder, ein Fahrrad gehört zu genau einer Filiale. Beziehung leiht zwischen Kunde und Fahrrad mit der Kardinalität m zu n und den Beziehungsattributen von und bis: Ein Kunde leiht viele Fahrräder, ein Fahrrad wird von vielen Kunden geliehen. Schlüsselattribute sind unterstrichen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .ent { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.6; }
+      .rel { fill: #fff3cd; stroke: #f0ad4e; stroke-width: 1.6; }
+      .att { fill: #fff; stroke: #6c757d; stroke-width: 1.2; }
+      .ln { stroke: #495057; stroke-width: 1.3; }
+      .en { font-weight: 700; font-size: 13px; }
+      .rn { font-size: 12px; font-style: italic; }
+      .an { font-size: 11px; }
+      .key { font-size: 11px; text-decoration: underline; font-weight: 700; }
+      .card { font-size: 14px; font-weight: 700; fill: #d63384; }
+    </style>
+  </defs>
+  <!-- Linien zu Attributen -->
+  <line class="ln" x1="60" y1="120" x2="50" y2="70"/><line class="ln" x1="100" y1="120" x2="115" y2="70"/>
+  <line class="ln" x1="310" y1="120" x2="290" y2="70"/><line class="ln" x1="340" y1="120" x2="350" y2="40"/><line class="ln" x1="370" y1="120" x2="400" y2="74"/>
+  <line class="ln" x1="610" y1="120" x2="590" y2="70"/><line class="ln" x1="640" y1="120" x2="650" y2="40"/><line class="ln" x1="670" y1="120" x2="690" y2="74"/>
+  <line class="ln" x1="490" y1="164" x2="455" y2="214"/><line class="ln" x1="490" y1="164" x2="530" y2="214"/>
+  <!-- Beziehungslinien -->
+  <line class="ln" x1="140" y1="140" x2="178" y2="140"/><line class="ln" x1="242" y1="140" x2="280" y2="140"/>
+  <line class="ln" x1="400" y1="140" x2="452" y2="140"/><line class="ln" x1="528" y1="140" x2="580" y2="140"/>
+
+  <!-- Entitäten -->
+  <rect class="ent" x="20" y="120" width="120" height="40"/><text class="en" x="80" y="145">Filiale</text>
+  <rect class="ent" x="280" y="120" width="120" height="40"/><text class="en" x="340" y="145">Fahrrad</text>
+  <rect class="ent" x="580" y="120" width="120" height="40"/><text class="en" x="640" y="145">Kunde</text>
+  <!-- Beziehungen -->
+  <path class="rel" d="M210,116 L242,140 L210,164 L178,140 Z"/><text class="rn" x="210" y="144">besitzt</text>
+  <path class="rel" d="M490,116 L528,140 L490,164 L452,140 Z"/><text class="rn" x="490" y="144">leiht</text>
+  <!-- Kardinalitäten -->
+  <text class="card" x="156" y="132">1</text><text class="card" x="264" y="132">n</text>
+  <text class="card" x="420" y="132">n</text><text class="card" x="560" y="132">m</text>
+  <!-- Attribute -->
+  <ellipse class="att" cx="45" cy="56" rx="40" ry="15"/><text class="key" x="45" y="60">FilialNr</text>
+  <ellipse class="att" cx="120" cy="56" rx="30" ry="15"/><text class="an" x="120" y="60">Ort</text>
+  <ellipse class="att" cx="285" cy="56" rx="42" ry="15"/><text class="key" x="285" y="60">RahmenNr</text>
+  <ellipse class="att" cx="352" cy="26" rx="36" ry="15"/><text class="an" x="352" y="30">Modell</text>
+  <ellipse class="att" cx="410" cy="60" rx="42" ry="15"/><text class="an" x="410" y="64">Tagespreis</text>
+  <ellipse class="att" cx="585" cy="56" rx="42" ry="15"/><text class="key" x="585" y="60">KundenNr</text>
+  <ellipse class="att" cx="652" cy="26" rx="32" ry="15"/><text class="an" x="652" y="30">Name</text>
+  <ellipse class="att" cx="690" cy="60" rx="28" ry="15"/><text class="an" x="690" y="64">Telefon</text>
+  <ellipse class="att" cx="450" cy="226" rx="28" ry="14"/><text class="an" x="450" y="230">von</text>
+  <ellipse class="att" cx="535" cy="226" rx="28" ry="14"/><text class="an" x="535" y="230">bis</text>
+
+  <text class="an" x="360" y="272" style="font-size:12px">Eine Filiale besitzt viele Fahrräder, jedes Fahrrad gehört zu genau einer Filiale (1:n).</text>
+  <text class="an" x="360" y="290" style="font-size:12px">Ein Kunde leiht viele Fahrräder, ein Fahrrad wird von vielen Kunden geliehen (m:n) – mit Zeitraum von/bis.</text>
+</svg>

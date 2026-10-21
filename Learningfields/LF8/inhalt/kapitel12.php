@@ -26,7 +26,7 @@ Struktur der Daten ständig ändert (Produkte mit völlig unterschiedlichen Eige
 
 <h6>ACID, BASE und das CAP-Theorem</h6>
 <p>Relationale Systeme garantieren <strong>ACID</strong> (Atomicity, Consistency, Isolation, Durability, siehe
-<a href="/Learningfields/LF5/kapitel6.php">LF5 Kapitel 6</a>). Verteilte NoSQL-Systeme folgen oft dem lockereren
+<a href="/Learningfields/LF5/kapitel8.php">LF5 Kapitel 8</a>). Verteilte NoSQL-Systeme folgen oft dem lockereren
 <strong>BASE</strong>-Prinzip: <em>Basically Available</em> (fast immer erreichbar), <em>Soft State</em> (Zustand kann sich
 ohne neue Eingabe noch ändern, während Knoten sich abgleichen) und <em>Eventual Consistency</em> (alle Kopien sind
 <strong>irgendwann</strong> gleich, nicht sofort).</p>

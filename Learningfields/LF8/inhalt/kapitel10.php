@@ -47,7 +47,7 @@ gibt es <strong>NoSQL</strong>-Modelle („not only SQL“), die in Kapitel 12 g
   <figcaption class="figure-caption">Vom Lastenheft zur fertigen Datenbank</figcaption>
 </figure>
 <p>Der <strong>konzeptionelle</strong> Entwurf ist unabhängig von jeder Technik (ER-Modell, siehe
-<a href="/Learningfields/LF5/kapitel1.php">LF5 Kapitel 1</a>). Der <strong>logische</strong> Entwurf legt das Datenmodell fest –
+<a href="/Learningfields/LF5/kapitel4.php">LF5 Kapitel 4</a>). Der <strong>logische</strong> Entwurf legt das Datenmodell fest –
 bei relationalen Datenbanken Tabellen, Primär- und Fremdschlüssel. Erst der <strong>physische</strong> Entwurf berücksichtigt das konkrete
 Datenbanksystem: Datentypen, Indizes, Speicher.</p>
 

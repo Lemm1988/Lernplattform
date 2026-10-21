@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="rb-title rb-desc">
+  <title id="rb-title">Begriffe des relationalen Modells</title>
+  <desc id="rb-desc">Die Tabelle Kunde ist eine Relation. Ihre Spalten kunde_nr, name, ort und email sind Attribute; jede Zeile, etwa 1001, Meier, Köln, meier@example.org, ist ein Tupel beziehungsweise Datensatz. kunde_nr ist der Primärschlüssel. Die Tabelle Bestellung hat den Fremdschlüssel kunde_nr, der auf den Primärschlüssel von Kunde verweist; so gehört Bestellung 5001 zu Kunde 1001. Der Wertebereich eines Attributs heißt Domäne, zum Beispiel ganze Zahlen ab 1001 für kunde_nr.</desc>
+  <defs>
+    <marker id="rb-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d63384"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .th { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.1; }
+      .td { fill: #fff; stroke: #adb5bd; stroke-width: 1.1; }
+      .hl { fill: #fff3e0; stroke: #fd7e14; stroke-width: 1.8; }
+      .h { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; font-weight: 700; }
+      .d { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
+      .tn { font-weight: 700; font-size: 13px; }
+      .lab { font-size: 11.5px; font-weight: 600; fill: #6f42c1; }
+      .pk { font-size: 10px; font-weight: 700; fill: #b35c00; }
+    </style>
+  </defs>
+  <!-- Kunde -->
+  <text class="tn" x="20" y="22">Kunde</text><text class="lab" x="70" y="22">= Relation (Tabelle)</text>
+  <rect class="th" x="20" y="32" width="90" height="26"/><text class="h" x="28" y="50">kunde_nr</text><text class="pk" x="88" y="44">PK</text>
+  <rect class="th" x="110" y="32" width="80" height="26"/><text class="h" x="118" y="50">name</text>
+  <rect class="th" x="190" y="32" width="70" height="26"/><text class="h" x="198" y="50">ort</text>
+  <rect class="th" x="260" y="32" width="140" height="26"/><text class="h" x="268" y="50">email</text>
+  <rect class="hl" x="20" y="58" width="380" height="26"/>
+  <text class="d" x="28" y="76">1001</text><text class="d" x="118" y="76">Meier</text><text class="d" x="198" y="76">Köln</text><text class="d" x="268" y="76">meier@example.org</text>
+  <rect class="td" x="20" y="84" width="380" height="26"/>
+  <text class="d" x="28" y="102">1002</text><text class="d" x="118" y="102">Kaya</text><text class="d" x="198" y="102">Bonn</text><text class="d" x="268" y="102">kaya@example.org</text>
+  <line x1="110" y1="58" x2="110" y2="110" stroke="#adb5bd"/><line x1="190" y1="58" x2="190" y2="110" stroke="#adb5bd"/><line x1="260" y1="58" x2="260" y2="110" stroke="#adb5bd"/>
+  <text class="lab" x="410" y="50">← Attribute (Spalten)</text>
+  <text class="lab" x="410" y="102">← Tupel (Zeile, Datensatz)</text>
+  <text class="lab" x="20" y="130">Domäne von kunde_nr: ganze Zahlen ≥ 1001</text>
+
+  <!-- Bestellung -->
+  <text class="tn" x="20" y="164">Bestellung</text>
+  <rect class="th" x="20" y="174" width="90" height="26"/><text class="h" x="28" y="192">best_nr</text><text class="pk" x="88" y="186">PK</text>
+  <rect class="th" x="110" y="174" width="90" height="26"/><text class="h" x="118" y="192">datum</text>
+  <rect class="th" x="200" y="174" width="90" height="26"/><text class="h" x="208" y="192">kunde_nr</text><text class="pk" x="268" y="186">FK</text>
+  <rect class="td" x="20" y="200" width="270" height="26"/>
+  <text class="d" x="28" y="218">5001</text><text class="d" x="118" y="218">2026-10-21</text><text class="d" x="208" y="218">1001</text>
+  <line x1="110" y1="200" x2="110" y2="226" stroke="#adb5bd"/><line x1="200" y1="200" x2="200" y2="226" stroke="#adb5bd"/>
+  <path d="M245,226 V238 H8 V71 H17" stroke="#d63384" stroke-width="1.6" fill="none" stroke-dasharray="5 3" marker-end="url(#rb-a)"/>
+  <text class="lab" x="420" y="182" style="fill:#d63384">Fremdschlüssel verweist</text>
+  <text class="lab" x="420" y="198" style="fill:#d63384">auf den Primärschlüssel:</text>
+  <text class="lab" x="420" y="214" style="fill:#d63384">Bestellung 5001 gehört</text>
+  <text class="lab" x="420" y="230" style="fill:#d63384">zu Kunde 1001</text>
+</svg>

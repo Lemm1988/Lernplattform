@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="en-title en-desc">
+  <title id="en-title">Eine 1:n-Beziehung in vier Notationen</title>
+  <desc id="en-desc">Dieselbe Aussage, eine Filiale hat beliebig viele Fahrräder und jedes Fahrrad gehört zu genau einer Filiale, in vier Schreibweisen. Chen-Notation: eine 1 an der Filiale, ein n am Fahrrad. Min-Max-Notation: an der Filiale steht 0 komma n, weil eine Filiale an null bis n Beziehungen teilnimmt, am Fahrrad steht 1 komma 1. Krähenfuß-Notation: an der Filiale zwei Striche für genau eins, am Fahrrad ein Kreis und ein Krähenfuß für null bis viele. UML: an der Filiale 1, am Fahrrad 0 Punkt Punkt Stern.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .ent { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .rel { fill: #fff3cd; stroke: #f0ad4e; stroke-width: 1.4; }
+      .ln { stroke: #343a40; stroke-width: 1.5; fill: none; }
+      .en { font-weight: 700; font-size: 12px; }
+      .h { font-weight: 700; font-size: 12.5px; text-anchor: start; }
+      .c { font-size: 13px; font-weight: 700; fill: #d63384; }
+      .s { font-size: 11px; fill: #495057; text-anchor: start; }
+    </style>
+  </defs>
+  <!-- Chen -->
+  <text class="h" x="10" y="26">Chen</text>
+  <rect class="ent" x="150" y="10" width="100" height="30"/><text class="en" x="200" y="30">Filiale</text>
+  <line class="ln" x1="250" y1="25" x2="320" y2="25"/>
+  <path class="rel" d="M350,10 L380,25 L350,40 L320,25 Z"/><text class="s" x="350" y="29" style="text-anchor:middle;font-style:italic">hat</text>
+  <line class="ln" x1="380" y1="25" x2="450" y2="25"/>
+  <rect class="ent" x="450" y="10" width="100" height="30"/><text class="en" x="500" y="30">Fahrrad</text>
+  <text class="c" x="266" y="19">1</text><text class="c" x="434" y="19">n</text>
+  <text class="s" x="570" y="29">Zahlen: Anzahl beim Partner</text>
+
+  <!-- Min-Max -->
+  <text class="h" x="10" y="90">(min, max)</text>
+  <rect class="ent" x="150" y="74" width="100" height="30"/><text class="en" x="200" y="94">Filiale</text>
+  <line class="ln" x1="250" y1="89" x2="320" y2="89"/>
+  <path class="rel" d="M350,74 L380,89 L350,104 L320,89 Z"/><text class="s" x="350" y="93" style="text-anchor:middle;font-style:italic">hat</text>
+  <line class="ln" x1="380" y1="89" x2="450" y2="89"/>
+  <rect class="ent" x="450" y="74" width="100" height="30"/><text class="en" x="500" y="94">Fahrrad</text>
+  <text class="c" x="284" y="83">(0,n)</text><text class="c" x="416" y="83">(1,1)</text>
+  <text class="s" x="570" y="88">Paar steht bei der Entität,</text><text class="s" x="570" y="102">die so oft teilnimmt</text>
+
+  <!-- Krähenfuß -->
+  <text class="h" x="10" y="154">Krähenfuß</text>
+  <rect class="ent" x="150" y="138" width="100" height="30"/><text class="en" x="200" y="158">Filiale</text>
+  <line class="ln" x1="250" y1="153" x2="450" y2="153"/>
+  <line class="ln" x1="262" y1="144" x2="262" y2="162"/><line class="ln" x1="270" y1="144" x2="270" y2="162"/>
+  <circle cx="426" cy="153" r="6" fill="#fff" stroke="#343a40" stroke-width="1.5"/>
+  <path class="ln" d="M436,153 L450,143 M436,153 L450,163 M436,153 L450,153"/>
+  <rect class="ent" x="450" y="138" width="100" height="30"/><text class="en" x="500" y="158">Fahrrad</text>
+  <text class="s" x="570" y="152">|| genau eins</text><text class="s" x="570" y="166">o&lt; null bis viele</text>
+
+  <!-- UML -->
+  <text class="h" x="10" y="218">UML</text>
+  <rect class="ent" x="150" y="202" width="100" height="30"/><text class="en" x="200" y="222">Filiale</text>
+  <line class="ln" x1="250" y1="217" x2="450" y2="217"/>
+  <rect class="ent" x="450" y="202" width="100" height="30"/><text class="en" x="500" y="222">Fahrrad</text>
+  <text class="c" x="264" y="211">1</text><text class="c" x="424" y="211">0..*</text>
+  <text class="s" x="570" y="221">wie im Klassendiagramm</text>
+  <text class="s" x="10" y="252" style="font-style:italic">Alle vier Zeilen sagen dasselbe: Eine Filiale hat beliebig viele Fahrräder, jedes Fahrrad gehört zu genau einer Filiale.</text>
+</svg>

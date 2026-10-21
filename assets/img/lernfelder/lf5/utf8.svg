@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="u8-title u8-desc">
+  <title id="u8-title">Zeichen in Unicode und UTF-8</title>
+  <desc id="u8-desc">Vier Zeichen mit ihrem Unicode-Codepunkt und den UTF-8-Bytes. A hat U+0041 und braucht ein Byte: 41, identisch mit ASCII. ü hat U+00FC und braucht zwei Bytes: C3 BC. Das Eurozeichen hat U+20AC und braucht drei Bytes: E2 82 AC. Das Fahrrad-Emoji hat U+1F6B2 und braucht vier Bytes: F0 9F 9A B2. Werden die UTF-8-Bytes von ü fälschlich als Latin-1 gelesen, erscheint Ã¼.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .hd { font-weight: 700; font-size: 12.5px; }
+      .z { font-size: 24px; }
+      .cp { font-family: ui-monospace, Consolas, monospace; font-size: 13px; }
+      .by { fill: #cfe2ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .bt { font-family: ui-monospace, Consolas, monospace; font-size: 13px; font-weight: 700; }
+      .s { font-size: 11.5px; fill: #495057; }
+      .row { fill: #f8f9fa; }
+    </style>
+  </defs>
+  <text class="hd" x="60" y="22">Zeichen</text><text class="hd" x="170" y="22">Unicode</text><text class="hd" x="400" y="22">UTF-8-Bytes (hex)</text><text class="hd" x="640" y="22">Länge</text>
+  <rect class="row" x="10" y="32" width="700" height="40" rx="4"/>
+  <text class="z" x="60" y="61">A</text><text class="cp" x="170" y="57">U+0041</text>
+  <rect class="by" x="280" y="38" width="52" height="28" rx="4"/><text class="bt" x="306" y="57">41</text>
+  <text class="s" x="640" y="57">1 Byte (= ASCII)</text>
+  <text class="z" x="60" y="109">ü</text><text class="cp" x="170" y="105">U+00FC</text>
+  <rect class="by" x="280" y="86" width="52" height="28" rx="4"/><text class="bt" x="306" y="105">C3</text>
+  <rect class="by" x="338" y="86" width="52" height="28" rx="4"/><text class="bt" x="364" y="105">BC</text>
+  <text class="s" x="640" y="105">2 Byte</text>
+  <rect class="row" x="10" y="128" width="700" height="40" rx="4"/>
+  <text class="z" x="60" y="157">€</text><text class="cp" x="170" y="153">U+20AC</text>
+  <rect class="by" x="280" y="134" width="52" height="28" rx="4"/><text class="bt" x="306" y="153">E2</text>
+  <rect class="by" x="338" y="134" width="52" height="28" rx="4"/><text class="bt" x="364" y="153">82</text>
+  <rect class="by" x="396" y="134" width="52" height="28" rx="4"/><text class="bt" x="422" y="153">AC</text>
+  <text class="s" x="640" y="153">3 Byte</text>
+  <text class="z" x="60" y="205">🚲</text><text class="cp" x="170" y="201">U+1F6B2</text>
+  <rect class="by" x="280" y="182" width="52" height="28" rx="4"/><text class="bt" x="306" y="201">F0</text>
+  <rect class="by" x="338" y="182" width="52" height="28" rx="4"/><text class="bt" x="364" y="201">9F</text>
+  <rect class="by" x="396" y="182" width="52" height="28" rx="4"/><text class="bt" x="422" y="201">9A</text>
+  <rect class="by" x="454" y="182" width="52" height="28" rx="4"/><text class="bt" x="480" y="201">B2</text>
+  <text class="s" x="640" y="201">4 Byte</text>
+  <text class="s" x="360" y="240" style="font-style:italic">Falsch als Latin-1 gelesen werden die Bytes C3 BC zu „Ã¼“ – typischer Zeichensalat bei falscher Kodierung.</text>
+</svg>

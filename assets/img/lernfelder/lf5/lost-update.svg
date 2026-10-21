@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="lu-title lu-desc">
+  <title id="lu-title">Lost Update und Lösung mit Sperre</title>
+  <desc id="lu-desc">Links das Problem: Bestand 10. Transaktion A liest 10, Transaktion B liest ebenfalls 10. A verkauft 3 und schreibt 7, B verkauft 2 und schreibt 8. Am Ende steht 8 statt 5 im Lager, der Verkauf von A ist verloren. Rechts die Lösung: A liest mit SELECT FOR UPDATE und sperrt die Zeile. B will ebenfalls mit FOR UPDATE lesen und muss warten. A schreibt 7 und bestätigt mit COMMIT, erst dann liest B 7 und schreibt 5. Alternativ verhindert ein relatives UPDATE, bestand gleich bestand minus 2, das Problem.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .ta { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.2; }
+      .tb { fill: #fff3e0; stroke: #fd7e14; stroke-width: 1.2; }
+      .w { fill: #f1f3f5; stroke: #adb5bd; stroke-width: 1.2; stroke-dasharray: 4 3; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; }
+      .lab { font-size: 11px; font-weight: 700; text-anchor: middle; }
+      .db { font-family: ui-monospace, Consolas, monospace; font-size: 12px; font-weight: 700; text-anchor: middle; }
+      .bad { fill: #b02a37; } .ok { fill: #146c43; }
+      .t { font-size: 10.5px; fill: #6c757d; text-anchor: middle; }
+    </style>
+  </defs>
+  <!-- Problem -->
+  <text class="h" x="175" y="18" style="fill:#b02a37">Problem: Lost Update</text>
+  <text class="lab" x="70" y="40" style="fill:#0d6efd">Transaktion A</text><text class="lab" x="195" y="40" style="fill:#b35c00">Transaktion B</text><text class="lab" x="300" y="40">Bestand</text>
+  <text class="t" x="16" y="66">t1</text><rect class="ta" x="28" y="52" width="88" height="22" rx="4"/><text class="m" x="34" y="67">liest 10</text><text class="db" x="300" y="68">10</text>
+  <text class="t" x="16" y="96">t2</text><rect class="tb" x="150" y="82" width="90" height="22" rx="4"/><text class="m" x="156" y="97">liest 10</text><text class="db" x="300" y="98">10</text>
+  <text class="t" x="16" y="126">t3</text><rect class="ta" x="28" y="112" width="88" height="22" rx="4"/><text class="m" x="34" y="127">schreibt 7</text><text class="db" x="300" y="128">7</text>
+  <text class="t" x="16" y="156">t4</text><rect class="tb" x="150" y="142" width="90" height="22" rx="4"/><text class="m" x="156" y="157">schreibt 8</text><text class="db bad" x="300" y="158">8</text>
+  <text class="m" x="28" y="190" style="font-size:11.5px">A verkauft 3, B verkauft 2 →</text>
+  <text class="m" x="28" y="206" style="font-size:11.5px">richtig wäre 5, gespeichert ist <tspan class="bad" font-weight="700">8</tspan></text>
+  <text class="t" x="175" y="232" style="font-size:11px">Der Verkauf von A ist verloren gegangen.</text>
+
+  <line x1="355" y1="10" x2="355" y2="262" stroke="#dee2e6"/>
+
+  <!-- Lösung -->
+  <text class="h" x="540" y="18" style="fill:#146c43">Lösung: Zeile sperren</text>
+  <text class="lab" x="430" y="40" style="fill:#0d6efd">Transaktion A</text><text class="lab" x="565" y="40" style="fill:#b35c00">Transaktion B</text><text class="lab" x="675" y="40">Bestand</text>
+  <text class="t" x="370" y="66">t1</text><rect class="ta" x="382" y="52" width="104" height="22" rx="4"/><text class="m" x="388" y="67">FOR UPDATE: 10</text><text class="db" x="675" y="68">10 🔒</text>
+  <text class="t" x="370" y="96">t2</text><rect class="w" x="510" y="82" width="110" height="22" rx="4"/><text class="m" x="516" y="97">FOR UPDATE …</text><text class="t" x="565" y="118">wartet</text>
+  <text class="t" x="370" y="146">t3</text><rect class="ta" x="382" y="132" width="104" height="22" rx="4"/><text class="m" x="388" y="147">schreibt 7</text><text class="db" x="675" y="148">7 🔒</text>
+  <text class="t" x="370" y="176">t4</text><rect class="ta" x="382" y="162" width="104" height="22" rx="4"/><text class="m" x="388" y="177">COMMIT</text><text class="db" x="675" y="178">7</text>
+  <text class="t" x="370" y="206">t5</text><rect class="tb" x="500" y="192" width="140" height="22" rx="4"/><text class="m" x="506" y="207">liest 7, schreibt 5</text><text class="db ok" x="675" y="208">5</text>
+  <text class="m" x="382" y="238" style="font-size:11px">oder ohne Lesen: UPDATE lager</text>
+  <text class="m" x="382" y="254" style="font-size:11px">SET bestand = bestand - 2 …</text>
+</svg>

@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="zs-title zs-desc">
+  <title id="zs-title">Die Zahl 202 dezimal, dual und hexadezimal</title>
+  <desc id="zs-desc">Links die Dualzahl 1100 1010 mit den Stellenwerten 128, 64, 32, 16, 8, 4, 2, 1. Gesetzt sind die Stellen 128, 64, 8 und 2; ihre Summe ist 202. Je vier Bits ergeben eine Hexadezimalziffer: 1100 ist 12, also C, und 1010 ist 10, also A; zusammen 0xCA. Rechts das Divisionsrestverfahren: 202 geteilt durch 2 ist 101 Rest 0, 101 durch 2 ist 50 Rest 1, 50 durch 2 ist 25 Rest 0, 25 durch 2 ist 12 Rest 1, 12 durch 2 ist 6 Rest 0, 6 durch 2 ist 3 Rest 0, 3 durch 2 ist 1 Rest 1, 1 durch 2 ist 0 Rest 1. Die Reste von unten nach oben gelesen ergeben 11001010.</desc>
+  <defs>
+    <marker id="zs-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d63384"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .pw { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; fill: #6c757d; }
+      .b1 { fill: #cfe2ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .b0 { fill: #fff; stroke: #adb5bd; stroke-width: 1.2; }
+      .bit { font-family: ui-monospace, Consolas, monospace; font-size: 20px; font-weight: 700; }
+      .c { font-family: ui-monospace, Consolas, monospace; font-size: 12px; fill: #0d6efd; }
+      .h { font-weight: 700; font-size: 13px; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; }
+      .s { font-size: 11.5px; fill: #495057; }
+      .hx { font-family: ui-monospace, Consolas, monospace; font-size: 14px; font-weight: 700; fill: #6f42c1; }
+    </style>
+  </defs>
+  <text class="h" x="226" y="18">dual → dezimal: Stellenwerte addieren</text>
+  <text class="pw" x="46" y="44">2⁷=128</text><text class="pw" x="100" y="44">2⁶=64</text><text class="pw" x="154" y="44">2⁵=32</text><text class="pw" x="208" y="44">2⁴=16</text>
+  <text class="pw" x="262" y="44">2³=8</text><text class="pw" x="316" y="44">2²=4</text><text class="pw" x="370" y="44">2¹=2</text><text class="pw" x="424" y="44">2⁰=1</text>
+  <rect class="b1" x="22" y="52" width="48" height="40" rx="4"/><text class="bit" x="46" y="80">1</text>
+  <rect class="b1" x="76" y="52" width="48" height="40" rx="4"/><text class="bit" x="100" y="80">1</text>
+  <rect class="b0" x="130" y="52" width="48" height="40" rx="4"/><text class="bit" x="154" y="80">0</text>
+  <rect class="b0" x="184" y="52" width="48" height="40" rx="4"/><text class="bit" x="208" y="80">0</text>
+  <rect class="b1" x="238" y="52" width="48" height="40" rx="4"/><text class="bit" x="262" y="80">1</text>
+  <rect class="b0" x="292" y="52" width="48" height="40" rx="4"/><text class="bit" x="316" y="80">0</text>
+  <rect class="b1" x="346" y="52" width="48" height="40" rx="4"/><text class="bit" x="370" y="80">1</text>
+  <rect class="b0" x="400" y="52" width="48" height="40" rx="4"/><text class="bit" x="424" y="80">0</text>
+  <text class="c" x="46" y="110">128</text><text class="c" x="100" y="110">64</text><text class="c" x="262" y="110">8</text><text class="c" x="370" y="110">2</text>
+  <text class="m" x="235" y="134">128 + 64 + 8 + 2 = <tspan font-weight="700">202</tspan></text>
+
+  <path d="M22,150 V158 H178 V150" fill="none" stroke="#6f42c1" stroke-width="1.5"/>
+  <path d="M238,150 V158 H448 V150" fill="none" stroke="#6f42c1" stroke-width="1.5"/>
+  <text class="s" x="100" y="178">1100 = 8 + 4 = 12</text><text class="hx" x="100" y="200">C</text>
+  <text class="s" x="343" y="178">1010 = 8 + 2 = 10</text><text class="hx" x="343" y="200">A</text>
+  <text class="m" x="235" y="232">4 Bits = 1 Hex-Ziffer → 202 = <tspan font-weight="700" fill="#6f42c1">0xCA</tspan></text>
+
+  <!-- Divisionsrestverfahren -->
+  <line x1="478" y1="10" x2="478" y2="240" stroke="#dee2e6"/>
+  <text class="h" x="598" y="18">dezimal → dual: durch 2 teilen</text>
+  <text class="m" x="560" y="46" style="text-anchor:end">202 : 2 =</text><text class="m" x="600" y="46">101</text><text class="m" x="660" y="46">Rest 0</text>
+  <text class="m" x="560" y="68" style="text-anchor:end">101 : 2 =</text><text class="m" x="600" y="68">50</text><text class="m" x="660" y="68">Rest 1</text>
+  <text class="m" x="560" y="90" style="text-anchor:end">50 : 2 =</text><text class="m" x="600" y="90">25</text><text class="m" x="660" y="90">Rest 0</text>
+  <text class="m" x="560" y="112" style="text-anchor:end">25 : 2 =</text><text class="m" x="600" y="112">12</text><text class="m" x="660" y="112">Rest 1</text>
+  <text class="m" x="560" y="134" style="text-anchor:end">12 : 2 =</text><text class="m" x="600" y="134">6</text><text class="m" x="660" y="134">Rest 0</text>
+  <text class="m" x="560" y="156" style="text-anchor:end">6 : 2 =</text><text class="m" x="600" y="156">3</text><text class="m" x="660" y="156">Rest 0</text>
+  <text class="m" x="560" y="178" style="text-anchor:end">3 : 2 =</text><text class="m" x="600" y="178">1</text><text class="m" x="660" y="178">Rest 1</text>
+  <text class="m" x="560" y="200" style="text-anchor:end">1 : 2 =</text><text class="m" x="600" y="200">0</text><text class="m" x="660" y="200">Rest 1</text>
+  <path d="M704,204 V42" stroke="#d63384" stroke-width="1.8" marker-end="url(#zs-a)"/>
+  <text class="s" x="598" y="226" style="fill:#d63384;font-weight:600">Reste von unten nach oben: 11001010</text>
+</svg>

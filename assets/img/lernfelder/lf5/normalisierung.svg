@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-labelledby="no-title no-desc">
+  <title id="no-title">Normalisierung eines Leihscheins bis zur dritten Normalform</title>
+  <desc id="no-desc">Ausgangslage: Ein Leihschein enthält LeihNr, Datum, KundenNr, Name und in einem Feld mehrere Fahrräder mit Rahmennummer, Modell und Preis. Erste Normalform: Jede Zeile enthält nur ein Fahrrad, Schlüssel ist LeihNr zusammen mit RahmenNr. Zweite Normalform: Attribute, die nur von einem Teil des Schlüssels abhängen, werden ausgelagert: Leihschein mit LeihNr, Datum, KundenNr und Name; Leihposition mit LeihNr und RahmenNr; Fahrrad mit RahmenNr, Modell und Preis. Dritte Normalform: Der Name hängt transitiv über die KundenNr von der LeihNr ab und wird in die Tabelle Kunde ausgelagert; Leihschein behält LeihNr, Datum und die KundenNr als Fremdschlüssel.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .st { font-weight: 700; font-size: 13px; }
+      .why { font-size: 11px; fill: #495057; }
+      .tb { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .tn { font-weight: 700; font-size: 12px; }
+      .a { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; }
+      .bad { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.3; }
+      .sep { stroke: #dee2e6; stroke-width: 1; }
+    </style>
+  </defs>
+  <!-- 0 -->
+  <text class="st" x="10" y="24">Ausgangslage</text>
+  <text class="why" x="10" y="40">mehrere Werte</text><text class="why" x="10" y="54">in einem Feld</text>
+  <rect class="bad" x="130" y="10" width="580" height="48" rx="6"/>
+  <text class="a" x="140" y="30">501 | 2026-05-02 | 17 | Kaya |</text>
+  <text class="a" x="380" y="30" style="fill:#b02a37;font-weight:700">WTU123 Trekking 15 €, EBK9 E-Bike 30 €</text>
+  <text class="a" x="140" y="48">LeihNr | Datum | KundenNr | Name | Fahrräder</text>
+  <line class="sep" x1="10" y1="70" x2="710" y2="70"/>
+
+  <!-- 1NF -->
+  <text class="st" x="10" y="94">1. NF</text>
+  <text class="why" x="10" y="110">atomare Werte,</text><text class="why" x="10" y="124">eine Zeile je Fahrrad</text>
+  <rect class="tb" x="130" y="80" width="580" height="44" rx="6"/>
+  <text class="tn" x="140" y="98">Ausleihe</text>
+  <text class="a" x="140" y="116">(<tspan text-decoration="underline">LeihNr, RahmenNr</tspan>, Datum, KundenNr, Name, Modell, Preis)</text>
+  <line class="sep" x1="10" y1="136" x2="710" y2="136"/>
+
+  <!-- 2NF -->
+  <text class="st" x="10" y="160">2. NF</text>
+  <text class="why" x="10" y="176">nichts hängt nur von</text><text class="why" x="10" y="190">einem Schlüsselteil ab</text>
+  <rect class="tb" x="130" y="146" width="210" height="44" rx="6"/>
+  <text class="tn" x="140" y="164">Leihschein</text><text class="a" x="140" y="182">(<tspan text-decoration="underline">LeihNr</tspan>, Datum, KundenNr, Name)</text>
+  <rect class="tb" x="350" y="146" width="160" height="44" rx="6"/>
+  <text class="tn" x="360" y="164">Leihposition</text><text class="a" x="360" y="182">(<tspan text-decoration="underline">↑LeihNr, ↑RahmenNr</tspan>)</text>
+  <rect class="tb" x="520" y="146" width="190" height="44" rx="6"/>
+  <text class="tn" x="530" y="164">Fahrrad</text><text class="a" x="530" y="182">(<tspan text-decoration="underline">RahmenNr</tspan>, Modell, Preis)</text>
+  <line class="sep" x1="10" y1="202" x2="710" y2="202"/>
+
+  <!-- 3NF -->
+  <text class="st" x="10" y="226">3. NF</text>
+  <text class="why" x="10" y="242">keine transitiven</text><text class="why" x="10" y="256">Abhängigkeiten</text>
+  <rect class="tb" x="130" y="212" width="210" height="44" rx="6"/>
+  <text class="tn" x="140" y="230">Leihschein</text><text class="a" x="140" y="248">(<tspan text-decoration="underline">LeihNr</tspan>, Datum, ↑KundenNr)</text>
+  <rect class="tb" x="350" y="212" width="160" height="44" rx="6"/>
+  <text class="tn" x="360" y="230">Leihposition</text><text class="a" x="360" y="248">(<tspan text-decoration="underline">↑LeihNr, ↑RahmenNr</tspan>)</text>
+  <rect class="tb" x="520" y="212" width="190" height="44" rx="6"/>
+  <text class="tn" x="530" y="230">Fahrrad</text><text class="a" x="530" y="248">(<tspan text-decoration="underline">RahmenNr</tspan>, Modell, Preis)</text>
+  <rect class="tb" x="130" y="266" width="210" height="44" rx="6" style="fill:#d1e7dd;stroke:#198754"/>
+  <text class="tn" x="140" y="284">Kunde</text><text class="a" x="140" y="302">(<tspan text-decoration="underline">KundenNr</tspan>, Name)</text>
+  <text class="why" x="352" y="290">Name hing über KundenNr von LeihNr ab</text>
+  <text class="why" x="352" y="304">(LeihNr → KundenNr → Name) → eigene Tabelle</text>
+  <text class="why" x="708" y="324" style="font-style:italic;text-anchor:end">unterstrichen = Primärschlüssel, ↑ = Fremdschlüssel</text>
+</svg>
