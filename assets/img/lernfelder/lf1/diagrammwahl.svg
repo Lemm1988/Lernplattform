@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="dw-title dw-desc">
+  <title id="dw-title">Welches Diagramm für welche Aussage?</title>
+  <desc id="dw-desc">Vier Mini-Diagramme. Vergleich von Kategorien: Balkendiagramm, zum Beispiel Umsatz je Abteilung. Entwicklung über die Zeit: Liniendiagramm, zum Beispiel Tickets pro Monat. Anteile an einem Ganzen: gestapelter 100-Prozent-Balken oder bei höchstens drei bis vier Teilen ein Kreisdiagramm, zum Beispiel Umsatzanteile. Exakte Einzelwerte: Tabelle, wenn das Publikum genaue Zahlen nachschlagen muss.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .ax { stroke: #adb5bd; stroke-width: 1; }
+      .fr { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 10px; }
+    </style>
+  </defs>
+  <rect class="fr" x="14" y="14" width="164" height="120" rx="6"/>
+  <rect x="34" y="86" width="22" height="34" fill="#2a78d6"/><rect x="64" y="60" width="22" height="60" fill="#2a78d6"/><rect x="94" y="44" width="22" height="76" fill="#2a78d6"/><rect x="124" y="74" width="22" height="46" fill="#2a78d6"/>
+  <line class="ax" x1="28" y1="120" x2="160" y2="120"/>
+  <text class="h" x="96" y="156">Vergleich</text><text class="s" x="96" y="172">Balken</text><text class="s" x="96" y="188">Umsatz je Abteilung</text>
+
+  <rect class="fr" x="192" y="14" width="164" height="120" rx="6"/>
+  <polyline points="210,104 236,96 262,98 288,78 314,70 340,52" fill="none" stroke="#2a78d6" stroke-width="2"/>
+  <circle cx="340" cy="52" r="4" fill="#2a78d6" stroke="#fff" stroke-width="1.5"/>
+  <line class="ax" x1="206" y1="120" x2="344" y2="120"/>
+  <text class="h" x="274" y="156">Entwicklung</text><text class="s" x="274" y="172">Linie</text><text class="s" x="274" y="188">Tickets pro Monat</text>
+
+  <rect class="fr" x="370" y="14" width="164" height="120" rx="6"/>
+  <rect x="386" y="56" width="66" height="34" fill="#2a78d6"/><rect x="454" y="56" width="40" height="34" fill="#eb6834"/><rect x="496" y="56" width="22" height="34" fill="#1baf7a"/>
+  <text class="m" x="419" y="108" text-anchor="middle">50 %</text><text class="m" x="474" y="108" text-anchor="middle">30 %</text><text class="m" x="507" y="108" text-anchor="middle">20 %</text>
+  <text class="h" x="452" y="156">Anteile</text><text class="s" x="452" y="172">100-%-Balken (Kreis nur</text><text class="s" x="452" y="188">bei wenigen Teilen)</text>
+
+  <rect class="fr" x="548" y="14" width="158" height="120" rx="6"/>
+  <text class="m" x="562" y="42" style="font-weight:700">Quartal</text><text class="m" x="690" y="42" text-anchor="end" style="font-weight:700">Umsatz €</text><line class="ax" x1="560" y1="48" x2="694" y2="48"/>
+  <text class="m" x="562" y="64">Q1</text><text class="m" x="690" y="64" text-anchor="end">312.400</text>
+  <text class="m" x="562" y="80">Q2</text><text class="m" x="690" y="80" text-anchor="end">298.150</text>
+  <text class="m" x="562" y="96">Q3</text><text class="m" x="690" y="96" text-anchor="end">341.020</text>
+  <text class="m" x="562" y="112">Q4</text><text class="m" x="690" y="112" text-anchor="end">366.900</text>
+  <text class="h" x="627" y="156">genaue Werte</text><text class="s" x="627" y="172">Tabelle</text><text class="s" x="627" y="188">zum Nachschlagen</text>
+  <text class="s" x="360" y="218" style="font-size:11px">Erst die Aussage festlegen, dann den Diagrammtyp – und die Aussage als Folientitel schreiben.</text>
+</svg>

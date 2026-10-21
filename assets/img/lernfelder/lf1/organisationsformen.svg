@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="of-title of-desc">
+  <title id="of-title">Einlinien-, Stablinien- und Matrixorganisation</title>
+  <desc id="of-desc">Drei Organigramme. Einliniensystem: Die Geschäftsleitung steht über den Abteilungen Vertrieb, Entwicklung und IT-Betrieb; jede Stelle hat genau einen Vorgesetzten. Klare Zuständigkeiten, aber lange Dienstwege. Stabliniensystem: wie das Einliniensystem, zusätzlich hängen Stabsstellen wie Datenschutz und IT-Sicherheit seitlich an der Geschäftsleitung; sie beraten, haben aber keine Weisungsbefugnis gegenüber den Abteilungen. Matrixorganisation: Funktionsbereiche wie Entwicklung und Test bilden die Spalten, Produkte oder Projekte wie App und Webshop die Zeilen; an jedem Kreuzungspunkt hat eine Stelle zwei Vorgesetzte, was Abstimmung erfordert.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .gl { fill: #343a40; }
+      .glt { fill: #fff; font-size: 10px; font-weight: 700; text-anchor: middle; }
+      .ab { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.2; }
+      .st { fill: #fff3cd; stroke: #b98900; stroke-width: 1.2; }
+      .t { font-size: 9.5px; font-weight: 700; text-anchor: middle; }
+      .ln { stroke: #495057; stroke-width: 1.3; fill: none; }
+      .dl { stroke: #b98900; stroke-width: 1.3; stroke-dasharray: 4 3; }
+      .h { font-weight: 700; font-size: 12.5px; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .cell { fill: #d1e7dd; stroke: #198754; stroke-width: 1; }
+    </style>
+  </defs>
+  <text class="h" x="120" y="20">Einliniensystem</text>
+  <rect class="gl" x="80" y="32" width="80" height="26" rx="4"/><text class="glt" x="120" y="49">Leitung</text>
+  <path class="ln" d="M120,58 V74 M50,74 H190 M50,74 V90 M120,74 V90 M190,74 V90"/>
+  <rect class="ab" x="20" y="90" width="60" height="24" rx="4"/><text class="t" x="50" y="106">Vertrieb</text>
+  <rect class="ab" x="90" y="90" width="60" height="24" rx="4"/><text class="t" x="120" y="106">Entwickl.</text>
+  <rect class="ab" x="160" y="90" width="60" height="24" rx="4"/><text class="t" x="190" y="106">Betrieb</text>
+  <path class="ln" d="M120,114 V128 M95,128 H145 M95,128 V140 M145,128 V140"/>
+  <rect class="ab" x="70" y="140" width="50" height="22" rx="4"/><text class="t" x="95" y="155">Team A</text>
+  <rect class="ab" x="122" y="140" width="50" height="22" rx="4"/><text class="t" x="147" y="155">Team B</text>
+  <text class="s" x="120" y="190">je Stelle genau ein Vorgesetzter</text>
+  <text class="s" x="120" y="206" style="fill:#146c43">+ klar, eindeutig</text><text class="s" x="120" y="222" style="fill:#b02a37">− lange Dienstwege</text>
+
+  <text class="h" x="360" y="20">Stabliniensystem</text>
+  <rect class="gl" x="320" y="32" width="80" height="26" rx="4"/><text class="glt" x="360" y="49">Leitung</text>
+  <line class="dl" x1="400" y1="45" x2="420" y2="45"/><rect class="st" x="420" y="34" width="62" height="22" rx="4"/><text class="t" x="451" y="49">Datenschutz</text>
+  <line class="dl" x1="320" y1="45" x2="300" y2="45"/><rect class="st" x="238" y="34" width="62" height="22" rx="4"/><text class="t" x="269" y="49">IT-Sicherh.</text>
+  <path class="ln" d="M360,58 V74 M290,74 H430 M290,74 V90 M360,74 V90 M430,74 V90"/>
+  <rect class="ab" x="260" y="90" width="60" height="24" rx="4"/><text class="t" x="290" y="106">Vertrieb</text>
+  <rect class="ab" x="330" y="90" width="60" height="24" rx="4"/><text class="t" x="360" y="106">Entwickl.</text>
+  <rect class="ab" x="400" y="90" width="60" height="24" rx="4"/><text class="t" x="430" y="106">Betrieb</text>
+  <text class="s" x="360" y="190">Stabsstellen beraten,</text><text class="s" x="360" y="206">haben aber keine Weisungsbefugnis</text>
+  <text class="s" x="360" y="222" style="fill:#146c43">+ Fachwissen für die Leitung</text>
+
+  <text class="h" x="600" y="20">Matrixorganisation</text>
+  <rect class="ab" x="570" y="32" width="60" height="22" rx="4"/><text class="t" x="600" y="47">Entwickl.</text>
+  <rect class="ab" x="640" y="32" width="60" height="22" rx="4"/><text class="t" x="670" y="47">Test</text>
+  <rect class="st" x="500" y="70" width="60" height="22" rx="4"/><text class="t" x="530" y="85">App</text>
+  <rect class="st" x="500" y="110" width="60" height="22" rx="4"/><text class="t" x="530" y="125">Webshop</text>
+  <path class="ln" d="M600,54 V136 M670,54 V136 M560,81 H690 M560,121 H690"/>
+  <circle class="cell" cx="600" cy="81" r="7"/><circle class="cell" cx="670" cy="81" r="7"/><circle class="cell" cx="600" cy="121" r="7"/><circle class="cell" cx="670" cy="121" r="7"/>
+  <text class="s" x="600" y="190">Funktion × Produkt/Projekt:</text><text class="s" x="600" y="206">zwei Vorgesetzte je Stelle</text>
+  <text class="s" x="600" y="222" style="fill:#b02a37">− Abstimmungsaufwand, Konflikte</text>
+  <text class="s" x="360" y="258" style="font-size:11px">Stelle = kleinste Einheit · Instanz = Stelle mit Leitungsbefugnis · Leitungsspanne = Zahl der direkt unterstellten Stellen</text>
+</svg>

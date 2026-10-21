@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 288" role="img" aria-labelledby="rf-title rf-desc">
+  <title id="rf-title">Rechtsformen im Überblick</title>
+  <desc id="rf-desc">Drei Gruppen von Rechtsformen. Einzelunternehmen: eine Person, kein Mindestkapital, haftet unbeschränkt auch mit dem Privatvermögen. Personengesellschaften: GbR, OHG und KG, mindestens zwei Gesellschafter, kein Mindestkapital; die Gesellschafter haften persönlich und unbeschränkt, bei der KG haften Kommanditisten nur bis zur Höhe ihrer Einlage. Kapitalgesellschaften: GmbH mit 25.000 Euro Stammkapital, UG haftungsbeschränkt ab 1 Euro, AG mit 50.000 Euro Grundkapital; es haftet nur das Gesellschaftsvermögen, sie sind juristische Personen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .g1 { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.4; }
+      .g2 { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .g3 { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .it { fill: #fff; stroke: #ced4da; stroke-width: 1; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .n { font-weight: 700; font-size: 12px; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .hf { font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+  <rect class="g1" x="14" y="14" width="200" height="226" rx="8"/><text class="h" x="114" y="36">Einzelunternehmen</text>
+  <rect class="it" x="26" y="50" width="176" height="106" rx="5"/>
+  <text class="n" x="36" y="70">e. K. / Kleingewerbe</text><text class="s" x="36" y="90">1 Inhaber/in</text><text class="s" x="36" y="106">kein Mindestkapital</text><text class="s" x="36" y="122">entscheidet allein,</text><text class="s" x="36" y="138">Gewinn allein</text>
+  <text class="hf" x="26" y="180" style="fill:#b02a37">Haftung: unbeschränkt,</text><text class="hf" x="26" y="196" style="fill:#b02a37">auch Privatvermögen</text>
+
+  <rect class="g2" x="226" y="14" width="232" height="226" rx="8"/><text class="h" x="342" y="36">Personengesellschaften</text>
+  <rect class="it" x="238" y="50" width="208" height="38" rx="5"/><text class="n" x="248" y="66">GbR</text><text class="s" x="248" y="81">ab 2 Personen, auch Nicht-Kaufleute</text>
+  <rect class="it" x="238" y="94" width="208" height="38" rx="5"/><text class="n" x="248" y="110">OHG</text><text class="s" x="248" y="125">Handelsgewerbe, alle haften voll</text>
+  <rect class="it" x="238" y="138" width="208" height="38" rx="5"/><text class="n" x="248" y="154">KG</text><text class="s" x="248" y="169">Kommanditist haftet nur bis Einlage</text>
+  <text class="hf" x="238" y="198" style="fill:#b02a37">Haftung: persönlich,</text><text class="hf" x="238" y="214" style="fill:#b02a37">unbeschränkt, gesamtschuldnerisch</text><text class="s" x="238" y="230">(Ausnahme: Kommanditist)</text>
+
+  <rect class="g3" x="470" y="14" width="236" height="226" rx="8"/><text class="h" x="588" y="36">Kapitalgesellschaften</text>
+  <rect class="it" x="482" y="50" width="212" height="38" rx="5"/><text class="n" x="492" y="66">GmbH</text><text class="s" x="492" y="81">25.000 € Stammkapital</text>
+  <rect class="it" x="482" y="94" width="212" height="38" rx="5"/><text class="n" x="492" y="110">UG (haftungsbeschränkt)</text><text class="s" x="492" y="125">ab 1 €, 25 % des Gewinns in Rücklage</text>
+  <rect class="it" x="482" y="138" width="212" height="38" rx="5"/><text class="n" x="492" y="154">AG</text><text class="s" x="492" y="169">50.000 € Grundkapital, Aktien</text>
+  <text class="hf" x="482" y="200" style="fill:#146c43">Haftung: nur das</text><text class="hf" x="482" y="216" style="fill:#146c43">Gesellschaftsvermögen</text>
+  <text class="s" x="14" y="262" style="font-size:11px">Mischform GmbH &amp; Co. KG: Eine GmbH ist der voll haftende Komplementär –</text><text class="s" x="14" y="278" style="font-size:11px">die Haftung ist damit wirtschaftlich auf das Vermögen der GmbH begrenzt.</text>
+</svg>

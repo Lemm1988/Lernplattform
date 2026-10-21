@@ -12,7 +12,7 @@ INSERT INTO `users` (`id`, `username`, `email`, `password_hash`, `role`, `is_act
 (3, 'schueler',  'schueler@lernplattform.local',  '$2y$10$E49UJyY7ptHHNH.NQW3FP.hGZenw/XK5dkSTBmipdmTw6f6qWu4l6', 'student',   1, 1, '9');
 
 INSERT INTO `learning_fields` (`id`, `lf_number`, `title`, `description`, `specialization`, `sort_order`) VALUES
-(1,  'LF1',  'Unternehmen und eigene Rolle', NULL, 'all', 1),
+(1,  'LF1',  'Das Unternehmen und die eigene Rolle im Betrieb beschreiben', NULL, 'all', 1),
 (2,  'LF2',  'Arbeitsplätze nach Kundenwunsch ausstatten', NULL, 'all', 2),
 (3,  'LF3',  'Clients in Netzwerke einbinden', NULL, 'all', 3),
 (4,  'LF4',  'Schutzbedarfsanalyse im eigenen Arbeitsbereich durchführen', NULL, 'all', 4),

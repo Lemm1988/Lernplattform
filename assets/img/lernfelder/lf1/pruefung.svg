@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img" aria-labelledby="pr-title pr-desc">
+  <title id="pr-title">Gewichtung der Abschlussprüfung FIAE</title>
+  <desc id="pr-desc">Die gestreckte Abschlussprüfung für Fachinformatiker Anwendungsentwicklung in einem 100-Prozent-Balken. Teil 1, etwa zur Mitte der Ausbildung: Einrichten eines IT-gestützten Arbeitsplatzes, 20 Prozent. Teil 2 am Ende: betriebliche Projektarbeit mit Dokumentation, Präsentation und Fachgespräch 50 Prozent, Planen eines Softwareproduktes 10 Prozent, Entwicklung und Umsetzung von Algorithmen 10 Prozent, Wirtschafts- und Sozialkunde 10 Prozent.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .n { font-size: 11px; font-weight: 700; text-anchor: middle; }
+      .p { font-size: 13px; font-weight: 800; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; }
+      .br { stroke: #495057; stroke-width: 1.2; fill: none; }
+      .bl { font-size: 11px; font-weight: 700; fill: #495057; text-anchor: middle; }
+    </style>
+  </defs>
+  <rect x="20.0" y="40" width="134.0" height="50" fill="#2a78d6"/>
+  <text class="n" x="87.0" y="60" style="fill:#fff">Teil 1</text><text class="p" x="87.0" y="80" style="fill:#fff">20 %</text>
+  <rect x="156.0" y="40" width="338.0" height="50" fill="#eb6834"/>
+  <text class="n" x="325.0" y="60" style="fill:#212529">Projektarbeit</text><text class="p" x="325.0" y="80" style="fill:#212529">50 %</text>
+  <rect x="496.0" y="40" width="66.0" height="50" fill="#1baf7a"/>
+  <text class="n" x="529.0" y="60" style="fill:#212529;font-size:9.5px">Planen</text><text class="p" x="529.0" y="80" style="fill:#212529">10 %</text>
+  <rect x="564.0" y="40" width="66.0" height="50" fill="#eda100"/>
+  <text class="n" x="597.0" y="60" style="fill:#212529;font-size:9.5px">Algorithmen</text><text class="p" x="597.0" y="80" style="fill:#212529">10 %</text>
+  <rect x="632.0" y="40" width="66.0" height="50" fill="#e87ba4"/>
+  <text class="n" x="665.0" y="60" style="fill:#212529;font-size:9.5px">WiSo</text><text class="p" x="665.0" y="80" style="fill:#212529">10 %</text>
+  <path class="br" d="M20,32 V26 H154.0 V32"/><text class="bl" x="88.0" y="20">Teil 1 · Mitte</text>
+  <path class="br" d="M156.0,32 V26 H698 V32"/><text class="bl" x="428.0" y="20">Teil 2 · Ende der Ausbildung</text>
+  <rect x="20" y="106" width="12" height="12" rx="2" fill="#2a78d6"/><text class="s" x="40" y="116"><tspan font-weight="700">Teil 1 (20 %):</tspan> IT-gestützten Arbeitsplatz einrichten</text>
+  <rect x="20" y="124" width="12" height="12" rx="2" fill="#eb6834"/><text class="s" x="40" y="134"><tspan font-weight="700">Projektarbeit (50 %):</tspan> Dokumentation, Präsentation, Fachgespräch</text>
+  <rect x="20" y="142" width="12" height="12" rx="2" fill="#1baf7a"/><text class="s" x="40" y="152"><tspan font-weight="700">Planen (10 %):</tspan> Softwareprodukt planen</text>
+  <rect x="20" y="160" width="12" height="12" rx="2" fill="#eda100"/><text class="s" x="40" y="170"><tspan font-weight="700">Algorithmen (10 %):</tspan> Entwicklung und Umsetzung von Algorithmen</text>
+  <rect x="20" y="178" width="12" height="12" rx="2" fill="#e87ba4"/><text class="s" x="40" y="188"><tspan font-weight="700">WiSo (10 %):</tspan> Wirtschafts- und Sozialkunde</text>
+  <text class="s" x="20" y="216">Projektarbeit höchstens 80 Stunden; Präsentation und Fachgespräch zusammen höchstens 30 Minuten (LF12 Kapitel 10).</text>
+</svg>

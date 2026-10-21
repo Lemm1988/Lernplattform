@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="pl-title pl-desc">
+  <title id="pl-title">Prozesslandkarte eines IT-Dienstleisters</title>
+  <desc id="pl-desc">Oben die Managementprozesse: Strategie planen, Qualität sichern, Personal führen. In der Mitte die Kernprozesse vom Kundenwunsch bis zum zufriedenen Kunden: Anfrage und Angebot, Auftrag planen, Lösung entwickeln, ausliefern und einführen, betreuen und Support. Unten die Unterstützungsprozesse: Einkauf, Personalverwaltung, Buchhaltung, IT-Betrieb intern. Kernprozesse schaffen direkt Wert für den Kunden, Unterstützungsprozesse ermöglichen sie, Managementprozesse steuern das Ganze.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .m { fill: #fff3cd; stroke: #b98900; stroke-width: 1.3; }
+      .k { fill: #cfe2ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .u { fill: #e9ecef; stroke: #6c757d; stroke-width: 1.3; }
+      .t { font-size: 11px; font-weight: 700; text-anchor: middle; }
+      .lab { font-size: 11px; font-weight: 700; fill: #495057; letter-spacing: .04em; }
+      .end { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    </style>
+  </defs>
+  <text class="lab" x="20" y="20">MANAGEMENTPROZESSE – steuern</text>
+  <rect class="m" x="80" y="28" width="170" height="34" rx="6"/><text class="t" x="165" y="49">Strategie planen</text>
+  <rect class="m" x="275" y="28" width="170" height="34" rx="6"/><text class="t" x="360" y="49">Qualität sichern</text>
+  <rect class="m" x="470" y="28" width="170" height="34" rx="6"/><text class="t" x="555" y="49">Personal führen</text>
+
+  <text class="lab" x="20" y="92">KERNPROZESSE – schaffen Wert für den Kunden</text>
+  <text class="end" x="38" y="128">Kunden-</text><text class="end" x="38" y="142">wunsch</text>
+  <polygon class="k" points="70,104 192,104 208,134 192,164 70,164 86,134"/><text class="t" x="139" y="131">Anfrage und</text><text class="t" x="139" y="145">Angebot</text>
+  <polygon class="k" points="196,104 318,104 334,134 318,164 196,164 212,134"/><text class="t" x="265" y="131">Auftrag</text><text class="t" x="265" y="145">planen</text>
+  <polygon class="k" points="322,104 444,104 460,134 444,164 322,164 338,134"/><text class="t" x="391" y="131">Lösung</text><text class="t" x="391" y="145">entwickeln</text>
+  <polygon class="k" points="448,104 570,104 586,134 570,164 448,164 464,134"/><text class="t" x="517" y="131">ausliefern,</text><text class="t" x="517" y="145">einführen</text>
+  <polygon class="k" points="574,104 652,104 668,134 652,164 574,164 590,134"/><text class="t" x="622" y="131">Support</text>
+  <text class="end" x="696" y="128">zufrie-</text><text class="end" x="696" y="142">den</text>
+
+  <text class="lab" x="20" y="194">UNTERSTÜTZUNGSPROZESSE – ermöglichen</text>
+  <rect class="u" x="40" y="202" width="150" height="34" rx="6"/><text class="t" x="115" y="223">Einkauf</text>
+  <rect class="u" x="205" y="202" width="150" height="34" rx="6"/><text class="t" x="280" y="223">Personalverwaltung</text>
+  <rect class="u" x="370" y="202" width="150" height="34" rx="6"/><text class="t" x="445" y="223">Buchhaltung</text>
+  <rect class="u" x="535" y="202" width="150" height="34" rx="6"/><text class="t" x="610" y="223">interner IT-Betrieb</text>
+</svg>

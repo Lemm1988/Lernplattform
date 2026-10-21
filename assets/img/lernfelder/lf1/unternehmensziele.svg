@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="uz-title uz-desc">
+  <title id="uz-title">Unternehmensziele und ihre Beziehungen</title>
+  <desc id="uz-desc">Drei Zielbereiche der Nachhaltigkeit. Ökonomische Ziele: Gewinn, Umsatz, Marktanteil, Liquidität. Ökologische Ziele: Energie sparen, Ressourcen schonen, Elektroschrott vermeiden. Soziale Ziele: sichere Arbeitsplätze, Weiterbildung, Gesundheit, faire Bezahlung. Zwischen Zielen gibt es Harmonie, zum Beispiel senken sparsame Server Stromkosten und Emissionen, Konflikt, zum Beispiel kosten Gehaltserhöhungen kurzfristig Gewinn, und Neutralität, wenn sie sich nicht beeinflussen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .o { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .e { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .so { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; text-anchor: middle; }
+      .rel { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <rect class="o" x="20" y="20" width="210" height="110" rx="8"/><text class="h" x="125" y="44">ökonomisch</text>
+  <text class="s" x="125" y="68">Gewinn, Umsatz,</text><text class="s" x="125" y="84">Marktanteil, Liquidität</text>
+  <rect class="e" x="255" y="20" width="210" height="110" rx="8"/><text class="h" x="360" y="44">ökologisch</text>
+  <text class="s" x="360" y="68">Energie sparen, Ressourcen</text><text class="s" x="360" y="84">schonen, Elektroschrott</text><text class="s" x="360" y="100">vermeiden</text>
+  <rect class="so" x="490" y="20" width="210" height="110" rx="8"/><text class="h" x="595" y="44">sozial</text>
+  <text class="s" x="595" y="68">sichere Arbeitsplätze,</text><text class="s" x="595" y="84">Weiterbildung, Gesundheit,</text><text class="s" x="595" y="100">faire Bezahlung</text>
+  <text class="rel" x="20" y="162"><tspan font-weight="700" fill="#146c43">Zielharmonie:</tspan> sparsame Server senken Stromkosten und CO₂ (ökonomisch + ökologisch)</text>
+  <text class="rel" x="20" y="186"><tspan font-weight="700" fill="#b02a37">Zielkonflikt:</tspan> Gehaltserhöhungen und Weiterbildung kosten kurzfristig Gewinn (sozial ↔ ökonomisch)</text>
+  <text class="rel" x="20" y="210"><tspan font-weight="700" fill="#495057">Zielneutralität:</tspan> ein neues Logo beeinflusst den Energieverbrauch nicht</text>
+  <text class="rel" x="20" y="238">Nachhaltig wirtschaften heißt, alle drei Bereiche langfristig in Einklang zu bringen.</text>
+</svg>

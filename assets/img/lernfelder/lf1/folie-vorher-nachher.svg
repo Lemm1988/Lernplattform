@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="fv-title fv-desc">
+  <title id="fv-title">Eine Folie vorher und nachher</title>
+  <desc id="fv-desc">Links eine überladene Folie mit dem Titel Unser Unternehmen und vielen kleinen Stichpunkten zu Gründung, Rechtsform, Mitarbeitenden, Standorten, Produkten und Kunden, dazu eine kleine Tabelle; niemand kann gleichzeitig lesen und zuhören. Rechts dieselbe Information als gute Folie: Der Titel ist eine Aussage, Wir sind in fünf Jahren von 8 auf 35 Beschäftigte gewachsen, darunter ein einfaches Balkendiagramm der Beschäftigtenzahl pro Jahr mit direkter Beschriftung. Die übrigen Fakten gehören in den Vortrag oder ins Handout.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .sl { fill: #fff; stroke: #adb5bd; stroke-width: 1.4; }
+      .tiny { font-size: 7.5px; fill: #495057; }
+      .tt { font-size: 12px; font-weight: 700; }
+      .lab { font-weight: 700; font-size: 12px; }
+      .v { font-size: 10px; font-weight: 700; text-anchor: middle; }
+      .yr { font-size: 9.5px; fill: #6c757d; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <text class="lab" x="20" y="20" style="fill:#b02a37">✗ vorher</text>
+  <rect class="sl" x="20" y="28" width="320" height="180" rx="4"/>
+  <text class="tt" x="34" y="48">Unser Unternehmen</text>
+  <text class="tiny" x="34" y="64">• Gegründet 2020 als UG, 2023 Umwandlung in GmbH, Sitz in Musterstadt</text>
+  <text class="tiny" x="34" y="76">• Mitarbeitende: 2020: 8, 2021: 12, 2022: 19, 2023: 27, 2024: 35 (davon 4 Auszubildende)</text>
+  <text class="tiny" x="34" y="88">• Standorte: Hauptsitz, Außenstelle Nord seit 2022, Homeoffice-Anteil ca. 40 %</text>
+  <text class="tiny" x="34" y="100">• Produkte: Individualsoftware, Webshops, Wartungsverträge, Schulungen, Hosting</text>
+  <text class="tiny" x="34" y="112">• Kunden: Handwerk, Steuerberatung, Arztpraxen, Vereine, öffentliche Hand (gering)</text>
+  <text class="tiny" x="34" y="124">• Zertifizierungen geplant, ISO 27001 in Vorbereitung, Umsatz siehe Tabelle unten</text>
+  <rect x="34" y="134" width="292" height="60" fill="#f1f3f5"/>
+  <text class="tiny" x="40" y="146">Jahr 2020 2021 2022 2023 2024 | Umsatz 0,6 0,9 1,4 2,1 2,9 Mio. | Projekte 14 22 31 40 52</text>
+  <text class="tiny" x="40" y="160">Kundenzufriedenheit 4,1 4,3 4,2 4,5 4,6 | Krankenquote 3,1 % 2,8 % 3,5 % 2,9 % 3,0 %</text>
+  <text class="tiny" x="40" y="174">Fluktuation 12 % 9 % 8 % 6 % 5 % | Ausbildungsquote 0 % 8 % 11 % 11 % 11 %</text>
+  <text class="s" x="20" y="232">zu viel Text, zu klein, keine Aussage –</text><text class="s" x="20" y="248">das Publikum liest statt zuzuhören</text>
+
+  <text class="lab" x="380" y="20" style="fill:#146c43">✓ nachher</text>
+  <rect class="sl" x="380" y="28" width="320" height="180" rx="4"/>
+  <text class="tt" x="394" y="50">In fünf Jahren von 8 auf 35 Beschäftigte</text>
+  <line x1="400" y1="186" x2="684" y2="186" stroke="#adb5bd"/>
+  <rect x="412" y="167" width="36" height="19" fill="#2a78d6"/><rect x="466" y="157" width="36" height="29" fill="#2a78d6"/><rect x="520" y="140" width="36" height="46" fill="#2a78d6"/><rect x="574" y="120" width="36" height="66" fill="#2a78d6"/><rect x="628" y="101" width="36" height="85" fill="#2a78d6"/>
+  <text class="v" x="430" y="162">8</text><text class="v" x="484" y="152">12</text><text class="v" x="538" y="135">19</text><text class="v" x="592" y="115">27</text><text class="v" x="646" y="96">35</text>
+  <text class="yr" x="430" y="200">2020</text><text class="yr" x="484" y="200">2021</text><text class="yr" x="538" y="200">2022</text><text class="yr" x="592" y="200">2023</text><text class="yr" x="646" y="200">2024</text>
+  <text class="s" x="380" y="232">eine Aussage als Titel, ein Diagramm, große Schrift –</text><text class="s" x="380" y="248">Details erzählt man oder gibt sie ins Handout</text>
+</svg>

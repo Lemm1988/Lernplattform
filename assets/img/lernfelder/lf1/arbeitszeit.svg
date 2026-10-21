@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" role="img" aria-labelledby="az-title az-desc">
+  <title id="az-title">Arbeitszeit, Pause und Ruhezeit an einem Arbeitstag</title>
+  <desc id="az-desc">Zeitachse von 6 Uhr bis 6 Uhr am Folgetag. Arbeit von 8 bis 12 Uhr, Pause von 12 bis 12:30 Uhr, Arbeit von 12:30 bis 16:30 Uhr, zusammen 8 Stunden. Danach mindestens 11 Stunden ununterbrochene Ruhezeit bis 3:30 Uhr am nächsten Morgen. Regeln des Arbeitszeitgesetzes: höchstens 8 Stunden werktäglich, bis 10 Stunden, wenn im Durchschnitt von sechs Monaten 8 Stunden nicht überschritten werden; Pause mindestens 30 Minuten bei mehr als 6 Stunden, 45 Minuten bei mehr als 9 Stunden, in Abschnitten von mindestens 15 Minuten.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .tk { font-size: 10.5px; fill: #6c757d; text-anchor: middle; }
+      .lb { font-size: 11px; font-weight: 700; text-anchor: middle; }
+      .s { font-size: 11px; fill: #343a40; }
+      .grid { stroke: #e9ecef; stroke-width: 1; }
+    </style>
+  </defs>
+  <line class="grid" x1="60.0" y1="30" x2="60.0" y2="84"/><text class="tk" x="60.0" y="100">6:00</text>
+  <line class="grid" x1="113.3" y1="30" x2="113.3" y2="84"/><text class="tk" x="113.3" y="100">8:00</text>
+  <line class="grid" x1="166.7" y1="30" x2="166.7" y2="84"/><text class="tk" x="166.7" y="100">10:00</text>
+  <line class="grid" x1="220.0" y1="30" x2="220.0" y2="84"/><text class="tk" x="220.0" y="100">12:00</text>
+  <line class="grid" x1="273.3" y1="30" x2="273.3" y2="84"/><text class="tk" x="273.3" y="100">14:00</text>
+  <line class="grid" x1="326.7" y1="30" x2="326.7" y2="84"/><text class="tk" x="326.7" y="100">16:00</text>
+  <line class="grid" x1="380.0" y1="30" x2="380.0" y2="84"/><text class="tk" x="380.0" y="100">18:00</text>
+  <line class="grid" x1="433.3" y1="30" x2="433.3" y2="84"/><text class="tk" x="433.3" y="100">20:00</text>
+  <line class="grid" x1="486.7" y1="30" x2="486.7" y2="84"/><text class="tk" x="486.7" y="100">22:00</text>
+  <line class="grid" x1="540.0" y1="30" x2="540.0" y2="84"/><text class="tk" x="540.0" y="100">0:00</text>
+  <line class="grid" x1="593.3" y1="30" x2="593.3" y2="84"/><text class="tk" x="593.3" y="100">2:00</text>
+  <line class="grid" x1="646.7" y1="30" x2="646.7" y2="84"/><text class="tk" x="646.7" y="100">4:00</text>
+  <line class="grid" x1="700.0" y1="30" x2="700.0" y2="84"/><text class="tk" x="700.0" y="100">6:00</text>
+  <rect x="113.3" y="40" width="104.7" height="36" fill="#2a78d6"/>
+  <text class="lb" x="166.7" y="63" style="fill:#fff">Arbeit</text>
+  <rect x="220.0" y="40" width="11.3" height="36" fill="#eda100"/>
+  <rect x="233.3" y="40" width="104.7" height="36" fill="#2a78d6"/>
+  <text class="lb" x="286.7" y="63" style="fill:#fff">Arbeit</text>
+  <rect x="340.0" y="40" width="291.3" height="36" fill="#1baf7a"/>
+  <text class="lb" x="434.7" y="63" style="fill:#212529">Ruhezeit mind. 11 h</text>
+  <line x1="226.7" y1="36" x2="226.7" y2="20" stroke="#495057" stroke-width="1"/><text class="s" x="226.7" y="16" style="text-anchor:middle">Pause 30 min</text>
+  <text class="s" x="540.0" y="16" style="text-anchor:middle">Folgetag</text><line x1="540.0" y1="20" x2="540.0" y2="84" stroke="#adb5bd" stroke-dasharray="3 3"/>
+  <text class="s" x="20" y="132"><tspan font-weight="700">Höchstarbeitszeit:</tspan> 8 h werktäglich, bis 10 h, wenn der Durchschnitt über 6 Monate 8 h nicht übersteigt</text>
+  <text class="s" x="20" y="152"><tspan font-weight="700">Pausen:</tspan> über 6 h mindestens 30 min, über 9 h mindestens 45 min, in Abschnitten von mindestens 15 min</text>
+  <text class="s" x="20" y="172"><tspan font-weight="700">Ruhezeit:</tspan> nach Arbeitsende mindestens 11 h ohne Unterbrechung</text>
+  <text class="s" x="20" y="192"><tspan font-weight="700">Jugendliche</tspan> unter 18: höchstens 8 h täglich und 40 h pro Woche (Jugendarbeitsschutzgesetz)</text>
+</svg>

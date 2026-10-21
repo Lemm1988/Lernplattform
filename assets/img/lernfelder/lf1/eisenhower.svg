@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="ei-title ei-desc">
+  <title id="ei-title">Eisenhower-Matrix</title>
+  <desc id="ei-desc">Aufgaben werden nach zwei Fragen sortiert: Ist es wichtig, also bringt es mich meinen Zielen näher? Ist es dringend, also drängt eine Frist? Wichtig und dringend: sofort selbst erledigen, zum Beispiel ein Server ist ausgefallen. Wichtig, aber nicht dringend: einplanen, zum Beispiel für die Prüfung lernen oder die Dokumentation schreiben. Dringend, aber nicht wichtig: delegieren oder kurz halten, zum Beispiel viele Rückfragen per Mail. Weder wichtig noch dringend: weglassen, zum Beispiel ziellos im Netz surfen. Die meisten Fortschritte entstehen im Feld wichtig, aber nicht dringend.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .h { font-weight: 700; font-size: 13px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ax { font-size: 11.5px; font-weight: 700; fill: #495057; }
+      .tk { font-size: 11px; fill: #495057; text-anchor: middle; }
+    </style>
+  </defs>
+  <text class="ax" x="170" y="18">dringend</text><text class="ax" x="410" y="18">nicht dringend</text>
+  <text class="tk" x="40" y="94" transform="rotate(-90 40 94)">wichtig</text><text class="tk" x="40" y="214" transform="rotate(-90 40 214)">nicht wichtig</text>
+  <rect x="60" y="30" width="236" height="118" rx="6" fill="#f8d7da" stroke="#fff" stroke-width="2"/>
+  <text class="h" x="76" y="54">A · sofort selbst erledigen</text><text class="s" x="76" y="76">Server ist ausgefallen,</text><text class="s" x="76" y="92">Abgabe heute</text>
+  <rect x="300" y="30" width="236" height="118" rx="6" fill="#d1e7dd" stroke="#fff" stroke-width="2"/>
+  <text class="h" x="316" y="54">B · einplanen</text><text class="s" x="316" y="76">für die Prüfung lernen,</text><text class="s" x="316" y="92">Dokumentation, Weiterbildung</text>
+  <text class="s" x="316" y="118" style="font-weight:700;fill:#146c43">hier entsteht der Fortschritt</text>
+  <rect x="60" y="152" width="236" height="118" rx="6" fill="#fff3cd" stroke="#fff" stroke-width="2"/>
+  <text class="h" x="76" y="176">C · delegieren, kurz halten</text><text class="s" x="76" y="198">viele kleine Rückfragen,</text><text class="s" x="76" y="214">manche Termine</text>
+  <rect x="300" y="152" width="236" height="118" rx="6" fill="#e9ecef" stroke="#fff" stroke-width="2"/>
+  <text class="h" x="316" y="176">D · weglassen</text><text class="s" x="316" y="198">zielloses Surfen,</text><text class="s" x="316" y="214">unnötige Benachrichtigungen</text>
+  <text class="h" x="560" y="54" style="font-size:12px">Wichtig?</text><text class="s" x="560" y="72">bringt mich meinen</text><text class="s" x="560" y="88">Zielen näher</text>
+  <text class="h" x="560" y="124" style="font-size:12px">Dringend?</text><text class="s" x="560" y="142">eine Frist drängt</text>
+  <text class="s" x="560" y="186">Wer nur A abarbeitet,</text><text class="s" x="560" y="202">landet im Dauerstress –</text><text class="s" x="560" y="218">B-Aufgaben fest im</text><text class="s" x="560" y="234">Kalender blocken.</text>
+</svg>

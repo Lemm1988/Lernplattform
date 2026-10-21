@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="tp1-title tp1-desc">
+  <title id="tp1-title">Teamphasen nach Tuckman</title>
+  <desc id="tp1-desc">Fünf Phasen eines Teams. Forming, Orientierung: man lernt sich kennen, ist höflich und vorsichtig. Storming, Konflikt: Meinungen und Rollen prallen aufeinander, die Leistung sinkt. Norming, Regeln: das Team einigt sich auf Regeln und Rollen. Performing, Leistung: das Team arbeitet selbstständig und effektiv. Adjourning, Auflösung: das Projekt endet, Ergebnisse und Erfahrungen werden gesichert. Eine Kurve zeigt die Leistungsfähigkeit: Sie fällt im Storming und steigt bis zum Performing an.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .ph { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .de { font-size: 10.5px; fill: #495057; text-anchor: middle; font-style: italic; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .cv { stroke: #2a78d6; stroke-width: 2.4; fill: none; }
+      .lab { font-size: 10.5px; font-weight: 700; fill: #495057; }
+    </style>
+  </defs>
+  <path class="cv" d="M70,70 C120,64 150,110 210,112 C270,114 300,74 350,54 C400,36 470,30 510,30 C560,30 600,56 650,86"/>
+  <text class="lab" x="14" y="40">Leistung</text>
+  <rect class="ph" x="14" y="128" width="128" height="58" rx="6"/><text class="h" x="78" y="148">Forming</text><text class="de" x="78" y="164">Orientierung</text>
+  <rect class="ph" x="156" y="128" width="128" height="58" rx="6"/><text class="h" x="220" y="148">Storming</text><text class="de" x="220" y="164">Konflikt</text>
+  <rect class="ph" x="298" y="128" width="128" height="58" rx="6"/><text class="h" x="362" y="148">Norming</text><text class="de" x="362" y="164">Regeln</text>
+  <rect class="ph" x="440" y="128" width="128" height="58" rx="6"/><text class="h" x="504" y="148">Performing</text><text class="de" x="504" y="164">Leistung</text>
+  <rect class="ph" x="582" y="128" width="124" height="58" rx="6"/><text class="h" x="644" y="148">Adjourning</text><text class="de" x="644" y="164">Auflösung</text>
+  <text class="s" x="78" y="206">kennenlernen,</text><text class="s" x="78" y="220">vorsichtig</text>
+  <text class="s" x="220" y="206">Rollen und Meinungen</text><text class="s" x="220" y="220">prallen aufeinander</text>
+  <text class="s" x="362" y="206">Regeln, Rollen,</text><text class="s" x="362" y="220">Wir-Gefühl</text>
+  <text class="s" x="504" y="206">selbstständig,</text><text class="s" x="504" y="220">effektiv</text>
+  <text class="s" x="644" y="206">Ergebnisse und</text><text class="s" x="644" y="220">Erfahrungen sichern</text>
+</svg>

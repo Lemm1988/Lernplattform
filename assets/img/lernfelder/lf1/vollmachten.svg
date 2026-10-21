@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="vm-title vm-desc">
+  <title id="vm-title">Prokura und Handlungsvollmacht</title>
+  <desc id="vm-desc">Verschachtelte Bereiche von außen nach innen. Prokura, Zeichnung ppa.: alle gewöhnlichen und außergewöhnlichen Geschäfte eines Handelsgewerbes, wird ins Handelsregister eingetragen und kann Dritten gegenüber nicht beschränkt werden. Allgemeine Handlungsvollmacht, Zeichnung i. V.: alle gewöhnlichen Geschäfte dieses Betriebs. Artvollmacht, Zeichnung i. V.: eine bestimmte Art von Geschäften, etwa Einkauf. Einzelvollmacht, Zeichnung i. A.: ein einzelnes Geschäft. Rechts: Was auch Prokuristen nicht dürfen: Grundstücke verkaufen oder belasten ohne besondere Befugnis, Bilanz und Steuererklärung unterschreiben, Prokura erteilen, Insolvenz anmelden, das Geschäft verkaufen oder auflösen, Gesellschafter aufnehmen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .p { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .a { fill: #d1e7dd; stroke: #198754; stroke-width: 1.5; }
+      .r { fill: #fff3cd; stroke: #b98900; stroke-width: 1.5; }
+      .e { fill: #ffe5d0; stroke: #fd7e14; stroke-width: 1.5; }
+      .h { font-weight: 700; font-size: 12px; }
+      .z { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; font-weight: 700; fill: #0a58ca; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .no { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <rect class="p" x="14" y="14" width="400" height="252" rx="12"/>
+  <text class="h" x="28" y="36">Prokura</text><text class="z" x="96" y="36">ppa.</text>
+  <text class="s" x="28" y="54">gewöhnliche und außergewöhnliche Geschäfte, im Handelsregister</text>
+  <rect class="a" x="34" y="66" width="360" height="190" rx="10"/>
+  <text class="h" x="48" y="88">Allgemeine Handlungsvollmacht</text><text class="z" x="248" y="88">i. V.</text>
+  <text class="s" x="48" y="106">alle gewöhnlichen Geschäfte dieses Betriebs</text>
+  <rect class="r" x="54" y="118" width="320" height="128" rx="8"/>
+  <text class="h" x="68" y="140">Artvollmacht</text><text class="z" x="160" y="140">i. V.</text>
+  <text class="s" x="68" y="158">bestimmte Art, z. B. Einkauf bis 5.000 €</text>
+  <rect class="e" x="74" y="170" width="280" height="64" rx="6"/>
+  <text class="h" x="88" y="192">Einzelvollmacht</text><text class="z" x="190" y="192">i. A.</text>
+  <text class="s" x="88" y="210">ein einzelnes Geschäft,</text><text class="s" x="88" y="224">z. B. ein Paket abholen</text>
+
+  <text class="h" x="436" y="36">Auch Prokuristen dürfen nicht:</text>
+  <text class="no" x="436" y="62">• Grundstücke verkaufen oder belasten</text><text class="no" x="448" y="77">(ohne besondere Befugnis)</text>
+  <text class="no" x="436" y="99">• Bilanz und Steuererklärung unterschreiben</text>
+  <text class="no" x="436" y="121">• Prokura erteilen</text>
+  <text class="no" x="436" y="143">• Insolvenz anmelden</text>
+  <text class="no" x="436" y="165">• das Geschäft verkaufen oder auflösen</text>
+  <text class="no" x="436" y="187">• Gesellschafter aufnehmen</text>
+  <text class="no" x="436" y="221" style="font-weight:700">Handlungsbevollmächtigte zusätzlich nicht</text>
+  <text class="no" x="436" y="237">ohne besondere Befugnis: Darlehen aufnehmen,</text>
+  <text class="no" x="436" y="253">Wechsel unterschreiben, Prozesse führen</text>
+</svg>
