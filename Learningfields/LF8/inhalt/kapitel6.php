@@ -38,7 +38,7 @@ return [
 <table class="table table-sm table-bordered align-middle">
   <thead class="table-light"><tr><th>Schwachstelle</th><th>Was passiert?</th><th>Abwehr</th></tr></thead>
   <tbody>
-    <tr><td><strong>SQL-Injection</strong></td><td>Eingaben werden als SQL ausgeführt: <code>' OR '1'='1</code> im Loginfeld umgeht die Passwortprüfung.</td><td>Prepared Statements (Kapitel 11), nie Eingaben in SQL-Strings einbauen</td></tr>
+    <tr><td><strong>SQL-Injection</strong></td><td>Eingaben werden als SQL ausgeführt: <code>' OR '1'='1</code> im Loginfeld umgeht die Passwortprüfung.</td><td>Prepared Statements (<a href="/Learningfields/LF8/kapitel11.php">Kapitel 11</a>), nie Eingaben in SQL-Strings einbauen</td></tr>
     <tr><td><strong>Cross-Site Scripting (XSS)</strong></td><td>Eingeschleuster JavaScript-Code läuft im Browser anderer Nutzer und stiehlt z. B. Sitzungen.</td><td>Ausgaben kontextgerecht escapen (<code>htmlspecialchars</code>), Content-Security-Policy</td></tr>
     <tr><td><strong>Cross-Site Request Forgery (CSRF)</strong></td><td>Eine fremde Seite löst im Namen eines angemeldeten Nutzers Aktionen aus.</td><td>Zufälliges CSRF-Token in jedem Formular prüfen, SameSite-Cookies</td></tr>
     <tr><td><strong>Fehlerhafte Zugriffskontrolle</strong></td><td>Wer die URL <code>/rechnung?id=124</code> ändert, sieht fremde Rechnungen.</td><td>Bei <em>jeder</em> Anfrage serverseitig prüfen: Darf dieser Nutzer das?</td></tr>

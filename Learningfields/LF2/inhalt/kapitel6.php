@@ -32,7 +32,7 @@ Liefertermin). Nur so sind die Angebote vergleichbar. Eine Anfrage ist rechtlich
 <p>Den niedrigsten Listenpreis hat B, den höchsten Rabatt C – am günstigsten ist am Ende B. Skonto lohnt sich fast immer: 3 % für 20 Tage frühere Zahlung entsprechen
 einem Jahreszins von über 50 %.</p>
 <p><strong>Qualitativ</strong> zählen außerdem Lieferzeit, Zuverlässigkeit, Zahlungsbedingungen, Garantie und Service, Umweltaspekte und die bisherigen Erfahrungen.
-Beides lässt sich in einer Nutzwertanalyse zusammenführen (Kapitel 5).</p>
+Beides lässt sich in einer Nutzwertanalyse zusammenführen (<a href="/Learningfields/LF2/kapitel5.php">Kapitel 5</a>).</p>
 
 <h6>Verkaufskalkulation</h6>
 <p>Ein Systemhaus kauft das Notebook ein und verkauft es weiter. Auf den Bezugspreis kommen die eigenen Kosten (Handlungskosten: Personal, Miete, Lager …), der Gewinn,

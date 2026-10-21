@@ -43,7 +43,7 @@ Konfiguration a = Konfiguration.getInstanz();
 Konfiguration b = Konfiguration.getInstanz();
 // a == b → true, der Konstruktor lief nur einmal</code></pre>
 <p>Kritik: Ein Singleton ist globaler Zustand – Klassen, die es benutzen, verstecken diese Abhängigkeit und sind schwer zu testen. Oft ist es besser,
-ein einziges Objekt zu erzeugen und es per Konstruktor weiterzureichen (Dependency Injection, Kapitel 8).</p>
+ein einziges Objekt zu erzeugen und es per Konstruktor weiterzureichen (Dependency Injection, <a href="/Learningfields/LF11/kapitel8.php">Kapitel 8</a>).</p>
 
 <h6>Fabrikmethode (Erzeugungsmuster)</h6>
 <p><strong>Problem:</strong> Der aufrufende Code soll nicht wissen müssen, welche konkrete Klasse er erzeugt.
@@ -113,7 +113,7 @@ class Einkauf implements Beobachter {
 }</code></pre>
 <p>Mit angemeldeter Shopanzeige und Einkauf führt <code>setBestand("Maus", 2)</code> zu „Anzeige: Maus lieferbar“ und „Einkauf: Maus nachbestellen“.
 Nach <code>abmelden(einkauf)</code> meldet <code>setBestand("Maus", 0)</code> nur noch „Anzeige: Maus ausverkauft“. Event-Listener in GUIs
-(LF8 Kapitel 9) sind genau dieses Muster.</p>
+(<a href="/Learningfields/LF8/kapitel9.php">LF8 Kapitel 9</a>) sind genau dieses Muster.</p>
 <p><strong>Strategy</strong> – Problem: Ein Algorithmus soll austauschbar sein, ohne die nutzende Klasse zu ändern. Lösung: Jede Variante ist eine
 Klasse mit demselben Interface; die nutzende Klasse hält eine Referenz darauf, die man auch zur Laufzeit wechseln kann.</p>
 <pre class="bg-light border rounded p-3"><code>interface Versandstrategie {
@@ -130,14 +130,14 @@ korb.versandkosten(2500);                  // 690  (Standard)
 korb.setVersand(new Expressversand());
 korb.versandkosten(2500);                  // 1490 (Express)
 korb.setVersand(g -&gt; 0);                   // Lambda als Strategie: Gratisversand → 0</code></pre>
-<p>Die Rabattregeln aus Kapitel 8 (Open/Closed-Prinzip) sind ebenfalls eine Strategy. Auch <code>Comparator</code> beim Sortieren ist eine Strategie.</p>
+<p>Die Rabattregeln aus <a href="/Learningfields/LF11/kapitel8.php">Kapitel 8</a> (Open/Closed-Prinzip) sind ebenfalls eine Strategy. Auch <code>Comparator</code> beim Sortieren ist eine Strategie.</p>
 
 <h6>Architekturmuster</h6>
 <p>Muster gibt es auch eine Ebene höher, für den Aufbau ganzer Anwendungen:</p>
 <ul>
-  <li><strong>MVC</strong> (Model-View-Controller, LF8 Kapitel 9): trennt Daten und Logik, Darstellung und Steuerung. Die View beobachtet oft das Model – ein Observer.</li>
+  <li><strong>MVC</strong> (Model-View-Controller, <a href="/Learningfields/LF8/kapitel9.php">LF8 Kapitel 9</a>): trennt Daten und Logik, Darstellung und Steuerung. Die View beobachtet oft das Model – ein Observer.</li>
   <li><strong>Schichtenarchitektur</strong>: Präsentation → Geschäftslogik → Datenzugriff; jede Schicht nutzt nur die darunterliegende.</li>
-  <li><strong>DAO / Repository</strong> (LF8 Kapitel 11): kapselt den Datenbankzugriff hinter einem Interface.</li>
+  <li><strong>DAO / Repository</strong> (<a href="/Learningfields/LF8/kapitel11.php">LF8 Kapitel 11</a>): kapselt den Datenbankzugriff hinter einem Interface.</li>
 </ul>
 
 <h6>Übersicht</h6>

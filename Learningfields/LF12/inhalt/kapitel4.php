@@ -14,12 +14,12 @@ return [
   <thead class="table-light"><tr><th>Modell</th><th>Idee</th><th>geeignet, wenn …</th></tr></thead>
   <tbody>
     <tr><td>Wasserfall</td><td>Phasen nacheinander (Analyse, Entwurf, Umsetzung, Test, Einführung); jede Phase endet mit einem Dokument</td><td>Anforderungen stabil und klar, z. B. gesetzliche Vorgaben</td></tr>
-    <tr><td>V-Modell</td><td>wie Wasserfall, jeder Entwurfsstufe steht eine Teststufe gegenüber (LF8 Kapitel 14)</td><td>hohe Qualitäts- und Nachweispflichten (Behörden, Medizin)</td></tr>
+    <tr><td>V-Modell</td><td>wie Wasserfall, jeder Entwurfsstufe steht eine Teststufe gegenüber (<a href="/Learningfields/LF8/kapitel14.php">LF8 Kapitel 14</a>)</td><td>hohe Qualitäts- und Nachweispflichten (Behörden, Medizin)</td></tr>
     <tr><td>Iterativ-inkrementell, Spiralmodell</td><td>mehrere Durchläufe; jeder liefert einen nutzbaren Teil, Risiken werden früh geprüft</td><td>große Projekte mit technischen Risiken</td></tr>
     <tr><td>Agil (Scrum, Kanban)</td><td>kurze Sprints, lauffähige Inkremente, laufende Anpassung an Feedback</td><td>Anforderungen ändern sich, Kunde arbeitet eng mit (siehe <a href="/Learningfields/Scrum/Scrum_Fundation_index.php">Scrum Foundation</a>)</td></tr>
   </tbody>
 </table>
-<p>Für die Terminbuchung der Werkstatt ist ein kleines, überschaubares Projekt mit Festpreis geplant (Kapitel 3). Ein klassischer Plan mit Meilensteinen ist
+<p>Für die Terminbuchung der Werkstatt ist ein kleines, überschaubares Projekt mit Festpreis geplant (<a href="/Learningfields/LF12/kapitel3.php">Kapitel 3</a>). Ein klassischer Plan mit Meilensteinen ist
 hier sinnvoll; viele Teams kombinieren ihn mit kurzen Feedback-Runden zur Oberfläche (hybrides Vorgehen).</p>
 
 <h6>Projektstrukturplan (PSP)</h6>
@@ -38,7 +38,7 @@ gegliedert sein.</p>
 <p>Ein Arbeitspaket wird beschrieben mit Ziel, Ergebnis, Verantwortlichem, Aufwand, Dauer, Abhängigkeiten und Abnahmekriterium.</p>
 
 <h6>Der Netzplan</h6>
-<p>Der <strong>Netzplan</strong> zeigt die Abhängigkeiten der Vorgänge und berechnet daraus Termine und Puffer. Vorgänge (vereinfacht aus Kapitel 3, Dauer
+<p>Der <strong>Netzplan</strong> zeigt die Abhängigkeiten der Vorgänge und berechnet daraus Termine und Puffer. Vorgänge (vereinfacht aus <a href="/Learningfields/LF12/kapitel3.php">Kapitel 3</a>, Dauer
 in Arbeitstagen):</p>
 <table class="table table-sm table-bordered text-center" style="max-width: 520px">
   <thead class="table-light"><tr><th>Nr</th><th class="text-start">Vorgang</th><th>Dauer</th><th>Vorgänger</th></tr></thead>

@@ -68,7 +68,7 @@ Bubble Sort O(1).</p>
        alt="fakultaet(4) ruft nacheinander fakultaet(3), (2) und (1) auf; die Ergebnisse 1, 2, 6 und 24 laufen zurück; rechts der Aufrufstapel mit vier Rahmen">
   <figcaption class="figure-caption">Erst geht es bis zum Basisfall hinunter, dann werden die Ergebnisse zurückgereicht</figcaption>
 </figure>
-<p>Jeder Aufruf bekommt auf dem <strong>Aufrufstapel</strong> (Call Stack, ein Stack aus Kapitel 2) einen eigenen Rahmen mit seinen eigenen
+<p>Jeder Aufruf bekommt auf dem <strong>Aufrufstapel</strong> (Call Stack, ein Stack aus <a href="/Learningfields/LF11/kapitel2.php">Kapitel 2</a>) einen eigenen Rahmen mit seinen eigenen
 Variablen. Fehlt der Basisfall oder wird er nie erreicht, wächst der Stapel, bis Java mit <code>StackOverflowError</code> abbricht:</p>
 <pre class="bg-light border rounded p-3"><code>static int summe(int n) {
     return n + summe(n - 1);            // kein Basisfall → StackOverflowError
@@ -120,7 +120,7 @@ c) Binäre Suche. d) Erstes Element eines Arrays ausgeben.</p>
 <details class="mb-3"><summary>Lösung anzeigen</summary>
 <p class="mt-2">a) O(n), b) O(n²), c) O(log n), d) O(1).</p>
 </details>
-<p>2. Schreibe die Ziffernsumme aus Kapitel 1 rekursiv.</p>
+<p>2. Schreibe die Ziffernsumme aus <a href="/Learningfields/LF11/kapitel1.php">Kapitel 1</a> rekursiv.</p>
 <details class="mb-3"><summary>Lösung anzeigen</summary>
 <pre class="bg-light border rounded p-3 mt-2"><code>static int ziffernsumme(int n) {
     if (n &lt; 10) return n;                       // Basisfall: eine Ziffer
@@ -134,7 +134,7 @@ c) Binäre Suche. d) Erstes Element eines Arrays ausgeben.</p>
 </details>
 <p>4. Ein Algorithmus braucht für 1.000 Elemente 1 Sekunde. Wie lange braucht er etwa für 2.000 Elemente, wenn er a) O(n), b) O(n²) ist?</p>
 <details class="mb-3"><summary>Lösung anzeigen</summary>
-<p class="mt-2">a) etwa 2 Sekunden (doppelte Menge, doppelter Aufwand), b) etwa 4 Sekunden (2² = 4). Genau das zeigt die Messung in Kapitel 4: Bubble Sort ×4.</p>
+<p class="mt-2">a) etwa 2 Sekunden (doppelte Menge, doppelter Aufwand), b) etwa 4 Sekunden (2² = 4). Genau das zeigt die Messung in <a href="/Learningfields/LF11/kapitel4.php">Kapitel 4</a>: Bubble Sort ×4.</p>
 </details>
 INHALT,
     'summary' => [

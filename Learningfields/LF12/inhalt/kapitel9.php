@@ -32,7 +32,7 @@ Widerspruch (Art. 21). Die Software muss sie technisch unterstützen – etwa mi
 <ul>
   <li><strong>Privacy by Design und by Default</strong> (Art. 25): Datenschutz von Anfang an einplanen; Voreinstellungen so datensparsam wie möglich.</li>
   <li><strong>Technisch-organisatorische Maßnahmen</strong> (TOM, Art. 32): Verschlüsselung, Zugriffskonzepte, Protokollierung, Backups, Schulung.</li>
-  <li><strong>Verzeichnis von Verarbeitungstätigkeiten</strong> (Art. 30) und, bei externem Hosting, ein <strong>Auftragsverarbeitungsvertrag</strong> (Art. 28, LF8 Kapitel 12).</li>
+  <li><strong>Verzeichnis von Verarbeitungstätigkeiten</strong> (Art. 30) und, bei externem Hosting, ein <strong>Auftragsverarbeitungsvertrag</strong> (Art. 28, <a href="/Learningfields/LF8/kapitel12.php">LF8 Kapitel 12</a>).</li>
   <li><strong>Datenpannen</strong> sind in der Regel binnen 72 Stunden der Aufsichtsbehörde zu melden (Art. 33).</li>
 </ul>
 <div class="lf-merke"><strong>Merke:</strong> Datenschutz betrifft auch Logdateien, Backups, Testsysteme und Repositories. Server-Logs mit IP-Adressen in einem
@@ -41,7 +41,7 @@ Widerspruch (Art. 21). Die Software muss sie technisch unterstützen – etwa mi
 <h6>Urheberrecht und Nutzungsrechte</h6>
 <p>Software ist nach § 69a UrhG als Sprachwerk geschützt – der Quelltext ebenso wie das ausführbare Programm; Ideen und Algorithmen als solche dagegen nicht.
 Schafft ein Angestellter Software in Erfüllung seiner Aufgaben, stehen die vermögensrechtlichen Befugnisse dem <strong>Arbeitgeber</strong> zu (§ 69b UrhG).
-Bei einem Werkvertrag (Kapitel 3) muss vertraglich geregelt werden, welche <strong>Nutzungsrechte</strong> der Kunde erhält: einfach oder ausschließlich, zeitlich
+Bei einem Werkvertrag (<a href="/Learningfields/LF12/kapitel3.php">Kapitel 3</a>) muss vertraglich geregelt werden, welche <strong>Nutzungsrechte</strong> der Kunde erhält: einfach oder ausschließlich, zeitlich
 und räumlich beschränkt oder unbeschränkt, mit oder ohne Recht zur Bearbeitung und Herausgabe des Quelltexts.</p>
 
 <h6>Lizenzmodelle proprietärer Software</h6>

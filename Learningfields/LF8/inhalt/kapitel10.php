@@ -12,7 +12,7 @@ return [
 <h6>Das passende Datenmodell wählen</h6>
 <p>Ein Datenmodell legt fest, in welcher Struktur Daten gespeichert und abgefragt werden. Das <strong>relationale</strong> Modell
 (Tabellen, SQL) ist der Standard für betriebliche Anwendungen. Für sehr große, schnell wachsende oder wenig strukturierte Daten
-gibt es <strong>NoSQL</strong>-Modelle („not only SQL“), die in Kapitel 12 genauer vorkommen.</p>
+gibt es <strong>NoSQL</strong>-Modelle („not only SQL“), die in <a href="/Learningfields/LF8/kapitel12.php">Kapitel 12</a> genauer vorkommen.</p>
 <figure class="figure w-100">
   <img src="/assets/img/lernfelder/lf8/datenmodelle.svg" class="figure-img img-fluid w-100" style="max-width: 760px"
        alt="Sechs Datenmodelle: relational, dokumentenorientiert, Schlüssel-Wert, spaltenorientiert, Graph und hierarchisch mit Beispielsystemen">
@@ -36,7 +36,7 @@ gibt es <strong>NoSQL</strong>-Modelle („not only SQL“), die in Kapitel 12 g
   <li><strong>Volume</strong> – riesige Datenmengen (Tera- bis Petabyte)</li>
   <li><strong>Velocity</strong> – hohe Geschwindigkeit, mit der Daten entstehen und verarbeitet werden müssen (z. B. Sensoren in Echtzeit)</li>
   <li><strong>Variety</strong> – Vielfalt: strukturiert (Tabellen), semistrukturiert (JSON, XML), unstrukturiert (Texte, Bilder)</li>
-  <li><strong>Veracity</strong> – Verlässlichkeit: Wie vertrauenswürdig und vollständig sind die Daten? (siehe Datenqualität, Kapitel 1)</li>
+  <li><strong>Veracity</strong> – Verlässlichkeit: Wie vertrauenswürdig und vollständig sind die Daten? (siehe Datenqualität, <a href="/Learningfields/LF8/kapitel1.php">Kapitel 1</a>)</li>
   <li><strong>Value</strong> – Wert: Daten lohnen sich nur, wenn sich daraus Nutzen ziehen lässt</li>
 </ul>
 

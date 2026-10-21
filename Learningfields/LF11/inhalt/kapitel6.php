@@ -10,7 +10,7 @@ return [
     ],
     'content' => <<<'INHALT'
 <h6>Wofür ein Sequenzdiagramm?</h6>
-<p>Das Klassendiagramm (LF8 Kapitel 4) zeigt, welche Klassen es gibt. Das Aktivitätsdiagramm (LF8 Kapitel 5) zeigt einen Ablauf, aber nicht,
+<p>Das Klassendiagramm (<a href="/Learningfields/LF8/kapitel4.php">LF8 Kapitel 4</a>) zeigt, welche Klassen es gibt. Das Aktivitätsdiagramm (<a href="/Learningfields/LF8/kapitel5.php">LF8 Kapitel 5</a>) zeigt einen Ablauf, aber nicht,
 <em>welches Objekt</em> welchen Schritt ausführt. Das <strong>Sequenzdiagramm</strong> schließt diese Lücke: Es zeigt für <strong>ein Szenario</strong>
 (meist einen Anwendungsfall), welche Objekte welche Nachrichten in welcher Reihenfolge austauschen. Die Zeit läuft von oben nach unten.</p>
 

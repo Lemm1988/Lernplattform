@@ -12,8 +12,8 @@ return [
 <h6>Drei Sprachen, drei Aufgaben</h6>
 <ul>
   <li><strong>HTML</strong> – Struktur und Bedeutung: Das ist eine Überschrift, das ist eine Navigation, das ist ein Formularfeld für eine E-Mail-Adresse.</li>
-  <li><strong>CSS</strong> – Aussehen: Farben, Abstände, Layout, Anpassung an Bildschirmgrößen (Kapitel 5 und 6).</li>
-  <li><strong>JavaScript</strong> – Verhalten im Browser: auf Klicks reagieren, Daten nachladen (Kapitel 9).</li>
+  <li><strong>CSS</strong> – Aussehen: Farben, Abstände, Layout, Anpassung an Bildschirmgrößen (<a href="/Learningfields/LF10/kapitel5.php">Kapitel 5</a> und <a href="/Learningfields/LF10/kapitel6.php">6</a>).</li>
+  <li><strong>JavaScript</strong> – Verhalten im Browser: auf Klicks reagieren, Daten nachladen (<a href="/Learningfields/LF10/kapitel9.php">Kapitel 9</a>).</li>
 </ul>
 <p>Diese Trennung (Separation of Concerns) macht Seiten wartbar: Ein neues Design ändert nur das CSS, nicht den Inhalt. Die HTML-Grundlagen der
 Syntax findest du auch im Bereich <a href="/programming/php/php-forms.php">PHP – Formulare</a>.</p>
@@ -96,7 +96,7 @@ Syntax findest du auch im Bereich <a href="/programming/php/php-forms.php">PHP �
   <li><strong>Passende Typen</strong>: <code>email</code>, <code>tel</code>, <code>number</code>, <code>date</code>, <code>password</code> zeigen auf dem Handy die richtige
   Tastatur und prüfen grob vor.</li>
   <li><strong><code>autocomplete</code></strong> lässt den Browser bekannte Daten vorschlagen – weniger Tippen, weniger Fehler.</li>
-  <li><code>name</code> ist der Schlüssel, unter dem der Wert beim Server ankommt (<code>$_POST['email']</code>, Kapitel 7).</li>
+  <li><code>name</code> ist der Schlüssel, unter dem der Wert beim Server ankommt (<code>$_POST['email']</code>, <a href="/Learningfields/LF10/kapitel7.php">Kapitel 7</a>).</li>
 </ul>
 <p>Im Browser getestet: Alle fünf Felder sind über ihre Beschriftung auffindbar, die Seite hat die Landmarks banner, navigation, main, complementary und
 contentinfo, und bei der Eingabe <code>kaya.example.org</code> meldet der Browser selbst: „Die E-Mail-Adresse muss ein @-Zeichen enthalten.“ Ein

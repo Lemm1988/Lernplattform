@@ -39,7 +39,7 @@ float("3.5")         # 3.5
 str(7) + " Tage"     # "7 Tage"
 int("4,5")           # ValueError: invalid literal for int() with base 10: '4,5'</code></pre>
 <p><strong>Implizite</strong> Umwandlung macht die Sprache selbst (in Java <code>int</code> → <code>double</code>), <strong>explizite</strong> fordert der Programmierer an
-(<code>(int) 3.9</code> ergibt 3 – es wird abgeschnitten, nicht gerundet; LF8 Kapitel 8).</p>
+(<code>(int) 3.9</code> ergibt 3 – es wird abgeschnitten, nicht gerundet; <a href="/Learningfields/LF8/kapitel8.php">LF8 Kapitel 8</a>).</p>
 
 <h6>Datensätze und Datenstrukturen</h6>
 <p>Zusammengehörige Werte bilden einen <strong>Datensatz</strong> (Kunde mit Nummer, Name, Ort). Im Programm wird er als Objekt, <code>record</code> oder Dictionary
@@ -47,7 +47,7 @@ abgebildet; viele Datensätze stehen in einer Liste. Welche Struktur wofür pass
 Abläufe als Pseudocode, PAP oder Struktogramm darstellt, steht in <a href="/Learningfields/LF11/kapitel1.php">LF11 Kapitel 1</a>.</p>
 
 <h6>Daten dauerhaft speichern: Dateien</h6>
-<p>Variablen verschwinden beim Programmende. Für dauerhafte Daten braucht man Dateien – <strong>Textdateien</strong> (CSV, JSON, XML; lesbar, austauschbar, LF8 Kapitel 13)
+<p>Variablen verschwinden beim Programmende. Für dauerhafte Daten braucht man Dateien – <strong>Textdateien</strong> (CSV, JSON, XML; lesbar, austauschbar, <a href="/Learningfields/LF8/kapitel13.php">LF8 Kapitel 13</a>)
 oder <strong>Binärdateien</strong> (Bilder, eigene Formate; kompakt, aber nur mit passendem Programm lesbar).</p>
 <figure class="figure w-100">
   <img src="/assets/img/lernfelder/lf5/programm-datei.svg" class="figure-img img-fluid w-100" style="max-width: 760px"
@@ -94,7 +94,7 @@ def loeschen(nr):
     speichern([k for k in laden() if int(k["nr"]) != nr])</code></pre>
 <p>Testlauf: <code>anlegen</code> vergibt 1001, 1002, 1003; <code>suchen("Köln")</code> liefert Meier und Schulz; nach <code>aendern(1003, "Bonn")</code> und
 <code>loeschen(1001)</code> liefert <code>suchen("Bonn")</code> Kaya und Schulz, und die Datei enthält noch zwei Datenzeilen. Mit <code>encoding="utf-8"</code> landet „Köln“
-korrekt in der Datei (Kapitel 1). Fehlt die Datei beim Lesen ohne die <code>exists()</code>-Prüfung, bricht Python mit <code>FileNotFoundError</code> ab.</p>
+korrekt in der Datei (<a href="/Learningfields/LF5/kapitel1.php">Kapitel 1</a>). Fehlt die Datei beim Lesen ohne die <code>exists()</code>-Prüfung, bricht Python mit <code>FileNotFoundError</code> ab.</p>
 <div class="lf-merke"><strong>Merke:</strong> Dateien eignen sich für kleine Datenmengen, Konfiguration, Protokolle und den Datenaustausch. Sobald mehrere Benutzer gleichzeitig
 arbeiten, viele Daten durchsucht werden oder Regeln (eindeutige Nummern, gültige Werte) garantiert sein müssen, ist ein Datenbanksystem die bessere Wahl.</div>
 
@@ -106,7 +106,7 @@ arbeiten, viele Daten durchsucht werden oder Regeln (eindeutige Nummern, gültig
 <p>2. Zwei Mitarbeiter öffnen gleichzeitig die Kundenverwaltung. A legt einen Kunden an, B ändert einen Ort; beide speichern. Was passiert?</p>
 <details class="mb-3"><summary>Lösung anzeigen</summary>
 <p class="mt-2">Beide haben die Datei vorher komplett geladen. Wer zuletzt speichert, überschreibt die ganze Datei – die Änderung des anderen geht verloren
-(<em>Lost Update</em>). Ein Datenbanksystem verhindert das mit Transaktionen und Sperren (Kapitel 8).</p>
+(<em>Lost Update</em>). Ein Datenbanksystem verhindert das mit Transaktionen und Sperren (<a href="/Learningfields/LF5/kapitel8.php">Kapitel 8</a>).</p>
 </details>
 <p>3. Warum ergibt <code>"5" + "3"</code> in Python „53“ und nicht 8?</p>
 <details class="mb-3"><summary>Lösung anzeigen</summary>

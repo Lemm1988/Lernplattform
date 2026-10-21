@@ -29,7 +29,7 @@ das Rechenwerk <em>führt ihn aus</em>, das Ergebnis wird <em>zurückgeschrieben
     <tr><td>Chipsatz</td><td>verbindet CPU mit Schnittstellen und Erweiterungen, legt Zahl der USB-, SATA- und PCIe-Anschlüsse fest</td></tr>
     <tr><td>RAM-Steckplätze</td><td>Arbeitsspeicher; bei zwei Modulen im passenden Paar arbeitet er im schnelleren Dual-Channel-Modus</td></tr>
     <tr><td>PCI-Express-Steckplätze</td><td>Erweiterungskarten wie Grafik oder Netzwerk; Bandbreite wächst mit Generation und Zahl der Lanes (x1, x4, x16)</td></tr>
-    <tr><td>M.2 und SATA</td><td>Anschlüsse für SSDs und Festplatten (Kapitel 3)</td></tr>
+    <tr><td>M.2 und SATA</td><td>Anschlüsse für SSDs und Festplatten (<a href="/Learningfields/LF2/kapitel3.php">Kapitel 3</a>)</td></tr>
     <tr><td>UEFI-Firmware</td><td>startet den Rechner, prüft die Hardware, lädt das Betriebssystem</td></tr>
     <tr><td>Spannungsversorgung, Anschlussblende</td><td>Strom vom Netzteil; außen USB, Netzwerk, Audio, Grafik</td></tr>
   </tbody>

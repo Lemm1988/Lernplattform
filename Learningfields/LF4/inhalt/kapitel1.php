@@ -19,7 +19,7 @@ return [
     <tr><td><strong>Informationssicherheit</strong></td><td><em>Informationen in jeder Form</em> – auch auf Papier, im Gespräch, im Kopf</td><td>Aktenvernichter, Clean-Desk-Regel, Schulungen</td></tr>
   </tbody>
 </table>
-<p>Informationssicherheit ist der umfassendste Begriff. Datenschutz ist dagegen ein <strong>Rechtsgebiet</strong> (DSGVO, Kapitel 8): Er sagt, <em>ob</em> Daten verarbeitet werden dürfen.
+<p>Informationssicherheit ist der umfassendste Begriff. Datenschutz ist dagegen ein <strong>Rechtsgebiet</strong> (DSGVO, <a href="/Learningfields/LF4/kapitel8.php">Kapitel 8</a>): Er sagt, <em>ob</em> Daten verarbeitet werden dürfen.
 Datensicherheit liefert die Mittel, damit erlaubt verarbeitete Daten auch geschützt sind.</p>
 
 <h6>Die Schutzziele</h6>
@@ -51,11 +51,11 @@ und viele Gruppen kopieren sie vorher ab und drohen mit Veröffentlichung (Vertr
   <li><strong>Bedrohung</strong>: Umstand, der Schaden anrichten <em>könnte</em> – Schadsoftware, Feuer, Bedienfehler, ein verärgerter Ex-Mitarbeiter.</li>
   <li><strong>Schwachstelle</strong>: Fehler oder Lücke, durch die eine Bedrohung wirken kann – fehlende Updates, schwache Passwörter, offener Serverraum.</li>
   <li><strong>Gefährdung</strong>: eine Bedrohung, die konkret auf eine Schwachstelle eines Objekts trifft (Begriff des BSI).</li>
-  <li><strong>Risiko</strong>: Kombination aus Eintrittswahrscheinlichkeit und Schadenshöhe (Kapitel 5).</li>
+  <li><strong>Risiko</strong>: Kombination aus Eintrittswahrscheinlichkeit und Schadenshöhe (<a href="/Learningfields/LF4/kapitel5.php">Kapitel 5</a>).</li>
   <li><strong>Sicherheitsvorfall</strong>: ein Ereignis, bei dem ein Schutzziel tatsächlich verletzt wurde.</li>
 </ul>
-<p>Hundertprozentige Sicherheit gibt es nicht. Ziel ist ein Sicherheitsniveau, das dem <strong>Schutzbedarf</strong> angemessen ist (Kapitel 4) –
-und das sich mit Aufwand und Kosten vertreten lässt. Deshalb ist Informationssicherheit kein Projekt, sondern ein dauerhafter Prozess (Kapitel 3).</p>
+<p>Hundertprozentige Sicherheit gibt es nicht. Ziel ist ein Sicherheitsniveau, das dem <strong>Schutzbedarf</strong> angemessen ist (<a href="/Learningfields/LF4/kapitel4.php">Kapitel 4</a>) –
+und das sich mit Aufwand und Kosten vertreten lässt. Deshalb ist Informationssicherheit kein Projekt, sondern ein dauerhafter Prozess (<a href="/Learningfields/LF4/kapitel3.php">Kapitel 3</a>).</p>
 
 <h6>Übungen mit Lösung</h6>
 <p>1. Ordne zu, welches Schutzziel vor allem verletzt ist: (a) Ein Praktikant kann die Gehaltsliste öffnen. (b) Nach einem Wasserschaden ist der Server zwei Tage aus.

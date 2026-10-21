@@ -40,7 +40,7 @@ die Kundendaten? Solche qualitativen Kriterien bewertet die Nutzwertanalyse.</p>
 <h6>Nutzwertanalyse</h6>
 <p>So gehst du vor:</p>
 <ol>
-  <li>Kriterien festlegen (aus den Anforderungen, Kapitel 1).</li>
+  <li>Kriterien festlegen (aus den Anforderungen, <a href="/Learningfields/LF12/kapitel1.php">Kapitel 1</a>).</li>
   <li>Gewichte vergeben, die zusammen 100 % ergeben.</li>
   <li>Jede Alternative je Kriterium bewerten, hier mit Punkten von 1 (schlecht) bis 10 (sehr gut). Bei Kosten heißt „gut“: niedrig.</li>
   <li>Punkte × Gewicht rechnen und je Alternative aufsummieren.</li>

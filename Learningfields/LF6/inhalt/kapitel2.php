@@ -25,7 +25,7 @@ return [
   </tbody>
 </table>
 <p>Ziel ist eine hohe <strong>Erstlösungsquote</strong> (First Contact Resolution): Je mehr der 1st Level sofort löst, desto schneller sind Anwender wieder arbeitsfähig
-und desto weniger werden Spezialisten unterbrochen. Dafür braucht der 1st Level gute Lösungsartikel in der Wissensdatenbank (Kapitel 8).</p>
+und desto weniger werden Spezialisten unterbrochen. Dafür braucht der 1st Level gute Lösungsartikel in der Wissensdatenbank (<a href="/Learningfields/LF6/kapitel8.php">Kapitel 8</a>).</p>
 
 <h6>Eskalation</h6>
 <ul>
@@ -45,7 +45,7 @@ Die Regeln (wann, an wen, wie) stehen deshalb im Eskalationsplan.</p>
     <tr><td>Beschreibung</td><td>druckt seit 9:15 Uhr nicht, Anzeige „Papierstau Fach 2“, obwohl kein Papier steckt</td></tr>
     <tr><td>bereits versucht</td><td>Drucker aus- und eingeschaltet, Fach 2 geöffnet – ohne Erfolg</td></tr>
     <tr><td>Auswirkung</td><td>12 Personen, Ausweichdrucker im 1. OG vorhanden</td></tr>
-    <tr><td>Kategorie, Priorität</td><td>Hardware / Drucker, Priorität 3 (Kapitel 4)</td></tr>
+    <tr><td>Kategorie, Priorität</td><td>Hardware / Drucker, Priorität 3 (<a href="/Learningfields/LF6/kapitel4.php">Kapitel 4</a>)</td></tr>
     <tr><td>Status, Zuständigkeit, Verlauf</td><td>in Bearbeitung, 2nd Level Arbeitsplatz-Team; alle Schritte mit Zeitstempel</td></tr>
   </tbody>
 </table>

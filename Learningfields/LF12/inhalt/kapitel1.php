@@ -37,7 +37,7 @@ Einstellung fest – wer viel Einfluss hat und skeptisch ist, braucht besondere 
 <h6>Anforderungen formulieren</h6>
 <ul>
   <li><strong>Funktionale Anforderungen</strong> beschreiben, <em>was</em> das System tun soll: „Kunden können einen freien 30-Minuten-Termin auswählen und buchen.“</li>
-  <li><strong>Nichtfunktionale Anforderungen</strong> beschreiben, <em>wie gut</em> (Qualitätsmerkmale, LF10 Kapitel 10): „Die Buchungsseite erfüllt WCAG 2.2 AA.“
+  <li><strong>Nichtfunktionale Anforderungen</strong> beschreiben, <em>wie gut</em> (Qualitätsmerkmale, <a href="/Learningfields/LF10/kapitel10.php">LF10 Kapitel 10</a>): „Die Buchungsseite erfüllt WCAG 2.2 AA.“
   „Die Terminsuche antwortet in höchstens 2 Sekunden.“</li>
   <li><strong>Rahmenbedingungen</strong>: Budget 18.000 €, Start der Saison am 1. März, Hosting in der EU, vorhandene Website auf WordPress.</li>
 </ul>

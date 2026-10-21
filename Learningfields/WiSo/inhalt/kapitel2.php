@@ -44,7 +44,7 @@ return [
 <ul>
   <li><strong>Sofort melden</strong>: Die Arbeitsunfähigkeit und ihre voraussichtliche Dauer unverzüglich mitteilen – in der Regel am ersten Tag vor Arbeitsbeginn.</li>
   <li><strong>Ärztliche Feststellung</strong>: Dauert die Krankheit länger als drei Kalendertage, muss sie spätestens am folgenden Arbeitstag ärztlich festgestellt sein; der Arbeitgeber darf das auch früher verlangen. Seit 2023 ruft der Arbeitgeber die Bescheinigung bei gesetzlich Versicherten elektronisch bei der Krankenkasse ab (eAU).</li>
-  <li><strong>Entgeltfortzahlung</strong>: bis zu sechs Wochen volles Gehalt vom Arbeitgeber, danach Krankengeld von der Krankenkasse (Kapitel 5).</li>
+  <li><strong>Entgeltfortzahlung</strong>: bis zu sechs Wochen volles Gehalt vom Arbeitgeber, danach Krankengeld von der Krankenkasse (<a href="/Learningfields/WiSo/kapitel5.php">Kapitel 5</a>).</li>
 </ul>
 
 <h6>Kündigungsfristen</h6>

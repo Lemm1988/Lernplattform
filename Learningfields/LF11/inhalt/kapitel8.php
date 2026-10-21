@@ -167,7 +167,7 @@ static String berechne(int[] preise, Kundentyp typ) {
 }</code></pre></div>
 </div>
 <p class="mt-3">Beide Versionen liefern für alle getesteten Warenkörbe und Kundentypen exakt dieselben Texte (z. B. „Summe: 104.65 (inkl. Versand)“).
-Der nächste sinnvolle Schritt wäre, Beträge in Cent als <code>int</code> zu rechnen (LF8 Kapitel 14) – das ändert aber Rundungen und ist dann
+Der nächste sinnvolle Schritt wäre, Beträge in Cent als <code>int</code> zu rechnen (<a href="/Learningfields/LF8/kapitel14.php">LF8 Kapitel 14</a>) – das ändert aber Rundungen und ist dann
 <em>kein</em> reines Refactoring mehr, sondern eine Verhaltensänderung, die eigene Tests braucht.</p>
 
 <h6>Übungen mit Lösung</h6>

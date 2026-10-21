@@ -43,7 +43,7 @@ dann das Vorzeichen (1 = negativ).</p>
 -5 = 1111 1011</code></pre>
 <p>Mit <em>n</em> Bits lassen sich ohne Vorzeichen die Werte 0 bis 2<sup>n</sup> − 1 darstellen, mit Vorzeichen −2<sup>n−1</sup> bis 2<sup>n−1</sup> − 1. Ein Byte
 fasst also 0 bis 255 oder −128 bis 127. In Java hat <code>byte</code> 8, <code>short</code> 16, <code>int</code> 32 und <code>long</code> 64 Bit – wird der
-Bereich überschritten, „läuft die Zahl über“ und springt ins Negative (vgl. 21! in LF11 Kapitel 5).</p>
+Bereich überschritten, „läuft die Zahl über“ und springt ins Negative (vgl. 21! in <a href="/Learningfields/LF11/kapitel5.php">LF11 Kapitel 5</a>).</p>
 
 <h6>Datenmengen</h6>
 <p>8 Bit sind ein <strong>Byte</strong>. Für größere Mengen gibt es zwei Präfix-Systeme – und genau hier lauern Prüfungsfallen:</p>

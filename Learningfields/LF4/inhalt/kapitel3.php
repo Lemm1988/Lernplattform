@@ -58,7 +58,7 @@ Daraus entsteht das <strong>Sicherheitskonzept</strong> mit den konkreten Maßna
     <tr><td>DER</td><td>Detektion und Reaktion</td><td>DER.2.1 Behandlung von Sicherheitsvorfällen</td></tr>
     <tr><td>APP</td><td>Anwendungen</td><td>APP.3.1 Webanwendungen und Webservices</td></tr>
     <tr><td>SYS</td><td>IT-Systeme</td><td>SYS.2.1 Allgemeiner Client</td></tr>
-    <tr><td>IND</td><td>Industrielle IT</td><td>IND.2.1 Allgemeine ICS-Komponente (Steuerungen, LF7)</td></tr>
+    <tr><td>IND</td><td>Industrielle IT</td><td>IND.2.1 Allgemeine ICS-Komponente (Steuerungen, <a href="/Learningfields/LF7/index.php">LF7</a>)</td></tr>
     <tr><td>NET</td><td>Netze und Kommunikation</td><td>NET.1.1 Netzarchitektur und -design</td></tr>
     <tr><td>INF</td><td>Infrastruktur</td><td>INF.2 Rechenzentrum sowie Serverraum</td></tr>
   </tbody>

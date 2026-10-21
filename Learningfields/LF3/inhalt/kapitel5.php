@@ -55,7 +55,7 @@ Spanning Tree, Port Security). Im Firmennetz sind verwaltete Switches Pflicht.</
   <li><strong>Patchpanel</strong>: Dort enden die fest verlegten Kabel; kurze <strong>Patchkabel</strong> verbinden Panel und Switch. So bleibt die Installation unberührt,
     wenn sich die Zuordnung ändert.</li>
   <li><strong>Netzwerkschrank</strong> (19 Zoll): Geräte werden in <strong>Höheneinheiten</strong> gemessen, 1 HE = 1,75 Zoll = 44,45 mm. Ein 42-HE-Schrank bietet
-    rund 1,87 m Einbauhöhe. Dazu gehören Lüftung, Kabelführung, Steckdosenleiste und eine USV (Kapitel 9).</li>
+    rund 1,87 m Einbauhöhe. Dazu gehören Lüftung, Kabelführung, Steckdosenleiste und eine USV (<a href="/Learningfields/LF3/kapitel9.php">Kapitel 9</a>).</li>
   <li><strong>Beschriftung</strong> von Dosen, Panel-Ports und Kabeln – ohne sie wird jede Fehlersuche zur Detektivarbeit.</li>
 </ul>
 
@@ -68,7 +68,7 @@ Der Router (Schicht 3) verbindet verschiedene Netze und entscheidet anhand der I
 <p>2. Ein Büro bekommt 12 PCs, 2 Drucker, 2 WLAN-Access-Points, ein NAS und 8 IP-Telefone. Wie viele Switch-Ports brauchst du mindestens, und worauf achtest du?</p>
 <details class="mb-3"><summary>Lösung anzeigen</summary>
 <p class="mt-2">12 + 2 + 2 + 1 + 8 = 25 Endgeräte plus 1 Uplink zum Router = 26 Ports. Ein 24-Port-Switch reicht nicht; also 48 Ports oder zwei Switches, mit Reserve für Wachstum.
-Der Switch sollte verwaltet sein (VLANs für Telefone und Gäste) und PoE+ für Access Points und Telefone liefern – das PoE-Budget prüfen (Kapitel 3).</p>
+Der Switch sollte verwaltet sein (VLANs für Telefone und Gäste) und PoE+ für Access Points und Telefone liefern – das PoE-Budget prüfen (<a href="/Learningfields/LF3/kapitel3.php">Kapitel 3</a>).</p>
 </details>
 <p>3. Ein Netzwerkschrank hat 24 HE. Eingebaut werden: 2 Switches (je 1 HE), 2 Patchpanels (je 1 HE), 1 Router (1 HE), 1 USV (2 HE), 1 Server (2 HE),
 2 Kabelführungen (je 1 HE). Wie viele HE bleiben frei?</p>

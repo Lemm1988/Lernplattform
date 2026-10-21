@@ -19,7 +19,7 @@ return [
   <thead class="table-light"><tr><th>Rolle</th><th>Aufgaben</th></tr></thead>
   <tbody>
     <tr><td>Geschäftsleitung</td><td>trägt die <strong>Gesamtverantwortung</strong> und haftet; legt Sicherheitsziele fest, stellt Geld und Personal bereit. Delegieren kann sie Aufgaben, nicht die Verantwortung.</td></tr>
-    <tr><td>Informationssicherheitsbeauftragte/r (ISB)</td><td>plant und steuert das Sicherheitsmanagement (ISMS, Kapitel 3), erstellt Richtlinien, berät, untersucht Vorfälle, berichtet direkt an die Leitung. In großen Unternehmen heißt die Rolle oft CISO.</td></tr>
+    <tr><td>Informationssicherheitsbeauftragte/r (ISB)</td><td>plant und steuert das Sicherheitsmanagement (ISMS, <a href="/Learningfields/LF4/kapitel3.php">Kapitel 3</a>), erstellt Richtlinien, berät, untersucht Vorfälle, berichtet direkt an die Leitung. In großen Unternehmen heißt die Rolle oft CISO.</td></tr>
     <tr><td>Datenschutzbeauftragte/r (DSB)</td><td>berät und überwacht die Einhaltung des Datenschutzes, schult, ist Ansprechpartner für Betroffene und Aufsichtsbehörde. <strong>Weisungsfrei</strong> und mit besonderem Kündigungsschutz.</td></tr>
     <tr><td>IT-Betrieb</td><td>setzt technische Maßnahmen um: Updates, Rechte, Backups, Überwachung.</td></tr>
     <tr><td>alle Mitarbeitenden</td><td>halten Richtlinien ein, gehen sorgsam mit Informationen um und <strong>melden</strong> Auffälligkeiten sofort – auch eigene Fehler.</td></tr>
@@ -41,7 +41,7 @@ Der DSB kann intern oder extern sein. Die IT-Leitung oder die Geschäftsführung
 <table class="table table-sm table-bordered">
   <thead class="table-light"><tr><th>Regelwerk</th><th>Kernaussage</th></tr></thead>
   <tbody>
-    <tr><td>DSGVO und BDSG</td><td>Verarbeitung personenbezogener Daten; verlangt angemessene technische und organisatorische Maßnahmen (Kapitel 6 und 8)</td></tr>
+    <tr><td>DSGVO und BDSG</td><td>Verarbeitung personenbezogener Daten; verlangt angemessene technische und organisatorische Maßnahmen (<a href="/Learningfields/LF4/kapitel6.php">Kapitel 6</a> und <a href="/Learningfields/LF4/kapitel8.php">8</a>)</td></tr>
     <tr><td>BSI-Gesetz</td><td>Betreiber <strong>kritischer Infrastrukturen</strong> (KRITIS: Energie, Wasser, Gesundheit, Finanzen …) müssen Sicherheit nach dem Stand der Technik umsetzen, nachweisen und erhebliche Vorfälle melden</td></tr>
     <tr><td>NIS-2-Richtlinie (EU)</td><td>weitet diese Pflichten auf deutlich mehr mittlere und große Unternehmen aus; die Geschäftsleitung muss Maßnahmen billigen, überwachen und sich schulen lassen</td></tr>
     <tr><td>Cyber Resilience Act (EU)</td><td>Hersteller von Produkten mit digitalen Elementen – auch Software – müssen Schwachstellen behandeln und Sicherheitsupdates liefern; die Pflichten greifen schrittweise ab 2026</td></tr>

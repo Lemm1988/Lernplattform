@@ -18,7 +18,7 @@ return [
     <tr><td>Präambel + SFD</td><td>7 + 1 Byte</td><td>Taktsynchronisation, Start-Kennung (zählt nicht zur Framegröße)</td></tr>
     <tr><td>Ziel-MAC</td><td>6 Byte</td><td>an wen?</td></tr>
     <tr><td>Quell-MAC</td><td>6 Byte</td><td>von wem? – daraus lernt der Switch</td></tr>
-    <tr><td>802.1Q-Tag (optional)</td><td>4 Byte</td><td>VLAN-Nummer und Priorität (Kapitel 3)</td></tr>
+    <tr><td>802.1Q-Tag (optional)</td><td>4 Byte</td><td>VLAN-Nummer und Priorität (<a href="/Learningfields/LF9/kapitel3.php">Kapitel 3</a>)</td></tr>
     <tr><td>EtherType</td><td>2 Byte</td><td>was steckt drin? 0x0800 = IPv4, 0x86DD = IPv6, 0x0806 = ARP</td></tr>
     <tr><td>Nutzdaten</td><td>46–1500 Byte</td><td>z. B. ein IP-Paket; die 1500 Byte heißen <strong>MTU</strong></td></tr>
     <tr><td>FCS</td><td>4 Byte</td><td>Prüfsumme (CRC-32); fehlerhafte Frames werden verworfen</td></tr>

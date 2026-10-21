@@ -31,13 +31,13 @@ Pflichtenheft.</div>
   <tbody>
     <tr><th>Idee</th><td>Qualität wird von Anfang an „hineingebaut“</td><td>vorhandene Ergebnisse werden geprüft</td></tr>
     <tr><th>Beispiele</th><td>Styleguide und Design-System, Komponentenbibliothek, Programmierrichtlinien, Vorlagen, Schulung, geeignete Werkzeuge
-    (Linter, Formatierer), Vorgehensmodell</td><td>Tests (manuell und automatisiert), Code-Reviews, Usability-Tests (Kapitel 3), Barrierefreiheits-Audit,
+    (Linter, Formatierer), Vorgehensmodell</td><td>Tests (manuell und automatisiert), Code-Reviews, Usability-Tests (<a href="/Learningfields/LF10/kapitel3.php">Kapitel 3</a>), Barrierefreiheits-Audit,
     Performance-Messung</td></tr>
   </tbody>
 </table>
 <p>Ein <strong>Styleguide</strong> (Gestaltungsrichtlinie) legt Farben, Schriften, Abstände, Symbole und Formulierungen fest. Ein
 <strong>Design-System</strong> geht weiter und liefert fertige, getestete Komponenten (Buttons, Formularfelder, Dialoge) samt Code. Beides sichert die
-Konsistenz aus Kapitel 2 über viele Seiten und Entwickler hinweg – auch Bootstrap ist im Kern ein solches System.</p>
+Konsistenz aus <a href="/Learningfields/LF10/kapitel2.php">Kapitel 2</a> über viele Seiten und Entwickler hinweg – auch Bootstrap ist im Kern ein solches System.</p>
 
 <h6>Oberflächen testen</h6>
 <p>Die Teststufen und -verfahren aus <a href="/Learningfields/LF8/kapitel14.php">LF8 Kapitel 14</a> gelten auch für Oberflächen. Typische UI-Tests:</p>
@@ -48,7 +48,7 @@ Konsistenz aus Kapitel 2 über viele Seiten und Entwickler hinweg – auch Boots
   <li><strong>Cross-Browser- und Gerätetest</strong>: Chrome, Firefox, Safari; Smartphone, Tablet, Desktop.</li>
   <li><strong>Visueller Regressionstest</strong>: Screenshots werden mit einer freigegebenen Version verglichen, um ungewollte Layoutänderungen zu finden.</li>
 </ul>
-<p>Ein E2E-Test für die Kursanmeldung aus Kapitel 7, geschrieben mit Playwright für Python:</p>
+<p>Ein E2E-Test für die Kursanmeldung aus <a href="/Learningfields/LF10/kapitel7.php">Kapitel 7</a>, geschrieben mit Playwright für Python:</p>
 <pre class="bg-light border rounded p-3"><code>from playwright.sync_api import expect
 
 URL = "http://127.0.0.1:8003/anmeldung.php"

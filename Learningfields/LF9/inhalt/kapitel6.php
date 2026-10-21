@@ -79,7 +79,7 @@ außer NAT schreibt sie um.</div>
   <li><strong>Statisches NAT (1:1)</strong>: eine öffentliche Adresse fest für ein internes Gerät.</li>
 </ul>
 <p>NAT verbirgt die interne Struktur, ist aber <strong>keine Firewall</strong>: Es bricht die Ende-zu-Ende-Adressierung, erschwert VoIP, Spiele und VPN
-und verlangt Workarounds. Mit IPv6 ist NAT überflüssig; den Schutz übernimmt eine echte Firewall (Kapitel 8).</p>
+und verlangt Workarounds. Mit IPv6 ist NAT überflüssig; den Schutz übernimmt eine echte Firewall (<a href="/Learningfields/LF9/kapitel8.php">Kapitel 8</a>).</p>
 
 <h6>Übungen mit Lösung</h6>
 <p>1. Wohin leitet die Tabelle oben ein Paket an <code>10.1.3.1</code>?</p>
@@ -93,7 +93,7 @@ Der Ping scheitert. Routing muss in <strong>beide Richtungen</strong> funktionie
 </details>
 <p>3. Ein Webserver im LAN (192.168.1.20) soll aus dem Internet über HTTPS erreichbar sein. Was richtest du am Router ein?</p>
 <details class="mb-3"><summary>Lösung anzeigen</summary>
-<p class="mt-2">Eine Portweiterleitung (Destination NAT): öffentliche Adresse, TCP-Port 443 → 192.168.1.20:443. Besser noch: den Server in eine DMZ stellen (Kapitel 8).</p>
+<p class="mt-2">Eine Portweiterleitung (Destination NAT): öffentliche Adresse, TCP-Port 443 → 192.168.1.20:443. Besser noch: den Server in eine DMZ stellen (<a href="/Learningfields/LF9/kapitel8.php">Kapitel 8</a>).</p>
 </details>
 INHALT,
     'summary' => [

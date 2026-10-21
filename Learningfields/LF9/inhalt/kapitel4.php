@@ -78,7 +78,7 @@ auf ihren Blockgrenzen.</p>
 <table class="table table-sm table-bordered">
   <thead class="table-light"><tr><th>Bereich</th><th>Bedeutung</th></tr></thead>
   <tbody>
-    <tr><td>10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16</td><td>private Netze (RFC 1918), im Internet nicht geroutet → NAT nötig (Kapitel 6)</td></tr>
+    <tr><td>10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16</td><td>private Netze (RFC 1918), im Internet nicht geroutet → NAT nötig (<a href="/Learningfields/LF9/kapitel6.php">Kapitel 6</a>)</td></tr>
     <tr><td>127.0.0.0/8</td><td>Loopback, <code>127.0.0.1</code> = der eigene Rechner</td></tr>
     <tr><td>169.254.0.0/16</td><td>APIPA / Link-Local: selbst vergeben, wenn kein DHCP-Server antwortet – ein Warnsignal bei der Fehlersuche</td></tr>
     <tr><td>100.64.0.0/10</td><td>Carrier-Grade NAT beim Provider</td></tr>

@@ -10,7 +10,7 @@ return [
     ],
     'content' => <<<'INHALT'
 <h6>Aufwand schätzen</h6>
-<p>Grundlage jeder Schätzung ist eine Zerlegung der Arbeit in <strong>Arbeitspakete</strong> (mehr dazu in Kapitel 4). Kleine Pakete lassen sich besser schätzen
+<p>Grundlage jeder Schätzung ist eine Zerlegung der Arbeit in <strong>Arbeitspakete</strong> (mehr dazu in <a href="/Learningfields/LF12/kapitel4.php">Kapitel 4</a>). Kleine Pakete lassen sich besser schätzen
 als ein ganzes Projekt.</p>
 <table class="table table-sm table-bordered">
   <thead class="table-light"><tr><th>Verfahren</th><th>Vorgehen</th><th>geeignet, wenn …</th></tr></thead>
@@ -66,14 +66,14 @@ zuzüglich 19 % Umsatzsteuer 2.828,45 € = 17.715,01 € brutto. Das liegt im B
 <table class="table table-sm table-bordered">
   <thead class="table-light"><tr><th>Vertrag</th><th>geschuldet ist …</th><th>typisch für</th></tr></thead>
   <tbody>
-    <tr><td>Werkvertrag (§ 631 BGB)</td><td>ein <strong>Erfolg</strong>, das fertige Werk; mit Abnahme und Mängelrechten (LF8 Kapitel 14)</td><td>Individualsoftware zum Festpreis</td></tr>
+    <tr><td>Werkvertrag (§ 631 BGB)</td><td>ein <strong>Erfolg</strong>, das fertige Werk; mit Abnahme und Mängelrechten (<a href="/Learningfields/LF8/kapitel14.php">LF8 Kapitel 14</a>)</td><td>Individualsoftware zum Festpreis</td></tr>
     <tr><td>Dienstvertrag (§ 611 BGB)</td><td>eine <strong>Tätigkeit</strong>, kein bestimmtes Ergebnis</td><td>Beratung, Schulung, Support, Entwickler „nach Stunden“</td></tr>
     <tr><td>Kaufvertrag (§ 433 BGB)</td><td>Übergabe und Eigentum an einer Sache bzw. dauerhafte Überlassung</td><td>Standardsoftware mit Dauerlizenz, Hardware</td></tr>
     <tr><td>Mietvertrag (§ 535 BGB)</td><td>Gebrauchsüberlassung auf Zeit</td><td>SaaS, Software-Abonnement, Cloud-Server</td></tr>
   </tbody>
 </table>
 <p><strong>Festpreis</strong>: Der Preis steht vorher fest, das Risiko für Mehraufwand trägt der Auftragnehmer – daher saubere Leistungsbeschreibung und
-Änderungsmanagement (Kapitel 5). <strong>Nach Aufwand</strong> (Time &amp; Material): abgerechnet werden die tatsächlich geleisteten Stunden – flexibel, das
+Änderungsmanagement (<a href="/Learningfields/LF12/kapitel5.php">Kapitel 5</a>). <strong>Nach Aufwand</strong> (Time &amp; Material): abgerechnet werden die tatsächlich geleisteten Stunden – flexibel, das
 Kostenrisiko liegt beim Kunden. Agile Projekte werden häufig nach Aufwand oder mit festem Budget pro Sprint abgerechnet.</p>
 
 <h6>Übungen mit Lösung</h6>

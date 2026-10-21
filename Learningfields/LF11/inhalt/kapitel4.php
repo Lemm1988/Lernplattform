@@ -163,7 +163,7 @@ fällt es auf das Niveau von Bubble Sort zurück.</p>
     <tr><td>Quick Sort</td><td>O(n log n)</td><td>O(n log n), schlechtester Fall O(n²)</td><td>kaum</td><td>nein</td></tr>
   </tbody>
 </table>
-<p>Die O-Notation lernst du in Kapitel 5 genauer kennen. <strong>Stabil</strong> heißt: Elemente mit gleichem Sortierschlüssel behalten ihre
+<p>Die O-Notation lernst du in <a href="/Learningfields/LF11/kapitel5.php">Kapitel 5</a> genauer kennen. <strong>Stabil</strong> heißt: Elemente mit gleichem Sortierschlüssel behalten ihre
 bisherige Reihenfolge. Das ist wichtig, wenn man nacheinander nach mehreren Kriterien sortiert:</p>
 <pre class="bg-light border rounded p-3"><code>record Kunde(String name, String ort) {}
 

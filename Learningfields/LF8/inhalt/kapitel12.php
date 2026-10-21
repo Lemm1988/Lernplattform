@@ -41,7 +41,7 @@ zweimal verkauft). Ein <strong>CP</strong>-System lehnt Schreibzugriffe auf der 
 eine Fehlermeldung). Für einen Kontostand wählt man C, für „Gefällt mir“-Zähler eher A.</p>
 
 <h6>Welche NoSQL-Art wofür?</h6>
-<p>Die Grundtypen kennst du aus Kapitel 10. Entscheidend ist die Frage: <em>Wie greife ich später auf die Daten zu?</em></p>
+<p>Die Grundtypen kennst du aus <a href="/Learningfields/LF8/kapitel10.php">Kapitel 10</a>. Entscheidend ist die Frage: <em>Wie greife ich später auf die Daten zu?</em></p>
 <table class="table table-sm table-bordered">
   <thead class="table-light"><tr><th>Typ</th><th>gut für</th><th>Beispiel</th></tr></thead>
   <tbody>
@@ -114,7 +114,7 @@ Weitere Vergleichsoperatoren: <code>$lt</code> (&lt;), <code>$gte</code> (&gt;=)
   <li><strong>Einbetten</strong> (Adresse im Kunden, Positionen in der Bestellung): alles mit einem Zugriff lesbar, kein Join nötig.
   Gut, wenn die Teile nur zusammen mit dem Elternobjekt benutzt werden und die Liste nicht unbegrenzt wächst.</li>
   <li><strong>Referenzieren</strong> (Bestellung speichert nur <code>kunde_id</code>): gut, wenn Daten von vielen Dokumenten genutzt
-  werden oder sich oft ändern – sonst müsste man jede Kopie ändern (Redundanz, Anomalien wie in Kapitel 10).</li>
+  werden oder sich oft ändern – sonst müsste man jede Kopie ändern (Redundanz, Anomalien wie in <a href="/Learningfields/LF8/kapitel10.php">Kapitel 10</a>).</li>
 </ul>
 <p>Kurz: Ein Dokumentmodell wird nach den <strong>Abfragen</strong> entworfen, ein relationales Modell nach den <strong>Daten</strong> (Normalisierung).</p>
 

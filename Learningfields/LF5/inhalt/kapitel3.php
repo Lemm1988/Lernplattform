@@ -21,16 +21,16 @@ return [
 DBMS als eigener Dienst; SQLite steckt dagegen als Bibliothek im Programm (Smartphone-Apps, Browser).</p>
 
 <h6>Was ein DBMS leistet</h6>
-<p>Die Grenzen der Dateien aus Kapitel 2 sind genau die Aufgaben eines DBMS:</p>
+<p>Die Grenzen der Dateien aus <a href="/Learningfields/LF5/kapitel2.php">Kapitel 2</a> sind genau die Aufgaben eines DBMS:</p>
 <table class="table table-sm table-bordered">
   <thead class="table-light"><tr><th>Aufgabe</th><th>Bedeutung</th></tr></thead>
   <tbody>
     <tr><td>Integration, Redundanzfreiheit</td><td>Daten werden zentral und möglichst nur einmal gespeichert</td></tr>
-    <tr><td>Mehrbenutzerbetrieb</td><td>viele Benutzer gleichzeitig, ohne sich gegenseitig Änderungen zu überschreiben (Transaktionen, Kapitel 8)</td></tr>
+    <tr><td>Mehrbenutzerbetrieb</td><td>viele Benutzer gleichzeitig, ohne sich gegenseitig Änderungen zu überschreiben (Transaktionen, <a href="/Learningfields/LF5/kapitel8.php">Kapitel 8</a>)</td></tr>
     <tr><td>Integritätssicherung</td><td>Regeln wie eindeutige Schlüssel, Pflichtfelder, gültige Verweise werden erzwungen</td></tr>
-    <tr><td>Zugriffsschutz</td><td>Rechte pro Benutzer, Tabelle, ja sogar Spalte (Kapitel 9)</td></tr>
+    <tr><td>Zugriffsschutz</td><td>Rechte pro Benutzer, Tabelle, ja sogar Spalte (<a href="/Learningfields/LF5/kapitel9.php">Kapitel 9</a>)</td></tr>
     <tr><td>Datensicherung, Wiederherstellung</td><td>Backups, Protokolle, Wiederanlauf nach Absturz</td></tr>
-    <tr><td>Abfragesprache</td><td>SQL: beschreiben, <em>was</em> man will, nicht wie gesucht wird (Kapitel 7)</td></tr>
+    <tr><td>Abfragesprache</td><td>SQL: beschreiben, <em>was</em> man will, nicht wie gesucht wird (<a href="/Learningfields/LF5/kapitel7.php">Kapitel 7</a>)</td></tr>
     <tr><td>Katalog (Data Dictionary)</td><td>das DBMS kennt seine eigene Struktur: Tabellen, Spalten, Typen, Indizes</td></tr>
   </tbody>
 </table>
@@ -75,7 +75,7 @@ hinzu, laufen die Anwendungen weiter, die sie nicht brauchen – ihre Sicht (z. 
 <ul>
   <li><strong>Entitätsintegrität</strong>: Jede Zeile hat einen eindeutigen Primärschlüssel ungleich NULL.</li>
   <li><strong>Referenzielle Integrität</strong>: Ein Fremdschlüssel enthält nur Werte, die als Primärschlüssel existieren (oder NULL). Eine Bestellung für Kunde 9999, den es nicht gibt,
-  wird abgelehnt; ein Kunde mit Bestellungen kann nicht einfach gelöscht werden (Kapitel 6).</li>
+  wird abgelehnt; ein Kunde mit Bestellungen kann nicht einfach gelöscht werden (<a href="/Learningfields/LF5/kapitel6.php">Kapitel 6</a>).</li>
   <li><strong>Wertebereichsintegrität</strong>: Werte passen zur Domäne (Datentyp, <code>CHECK</code>).</li>
 </ul>
 <div class="lf-pruefung"><strong>Prüfungstipp:</strong> Die Fachbegriffe Relation, Tupel, Attribut und die Unterscheidung von Primär- und Fremdschlüssel werden gern abgefragt

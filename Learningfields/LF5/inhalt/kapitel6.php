@@ -56,7 +56,7 @@ CREATE TABLE ausleihe (
   <tbody>
     <tr><td><code>INT</code>, <code>BIGINT</code></td><td>Ganzzahlen, Schlüssel, Mengen</td><td>INT reicht bis gut 2 Milliarden</td></tr>
     <tr><td><code>DECIMAL(p,s)</code></td><td>Geldbeträge</td><td>p Stellen insgesamt, s davon nach dem Komma; exakt</td></tr>
-    <tr><td><code>FLOAT</code>, <code>DOUBLE</code></td><td>Messwerte</td><td>ungenau (Kapitel 2), nie für Geld</td></tr>
+    <tr><td><code>FLOAT</code>, <code>DOUBLE</code></td><td>Messwerte</td><td>ungenau (<a href="/Learningfields/LF5/kapitel2.php">Kapitel 2</a>), nie für Geld</td></tr>
     <tr><td><code>VARCHAR(n)</code></td><td>Texte bis n Zeichen</td><td>Namen, E-Mail, PLZ, Telefon</td></tr>
     <tr><td><code>TEXT</code></td><td>lange Texte</td><td>Beschreibungen, Kommentare</td></tr>
     <tr><td><code>DATE</code>, <code>DATETIME</code>, <code>TIMESTAMP</code></td><td>Datum und Zeit</td><td>Format <code>'2026-05-02'</code>, <code>'2026-05-02 14:30:00'</code></td></tr>
@@ -96,11 +96,11 @@ DELETE FROM ausleihe WHERE bis &lt; '2020-01-01';   -- ausgewählte Zeilen (DML)
 TRUNCATE TABLE ausleihe;                          -- alle Zeilen, schnell, Zähler zurück
 DROP TABLE ausleihe;                              -- Tabelle samt Struktur weg</code></pre>
 <p>Strukturänderungen an einer laufenden Anwendung werden als <strong>Migrationen</strong> durchgeführt: versionierte SQL-Skripte, die das Schema schrittweise anpassen,
-nachvollziehbar im Repository liegen und vorher auf einer Testdatenbank ausprobiert werden (LF12 Kapitel 7). Vorher immer ein Backup (Kapitel 9).</p>
+nachvollziehbar im Repository liegen und vorher auf einer Testdatenbank ausprobiert werden (<a href="/Learningfields/LF12/kapitel7.php">LF12 Kapitel 7</a>). Vorher immer ein Backup (<a href="/Learningfields/LF5/kapitel9.php">Kapitel 9</a>).</p>
 
 <h6>Views</h6>
 <p>Eine <strong>View</strong> ist eine gespeicherte Abfrage, die sich wie eine Tabelle abfragen lässt – praktisch für häufige Auswertungen und um Benutzern nur bestimmte
-Spalten zu zeigen (externe Ebene aus Kapitel 3):</p>
+Spalten zu zeigen (externe Ebene aus <a href="/Learningfields/LF5/kapitel3.php">Kapitel 3</a>):</p>
 <pre class="bg-light border rounded p-3"><code>CREATE VIEW verfuegbare_fahrraeder AS
 SELECT f.rahmen_nr, f.modell, f.tagespreis, fi.ort
 FROM fahrrad f
@@ -129,7 +129,7 @@ und Daten.</p>
 </details>
 <p>3. Welche referenzielle Aktion passt für Bestellpositionen, wenn eine Bestellung gelöscht wird?</p>
 <details class="mb-3"><summary>Lösung anzeigen</summary>
-<p class="mt-2"><code>ON DELETE CASCADE</code> – Positionen existieren nicht ohne ihre Bestellung (Komposition, LF8 Kapitel 4).</p>
+<p class="mt-2"><code>ON DELETE CASCADE</code> – Positionen existieren nicht ohne ihre Bestellung (Komposition, <a href="/Learningfields/LF8/kapitel4.php">LF8 Kapitel 4</a>).</p>
 </details>
 INHALT,
     'summary' => [

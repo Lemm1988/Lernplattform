@@ -68,7 +68,7 @@ sind stark und merkbar. Aktuelle Empfehlungen des BSI:</p>
   <li>kein regelmäßiger Zwangswechsel ohne Anlass – aber sofortiger Wechsel bei Verdacht auf Kompromittierung</li>
   <li>wo möglich MFA oder Passkeys</li>
 </ul>
-<p>Server speichern Passwörter nie im Klartext, sondern als gesalzenen, absichtlich langsamen Hash (Kapitel 7).</p>
+<p>Server speichern Passwörter nie im Klartext, sondern als gesalzenen, absichtlich langsamen Hash (<a href="/Learningfields/LF4/kapitel7.php">Kapitel 7</a>).</p>
 
 <h6>Rechte vergeben</h6>
 <ul>

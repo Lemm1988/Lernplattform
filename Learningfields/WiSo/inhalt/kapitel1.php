@@ -22,13 +22,13 @@ return [
   <tbody>
     <tr><td>Berufsausbildung (BBiG), Prüfung, Jugendarbeitsschutz</td><td><a href="/Learningfields/LF1/kapitel1.php">LF1 Kapitel 1</a></td></tr>
     <tr><td>Unternehmensziele, Kennzahlen, Rechtsformen</td><td><a href="/Learningfields/LF1/kapitel3.php">LF1 Kapitel 3</a> und <a href="/Learningfields/LF1/kapitel4.php">Kapitel 4</a></td></tr>
-    <tr><td>Arbeitsvertrag, Kündigung, Arbeitsgericht</td><td>Kapitel 2</td></tr>
-    <tr><td>Tarifverträge und Arbeitskampf</td><td>Kapitel 3</td></tr>
-    <tr><td>Betriebsrat, Jugend- und Auszubildendenvertretung, Mitbestimmung</td><td>Kapitel 4</td></tr>
-    <tr><td>Entgeltabrechnung, Steuern, Sozialversicherung</td><td>Kapitel 5</td></tr>
-    <tr><td>Verträge, Kaufvertrag und Vertragsstörungen</td><td>Kapitel 6 und 7</td></tr>
-    <tr><td>Markt, Wirtschaftsordnung und Wirtschaftspolitik</td><td>Kapitel 8</td></tr>
-    <tr><td>Nachhaltigkeit und Wandel der Arbeitswelt</td><td>Kapitel 9</td></tr>
+    <tr><td>Arbeitsvertrag, Kündigung, Arbeitsgericht</td><td><a href="/Learningfields/WiSo/kapitel2.php">Kapitel 2</a></td></tr>
+    <tr><td>Tarifverträge und Arbeitskampf</td><td><a href="/Learningfields/WiSo/kapitel3.php">Kapitel 3</a></td></tr>
+    <tr><td>Betriebsrat, Jugend- und Auszubildendenvertretung, Mitbestimmung</td><td><a href="/Learningfields/WiSo/kapitel4.php">Kapitel 4</a></td></tr>
+    <tr><td>Entgeltabrechnung, Steuern, Sozialversicherung</td><td><a href="/Learningfields/WiSo/kapitel5.php">Kapitel 5</a></td></tr>
+    <tr><td>Verträge, Kaufvertrag und Vertragsstörungen</td><td><a href="/Learningfields/WiSo/kapitel6.php">Kapitel 6</a> und <a href="/Learningfields/WiSo/kapitel7.php">7</a></td></tr>
+    <tr><td>Markt, Wirtschaftsordnung und Wirtschaftspolitik</td><td><a href="/Learningfields/WiSo/kapitel8.php">Kapitel 8</a></td></tr>
+    <tr><td>Nachhaltigkeit und Wandel der Arbeitswelt</td><td><a href="/Learningfields/WiSo/kapitel9.php">Kapitel 9</a></td></tr>
   </tbody>
 </table>
 

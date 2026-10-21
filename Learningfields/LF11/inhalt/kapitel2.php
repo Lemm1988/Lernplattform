@@ -74,7 +74,7 @@ und <code>LinkedList</code> (doppelt verkettet). Eine doppelt verkettete Liste k
 </figure>
 <p>Ein <strong>Stack</strong> (Stapel, Kellerspeicher) arbeitet nach <strong>LIFO</strong> (Last In, First Out): <code>push</code> legt ab,
 <code>pop</code> nimmt das oberste Element, <code>peek</code> schaut es nur an. Typisch: Rückgängig-Funktion, der Aufrufstapel von Methoden
-(Kapitel 5) und das Prüfen von Klammern:</p>
+(<a href="/Learningfields/LF11/kapitel5.php">Kapitel 5</a>) und das Prüfen von Klammern:</p>
 <pre class="bg-light border rounded p-3"><code>static boolean klammernOk(String text) {
     Deque&lt;Character&gt; stapel = new ArrayDeque&lt;&gt;();
     for (char c : text.toCharArray()) {
@@ -92,7 +92,7 @@ und <code>LinkedList</code> (doppelt verkettet). Eine doppelt verkettete Liste k
 }
 // "(a[b]{c})" → true    "(]" → false    "((" → false</code></pre>
 <p>Eine <strong>Queue</strong> (Warteschlange) arbeitet nach <strong>FIFO</strong> (First In, First Out): <code>offer</code> stellt hinten an,
-<code>poll</code> holt vorne ab. Typisch: Druckaufträge, Support-Tickets, Nachrichten zwischen Programmen (Message Queue, LF8 Kapitel 13).</p>
+<code>poll</code> holt vorne ab. Typisch: Druckaufträge, Support-Tickets, Nachrichten zwischen Programmen (Message Queue, <a href="/Learningfields/LF8/kapitel13.php">LF8 Kapitel 13</a>).</p>
 <pre class="bg-light border rounded p-3"><code>Queue&lt;String&gt; drucker = new LinkedList&lt;&gt;();
 drucker.offer("Rechnung.pdf");
 drucker.offer("Brief.docx");

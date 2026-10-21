@@ -29,7 +29,7 @@ lesen, ändern, löschen oder neue Knoten einfügen – die Anzeige aktualisiert
 </table>
 
 <h6>Ereignisse</h6>
-<p>JavaScript im Browser ist <strong>ereignisgesteuert</strong> (wie die GUI-Listener in LF8 Kapitel 9): Man registriert eine Funktion, die bei einem
+<p>JavaScript im Browser ist <strong>ereignisgesteuert</strong> (wie die GUI-Listener in <a href="/Learningfields/LF8/kapitel9.php">LF8 Kapitel 9</a>): Man registriert eine Funktion, die bei einem
 Ereignis aufgerufen wird – <code>click</code>, <code>input</code>, <code>submit</code>, <code>keydown</code>, <code>change</code>.</p>
 <pre class="bg-light border rounded p-3"><code>const knopf = document.getElementById('menueKnopf');
 const menue = document.getElementById('menue');
@@ -39,7 +39,7 @@ knopf.addEventListener('click', () =&gt; {
     knopf.setAttribute('aria-expanded', String(!offen));   // Zustand für Screenreader
     menue.hidden = offen;                                   // ein- oder ausblenden
 });</code></pre>
-<p>Ein echter <code>&lt;button&gt;</code> löst <code>click</code> auch per Tastatur (Enter, Leertaste) aus – ein <code>&lt;div&gt;</code> nicht (Kapitel 4).</p>
+<p>Ein echter <code>&lt;button&gt;</code> löst <code>click</code> auch per Tastatur (Enter, Leertaste) aus – ein <code>&lt;div&gt;</code> nicht (<a href="/Learningfields/LF10/kapitel4.php">Kapitel 4</a>).</p>
 
 <h6>Daten nachladen mit fetch</h6>
 <p>Früher hieß das Nachladen im Hintergrund „AJAX“. Heute nutzt man <code>fetch</code>, das ein <em>Promise</em> liefert; mit <code>async</code>/<code>await</code>
@@ -72,7 +72,7 @@ async function suchen() {
         status.textContent = 'Die Suche ist gerade nicht erreichbar.';
     }
 }</code></pre>
-<p>Die Serverseite ist ein kleines PHP-Skript, das JSON liefert (vgl. REST in LF8 Kapitel 13):</p>
+<p>Die Serverseite ist ein kleines PHP-Skript, das JSON liefert (vgl. REST in <a href="/Learningfields/LF8/kapitel13.php">LF8 Kapitel 13</a>):</p>
 <pre class="bg-light border rounded p-3"><code>header('Content-Type: application/json; charset=utf-8');
 $q = mb_strtolower(trim($_GET['q'] ?? ''));
 $treffer = array_values(array_filter($artikel, fn($a) =&gt; str_contains(mb_strtolower($a), $q)));

@@ -81,7 +81,7 @@ Tooltips), muss auch per Tippen erreichbar sein.</div>
   <li><strong>Automatische Prüfung</strong>: Lighthouse in den Chrome-Entwicklerwerkzeugen oder axe finden fehlende alt-Texte, Labels und Kontrastprobleme – aber nur einen Teil der Barrieren.</li>
   <li><strong>Screenreader</strong>: NVDA (Windows, kostenlos) oder VoiceOver (macOS/iOS) – hörst du alle Informationen in sinnvoller Reihenfolge?</li>
   <li><strong>Zoom</strong> auf 200 % und schmale Fenster: bleibt alles nutzbar?</li>
-  <li>Am besten: Menschen mit Behinderung in Usability-Tests einbeziehen (Kapitel 3).</li>
+  <li>Am besten: Menschen mit Behinderung in Usability-Tests einbeziehen (<a href="/Learningfields/LF10/kapitel3.php">Kapitel 3</a>).</li>
 </ul>
 
 <h6>Übungen mit Lösung</h6>

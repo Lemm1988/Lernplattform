@@ -75,7 +75,7 @@ public class Bestellung {
 <code>BEZAHLT</code>. <code>stornieren()</code> nach dem Versand wirft „stornieren nicht möglich im Zustand VERSENDET“, <code>versenden()</code> einer
 unbezahlten Bestellung „versenden nicht möglich im Zustand NEU“.</p>
 <div class="lf-merke"><strong>Merke:</strong> Ein Zustandsdiagramm ist eine Spezifikation für Tests: Jeder Pfeil ist ein Testfall „Übergang klappt“,
-jeder <em>fehlende</em> Pfeil ein Testfall „Ereignis wird abgelehnt“ (vgl. LF8 Kapitel 14).</div>
+jeder <em>fehlende</em> Pfeil ein Testfall „Ereignis wird abgelehnt“ (vgl. <a href="/Learningfields/LF8/kapitel14.php">LF8 Kapitel 14</a>).</div>
 
 <h6>Objektdiagramm</h6>
 <p>Ein <strong>Objektdiagramm</strong> ist eine <strong>Momentaufnahme</strong>: Es zeigt konkrete Objekte mit ihren aktuellen Attributwerten und

@@ -82,7 +82,7 @@ interface GigabitEthernet0/0.10
   </tbody>
 </table>
 <div class="lf-merke"><strong>Merke:</strong> Ein VLAN = eine Broadcastdomäne = ein IP-Subnetz. Ohne Router (oder Layer-3-Switch) gibt es keine Kommunikation zwischen VLANs.
-DHCP-Anfragen sind Broadcasts – für einen zentralen DHCP-Server braucht der Router deshalb ein <em>DHCP-Relay</em> (Kapitel 7).</div>
+DHCP-Anfragen sind Broadcasts – für einen zentralen DHCP-Server braucht der Router deshalb ein <em>DHCP-Relay</em> (<a href="/Learningfields/LF9/kapitel7.php">Kapitel 7</a>).</div>
 
 <h6>Übungen mit Lösung</h6>
 <p>1. PC 1 (VLAN 10) und PC 2 (VLAN 20) hängen am selben Switch, ein Router ist nicht vorhanden. Klappt ein <code>ping</code>?</p>

@@ -50,7 +50,7 @@ Beziehung teil“. Dadurch stehen die Werte gegenüber der Chen-Notation scheinb
 <h6>Generalisierung und Spezialisierung</h6>
 <p>Haben mehrere Entitätstypen gemeinsame Attribute, fasst man sie zusammen: <strong>E-Bike</strong> und <strong>Lastenrad</strong> sind spezielle <strong>Fahrräder</strong>
 („ist-ein“-Beziehung). Gemeinsame Attribute (RahmenNr, Modell) stehen beim allgemeinen Typ, besondere beim speziellen (Akkukapazität beim E-Bike, Zuladung beim Lastenrad).
-Das entspricht der Vererbung in der Objektorientierung (LF8 Kapitel 2).</p>
+Das entspricht der Vererbung in der Objektorientierung (<a href="/Learningfields/LF8/kapitel2.php">LF8 Kapitel 2</a>).</p>
 
 <h6>Vom Text zum Modell</h6>
 <p>So gehst du bei einer Prüfungsaufgabe vor:</p>
@@ -63,7 +63,7 @@ Das entspricht der Vererbung in der Objektorientierung (LF8 Kapitel 2).</p>
   <li>Ergebnis gegen den Text prüfen: Lässt sich jede Aussage des Textes im Modell wiederfinden?</li>
 </ol>
 <div class="lf-merke"><strong>Merke:</strong> Das ER-Modell ist ein <em>konzeptionelles</em> Modell – es kennt noch keine Tabellen und keine Fremdschlüssel. Wie daraus Tabellen
-werden, zeigt Kapitel 5.</div>
+werden, zeigt <a href="/Learningfields/LF5/kapitel5.php">Kapitel 5</a>.</div>
 
 <h6>Übungen mit Lösung</h6>
 <p>1. „Eine Bibliothek verwaltet Bücher mit ISBN, Titel und Erscheinungsjahr. Jedes Buch hat einen oder mehrere Autoren; ein Autor kann mehrere Bücher geschrieben haben.

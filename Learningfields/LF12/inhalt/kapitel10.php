@@ -34,7 +34,7 @@ die allgemeinen Regeln und bewährte Vorgehensweisen.</p>
 die du eigenständig in höchstens 80 Stunden lösen kannst. Typische Inhalte:</p>
 <ul>
   <li><strong>Projektbezeichnung</strong>: knapp und konkret – „Entwicklung einer Online-Terminbuchung für Reparaturaufträge“.</li>
-  <li><strong>Ausgangssituation</strong>: Ist-Zustand mit Problem und Zahlen (Kapitel 1).</li>
+  <li><strong>Ausgangssituation</strong>: Ist-Zustand mit Problem und Zahlen (<a href="/Learningfields/LF12/kapitel1.php">Kapitel 1</a>).</li>
   <li><strong>Projektziel</strong>: Soll-Zustand, Abgrenzung (was gehört nicht dazu?).</li>
   <li><strong>Projektumfeld</strong>: Auftraggeber, Schnittstellen, vorhandene Technik.</li>
   <li><strong>Zeitplanung</strong> nach Phasen mit Stunden, Summe höchstens 80 Stunden.</li>
@@ -96,8 +96,8 @@ ehrlich, aber konstruktiv.</p>
   „Wie haben Sie die Software gegen SQL-Injection geschützt?“, „Was hätten Sie mit mehr Zeit anders gemacht?“. Du musst jede Entscheidung in der Dokumentation
   begründen und erklären können. „Das weiß ich nicht genau, ich würde es so herausfinden …“ ist besser als Raten.</li>
 </ul>
-<div class="lf-merke"><strong>Merke:</strong> Alle Kapitel dieses Lernfelds sind Bausteine deiner Projektarbeit: Auftragsanalyse (Kapitel 1), Wirtschaftlichkeit
-(Kapitel 2), Planung (Kapitel 3 und 4), Steuerung (Kapitel 5), Werkzeuge (Kapitel 6 bis 8), Recht (Kapitel 9). Die technischen Inhalte aus LF8, LF10 und LF11
+<div class="lf-merke"><strong>Merke:</strong> Alle Kapitel dieses Lernfelds sind Bausteine deiner Projektarbeit: Auftragsanalyse (<a href="/Learningfields/LF12/kapitel1.php">Kapitel 1</a>), Wirtschaftlichkeit
+(<a href="/Learningfields/LF12/kapitel2.php">Kapitel 2</a>), Planung (<a href="/Learningfields/LF12/kapitel3.php">Kapitel 3</a> und <a href="/Learningfields/LF12/kapitel4.php">4</a>), Steuerung (<a href="/Learningfields/LF12/kapitel5.php">Kapitel 5</a>), Werkzeuge (<a href="/Learningfields/LF12/kapitel6.php">Kapitel 6</a> bis <a href="/Learningfields/LF12/kapitel8.php">8</a>), Recht (<a href="/Learningfields/LF12/kapitel9.php">Kapitel 9</a>). Die technischen Inhalte aus <a href="/Learningfields/LF8/index.php">LF8</a>, <a href="/Learningfields/LF10/index.php">LF10</a> und <a href="/Learningfields/LF11/index.php">LF11</a>
 liefern Entwurf, Umsetzung und Tests.</div>
 
 <h6>Übungen mit Lösung</h6>

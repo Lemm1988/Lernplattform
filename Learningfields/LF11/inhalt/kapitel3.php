@@ -97,7 +97,7 @@ negative Zahl, aus der man die Einfügeposition ablesen kann: <code>Arrays.binar
 
 <h6>Binäre Suche rekursiv</h6>
 <p>Weil jeder Schritt dasselbe Problem auf einem kleineren Bereich löst, lässt sich die binäre Suche auch rekursiv schreiben
-(mehr zu Rekursion in Kapitel 5):</p>
+(mehr zu Rekursion in <a href="/Learningfields/LF11/kapitel5.php">Kapitel 5</a>):</p>
 <pre class="bg-light border rounded p-3"><code>static int binaerRekursiv(int[] a, int gesucht, int links, int rechts) {
     if (links &gt; rechts) return -1;                         // Bereich leer → nicht gefunden
     int mitte = links + (rechts - links) / 2;
@@ -115,7 +115,7 @@ negative Zahl, aus der man die Einfügeposition ablesen kann: <code>Arrays.binar
     <tr><th>sinnvoll, wenn …</th><td>wenige Daten, unsortiert, einmalige Suche</td><td>oft in großen, sortierten Daten suchen</td><td>sehr oft nach exakten Schlüsseln suchen</td></tr>
   </tbody>
 </table>
-<p>Sortieren kostet selbst Zeit (Kapitel 4). Für eine einzige Suche in unsortierten Daten lohnt es sich daher nicht, erst zu sortieren.
+<p>Sortieren kostet selbst Zeit (<a href="/Learningfields/LF11/kapitel4.php">Kapitel 4</a>). Für eine einzige Suche in unsortierten Daten lohnt es sich daher nicht, erst zu sortieren.
 Datenbanken lösen das mit <strong>Indizes</strong> – intern meist Bäume –, damit <code>WHERE</code>-Abfragen nicht jede Zeile lesen müssen.</p>
 
 <h6>Übungen mit Lösung</h6>

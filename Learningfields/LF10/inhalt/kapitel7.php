@@ -54,7 +54,7 @@ Der Server lehnt beides ab, obwohl der Browser nichts mehr prüfen konnte.</p>
 <p>Validierung verhindert unsinnige Daten, aber nicht jeden Angriff – ein Name wie <code>&lt;b&gt;Kaya&lt;/b&gt;</code> ist eine zulässige Zeichenkette. Sicher
 wird es erst, wenn jede Ausgabe für ihr <strong>Ziel</strong> kodiert wird:</p>
 <ul>
-  <li><strong>In die Datenbank</strong>: Prepared Statement mit Platzhaltern (LF8 Kapitel 11) – nie Werte in SQL-Text einsetzen.</li>
+  <li><strong>In die Datenbank</strong>: Prepared Statement mit Platzhaltern (<a href="/Learningfields/LF8/kapitel11.php">LF8 Kapitel 11</a>) – nie Werte in SQL-Text einsetzen.</li>
   <li><strong>Ins HTML</strong>: <code>htmlspecialchars($text, ENT_QUOTES, 'UTF-8')</code> wandelt <code>&lt; &gt; " ' &amp;</code> in harmlose Entitäten um. Das verhindert
   Cross-Site-Scripting (XSS).</li>
 </ul>

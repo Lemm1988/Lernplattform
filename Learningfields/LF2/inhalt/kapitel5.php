@@ -17,7 +17,7 @@ return [
   <li><strong>Wo</strong> wird gearbeitet? (Büro, Homeoffice, unterwegs → Notebook, Docking-Station, Mobilfunk)</li>
   <li>Welche <strong>Peripherie</strong> und <strong>Schnittstellen</strong> sind nötig? Was ist schon vorhanden?</li>
   <li>Gibt es <strong>Vorgaben</strong>: Betriebssystem, Domäne, Sicherheit, Datenschutz, Barrierefreiheit, Corporate Design?</li>
-  <li><strong>Budget</strong>, Zeitrahmen, Anzahl der Geräte, Nutzungsdauer, Kauf oder Leasing (Kapitel 7)?</li>
+  <li><strong>Budget</strong>, Zeitrahmen, Anzahl der Geräte, Nutzungsdauer, Kauf oder Leasing (<a href="/Learningfields/LF2/kapitel7.php">Kapitel 7</a>)?</li>
 </ul>
 <p>Die Anforderungen werden schriftlich festgehalten: Der Kunde beschreibt im <strong>Lastenheft</strong>, <em>was</em> er braucht, der Auftragnehmer im <strong>Pflichtenheft</strong>,
 <em>wie</em> er es umsetzt. Ausführlich in <a href="/Learningfields/LF12/kapitel1.php">LF12 Kapitel 1</a>. Man unterscheidet <strong>funktionale</strong> Anforderungen
@@ -27,10 +27,10 @@ return [
 <table class="table table-sm table-bordered">
   <thead class="table-light"><tr><th>Kriterium</th><th>Beispiele</th></tr></thead>
   <tbody>
-    <tr><td>Leistung</td><td>CPU, RAM, SSD, Grafik passend zur Tätigkeit (Kapitel 2 und 3)</td></tr>
+    <tr><td>Leistung</td><td>CPU, RAM, SSD, Grafik passend zur Tätigkeit (<a href="/Learningfields/LF2/kapitel2.php">Kapitel 2</a> und <a href="/Learningfields/LF2/kapitel3.php">3</a>)</td></tr>
     <tr><td>Kompatibilität</td><td>mit vorhandener Software, Dockingstationen, Betriebssystem-Image, Domäne</td></tr>
     <tr><td>Erweiterbarkeit</td><td>freie RAM-Steckplätze, M.2-Slot, Anschlüsse</td></tr>
-    <tr><td>Ergonomie</td><td>Display, Tastatur, Gewicht, Lautstärke (Kapitel 4)</td></tr>
+    <tr><td>Ergonomie</td><td>Display, Tastatur, Gewicht, Lautstärke (<a href="/Learningfields/LF2/kapitel4.php">Kapitel 4</a>)</td></tr>
     <tr><td>Energie, Umwelt</td><td>Verbrauch, Reparierbarkeit, Rücknahme, Siegel</td></tr>
     <tr><td>Service</td><td>Garantie, Vor-Ort-Service, Ersatzteilverfügbarkeit, Lieferzeit</td></tr>
     <tr><td>Sicherheit</td><td>TPM, Firmware-Updates, Hersteller-Support-Zeitraum</td></tr>

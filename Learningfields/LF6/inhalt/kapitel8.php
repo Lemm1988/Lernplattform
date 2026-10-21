@@ -53,7 +53,7 @@ Teilnehmende sollten möglichst früh selbst an der Software arbeiten – mit Te
 </ul>
 
 <h6>Kontinuierlich verbessern</h6>
-<p>Regelmäßige Service-Reports (Ticketzahlen, Kennzahlen aus Kapitel 4, Zufriedenheit) zeigen Trends. Daraus entstehen Maßnahmen: Wo häufen sich Tickets?
+<p>Regelmäßige Service-Reports (Ticketzahlen, Kennzahlen aus <a href="/Learningfields/LF6/kapitel4.php">Kapitel 4</a>, Zufriedenheit) zeigen Trends. Daraus entstehen Maßnahmen: Wo häufen sich Tickets?
 Welche Artikel fehlen? Welche Schulung würde Anfragen vermeiden? Nach größeren Störungen hilft eine <strong>Nachbesprechung ohne Schuldzuweisung</strong>
 („Was lief gut, was nicht, was ändern wir?“). Das ist derselbe PDCA-Kreislauf wie im Sicherheitsmanagement (<a href="/Learningfields/LF4/kapitel3.php">LF4 Kapitel 3</a>).</p>
 

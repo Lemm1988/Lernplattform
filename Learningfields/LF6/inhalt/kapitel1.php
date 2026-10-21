@@ -55,7 +55,7 @@ erfasst sie als <strong>Ticket</strong>, löst einfache Fälle sofort, leitet de
   <li><strong>E-Mail</strong>: schriftlich, aber oft unvollständig – Rückfragen kosten Zeit.</li>
   <li><strong>Self-Service-Portal</strong>: Formulare fragen die nötigen Angaben gleich mit ab, dazu Wissensdatenbank und Statusanzeige.</li>
   <li><strong>Chat</strong>: schnell, mehrere Gespräche parallel möglich.</li>
-  <li><strong>Vor Ort</strong> und <strong>Fernwartung</strong>: wenn Hardware getauscht oder am Gerät gearbeitet werden muss (Kapitel 6).</li>
+  <li><strong>Vor Ort</strong> und <strong>Fernwartung</strong>: wenn Hardware getauscht oder am Gerät gearbeitet werden muss (<a href="/Learningfields/LF6/kapitel6.php">Kapitel 6</a>).</li>
 </ul>
 <div class="lf-merke"><strong>Merke:</strong> Was nicht im Ticket steht, ist nicht passiert. Auch der schnelle Anruf „nur mal kurz“ wird erfasst –
 sonst fehlen die Daten für Kennzahlen, Problemanalyse und Abrechnung.</div>

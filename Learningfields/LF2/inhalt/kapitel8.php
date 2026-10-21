@@ -51,7 +51,7 @@ ist der Vertrag geschlossen; bestellt er ohne vorheriges Angebot, ist erst die A
   <li>Firmware (UEFI) und Treiber aktualisieren, Betriebssystem-Image bzw. automatische Bereitstellung aufspielen.</li>
   <li>In die Domäne aufnehmen, Gruppenrichtlinien, Netzlaufwerke und Drucker zuweisen (<a href="/Learningfields/LF3/kapitel7.php">LF3 Kapitel 7</a>).</li>
   <li>Fachsoftware installieren und lizenzieren, Laufwerksverschlüsselung aktivieren, Virenschutz prüfen.</li>
-  <li>Benutzerdaten vom Altgerät übernehmen; Altgeräte sicher löschen (Kapitel 3).</li>
+  <li>Benutzerdaten vom Altgerät übernehmen; Altgeräte sicher löschen (<a href="/Learningfields/LF2/kapitel3.php">Kapitel 3</a>).</li>
   <li>Testen: Anmeldung, Netzwerk, Drucken, Fachanwendung, Videokonferenz, Docking-Station.</li>
 </ol>
 <p>Bei der Arbeit an offenen Geräten auf ESD-Schutz achten (Erdungsarmband), schwere Geräte richtig heben und Verpackungen sortenrein entsorgen.</p>

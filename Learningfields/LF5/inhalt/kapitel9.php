@@ -33,7 +33,7 @@ return [
   <li><strong>RPO</strong> (Recovery Point Objective): Wie viele Daten darf man höchstens verlieren? Tägliche Sicherung um 2 Uhr → bis zu 24 Stunden.</li>
   <li><strong>RTO</strong> (Recovery Time Objective): Wie lange darf die Wiederherstellung höchstens dauern?</li>
   <li><strong>Wiederherstellung testen</strong>: Ein Backup, das nie zurückgespielt wurde, ist nur eine Hoffnung.</li>
-  <li>Sicherungen enthalten personenbezogene Daten: verschlüsseln, Zugriff beschränken, Aufbewahrungsfristen und Löschpflichten beachten (LF12 Kapitel 9).</li>
+  <li>Sicherungen enthalten personenbezogene Daten: verschlüsseln, Zugriff beschränken, Aufbewahrungsfristen und Löschpflichten beachten (<a href="/Learningfields/LF12/kapitel9.php">LF12 Kapitel 9</a>).</li>
 </ul>
 <p>RAID ersetzt keine Datensicherung: Es schützt vor dem Ausfall einer Platte, aber nicht vor versehentlichem Löschen, Viren oder Bränden – Fehler werden sofort auf alle
 Platten gespiegelt.</p>
@@ -51,7 +51,7 @@ gibt es physische Sicherungswerkzeuge, und mit dem <strong>Binärlog</strong> la
 (<em>Point-in-Time-Recovery</em>) – etwa bis eine Minute vor dem versehentlichen <code>DELETE</code>. In phpMyAdmin heißt der Dump „Exportieren“.</p>
 
 <h6>Benutzer und Rechte</h6>
-<p>Nach dem <strong>Prinzip der minimalen Rechte</strong> (Least Privilege, LF8 Kapitel 6) bekommt jede Anwendung einen eigenen Datenbankbenutzer mit genau den Rechten,
+<p>Nach dem <strong>Prinzip der minimalen Rechte</strong> (Least Privilege, <a href="/Learningfields/LF8/kapitel6.php">LF8 Kapitel 6</a>) bekommt jede Anwendung einen eigenen Datenbankbenutzer mit genau den Rechten,
 die sie braucht – nie den Administrator <code>root</code>.</p>
 <pre class="bg-light border rounded p-3"><code>CREATE USER 'verleih_app'@'localhost' IDENTIFIED BY 'langes-zufaelliges-passwort';
 GRANT SELECT, INSERT, UPDATE ON verleih.* TO 'verleih_app'@'localhost';

@@ -37,7 +37,7 @@ Prüfliste.</p>
 </figure>
 <p>Eine gute Fehlermeldung beantwortet drei Fragen: <strong>Was</strong> ist passiert? <strong>Warum</strong>? <strong>Was kann ich tun?</strong> Sie steht
 dort, wo der Fehler ist, verwendet die Sprache der Nutzer (keine Fehlercodes oder Stacktraces), gibt niemandem die Schuld („Sie haben falsch …“) und
-erhält alle bisherigen Eingaben. Technische Details gehören ins Log, nicht auf den Bildschirm – sie helfen dort nur Angreifern (LF8 Kapitel 6).</p>
+erhält alle bisherigen Eingaben. Technische Details gehören ins Log, nicht auf den Bildschirm – sie helfen dort nur Angreifern (<a href="/Learningfields/LF8/kapitel6.php">LF8 Kapitel 6</a>).</p>
 
 <h6>Methoden der Evaluation</h6>
 <table class="table table-sm table-bordered">

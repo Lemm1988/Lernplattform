@@ -44,7 +44,7 @@ return [
   <figcaption class="figure-caption">Kaufmannsarten und Handelsregister</figcaption>
 </figure>
 <p>Für Kaufleute gilt neben dem BGB das <strong>Handelsgesetzbuch</strong> (HGB) – mit strengeren Regeln, etwa der sofortigen Rügepflicht (<a href="/Learningfields/LF6/kapitel7.php">LF6 Kapitel 7</a>),
-der Pflicht zur Buchführung und der Möglichkeit, Prokura zu erteilen (Kapitel 5). Das Handelsregister kann jeder online einsehen; was dort eingetragen und bekannt gemacht ist,
+der Pflicht zur Buchführung und der Möglichkeit, Prokura zu erteilen (<a href="/Learningfields/LF1/kapitel5.php">Kapitel 5</a>). Das Handelsregister kann jeder online einsehen; was dort eingetragen und bekannt gemacht ist,
 müssen Geschäftspartner gegen sich gelten lassen.</p>
 
 <h6>Die Firma</h6>

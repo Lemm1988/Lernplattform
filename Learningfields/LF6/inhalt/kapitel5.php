@@ -59,7 +59,7 @@ Suggestivfragen („Sie haben doch sicher schon neu gestartet?“) vermeiden –
   <li><strong>Ausreden lassen</strong>, zuhören, Verständnis zeigen („Ich verstehe, dass das ärgerlich ist“). Das ist kein Schuldeingeständnis.</li>
   <li><strong>Sachlich klären</strong>: Was genau ist passiert, was erwartet der Kunde?</li>
   <li><strong>Lösung anbieten</strong> oder realistische nächste Schritte vereinbaren – nur zusagen, was man halten kann.</li>
-  <li><strong>Zusagen einhalten</strong> und nachfassen. Wenn nötig, hierarchisch eskalieren (Kapitel 2).</li>
+  <li><strong>Zusagen einhalten</strong> und nachfassen. Wenn nötig, hierarchisch eskalieren (<a href="/Learningfields/LF6/kapitel2.php">Kapitel 2</a>).</li>
 </ol>
 <div class="lf-merke"><strong>Merke:</strong> Bei Beleidigungen oder Drohungen darf das Gespräch freundlich, aber bestimmt beendet werden: „In diesem Ton kann ich Ihnen nicht helfen.
 Ich melde mich gern wieder, wenn wir sachlich sprechen können.“ Vorfall im Ticket festhalten und die Teamleitung informieren.</div>

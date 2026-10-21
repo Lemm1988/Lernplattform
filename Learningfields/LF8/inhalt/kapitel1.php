@@ -51,7 +51,7 @@ oder nur, <strong>was</strong> das Ergebnis sein soll (deklarativ)?</p>
 </figure>
 <ul>
   <li><strong>Prozedural:</strong> Das Programm ist eine Folge von Anweisungen, gegliedert in Prozeduren/Funktionen. Daten und Funktionen sind getrennt.</li>
-  <li><strong>Objektorientiert:</strong> Daten (Attribute) und das Verhalten dazu (Methoden) bilden zusammen Objekte. Mehr dazu in Kapitel 2.</li>
+  <li><strong>Objektorientiert:</strong> Daten (Attribute) und das Verhalten dazu (Methoden) bilden zusammen Objekte. Mehr dazu in <a href="/Learningfields/LF8/kapitel2.php">Kapitel 2</a>.</li>
   <li><strong>Funktional:</strong> Programme bestehen aus Funktionen, die zu gleichen Eingaben immer das gleiche Ergebnis liefern und nichts nebenbei verändern (keine Seiteneffekte).</li>
   <li><strong>Logisch:</strong> Man beschreibt Fakten und Regeln, das System leitet Antworten ab.</li>
   <li><strong>Abfragesprachen</strong> wie SQL: Man beschreibt das gewünschte Ergebnis, die Datenbank entscheidet, wie sie es ermittelt.</li>

@@ -52,7 +52,7 @@ abwickelt – das spart Zeit. Versendet wird erst, wenn beides erledigt ist: Daf
 zum Beispiel: „Passwort eingeben“ → Raute → <code>[falsch und weniger als 3 Versuche]</code> zurück zu „Passwort eingeben“,
 <code>[richtig]</code> weiter, <code>[3 Fehlversuche]</code> zu „Konto sperren“.</p>
 
-<div class="lf-merke"><strong>Vergleich:</strong> Programmablaufplan (PAP) und Struktogramm aus LF5 beschreiben ebenfalls Abläufe,
+<div class="lf-merke"><strong>Vergleich:</strong> Programmablaufplan (PAP) und Struktogramm aus <a href="/Learningfields/LF11/kapitel1.php">LF11 Kapitel 1</a> beschreiben ebenfalls Abläufe,
 kennen aber weder Parallelität noch Verantwortlichkeiten. Das Aktivitätsdiagramm ist universeller und wird deshalb auch für Geschäftsprozesse genutzt.</div>
 
 <h6>So gehst du bei einer Aufgabe vor</h6>

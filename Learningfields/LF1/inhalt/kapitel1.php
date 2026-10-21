@@ -56,7 +56,7 @@ ist dieselbe wie in der Erstausbildung.</p>
 <ul>
   <li><strong>Betriebsrat</strong>: wählbar in Betrieben mit in der Regel mindestens fünf ständigen wahlberechtigten Beschäftigten; hat Mitbestimmungs-, Mitwirkungs- und Informationsrechte (Betriebsverfassungsgesetz).</li>
   <li><strong>Jugend- und Auszubildendenvertretung</strong> (JAV): bei mindestens fünf Beschäftigten unter 18 Jahren oder Auszubildenden unter 25 Jahren.</li>
-  <li><strong>Gewerkschaften</strong> handeln mit Arbeitgeberverbänden Tarifverträge aus (Kapitel 7).</li>
+  <li><strong>Gewerkschaften</strong> handeln mit Arbeitgeberverbänden Tarifverträge aus (<a href="/Learningfields/LF1/kapitel7.php">Kapitel 7</a>).</li>
   <li>Bei Problemen in der Ausbildung beraten die <strong>Ausbildungsberater der IHK</strong>.</li>
 </ul>
 

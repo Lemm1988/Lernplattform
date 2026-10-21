@@ -101,7 +101,7 @@ und was ist der sichere Ersatz?</div>
 
 <h6>Weitere Dienste kurz</h6>
 <ul>
-  <li><strong>HTTPS</strong>: Vor dem HTTP-Austausch handeln Client und Server per TLS die Verschlüsselung aus; der Server weist sich mit einem Zertifikat aus (Kryptografie: LF4).</li>
+  <li><strong>HTTPS</strong>: Vor dem HTTP-Austausch handeln Client und Server per TLS die Verschlüsselung aus; der Server weist sich mit einem Zertifikat aus (Kryptografie: <a href="/Learningfields/LF4/kapitel7.php">LF4 Kapitel 7</a>).</li>
   <li><strong>E-Mail</strong>: Der Client verschickt per SMTP an seinen Server; der sucht per MX-Record den Zielserver und liefert per SMTP aus; der Empfänger liest per IMAP.</li>
   <li><strong>NTP</strong>: Synchrone Uhren sind Pflicht – für Logauswertung, Zertifikatsprüfung und Kerberos-Anmeldung im Active Directory.</li>
 </ul>

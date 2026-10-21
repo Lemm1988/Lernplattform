@@ -58,7 +58,7 @@ if (!isset($_SESSION['benutzer'])) {
 <p>Warum diese Details?</p>
 <ul>
   <li><strong><code>password_hash</code> / <code>password_verify</code></strong>: gesalzener, langsamer Hash (bcrypt/Argon2) – Passwörter nie im Klartext oder mit MD5
-  speichern (LF8 Kapitel 6).</li>
+  speichern (<a href="/Learningfields/LF8/kapitel6.php">LF8 Kapitel 6</a>).</li>
   <li><strong>Gleiche Fehlermeldung</strong> für falschen Namen und falsches Passwort: Sonst verrät die Seite, welche Benutzernamen existieren.</li>
   <li><strong><code>session_regenerate_id(true)</code></strong>: Ein Angreifer könnte einem Opfer vor dem Login eine ihm bekannte Session-ID unterschieben
   (<em>Session Fixation</em>). Mit einer neuen ID nach dem Login ist die alte wertlos.</li>

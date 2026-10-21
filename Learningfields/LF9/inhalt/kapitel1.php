@@ -11,15 +11,15 @@ return [
     ],
     'content' => <<<'INHALT'
 <h6>Anforderungsanalyse</h6>
-<p>Wie bei Software (LF12 Kapitel 1) beginnt jedes Netzwerkprojekt mit dem Ist-Zustand und den Anforderungen:</p>
+<p>Wie bei Software (<a href="/Learningfields/LF12/kapitel1.php">LF12 Kapitel 1</a>) beginnt jedes Netzwerkprojekt mit dem Ist-Zustand und den Anforderungen:</p>
 <table class="table table-sm table-bordered">
   <thead class="table-light"><tr><th>Frage</th><th>Beispiel</th></tr></thead>
   <tbody>
     <tr><td>Wie viele Teilnehmer, wo?</td><td>45 Arbeitsplätze auf 3 Etagen, 10 Drucker, 30 WLAN-Geräte, 2 Server</td></tr>
     <tr><td>Welche Dienste und Datenmengen?</td><td>Office, Dateiablage, Videokonferenzen, Backups nachts</td></tr>
-    <tr><td>Welche Bereiche sind zu trennen?</td><td>Verwaltung, Produktion, Gäste-WLAN, Server (→ VLANs, Kapitel 3)</td></tr>
+    <tr><td>Welche Bereiche sind zu trennen?</td><td>Verwaltung, Produktion, Gäste-WLAN, Server (→ VLANs, <a href="/Learningfields/LF9/kapitel3.php">Kapitel 3</a>)</td></tr>
     <tr><td>Verfügbarkeit?</td><td>Produktion darf höchstens 1 Stunde ausfallen → redundante Verbindungen, USV</td></tr>
-    <tr><td>Sicherheit?</td><td>Zugriff von außen nur über VPN, Gäste ohne Zugang zum Firmennetz (Kapitel 8)</td></tr>
+    <tr><td>Sicherheit?</td><td>Zugriff von außen nur über VPN, Gäste ohne Zugang zum Firmennetz (<a href="/Learningfields/LF9/kapitel8.php">Kapitel 8</a>)</td></tr>
     <tr><td>Wachstum, Budget?</td><td>+30 % Arbeitsplätze in drei Jahren, Reserve im Adressplan und bei den Switch-Ports</td></tr>
   </tbody>
 </table>

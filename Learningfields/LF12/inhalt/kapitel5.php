@@ -16,7 +16,7 @@ return [
   <figcaption class="figure-caption">Wer an einer Ecke zieht, verschiebt die anderen</figcaption>
 </figure>
 <p>Leistung (Umfang und Qualität), Zeit und Kosten hängen voneinander ab. Ein Projektleiter kann nicht alle drei gleichzeitig verbessern – er muss mit dem
-Auftraggeber klären, welche Größe Vorrang hat. Bei der Werkstatt ist der Saisonstart am 1. März fest; notfalls wird der Umfang gekürzt (MoSCoW, Kapitel 1).</p>
+Auftraggeber klären, welche Größe Vorrang hat. Bei der Werkstatt ist der Saisonstart am 1. März fest; notfalls wird der Umfang gekürzt (MoSCoW, <a href="/Learningfields/LF12/kapitel1.php">Kapitel 1</a>).</p>
 
 <h6>Fortschritt überwachen</h6>
 <ul>
@@ -49,7 +49,7 @@ Auftraggeber klären, welche Größe Vorrang hat. Bei der Werkstatt ist der Sais
 
 <h6>Änderungsmanagement</h6>
 <p>Änderungswünsche sind normal – unkontrolliert führen sie aber zu <em>Scope Creep</em>: Der Umfang wächst schleichend, Zeit und Budget nicht. Bei Festpreisprojekten
-(Kapitel 3) gilt deshalb ein geregelter Ablauf:</p>
+(<a href="/Learningfields/LF12/kapitel3.php">Kapitel 3</a>) gilt deshalb ein geregelter Ablauf:</p>
 <ol>
   <li><strong>Änderungsantrag</strong> (Change Request) schriftlich erfassen: Was, warum, wer?</li>
   <li><strong>Auswirkungen analysieren</strong>: Aufwand, Kosten, Termine, Risiken, betroffene Anforderungen.</li>

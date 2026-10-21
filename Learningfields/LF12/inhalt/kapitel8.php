@@ -17,7 +17,7 @@ Gastbetriebssystem.</p>
   <li><strong>Typ 2</strong> (hosted) läuft als Programm auf einem normalen Betriebssystem – Arbeitsplatz, Schulung: VirtualBox, VMware Workstation.</li>
 </ul>
 <p>Vorteile: bessere Auslastung der Hardware, Snapshots vor riskanten Änderungen, schnelle Bereitstellung, Isolation. In der Cloud mietet man genau das als IaaS
-(LF8 Kapitel 12).</p>
+(<a href="/Learningfields/LF8/kapitel12.php">LF8 Kapitel 12</a>).</p>
 
 <h6>Container</h6>
 <figure class="figure w-100">
@@ -90,11 +90,11 @@ volumes:
   dbdaten:</code></pre>
 <p>Mit <code>docker compose up -d</code> starten beide Dienste. Zwei Fallen: <code>depends_on</code> regelt nur die <em>Startreihenfolge</em> – die Anwendung muss
 damit umgehen, dass die Datenbank noch nicht bereit ist. Und Passwörter gehören in eine <code>.env</code>-Datei, die (wie <code>config.local.php</code>) nicht ins
-Repository kommt (Kapitel 6).</p>
+Repository kommt (<a href="/Learningfields/LF12/kapitel6.php">Kapitel 6</a>).</p>
 
 <h6>Orchestrierung</h6>
 <p>Laufen viele Container auf vielen Servern, übernimmt ein <strong>Orchestrierer</strong> wie <strong>Kubernetes</strong> die Arbeit: Container verteilen, bei Last
-zusätzliche starten (Skalierung), abgestürzte ersetzen (Selbstheilung), neue Versionen schrittweise ausrollen (Rolling Update, Kapitel 7). Für eine kleine
+zusätzliche starten (Skalierung), abgestürzte ersetzen (Selbstheilung), neue Versionen schrittweise ausrollen (Rolling Update, <a href="/Learningfields/LF12/kapitel7.php">Kapitel 7</a>). Für eine kleine
 Werkstatt-Anwendung ist das überdimensioniert – ein einzelner Server oder ein verwalteter Dienst (PaaS) genügt.</p>
 <div class="lf-merke"><strong>Merke:</strong> VM = virtuelle Hardware mit eigenem Betriebssystem; Container = isolierter Prozess mit eigenem Dateisystem auf einem
 gemeinsamen Kernel. Images sind Vorlagen, Container laufende Instanzen, Volumes der dauerhafte Speicher.</div>

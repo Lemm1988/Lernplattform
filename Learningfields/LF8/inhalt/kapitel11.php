@@ -30,7 +30,7 @@ CREATE TABLE konto (
 
 ALTER TABLE kunde ADD COLUMN telefon VARCHAR(30);  -- Struktur nachträglich ändern</code></pre>
 <p>Diese Regeln setzt die Datenbank selbst durch – egal, welches Programm schreibt. Das ist die letzte Verteidigungslinie für die
-Datenqualität (Kapitel 1).</p>
+Datenqualität (<a href="/Learningfields/LF8/kapitel1.php">Kapitel 1</a>).</p>
 
 <h6>Views und Rechte</h6>
 <pre class="bg-light border rounded p-3"><code>-- View: gespeicherte Abfrage, die wie eine Tabelle genutzt wird

@@ -10,7 +10,7 @@ return [
     ],
     'content' => <<<'INHALT'
 <h6>Abbildungsregeln: vom ER-Modell zur Tabelle</h6>
-<p>Das ER-Modell aus Kapitel 4 wird als <strong>Relationenschema</strong> notiert: Tabellenname, in Klammern die Spalten, Primärschlüssel unterstrichen,
+<p>Das ER-Modell aus <a href="/Learningfields/LF5/kapitel4.php">Kapitel 4</a> wird als <strong>Relationenschema</strong> notiert: Tabellenname, in Klammern die Spalten, Primärschlüssel unterstrichen,
 Fremdschlüssel mit ↑ markiert.</p>
 <table class="table table-sm table-bordered">
   <thead class="table-light"><tr><th>ER-Element</th><th>wird zu …</th><th>Fahrradverleih</th></tr></thead>
