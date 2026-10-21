@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 236" role="img" aria-labelledby="iq-title iq-desc">
+  <title id="iq-title">Produktqualität nach ISO/IEC 25010</title>
+  <desc id="iq-desc">Acht Qualitätsmerkmale mit Beispielen für Teilmerkmale. Funktionale Eignung: vollständig, korrekt, angemessen. Leistungseffizienz: Antwortzeit, Ressourcenverbrauch, Kapazität. Kompatibilität: Koexistenz, Interoperabilität. Benutzbarkeit: Erlernbarkeit, Bedienbarkeit, Schutz vor Fehlbedienung, Barrierefreiheit. Zuverlässigkeit: Reife, Verfügbarkeit, Fehlertoleranz, Wiederherstellbarkeit. Sicherheit: Vertraulichkeit, Integrität, Authentizität. Wartbarkeit: Modularität, Analysierbarkeit, Änderbarkeit, Testbarkeit. Übertragbarkeit: Anpassbarkeit, Installierbarkeit, Austauschbarkeit.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1.2; }
+      .bar { fill: #0d6efd; }
+      .t { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #495057; }
+    </style>
+  </defs>
+  <g>
+    <rect class="c" x="6" y="6" width="171" height="108" rx="8"/><rect class="bar" x="6" y="6" width="6" height="108" rx="3"/>
+    <text class="t" x="20" y="28">Funktionale Eignung</text>
+    <text class="s" x="20" y="48">Macht es, was es soll?</text><text class="s" x="20" y="66">vollständig, korrekt,</text><text class="s" x="20" y="82">angemessen</text>
+  </g>
+  <g>
+    <rect class="c" x="185" y="6" width="171" height="108" rx="8"/><rect class="bar" x="185" y="6" width="6" height="108" rx="3"/>
+    <text class="t" x="199" y="28">Leistungseffizienz</text>
+    <text class="s" x="199" y="48">Wie schnell, wie sparsam?</text><text class="s" x="199" y="66">Antwortzeit, Ressourcen,</text><text class="s" x="199" y="82">Kapazität</text>
+  </g>
+  <g>
+    <rect class="c" x="364" y="6" width="171" height="108" rx="8"/><rect class="bar" x="364" y="6" width="6" height="108" rx="3"/>
+    <text class="t" x="378" y="28">Kompatibilität</text>
+    <text class="s" x="378" y="48">Verträgt es sich mit anderen?</text><text class="s" x="378" y="66">Koexistenz,</text><text class="s" x="378" y="82">Interoperabilität</text>
+  </g>
+  <g>
+    <rect class="c" x="543" y="6" width="171" height="108" rx="8"/><rect class="bar" x="543" y="6" width="6" height="108" rx="3" style="fill:#198754"/>
+    <text class="t" x="557" y="28">Benutzbarkeit</text>
+    <text class="s" x="557" y="48">Kommen Nutzer gut klar?</text><text class="s" x="557" y="66">erlernbar, bedienbar, schützt</text><text class="s" x="557" y="82">vor Fehlern, barrierefrei</text>
+  </g>
+  <g>
+    <rect class="c" x="6" y="122" width="171" height="108" rx="8"/><rect class="bar" x="6" y="122" width="6" height="108" rx="3"/>
+    <text class="t" x="20" y="144">Zuverlässigkeit</text>
+    <text class="s" x="20" y="164">Läuft es stabil?</text><text class="s" x="20" y="182">Reife, Verfügbarkeit,</text><text class="s" x="20" y="198">Fehlertoleranz,</text><text class="s" x="20" y="214">Wiederherstellbarkeit</text>
+  </g>
+  <g>
+    <rect class="c" x="185" y="122" width="171" height="108" rx="8"/><rect class="bar" x="185" y="122" width="6" height="108" rx="3"/>
+    <text class="t" x="199" y="144">Sicherheit</text>
+    <text class="s" x="199" y="164">Sind die Daten geschützt?</text><text class="s" x="199" y="182">Vertraulichkeit, Integrität,</text><text class="s" x="199" y="198">Authentizität,</text><text class="s" x="199" y="214">Nachweisbarkeit</text>
+  </g>
+  <g>
+    <rect class="c" x="364" y="122" width="171" height="108" rx="8"/><rect class="bar" x="364" y="122" width="6" height="108" rx="3"/>
+    <text class="t" x="378" y="144">Wartbarkeit</text>
+    <text class="s" x="378" y="164">Lässt es sich gut ändern?</text><text class="s" x="378" y="182">modular, analysierbar,</text><text class="s" x="378" y="198">änderbar, testbar</text>
+  </g>
+  <g>
+    <rect class="c" x="543" y="122" width="171" height="108" rx="8"/><rect class="bar" x="543" y="122" width="6" height="108" rx="3"/>
+    <text class="t" x="557" y="144">Übertragbarkeit</text>
+    <text class="s" x="557" y="164">Läuft es auch woanders?</text><text class="s" x="557" y="182">anpassbar, installierbar,</text><text class="s" x="557" y="198">austauschbar</text>
+  </g>
+</svg>

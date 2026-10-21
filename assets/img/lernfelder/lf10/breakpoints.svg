@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="bp-title bp-desc">
+  <title id="bp-title">Mobile first mit zwei Breakpoints</title>
+  <desc id="bp-desc">Dieselbe Seite in drei Breiten. Smartphone mit 375 Pixel: Basis-CSS ohne Media Query, eine Spalte mit vier Karten untereinander, Menü hinter einem Burger-Button. Tablet mit 800 Pixel: Media Query min-width 768 Pixel, zwei Spalten, Menülinks sichtbar. Desktop mit 1280 Pixel: Media Query min-width 1200 Pixel, drei Spalten. Die Basisregeln gelten für das kleinste Gerät, jede Media Query erweitert sie für größere Bildschirme.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .dev { fill: #fff; stroke: #343a40; stroke-width: 2; }
+      .bar { fill: #e7f1ff; }
+      .card { fill: #d1e7dd; stroke: #198754; stroke-width: 1.2; }
+      .lnk { fill: #0d6efd; }
+      .h { font-weight: 700; font-size: 13px; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; fill: #6f42c1; }
+      .s { font-size: 11.5px; fill: #495057; }
+    </style>
+  </defs>
+  <!-- Smartphone -->
+  <text class="h" x="70" y="18">Smartphone</text><text class="s" x="70" y="34">375 px</text>
+  <rect class="dev" x="20" y="44" width="100" height="190" rx="14"/>
+  <rect class="bar" x="28" y="58" width="84" height="18"/>
+  <rect x="94" y="62" width="12" height="2" fill="#343a40"/><rect x="94" y="66" width="12" height="2" fill="#343a40"/><rect x="94" y="70" width="12" height="2" fill="#343a40"/>
+  <rect class="card" x="32" y="84" width="76" height="30" rx="3"/><rect class="card" x="32" y="120" width="76" height="30" rx="3"/>
+  <rect class="card" x="32" y="156" width="76" height="30" rx="3"/><rect class="card" x="32" y="192" width="76" height="30" rx="3"/>
+  <text class="m" x="70" y="256">Basis-CSS</text><text class="s" x="70" y="274">1 Spalte, Burger</text>
+
+  <!-- Tablet -->
+  <text class="h" x="250" y="18">Tablet</text><text class="s" x="250" y="34">800 px</text>
+  <rect class="dev" x="160" y="44" width="180" height="190" rx="12"/>
+  <rect class="bar" x="170" y="56" width="160" height="18"/>
+  <rect class="lnk" x="246" y="63" width="22" height="4" rx="2"/><rect class="lnk" x="274" y="63" width="22" height="4" rx="2"/><rect class="lnk" x="302" y="63" width="22" height="4" rx="2"/>
+  <rect class="card" x="176" y="84" width="70" height="60" rx="3"/><rect class="card" x="254" y="84" width="70" height="60" rx="3"/>
+  <rect class="card" x="176" y="152" width="70" height="60" rx="3"/><rect class="card" x="254" y="152" width="70" height="60" rx="3"/>
+  <text class="m" x="250" y="256">@media (min-width: 768px)</text><text class="s" x="250" y="274">2 Spalten, Menü sichtbar</text>
+
+  <!-- Desktop -->
+  <text class="h" x="540" y="18">Desktop</text><text class="s" x="540" y="34">1280 px</text>
+  <rect class="dev" x="380" y="44" width="320" height="170" rx="8"/>
+  <rect x="505" y="214" width="70" height="12" fill="#343a40"/><rect x="480" y="226" width="120" height="6" rx="2" fill="#343a40"/>
+  <rect class="bar" x="390" y="54" width="300" height="18"/>
+  <rect class="lnk" x="580" y="61" width="28" height="4" rx="2"/><rect class="lnk" x="614" y="61" width="28" height="4" rx="2"/><rect class="lnk" x="648" y="61" width="28" height="4" rx="2"/>
+  <rect class="card" x="400" y="82" width="88" height="56" rx="3"/><rect class="card" x="496" y="82" width="88" height="56" rx="3"/><rect class="card" x="592" y="82" width="88" height="56" rx="3"/>
+  <rect class="card" x="400" y="146" width="88" height="56" rx="3"/>
+  <text class="m" x="540" y="256">@media (min-width: 1200px)</text><text class="s" x="540" y="274">3 Spalten</text>
+</svg>

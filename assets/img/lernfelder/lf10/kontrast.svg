@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 168" role="img" aria-labelledby="ko-title ko-desc">
+  <title id="ko-title">Farbkontraste nach WCAG</title>
+  <desc id="ko-desc">Fünf Beispiele für Textkontrast. Dunkelgrau auf Weiß: 15,4 zu 1, erfüllt AA. Mittelgrau auf Weiß: 4,7 zu 1, erfüllt AA knapp. Hellgrau auf Weiß: 2,1 zu 1, nicht ausreichend. Weiß auf Gelb: 1,6 zu 1, nicht ausreichend. Dunkelgrau auf Gelb: 9,5 zu 1, erfüllt AA. Für normalen Text verlangt WCAG AA mindestens 4,5 zu 1, für großen Text und Bedienelemente 3 zu 1.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; text-anchor: middle; }
+      .sw { stroke: #dee2e6; stroke-width: 1.2; }
+      .bt { font-size: 15px; font-weight: 600; }
+      .r { font-size: 13px; font-weight: 700; fill: #212529; }
+      .ok { fill: #146c43; font-size: 12px; font-weight: 600; }
+      .no { fill: #b02a37; font-size: 12px; font-weight: 600; }
+      .n { font-size: 12px; fill: #495057; }
+    </style>
+  </defs>
+  <rect class="sw" x="6" y="8" width="134" height="64" rx="8" fill="#ffffff"/><text class="bt" x="73" y="46" fill="#212529">Beispieltext</text>
+  <text class="r" x="73" y="94">15,4 : 1</text><text class="ok" x="73" y="112">✓ erfüllt AA</text>
+
+  <rect class="sw" x="149" y="8" width="134" height="64" rx="8" fill="#ffffff"/><text class="bt" x="216" y="46" fill="#6c757d">Beispieltext</text>
+  <text class="r" x="216" y="94">4,7 : 1</text><text class="ok" x="216" y="112">✓ erfüllt AA (knapp)</text>
+
+  <rect class="sw" x="292" y="8" width="134" height="64" rx="8" fill="#ffffff"/><text class="bt" x="359" y="46" fill="#adb5bd">Beispieltext</text>
+  <text class="r" x="359" y="94">2,1 : 1</text><text class="no" x="359" y="112">✗ zu schwach</text>
+
+  <rect class="sw" x="435" y="8" width="134" height="64" rx="8" fill="#ffc107"/><text class="bt" x="502" y="46" fill="#ffffff">Beispieltext</text>
+  <text class="r" x="502" y="94">1,6 : 1</text><text class="no" x="502" y="112">✗ zu schwach</text>
+
+  <rect class="sw" x="578" y="8" width="136" height="64" rx="8" fill="#ffc107"/><text class="bt" x="646" y="46" fill="#212529">Beispieltext</text>
+  <text class="r" x="646" y="94">9,5 : 1</text><text class="ok" x="646" y="112">✓ erfüllt AA</text>
+
+  <text class="n" x="360" y="146">WCAG AA: mindestens 4,5 : 1 für normalen Text, 3 : 1 für großen Text (ab ca. 24 px)</text>
+  <text class="n" x="360" y="162">und für Bedienelemente wie Rahmen von Eingabefeldern und Icons.</text>
+</svg>

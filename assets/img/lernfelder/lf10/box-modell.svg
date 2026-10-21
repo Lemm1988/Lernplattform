@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="bm-title bm-desc">
+  <title id="bm-title">Das CSS-Box-Modell</title>
+  <desc id="bm-desc">Jedes Element ist ein Kasten aus vier Schichten von innen nach außen: Inhalt, Innenabstand padding, Rahmen border und Außenabstand margin. Beispiel mit width 200 Pixel, padding 20, border 5 und margin 10. Mit box-sizing content-box gilt width nur für den Inhalt; die sichtbare Breite ist 200 plus 2 mal 20 plus 2 mal 5 gleich 250 Pixel. Mit box-sizing border-box schließt width Innenabstand und Rahmen ein; die sichtbare Breite ist 200 Pixel, der Inhalt nur noch 150. Der Außenabstand liegt immer außerhalb.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .lab { font-size: 12px; font-weight: 600; }
+      .v { font-family: ui-monospace, Consolas, monospace; font-size: 11.5px; fill: #495057; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: start; }
+      .t { font-size: 12px; text-anchor: start; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 12px; text-anchor: start; }
+    </style>
+  </defs>
+  <!-- Schichten -->
+  <rect x="10" y="10" width="360" height="230" fill="#fff3cd" stroke="#f0ad4e" stroke-dasharray="5 3"/>
+  <text class="lab" x="190" y="28" style="fill:#997404">margin (Außenabstand) 10px</text>
+  <rect x="40" y="40" width="300" height="170" fill="#343a40"/>
+  <text class="lab" x="190" y="54" style="fill:#fff">border (Rahmen) 5px</text>
+  <rect x="58" y="62" width="264" height="130" fill="#d1e7dd"/>
+  <text class="lab" x="190" y="80" style="fill:#146c43">padding (Innenabstand) 20px</text>
+  <rect x="100" y="92" width="180" height="72" fill="#cfe2ff" stroke="#0d6efd"/>
+  <text class="lab" x="190" y="124" style="fill:#0a58ca">Inhalt (content)</text>
+  <text class="v" x="190" y="142">width: 200px</text>
+
+  <!-- Berechnung -->
+  <text class="h" x="400" y="34">.box { width: 200px; padding: 20px;</text>
+  <text class="h" x="412" y="52">border: 5px solid; margin: 10px; }</text>
+
+  <rect x="396" y="68" width="316" height="76" rx="6" fill="#f8f9fa" stroke="#dee2e6"/>
+  <text class="m" x="408" y="88" style="font-weight:700">box-sizing: content-box</text><text class="t" x="604" y="88">(Standard)</text>
+  <text class="t" x="408" y="108">width gilt nur für den Inhalt</text>
+  <text class="m" x="408" y="130">200 + 2·20 + 2·5 = 250 px breit</text>
+
+  <rect x="396" y="154" width="316" height="76" rx="6" fill="#f8f9fa" stroke="#dee2e6"/>
+  <text class="m" x="408" y="174" style="font-weight:700">box-sizing: border-box</text>
+  <text class="t" x="408" y="194">width schließt padding und border ein</text>
+  <text class="m" x="408" y="216">200 px breit, Inhalt 150 px</text>
+</svg>

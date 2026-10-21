@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 224" role="img" aria-labelledby="gg-title gg-desc">
+  <title id="gg-title">Fünf Gestaltgesetze</title>
+  <desc id="gg-desc">Nähe: zwölf Punkte in drei Paketen mit Abstand dazwischen werden als drei Gruppen gesehen; in Oberflächen gehört eine Beschriftung nah an ihr Feld. Ähnlichkeit: abwechselnde Zeilen aus Kreisen und Quadraten werden als Zeilen gesehen; gleich aussehende Elemente wirken zusammengehörig, etwa alle Links. Geschlossenheit: ein Kreis mit Lücken wird trotzdem als Kreis erkannt; einfache Symbole genügen. Gemeinsame Region: Punkte auf einer gemeinsamen Fläche gehören zusammen, wie Inhalte einer Karte. Kontinuität: Punkte entlang einer Linie werden als Verlauf gesehen, etwa die Schritte einer Fortschrittsanzeige.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 13px; }
+      .card { fill: #f8f9fa; stroke: #dee2e6; stroke-width: 1.2; }
+      .d { fill: #0d6efd; }
+      .d2 { fill: #fd7e14; }
+      .s { font-size: 11.5px; fill: #495057; }
+      .reg { fill: #e7f1ff; stroke: #9ec5fe; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <!-- 1 Nähe -->
+  <rect class="card" x="6" y="6" width="134" height="212" rx="8"/>
+  <text class="h" x="73" y="28">Nähe</text>
+  <g class="d">
+    <circle cx="26" cy="62" r="6"/><circle cx="42" cy="62" r="6"/><circle cx="26" cy="80" r="6"/><circle cx="42" cy="80" r="6"/><circle cx="26" cy="98" r="6"/><circle cx="42" cy="98" r="6"/>
+    <circle cx="66" cy="62" r="6"/><circle cx="82" cy="62" r="6"/><circle cx="66" cy="80" r="6"/><circle cx="82" cy="80" r="6"/><circle cx="66" cy="98" r="6"/><circle cx="82" cy="98" r="6"/>
+    <circle cx="106" cy="62" r="6"/><circle cx="122" cy="62" r="6"/><circle cx="106" cy="80" r="6"/><circle cx="122" cy="80" r="6"/><circle cx="106" cy="98" r="6"/><circle cx="122" cy="98" r="6"/>
+  </g>
+  <text class="s" x="73" y="140">Abstand bildet Gruppen.</text>
+  <text class="s" x="73" y="172">UI: Beschriftung nah</text><text class="s" x="73" y="188">an ihr Eingabefeld,</text><text class="s" x="73" y="204">Abstand zum nächsten</text>
+
+  <!-- 2 Ähnlichkeit -->
+  <rect class="card" x="149" y="6" width="134" height="212" rx="8"/>
+  <text class="h" x="216" y="28">Ähnlichkeit</text>
+  <g class="d"><circle cx="176" cy="62" r="7"/><circle cx="201" cy="62" r="7"/><circle cx="226" cy="62" r="7"/><circle cx="251" cy="62" r="7"/></g>
+  <g class="d2"><rect x="169" y="73" width="14" height="14"/><rect x="194" y="73" width="14" height="14"/><rect x="219" y="73" width="14" height="14"/><rect x="244" y="73" width="14" height="14"/></g>
+  <g class="d"><circle cx="176" cy="104" r="7"/><circle cx="201" cy="104" r="7"/><circle cx="226" cy="104" r="7"/><circle cx="251" cy="104" r="7"/></g>
+  <text class="s" x="216" y="140">Wir sehen Zeilen.</text>
+  <text class="s" x="216" y="172">UI: alle Links gleich,</text><text class="s" x="216" y="188">alle Hauptaktionen</text><text class="s" x="216" y="204">im gleichen Stil</text>
+
+  <!-- 3 Geschlossenheit -->
+  <rect class="card" x="292" y="6" width="134" height="212" rx="8"/>
+  <text class="h" x="359" y="28">Geschlossenheit</text>
+  <circle cx="359" cy="80" r="34" fill="none" stroke="#0d6efd" stroke-width="5" stroke-dasharray="30 14"/>
+  <text class="s" x="359" y="140">Lücken werden ergänzt.</text>
+  <text class="s" x="359" y="172">UI: einfache Icons</text><text class="s" x="359" y="188">aus wenigen Strichen</text><text class="s" x="359" y="204">werden erkannt</text>
+
+  <!-- 4 Gemeinsame Region -->
+  <rect class="card" x="435" y="6" width="134" height="212" rx="8"/>
+  <text class="h" x="502" y="28">Gemeinsame Region</text>
+  <rect class="reg" x="448" y="48" width="50" height="66" rx="6"/><rect class="reg" x="506" y="48" width="50" height="66" rx="6"/>
+  <g class="d"><circle cx="464" cy="66" r="6"/><circle cx="482" cy="66" r="6"/><circle cx="464" cy="96" r="6"/><circle cx="522" cy="66" r="6"/><circle cx="540" cy="96" r="6"/><circle cx="522" cy="96" r="6"/></g>
+  <text class="s" x="502" y="140">Fläche verbindet.</text>
+  <text class="s" x="502" y="172">UI: Karten, Rahmen,</text><text class="s" x="502" y="188">farbige Hintergründe</text><text class="s" x="502" y="204">für Bereiche</text>
+
+  <!-- 5 Kontinuität -->
+  <rect class="card" x="578" y="6" width="136" height="212" rx="8"/>
+  <text class="h" x="646" y="28">Kontinuität</text>
+  <g class="d">
+    <circle cx="596" cy="108" r="5"/><circle cx="609" cy="96" r="5"/><circle cx="622" cy="84" r="5"/><circle cx="636" cy="74" r="5"/><circle cx="650" cy="68" r="5"/>
+    <circle cx="664" cy="66" r="5"/><circle cx="678" cy="68" r="5"/><circle cx="692" cy="74" r="5"/>
+  </g>
+  <text class="s" x="646" y="140">Wir folgen der Linie.</text>
+  <text class="s" x="646" y="172">UI: Schritte einer</text><text class="s" x="646" y="188">Fortschrittsanzeige,</text><text class="s" x="646" y="204">Leserichtung</text>
+</svg>

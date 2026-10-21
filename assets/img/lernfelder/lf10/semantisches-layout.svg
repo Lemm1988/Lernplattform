@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="sl-title sl-desc">
+  <title id="sl-title">Semantischer Seitenaufbau mit HTML5</title>
+  <desc id="sl-desc">Wireframe einer Webseite. Oben das Element header mit Logo und darin nav mit dem Hauptmenü; Screenreader erkennen sie als Landmarks banner und navigation. In der Mitte main mit genau einer h1-Überschrift und einem Formular, daneben aside für Zusatzinformationen wie Öffnungszeiten, Landmark complementary. Unten footer mit address und Impressum, Landmark contentinfo. Rechts der Hinweis: Screenreader-Nutzer springen über diese Landmarks direkt zu den Bereichen; div und span haben keine Bedeutung.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .reg { stroke-width: 1.5; }
+      .tag { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; font-weight: 700; }
+      .role { font-size: 11px; fill: #6c757d; font-style: italic; }
+      .ph { fill: #dee2e6; }
+      .s { font-size: 11.5px; fill: #495057; }
+    </style>
+  </defs>
+  <!-- Browserrahmen -->
+  <rect x="10" y="10" width="470" height="282" rx="8" fill="#fff" stroke="#adb5bd" stroke-width="1.4"/>
+  <rect x="10" y="10" width="470" height="20" rx="8" fill="#e9ecef"/><circle cx="24" cy="20" r="4" fill="#adb5bd"/><circle cx="36" cy="20" r="4" fill="#adb5bd"/><circle cx="48" cy="20" r="4" fill="#adb5bd"/>
+
+  <!-- header -->
+  <rect class="reg" x="22" y="40" width="446" height="44" rx="6" fill="#e7f1ff" stroke="#0d6efd"/>
+  <text class="tag" x="32" y="58" style="fill:#0d6efd">&lt;header&gt;</text><text class="role" x="32" y="74">banner</text>
+  <rect class="reg" x="230" y="48" width="230" height="28" rx="4" fill="#cfe2ff" stroke="#0d6efd"/>
+  <text class="tag" x="240" y="67" style="fill:#0a58ca">&lt;nav&gt;</text><text class="role" x="290" y="66">navigation</text>
+  <rect class="ph" x="380" y="57" width="30" height="8" rx="2"/><rect class="ph" x="416" y="57" width="34" height="8" rx="2"/>
+
+  <!-- main -->
+  <rect class="reg" x="22" y="94" width="306" height="146" rx="6" fill="#d1e7dd" stroke="#198754"/>
+  <text class="tag" x="32" y="112" style="fill:#146c43">&lt;main&gt;</text><text class="role" x="90" y="111">main</text>
+  <text class="tag" x="32" y="136">&lt;h1&gt;</text><rect class="ph" x="72" y="127" width="150" height="10" rx="2" fill="#adb5bd"/>
+  <rect x="32" y="148" width="286" height="82" rx="4" fill="#fff" stroke="#198754" stroke-dasharray="4 3"/>
+  <text class="tag" x="42" y="166" style="font-size:11.5px">&lt;form&gt;</text>
+  <text class="s" x="42" y="186">&lt;label&gt;</text><rect x="100" y="176" width="200" height="14" rx="3" fill="#fff" stroke="#adb5bd"/>
+  <text class="s" x="42" y="208">&lt;label&gt;</text><rect x="100" y="198" width="200" height="14" rx="3" fill="#fff" stroke="#adb5bd"/>
+
+  <!-- aside -->
+  <rect class="reg" x="338" y="94" width="130" height="146" rx="6" fill="#fff3cd" stroke="#f0ad4e"/>
+  <text class="tag" x="348" y="112" style="fill:#997404">&lt;aside&gt;</text><text class="role" x="348" y="128">complementary</text>
+  <rect class="ph" x="348" y="144" width="100" height="8" rx="2"/><rect class="ph" x="348" y="158" width="80" height="8" rx="2"/>
+
+  <!-- footer -->
+  <rect class="reg" x="22" y="250" width="446" height="34" rx="6" fill="#f1f3f5" stroke="#6c757d"/>
+  <text class="tag" x="32" y="272" style="fill:#495057">&lt;footer&gt;</text><text class="role" x="102" y="271">contentinfo</text>
+  <text class="s" x="200" y="271">&lt;address&gt; · Impressum</text>
+
+  <!-- Erklärung -->
+  <text x="500" y="44" style="font-weight:700;font-size:13px">Warum semantisch?</text>
+  <text class="s" x="500" y="68">• Screenreader springen über die</text>
+  <text class="s" x="510" y="84">Landmarks (kursiv) direkt zu</text>
+  <text class="s" x="510" y="100">Menü, Inhalt oder Fußzeile.</text>
+  <text class="s" x="500" y="124">• Suchmaschinen erkennen den</text>
+  <text class="s" x="510" y="140">eigentlichen Inhalt.</text>
+  <text class="s" x="500" y="164">• Code ist besser lesbar als</text>
+  <text class="s" x="510" y="180">eine Wüste aus &lt;div&gt;.</text>
+  <text class="s" x="500" y="212">&lt;div&gt; und &lt;span&gt; haben keine</text>
+  <text class="s" x="500" y="228">Bedeutung – nur für Gestaltung.</text>
+</svg>

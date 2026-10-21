@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="fm-title fm-desc">
+  <title id="fm-title">Schlechte und gute Fehlermeldung im Formular</title>
+  <desc id="fm-desc">Links die schlechte Variante: Oben steht nur „Fehler 422: Ungültige Eingabe“, alle Felder sind wieder leer, man weiß nicht, welches Feld falsch war. Rechts die gute Variante: Name und E-Mail bleiben ausgefüllt, das E-Mail-Feld hat einen roten Rahmen und darunter steht mit Warnsymbol: „Die E-Mail-Adresse braucht ein @-Zeichen, z. B. name@firma.de“. Die Meldung sagt, was falsch ist und wie man es behebt, steht direkt am Feld und nutzt Farbe, Symbol und Text.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .h { font-weight: 700; font-size: 13px; text-anchor: middle; }
+      .frame { fill: #fff; stroke: #ced4da; stroke-width: 1.3; }
+      .lab { font-size: 12px; fill: #495057; }
+      .in { fill: #fff; stroke: #adb5bd; stroke-width: 1.2; }
+      .inx { fill: #fff; stroke: #dc3545; stroke-width: 2; }
+      .val { font-size: 12.5px; }
+      .btn { fill: #0d6efd; }
+      .bt { fill: #fff; font-size: 12.5px; font-weight: 600; text-anchor: middle; }
+      .err { font-size: 11.5px; fill: #b02a37; }
+      .note { font-size: 11.5px; fill: #495057; }
+    </style>
+  </defs>
+  <!-- schlecht -->
+  <text class="h" x="178" y="18" style="fill:#b02a37">✗ schlecht</text>
+  <rect class="frame" x="18" y="28" width="320" height="196" rx="8"/>
+  <rect x="30" y="40" width="296" height="28" rx="4" fill="#f8d7da" stroke="#f1aeb5"/>
+  <text x="42" y="59" style="font-size:12.5px;fill:#842029;font-weight:600">Fehler 422: Ungültige Eingabe</text>
+  <text class="lab" x="30" y="90">Name</text><rect class="in" x="30" y="96" width="296" height="28" rx="4"/>
+  <text class="lab" x="30" y="144">E-Mail</text><rect class="in" x="30" y="150" width="296" height="28" rx="4"/>
+  <rect class="btn" x="30" y="190" width="110" height="26" rx="4"/><text class="bt" x="85" y="208">Registrieren</text>
+  <text class="note" x="178" y="242" style="text-anchor:middle">Welches Feld? Was ist falsch?</text>
+  <text class="note" x="178" y="258" style="text-anchor:middle">Und alle Eingaben sind weg.</text>
+
+  <!-- gut -->
+  <text class="h" x="542" y="18" style="fill:#146c43">✓ gut</text>
+  <rect class="frame" x="382" y="28" width="320" height="196" rx="8"/>
+  <text class="lab" x="394" y="54">Name</text><rect class="in" x="394" y="60" width="296" height="28" rx="4"/><text class="val" x="404" y="79">Ayşe Yılmaz</text>
+  <text class="lab" x="394" y="108">E-Mail</text><rect class="inx" x="394" y="114" width="296" height="28" rx="4"/><text class="val" x="404" y="133">ayse.yilmaz.firma.de</text>
+  <circle cx="674" cy="128" r="8" fill="#dc3545"/><text x="674" y="132" style="font-size:11px;fill:#fff;font-weight:700;text-anchor:middle">!</text>
+  <text class="err" x="394" y="160">⚠ Die E-Mail-Adresse braucht ein @-Zeichen,</text>
+  <text class="err" x="394" y="175">z. B. name@firma.de</text>
+  <rect class="btn" x="394" y="190" width="110" height="26" rx="4"/><text class="bt" x="449" y="208">Registrieren</text>
+  <text class="note" x="542" y="242" style="text-anchor:middle">Direkt am Feld, verständlich, mit Lösungsweg;</text>
+  <text class="note" x="542" y="258" style="text-anchor:middle">Eingaben bleiben erhalten.</text>
+</svg>

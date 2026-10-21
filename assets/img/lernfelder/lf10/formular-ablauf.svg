@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="fa-title fa-desc">
+  <title id="fa-title">Sichere Formularverarbeitung auf dem Server</title>
+  <desc id="fa-desc">Der Browser prüft Eingaben nur zur Bequemlichkeit und sendet das Formular per POST. Auf dem Server folgen fünf Schritte: 1 CSRF-Token prüfen, sonst 403. 2 Säubern: nur erwartete Felder, Leerzeichen entfernen. 3 Validieren mit filter_var, Längen und Positivlisten. Bei Fehlern wird das Formular mit Fehlermeldungen und den escapten Eingaben erneut angezeigt. 4 Speichern mit Prepared Statement. 5 Umleiten mit Status 303 auf eine GET-Seite, die die Erfolgsmeldung zeigt. Jede Ausgabe in HTML wird mit htmlspecialchars escapt.</desc>
+  <defs>
+    <marker id="fa-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#343a40"/></marker>
+    <marker id="fa-r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b02a37"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .br { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.4; }
+      .st { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .ok { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .bad { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.4; }
+      .n { fill: #0d6efd; } .nt { fill: #fff; font-weight: 700; font-size: 12px; }
+      .t { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #495057; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 10.5px; fill: #6f42c1; }
+      .e { stroke: #343a40; stroke-width: 1.6; fill: none; }
+      .er { stroke: #b02a37; stroke-width: 1.6; fill: none; stroke-dasharray: 5 3; }
+    </style>
+  </defs>
+  <!-- Browser -->
+  <rect class="br" x="10" y="20" width="130" height="96" rx="8"/>
+  <text class="t" x="75" y="42">Browser</text>
+  <text class="s" x="75" y="62">HTML5 / JavaScript</text><text class="s" x="75" y="77">prüft vorab –</text><text class="s" x="75" y="92">nur Komfort,</text><text class="s" x="75" y="107">umgehbar!</text>
+  <path class="e" d="M140,60 H178" marker-end="url(#fa-a)"/><text class="m" x="160" y="52">POST</text>
+
+  <!-- Server-Schritte -->
+  <rect x="180" y="8" width="530" height="128" rx="10" fill="none" stroke="#adb5bd" stroke-dasharray="4 4"/>
+  <text class="s" x="445" y="24" style="font-weight:700">Server (PHP)</text>
+  <rect class="st" x="192" y="34" width="96" height="70" rx="8"/><circle class="n" cx="204" cy="34" r="10"/><text class="nt" x="204" y="38">1</text>
+  <text class="t" x="240" y="56">CSRF prüfen</text><text class="m" x="240" y="74">hash_equals</text><text class="s" x="240" y="92">sonst 403</text>
+  <rect class="st" x="296" y="34" width="96" height="70" rx="8"/><circle class="n" cx="308" cy="34" r="10"/><text class="nt" x="308" y="38">2</text>
+  <text class="t" x="344" y="56">Säubern</text><text class="m" x="344" y="74">trim()</text><text class="s" x="344" y="92">Ränder weg</text>
+  <rect class="st" x="400" y="34" width="96" height="70" rx="8"/><circle class="n" cx="412" cy="34" r="10"/><text class="nt" x="412" y="38">3</text>
+  <text class="t" x="448" y="56">Validieren</text><text class="m" x="448" y="74">filter_var</text><text class="s" x="448" y="92">Typ, Länge, Liste</text>
+  <rect class="st" x="504" y="34" width="96" height="70" rx="8"/><circle class="n" cx="516" cy="34" r="10"/><text class="nt" x="516" y="38">4</text>
+  <text class="t" x="552" y="56">Speichern</text><text class="m" x="552" y="74">prepare(?)</text><text class="s" x="552" y="92">Werte getrennt</text>
+  <rect class="st" x="608" y="34" width="96" height="70" rx="8"/><circle class="n" cx="620" cy="34" r="10"/><text class="nt" x="620" y="38">5</text>
+  <text class="t" x="656" y="56">Umleiten</text><text class="m" x="656" y="74">303 See Other</text><text class="s" x="656" y="92">Location: …</text>
+  <path class="e" d="M288,69 H294" marker-end="url(#fa-a)"/><path class="e" d="M392,69 H398" marker-end="url(#fa-a)"/>
+  <path class="e" d="M496,69 H502" marker-end="url(#fa-a)"/><path class="e" d="M600,69 H606" marker-end="url(#fa-a)"/>
+
+  <!-- Fehlerweg -->
+  <path class="er" d="M448,104 V170 H302" marker-end="url(#fa-r)"/>
+  <text class="s" x="456" y="156" style="text-anchor:start;fill:#b02a37">Fehler gefunden</text>
+  <rect class="bad" x="120" y="150" width="180" height="58" rx="8"/>
+  <text class="t" x="210" y="172">Formular erneut zeigen</text>
+  <text class="s" x="210" y="189">Meldung je Feld, Eingaben</text><text class="s" x="210" y="202">bleiben (escapt) erhalten</text>
+  <path class="er" d="M120,179 H75 V118" marker-end="url(#fa-r)"/>
+
+  <!-- Erfolg -->
+  <path class="e" d="M656,104 V150" marker-end="url(#fa-a)"/><text class="m" x="664" y="132" style="text-anchor:start">GET</text>
+  <rect class="ok" x="560" y="152" width="150" height="56" rx="8"/>
+  <text class="t" x="635" y="174">Erfolgsseite</text><text class="s" x="635" y="191">Neuladen sendet</text><text class="s" x="635" y="203">nichts doppelt</text>
+
+  <!-- Merksatz -->
+  <rect x="10" y="232" width="700" height="58" rx="8" fill="#fff8e1" stroke="#f0ad4e"/>
+  <text class="t" x="360" y="254">Validieren bei der Eingabe – escapen bei der Ausgabe, passend zum Ziel</text>
+  <text class="s" x="360" y="274" style="font-size:11.5px">SQL: Prepared Statement · HTML: htmlspecialchars() · URL: urlencode() · Shell: escapeshellarg() bzw. besser vermeiden</text>
+</svg>

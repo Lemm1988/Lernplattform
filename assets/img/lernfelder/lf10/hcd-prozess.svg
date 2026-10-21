@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="hc-title hc-desc">
+  <title id="hc-title">Menschzentrierte Gestaltung nach ISO 9241-210</title>
+  <desc id="hc-desc">Nach der Planung folgen vier Aktivitäten im Kreis: 1 Nutzungskontext verstehen und beschreiben, etwa mit Interviews, Beobachtung und Personas. 2 Nutzungsanforderungen festlegen. 3 Gestaltungslösungen entwickeln, von der Skizze bis zum Prototyp. 4 Lösungen aus Nutzersicht evaluieren, zum Beispiel mit Usability-Tests. Erfüllt die Lösung die Anforderungen noch nicht, geht es zurück zu einer der früheren Aktivitäten. Erfüllt sie die Anforderungen, ist die Gestaltung fertig.</desc>
+  <defs>
+    <marker id="hc-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0d6efd"/></marker>
+    <marker id="hc-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#198754"/></marker>
+    <marker id="hc-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#fd7e14"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .st { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.5; }
+      .nr { fill: #0d6efd; } .nt { fill: #fff; font-weight: 700; font-size: 13px; }
+      .t { font-weight: 700; font-size: 13px; }
+      .s { font-size: 11.5px; fill: #495057; }
+      .fl { stroke: #0d6efd; stroke-width: 2; fill: none; }
+      .end { fill: #d1e7dd; stroke: #198754; stroke-width: 1.5; }
+      .pl { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.4; }
+    </style>
+  </defs>
+  <!-- Planung -->
+  <rect class="pl" x="10" y="96" width="120" height="56" rx="10"/>
+  <text class="t" x="70" y="120">Planung</text><text class="s" x="70" y="137">Ziele, Team, Zeit</text>
+  <path class="fl" d="M130,124 H220 V90" marker-end="url(#hc-a)"/>
+
+  <!-- 1 -->
+  <rect class="st" x="180" y="20" width="200" height="66" rx="10"/><circle class="nr" cx="196" cy="20" r="12"/><text class="nt" x="196" y="25">1</text>
+  <text class="t" x="280" y="44">Nutzungskontext verstehen</text><text class="s" x="280" y="62">Wer? Welche Aufgaben? Wo?</text><text class="s" x="280" y="77">Interviews, Beobachtung, Personas</text>
+  <!-- 2 -->
+  <rect class="st" x="440" y="20" width="200" height="66" rx="10"/><circle class="nr" cx="456" cy="20" r="12"/><text class="nt" x="456" y="25">2</text>
+  <text class="t" x="540" y="44">Anforderungen festlegen</text><text class="s" x="540" y="62">Was muss die Lösung leisten?</text><text class="s" x="540" y="77">messbar formulieren</text>
+  <!-- 3 -->
+  <rect class="st" x="440" y="196" width="200" height="66" rx="10"/><circle class="nr" cx="456" cy="196" r="12"/><text class="nt" x="456" y="201">3</text>
+  <text class="t" x="540" y="220">Lösungen gestalten</text><text class="s" x="540" y="238">Skizze → Wireframe → Prototyp</text><text class="s" x="540" y="253">mehrere Varianten</text>
+  <!-- 4 -->
+  <rect class="st" x="180" y="196" width="200" height="66" rx="10"/><circle class="nr" cx="196" cy="196" r="12"/><text class="nt" x="196" y="201">4</text>
+  <text class="t" x="280" y="220">Aus Nutzersicht bewerten</text><text class="s" x="280" y="238">Usability-Test mit echten</text><text class="s" x="280" y="253">Nutzern, Experten-Review</text>
+
+  <!-- Kreislauf -->
+  <path class="fl" d="M380,53 H436" marker-end="url(#hc-a)"/>
+  <path class="fl" d="M540,86 V192" marker-end="url(#hc-a)"/>
+  <path class="fl" d="M440,229 H384" marker-end="url(#hc-a)"/>
+  <path d="M280,196 V90" stroke="#fd7e14" stroke-width="2" fill="none" stroke-dasharray="6 4" marker-end="url(#hc-o)"/>
+  <text class="s" x="290" y="132" style="text-anchor:start;fill:#b35c00">Anforderungen nicht erfüllt:</text>
+  <text class="s" x="290" y="148" style="text-anchor:start;fill:#b35c00">zurück, nächste Iteration</text>
+
+  <!-- fertig -->
+  <path d="M180,229 H134" stroke="#198754" stroke-width="2" fill="none" marker-end="url(#hc-g)"/>
+  <rect class="end" x="10" y="204" width="120" height="50" rx="10"/>
+  <text class="t" x="70" y="226" style="fill:#146c43">erfüllt</text><text class="s" x="70" y="243">Lösung fertig</text>
+  <text class="s" x="360" y="292" style="font-style:italic">Nutzer werden in allen Phasen einbezogen – nicht erst beim Abnahmetest.</text>
+</svg>

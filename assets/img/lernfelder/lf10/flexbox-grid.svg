@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="fg-title fg-desc">
+  <title id="fg-title">Flexbox und Grid im Vergleich</title>
+  <desc id="fg-desc">Links Flexbox: Elemente werden in einer Richtung angeordnet, entlang der Hauptachse von links nach rechts, die Querachse verläuft senkrecht. justify-content verteilt entlang der Hauptachse, zum Beispiel flex-start, center oder space-between; align-items richtet entlang der Querachse aus. Typisch für eine Menüleiste. Rechts Grid: ein zweidimensionales Raster mit Zeilen und Spalten. Beispiel mit grid-template-columns 200px 1fr und den Bereichen Kopf über beide Spalten, darunter Menü 200 Pixel und Inhalt, unten Fuß über beide Spalten. Typisch für das Seitenlayout.</desc>
+  <defs>
+    <marker id="fg-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b02a37"/></marker>
+    <marker id="fg-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6f42c1"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 13px; }
+      .con { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .it { fill: #cfe2ff; stroke: #0d6efd; stroke-width: 1.2; }
+      .ga { stroke-width: 1.3; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 11px; }
+      .s { font-size: 11.5px; fill: #495057; }
+      .lab { font-size: 12px; font-weight: 600; }
+    </style>
+  </defs>
+  <!-- Flexbox -->
+  <text class="h" x="175" y="18">Flexbox – eine Richtung</text>
+  <rect class="con" x="20" y="34" width="290" height="54" rx="6"/>
+  <rect class="it" x="30" y="46" width="60" height="30" rx="4"/><text class="lab" x="60" y="66">Logo</text>
+  <rect class="it" x="130" y="46" width="52" height="30" rx="4"/><rect class="it" x="188" y="46" width="52" height="30" rx="4"/><rect class="it" x="246" y="46" width="52" height="30" rx="4"/>
+  <text class="s" x="156" y="66">Link</text><text class="s" x="214" y="66">Link</text><text class="s" x="272" y="66">Link</text>
+  <path d="M20,100 H306" stroke="#b02a37" stroke-width="1.6" marker-end="url(#fg-a)"/><text class="s" x="165" y="116" style="fill:#b02a37">Hauptachse (flex-direction: row)</text>
+  <path d="M318,34 V86" stroke="#6f42c1" stroke-width="1.6" marker-end="url(#fg-b)"/><text class="s" x="324" y="66" style="fill:#6f42c1;text-anchor:start">Quer-</text><text class="s" x="324" y="80" style="fill:#6f42c1;text-anchor:start">achse</text>
+
+  <text class="m" x="20" y="146" style="text-anchor:start">justify-content:</text>
+  <rect class="con" x="20" y="154" width="150" height="24" rx="4"/><rect class="it" x="24" y="158" width="26" height="16"/><rect class="it" x="54" y="158" width="26" height="16"/><rect class="it" x="84" y="158" width="26" height="16"/>
+  <text class="m" x="180" y="171" style="text-anchor:start">flex-start</text>
+  <rect class="con" x="20" y="184" width="150" height="24" rx="4"/><rect class="it" x="52" y="188" width="26" height="16"/><rect class="it" x="82" y="188" width="26" height="16"/><rect class="it" x="112" y="188" width="26" height="16"/>
+  <text class="m" x="180" y="201" style="text-anchor:start">center</text>
+  <rect class="con" x="20" y="214" width="150" height="24" rx="4"/><rect class="it" x="24" y="218" width="26" height="16"/><rect class="it" x="82" y="218" width="26" height="16"/><rect class="it" x="140" y="218" width="26" height="16"/>
+  <text class="m" x="180" y="231" style="text-anchor:start">space-between</text>
+  <text class="s" x="175" y="262">typisch: Menüleiste, Buttonreihe, Karteninhalt</text>
+
+  <line x1="370" y1="10" x2="370" y2="262" stroke="#dee2e6"/>
+
+  <!-- Grid -->
+  <text class="h" x="545" y="18">Grid – Zeilen und Spalten</text>
+  <rect class="ga" x="392" y="34" width="306" height="34" rx="4" fill="#e7f1ff" stroke="#0d6efd"/><text class="lab" x="545" y="56">kopf</text>
+  <rect class="ga" x="392" y="74" width="90" height="110" rx="4" fill="#fff3cd" stroke="#f0ad4e"/><text class="lab" x="437" y="126">menue</text><text class="m" x="437" y="144">200px</text>
+  <rect class="ga" x="488" y="74" width="210" height="110" rx="4" fill="#d1e7dd" stroke="#198754"/><text class="lab" x="593" y="126">inhalt</text><text class="m" x="593" y="144">1fr (Rest)</text>
+  <rect class="ga" x="392" y="190" width="306" height="26" rx="4" fill="#e9ecef" stroke="#6c757d"/><text class="lab" x="545" y="208">fuss</text>
+  <text class="m" x="392" y="236" style="text-anchor:start">grid-template-columns: 200px 1fr;</text>
+  <text class="s" x="545" y="262">typisch: Seitenlayout, Kartenraster, Formular</text>
+</svg>
