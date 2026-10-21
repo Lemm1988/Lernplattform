@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-labelledby="db-title db-desc">
+  <title id="db-title">Auszug aus einem englischen Datenblatt mit Lesehilfen</title>
+  <desc id="db-desc">Ausgedachtes Datenblatt eines Netzwerkspeichers, NetVault NS-240. Abschnitte: Overview, Specifications mit Prozessor Quad-core 2.0 GHz, Speicher 8 GB DDR4, expandable to 32 GB, vier Laufwerksschächte für 3.5-inch oder 2.5-inch SATA HDD oder SSD, zwei 2.5 Gigabit Ethernet Ports, Leistungsaufnahme 28 W in Betrieb und 9 W im Ruhezustand. Requirements: The device must be connected to a grounded outlet. Firmware updates should be installed within 30 days. Warranty: 3 years limited warranty, excluding drives. Rechts Lesehilfen: expandable heißt erweiterbar; must heißt Pflicht; should heißt Empfehlung; limited warranty heißt eingeschränkte Garantie; excluding heißt ausgenommen; Dezimalpunkt statt Komma, 2.0 GHz sind 2,0 GHz.</desc>
+  <defs><marker id="db-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#eda100"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .en { font-weight: 700; font-size: 11.5px; fill: #0a58ca; text-anchor: middle; }
+    .de { font-size: 10.5px; fill: #6c757d; text-anchor: middle; font-style: italic; }
+    .mono { font-family: Consolas, monospace; font-size: 11px; fill: #212529; }
+    .hl { fill: #fff3cd; }
+    .note { font-size: 10.5px; fill: #343a40; }
+    .w { stroke: #eda100; stroke-width: 1.4; fill: none; marker-end: url(#db-a); }
+  </style>
+  <rect x="20" y="14" width="430" height="304" rx="6" fill="#fff" stroke="#adb5bd" stroke-width="1.4"/>
+  <rect x="20" y="14" width="430" height="34" rx="6" fill="#343a40"/><text x="34" y="36" style="font-size:13px;font-weight:700;fill:#fff">NetVault NS-240 · Product Data Sheet</text>
+  <text x="34" y="66" style="font-size:11.5px;font-weight:700">Overview</text>
+  <text class="l" x="34" y="82">Compact 4-bay network storage for small offices.</text>
+  <text x="34" y="106" style="font-size:11.5px;font-weight:700">Specifications</text>
+  <text class="mono" x="34" y="124">CPU</text><text class="mono" x="170" y="124">Quad-core 2.0 GHz</text>
+  <text class="mono" x="34" y="142">Memory</text><text class="mono" x="170" y="142">8 GB DDR4, expandable to 32 GB</text>
+  <text class="mono" x="34" y="160">Drive bays</text><text class="mono" x="170" y="160">4 × 3.5"/2.5" SATA HDD/SSD</text>
+  <text class="mono" x="34" y="178">Network</text><text class="mono" x="170" y="178">2 × 2.5 GbE (RJ45)</text>
+  <text class="mono" x="34" y="196">Power consumption</text><text class="mono" x="170" y="196">28 W (access), 9 W (idle)</text>
+    <text x="34" y="230" style="font-size:11.5px;font-weight:700">Requirements</text>
+  <text class="l" x="34" y="248">The device <tspan style="font-weight:700;fill:#b02a37">must</tspan> be connected to a grounded outlet.</text>
+  <text class="l" x="34" y="264">Firmware updates <tspan style="font-weight:700;fill:#b36b00">should</tspan> be installed within 30 days.</text>
+  <text x="34" y="290" style="font-size:11.5px;font-weight:700">Warranty</text>
+  <text class="l" x="34" y="306">3-year limited warranty, excluding drives.</text>
+  <path class="w" d="M452,120 H486"/><text class="note" x="492" y="124">2.0 GHz = 2,0 GHz (Punkt statt Komma)</text>
+  <path class="w" d="M452,138 H486"/><text class="note" x="492" y="142">expandable = erweiterbar</text>
+  <path class="w" d="M452,174 H486"/><text class="note" x="492" y="178">GbE = Gigabit Ethernet</text>
+  <path class="w" d="M452,192 H486"/><text class="note" x="492" y="196">idle = Ruhezustand</text>
+  <path class="w" d="M452,244 H486"/><text class="note" x="492" y="248">must = Pflicht, zwingend</text>
+  <path class="w" d="M452,260 H486"/><text class="note" x="492" y="264">should = dringende Empfehlung</text>
+  <path class="w" d="M452,296 H486"/><text class="note" x="492" y="300">limited = eingeschränkt</text>
+  <path class="w" d="M452,312 H486"/><text class="note" x="492" y="316">excluding = ausgenommen</text>
+</svg>

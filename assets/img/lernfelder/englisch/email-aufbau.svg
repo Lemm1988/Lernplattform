@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="em-title em-desc">
+  <title id="em-title">Aufbau einer englischen Geschäfts-E-Mail</title>
+  <desc id="em-desc">Eine E-Mail in sechs Bausteinen. Subject: Server maintenance on 14 May, 6 to 8 pm – kurz und konkret. Greeting: Dear Ms Taylor. Purpose: I am writing to inform you about planned maintenance on our file server – der Anlass steht im ersten Satz. Details: The server will be unavailable from 6 to 8 pm CET, please save your work before 6 pm – Fakten mit Zeitzone. Call to action: Could you please let us know by Friday if this time does not suit you – höfliche Bitte. Closing: Kind regards, Alex Becker, IT Support.</desc>
+  <defs></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .en { font-weight: 700; font-size: 11.5px; fill: #0a58ca; text-anchor: middle; }
+    .de { font-size: 10.5px; fill: #6c757d; text-anchor: middle; font-style: italic; }
+  </style>
+  <rect x="20" y="14" width="110" height="38" rx="6" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.3"/><text class="h" x="75" y="37">Subject</text>
+  <rect x="140" y="14" width="370" height="38" rx="6" fill="#fff" stroke="#dee2e6"/>
+  <text class="l" x="150" y="37">Server maintenance on 14 May, 6–8 pm</text>
+  <text class="l" x="522" y="37" style="fill:#6c757d;font-style:italic">Betreff: kurz und konkret</text>
+  <rect x="20" y="60" width="110" height="38" rx="6" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.3"/><text class="h" x="75" y="83">Greeting</text>
+  <rect x="140" y="60" width="370" height="38" rx="6" fill="#fff" stroke="#dee2e6"/>
+  <text class="l" x="150" y="83">Dear Ms Taylor,</text>
+  <text class="l" x="522" y="83" style="fill:#6c757d;font-style:italic">Anrede: Dear … bzw. Hi … (informell)</text>
+  <rect x="20" y="106" width="110" height="38" rx="6" fill="#fff3cd" stroke="#eda100" stroke-width="1.3"/><text class="h" x="75" y="129">Purpose</text>
+  <rect x="140" y="106" width="370" height="38" rx="6" fill="#fff" stroke="#dee2e6"/>
+  <text class="l" x="150" y="122">I am writing to inform you about planned maintenance on</text>
+  <text class="l" x="150" y="136">our file server.</text>
+  <text class="l" x="522" y="129" style="fill:#6c757d;font-style:italic">Anlass im ersten Satz</text>
+  <rect x="20" y="152" width="110" height="38" rx="6" fill="#fff3cd" stroke="#eda100" stroke-width="1.3"/><text class="h" x="75" y="175">Details</text>
+  <rect x="140" y="152" width="370" height="38" rx="6" fill="#fff" stroke="#dee2e6"/>
+  <text class="l" x="150" y="168">The server will be unavailable from 6 to 8 pm (CET).</text>
+  <text class="l" x="150" y="182">Please save your work before 6 pm.</text>
+  <text class="l" x="522" y="175" style="fill:#6c757d;font-style:italic">Fakten, Zeitangaben mit Zeitzone</text>
+  <rect x="20" y="198" width="110" height="38" rx="6" fill="#d1e7dd" stroke="#198754" stroke-width="1.3"/><text class="h" x="75" y="221">Call to action</text>
+  <rect x="140" y="198" width="370" height="38" rx="6" fill="#fff" stroke="#dee2e6"/>
+  <text class="l" x="150" y="214">Could you please let us know by Friday if this time does</text>
+  <text class="l" x="150" y="228">not suit you?</text>
+  <text class="l" x="522" y="221" style="fill:#6c757d;font-style:italic">Bitte höflich formulieren</text>
+  <rect x="20" y="244" width="110" height="38" rx="6" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.3"/><text class="h" x="75" y="267">Closing</text>
+  <rect x="140" y="244" width="370" height="38" rx="6" fill="#fff" stroke="#dee2e6"/>
+  <text class="l" x="150" y="267">Kind regards, Alex Becker, IT Support</text>
+  <text class="l" x="522" y="267" style="fill:#6c757d;font-style:italic">Gruß: Kind regards / Best regards</text>
+</svg>

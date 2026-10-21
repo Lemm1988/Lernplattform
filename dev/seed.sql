@@ -24,7 +24,8 @@ INSERT INTO `learning_fields` (`id`, `lf_number`, `title`, `description`, `speci
 (10, 'LF10', 'Benutzerschnittstellen gestalten und entwickeln', NULL, 'all', 10),
 (11, 'LF11', 'Funktionalität in Anwendungen realisieren', NULL, 'all', 11),
 (12, 'LF12', 'Kundenspezifische Anwendungsentwicklung durchführen', NULL, 'all', 12),
-(13, 'WiSo', 'Wirtschafts- und Sozialkunde', NULL, 'all', 13);
+(13, 'WiSo', 'Wirtschafts- und Sozialkunde', NULL, 'all', 13),
+(14, 'Englisch', 'IT-Fachenglisch', NULL, 'all', 14);
 
 INSERT INTO `site_section_headers` (`name`, `section_type`, `icon`, `sort_order`) VALUES
 ('Übersicht',       'main',           'bi-house',            1),
@@ -56,6 +57,7 @@ INSERT INTO `site_sections` (`id`, `name`, `url_path`, `icon`, `section_type`, `
 (31, 'PHP',                '/programming/php/php-index.php',             'bi-filetype-php',     'programmierung', 2, 'admin,moderator,student'),
 (32, 'Python',             '/programming/python/python-index.php',       'bi-filetype-py',      'programmierung', 3, 'admin,moderator,student'),
 (35, 'WiSo',               '/Learningfields/WiSo/index.php',             'bi-briefcase',        'pruefung', 1, 'admin,moderator,student'),
+(36, 'IT-Fachenglisch',    '/Learningfields/Englisch/index.php',         'bi-translate',        'pruefung', 2, 'admin,moderator,student'),
 (40, 'Scrum Foundation',   '/Learningfields/Scrum/Scrum_Fundation_index.php', 'bi-people',      'agil', 1, 'admin,moderator,student'),
 (50, 'SQL-Trainer',        '/games/sql-trainer/index.php',               'bi-database',         'games', 1, 'admin,moderator,student');
 

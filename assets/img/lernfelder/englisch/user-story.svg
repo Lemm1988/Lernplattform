@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="us-title us-desc">
+  <title id="us-title">User Story mit Akzeptanzkriterien auf Englisch</title>
+  <desc id="us-desc">Karteikarte einer User Story: As a support agent, I want to filter tickets by priority, so that I can handle urgent requests first. Darunter Akzeptanzkriterien im Given-When-Then-Format: Given I am on the ticket list, when I select priority High, then only tickets with priority High are shown. Given no ticket has priority High, when I apply the filter, then the message No tickets found is displayed. Daneben die Bausteine erklärt: As a für die Rolle, I want to für das Ziel, so that für den Nutzen; Given für die Ausgangslage, When für die Aktion, Then für das erwartete Ergebnis.</desc>
+  <defs></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .en { font-weight: 700; font-size: 11.5px; fill: #0a58ca; text-anchor: middle; }
+    .de { font-size: 10.5px; fill: #6c757d; text-anchor: middle; font-style: italic; }
+    .k { font-size: 11.5px; font-weight: 700; fill: #0a58ca; }
+    .t { font-size: 11.5px; fill: #212529; }
+  </style>
+  <rect x="20" y="14" width="440" height="252" rx="8" fill="#fffdf5" stroke="#eda100" stroke-width="1.6"/>
+  <text x="36" y="38" style="font-size:12.5px;font-weight:700">User story #42 – Ticket filter</text>
+  <text class="t" x="36" y="64"><tspan class="k">As a</tspan> support agent,</text>
+  <text class="t" x="36" y="82"><tspan class="k">I want to</tspan> filter tickets by priority,</text>
+  <text class="t" x="36" y="100"><tspan class="k">so that</tspan> I can handle urgent requests first.</text>
+  <line x1="36" y1="114" x2="444" y2="114" stroke="#eda100" stroke-dasharray="4 3"/>
+  <text x="36" y="134" style="font-size:11.5px;font-weight:700">Acceptance criteria</text>
+  <text class="t" x="36" y="156"><tspan class="k">Given</tspan> I am on the ticket list,</text>
+  <text class="t" x="36" y="173"><tspan class="k">when</tspan> I select priority "High",</text>
+  <text class="t" x="36" y="190"><tspan class="k">then</tspan> only tickets with priority "High" are shown.</text>
+  <text class="t" x="36" y="216"><tspan class="k">Given</tspan> no ticket has priority "High",</text>
+  <text class="t" x="36" y="233"><tspan class="k">when</tspan> I apply the filter,</text>
+  <text class="t" x="36" y="250"><tspan class="k">then</tspan> the message "No tickets found" is displayed.</text>
+  <rect x="480" y="14" width="220" height="252" rx="8" fill="#f8f9fa" stroke="#ced4da"/>
+  <text x="494" y="38" style="font-size:12px;font-weight:700">Bausteine</text>
+  <text class="l" x="494" y="62"><tspan class="k">As a</tspan> … – Rolle (wer?)</text>
+  <text class="l" x="494" y="80"><tspan class="k">I want to</tspan> … – Ziel (was?)</text>
+  <text class="l" x="494" y="98"><tspan class="k">so that</tspan> … – Nutzen (wozu?)</text>
+  <text class="l" x="494" y="156"><tspan class="k">Given</tspan> … – Ausgangslage</text>
+  <text class="l" x="494" y="174"><tspan class="k">When</tspan> … – Aktion</text>
+  <text class="l" x="494" y="192"><tspan class="k">Then</tspan> … – erwartetes Ergebnis</text>
+  <text class="l" x="494" y="226">Jedes Kriterium ist testbar:</text><text class="l" x="494" y="242">am Ende steht „bestanden“</text><text class="l" x="494" y="258">oder „nicht bestanden“.</text>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="tf-title tf-desc">
+  <title id="tf-title">Englische Zeitformen in technischen Texten</title>
+  <desc id="tf-desc">Zeitstrahl mit der Gegenwart in der Mitte. Past simple für abgeschlossene Ereignisse mit Zeitpunkt: The server crashed yesterday at 3 pm. Present perfect für Ergebnisse, die jetzt zählen, ohne genauen Zeitpunkt: We have installed the update. Present simple für Fakten und Abläufe: The script runs every night. Present continuous für das, was gerade passiert: We are migrating the database. Future mit will für Ankündigungen: The system will restart at 10 pm. Going to für Pläne: We are going to replace the switches next month.</desc>
+  <defs><marker id="tf-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .en { font-weight: 700; font-size: 11.5px; fill: #0a58ca; text-anchor: middle; }
+    .de { font-size: 10.5px; fill: #6c757d; text-anchor: middle; font-style: italic; }
+    .tag { font-size: 11px; font-weight: 700; }
+    .ex { font-size: 10.5px; fill: #343a40; font-style: italic; }
+  </style>
+  <path d="M40,130 H680" stroke="#495057" stroke-width="2" marker-end="url(#tf-a)"/>
+  <line x1="360" y1="40" x2="360" y2="220" stroke="#b02a37" stroke-width="1.6" stroke-dasharray="5 4"/><text x="360" y="32" style="font-size:11.5px;font-weight:700;fill:#b02a37;text-anchor:middle">now</text>
+  <text class="l" x="40" y="150">past</text><text class="l" x="680" y="150" text-anchor="end">future</text>
+  <text class="tag" x="210" y="60" text-anchor="end" style="fill:#2a78d6">Past simple</text>
+  <text class="ex" x="210" y="74" text-anchor="end">The server crashed yesterday.</text>
+  <text class="l" x="210" y="87" text-anchor="end" style="fill:#6c757d;font-size:10px">abgeschlossen, Zeitpunkt genannt</text>
+  <text class="tag" x="300" y="92" text-anchor="end" style="fill:#2a78d6">Present perfect</text>
+  <text class="ex" x="300" y="106" text-anchor="end">We have installed the update.</text>
+  <text class="l" x="300" y="119" text-anchor="end" style="fill:#6c757d;font-size:10px">Ergebnis zählt jetzt</text>
+  <text class="tag" x="350" y="190" text-anchor="end" style="fill:#1baf7a">Present simple</text>
+  <text class="ex" x="350" y="204" text-anchor="end">The backup runs every night.</text>
+  <text class="l" x="350" y="217" text-anchor="end" style="fill:#6c757d;font-size:10px">Fakten, Routinen, Anleitungen</text>
+  <text class="tag" x="370" y="230" text-anchor="start" style="fill:#1baf7a">Present continuous</text>
+  <text class="ex" x="370" y="244" text-anchor="start">We are migrating the database.</text>
+  <text class="l" x="370" y="257" text-anchor="start" style="fill:#6c757d;font-size:10px">läuft gerade</text>
+  <text class="tag" x="700" y="60" text-anchor="end" style="fill:#eb6834">will-future</text>
+  <text class="ex" x="700" y="74" text-anchor="end">The system will restart at 10 pm.</text>
+  <text class="l" x="700" y="87" text-anchor="end" style="fill:#6c757d;font-size:10px">Ankündigung, Zusage</text>
+  <text class="tag" x="700" y="168" text-anchor="end" style="fill:#eb6834">going to</text>
+  <text class="ex" x="700" y="182" text-anchor="end">We are going to replace the switches.</text>
+  <text class="l" x="700" y="195" text-anchor="end" style="fill:#6c757d;font-size:10px">fester Plan</text>
+</svg>

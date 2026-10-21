@@ -32,6 +32,7 @@ function lernfeld_meta() {
         'LF12' => ['title' => 'Kundenspezifische Anwendungsentwicklung durchführen', 'icon' => 'kanban', 'ap' => 'AP2'],
         // Prüfungsbereiche außerhalb der Lernfelder ('label' ersetzt "Lernfeld N")
         'WiSo' => ['title' => 'Wirtschafts- und Sozialkunde', 'icon' => 'briefcase', 'ap' => 'AP2', 'label' => 'Prüfungsbereich'],
+        'Englisch' => ['title' => 'IT-Fachenglisch', 'icon' => 'translate', 'ap' => 'AP1 + AP2', 'label' => 'Querschnittsthema'],
     ];
 }
 

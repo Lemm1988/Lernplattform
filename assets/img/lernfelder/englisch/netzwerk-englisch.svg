@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 300" role="img" aria-labelledby="ne-title ne-desc">
+  <title id="ne-title">Ein Büronetz mit englischen Fachbegriffen</title>
+  <desc id="ne-desc">Netzplan eines kleinen Büros mit englischen Begriffen und deutscher Übersetzung. Vom Internet über das Modem, englisch modem, zur Firewall und zum Router. Dahinter ein Switch im Server-Rack, englisch server rack, mit Patch Panel. Am Switch hängen ein File Server, also Dateiserver, eine Workstation, also Arbeitsplatzrechner, ein Network Printer, also Netzwerkdrucker, und ein Wireless Access Point, also WLAN-Zugangspunkt, mit Laptop und Smartphone. Kabel heißen Ethernet cable oder patch cable, die Verbindung zum Internet uplink.</desc>
+  <defs></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .en { font-weight: 700; font-size: 11.5px; fill: #0a58ca; text-anchor: middle; }
+    .de { font-size: 10.5px; fill: #6c757d; text-anchor: middle; font-style: italic; }
+    .bx { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+    .w { stroke: #495057; stroke-width: 1.8; fill: none; }
+    .wl { stroke: #6f42c1; stroke-width: 1.6; fill: none; stroke-dasharray: 5 4; }
+  </style>
+  <ellipse cx="80" cy="50" rx="60" ry="28" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/><text class="en" x="80" y="48">Internet</text><text class="de" x="80" y="63">(cloud)</text>
+  <rect class="bx" x="170" y="27" width="100" height="46" rx="8"/><text class="en" x="220.0" y="47">modem</text><text class="de" x="220.0" y="63">Modem</text>
+  <rect class="bx" x="300" y="27" width="100" height="46" rx="8"/><text class="en" x="350.0" y="47">firewall</text><text class="de" x="350.0" y="63">Firewall</text>
+  <rect class="bx" x="430" y="27" width="100" height="46" rx="8"/><text class="en" x="480.0" y="47">router</text><text class="de" x="480.0" y="63">Router</text>
+  <path class="w" d="M140,50 H170 M270,50 H300 M400,50 H430"/>
+  <text class="s" x="155" y="88" style="fill:#0a58ca;font-weight:700">uplink</text>
+  <rect x="400" y="100" width="300" height="104" rx="10" fill="none" stroke="#adb5bd" stroke-dasharray="6 4"/><text class="en" x="550" y="118">server rack</text><text class="de" x="640" y="118">Serverschrank</text>
+  <rect class="bx" x="415" y="128" width="120" height="46" rx="8"/><text class="en" x="475.0" y="148">switch</text><text class="de" x="475.0" y="164">Switch</text>
+  <rect class="bx" x="565" y="128" width="120" height="46" rx="8"/><text class="en" x="625.0" y="148">patch panel</text><text class="de" x="625.0" y="164">Patchfeld</text>
+  <path class="w" d="M480,73 V128 M535,151 H565"/>
+  <rect class="bx" x="20" y="228" width="140" height="46" rx="8"/><text class="en" x="90.0" y="248">workstation</text><text class="de" x="90.0" y="264">Arbeitsplatzrechner</text>
+  <rect class="bx" x="180" y="228" width="140" height="46" rx="8"/><text class="en" x="250.0" y="248">network printer</text><text class="de" x="250.0" y="264">Netzwerkdrucker</text>
+  <rect class="bx" x="340" y="228" width="140" height="46" rx="8"/><text class="en" x="410.0" y="248">file server</text><text class="de" x="410.0" y="264">Dateiserver</text>
+  <rect class="bx" x="500" y="228" width="140" height="46" rx="8"/><text class="en" x="570.0" y="248">access point</text><text class="de" x="570.0" y="264">WLAN-Zugangspunkt</text>
+  <path class="w" d="M475,174 V200 H90 V228 M250,200 V228 M410,200 V228 M570,200 V228"/>
+  <text class="s" x="180" y="194" style="fill:#0a58ca;font-weight:700">Ethernet cable / patch cable</text><text class="de" x="180" y="214">Netzwerk- bzw. Patchkabel</text>
+  <path class="wl" d="M640,250 Q680,250 690,230"/><text class="en" x="690" y="218">Wi-Fi</text>
+  <text class="l" x="20" y="118" style="font-weight:700">Typical verbs</text>
+  <text class="l" x="20" y="136"><tspan style="fill:#0a58ca;font-weight:700">to set up</tspan> – einrichten</text>
+  <text class="l" x="20" y="152"><tspan style="fill:#0a58ca;font-weight:700">to troubleshoot</tspan> – Fehler eingrenzen</text>
+  <text class="l" x="210" y="136"><tspan style="fill:#0a58ca;font-weight:700">to plug in</tspan> – einstecken</text>
+  <text class="l" x="210" y="152"><tspan style="fill:#0a58ca;font-weight:700">to replace</tspan> – ersetzen</text>
+</svg>
