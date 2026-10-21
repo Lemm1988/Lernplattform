@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 232" role="img" aria-labelledby="ag-title ag-desc">
+  <title id="ag-title">Instanzen der Arbeitsgerichtsbarkeit</title>
+  <desc id="ag-desc">Drei Stufen von links nach rechts. Arbeitsgericht als erste Instanz: Zuerst findet eine Güteverhandlung statt, die Kammer besteht aus einer Berufsrichterin oder einem Berufsrichter und zwei ehrenamtlichen Richtern von Arbeitgeber- und Arbeitnehmerseite; man kann sich selbst vertreten, und jede Partei trägt ihre Anwaltskosten selbst. Landesarbeitsgericht als zweite Instanz für die Berufung. Bundesarbeitsgericht in Erfurt als dritte Instanz für die Revision.</desc>
+  <defs><marker id="ag-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .b { stroke-width: 1.4; }
+    .w { stroke: #495057; stroke-width: 1.8; fill: none; marker-end: url(#ag-a); }
+  </style>
+  <rect class="b" x="20" y="70" width="200" height="130" rx="10" fill="#e7f1ff" stroke="#0d6efd"/>
+  <text class="h" x="120" y="92">Arbeitsgericht</text><text class="s" x="120" y="108" style="font-weight:700">1. Instanz</text>
+  <text class="s" x="120" y="132">Güteverhandlung zuerst</text>
+  <text class="s" x="120" y="147">1 Berufsrichter/in +</text>
+  <text class="s" x="120" y="162">2 ehrenamtliche Richter/innen</text>
+  <text class="s" x="120" y="177">Selbstvertretung möglich</text>
+  <path class="w" d="M224,140 H256"/>
+  <rect class="b" x="260" y="46" width="200" height="154" rx="10" fill="#cfe2ff" stroke="#0a58ca"/>
+  <text class="h" x="360" y="68">Landesarbeitsgericht</text><text class="s" x="360" y="84" style="font-weight:700">2. Instanz: Berufung</text>
+  <text class="s" x="360" y="108">Überprüft Sachverhalt</text>
+  <text class="s" x="360" y="123">und Recht</text>
+  <text class="s" x="360" y="138">Anwaltspflicht</text>
+  <path class="w" d="M464,140 H496"/>
+  <rect class="b" x="500" y="22" width="200" height="178" rx="10" fill="#9ec5fe" stroke="#084298"/>
+  <text class="h" x="600" y="44">Bundesarbeitsgericht</text><text class="s" x="600" y="60" style="font-weight:700">3. Instanz: Revision, Erfurt</text>
+  <text class="s" x="600" y="84">Prüft nur Rechtsfragen</text>
+  <text class="s" x="600" y="99">Urteile prägen die</text>
+  <text class="s" x="600" y="114">Rechtsprechung bundesweit</text>
+  <text class="l" x="20" y="222">Besonderheit 1. Instanz: Jede Partei zahlt ihre Anwaltskosten selbst – auch wer gewinnt (§ 12a ArbGG).</text>
+</svg>

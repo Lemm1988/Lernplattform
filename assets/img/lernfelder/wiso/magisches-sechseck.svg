@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 310" role="img" aria-labelledby="ms-title ms-desc">
+  <title id="ms-title">Das magische Sechseck der Wirtschaftspolitik</title>
+  <desc id="ms-desc">Sechseck mit sechs Zielen an den Ecken. Die vier Ziele des Stabilitätsgesetzes von 1967, das magische Viereck: Preisniveaustabilität, also eine Inflation nahe 2 Prozent, hoher Beschäftigungsstand, stetiges und angemessenes Wirtschaftswachstum sowie außenwirtschaftliches Gleichgewicht. Ergänzt zum Sechseck durch Schutz der Umwelt und gerechte Einkommens- und Vermögensverteilung. Magisch heißt es, weil sich nicht alle Ziele gleichzeitig erreichen lassen: Zwischen Wachstum und Umweltschutz oder zwischen Preisstabilität und Beschäftigung gibt es Zielkonflikte.</desc>
+  <defs></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .ax { font-size: 10.5px; fill: #495057; }
+    .z { font-size: 11px; font-weight: 700; }
+  </style>
+  <polygon points="360.0,45.0 450.9,97.5 450.9,202.5 360.0,255.0 269.1,202.5 269.1,97.5" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.6"/>
+  <polygon points="360.0,45.0 450.9,97.5 450.9,202.5 360.0,255.0" fill="#cfe2ff" stroke="#0a58ca" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <text class="h" x="407.2" y="142" style="font-size:11px">magisches</text><text class="h" x="407.2" y="156" style="font-size:11px">Viereck</text><text class="s" x="407.2" y="172">(StabG 1967)</text>
+  <circle cx="360.0" cy="45.0" r="7" fill="#0a58ca" stroke="#fff" stroke-width="2"/>
+  <text class="z" x="360.0" y="19.0" text-anchor="middle" style="fill:#0a58ca">Preisniveaustabilität</text>
+  <text class="ax" x="360.0" y="32.0" text-anchor="middle">Inflation nahe 2 %</text>
+  <circle cx="450.9" cy="97.5" r="7" fill="#0a58ca" stroke="#fff" stroke-width="2"/>
+  <text class="z" x="462.9" y="93.5" text-anchor="start" style="fill:#0a58ca">hoher Beschäftigungsstand</text>
+  <text class="ax" x="462.9" y="106.5" text-anchor="start">niedrige Arbeitslosigkeit</text>
+  <circle cx="450.9" cy="202.5" r="7" fill="#0a58ca" stroke="#fff" stroke-width="2"/>
+  <text class="z" x="462.9" y="212.5" text-anchor="start" style="fill:#0a58ca">stetiges, angemessenes Wachstum</text>
+  <text class="ax" x="462.9" y="225.5" text-anchor="start">BIP wächst moderat</text>
+  <circle cx="360.0" cy="255.0" r="7" fill="#0a58ca" stroke="#fff" stroke-width="2"/>
+  <text class="z" x="360.0" y="281.0" text-anchor="middle" style="fill:#0a58ca">außenwirtschaftliches Gleichgewicht</text>
+  <text class="ax" x="360.0" y="294.0" text-anchor="middle">Exporte ≈ Importe</text>
+  <circle cx="269.1" cy="202.5" r="7" fill="#1baf7a" stroke="#fff" stroke-width="2"/>
+  <text class="z" x="257.1" y="212.5" text-anchor="end" style="fill:#137a54">Schutz der Umwelt</text>
+  <text class="ax" x="257.1" y="225.5" text-anchor="end">nachhaltiges Wirtschaften</text>
+  <circle cx="269.1" cy="97.5" r="7" fill="#1baf7a" stroke="#fff" stroke-width="2"/>
+  <text class="z" x="257.1" y="93.5" text-anchor="end" style="fill:#137a54">gerechte Einkommensverteilung</text>
+  <text class="ax" x="257.1" y="106.5" text-anchor="end">soziale Gerechtigkeit</text>
+</svg>

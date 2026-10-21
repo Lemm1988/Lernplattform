@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="tr-title tr-desc">
+  <title id="tr-title">Ablauf einer Tarifrunde mit Arbeitskampf</title>
+  <desc id="tr-desc">Acht Schritte in zwei Reihen. Der Tarifvertrag läuft aus, damit endet die Friedenspflicht. Verhandlungen mit Forderung und Angebot, Warnstreiks sind möglich. Die Verhandlungen werden für gescheitert erklärt, gegebenenfalls folgt eine Schlichtung. Urabstimmung: Meist müssen mindestens 75 Prozent der Gewerkschaftsmitglieder einem Streik zustimmen. Arbeitskampf: Streik, Arbeitgeber können mit Aussperrung reagieren. Einigung auf ein Verhandlungsergebnis. Zweite Urabstimmung: Meist genügen 25 Prozent Zustimmung zur Annahme. Neuer Tarifvertrag, es gilt wieder Friedenspflicht. Viele Tarifrunden enden schon in den Verhandlungen ohne Streik.</desc>
+  <defs><marker id="tr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .w { stroke: #495057; stroke-width: 1.6; fill: none; marker-end: url(#tr-a); }
+  </style>
+  <rect x="10" y="24" width="160" height="62" rx="8" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.4"/>
+  <circle cx="24" cy="38" r="9" fill="#6c757d"/><text x="24" y="42" style="font-size:10.5px;font-weight:700;fill:#fff;text-anchor:middle">1</text>
+  <text class="h" x="98" y="44">Tarifvertrag läuft aus</text>
+  <text class="s" x="90" y="62">Friedenspflicht endet</text>
+  <path class="w" d="M172,55 H186"/>
+  <rect x="190" y="24" width="160" height="62" rx="8" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/>
+  <circle cx="204" cy="38" r="9" fill="#0d6efd"/><text x="204" y="42" style="font-size:10.5px;font-weight:700;fill:#fff;text-anchor:middle">2</text>
+  <text class="h" x="278" y="44">Verhandlungen</text>
+  <text class="s" x="270" y="62">Forderung und Angebot;</text>
+  <text class="s" x="270" y="75">Warnstreiks möglich</text>
+  <path class="w" d="M352,55 H366"/>
+  <rect x="370" y="24" width="160" height="62" rx="8" fill="#fff3cd" stroke="#eda100" stroke-width="1.4"/>
+  <circle cx="384" cy="38" r="9" fill="#eda100"/><text x="384" y="42" style="font-size:10.5px;font-weight:700;fill:#fff;text-anchor:middle">3</text>
+  <text class="h" x="458" y="44">Scheitern erklärt</text>
+  <text class="s" x="450" y="62">ggf. Schlichtung durch</text>
+  <text class="s" x="450" y="75">neutrale Person</text>
+  <path class="w" d="M532,55 H546"/>
+  <rect x="550" y="24" width="160" height="62" rx="8" fill="#ffe5d0" stroke="#fd7e14" stroke-width="1.4"/>
+  <circle cx="564" cy="38" r="9" fill="#fd7e14"/><text x="564" y="42" style="font-size:10.5px;font-weight:700;fill:#fff;text-anchor:middle">4</text>
+  <text class="h" x="638" y="44">Urabstimmung</text>
+  <text class="s" x="630" y="62">meist mind. 75 % der</text>
+  <text class="s" x="630" y="75">Mitglieder für Streik</text>
+  <rect x="550" y="134" width="160" height="62" rx="8" fill="#f8d7da" stroke="#b02a37" stroke-width="1.4"/>
+  <circle cx="564" cy="148" r="9" fill="#b02a37"/><text x="564" y="152" style="font-size:10.5px;font-weight:700;fill:#fff;text-anchor:middle">5</text>
+  <text class="h" x="638" y="154">Arbeitskampf</text>
+  <text class="s" x="630" y="172">Streik; Arbeitgeber:</text>
+  <text class="s" x="630" y="185">Aussperrung</text>
+  <path class="w" d="M548,165 H534"/>
+  <rect x="370" y="134" width="160" height="62" rx="8" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/>
+  <circle cx="384" cy="148" r="9" fill="#0d6efd"/><text x="384" y="152" style="font-size:10.5px;font-weight:700;fill:#fff;text-anchor:middle">6</text>
+  <text class="h" x="458" y="154">Einigung</text>
+  <text class="s" x="450" y="172">neues Verhandlungsergebnis</text>
+  <path class="w" d="M368,165 H354"/>
+  <rect x="190" y="134" width="160" height="62" rx="8" fill="#ffe5d0" stroke="#fd7e14" stroke-width="1.4"/>
+  <circle cx="204" cy="148" r="9" fill="#fd7e14"/><text x="204" y="152" style="font-size:10.5px;font-weight:700;fill:#fff;text-anchor:middle">7</text>
+  <text class="h" x="278" y="154">2. Urabstimmung</text>
+  <text class="s" x="270" y="172">meist mind. 25 % zur</text>
+  <text class="s" x="270" y="185">Annahme</text>
+  <path class="w" d="M188,165 H174"/>
+  <rect x="10" y="134" width="160" height="62" rx="8" fill="#d1e7dd" stroke="#198754" stroke-width="1.4"/>
+  <circle cx="24" cy="148" r="9" fill="#198754"/><text x="24" y="152" style="font-size:10.5px;font-weight:700;fill:#fff;text-anchor:middle">8</text>
+  <text class="h" x="98" y="154">Neuer Tarifvertrag</text>
+  <text class="s" x="90" y="172">wieder Friedenspflicht</text>
+  <path class="w" d="M630,88 V130"/>
+  <text class="l" x="360" y="242" text-anchor="middle">Viele Tarifrunden enden schon in Schritt 2 – ohne Streik.</text>
+</svg>

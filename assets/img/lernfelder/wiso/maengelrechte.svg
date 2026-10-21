@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 272" role="img" aria-labelledby="mr-title mr-desc">
+  <title id="mr-title">Rechte des Käufers bei mangelhafter Lieferung</title>
+  <desc id="mr-desc">Stufenmodell. Liegt bei Übergabe ein Mangel vor, hat zuerst die Nacherfüllung Vorrang: Der Käufer wählt zwischen Nachbesserung, also Reparatur, und Ersatzlieferung. Erst wenn die Nacherfüllung fehlschlägt, verweigert wird, unzumutbar ist oder eine angemessene Frist erfolglos verstrichen ist, kann der Käufer vom Vertrag zurücktreten – nicht bei einem unerheblichen Mangel – oder den Kaufpreis mindern. Hat der Verkäufer den Mangel zu vertreten, kommt Schadensersatz hinzu. Die Ansprüche verjähren in der Regel zwei Jahre nach Übergabe.</desc>
+  <defs><marker id="mr-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .ax { font-size: 10.5px; fill: #495057; }
+    .w { stroke: #495057; stroke-width: 1.8; fill: none; marker-end: url(#mr-a); }
+  </style>
+  <rect x="20" y="20" width="150" height="56" rx="8" fill="#f8d7da" stroke="#b02a37" stroke-width="1.4"/>
+  <text class="h" x="95" y="44">Mangel</text><text class="s" x="95" y="62">bei Übergabe vorhanden</text>
+  <path class="w" d="M170,48 H206"/>
+  <rect x="210" y="14" width="250" height="70" rx="8" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.6"/>
+  <text class="h" x="335" y="34">1. Vorrang: Nacherfüllung</text>
+  <text class="s" x="335" y="52">Käufer wählt: Nachbesserung (Reparatur)</text><text class="s" x="335" y="68">oder Ersatzlieferung (neue Sache)</text>
+  <path class="w" d="M460,48 H496"/>
+  <rect x="500" y="14" width="200" height="70" rx="8" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.2"/>
+  <text class="h" x="600" y="34">Hat es geklappt?</text>
+  <text class="s" x="600" y="52">gescheitert, verweigert, unzumutbar</text><text class="s" x="600" y="68">oder Frist erfolglos abgelaufen</text>
+  <path class="w" d="M600,84 V110 H120 V126"/><path class="w" d="M360,110 V126"/><path class="w" d="M600,110 V126"/>
+  <text class="s" x="360" y="104" style="font-weight:700">2. Stufe – nach Wahl des Käufers</text>
+  <rect x="20" y="130" width="200" height="66" rx="8" fill="#fff3cd" stroke="#eda100" stroke-width="1.4"/>
+  <text class="h" x="120" y="152">Rücktritt</text><text class="s" x="120" y="170">Ware zurück, Geld zurück</text><text class="s" x="120" y="185">nicht bei unerheblichem Mangel</text>
+  <rect x="260" y="130" width="200" height="66" rx="8" fill="#fff3cd" stroke="#eda100" stroke-width="1.4"/>
+  <text class="h" x="360" y="152">Minderung</text><text class="s" x="360" y="170">Ware behalten,</text><text class="s" x="360" y="185">Kaufpreis herabsetzen</text>
+  <rect x="500" y="130" width="200" height="66" rx="8" fill="#ffe5d0" stroke="#fd7e14" stroke-width="1.4"/>
+  <text class="h" x="600" y="152">+ Schadensersatz</text><text class="s" x="600" y="170">zusätzlich, wenn der Verkäufer</text><text class="s" x="600" y="185">den Mangel zu vertreten hat</text>
+  <text class="l" x="20" y="222"><tspan style="font-weight:700">Frist:</tspan> 2 Jahre ab Übergabe. Kauft ein Verbraucher bei einem Unternehmer, wird im 1. Jahr vermutet,</text>
+  <text class="l" x="20" y="238">dass der Mangel schon bei Übergabe vorlag (Beweislastumkehr).</text>
+  <text class="l" x="20" y="260"><tspan style="font-weight:700">Unter Kaufleuten:</tspan> Ware unverzüglich prüfen und Mängel sofort rügen (§ 377 HGB) – sonst gehen die Rechte verloren.</text>
+</svg>

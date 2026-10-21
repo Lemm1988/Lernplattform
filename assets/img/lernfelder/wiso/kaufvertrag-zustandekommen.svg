@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="kv-title kv-desc">
+  <title id="kv-title">Wie ein Kaufvertrag zustande kommt</title>
+  <desc id="kv-desc">Zwei Wege. Oben: Der Käufer stellt eine unverbindliche Anfrage, der Verkäufer macht ein verbindliches Angebot, das ist der Antrag; der Käufer bestellt rechtzeitig und unverändert, das ist die Annahme – damit ist der Kaufvertrag geschlossen. Unten: Der Käufer bestellt ohne vorheriges Angebot, etwa im Onlineshop; die Bestellung ist hier der Antrag. Der Verkäufer nimmt an durch eine Auftragsbestätigung oder durch Lieferung – dann ist der Vertrag geschlossen. Die Produktpräsentation im Shop oder Katalog ist noch kein Angebot, sondern nur eine Aufforderung, ein Angebot abzugeben. Ein Kaufvertrag braucht zwei übereinstimmende Willenserklärungen.</desc>
+  <defs><marker id="kv-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .ax { font-size: 10.5px; fill: #495057; }
+    .k { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+    .v { fill: #fff3cd; stroke: #eda100; stroke-width: 1.4; }
+    .ok { fill: #d1e7dd; stroke: #198754; stroke-width: 1.6; }
+    .grey { fill: #f8f9fa; stroke: #adb5bd; stroke-width: 1.2; stroke-dasharray: 4 3; }
+    .w { stroke: #495057; stroke-width: 1.6; fill: none; marker-end: url(#kv-a); }
+    .tag { font-size: 10px; font-weight: 700; text-anchor: middle; }
+  </style>
+  <text class="l" x="20" y="22" style="font-weight:700">Weg 1: mit Angebot</text>
+  <rect class="grey" x="20" y="44" width="140" height="56" rx="8"/><text class="h" x="90.0" y="66">Anfrage</text><text class="s" x="90.0" y="84">Käufer, unverbindlich</text>
+  <rect class="v" x="200" y="44" width="140" height="56" rx="8"/><text class="h" x="270.0" y="66">Angebot</text><text class="s" x="270.0" y="84">Verkäufer, verbindlich</text>
+  <text class="tag" x="270.0" y="38" style="fill:#b36b00">1. Willenserklärung: Antrag</text>
+  <rect class="k" x="380" y="44" width="140" height="56" rx="8"/><text class="h" x="450.0" y="66">Bestellung</text><text class="s" x="450.0" y="84">Käufer, rechtzeitig</text>
+  <text class="tag" x="450.0" y="38" style="fill:#0a58ca">2. Willenserklärung: Annahme</text>
+  <rect class="ok" x="560" y="44" width="140" height="56" rx="8"/><text class="h" x="630.0" y="66">Kaufvertrag</text><text class="s" x="630.0" y="84">geschlossen</text>
+  <path class="w" d="M160,72 H196"/><path class="w" d="M340,72 H376"/><path class="w" d="M520,72 H556"/>
+  <text class="l" x="20" y="144" style="font-weight:700">Weg 2: ohne Angebot (z. B. Onlineshop)</text>
+  <rect class="grey" x="20" y="166" width="140" height="56" rx="8"/><text class="h" x="90.0" y="188">Produktseite</text><text class="s" x="90.0" y="206">Aufforderung zum Angebot</text>
+  <rect class="k" x="200" y="166" width="140" height="56" rx="8"/><text class="h" x="270.0" y="188">Bestellung</text><text class="s" x="270.0" y="206">Käufer</text>
+  <text class="tag" x="270.0" y="160" style="fill:#0a58ca">1. Willenserklärung: Antrag</text>
+  <rect class="v" x="380" y="166" width="140" height="56" rx="8"/><text class="h" x="450.0" y="188">Auftragsbestätigung</text><text class="s" x="450.0" y="206">oder Lieferung</text>
+  <text class="tag" x="450.0" y="160" style="fill:#b36b00">2. Willenserklärung: Annahme</text>
+  <rect class="ok" x="560" y="166" width="140" height="56" rx="8"/><text class="h" x="630.0" y="188">Kaufvertrag</text><text class="s" x="630.0" y="206">geschlossen</text>
+  <path class="w" d="M160,194 H196"/><path class="w" d="M340,194 H376"/><path class="w" d="M520,194 H556"/>
+  <text class="l" x="20" y="252">Eine automatische Eingangsbestätigung („Ihre Bestellung ist eingegangen“) ist noch keine Annahme.</text><text class="l" x="20" y="268">Weicht eine Bestellung vom Angebot ab, ist sie ein neuer Antrag, den der Verkäufer annehmen muss.</text>
+</svg>

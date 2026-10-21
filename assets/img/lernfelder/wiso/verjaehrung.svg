@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-labelledby="vj-title vj-desc">
+  <title id="vj-title">Regelmäßige Verjährung und Gewährleistungsfrist im Vergleich</title>
+  <desc id="vj-desc">Zeitstrahl von 2026 bis 2030. Eine Rechnung über eine Lieferung vom 15. März 2026 wird fällig. Die regelmäßige Verjährungsfrist von drei Jahren beginnt erst am Ende des Jahres, in dem der Anspruch entstanden ist, also mit Ablauf des 31. Dezember 2026, und endet mit Ablauf des 31. Dezember 2029. Die Gewährleistungsfrist für Mängel beträgt zwei Jahre und läuft ab Übergabe, also vom 15. März 2026 bis 15. März 2028, ohne Jahresende-Regel. Ein Mahnbescheid oder eine Klage hemmen die Verjährung; eine Abschlagszahlung oder ein Anerkenntnis lassen sie neu beginnen.</desc>
+  <defs></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .ax { font-size: 10.5px; fill: #495057; }
+    .g { stroke: #dee2e6; stroke-width: 1; }
+  </style>
+  <line class="g" x1="60.0" y1="40" x2="60.0" y2="170"/><text class="ax" x="60.0" y="186" text-anchor="middle">1.1.2026</text>
+  <line class="g" x1="215.0" y1="40" x2="215.0" y2="170"/><text class="ax" x="215.0" y="186" text-anchor="middle">1.1.2027</text>
+  <line class="g" x1="370.0" y1="40" x2="370.0" y2="170"/><text class="ax" x="370.0" y="186" text-anchor="middle">1.1.2028</text>
+  <line class="g" x1="525.0" y1="40" x2="525.0" y2="170"/><text class="ax" x="525.0" y="186" text-anchor="middle">1.1.2029</text>
+  <line class="g" x1="680.0" y1="40" x2="680.0" y2="170"/><text class="ax" x="680.0" y="186" text-anchor="middle">1.1.2030</text>
+  <line x1="60" y1="170" x2="680" y2="170" stroke="#495057" stroke-width="1.2"/>
+  <line x1="91.8" y1="56" x2="91.8" y2="170" stroke="#212529" stroke-width="1" stroke-dasharray="3 3"/>  <circle cx="91.8" cy="56" r="6" fill="#212529"/><text class="l" x="101.8" y="44" style="font-weight:700">15.03.2026: Lieferung und Rechnung</text>
+  <text class="l" x="101.8" y="76" style="font-weight:700">Kaufpreisforderung – regelmäßige Verjährung 3 Jahre</text>
+  <rect x="91.8" y="82" width="121.2" height="22" rx="4" fill="#e9ecef"/><text class="s" x="153.4" y="97">wartet bis Jahresende</text>
+  <rect x="217.0" y="82" width="463.0" height="22" rx="4" fill="#2a78d6"/><text class="s" x="447.5" y="97" style="fill:#fff;font-weight:700">3 Jahre: 31.12.2026 bis 31.12.2029</text>
+  <text class="l" x="101.8" y="128" style="font-weight:700">Mängelansprüche – Gewährleistung 2 Jahre ab Übergabe</text>
+  <rect x="91.8" y="134" width="310.0" height="22" rx="4" fill="#eb6834"/><text class="s" x="246.8" y="149" style="fill:#fff;font-weight:700">15.03.2026 bis 15.03.2028</text>
+  <text class="l" x="60" y="212"><tspan style="font-weight:700">Hemmung</tspan> (Uhr steht still): Verhandlungen, Mahnbescheid, Klage.</text>
+  <text class="l" x="60" y="230"><tspan style="font-weight:700">Neubeginn</tspan> (Uhr startet neu): Anerkenntnis, z. B. Abschlags- oder Zinszahlung; Vollstreckungshandlung.</text>
+</svg>

@@ -30,6 +30,8 @@ function lernfeld_meta() {
         'LF10' => ['title' => 'Benutzerschnittstellen gestalten und entwickeln', 'icon' => 'window-stack', 'ap' => 'AP2'],
         'LF11' => ['title' => 'Funktionalität in Anwendungen realisieren', 'icon' => 'gear-wide-connected', 'ap' => 'AP2'],
         'LF12' => ['title' => 'Kundenspezifische Anwendungsentwicklung durchführen', 'icon' => 'kanban', 'ap' => 'AP2'],
+        // Prüfungsbereiche außerhalb der Lernfelder ('label' ersetzt "Lernfeld N")
+        'WiSo' => ['title' => 'Wirtschafts- und Sozialkunde', 'icon' => 'briefcase', 'ap' => 'AP2', 'label' => 'Prüfungsbereich'],
     ];
 }
 
@@ -114,7 +116,7 @@ function render_lernfeld_overview($lf_key) {
     $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 
     echo '<div class="mb-4">';
-    echo '<div class="text-muted small mb-1"><i class="bi bi-' . $e($lf['icon']) . ' me-1"></i>Lernfeld ' . $e(substr($lf_key, 2))
+    echo '<div class="text-muted small mb-1"><i class="bi bi-' . $e($lf['icon']) . ' me-1"></i>' . $e($lf['label'] ?? 'Lernfeld ' . substr($lf_key, 2))
         . ' · Prüfungsrelevanz: ' . $e($lf['ap']) . '</div>';
     echo '<h1 class="h2 mb-3">' . $e($title) . '</h1>';
     if (!empty($lf['description'])) {
@@ -142,7 +144,7 @@ function render_lernfeld_overview($lf_key) {
     echo '</div>';
 
     echo '<div class="card mt-4"><div class="card-body small">'
-        . '<h3 class="h6">So lernst du mit diesem Lernfeld</h3><ol class="mb-0">'
+        . '<h3 class="h6">So lernst du mit diesem ' . (isset($lf['label']) ? 'Bereich' : 'Lernfeld') . '</h3><ol class="mb-0">'
         . '<li>Lies ein Kapitel und schau dir die Grafiken genau an – sie zeigen das Prinzip auf einen Blick.</li>'
         . '<li>Löse die Übungen zuerst selbst und klappe die Lösung erst danach auf.</li>'
         . '<li>Prüfe dich mit der Selbstkontrolle am Kapitelende.</li>'

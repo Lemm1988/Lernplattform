@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-labelledby="ks-title ks-desc">
+  <title id="ks-title">Prüfschema: Ist eine ordentliche Kündigung durch den Arbeitgeber wirksam?</title>
+  <desc id="ks-desc">Flussdiagramm. Erste Frage: Ist die Kündigung schriftlich mit Unterschrift erklärt? Wenn nein, ist sie unwirksam. Zweite Frage: Wurde ein vorhandener Betriebsrat vorher angehört? Wenn nein, unwirksam. Dritte Frage: Gilt das Kündigungsschutzgesetz, also mehr als zehn Beschäftigte und länger als sechs Monate im Betrieb? Wenn nein, ist die Kündigung mit Frist grundsätzlich ohne besonderen Grund möglich, darf aber nicht willkürlich oder diskriminierend sein. Wenn ja, muss sie sozial gerechtfertigt sein: personenbedingt, verhaltensbedingt meist nach Abmahnung, oder betriebsbedingt mit Sozialauswahl. Wer sich wehren will, muss innerhalb von drei Wochen nach Zugang Kündigungsschutzklage beim Arbeitsgericht erheben.</desc>
+  <defs><marker id="ks-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .q { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+    .no { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.3; }
+    .ok { fill: #d1e7dd; stroke: #198754; stroke-width: 1.3; }
+    .w { stroke: #495057; stroke-width: 1.6; fill: none; marker-end: url(#ks-a); }
+    .lab { font-size: 10.5px; font-weight: 700; fill: #495057; }
+  </style>
+  <rect class="q" x="20" y="14" width="300" height="46" rx="8"/><text class="h" x="170" y="34">Schriftlich mit Unterschrift?</text><text class="s" x="170" y="50">§ 623 BGB – E-Mail genügt nicht</text>
+  <rect class="q" x="20" y="82" width="300" height="46" rx="8"/><text class="h" x="170" y="102">Betriebsrat vorher angehört?</text><text class="s" x="170" y="118">nur falls einer besteht (§ 102 BetrVG)</text>
+  <rect class="q" x="20" y="150" width="300" height="46" rx="8"/><text class="h" x="170" y="170">Kündigungsschutzgesetz anwendbar?</text><text class="s" x="170" y="186">mehr als 10 Beschäftigte und länger als 6 Monate</text>
+  <path class="w" d="M170,60 V78"/><text class="lab" x="178" y="74">ja</text>
+  <path class="w" d="M170,128 V146"/><text class="lab" x="178" y="142">ja</text>
+  <rect class="no" x="400" y="20" width="150" height="34" rx="8"/><text class="h" x="475" y="42">unwirksam</text>
+  <path class="w" d="M320,37 H396"/><text class="lab" x="340" y="31">nein</text>
+  <path class="w" d="M320,105 H360 V60 L396,48"/><text class="lab" x="330" y="99">nein</text>
+  <rect class="ok" x="400" y="140" width="300" height="66" rx="8"/>
+  <text class="h" x="550" y="160">Kündigung mit Frist grundsätzlich</text><text class="h" x="550" y="176">auch ohne besonderen Grund möglich</text>
+  <text class="s" x="550" y="195">aber nicht willkürlich oder diskriminierend</text>
+  <path class="w" d="M320,173 H396"/><text class="lab" x="340" y="167">nein</text>
+  <path class="w" d="M170,196 V218"/><text class="lab" x="178" y="212">ja</text>
+  <text class="h" x="360" y="236">sozial gerechtfertigt? Ein Grund muss vorliegen:</text>
+  <rect class="q" x="20" y="246" width="220" height="42" rx="8"/><text class="h" x="130" y="264">personenbedingt</text><text class="s" x="130" y="280">z. B. lange Krankheit mit schlechter Prognose</text>
+  <rect class="q" x="250" y="246" width="220" height="42" rx="8"/><text class="h" x="360" y="264">verhaltensbedingt</text><text class="s" x="360" y="280">Pflichtverstoß, meist nach Abmahnung</text>
+  <rect class="q" x="480" y="246" width="220" height="42" rx="8"/><text class="h" x="590" y="264">betriebsbedingt</text><text class="s" x="590" y="280">Arbeitsplatz fällt weg, Sozialauswahl</text>
+  <text class="l" x="360" y="314" text-anchor="middle" style="font-weight:700;fill:#b02a37">Wehren: Kündigungsschutzklage innerhalb von 3 Wochen nach Zugang (§ 4 KSchG)</text>
+</svg>

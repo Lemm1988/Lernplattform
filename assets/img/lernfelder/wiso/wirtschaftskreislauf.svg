@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-labelledby="wk-title wk-desc">
+  <title id="wk-title">Erweiterter Wirtschaftskreislauf (Geldströme)</title>
+  <desc id="wk-desc">Fünf Sektoren: private Haushalte links, Unternehmen rechts, Staat oben, Banken unten, Ausland rechts unten. Geldströme: Unternehmen zahlen den Haushalten Einkommen, Haushalte geben es als Konsumausgaben an die Unternehmen zurück. Haushalte und Unternehmen zahlen Steuern an den Staat; der Staat zahlt Transferleistungen wie Kindergeld an Haushalte und Staatsaufträge und Subventionen an Unternehmen. Haushalte sparen bei Banken, Banken geben Kredite an Unternehmen für Investitionen. Das Ausland zahlt für Exporte an die Unternehmen, Unternehmen zahlen für Importe an das Ausland. Güter und Arbeitsleistungen fließen jeweils in die Gegenrichtung.</desc>
+  <defs><marker id="wk-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .ax { font-size: 10.5px; fill: #495057; }
+    .w { stroke-width: 1.7; fill: none; marker-end: url(#wk-a); }
+    .lab { font-size: 10.5px; fill: #343a40; }
+  </style>
+  <rect x="20" y="128" width="150" height="60" rx="10" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.5"/><text class="h" x="95.0" y="162.0">Private Haushalte</text>
+  <rect x="530" y="128" width="170" height="60" rx="10" fill="#fff3cd" stroke="#eda100" stroke-width="1.5"/><text class="h" x="615.0" y="162.0">Unternehmen</text>
+  <rect x="285" y="14" width="150" height="52" rx="10" fill="#f8f9fa" stroke="#6c757d" stroke-width="1.5"/><text class="h" x="360.0" y="44.0">Staat</text>
+  <rect x="285" y="250" width="150" height="52" rx="10" fill="#d1e7dd" stroke="#198754" stroke-width="1.5"/><text class="h" x="360.0" y="280.0">Banken</text>
+  <rect x="575" y="266" width="125" height="48" rx="10" fill="#f8d7da" stroke="#b02a37" stroke-width="1.5"/><text class="h" x="637.5" y="294.0">Ausland</text>
+  <path stroke="#495057" class="w" d="M526,146 H174"/><text class="lab" x="350" y="140" text-anchor="middle">Einkommen (Löhne, Gehälter, Gewinne)</text>
+  <path stroke="#495057" class="w" d="M174,170 H526"/><text class="lab" x="350" y="184" text-anchor="middle">Konsumausgaben</text>
+  <path stroke="#495057" class="w" d="M80,124 V40 H281"/><text class="lab" x="90" y="33">Steuern, Abgaben</text>
+  <path stroke="#495057" class="w" d="M281,56 H120 V124"/><text class="lab" x="128" y="86">Transfers (Kindergeld, Renten)</text>
+  <path stroke="#495057" class="w" d="M640,124 V40 H439"/><text class="lab" x="630" y="33" text-anchor="end">Steuern</text>
+  <path stroke="#495057" class="w" d="M439,56 H600 V124"/><text class="lab" x="592" y="86" text-anchor="end">Staatsaufträge, Subventionen</text>
+  <path stroke="#495057" class="w" d="M95,192 V276 H281"/><text class="lab" x="104" y="266">Ersparnis</text>
+  <path stroke="#495057" class="w" d="M439,266 H545 V192"/><text class="lab" x="538" y="224" text-anchor="end">Kredite für</text><text class="lab" x="538" y="237" text-anchor="end">Investitionen</text>
+  <path stroke="#495057" class="w" d="M660,262 V192"/><text class="lab" x="666" y="232">Export-</text><text class="lab" x="666" y="245">erlöse</text>
+  <path stroke="#495057" class="w" d="M620,192 V262"/><text class="lab" x="614" y="232" text-anchor="end">Import-</text><text class="lab" x="614" y="245" text-anchor="end">ausgaben</text>
+  <text class="l" x="20" y="322">Gezeigt sind Geldströme. Güter und Arbeitsleistungen fließen jeweils in die Gegenrichtung.</text>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 250" role="img" aria-labelledby="ve-title ve-desc">
+  <title id="ve-title">Verpflichtungsgeschäft und Erfüllungsgeschäft beim Kauf</title>
+  <desc id="ve-desc">Links das Verpflichtungsgeschäft, der Kaufvertrag: Der Verkäufer verpflichtet sich, die Sache mangelfrei zu übergeben und das Eigentum zu verschaffen; der Käufer verpflichtet sich, den Kaufpreis zu zahlen und die Sache abzunehmen. Rechts das Erfüllungsgeschäft: Der Verkäufer übergibt und übereignet, der Käufer zahlt und nimmt ab. Erst damit wechselt das Eigentum. Unten: Eigentum ist die rechtliche Herrschaft über eine Sache, Besitz die tatsächliche. Beim Eigentumsvorbehalt bekommt der Käufer den Besitz sofort, das Eigentum erst mit vollständiger Bezahlung.</desc>
+  <defs><marker id="ve-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .ax { font-size: 10.5px; fill: #495057; }
+    .w { stroke: #495057; stroke-width: 1.8; fill: none; marker-end: url(#ve-a); }
+  </style>
+  <rect x="20" y="16" width="310" height="150" rx="10" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/>
+  <text class="h" x="175" y="38">1. Verpflichtungsgeschäft</text><text class="s" x="175" y="54">der Kaufvertrag – beide versprechen etwas</text>
+  <text class="l" x="36" y="82" style="font-weight:700">Verkäufer verpflichtet sich:</text><text class="l" x="36" y="98">Sache mangelfrei übergeben, Eigentum verschaffen</text>
+  <text class="l" x="36" y="126" style="font-weight:700">Käufer verpflichtet sich:</text><text class="l" x="36" y="142">Kaufpreis zahlen, Sache abnehmen</text>
+  <path class="w" d="M334,91 H384"/>
+  <rect x="390" y="16" width="310" height="150" rx="10" fill="#d1e7dd" stroke="#198754" stroke-width="1.4"/>
+  <text class="h" x="545" y="38">2. Erfüllungsgeschäft</text><text class="s" x="545" y="54">die Versprechen werden eingelöst</text>
+  <text class="l" x="406" y="82" style="font-weight:700">Verkäufer:</text><text class="l" x="406" y="98">übergibt und übereignet die Sache</text>
+  <text class="l" x="406" y="126" style="font-weight:700">Käufer:</text><text class="l" x="406" y="142">zahlt und nimmt die Sache ab</text>
+  <rect x="20" y="184" width="680" height="58" rx="8" fill="#f8f9fa" stroke="#ced4da"/>
+  <text class="l" x="34" y="204"><tspan style="font-weight:700">Eigentum</tspan> = rechtliche Herrschaft („mir gehört es“) · <tspan style="font-weight:700">Besitz</tspan> = tatsächliche Herrschaft („ich habe es“)</text>
+  <text class="l" x="34" y="226"><tspan style="font-weight:700">Eigentumsvorbehalt</tspan>: Besitz sofort, Eigentum erst nach vollständiger Zahlung – bis dahin kann der Verkäufer die Ware zurückfordern.</text>
+</svg>

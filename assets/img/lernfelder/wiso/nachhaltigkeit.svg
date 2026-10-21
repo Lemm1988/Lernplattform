@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="nh-title nh-desc">
+  <title id="nh-title">Drei Dimensionen der Nachhaltigkeit mit Beispielen aus der IT</title>
+  <desc id="nh-desc">Drei Säulen unter einem gemeinsamen Dach Nachhaltigkeit. Ökologie: Energieeffiziente Rechenzentren und Abwärmenutzung, Geräte länger nutzen und reparieren, Altgeräte fachgerecht zurückgeben, effizienter Code und passend dimensionierte Cloud-Ressourcen. Ökonomie: Kosten senken durch geringeren Energieverbrauch, langlebige und wartbare Systeme, Total Cost of Ownership statt nur Anschaffungspreis betrachten. Soziales: faire Arbeitsbedingungen in Lieferketten, barrierefreie Software, Datenschutz, Weiterbildung und Vereinbarkeit von Beruf und Familie. Nachhaltig ist eine Lösung erst, wenn alle drei Dimensionen berücksichtigt sind.</desc>
+  <defs></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .ax { font-size: 10.5px; fill: #495057; }
+  </style>
+  <polygon points="40,62 360,14 680,62" fill="#d1e7dd" stroke="#198754" stroke-width="1.6"/>
+  <text class="h" x="360" y="52" style="font-size:13px">Nachhaltigkeit</text>
+  <rect x="60" y="70" width="180" height="170" rx="6" fill="#d1e7dd" stroke="#198754" stroke-width="1.4"/>
+  <text class="h" x="150" y="94">Ökologie</text>
+  <text class="s" x="150" y="120">energieeffiziente Rechenzentren,</text>
+  <text class="s" x="150" y="138">Abwärme nutzen</text>
+  <text class="s" x="150" y="162">Geräte länger nutzen,</text>
+  <text class="s" x="150" y="180">reparieren, zurückgeben</text>
+  <text class="s" x="150" y="204">effizienter Code, Cloud</text>
+  <text class="s" x="150" y="222">passend dimensionieren</text>
+  <rect x="270" y="70" width="180" height="170" rx="6" fill="#fff3cd" stroke="#eda100" stroke-width="1.4"/>
+  <text class="h" x="360" y="94">Ökonomie</text>
+  <text class="s" x="360" y="120">Energiekosten senken</text>
+  <text class="s" x="360" y="162">langlebige, wartbare</text>
+  <text class="s" x="360" y="180">Systeme</text>
+  <text class="s" x="360" y="204">Gesamtkosten (TCO) statt</text>
+  <text class="s" x="360" y="222">nur Anschaffungspreis</text>
+  <rect x="480" y="70" width="180" height="170" rx="6" fill="#e7f1ff" stroke="#0d6efd" stroke-width="1.4"/>
+  <text class="h" x="570" y="94">Soziales</text>
+  <text class="s" x="570" y="120">faire Arbeit in der</text>
+  <text class="s" x="570" y="138">Lieferkette</text>
+  <text class="s" x="570" y="162">barrierefreie Software,</text>
+  <text class="s" x="570" y="180">Datenschutz</text>
+  <text class="s" x="570" y="204">Weiterbildung, Vereinbar-</text>
+  <text class="s" x="570" y="222">keit von Beruf und Familie</text>
+  <rect x="40" y="242" width="640" height="10" fill="#adb5bd"/>
+  <text class="l" x="360" y="266" text-anchor="middle">Nachhaltig ist eine Lösung erst, wenn alle drei Säulen tragen.</text>
+</svg>

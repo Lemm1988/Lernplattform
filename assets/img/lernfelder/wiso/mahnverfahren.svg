@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 330" role="img" aria-labelledby="mv-title mv-desc">
+  <title id="mv-title">Vom Zahlungsverzug zur Zwangsvollstreckung</title>
+  <desc id="mv-desc">Ablauf in zwei Phasen. Außergerichtlich: Die Rechnung ist fällig, der Kunde zahlt nicht und kommt in Verzug; der Gläubiger schickt Zahlungserinnerung und Mahnungen. Gerichtlich: Antrag auf Mahnbescheid beim zentralen Mahngericht, online möglich, ohne Prüfung, ob die Forderung besteht. Der Schuldner kann zahlen oder innerhalb von zwei Wochen Widerspruch einlegen – dann folgt ein normales Gerichtsverfahren. Reagiert er nicht, beantragt der Gläubiger innerhalb von sechs Monaten den Vollstreckungsbescheid. Dagegen ist Einspruch innerhalb von zwei Wochen möglich, sonst wird er rechtskräftig. Der Vollstreckungsbescheid ist ein Vollstreckungstitel, 30 Jahre gültig; damit folgt die Zwangsvollstreckung, zum Beispiel Pfändung durch den Gerichtsvollzieher oder Kontopfändung.</desc>
+  <defs><marker id="mv-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .ax { font-size: 10.5px; fill: #495057; }
+    .a { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+    .g { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+    .x { fill: #fff3cd; stroke: #eda100; stroke-width: 1.3; }
+    .z { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.4; }
+    .w { stroke: #495057; stroke-width: 1.6; fill: none; marker-end: url(#mv-a); }
+    .lab { font-size: 10px; font-weight: 700; fill: #495057; }
+  </style>
+  <text class="l" x="20" y="18" style="font-weight:700;fill:#6c757d">AUSSERGERICHTLICH</text>
+  <rect class="a" x="20" y="28" width="200" height="50" rx="8"/><text class="h" x="120" y="48">Rechnung fällig</text><text class="s" x="120" y="65">Kunde zahlt nicht</text>
+  <path class="w" d="M220,53 H256"/>
+  <rect class="a" x="260" y="28" width="200" height="50" rx="8"/><text class="h" x="360" y="48">Zahlungsverzug</text><text class="s" x="360" y="65">nach Mahnung oder 30 Tagen</text>
+  <path class="w" d="M460,53 H496"/>
+  <rect class="a" x="500" y="28" width="200" height="50" rx="8"/><text class="h" x="600" y="48">Erinnerung, Mahnungen</text><text class="s" x="600" y="65">kaufmännisches Mahnverfahren</text>
+  <path class="w" d="M600,78 V96 H120 V112"/>
+  <text class="l" x="20" y="106" style="font-weight:700;fill:#0a58ca">GERICHTLICH</text>
+  <rect class="g" x="20" y="116" width="200" height="56" rx="8"/><text class="h" x="120" y="137">Mahnbescheid</text><text class="s" x="120" y="154">Antrag beim Mahngericht,</text><text class="s" x="120" y="167">ohne Prüfung der Forderung</text>
+  <path class="w" d="M220,144 H256"/>
+  <rect class="g" x="260" y="116" width="200" height="56" rx="8"/><text class="h" x="360" y="137">Vollstreckungsbescheid</text><text class="s" x="360" y="154">Antrag binnen 6 Monaten,</text><text class="s" x="360" y="167">wenn kein Widerspruch</text>
+  <path class="w" d="M460,144 H496"/>
+  <rect class="z" x="500" y="116" width="200" height="56" rx="8"/><text class="h" x="600" y="137">Zwangsvollstreckung</text><text class="s" x="600" y="154">Gerichtsvollzieher, Pfändung,</text><text class="s" x="600" y="167">Kontopfändung</text>
+  <path class="w" d="M120,172 V206"/><text class="lab" x="128" y="194">Widerspruch, 2 Wochen</text>
+  <path class="w" d="M360,172 V206"/><text class="lab" x="368" y="194">Einspruch, 2 Wochen</text>
+  <rect class="x" x="20" y="210" width="440" height="40" rx="8"/><text class="h" x="240" y="228">streitiges Verfahren vor Gericht</text><text class="s" x="240" y="243">das Gericht prüft, ob die Forderung besteht</text>
+  <text class="l" x="20" y="278"><tspan style="font-weight:700">Verzugszinsen:</tspan> Basiszinssatz + 5 Prozentpunkte (Verbraucher) bzw. + 9 Prozentpunkte (Geschäftskunden), dazu 40 € Pauschale.</text>
+  <text class="l" x="20" y="298"><tspan style="font-weight:700">Titel:</tspan> Ein rechtskräftiger Vollstreckungsbescheid gilt 30 Jahre. Der Mahnbescheid hemmt die Verjährung.</text>
+  <text class="l" x="20" y="318">Schuldner kann jederzeit zahlen – dann endet das Verfahren.</text>
+</svg>

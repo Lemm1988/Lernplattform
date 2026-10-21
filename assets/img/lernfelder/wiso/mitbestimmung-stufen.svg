@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 282" role="img" aria-labelledby="mb-title mb-desc">
+  <title id="mb-title">Stufen der Beteiligung des Betriebsrats</title>
+  <desc id="mb-desc">Treppe mit sechs Stufen von schwach nach stark: Information, zum Beispiel über die wirtschaftliche Lage und Personalplanung. Anhörung vor jeder Kündigung, ohne Anhörung ist die Kündigung unwirksam. Beratung bei Betriebsänderungen und der Gestaltung von Arbeitsplätzen. Widerspruch gegen eine Kündigung, etwa bei falscher Sozialauswahl. Zustimmungsverweigerung bei Einstellung und Versetzung. Echte Mitbestimmung, bei der ohne Betriebsrat nichts geht, zum Beispiel bei der Lage der Arbeitszeit, dem Urlaubsplan und technischen Einrichtungen, die Verhalten oder Leistung überwachen können, also auch bei vielen Softwareeinführungen. Die Paragrafen beziehen sich auf das Betriebsverfassungsgesetz.</desc>
+  <defs><marker id="mb-a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker></defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+    .h { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+    .l { font-size: 11px; fill: #343a40; }
+    .w { stroke: #495057; stroke-width: 1.8; fill: none; marker-end: url(#mb-a); }
+  </style>
+  <text class="l" x="20" y="20" style="font-weight:700">Beteiligung des Betriebsrats nach dem BetrVG – von schwach (unten) nach stark (oben)</text>
+  <rect x="20" y="222" width="130" height="30" rx="5" fill="#e7f1ff"/>
+  <text x="30" y="241" style="font-size:11.5px;font-weight:700;fill:#212529">Information</text>
+  <text class="l" x="162" y="241">wirtschaftliche Lage, Personalplanung (§§ 90, 92)</text>
+  <rect x="20" y="184" width="162" height="30" rx="5" fill="#cfe2ff"/>
+  <text x="30" y="203" style="font-size:11.5px;font-weight:700;fill:#212529">Anhörung</text>
+  <text class="l" x="194" y="203">vor jeder Kündigung – ohne Anhörung unwirksam (§ 102)</text>
+  <rect x="20" y="146" width="194" height="30" rx="5" fill="#b6d4fe"/>
+  <text x="30" y="165" style="font-size:11.5px;font-weight:700;fill:#212529">Beratung</text>
+  <text class="l" x="226" y="165">Betriebsänderungen, Gestaltung der Arbeitsplätze (§§ 90, 111)</text>
+  <rect x="20" y="108" width="226" height="30" rx="5" fill="#9ec5fe"/>
+  <text x="30" y="127" style="font-size:11.5px;font-weight:700;fill:#212529">Widerspruch</text>
+  <text class="l" x="258" y="127">gegen eine Kündigung, z. B. wegen falscher Sozialauswahl (§ 102)</text>
+  <rect x="20" y="70" width="258" height="30" rx="5" fill="#6ea8fe"/>
+  <text x="30" y="89" style="font-size:11.5px;font-weight:700;fill:#fff">Zustimmungsverweigerung</text>
+  <text class="l" x="290" y="89">bei Einstellung, Eingruppierung, Versetzung (§ 99)</text>
+  <rect x="20" y="32" width="290" height="30" rx="5" fill="#0d6efd"/>
+  <text x="30" y="51" style="font-size:11.5px;font-weight:700;fill:#fff">Mitbestimmung</text>
+  <text class="l" x="322" y="51">Lage der Arbeitszeit, Urlaubsplan, Überwachungssoftware (§ 87)</text>
+  <path class="w" d="M8,256 V40"/>
+  <text class="l" x="20" y="272">Nur bei echter Mitbestimmung entscheidet im Streitfall die Einigungsstelle – der Arbeitgeber kann nicht allein handeln.</text>
+</svg>
