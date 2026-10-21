@@ -24,7 +24,7 @@ function lernfeld_meta() {
         'LF3'  => ['title' => 'Clients in Netzwerke einbinden', 'icon' => 'diagram-3', 'ap' => 'AP1', 'legacy_title' => 'Informationsquellen und Arbeitsmethoden'],
         'LF4'  => ['title' => 'Schutzbedarfsanalyse im eigenen Arbeitsbereich durchführen', 'icon' => 'shield-lock', 'ap' => 'AP1'],
         'LF5'  => ['title' => 'Software zur Verwaltung von Daten anpassen', 'icon' => 'database', 'ap' => 'AP1 + AP2'],
-        'LF6'  => ['title' => 'Serviceanfragen bearbeiten', 'icon' => 'headset', 'ap' => 'AP1', 'legacy_title' => 'IT-Systeme integrieren'],
+        'LF6'  => ['title' => 'Serviceanfragen bearbeiten', 'icon' => 'headset', 'ap' => 'AP1'],
         'LF7'  => ['title' => 'Cyber-physische Systeme ergänzen', 'icon' => 'cpu', 'ap' => 'AP2', 'legacy_title' => 'IT-Sicherheit'],
         'LF8'  => ['title' => 'Daten systemübergreifend bereitstellen', 'icon' => 'arrow-left-right', 'ap' => 'AP2'],
         'LF9'  => ['title' => 'Netzwerke und Dienste bereitstellen', 'icon' => 'hdd-network', 'ap' => 'AP2'],

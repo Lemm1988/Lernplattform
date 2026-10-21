@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-labelledby="so-title so-desc">
+  <title id="so-title">SLA, OLA und Underpinning Contract</title>
+  <desc id="so-desc">Zwischen dem Kunden, etwa der Fachabteilung Vertrieb, und der IT als Service-Provider gilt ein Service Level Agreement, zum Beispiel Lösungszeit 4 Stunden für Priorität 2. Innerhalb der IT stützt ein Operational Level Agreement mit dem internen Netzwerkteam diese Zusage, etwa Reaktion in 1 Stunde. Mit dem externen Hosting-Anbieter gilt ein Underpinning Contract, etwa Wiederherstellung in 2 Stunden. OLA und Underpinning Contract müssen strenger oder gleich streng sein wie das SLA, sonst kann die IT ihre Zusage nicht halten.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .ku { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .it { fill: #343a40; }
+      .itt { fill: #fff; font-weight: 700; font-size: 12.5px; text-anchor: middle; }
+      .its { fill: #ced4da; font-size: 10.5px; text-anchor: middle; }
+      .tm { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .ex { fill: #fff8e1; stroke: #b98900; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .ln { stroke: #495057; stroke-width: 1.8; }
+      .lab { font-weight: 800; font-size: 12px; text-anchor: middle; }
+    </style>
+  </defs>
+  <rect class="ku" x="20" y="70" width="160" height="64" rx="8"/><text class="h c" x="100" y="96">Kunde</text><text class="s c" x="100" y="114">Fachabteilung Vertrieb</text>
+  <rect class="it" x="280" y="70" width="170" height="64" rx="8"/><text class="itt" x="365" y="96">IT (Service-Provider)</text><text class="its" x="365" y="114">Service Desk, Betrieb</text>
+  <rect class="tm" x="540" y="20" width="160" height="56" rx="8"/><text class="h c" x="620" y="44">internes Netzwerkteam</text><text class="s c" x="620" y="62">gleiche Firma</text>
+  <rect class="ex" x="540" y="128" width="160" height="56" rx="8"/><text class="h c" x="620" y="152">Hosting-Anbieter</text><text class="s c" x="620" y="170">externer Lieferant</text>
+  <line class="ln" x1="180" y1="102" x2="280" y2="102"/>
+  <line class="ln" x1="450" y1="90" x2="540" y2="52"/><line class="ln" x1="450" y1="114" x2="540" y2="152"/>
+  <text class="lab" x="230" y="94" style="fill:#0a58ca">SLA</text><text class="s c" x="230" y="122">P2: Lösung 4 h</text>
+  <text class="lab" x="488" y="58">OLA</text><text class="s c" x="470" y="40">Reaktion 1 h</text>
+  <text class="lab" x="488" y="150" style="fill:#8a6700">UC</text><text class="s c" x="476" y="170">Wiederherst. 2 h</text>
+  <text class="s" x="20" y="208"><tspan font-weight="700">SLA</tspan> Service Level Agreement · <tspan font-weight="700">OLA</tspan> Operational Level Agreement (intern) · <tspan font-weight="700">UC</tspan> Underpinning Contract (extern)</text>
+  <text class="s" x="20" y="228">OLA und UC müssen die Zusagen des SLA stützen – braucht der Hoster 8 h, kann die IT keine 4 h versprechen.</text>
+</svg>

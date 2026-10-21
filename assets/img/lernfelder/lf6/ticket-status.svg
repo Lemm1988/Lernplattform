@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-labelledby="ts-title ts-desc">
+  <title id="ts-title">Lebenszyklus eines Tickets</title>
+  <desc id="ts-desc">Ein Ticket ist zuerst neu, wird dann einer Person oder Gruppe zugewiesen und ist in Bearbeitung. Fehlen Informationen vom Anwender oder von einem Dritten, wechselt es in den Status wartend und danach zurück in die Bearbeitung. Ist eine Lösung gefunden und mitgeteilt, ist es gelöst. Bestätigt der Anwender oder vergeht eine Frist, zum Beispiel fünf Arbeitstage, wird es geschlossen. Meldet der Anwender, dass das Problem weiter besteht, wird es wiedereröffnet und ist erneut in Bearbeitung.</desc>
+  <defs>
+    <marker id="ts-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .st { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .wt { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .ok { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .cl { fill: #e2e3e5; stroke: #6c757d; stroke-width: 1.4; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.6; marker-end: url(#ts-arr); fill: none; }
+      .re { stroke: #b02a37; stroke-width: 1.5; stroke-dasharray: 5 4; marker-end: url(#ts-arr); fill: none; }
+    </style>
+  </defs>
+  <rect class="st" x="20" y="70" width="90" height="40" rx="20"/><text class="h c" x="65" y="94">neu</text>
+  <rect class="st" x="140" y="70" width="110" height="40" rx="20"/><text class="h c" x="195" y="94">zugewiesen</text>
+  <rect class="st" x="280" y="70" width="130" height="40" rx="20"/><text class="h c" x="345" y="94">in Bearbeitung</text>
+  <rect class="ok" x="450" y="70" width="100" height="40" rx="20"/><text class="h c" x="500" y="94">gelöst</text>
+  <rect class="cl" x="590" y="70" width="110" height="40" rx="20"/><text class="h c" x="645" y="94">geschlossen</text>
+  <rect class="wt" x="290" y="160" width="110" height="40" rx="20"/><text class="h c" x="345" y="184">wartend</text>
+  <path class="ar" d="M110,90 H136"/><path class="ar" d="M250,90 H276"/><path class="ar" d="M410,90 H446"/><path class="ar" d="M550,90 H586"/>
+  <path class="ar" d="M330,110 V156"/><path class="ar" d="M360,160 V114"/>
+  <path class="re" d="M500,70 V36 H345 V66"/>
+  <text class="s c" x="422" y="30">Problem besteht weiter → wiedereröffnet</text>
+  <text class="s" x="420" y="176">auf Anwender oder Dritte –</text><text class="s" x="420" y="192">SLA-Uhr pausiert oft</text>
+  <text class="s" x="450" y="132">Lösung mitgeteilt</text><text class="s" x="590" y="132">bestätigt oder nach</text><text class="s" x="590" y="148">Frist (z. B. 5 Tage)</text>
+  <text class="s" x="20" y="226">Jeder Statuswechsel wird mit Zeitstempel protokolliert – daraus entstehen Reaktions- und Lösungszeiten.</text>
+</svg>

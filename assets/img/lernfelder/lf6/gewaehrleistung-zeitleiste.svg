@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="gz-title gz-desc">
+  <title id="gz-title">Gewährleistung und Garantie auf der Zeitachse</title>
+  <desc id="gz-desc">Zeitachse ab der Übergabe einer neuen Ware an eine Verbraucherin, in Monaten bis 36. Die gesetzliche Gewährleistung gegenüber dem Verkäufer läuft 24 Monate. In den ersten 12 Monaten gilt die Beweislastumkehr: Zeigt sich ein Mangel, wird vermutet, dass er schon bei der Übergabe vorlag; der Verkäufer muss das Gegenteil beweisen. Von Monat 12 bis 24 muss die Käuferin beweisen, dass der Mangel schon bei Übergabe bestand. Eine Herstellergarantie ist freiwillig; im Beispiel läuft sie 36 Monate zu den Bedingungen des Herstellers und gilt zusätzlich zur Gewährleistung.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .ax { stroke: #495057; stroke-width: 1.5; }
+      .tk { font-size: 10.5px; fill: #495057; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 11.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .lb { font-weight: 700; font-size: 11px; fill: #495057; }
+    </style>
+  </defs>
+  <!-- 0..36 Monate auf x 150..690 (15 px je Monat) -->
+  <text class="lb" x="14" y="56">Gewährleistung</text><text class="s" x="14" y="72">gegenüber Verkäufer</text>
+  <rect x="150" y="40" width="180" height="40" fill="#d1e7dd" stroke="#fff" stroke-width="2"/><text class="h c" x="240" y="58">Beweislastumkehr</text><text class="s c" x="240" y="73">Verkäufer muss beweisen</text>
+  <rect x="330" y="40" width="180" height="40" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="h c" x="420" y="58">Käufer muss beweisen,</text><text class="s c" x="420" y="73">dass Mangel schon da war</text>
+  <text class="lb" x="14" y="122">Garantie</text><text class="s" x="14" y="138">vom Hersteller, freiwillig</text>
+  <rect x="150" y="106" width="540" height="40" fill="#e7f1ff" stroke="#fff" stroke-width="2"/><text class="h c" x="420" y="124">Herstellergarantie, z. B. 36 Monate</text><text class="s c" x="420" y="139">Bedingungen legt der Hersteller fest</text>
+  <line class="ax" x1="150" y1="164" x2="690" y2="164"/>
+  <line class="ax" x1="150" y1="158" x2="150" y2="170"/><line class="ax" x1="330" y1="158" x2="330" y2="170"/><line class="ax" x1="510" y1="158" x2="510" y2="170"/><line class="ax" x1="690" y1="158" x2="690" y2="170"/>
+  <text class="tk" x="150" y="184">Übergabe</text><text class="tk" x="330" y="184">12 Monate</text><text class="tk" x="510" y="184">24 Monate</text><text class="tk" x="690" y="184" style="text-anchor:end">36</text>
+  <text class="s" x="14" y="214">Verbraucherkauf neuer Ware. Die Garantie gilt zusätzlich – sie darf die gesetzlichen Rechte nicht einschränken.</text>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 260" role="img" aria-labelledby="wk-title wk-desc">
+  <title id="wk-title">Kreislauf der Wissensdatenbank</title>
+  <desc id="wk-desc">Ein Kreislauf um die Wissensdatenbank. Ein Ticket wird gelöst. Die Lösung wird als Artikel erfasst. Der Artikel wird wiederverwendet: vom 1st Level und von Anwendern im Self-Service-Portal. Rückmeldungen verbessern den Artikel, und er hilft beim nächsten Ticket. Rechts die Bestandteile eines guten Artikels: Titel beschreibt das Symptom aus Sicht des Anwenders, betroffene Umgebung und Version, Ursache, Lösung in nummerierten Schritten, Workaround falls vorhanden, Datum der letzten Prüfung und verantwortliche Person.</desc>
+  <defs>
+    <marker id="wk-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .nd { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .kb { fill: #343a40; }
+      .kbt { fill: #fff; font-weight: 700; font-size: 12px; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 11.5px; text-anchor: middle; }
+      .ar { stroke: #495057; stroke-width: 1.6; marker-end: url(#wk-arr); fill: none; }
+      .pn { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .ph { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+    </style>
+  </defs>
+  <circle class="kb" cx="210" cy="130" r="46"/><text class="kbt" x="210" y="126">Wissens-</text><text class="kbt" x="210" y="142">datenbank</text>
+  <rect class="nd" x="135" y="14" width="150" height="40" rx="20"/><text class="h" x="210" y="38">Ticket gelöst</text>
+  <rect class="nd" x="300" y="110" width="150" height="40" rx="20"/><text class="h" x="375" y="134">als Artikel erfassen</text>
+  <rect class="nd" x="135" y="206" width="150" height="40" rx="20"/><text class="h" x="210" y="223">wiederverwenden</text><text class="c" x="210" y="238" style="font-size:10px;fill:#343a40">1st Level, Self-Service</text>
+  <rect class="nd" x="14" y="110" width="150" height="40" rx="20"/><text class="h" x="89" y="134">verbessern</text>
+  <path class="ar" d="M285,40 C340,50 370,80 375,106"/>
+  <path class="ar" d="M375,150 C370,185 330,215 289,222"/>
+  <path class="ar" d="M135,226 C90,215 80,185 86,154"/>
+  <path class="ar" d="M90,110 C95,70 110,48 131,38"/>
+
+  <rect class="pn" x="470" y="14" width="236" height="232" rx="8"/>
+  <text class="ph" x="484" y="38">Ein guter Artikel enthält</text>
+  <text class="s" x="484" y="62">• Titel = Symptom aus Anwendersicht</text>
+  <text class="s" x="494" y="77">(„Outlook fragt ständig nach</text><text class="s" x="494" y="92">dem Passwort“)</text>
+  <text class="s" x="484" y="114">• Umgebung, Version, Geltung</text>
+  <text class="s" x="484" y="136">• Ursache, soweit bekannt</text>
+  <text class="s" x="484" y="158">• Lösung in nummerierten Schritten</text>
+  <text class="s" x="484" y="180">• Workaround, falls vorhanden</text>
+  <text class="s" x="484" y="202">• zuletzt geprüft am, verantwortlich</text>
+  <text class="s" x="484" y="224">• Schlagwörter für die Suche</text>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 290" role="img" aria-labelledby="sl-title sl-desc">
+  <title id="sl-title">Support-Level und Eskalation</title>
+  <desc id="sl-desc">Links drei Support-Level. 1st Level ist der Service Desk: Annahme, Erfassung und Standardlösungen wie Passwort zurücksetzen oder Drucker einrichten. 2nd Level sind Fachteams für Server, Netz und Anwendungen mit vertiefter Analyse. 3rd Level sind Entwicklung und Hersteller, etwa bei Fehlern im Programmcode oder Garantiefällen. Die Weitergabe an ein Level mit mehr Fachwissen heißt funktionale Eskalation. Rechts die hierarchische Eskalation: von der Bearbeiterin über die Teamleitung bis zur IT-Leitung, wenn Entscheidungen, zusätzliche Ressourcen oder Information der Führung nötig sind, etwa bei drohender SLA-Verletzung oder einer Beschwerde.</desc>
+  <defs>
+    <marker id="sl-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .l1 { fill: #cfe2ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .l2 { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .l3 { fill: #f3f8ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .hi { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; }
+      .h { font-weight: 700; font-size: 12.5px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ar { stroke: #0a58ca; stroke-width: 2; marker-end: url(#sl-arr); fill: none; }
+      .ah { stroke: #b98900; stroke-width: 2; marker-end: url(#sl-arr); fill: none; }
+      .lab { font-size: 11px; font-weight: 700; }
+    </style>
+  </defs>
+  <rect class="l1" x="60" y="20" width="360" height="62" rx="8"/><text class="h c" x="240" y="42">1st Level – Service Desk</text>
+  <text class="s c" x="240" y="62">Annahme, Erfassung, Standardlösungen</text><text class="s c" x="240" y="76">(Passwort zurücksetzen, Drucker einrichten)</text>
+  <rect class="l2" x="90" y="102" width="300" height="62" rx="8"/><text class="h c" x="240" y="124">2nd Level – Fachteams</text>
+  <text class="s c" x="240" y="144">Server, Netz, Anwendungen:</text><text class="s c" x="240" y="158">vertiefte Analyse</text>
+  <rect class="l3" x="120" y="184" width="240" height="62" rx="8"/><text class="h c" x="240" y="206">3rd Level</text>
+  <text class="s c" x="240" y="226">Entwicklung, Hersteller:</text><text class="s c" x="240" y="240">Codefehler, Garantiefall</text>
+  <path class="ar" d="M60,52 H40 V214 H116"/><path class="ar" d="M40,134 H86"/>
+  <text class="lab" x="20" y="272" style="fill:#0a58ca">funktionale Eskalation: zu mehr Fachwissen</text>
+
+  <rect class="hi" x="490" y="20" width="210" height="44" rx="6"/><text class="h" x="502" y="47">IT-Leitung</text>
+  <rect class="hi" x="490" y="102" width="210" height="44" rx="6"/><text class="h" x="502" y="129">Teamleitung</text>
+  <rect class="hi" x="490" y="184" width="210" height="44" rx="6"/><text class="h" x="502" y="211">Bearbeiter/in</text>
+  <path class="ah" d="M490,206 H470 V128 H486"/><path class="ah" d="M490,124 H476 V46 H486"/>
+  <text class="lab" x="440" y="254" style="fill:#8a6700">hierarchische Eskalation: zu mehr Befugnis</text>
+  <text class="s" x="440" y="272">bei drohender SLA-Verletzung, Beschwerde, Kosten</text>
+</svg>

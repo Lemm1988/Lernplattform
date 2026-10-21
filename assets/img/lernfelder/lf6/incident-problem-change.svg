@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="ipc-title ipc-desc">
+  <title id="ipc-title">Vom Incident über das Problem zum Change</title>
+  <desc id="ipc-desc">Am Montag gehen 40 Störungsmeldungen ein: Die VPN-Verbindung bricht ab. Incident Management stellt den Betrieb schnell wieder her, mit dem Workaround neu verbinden. Weil die Ursache unbekannt ist, wird ein Problem angelegt. Problem Management findet die Ursache, einen Firmware-Fehler im VPN-Gateway. Damit ist es ein Known Error, der Workaround wird dokumentiert. Die dauerhafte Lösung ist ein Change: Firmware-Update am Samstag um 22 Uhr, vorher getestet, mit Rollback-Plan. Danach werden Incidents und Problem geschlossen.</desc>
+  <defs>
+    <marker id="ipc-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .inc { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.3; }
+      .prb { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .chg { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .ok { fill: #d1e7dd; stroke: #198754; stroke-width: 1.4; }
+      .h { font-weight: 700; font-size: 11.5px; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .m { font-family: ui-monospace, Consolas, monospace; font-size: 10px; fill: #495057; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#ipc-arr); fill: none; }
+      .lane { font-size: 10.5px; font-weight: 700; fill: #495057; letter-spacing: .03em; }
+      .br { stroke: #adb5bd; stroke-width: 1.2; fill: none; }
+    </style>
+  </defs>
+  <path class="br" d="M20,40 V34 H150 V40"/><text class="lane" x="20" y="26">INCIDENT MANAGEMENT</text>
+  <path class="br" d="M178,40 V34 H452 V40"/><text class="lane" x="178" y="26">PROBLEM MANAGEMENT</text>
+  <path class="br" d="M480,40 V34 H600 V40"/><text class="lane" x="480" y="26">CHANGE</text>
+
+  <rect class="inc" x="32" y="62" width="118" height="96" rx="6"/>
+  <rect class="inc" x="26" y="56" width="118" height="96" rx="6"/>
+  <rect class="inc" x="20" y="50" width="118" height="96" rx="6"/>
+  <text class="m" x="30" y="68">INC-1041, -1043 …</text>
+  <text class="h" x="30" y="88">40 Meldungen:</text><text class="s" x="30" y="104">„VPN bricht ab“</text>
+  <text class="s" x="30" y="124">Workaround:</text><text class="s" x="30" y="138">neu verbinden</text>
+
+  <rect class="prb" x="178" y="50" width="122" height="96" rx="6"/>
+  <text class="m" x="188" y="68">PRB-17</text><text class="h" x="188" y="88">Problem</text>
+  <text class="s" x="188" y="104">Ursache</text><text class="s" x="188" y="118">unbekannt:</text><text class="s" x="188" y="132">Warum bricht es ab?</text>
+
+  <rect class="prb" x="330" y="50" width="122" height="96" rx="6"/>
+  <text class="h" x="340" y="72">Known Error</text>
+  <text class="s" x="340" y="92">Ursache: Firmware-</text><text class="s" x="340" y="106">Fehler im Gateway</text>
+  <text class="s" x="340" y="126">Workaround in der</text><text class="s" x="340" y="140">Wissensdatenbank</text>
+
+  <rect class="chg" x="480" y="50" width="120" height="96" rx="6"/>
+  <text class="m" x="490" y="68">CHG-88</text><text class="h" x="490" y="88">Firmware-Update</text>
+  <text class="s" x="490" y="104">Sa 22 Uhr</text><text class="s" x="490" y="118">vorher getestet,</text><text class="s" x="490" y="132">mit Rollback-Plan</text>
+
+  <rect class="ok" x="626" y="50" width="80" height="96" rx="6"/>
+  <text class="h c" x="666" y="88">Incidents</text><text class="h c" x="666" y="104">und Problem</text><text class="h c" x="666" y="120">geschlossen</text>
+  <path class="ar" d="M150,98 H174"/><path class="ar" d="M300,98 H326"/><path class="ar" d="M452,98 H476"/><path class="ar" d="M600,98 H622"/>
+
+  <text class="s" x="20" y="190" style="font-weight:700">Incident:</text><text class="s" x="90" y="190">Service schnell wiederherstellen – ein Workaround genügt.</text>
+  <text class="s" x="20" y="210" style="font-weight:700">Problem:</text><text class="s" x="90" y="210">Ursache eines oder mehrerer Incidents finden und dauerhaft beseitigen.</text>
+  <text class="s" x="20" y="230" style="font-weight:700">Change:</text><text class="s" x="90" y="230">jede Änderung, die Services beeinflussen kann – geplant, bewertet, genehmigt, dokumentiert.</text>
+  <text class="s" x="20" y="256">Ohne Problem Management würde der Service Desk jede Woche 40 VPN-Tickets mit demselben Workaround lösen.</text>
+</svg>

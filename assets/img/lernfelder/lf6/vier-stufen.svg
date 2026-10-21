@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 180" role="img" aria-labelledby="vst-title vst-desc">
+  <title id="vst-title">Vier-Stufen-Methode für Schulungen</title>
+  <desc id="vst-desc">Vier Stufen, um eine Tätigkeit zu vermitteln, etwa das Anlegen eines Tickets im neuen Portal. 1 Vorbereiten: Ziel und Nutzen erklären, Vorwissen klären, Arbeitsplatz einrichten. 2 Vormachen und erklären: Die Trainerin zeigt jeden Schritt und erklärt das Warum. 3 Nachmachen und erklären lassen: Teilnehmende führen die Schritte selbst aus und sagen dabei, was sie tun; Fehler werden sofort korrigiert. 4 Üben: selbstständig an weiteren Beispielen, Hilfe nur bei Bedarf, Ergebnis gemeinsam prüfen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .ch { fill: #d1e7dd; stroke: #198754; stroke-width: 1.3; }
+      .n { font-weight: 800; font-size: 13px; fill: #146c43; }
+      .h { font-weight: 700; font-size: 11.5px; }
+      .s { font-size: 10.5px; fill: #343a40; }
+    </style>
+  </defs>
+  <polygon class="ch" points="14,16 170,16 186,48 170,80 14,80"/>
+  <polygon class="ch" points="190,16 346,16 362,48 346,80 190,80 206,48"/>
+  <polygon class="ch" points="366,16 522,16 538,48 522,80 366,80 382,48"/>
+  <polygon class="ch" points="542,16 690,16 706,48 690,80 542,80 558,48"/>
+  <text class="n" x="28" y="44">1</text><text class="h" x="44" y="44">Vorbereiten</text>
+  <text class="n" x="218" y="44">2</text><text class="h" x="234" y="44">Vormachen, erklären</text>
+  <text class="n" x="394" y="44">3</text><text class="h" x="410" y="44">Nachmachen lassen</text>
+  <text class="n" x="570" y="44">4</text><text class="h" x="586" y="44">Üben</text>
+  <text class="s" x="28" y="64">Ziel und Nutzen</text><text class="s" x="218" y="64">jeden Schritt zeigen</text><text class="s" x="394" y="64">selbst ausführen</text><text class="s" x="570" y="64">selbstständig</text>
+  <text class="s" x="14" y="106">Vorwissen klären,</text><text class="s" x="14" y="121">Arbeitsplatz einrichten,</text><text class="s" x="14" y="136">Interesse wecken</text>
+  <text class="s" x="190" y="106">Schritt für Schritt, mit</text><text class="s" x="190" y="121">dem Warum; Tempo der</text><text class="s" x="190" y="136">Gruppe beachten</text>
+  <text class="s" x="366" y="106">dabei erklären lassen,</text><text class="s" x="366" y="121">was man tut; Fehler</text><text class="s" x="366" y="136">sofort freundlich korrigieren</text>
+  <text class="s" x="542" y="106">an neuen Beispielen,</text><text class="s" x="542" y="121">Hilfe nur bei Bedarf,</text><text class="s" x="542" y="136">Ergebnis gemeinsam prüfen</text>
+  <text class="s" x="14" y="166" style="font-weight:700">Beispiel: Kolleginnen und Kollegen lernen, im neuen Self-Service-Portal ein Ticket anzulegen.</text>
+</svg>

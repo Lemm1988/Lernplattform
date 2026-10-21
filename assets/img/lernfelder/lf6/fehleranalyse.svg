@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 240" role="img" aria-labelledby="fa-title fa-desc">
+  <title id="fa-title">Systematische Fehleranalyse</title>
+  <desc id="fa-desc">Sieben Schritte. 1 Informationen sammeln: W-Fragen, Fehlermeldung, Logs, was wurde geändert. 2 Reproduzieren: Tritt der Fehler zuverlässig auf und unter welchen Bedingungen? 3 Eingrenzen: Vergleich mit einem funktionierenden System, Schicht für Schicht, halbieren. 4 Hypothese testen: eine vermutete Ursache prüfen, immer nur eine Änderung gleichzeitig. 5 Lösung umsetzen. 6 Ergebnis prüfen, am besten mit dem Anwender. Ist der Fehler nicht behoben, zurück zu Schritt 3 und die Änderung rückgängig machen. 7 Dokumentieren: im Ticket und in der Wissensdatenbank.</desc>
+  <defs>
+    <marker id="fa-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .bx { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .ok { fill: #d1e7dd; stroke: #198754; stroke-width: 1.3; }
+      .nt { fill: #fff8e1; stroke: #b98900; stroke-width: 1.3; }
+      .n { font-weight: 800; font-size: 13px; fill: #0a58ca; }
+      .h { font-weight: 700; font-size: 11.5px; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.6; marker-end: url(#fa-arr); fill: none; }
+      .bk { stroke: #b02a37; stroke-width: 1.5; stroke-dasharray: 5 4; marker-end: url(#fa-arr); fill: none; }
+    </style>
+  </defs>
+  <rect class="bx" x="14" y="16" width="150" height="72" rx="6"/><text class="n" x="24" y="36">1</text><text class="h" x="40" y="36">Infos sammeln</text>
+  <text class="s" x="24" y="56">W-Fragen, Meldung,</text><text class="s" x="24" y="72">Logs, letzte Änderung</text>
+  <rect class="bx" x="190" y="16" width="150" height="72" rx="6"/><text class="n" x="200" y="36">2</text><text class="h" x="216" y="36">Reproduzieren</text>
+  <text class="s" x="200" y="56">Wann genau? Immer?</text><text class="s" x="200" y="72">Bei wem? Wo?</text>
+  <rect class="bx" x="366" y="16" width="150" height="72" rx="6"/><text class="n" x="376" y="36">3</text><text class="h" x="392" y="36">Eingrenzen</text>
+  <text class="s" x="376" y="56">Vergleich, Schicht für</text><text class="s" x="376" y="72">Schicht, halbieren</text>
+  <rect class="bx" x="542" y="16" width="150" height="72" rx="6"/><text class="n" x="552" y="36">4</text><text class="h" x="568" y="36">Hypothese testen</text>
+  <text class="s" x="552" y="56">eine vermutete Ursache,</text><text class="s" x="552" y="72">eine Änderung zur Zeit</text>
+
+  <rect class="bx" x="542" y="128" width="150" height="72" rx="6"/><text class="n" x="552" y="148">5</text><text class="h" x="568" y="148">Lösung umsetzen</text>
+  <text class="s" x="552" y="168">ggf. als Change</text><text class="s" x="552" y="184">(Kapitel 3)</text>
+  <rect class="bx" x="366" y="128" width="150" height="72" rx="6"/><text class="n" x="376" y="148">6</text><text class="h" x="392" y="148">Ergebnis prüfen</text>
+  <text class="s" x="376" y="168">mit dem Anwender</text><text class="s" x="376" y="184">testen</text>
+  <rect class="ok" x="190" y="128" width="150" height="72" rx="6"/><text class="n" x="200" y="148">7</text><text class="h" x="216" y="148">Dokumentieren</text>
+  <text class="s" x="200" y="168">Ticket, Ursache,</text><text class="s" x="200" y="184">Wissensdatenbank</text>
+  <rect class="nt" x="14" y="128" width="150" height="72" rx="6"/><text class="h" x="24" y="148">Goldene Regel</text>
+  <text class="s" x="24" y="168">Wirkungslose Änderungen</text><text class="s" x="24" y="184">zurücknehmen!</text>
+
+  <path class="ar" d="M164,52 H186"/><path class="ar" d="M340,52 H362"/><path class="ar" d="M516,52 H538"/>
+  <path class="ar" d="M617,88 V124"/><path class="ar" d="M542,164 H520"/><path class="ar" d="M366,164 H344"/>
+  <path class="bk" d="M441,128 V92"/><text class="s" x="450" y="114" style="fill:#b02a37">nicht gelöst</text>
+  <text class="s" x="14" y="228">Ohne Schritt 1 und 2 wird geraten. Wer mehrere Dinge gleichzeitig ändert, weiß hinterher nicht, was geholfen hat.</text>
+</svg>

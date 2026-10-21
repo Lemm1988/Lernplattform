@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="ik-title ik-desc">
+  <title id="ik-title">Ishikawa-Diagramm: Druckaufträge gehen verloren</title>
+  <desc id="ik-desc">Ein Ursache-Wirkungs-Diagramm in Fischgrätenform. Am Kopf rechts die Wirkung: Druckaufträge gehen verloren. Sechs Hauptgräten mit möglichen Ursachen. Mensch: falscher Drucker gewählt, Auftrag doppelt abgebrochen. Methode: kein Standard für Druckertreiber. Software: veralteter Treiber, Druckwarteschlange hängt. Hardware: Speicher im Drucker voll, defektes Netzteil. Umgebung und Netz: WLAN-Abbrüche, IP-Adresse des Druckers wechselt. Management: kein Wartungsvertrag.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .sp { stroke: #343a40; stroke-width: 3; }
+      .bn { stroke: #6c757d; stroke-width: 2; }
+      .hd { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.6; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 10.5px; fill: #343a40; }
+      .ht { font-weight: 700; font-size: 12px; text-anchor: middle; }
+    </style>
+  </defs>
+  <line class="sp" x1="30" y1="140" x2="560" y2="140"/>
+  <path class="hd" d="M560,104 H690 a14,14 0 0 1 14,14 V162 a14,14 0 0 1 -14,14 H560 Z"/>
+  <text class="ht" x="632" y="134">Druckaufträge</text><text class="ht" x="632" y="152">gehen verloren</text>
+
+  <line class="bn" x1="70" y1="40" x2="130" y2="140"/><line class="bn" x1="240" y1="40" x2="300" y2="140"/><line class="bn" x1="410" y1="40" x2="470" y2="140"/>
+  <line class="bn" x1="70" y1="240" x2="130" y2="140"/><line class="bn" x1="240" y1="240" x2="300" y2="140"/><line class="bn" x1="410" y1="240" x2="470" y2="140"/>
+
+  <text class="h" x="40" y="30">Mensch</text>
+  <text class="s" x="96" y="72">falscher Drucker gewählt</text><text class="s" x="110" y="96">Auftrag abgebrochen</text>
+  <text class="h" x="210" y="30">Methode</text>
+  <text class="s" x="266" y="72">kein Standard für</text><text class="s" x="280" y="88">Druckertreiber</text>
+  <text class="h" x="380" y="30">Software</text>
+  <text class="s" x="436" y="72">veralteter Treiber</text><text class="s" x="450" y="96">Warteschlange hängt</text>
+
+  <text class="h" x="40" y="260">Hardware</text>
+  <text class="s" x="110" y="190">Speicher im Drucker voll</text><text class="s" x="96" y="214">Netzteil defekt</text>
+  <text class="h" x="210" y="260">Umgebung, Netz</text>
+  <text class="s" x="280" y="190">WLAN bricht ab</text><text class="s" x="266" y="214">Drucker-IP wechselt</text>
+  <text class="h" x="380" y="260">Management</text>
+  <text class="s" x="450" y="190">kein Wartungsvertrag</text>
+  <text class="s" x="560" y="214">Mögliche Ursachen sammeln,</text><text class="s" x="560" y="230">dann gezielt prüfen</text>
+</svg>

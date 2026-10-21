@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 230" role="img" aria-labelledby="mr-title mr-desc">
+  <title id="mr-title">Rechte des Käufers bei einem Mangel</title>
+  <desc id="mr-desc">Liegt bei Übergabe ein Mangel vor, hat der Käufer zuerst Anspruch auf Nacherfüllung. Er wählt zwischen Nachbesserung, also Reparatur, und Nachlieferung, also einer mangelfreien Ersatzsache. Erst wenn die Nacherfüllung fehlschlägt, in der Regel nach dem zweiten erfolglosen Versuch, verweigert wird oder unzumutbar ist, kann er vom Vertrag zurücktreten, sofern der Mangel nicht nur unerheblich ist, oder den Preis mindern. Zusätzlich kann er Schadensersatz verlangen, wenn der Verkäufer den Mangel zu vertreten hat.</desc>
+  <defs>
+    <marker id="mr-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#495057"/></marker>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .m { fill: #f8d7da; stroke: #b02a37; stroke-width: 1.4; }
+      .s1 { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.4; }
+      .s2 { fill: #fff3cd; stroke: #b98900; stroke-width: 1.4; }
+      .se { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.3; stroke-dasharray: 5 4; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .ar { stroke: #495057; stroke-width: 1.7; marker-end: url(#mr-arr); fill: none; }
+      .n { font-weight: 800; font-size: 12px; fill: #0a58ca; }
+    </style>
+  </defs>
+  <rect class="m" x="14" y="60" width="120" height="60" rx="6"/><text class="h c" x="74" y="86">Mangel bei</text><text class="h c" x="74" y="102">Übergabe</text>
+  <rect class="s1" x="170" y="30" width="200" height="120" rx="8"/><text class="n" x="182" y="52">Stufe 1</text><text class="h" x="236" y="52">Nacherfüllung</text>
+  <text class="s" x="182" y="76">Käufer wählt:</text><text class="s" x="182" y="94">• Nachbesserung (Reparatur)</text><text class="s" x="182" y="112">• Nachlieferung (Ersatz)</text>
+  <text class="s" x="182" y="138">Verkäufer trägt die Kosten</text>
+  <rect class="s2" x="440" y="30" width="266" height="120" rx="8"/><text class="n" x="452" y="52">Stufe 2</text><text class="h" x="506" y="52">wenn Nacherfüllung scheitert</text>
+  <text class="s" x="452" y="76">• Rücktritt (nicht bei unerheblichem</text><text class="s" x="464" y="92">Mangel): Ware zurück, Geld zurück</text>
+  <text class="s" x="452" y="112">• oder Minderung: Preis herabsetzen</text>
+  <text class="s" x="452" y="138">„gescheitert“: i. d. R. nach 2 Versuchen</text>
+  <path class="ar" d="M134,90 H166"/><path class="ar" d="M370,90 H436"/>
+  <text class="s c" x="404" y="80">scheitert</text>
+  <rect class="se" x="170" y="168" width="536" height="44" rx="8"/>
+  <text class="h" x="182" y="188">zusätzlich: Schadensersatz</text><text class="s" x="182" y="204">wenn der Verkäufer den Mangel zu vertreten hat, z. B. Datenverlust durch bekannt fehlerhafte Ware</text>
+</svg>

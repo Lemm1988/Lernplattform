@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 200" role="img" aria-labelledby="gp-title gp-desc">
+  <title id="gp-title">Phasen eines Support-Gesprächs</title>
+  <desc id="gp-desc">Fünf Phasen. 1 Begrüßen: Firma, eigener Name, Hilfsangebot. 2 Anliegen erfassen: zuhören, offene und gezielte Fragen stellen. 3 Zusammenfassen: das Verstandene wiederholen und bestätigen lassen. 4 Lösen oder vereinbaren: Lösung umsetzen oder nächste Schritte, Ticketnummer und Zeitrahmen nennen. 5 Abschließen: nachfragen, ob alles geklärt ist, verabschieden. Die Dokumentation im Ticket läuft während des ganzen Gesprächs mit.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .ch { fill: #e7f1ff; stroke: #0d6efd; stroke-width: 1.3; }
+      .n { font-weight: 800; font-size: 13px; fill: #0a58ca; text-anchor: middle; }
+      .h { font-weight: 700; font-size: 11.5px; text-anchor: middle; }
+      .s { font-size: 10.5px; fill: #343a40; text-anchor: middle; }
+      .doc { fill: #f8f9fa; stroke: #6c757d; stroke-width: 1.2; }
+    </style>
+  </defs>
+  <polygon class="ch" points="14,20 134,20 150,52 134,84 14,84"/>
+  <polygon class="ch" points="154,20 274,20 290,52 274,84 154,84 170,52"/>
+  <polygon class="ch" points="294,20 414,20 430,52 414,84 294,84 310,52"/>
+  <polygon class="ch" points="434,20 554,20 570,52 554,84 434,84 450,52"/>
+  <polygon class="ch" points="574,20 690,20 706,52 690,84 574,84 590,52"/>
+  <text class="n" x="76" y="46">1</text><text class="h" x="76" y="66">Begrüßen</text>
+  <text class="n" x="222" y="46">2</text><text class="h" x="222" y="66">Anliegen erfassen</text>
+  <text class="n" x="362" y="46">3</text><text class="h" x="362" y="66">Zusammenfassen</text>
+  <text class="n" x="502" y="46">4</text><text class="h" x="502" y="66">Lösen/vereinbaren</text>
+  <text class="n" x="642" y="46">5</text><text class="h" x="642" y="66">Abschließen</text>
+  <text class="s" x="76" y="106">Firma, Name,</text><text class="s" x="76" y="120">„Wie kann ich</text><text class="s" x="76" y="134">helfen?“</text>
+  <text class="s" x="222" y="106">zuhören, offene,</text><text class="s" x="222" y="120">dann gezielte</text><text class="s" x="222" y="134">Fragen</text>
+  <text class="s" x="362" y="106">„Habe ich richtig</text><text class="s" x="362" y="120">verstanden, dass …?“</text>
+  <text class="s" x="502" y="106">Lösung oder nächste</text><text class="s" x="502" y="120">Schritte, Ticketnr.,</text><text class="s" x="502" y="134">Zeitrahmen</text>
+  <text class="s" x="642" y="106">„Ist damit alles</text><text class="s" x="642" y="120">geklärt?“,</text><text class="s" x="642" y="134">verabschieden</text>
+  <rect class="doc" x="14" y="152" width="692" height="30" rx="6"/>
+  <text class="s" x="360" y="171" style="font-weight:700">Dokumentation im Ticket läuft während des ganzen Gesprächs mit</text>
+</svg>

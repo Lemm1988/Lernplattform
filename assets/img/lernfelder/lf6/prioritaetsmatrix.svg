@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 270" role="img" aria-labelledby="pm-title pm-desc">
+  <title id="pm-title">Prioritätsmatrix aus Auswirkung und Dringlichkeit</title>
+  <desc id="pm-desc">Die Priorität ergibt sich aus Auswirkung und Dringlichkeit, jeweils hoch, mittel oder gering. Hohe Auswirkung und hohe Dringlichkeit ergeben Priorität 1, kritisch. Hoch und mittel ergeben 2, hoch. Hoch und gering, mittel und mittel sowie gering und hoch ergeben 3, mittel. Mittel und gering sowie gering und mittel ergeben 4, niedrig. Gering und gering ergibt 5, planbar. Auswirkung beschreibt, wie viele Personen, Services oder Geschäftsprozesse betroffen sind. Dringlichkeit beschreibt, wie schnell der Schaden wächst.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .cl { font-size: 12px; font-weight: 700; text-anchor: middle; }
+      .ax { font-size: 11.5px; font-weight: 700; fill: #495057; }
+      .tk { font-size: 11px; fill: #343a40; }
+      .s { font-size: 11px; fill: #343a40; }
+      .h { font-weight: 700; font-size: 12px; }
+    </style>
+  </defs>
+  <text class="ax c" x="305.0" y="22">Dringlichkeit: Wie schnell wächst der Schaden?</text>
+  <text class="tk c" x="195.0" y="46">hoch</text>
+  <text class="tk c" x="305.0" y="46">mittel</text>
+  <text class="tk c" x="415.0" y="46">gering</text>
+  <text class="ax" x="20" y="48">Auswirkung ↓</text>
+  <text class="tk" x="130" y="86.0" style="text-anchor:end">hoch</text>
+  <rect x="140" y="56" width="110" height="52" fill="#f8d7da" stroke="#fff" stroke-width="2"/><text class="cl" x="195.0" y="86.0">1 kritisch</text>
+  <rect x="250" y="56" width="110" height="52" fill="#ffe5d0" stroke="#fff" stroke-width="2"/><text class="cl" x="305.0" y="86.0">2 hoch</text>
+  <rect x="360" y="56" width="110" height="52" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="cl" x="415.0" y="86.0">3 mittel</text>
+  <text class="tk" x="130" y="138.0" style="text-anchor:end">mittel</text>
+  <rect x="140" y="108" width="110" height="52" fill="#ffe5d0" stroke="#fff" stroke-width="2"/><text class="cl" x="195.0" y="138.0">2 hoch</text>
+  <rect x="250" y="108" width="110" height="52" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="cl" x="305.0" y="138.0">3 mittel</text>
+  <rect x="360" y="108" width="110" height="52" fill="#d1e7dd" stroke="#fff" stroke-width="2"/><text class="cl" x="415.0" y="138.0">4 niedrig</text>
+  <text class="tk" x="130" y="190.0" style="text-anchor:end">gering</text>
+  <rect x="140" y="160" width="110" height="52" fill="#fff3cd" stroke="#fff" stroke-width="2"/><text class="cl" x="195.0" y="190.0">3 mittel</text>
+  <rect x="250" y="160" width="110" height="52" fill="#d1e7dd" stroke="#fff" stroke-width="2"/><text class="cl" x="305.0" y="190.0">4 niedrig</text>
+  <rect x="360" y="160" width="110" height="52" fill="#e2e3e5" stroke="#fff" stroke-width="2"/><text class="cl" x="415.0" y="190.0">5 planbar</text>
+  <text class="s" x="20" y="238"><tspan font-weight="700">Auswirkung</tspan>: Wie viele Personen, Services, Geschäftsprozesse sind betroffen?</text>
+  <text class="s" x="20" y="256">Nicht maßgeblich: Wer am lautesten ruft. VIP-Regeln gehören, wenn überhaupt, ausdrücklich ins SLA.</text>
+  <text class="h" x="494" y="70">Beispiele</text>
+  <text class="s" x="494" y="92">Ganze Firma ohne E-Mail</text><text class="s" x="672" y="92" style="font-weight:700">→ 1</text>
+  <text class="s" x="494" y="109">Lohnlauf heute, Programm hängt</text><text class="s" x="672" y="109" style="font-weight:700">→ 2</text>
+  <text class="s" x="494" y="126">Ein Drucker, Ausweich-</text><text class="s" x="672" y="126" style="font-weight:700">→ 3</text>
+  <text class="s" x="494" y="143">drucker vorhanden</text>
+  <text class="s" x="494" y="160">Schriftart fehlt bei</text><text class="s" x="672" y="160" style="font-weight:700">→ 4</text>
+  <text class="s" x="494" y="177">einer Person</text>
+  <text class="s" x="494" y="194">Wunsch: zweiter Monitor</text><text class="s" x="672" y="194" style="font-weight:700">→ 5</text>
+</svg>

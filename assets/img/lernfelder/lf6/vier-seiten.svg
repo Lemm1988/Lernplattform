@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 280" role="img" aria-labelledby="vs-title vs-desc">
+  <title id="vs-title">Vier Seiten einer Nachricht im Support</title>
+  <desc id="vs-desc">Ein Anwender ruft an: Der Drucker geht schon wieder nicht! Nach dem Vier-Seiten-Modell enthält die Nachricht vier Botschaften. Sachinhalt: Der Drucker druckt nicht. Selbstkundgabe: Ich bin genervt und stehe unter Zeitdruck. Beziehung: Ihr bekommt das nie in den Griff. Appell: Repariert ihn, und zwar dauerhaft. Eine gute Antwort geht auf mehrere Seiten ein: Das ist ärgerlich, gerade wenn es eilt. Ich schaue sofort, ob Sie über den Drucker im ersten Stock ausdrucken können. Und weil er öfter ausfällt, lasse ich die Ursache prüfen.</desc>
+  <defs>
+    <style>
+      text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: #212529; }
+      .c { text-anchor: middle; }
+      .msg { fill: #f8f9fa; }
+      .h { font-weight: 700; font-size: 12px; }
+      .s { font-size: 11px; fill: #343a40; }
+      .q { font-size: 12px; font-weight: 700; font-style: italic; text-anchor: middle; }
+      .bx { fill: #fff; stroke: #198754; stroke-width: 1.4; }
+    </style>
+  </defs>
+  <rect class="msg" x="150" y="96" width="180" height="100"/>
+  <line x1="150" y1="96" x2="330" y2="96" stroke="#0d6efd" stroke-width="6"/>
+  <line x1="150" y1="96" x2="150" y2="196" stroke="#198754" stroke-width="6"/>
+  <line x1="330" y1="96" x2="330" y2="196" stroke="#fd7e14" stroke-width="6"/>
+  <line x1="150" y1="196" x2="330" y2="196" stroke="#b98900" stroke-width="6"/>
+  <text class="q" x="240" y="140">„Der Drucker geht</text><text class="q" x="240" y="158">schon wieder nicht!“</text>
+
+  <text class="h c" x="240" y="56" style="fill:#0a58ca">Sachinhalt</text><text class="s c" x="240" y="74">Der Drucker druckt nicht.</text>
+  <text class="h" x="14" y="128" style="fill:#146c43">Selbstkundgabe</text><text class="s" x="14" y="146">Ich bin genervt und</text><text class="s" x="14" y="160">unter Zeitdruck.</text>
+  <text class="h" x="344" y="128" style="fill:#b35c00">Appell</text><text class="s" x="344" y="146">Repariert ihn –</text><text class="s" x="344" y="160">und zwar dauerhaft!</text>
+  <text class="h c" x="240" y="226" style="fill:#8a6700">Beziehung</text><text class="s c" x="240" y="244">Ihr bekommt das nie in den Griff.</text>
+
+  <rect class="bx" x="470" y="40" width="236" height="200" rx="8"/>
+  <text class="h" x="484" y="62">Antwort auf mehreren Seiten</text>
+  <text class="s" x="484" y="86">„Das ist ärgerlich, gerade wenn</text><text class="s" x="484" y="101">es eilt.“</text>
+  <text class="s" x="484" y="117" style="fill:#146c43">→ Gefühl anerkennen</text>
+  <text class="s" x="484" y="141">„Ich richte Ihnen sofort den Drucker</text><text class="s" x="484" y="156">im 1. Stock ein.“</text>
+  <text class="s" x="484" y="172" style="fill:#b35c00">→ Appell: schnelle Hilfe</text>
+  <text class="s" x="484" y="196">„Weil er öfter ausfällt, lasse ich</text><text class="s" x="484" y="211">die Ursache prüfen.“</text>
+  <text class="s" x="484" y="227" style="fill:#0a58ca">→ Sache und Beziehung</text>
+  <text class="s" x="14" y="272">Der Empfänger hört mit „vier Ohren“ – wer nur das Beziehungsohr spitzt, fühlt sich angegriffen und reagiert gereizt.</text>
+</svg>
