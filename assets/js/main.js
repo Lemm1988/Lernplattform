@@ -1,7 +1,6 @@
 // Haupt-JS für Fachinformatiker Lernplattform
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Lernplattform geladen');
-    
+
     // Bootstrap Tooltips aktivieren
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -84,37 +83,45 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100);
     });
     
-    // Sidebar Toggle für mobile Geräte
-    const sidebarToggle = document.querySelector('#sidebarToggle');
-    if (sidebarToggle) {
-        sidebarToggle.addEventListener('click', function() {
-            const sidebar = document.querySelector('#sidebarMenu');
-            if (sidebar) {
-                sidebar.classList.toggle('sidebar-open');
-            }
+    // Seitenleiste (öffnen/schließen auf dem Handy) steuert includes/sidebar.php selbst.
+    // Ein zweiter Klick-Handler hier hatte das Menü sofort wieder geschlossen.
+
+    // Kopfzeile bekommt beim Scrollen einen Schatten
+    const siteHeader = document.getElementById('siteHeader');
+    if (siteHeader) {
+        const setScrolled = () => siteHeader.classList.toggle('is-scrolled', window.scrollY > 8);
+        setScrolled();
+        window.addEventListener('scroll', setScrolled, { passive: true });
+    }
+
+    // Aufklappmenü der Gäste schließen, wenn ein Abschnitt der Startseite angesprungen wird
+    const navCollapse = document.getElementById('navbarNav');
+    if (navCollapse && typeof bootstrap !== 'undefined') {
+        navCollapse.querySelectorAll('a[href*="#"]').forEach(link => {
+            link.addEventListener('click', () => {
+                if (navCollapse.classList.contains('show')) bootstrap.Collapse.getOrCreateInstance(navCollapse).hide();
+            });
         });
     }
-    
-    // Sidebar schließen wenn außerhalb geklickt wird (mobile)
-    document.addEventListener('click', function(event) {
-        const sidebar = document.querySelector('#sidebarMenu');
-        const sidebarToggle = document.querySelector('#sidebarToggle');
-        
-        if (sidebar && sidebarToggle && window.innerWidth <= 768) {
-            if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
-                sidebar.classList.remove('sidebar-open');
-            }
+
+    // Elemente mit data-reveal sanft einblenden, sobald sie ins Bild kommen
+    const revealItems = document.querySelectorAll('[data-reveal]');
+    if (revealItems.length) {
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+            revealItems.forEach(el => io.observe(el));
+        } else {
+            revealItems.forEach(el => el.classList.add('is-visible'));
         }
-    });
-    
-    // Sidebar schließen bei Fenster-Resize
-    window.addEventListener('resize', function() {
-        const sidebar = document.querySelector('#sidebarMenu');
-        if (sidebar && window.innerWidth > 768) {
-            sidebar.classList.remove('sidebar-open');
-        }
-    });
-    
+    }
+
     // CSRF Token für AJAX Requests
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
     if (csrfToken) {

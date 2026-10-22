@@ -1,4 +1,4 @@
-<?php 
+<?php
 // Prüfen ob config.php bereits geladen wurde
 if (!defined('DB_HOST')) {
     // Bestimme den korrekten Pfad basierend auf dem aktuellen Verzeichnis
@@ -40,17 +40,46 @@ if (!isset($site_description_value)) {
         $site_description_value = 'Fachinformatiker Lernplattform - Vorbereitung auf die IHK-Abschlussprüfung';
     }
 }
+
+// Angaben für Kopfzeile und Seitenklassen
+$header_path = (string)strtok($_SERVER['REQUEST_URI'] ?? ($_SERVER['PHP_SELF'] ?? '/'), '?');
+$header_logged_in = isset($_SESSION['user_id']);
+$current_user = null;
+if ($header_logged_in) {
+    $user_stmt = $pdo->prepare("SELECT username, role, avatar FROM users WHERE id = ?");
+    $user_stmt->execute([$_SESSION['user_id']]);
+    $current_user = $user_stmt->fetch();
+}
+$header_is_admin = isset($current_user['role']) && $current_user['role'] === 'admin';
+$header_is_home = in_array($header_path, ['/', '/index.php'], true);
+$header_allow_registration = (bool)get_setting('allow_registration', true);
+$body_classes = [$header_logged_in ? 'is-user' : 'is-guest'];
+if ($header_is_home) $body_classes[] = 'page-home';
+if (strpos($header_path, '/auth/') === 0) $body_classes[] = 'page-auth';
+if (strpos($header_path, '/admin/') === 0) $body_classes[] = 'page-admin';
+// Abschnitte der Startseite (auf anderen Seiten mit "/" davor)
+$home_anchor = $header_is_home ? '' : '/';
+$header_nav_link = function ($href, $icon, $label, $active = false) {
+    return '<li class="nav-item"><a class="nav-link' . ($active ? ' active' : '') . '" href="' . htmlspecialchars($href) . '"'
+        . ($active ? ' aria-current="page"' : '') . '><i class="bi ' . $icon . '" aria-hidden="true"></i>' . htmlspecialchars($label) . '</a></li>';
+};
 ?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="de" class="no-js">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= htmlspecialchars($site_description_value) ?>">
     <meta name="keywords" content="Fachinformatiker, IHK, Prüfung, Lernplattform, IT-Ausbildung">
     <meta name="author" content="Fachinformatiker Lernplattform">
+    <meta name="theme-color" content="#4f46e5">
 
     <title><?= isset($page_title) ? htmlspecialchars($page_title) . ' - ' : '' ?><?= htmlspecialchars($site_title_value) ?></title>
+    <script>document.documentElement.classList.remove('no-js');</script>
+
+    <!-- Schrift liegt auf dem eigenen Server (keine Verbindung zu Google Fonts) -->
+    <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -76,48 +105,56 @@ if (!isset($site_description_value)) {
     <script src="<?= asset_url('/assets/js/layout.js') ?>" defer></script>
     <?php endif; ?>
 </head>
-<body>
+<body class="<?= htmlspecialchars(implode(' ', $body_classes)) ?>">
+    <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand fw-bold" href="/">
-                <i class="bi bi-mortarboard me-2"></i>
-                <?= htmlspecialchars($site_title_value) ?>
-            </a>
+    <header class="site-header" id="siteHeader">
+        <nav class="navbar navbar-expand-lg site-nav" aria-label="Hauptnavigation">
+            <div class="container-fluid">
+                <a class="navbar-brand site-brand" href="/">
+                    <span class="brand-mark"><?= brand_mark_svg() ?></span>
+                    <span class="brand-name"><?= htmlspecialchars($site_title_value) ?></span>
+                </a>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <!-- Minimale Navigation - Hauptnavigation erfolgt über Sidebar -->
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/"><i class="bi bi-house-check-fill"></i>Startseite</a>
-                    </li>
-                    <?php endif; ?>
-                </ul>
+                <?php if ($header_logged_in): ?>
+                    <!-- Hauptnavigation erfolgt über die Seitenleiste – hier nur die häufigsten Ziele -->
+                    <ul class="navbar-nav d-none d-lg-flex flex-row gap-1 me-auto">
+                        <?= $header_nav_link('/', 'bi-house-door', 'Startseite', $header_is_home) ?>
+                        <?php if (check_section_access('/quiz/start_quiz.php', false)): ?>
+                            <?= $header_nav_link('/quiz/start_quiz.php', 'bi-play-circle', 'Quiz starten', strpos($header_path, '/quiz/') === 0) ?>
+                        <?php endif; ?>
+                        <?php if (check_section_access('/games/index.php', false)): ?>
+                            <?= $header_nav_link('/games/index.php', 'bi-controller', 'IT-Games', strpos($header_path, '/games/') === 0) ?>
+                        <?php endif; ?>
+                    </ul>
 
-                <ul class="navbar-nav">
-                    <?php if (isset($_SESSION['user_id'])): ?>
-                        <?php
-                        $user_stmt = $pdo->prepare("SELECT username, role FROM users WHERE id = ?");
-                        $user_stmt->execute([$_SESSION['user_id']]);
-                        $current_user = $user_stmt->fetch();
-                        ?>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                                <i class="bi bi-person-circle me-1"></i>
-                                <?= isset($current_user['username']) ? htmlspecialchars($current_user['username']) : 'Benutzer' ?>
-                                <?php if (isset($current_user['role']) && $current_user['role'] === 'admin'): ?>
-                                    <span class="badge bg-warning text-dark ms-1">Admin</span>
+                    <div class="nav-actions">
+                        <div class="dropdown user-menu">
+                            <button class="user-menu-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Benutzermenü">
+                                <?= render_simple_avatar($_SESSION['user_id'], $current_user['avatar'] ?? null, 'sm') ?>
+                                <span class="user-name"><?= isset($current_user['username']) ? htmlspecialchars($current_user['username']) : 'Benutzer' ?></span>
+                                <?php if ($header_is_admin): ?>
+                                    <span class="badge-role">Admin</span>
                                 <?php endif; ?>
-                            </a>
-                            <ul class="dropdown-menu">
+                                <i class="bi bi-chevron-down" aria-hidden="true"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li class="user-menu-head">
+                                    <?= render_simple_avatar($_SESSION['user_id'], $current_user['avatar'] ?? null, 'md') ?>
+                                    <div>
+                                        <strong><?= isset($current_user['username']) ? htmlspecialchars($current_user['username']) : 'Benutzer' ?></strong>
+                                        <small><?= htmlspecialchars(ucfirst($current_user['role'] ?? 'student')) ?></small>
+                                    </div>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="/users/profile.php">
                                     <i class="bi bi-person me-2"></i>Profil
                                 </a></li>
                                 <li><a class="dropdown-item" href="/settings.php">
                                     <i class="bi bi-gear me-2"></i>Einstellungen
                                 </a></li>
-                                <?php if (isset($current_user['role']) && $current_user['role'] === 'admin'): ?>
+                                <?php if ($header_is_admin): ?>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><h6 class="dropdown-header">Administration</h6></li>
                                 <li><a class="dropdown-item" href="/admin/dashboard.php">
@@ -132,48 +169,71 @@ if (!isset($site_description_value)) {
                                     <i class="bi bi-box-arrow-right me-2"></i>Abmelden
                                 </a></li>
                             </ul>
-                        </li>
-                    <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/auth/login.php">
+                        </div>
+                    </div>
+                <?php else: ?>
+                    <div class="nav-actions d-lg-none">
+                        <?php if ($header_allow_registration): ?>
+                            <a class="btn btn-primary btn-sm" href="/auth/register.php">Registrieren</a>
+                        <?php endif; ?>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                                aria-controls="navbarNav" aria-expanded="false" aria-label="Menü öffnen">
+                            <i class="bi bi-list"></i>
+                        </button>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav me-auto">
+                            <?= $header_nav_link($home_anchor . '#funktionen', 'bi-stars', 'Funktionen') ?>
+                            <?= $header_nav_link($home_anchor . '#lernfelder', 'bi-journal-bookmark', 'Lernfelder') ?>
+                            <?= $header_nav_link($home_anchor . '#trainer', 'bi-controller', 'IT-Trainer') ?>
+                            <?= $header_nav_link('/news/', 'bi-newspaper', 'News', strpos($header_path, '/news/') === 0) ?>
+                        </ul>
+                        <div class="nav-guest-actions d-flex align-items-center gap-2">
+                            <a class="btn btn-outline-secondary" href="/auth/login.php">
                                 <i class="bi bi-box-arrow-in-right me-1"></i>Anmelden
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/auth/register.php">
-                                <i class="bi bi-person-plus me-1"></i>Registrieren
-                            </a>
-                        </li>
-                    <?php endif; ?>
-                </ul>
+                            <?php if ($header_allow_registration): ?>
+                                <a class="btn btn-primary" href="/auth/register.php">
+                                    <i class="bi bi-person-plus me-1"></i>Kostenlos registrieren
+                                </a>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <!-- Benachrichtigungen -->
+    <?php if (isset($_SESSION['success_message']) || isset($_SESSION['error_message']) || isset($_SESSION['info_message'])): ?>
+    <div class="flash-stack">
     <?php if (isset($_SESSION['success_message'])): ?>
-        <div class="alert alert-success alert-dismissible fade show m-3" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <i class="bi bi-check-circle me-2"></i>
             <?= htmlspecialchars($_SESSION['success_message']) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Schließen"></button>
         </div>
         <?php unset($_SESSION['success_message']); ?>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['error_message'])): ?>
-        <div class="alert alert-danger alert-dismissible fade show m-3" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <i class="bi bi-exclamation-triangle me-2"></i>
             <?= htmlspecialchars($_SESSION['error_message']) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Schließen"></button>
         </div>
         <?php unset($_SESSION['error_message']); ?>
     <?php endif; ?>
 
     <?php if (isset($_SESSION['info_message'])): ?>
-        <div class="alert alert-info alert-dismissible fade show m-3" role="alert">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
             <i class="bi bi-info-circle me-2"></i>
             <?= htmlspecialchars($_SESSION['info_message']) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Schließen"></button>
         </div>
         <?php unset($_SESSION['info_message']); ?>
     <?php endif; ?>
+    </div>
+    <?php endif; ?>
+    <span id="inhalt" tabindex="-1"></span>

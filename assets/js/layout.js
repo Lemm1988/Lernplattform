@@ -44,7 +44,8 @@
         // Mobile Toggle Button erstellen
         createMobileToggle: function() {
             const navbar = document.querySelector('.navbar');
-            if (!navbar || document.querySelector('.navbar-toggle')) return;
+            // Nur für Seiten mit eigener .layout-sidebar – sonst entstand ein Knopf ohne Funktion in der Kopfzeile
+            if (!navbar || !document.querySelector('.layout-sidebar') || document.querySelector('.navbar-toggle')) return;
 
             const toggleBtn = document.createElement('button');
             toggleBtn.className = 'navbar-toggle';

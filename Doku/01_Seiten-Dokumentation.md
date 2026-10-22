@@ -23,12 +23,16 @@
 **Zweck:** Startseite der Plattform  
 **Zugriff:** Öffentlich  
 **Funktionen:**
-- Zeigt aktuelle News-Artikel an
-- Navigation zu verschiedenen Bereichen
-- Login/Registrierung-Links
+- **Gäste:** Vorstellung der Plattform mit Probe-Quiz (4 Fragen ohne Anmeldung), Kennzahlen (Lernfelder, Kapitel,
+  freigegebene Fragen, IT-Trainer – live aus Inhalten und Datenbank gezählt), Funktionen, Lernfeld-Übersicht,
+  IT-Trainer, News, Beiträge und Registrierungs-Aufrufe (bei abgeschalteter Registrierung führen sie zur Anmeldung)
+- **Angemeldet:** Dashboard mit Begrüßung, Punkten und IT-Coins, Kennzahlen, Schnellzugriff, letzten Aktivitäten und News
+- Gestaltung in `assets/css/home.css`, Effekte (Probe-Quiz, Zähler, Terminal-Zeile) in `assets/js/home.js`
 
 **Verwendete Tabellen:**
-- `posts` - News-Artikel
+- `posts` - Beiträge
+- `news_articles`, `news_categories` - News
+- `questions`, `quiz_sessions`, `settings` - Kennzahlen und Hinweise
 - `site_sections` - Navigation
 
 ---

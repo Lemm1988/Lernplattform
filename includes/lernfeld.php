@@ -89,10 +89,10 @@ function lernfeld_page_end() {
         .lernfeld .lf-content h6 { font-size: 1.05rem; font-weight: 700; margin-top: 1.75rem; }
         .lernfeld .lf-content figure { margin: 1rem 0 1.25rem; }
         .lernfeld .lf-content pre { white-space: pre; overflow-x: auto; }
-        .lernfeld .lf-merke { border-left: 4px solid #0d6efd; background: #f0f6ff; padding: .75rem 1rem; border-radius: 6px; margin: 1rem 0; }
-        .lernfeld .lf-pruefung { border-left: 4px solid #f0ad4e; background: #fff8e1; padding: .75rem 1rem; border-radius: 6px; margin: 1rem 0; }
-        .lernfeld details > summary { cursor: pointer; color: #0d6efd; }
-        .lernfeld .lf-goals li::marker { content: "✓  "; color: #198754; }
+        .lernfeld .lf-merke { border-left: 4px solid var(--brand-600, #4f46e5); background: var(--brand-50, #eef2ff); padding: .75rem 1rem; border-radius: 8px; margin: 1rem 0; }
+        .lernfeld .lf-pruefung { border-left: 4px solid #f59e0b; background: #fffbeb; padding: .75rem 1rem; border-radius: 8px; margin: 1rem 0; }
+        .lernfeld details > summary { cursor: pointer; color: var(--brand-700, #4338ca); }
+        .lernfeld .lf-goals li::marker { content: "✓  "; color: #16a34a; }
         @media (max-width: 575.98px) {
             /* Grafiken auf dem Handy lesbar halten: Mindestbreite, seitlich wischen */
             .lernfeld .lf-content figure { overflow-x: auto; -webkit-overflow-scrolling: touch; }

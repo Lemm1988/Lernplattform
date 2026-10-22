@@ -21,28 +21,55 @@ $help_url = get_setting('help_url', '/users/hilfe.php');
 $contact_url = get_setting('contact_url', '/users/kontakt.php');
 $require_privacy_consent = get_setting('require_privacy_consent', '1');
 $footer_site_title = $site_title_value ?? get_setting('site_title', SITE_TITLE);
+$footer_logged_in = is_logged_in();
 ?>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-left">
-                <h6><i class="bi bi-mortarboard me-1"></i><?= htmlspecialchars($footer_site_title) ?></h6>
-                <small>Deine Vorbereitung für die Zukunft!</small>
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <a class="footer-brand" href="/">
+                        <span class="brand-mark"><?= brand_mark_svg() ?></span>
+                        <span><?= htmlspecialchars($footer_site_title) ?></span>
+                    </a>
+                    <p class="footer-claim">Deine Vorbereitung für die Zukunft! Lernfelder, Prüfungsfragen und IT-Trainer für angehende Fachinformatikerinnen und Fachinformatiker.</p>
+                </div>
+                <nav aria-label="Lernen">
+                    <h2>Lernen</h2>
+                    <ul>
+                        <?php if ($footer_logged_in): ?>
+                            <li><a href="/">Dashboard</a></li>
+                            <li><a href="/quiz/start_quiz.php">Quiz starten</a></li>
+                            <li><a href="/games/index.php">IT-Games</a></li>
+                        <?php else: ?>
+                            <li><a href="/#lernfelder">Lernfelder</a></li>
+                            <li><a href="/#trainer">IT-Trainer</a></li>
+                            <li><a href="/auth/login.php">Anmelden</a></li>
+                        <?php endif; ?>
+                        <li><a href="/news/">News</a></li>
+                    </ul>
+                </nav>
+                <nav aria-label="Rechtliches und Hilfe">
+                    <h2>Infos</h2>
+                    <ul>
+                        <li><a href="<?= htmlspecialchars($help_url) ?>">Hilfe</a></li>
+                        <?php if ($footer_logged_in && is_contact_enabled_for_user()): ?>
+                            <li><a href="<?= htmlspecialchars($contact_url) ?>">Kontakt</a></li>
+                        <?php endif; ?>
+                        <li><a href="<?= htmlspecialchars($privacy_url) ?>">Datenschutz</a></li>
+                        <li><a href="<?= htmlspecialchars($imprint_url) ?>">Impressum</a></li>
+                        <li><a href="<?= htmlspecialchars($terms_url) ?>">AGB</a></li>
+                    </ul>
+                </nav>
             </div>
-            
-            <div class="footer-center">
-                <a href="<?= htmlspecialchars($privacy_url) ?>">Datenschutz</a>
-                <a href="<?= htmlspecialchars($imprint_url) ?>">Impressum</a>
-                <a href="<?= htmlspecialchars($terms_url) ?>">AGB</a>
-                <a href="<?= htmlspecialchars($help_url) ?>">Hilfe</a>
-                <?php if (is_logged_in() && is_contact_enabled_for_user()): ?>
-                    <a href="<?= htmlspecialchars($contact_url) ?>">Kontakt</a>
-                <?php endif; ?>
-            </div>
-            
-            <div class="footer-right">
-                <small>&copy; <?= date('Y') ?> <?= htmlspecialchars($footer_site_title) ?></small>
+            <div class="footer-bottom">
+                <span>&copy; <?= date('Y') ?> <?= htmlspecialchars($footer_site_title) ?></span>
+                <span>Gemacht für die IHK-Prüfung
+                    <span class="footer-blocks" aria-hidden="true">
+                        <i style="background:#22c55e"></i><i style="background:#facc15"></i><i style="background:#ef4444"></i><i style="background:#22d3ee"></i><i style="background:#a78bfa"></i>
+                    </span>
+                </span>
             </div>
         </div>
     </footer>
@@ -55,25 +82,19 @@ $footer_site_title = $site_title_value ?? get_setting('site_title', SITE_TITLE);
 
     <!-- Cookie-Hinweis (DSGVO) -->
     <?php if ($require_privacy_consent === '1' && !isset($_COOKIE['cookie_consent'])): ?>
-    <div id="cookieNotice" class="position-fixed bottom-0 start-0 end-0 bg-dark text-white p-2" style="z-index: 1050;">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-md-8">
-                    <small class="mb-0">
-                        <i class="bi bi-info-circle me-1"></i>
-                        Diese Website verwendet Cookies. 
-                        <a href="<?= htmlspecialchars($privacy_url) ?>" class="text-white">Mehr erfahren</a>
-                    </small>
-                </div>
-                <div class="col-md-4 text-md-end">
-                    <button type="button" class="btn btn-success btn-sm me-1" onclick="acceptCookies()">
-                        Akzeptieren
-                    </button>
-                    <button type="button" class="btn btn-outline-light btn-sm" onclick="declineCookies()">
-                        Ablehnen
-                    </button>
-                </div>
-            </div>
+    <div id="cookieNotice" class="cookie-notice" role="region" aria-label="Cookie-Hinweis">
+        <p>
+            <i class="bi bi-info-circle me-1" aria-hidden="true"></i>
+            Diese Website verwendet Cookies.
+            <a href="<?= htmlspecialchars($privacy_url) ?>">Mehr erfahren</a>
+        </p>
+        <div class="cookie-actions">
+            <button type="button" class="btn btn-outline-light btn-sm" onclick="declineCookies()">
+                Ablehnen
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="acceptCookies()">
+                Akzeptieren
+            </button>
         </div>
     </div>
 

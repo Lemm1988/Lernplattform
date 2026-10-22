@@ -51,6 +51,24 @@ function asset_url($path) {
 }
 
 /**
+ * Markenzeichen (Bildschirm mit </> auf Blau-Violett-Verlauf wie im Logo) als Inline-SVG.
+ * Jede Ausgabe bekommt eine eigene Verlaufs-ID, weil das Zeichen mehrfach auf einer Seite stehen kann.
+ */
+function brand_mark_svg() {
+    static $n = 0;
+    $id = 'brandGrad' . (++$n);
+    return '<svg viewBox="0 0 36 36" aria-hidden="true" focusable="false">'
+        . '<defs><linearGradient id="' . $id . '" x1="0" y1="0" x2="1" y2="1">'
+        . '<stop offset="0" stop-color="#2563eb"/><stop offset=".5" stop-color="#4f46e5"/><stop offset="1" stop-color="#9333ea"/>'
+        . '</linearGradient></defs>'
+        . '<rect width="36" height="36" rx="10" fill="url(#' . $id . ')"/>'
+        . '<rect x="8" y="9" width="20" height="13.5" rx="2.2" fill="none" stroke="#fff" stroke-width="2"/>'
+        . '<path d="M15 27h6M18 22.5V27" stroke="#fff" stroke-width="2" stroke-linecap="round"/>'
+        . '<path d="M15.2 13.2l-2.4 2.6 2.4 2.6M20.8 13.2l2.4 2.6-2.4 2.6" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>'
+        . '</svg>';
+}
+
+/**
  * Validiert E-Mail-Adresse
  */
 function validate_email($email) {

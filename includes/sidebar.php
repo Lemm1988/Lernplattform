@@ -76,18 +76,18 @@ if (is_logged_in()) {
 }
 ?>
 
-<!-- Sidebar Toggle Button (immer sichtbar oben links) -->
-<button id="sidebarToggle" class="btn btn-outline-secondary position-fixed top-0 start-0 m-2 d-md-none" style="z-index:9999;" aria-label="Sidebar öffnen">
+<!-- Sidebar Toggle Button (auf dem Handy oben links in der Kopfzeile) -->
+<button id="sidebarToggle" class="d-md-none" type="button" aria-label="Navigation öffnen" aria-controls="sidebarMenu" aria-expanded="false">
     <i class="bi bi-list"></i>
 </button>
 
-<nav id="sidebarMenu" class="sidebar <?= basename($_SERVER['PHP_SELF']) === 'index.php' ? 'sidebar-open' : '' ?>">
+<nav id="sidebarMenu" class="sidebar <?= basename($_SERVER['PHP_SELF']) === 'index.php' ? 'sidebar-open' : '' ?>" aria-label="Seitennavigation">
+    <button type="button" class="sidebar-close" aria-label="Navigation schließen"><i class="bi bi-x-lg"></i></button>
     <ul class="nav flex-column">
         <?php if (is_logged_in()): ?>
         <!-- User Info mit Avatar -->
-        <li class="nav-item px-3 py-2 border-bottom">
-            <div class="d-flex align-items-center">
-                <div class="user-avatar me-3">
+        <li class="nav-item sidebar-user">
+                <div class="user-avatar">
                     <?php
                         $avatar_id = 1;
                         try {
@@ -100,14 +100,13 @@ if (is_logged_in()) {
                     <?= render_simple_avatar($_SESSION['user_id'], $avatar_id, 'md') ?>
                 </div>
                 <div class="user-info">
-                    <div class="fw-bold text-dark">
+                    <div class="user-name">
                         <?= htmlspecialchars($_SESSION['username'] ?? 'Benutzer') ?>
                     </div>
-                    <small class="text-muted">
-                        <?= ucfirst($_SESSION['role'] ?? 'student') ?>
-                    </small>
+                    <div class="user-role">
+                        <?= htmlspecialchars(ucfirst($_SESSION['role'] ?? 'student')) ?>
+                    </div>
                 </div>
-            </div>
         </li>
         <?php
         try {
@@ -142,8 +141,8 @@ if (is_logged_in()) {
                 if (empty($visible_sections) && $type !== 'main') continue;
 ?>
     <li class="nav-item">
-        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span><i class="<?= htmlspecialchars($header['icon']) ?> me-1"></i><?= htmlspecialchars($header['name']) ?></span>
+        <h6 class="sidebar-heading">
+            <i class="<?= htmlspecialchars($header['icon']) ?>" aria-hidden="true"></i><span><?= htmlspecialchars($header['name']) ?></span>
         </h6>
     </li>
 <?php
@@ -236,47 +235,57 @@ if (is_logged_in()) {
     <?php endif; ?>
 </nav>
 
+<div class="sidebar-backdrop" id="sidebarBackdrop" aria-hidden="true"></div>
+
 <script>
-// Sidebar Zustand initialisieren
-const isLoggedIn = <?= is_logged_in() ? 'true' : 'false' ?>;
-const sidebar = document.getElementById('sidebarMenu');
-const sidebarToggle = document.getElementById('sidebarToggle');
+// Seitenleiste: auf dem Desktop immer sichtbar, auf dem Handy als einschiebbares Menü
+(function () {
+    const sidebar = document.getElementById('sidebarMenu');
+    const toggle = document.getElementById('sidebarToggle');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    const closeBtn = sidebar ? sidebar.querySelector('.sidebar-close') : null;
+    if (!sidebar || !toggle) return;
+    document.body.classList.add('has-sidebar');
+    const mobil = () => window.innerWidth < 768;
 
-function setSidebarState(open) {
-    if (open) {
-        sidebar.classList.add('sidebar-open');
-        sidebar.classList.remove('sidebar-collapsed');
-        localStorage.setItem('sidebarState', 'open');
-    } else {
-        sidebar.classList.remove('sidebar-open');
-        sidebar.classList.add('sidebar-collapsed');
-        localStorage.setItem('sidebarState', 'collapsed');
+    function setOpen(open) {
+        sidebar.classList.toggle('sidebar-open', open);
+        sidebar.classList.toggle('sidebar-collapsed', !open);
+        document.body.classList.toggle('sidebar-mobile-open', open && mobil());
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     }
-}
 
-// Immer offen auf Desktop (außer auf kleinen Bildschirmen)
-if (window.innerWidth >= 768) {
-    setSidebarState(true);
-} else {
-    // Auf Mobilgeräten: Zustand aus localStorage wiederherstellen
-    if (localStorage.getItem('sidebarState')) {
-        setSidebarState(localStorage.getItem('sidebarState') === 'open');
-    } else {
-        setSidebarState(false);
+    // Auf dem Handy startet jede Seite mit geschlossenem Menü – sonst verdeckt es nach jedem Link den Inhalt
+    let warMobil = mobil();
+    setOpen(!warMobil);
+
+    toggle.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setOpen(!sidebar.classList.contains('sidebar-open'));
+        if (sidebar.classList.contains('sidebar-open')) {
+            const aktiv = sidebar.querySelector('.nav-link.active') || sidebar.querySelector('.nav-link');
+            if (aktiv) aktiv.focus({ preventScroll: true });
+        }
+    });
+    if (closeBtn) closeBtn.addEventListener('click', () => { setOpen(false); toggle.focus(); });
+    if (backdrop) backdrop.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && mobil() && sidebar.classList.contains('sidebar-open')) {
+            setOpen(false);
+            toggle.focus();
+        }
+    });
+    window.addEventListener('resize', function () {
+        const jetztMobil = mobil();
+        if (jetztMobil !== warMobil) setOpen(!jetztMobil);
+        warMobil = jetztMobil;
+    });
+
+    // Aktiven Menüpunkt in den sichtbaren Bereich der Seitenleiste holen
+    const aktiv = sidebar.querySelector('.nav-link.active');
+    if (aktiv && !mobil()) {
+        const r = aktiv.getBoundingClientRect(), s = sidebar.getBoundingClientRect();
+        if (r.bottom > s.bottom - 40) sidebar.scrollTop += r.top - s.top - s.height / 3;
     }
-}
-
-sidebarToggle.addEventListener('click', function() {
-    const isOpen = sidebar.classList.contains('sidebar-open');
-    setSidebarState(!isOpen);
-});
-
-// Responsive Verhalten
-window.addEventListener('resize', function() {
-    if (window.innerWidth >= 768) {
-        setSidebarState(true);
-    }
-});
+})();
 </script>
-
-<!-- Sidebar-Styles wurden in die globale CSS-Datei verschoben -->
