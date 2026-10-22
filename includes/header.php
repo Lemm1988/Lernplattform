@@ -59,9 +59,9 @@ if (!isset($site_description_value)) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="/assets/css/style.css" rel="stylesheet">
+    <link href="<?= asset_url('/assets/css/style.css') ?>" rel="stylesheet">
     <?php foreach ($extra_css ?? [] as $css_file): ?>
-    <link href="<?= htmlspecialchars($css_file) ?>" rel="stylesheet">
+    <link href="<?= htmlspecialchars(asset_url($css_file)) ?>" rel="stylesheet">
     <?php endforeach; ?>
 
     <!-- Favicon -->
@@ -69,11 +69,11 @@ if (!isset($site_description_value)) {
 
     <!-- CSRF Token für JavaScript -->
     <meta name="csrf-token" content="<?= htmlspecialchars($_SESSION['csrf_token'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
-    <script src="/assets/js/csrf.js"></script>
+    <script src="<?= asset_url('/assets/js/csrf.js') ?>"></script>
 
     <!-- Layout JavaScript für Admin-Seiten -->
     <?php if (strpos($_SERVER['REQUEST_URI'] ?? '', '/admin/') !== false): ?>
-    <script src="/assets/js/layout.js" defer></script>
+    <script src="<?= asset_url('/assets/js/layout.js') ?>" defer></script>
     <?php endif; ?>
 </head>
 <body>

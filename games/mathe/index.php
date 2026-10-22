@@ -36,7 +36,7 @@ include __DIR__ . '/../../includes/header.php';
     </div>
 </div>
 
-<script src="/assets/js/games/game-core.js"></script>
-<script src="/assets/js/games/mathe.js"></script>
+<script src="<?= asset_url('/assets/js/games/game-core.js') ?>"></script>
+<script src="<?= asset_url('/assets/js/games/mathe.js') ?>"></script>
 
 <?php include __DIR__ . '/../../includes/footer.php'; ?>

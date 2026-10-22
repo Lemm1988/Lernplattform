@@ -158,8 +158,17 @@
                 if (!OHNE_MULT.includes(fall.art)) felder.push([fAb.sel, fall.ab], [fBa.sel, fall.ba]);
                 let richtig = 0;
                 felder.forEach(([sel, soll]) => { const ok = sel.value === soll; mark(sel, ok); if (ok) richtig++; });
+                const tipps = [];
+                if (fArt.sel.value && fArt.sel.value !== fall.art) tipps.push(umlArtTipp(fArt.sel.value, fall.art));
+                if (fArt.sel.value === fall.art && !OHNE_MULT.includes(fall.art)) {
+                    if (fAb.sel.value === fall.ba && fBa.sel.value === fall.ab && fall.ab !== fall.ba) {
+                        tipps.push('Die Multiplizitäten sind vertauscht. Lies die Auswahlfelder genau: „Ein(e) ' + fall.a + ' hat …“ fragt, wie viele ' + fall.b + ' es zu einem ' + fall.a + ' gibt.');
+                    } else if (fAb.sel.value !== fall.ab || fBa.sel.value !== fall.ba) {
+                        tipps.push('Achte auf die Signalwörter: „genau ein“ → 1, „höchstens ein“ → 0..1, „mindestens ein“ → 1..*, „beliebig viele“ oder „auch keine“ → 0..*.');
+                    }
+                }
                 return {
-                    correct: richtig === felder.length, score: richtig / felder.length,
+                    correct: richtig === felder.length, score: richtig / felder.length, tipps,
                     message: richtig === felder.length ? '' : (fArt.sel.value !== fall.art ? 'Prüfe zuerst die Beziehungsart.' : 'Die Art stimmt, bei den Multiplizitäten hakt es noch.')
                 };
             },
@@ -180,6 +189,19 @@
         };
     }
     const naechsterUmlFall = deck(UML_FAELLE);
+
+    /** Erklärt, warum eine gewählte Beziehungsart nicht passt. */
+    function umlArtTipp(gewaehlt, soll) {
+        const ganzesTeil = ['aggregation', 'komposition'];
+        if (gewaehlt === 'aggregation' && soll === 'komposition') return 'Prüfe die Existenzabhängigkeit: Werden die Teile mit dem Ganzen gelöscht oder können ohne es nicht existieren, ist es eine Komposition (gefüllte Raute).';
+        if (gewaehlt === 'komposition' && soll === 'aggregation') return 'Die Teile existieren auch ohne das Ganze weiter – das spricht für eine Aggregation (leere Raute).';
+        if (gewaehlt === 'assoziation' && ganzesTeil.includes(soll)) return 'Hier gibt es eine Ganzes-Teil-Beziehung („besteht aus“, „enthält“, „fasst zusammen“) – das ist mehr als eine einfache Assoziation.';
+        if (ganzesTeil.includes(gewaehlt) && soll === 'assoziation') return 'Keine der beiden Klassen ist Teil der anderen – sie kennen sich nur. Das ist eine einfache Assoziation.';
+        if (gewaehlt === 'vererbung' && soll === 'realisierung') return 'Wird eine <em>Schnittstelle</em> (interface) umgesetzt, ist es eine Realisierung: gestrichelte Linie mit leerem Dreieck.';
+        if (gewaehlt === 'realisierung' && soll === 'vererbung') return 'Beide sind Klassen und die eine „ist eine“ spezielle Form der anderen – das ist Vererbung mit durchgezogener Linie.';
+        if (['vererbung', 'realisierung'].includes(soll)) return 'Der Text beschreibt eine „ist ein“-Beziehung (Spezialisierung) – keine Verbindung zwischen eigenständigen Objekten.';
+        return 'Vererbung bedeutet „ist ein“. Beschreibt der Text wirklich, dass das eine eine Sonderform des anderen ist – oder hängen zwei eigenständige Dinge zusammen?';
+    }
 
     // ---------- 2. Klassen modellieren ----------
 
@@ -273,6 +295,7 @@
             },
             check() {
                 let richtig = 0;
+                const tipps = new Set();
                 zeilen.forEach((z) => {
                     const okV = z.vis.value === z.g.v;
                     const okS = z.stat.checked === z.g.st;
@@ -281,9 +304,11 @@
                     z.stat.classList.toggle('is-invalid', !okS);
                     if (okV) richtig++;
                     if (okS) richtig++;
+                    if (!okV && z.vis.value) tipps.add(SICHTBARKEIT_TIPP[z.g.v]);
+                    if (!okS) tipps.add(z.g.st ? 'Gehört ein Element „zur Klasse“ oder ist es „für alle Objekte gleich“, ist es statisch (unterstrichen).' : 'Nur Elemente, die zur ganzen Klasse gehören, sind statisch. Normale Attribute gehören zu jedem einzelnen Objekt.');
                 });
                 const gesamt = zeilen.length * 2;
-                return { correct: richtig === gesamt, score: richtig / gesamt, message: richtig === gesamt ? 'Die Klasse ist korrekt modelliert.' : '' };
+                return { correct: richtig === gesamt, score: richtig / gesamt, tipps: [...tipps], message: richtig === gesamt ? 'Die Klasse ist korrekt modelliert.' : '' };
             },
             showSolution(box) {
                 zeilen.forEach((z) => { z.vis.value = z.g.v; z.stat.checked = z.g.st; mark(z.vis, null); z.stat.classList.remove('is-valid', 'is-invalid'); });
@@ -293,6 +318,13 @@
         };
     }
     const naechsteKlasse = deck(KLASSEN);
+
+    const SICHTBARKEIT_TIPP = {
+        '-': 'Was „gekapselt“, „privat“ oder „nur intern“ ist, bekommt − (private).',
+        '#': '„Unterklassen dürfen direkt zugreifen“ → # (protected).',
+        '+': 'Was „jede Klasse“ oder „von außen“ aufrufen bzw. lesen darf, ist + (public).',
+        '~': 'Sichtbar nur im selben Paket → ~ (package).'
+    };
 
     // ---------- 3. ER-Kardinalitäten ----------
 
@@ -358,7 +390,17 @@
                 const okU = fU.sel.value === umsetzungen[f.k];
                 mark(fK.sel, okK);
                 mark(fU.sel, okU);
-                return { correct: okK && okU, score: (okK + okU) / 2, message: okK && okU ? '' : (okK ? 'Die Kardinalität stimmt – überleg noch, wohin der Fremdschlüssel gehört.' : '') };
+                const tipps = [];
+                const k = fK.sel.value;
+                if (k && !okK) {
+                    if ((k === '1:n' && f.k === 'n:1') || (k === 'n:1' && f.k === '1:n')) tipps.push(`Die Richtung zählt: Gelesen wird von links (${f.a}) nach rechts (${f.b}). Die „n“-Seite ist die, von der es viele gibt.`);
+                    else if (f.k === 'n:m') tipps.push(`Frag in beide Richtungen: Auch ein(e) ${f.b} kann zu mehreren ${f.a} gehören – dann ist es n:m.`);
+                    else if (k === 'n:m') tipps.push('Bei n:m müssten <em>beide</em> Seiten mehrfach vorkommen können. Lies nach, ob eine Seite auf „genau ein“ oder „höchstens ein“ beschränkt ist.');
+                    else if (f.k === '1:1') tipps.push('Beide Seiten sind auf höchstens eins beschränkt – das ist 1:1.');
+                    else tipps.push(`Kann es zu einem Element mehrere auf der anderen Seite geben? Dann ist es keine 1:1-Beziehung.`);
+                }
+                if (fU.sel.value && !okU) tipps.push('Der Fremdschlüssel kommt auf die n-Seite – also in die Tabelle, von der es viele gibt. Eine n:m-Beziehung braucht eine eigene Zwischentabelle.');
+                return { correct: okK && okU, score: (okK + okU) / 2, tipps, message: okK && okU ? '' : (okK ? 'Die Kardinalität stimmt – überleg noch, wohin der Fremdschlüssel gehört.' : '') };
             },
             showSolution(box) {
                 fK.sel.value = f.k;
@@ -452,10 +494,19 @@
             check() {
                 const okA = fArt.sel.value === f.art;
                 mark(fArt.sel, okA);
-                if (f.art === 'assoziation') return { correct: okA, score: okA ? 1 : 0, message: okA ? 'Akteure sind mit ihren Anwendungsfällen über eine einfache Linie verbunden.' : '' };
+                const tipps = [];
+                if (fArt.sel.value && !okA) tipps.push(ucArtTipp(fArt.sel.value, f));
+                if (f.art === 'assoziation') return { correct: okA, score: okA ? 1 : 0, tipps, message: okA ? 'Akteure sind mit ihren Anwendungsfällen über eine einfache Linie verbunden.' : '' };
                 const okZ = fZiel.sel.value === String(f.ziel);
                 mark(fZiel.sel, okZ);
-                return { correct: okA && okZ, score: (okA + okZ) / 2, message: okA && !okZ ? 'Die Beziehung stimmt, die Pfeilrichtung noch nicht.' : '' };
+                if (okA && !okZ) {
+                    tipps.push({
+                        include: 'Bei «include» zeigt der Pfeil vom Basisfall auf den Fall, der immer mit ausgeführt wird.',
+                        extend: 'Bei «extend» zeigt der Pfeil von der optionalen Erweiterung auf den Basisfall – andersherum als bei «include».',
+                        generalisierung: 'Das Dreieck sitzt am allgemeineren Element – der Pfeil zeigt vom Speziellen zum Allgemeinen.'
+                    }[f.art]);
+                }
+                return { correct: okA && okZ, score: (okA + okZ) / 2, tipps, message: okA && !okZ ? 'Die Beziehung stimmt, die Pfeilrichtung noch nicht.' : '' };
             },
             showSolution(box) {
                 fArt.sel.value = f.art;
@@ -474,6 +525,14 @@
         };
     }
     const naechsterUcFall = deck(UC_FAELLE);
+
+    function ucArtTipp(gewaehlt, f) {
+        if (f.art === 'assoziation') return 'Ein Akteur (Strichmännchen) ist mit seinem Anwendungsfall einfach über eine Linie verbunden.';
+        if (gewaehlt === 'include' && f.art === 'extend') return 'Steht im Text „kann“, „optional“ oder „bei Bedarf“? Dann ist es eine Erweiterung: «extend».';
+        if (gewaehlt === 'extend' && f.art === 'include') return 'Passiert es „immer“, „jedes Mal“ oder „ohne Ausnahme“? Dann ist es «include».';
+        if (f.art === 'generalisierung') return '„ist ein besonderer …“ oder „ist eine spezielle Form von …“ beschreibt eine Generalisierung.';
+        return gewaehlt === 'generalisierung' ? 'Eine Generalisierung bräuchte eine „ist ein“-Beziehung. Hier ruft ein Anwendungsfall einen anderen auf.' : 'Zwischen zwei Anwendungsfällen gibt es «include», «extend» oder eine Generalisierung – keine einfache Linie.';
+    }
 
     // ---------- 5. Diagrammtypen erkennen ----------
 
@@ -590,16 +649,16 @@
     }
 
     const DIAGRAMME = [
-        { name: 'UML-Klassendiagramm', zeichne: svgKlassen, wozu: 'statische Struktur: Klassen mit Attributen, Methoden und Beziehungen.' },
-        { name: 'UML-Aktivitätsdiagramm', zeichne: svgAktivitaet, wozu: 'Ablauf eines Prozesses oder Algorithmus mit Aktionen, Verzweigungen ([Bedingungen]) und Start-/Endknoten.' },
-        { name: 'UML-Sequenzdiagramm', zeichne: svgSequenz, wozu: 'zeitliche Abfolge von Nachrichten zwischen Objekten – Lebenslinien von oben nach unten.' },
-        { name: 'UML-Anwendungsfalldiagramm (Use Case)', zeichne: svgUseCase, wozu: 'welche Akteure welche Funktionen eines Systems nutzen – Sicht von außen, z. B. für das Lastenheft.' },
-        { name: 'UML-Zustandsdiagramm', zeichne: svgZustand, wozu: 'Zustände eines Objekts und die Ereignisse, die Zustandsübergänge auslösen.' },
-        { name: 'Entity-Relationship-Diagramm', zeichne: svgEr, wozu: 'Datenmodell mit Entitäten, Attributen (Schlüssel unterstrichen) und Beziehungen samt Kardinalitäten.' },
-        { name: 'Struktogramm (Nassi-Shneiderman)', zeichne: svgStruktogramm, wozu: 'strukturierter Algorithmus als ineinander geschachtelte Blöcke – ohne Pfeile und Sprünge.' },
-        { name: 'Programmablaufplan (PAP)', zeichne: svgPap, wozu: 'Algorithmus als Flussdiagramm nach DIN 66001 mit Start/Ende, Ein-/Ausgabe, Verarbeitung und Verzweigung.' },
-        { name: 'Ereignisgesteuerte Prozesskette (EPK)', zeichne: svgEpk, wozu: 'Geschäftsprozess als Wechsel von Ereignissen (Sechsecke) und Funktionen, verbunden über Konnektoren (UND, ODER, XOR).' },
-        { name: 'Gantt-Diagramm', zeichne: svgGantt, wozu: 'Projektzeitplan: Vorgänge als Balken auf einer Zeitachse.' }
+        { name: 'UML-Klassendiagramm', gruppe: 'Struktur', zeichne: svgKlassen, wozu: 'statische Struktur: Klassen mit Attributen, Methoden und Beziehungen.', merkmal: 'Rechtecke mit drei Bereichen (Name, Attribute, Methoden), Verbindungslinien mit Multiplizitäten wie 1 oder 0..*' },
+        { name: 'Entity-Relationship-Diagramm', gruppe: 'Struktur', zeichne: svgEr, wozu: 'Datenmodell mit Entitäten, Attributen (Schlüssel unterstrichen) und Beziehungen samt Kardinalitäten.', merkmal: 'Rechtecke (Entitäten), Rauten mit Verb (Beziehungen), Ellipsen (Attribute), Kardinalitäten wie 1 und n' },
+        { name: 'UML-Anwendungsfalldiagramm (Use Case)', gruppe: 'Verhalten', zeichne: svgUseCase, wozu: 'welche Akteure welche Funktionen eines Systems nutzen – Sicht von außen, z. B. für das Lastenheft.', merkmal: 'Strichmännchen (Akteure), Ellipsen (Anwendungsfälle), Rahmen als Systemgrenze' },
+        { name: 'UML-Aktivitätsdiagramm', gruppe: 'Verhalten', zeichne: svgAktivitaet, wozu: 'Ablauf eines Prozesses oder Algorithmus mit Aktionen, Verzweigungen ([Bedingungen]) und Start-/Endknoten.', merkmal: 'gefüllter Startpunkt, abgerundete Aktionen, Rauten mit [Bedingungen], Endpunkt mit Ring' },
+        { name: 'UML-Sequenzdiagramm', gruppe: 'Verhalten', zeichne: svgSequenz, wozu: 'zeitliche Abfolge von Nachrichten zwischen Objekten – Lebenslinien von oben nach unten.', merkmal: 'Objekte oben, gestrichelte Lebenslinien nach unten, waagerechte Nachrichtenpfeile zwischen ihnen' },
+        { name: 'UML-Zustandsdiagramm', gruppe: 'Verhalten', zeichne: svgZustand, wozu: 'Zustände eines Objekts und die Ereignisse, die Zustandsübergänge auslösen.', merkmal: 'abgerundete Kästen mit Zuständen (Substantive/Adjektive), Pfeile beschriftet mit Ereignissen' },
+        { name: 'Struktogramm (Nassi-Shneiderman)', gruppe: 'Algorithmen und Prozesse', zeichne: svgStruktogramm, wozu: 'strukturierter Algorithmus als ineinander geschachtelte Blöcke – ohne Pfeile und Sprünge.', merkmal: 'ineinander geschachtelte Rechtecke ohne Pfeile, Verzweigung als Dreieck mit ja/nein' },
+        { name: 'Programmablaufplan (PAP)', gruppe: 'Algorithmen und Prozesse', zeichne: svgPap, wozu: 'Algorithmus als Flussdiagramm nach DIN 66001 mit Start/Ende, Ein-/Ausgabe, Verarbeitung und Verzweigung.', merkmal: 'Flussdiagramm: abgerundetes Start/Ende, Parallelogramm für Ein-/Ausgabe, Raute für Verzweigungen, Pfeile' },
+        { name: 'Ereignisgesteuerte Prozesskette (EPK)', gruppe: 'Algorithmen und Prozesse', zeichne: svgEpk, wozu: 'Geschäftsprozess als Wechsel von Ereignissen (Sechsecke) und Funktionen, verbunden über Konnektoren (UND, ODER, XOR).', merkmal: 'abwechselnd Sechsecke (Ereignisse) und abgerundete Rechtecke (Funktionen), Kreise als Konnektoren' },
+        { name: 'Gantt-Diagramm', gruppe: 'Projektplanung', zeichne: svgGantt, wozu: 'Projektzeitplan: Vorgänge als Balken auf einer Zeitachse.', merkmal: 'waagerechte Balken auf einer Zeitachse, eine Zeile pro Vorgang' }
     ];
 
     function typAufgabe(rng) {
@@ -628,22 +687,139 @@
                 if (!gew) return { correct: false, score: 0, message: 'Bitte einen Diagrammtyp auswählen.' };
                 const ok = gew.o === d;
                 gew.label.classList.add(ok ? 'is-valid' : 'is-invalid');
-                return { correct: ok, score: ok ? 1 : 0, message: ok ? `Es zeigt die ${d.wozu}` : '' };
+                return {
+                    correct: ok, score: ok ? 1 : 0, message: ok ? `Es zeigt die ${d.wozu}` : 'Das ist nicht der gesuchte Diagrammtyp.',
+                    tipps: ok ? [] : [`Woran man „${gew.o.name}“ erkennt: ${gew.o.merkmal}. Passt das zum Bild?`]
+                };
             },
             showSolution(box) {
                 wahl.forEach((w) => { w.input.checked = w.o === d; w.label.classList.toggle('is-valid', w.o === d); w.label.classList.remove('is-invalid'); });
-                box.append(h('h3', {}, d.name), h('p', { class: 'mb-0' }, 'Einsatz: ' + d.wozu));
+                box.append(h('h3', {}, d.name), h('p', { class: 'mb-1' }, 'Erkennungsmerkmale: ' + d.merkmal + '.'), h('p', { class: 'mb-0' }, 'Einsatz: ' + d.wozu));
             }
         };
     }
     const naechstesDiagramm = deck(DIAGRAMME);
 
+    // ---------- Lernkarten ----------
+
+    /** Kleines Symbolbild einer UML-Beziehung für die Lernkarte. */
+    function miniUml(art, links, rechts) {
+        const svg = leinwand(270, 50, ART[art]);
+        const y = 25;
+        const xA = 92;
+        const xB = 178;
+        svg.append(rect(4, 10, 88, 30), text(48, y, links, { 'font-size': 11 }), rect(178, 10, 88, 30), text(222, y, rechts, { 'font-size': 11 }));
+        if (art === 'komposition' || art === 'aggregation') {
+            svg.append(s('polygon', { points: `${xA},${y} ${xA + 12},${y - 6} ${xA + 24},${y} ${xA + 12},${y + 6}`, fill: art === 'komposition' ? STRICH : '#fff', stroke: STRICH, 'stroke-width': 1.4 }), linie(xA + 24, y, xB, y));
+        } else if (art === 'vererbung' || art === 'realisierung') {
+            svg.append(linie(xA + 14, y, xB, y, { 'stroke-dasharray': art === 'realisierung' ? '6 4' : null }),
+                s('polygon', { points: `${xA},${y} ${xA + 14},${y - 8} ${xA + 14},${y + 8}`, fill: '#fff', stroke: STRICH, 'stroke-width': 1.4 }));
+        } else {
+            svg.append(linie(xA, y, xB, y));
+        }
+        return svg;
+    }
+
+    const symbol = (svg, beschriftung) => h('figure', {}, svg, h('figcaption', { html: beschriftung }));
+    const tabelle = (kopf, zeilen) => h('div', { class: 'table-responsive' }, h('table', { class: 'table table-sm table-bordered' },
+        h('thead', { class: 'table-light' }, h('tr', {}, kopf.map((k) => h('th', {}, k)))),
+        h('tbody', {}, zeilen.map((z) => h('tr', {}, z.map((zelle) => h('td', { html: zelle })))))));
+
+    const LERNEN = {
+        uml: () => h('div', {},
+            h('h4', {}, 'Beziehungsarten'),
+            h('div', { class: 'game-symbols' },
+                symbol(miniUml('assoziation', 'Kunde', 'Bestellung'), '<strong>Assoziation</strong> – einfache Linie: Die Klassen kennen sich und arbeiten zusammen.'),
+                symbol(miniUml('aggregation', 'Ganzes', 'Teil'), '<strong>Aggregation</strong> – leere Raute am Ganzen: Die Teile können auch ohne das Ganze existieren.'),
+                symbol(miniUml('komposition', 'Ganzes', 'Teil'), '<strong>Komposition</strong> – gefüllte Raute am Ganzen: Die Teile existieren nicht ohne das Ganze und werden mit ihm gelöscht.'),
+                symbol(miniUml('vererbung', 'Oberklasse', 'Unterklasse'), '<strong>Vererbung</strong> – leeres Dreieck an der Oberklasse: „ist ein“ (ein Pkw ist ein Fahrzeug).'),
+                symbol(miniUml('realisierung', '«interface»', 'Klasse'), '<strong>Realisierung</strong> – gestrichelte Linie, leeres Dreieck am Interface: Die Klasse setzt die Schnittstelle um.')),
+            h('h4', {}, 'Multiplizitäten'),
+            tabelle(['Schreibweise', 'Bedeutung', 'Signalwörter im Text'], [
+                ['1', 'genau eins', '„genau ein“, „gehört zu einem“'],
+                ['0..1', 'keins oder eins', '„höchstens ein“, „kann … haben“'],
+                ['0..* (oder *)', 'beliebig viele, auch keins', '„beliebig viele“, „auch keine“, „kann leer sein“'],
+                ['1..*', 'mindestens eins', '„mindestens ein“, „besteht aus“']
+            ]),
+            h('p', { html: 'Die Multiplizität steht an der Klasse, deren Anzahl sie angibt. Lies immer: „Ein(e) A hat <em>…</em> B“ – die Zahl steht dann am B.' }),
+            h('p', { class: 'game-example', html: 'Kunde <strong>1</strong> ——— <strong>0..*</strong> Bestellung: Ein Kunde hat beliebig viele Bestellungen (auch keine), jede Bestellung gehört zu genau einem Kunden.' }),
+            h('p', { class: 'game-merke', html: 'Komposition oder Aggregation? Frag: „Was passiert mit den Teilen, wenn das Ganze gelöscht wird?“ Verschwinden sie mit, ist es eine Komposition – dann steht am Ganzen immer 1.' })),
+
+        klasse: () => h('div', {},
+            h('h4', {}, 'Aufbau einer Klasse'),
+            h('div', { class: 'game-figure' }, (() => {
+                const kasten = klassenKasten(20, 10, 380, 'Drucker', {
+                    attribute: [{ t: '- seriennr: String' }, { t: '# standort: String' }, { t: '- anzahlDrucker: int', statisch: true }],
+                    methoden: [{ t: '+ drucken(datei: String): boolean' }, { t: '+ getAnzahlDrucker(): int', statisch: true }]
+                });
+                const svg = leinwand(420, kasten.hoehe + 20, 'Beispielklasse Drucker');
+                svg.append(kasten);
+                return svg;
+            })()),
+            h('p', {}, 'Oben der Klassenname, in der Mitte die Attribute (name: Typ), unten die Methoden (name(parameter: Typ): Rückgabetyp).'),
+            h('h4', {}, 'Sichtbarkeiten'),
+            tabelle(['Zeichen', 'Name', 'Wer darf zugreifen?', 'Signalwörter'], [
+                ['+', 'public', 'alle Klassen', '„jede Klasse“, „von außen“, „öffentlich“'],
+                ['−', 'private', 'nur die Klasse selbst', '„gekapselt“, „privat“, „nur intern“'],
+                ['#', 'protected', 'die Klasse und ihre Unterklassen', '„Unterklassen dürfen direkt …“'],
+                ['~', 'package', 'Klassen im selben Paket', '„im selben Paket“']
+            ]),
+            h('ul', {},
+                h('li', { html: '<strong>Statisch</strong> (klassenbezogen) heißt: gehört zur Klasse, nicht zu einem einzelnen Objekt – zum Beispiel ein Zähler aller Objekte oder eine Konstante. Statische Elemente werden <u>unterstrichen</u>.' }),
+                h('li', { html: 'Abstrakte Klassen und Methoden werden <em>kursiv</em> geschrieben.' })),
+            h('p', { class: 'game-merke', html: 'Kapselung: Attribute sind in der Regel privat, der Zugriff läuft über öffentliche Methoden (Getter und Setter).' })),
+
+        er: () => h('div', {},
+            h('h4', {}, 'Kardinalitäten (Chen-Notation)'),
+            tabelle(['Kardinalität', 'Bedeutung', 'Beispiel'], [
+                ['1:1', 'Zu einem A gehört höchstens ein B – und umgekehrt.', 'Person – Personalausweis'],
+                ['1:n', 'Ein A hat viele B, jedes B gehört zu genau einem A.', 'Abteilung – Mitarbeiter'],
+                ['n:1', 'wie 1:n, nur steht die „viele“-Seite links', 'Mitarbeiter – Abteilung'],
+                ['n:m', 'Viele A gehören zu vielen B.', 'Student – Kurs']
+            ]),
+            h('div', { class: 'game-figure' }, zeichneEr({ a: 'Abteilung', b: 'Mitarbeiter', rel: 'beschäftigt' }, '1:n')),
+            h('p', { html: 'So findest du die Kardinalität: Frag in <strong>beide</strong> Richtungen. „Wie viele Mitarbeiter kann eine Abteilung haben?“ → viele (n). „Zu wie vielen Abteilungen gehört ein Mitarbeiter?“ → einer (1). Ergebnis: 1:n.' }),
+            h('h4', {}, 'Umsetzung in Tabellen'),
+            h('ul', {},
+                h('li', { html: '<strong>1:n</strong> – Fremdschlüssel auf der n-Seite: Mitarbeiter bekommt die Spalte abteilung_id.' }),
+                h('li', { html: '<strong>n:m</strong> – eigene Zwischentabelle mit beiden Fremdschlüsseln, die zusammen den Primärschlüssel bilden.' }),
+                h('li', { html: '<strong>1:1</strong> – Fremdschlüssel in einer der beiden Tabellen, mit UNIQUE abgesichert.' })),
+            h('p', { class: 'game-example', html: 'Student(<u>matrikelnr</u>, name) · Kurs(<u>kursnr</u>, titel) · Belegung(<u>matrikelnr, kursnr</u>)' })),
+
+        usecase: () => h('div', {},
+            h('h4', {}, 'Elemente'),
+            h('ul', {},
+                h('li', { html: '<strong>Akteur</strong> (Strichmännchen): Person oder System außerhalb, das das System nutzt.' }),
+                h('li', { html: '<strong>Anwendungsfall</strong> (Ellipse): eine Funktion, die dem Akteur einen Nutzen bringt.' }),
+                h('li', { html: '<strong>Systemgrenze</strong> (Rahmen) und <strong>Assoziation</strong> (Linie zwischen Akteur und Anwendungsfall).' })),
+            h('h4', {}, 'Beziehungen zwischen Anwendungsfällen'),
+            tabelle(['Beziehung', 'Bedeutung', 'Pfeil'], [
+                ['«include»', 'wird <strong>immer</strong> mit ausgeführt', 'gestrichelt, vom Basisfall zum eingebundenen Fall'],
+                ['«extend»', 'kommt <strong>optional</strong> oder unter einer Bedingung dazu', 'gestrichelt, von der Erweiterung zum Basisfall'],
+                ['Generalisierung', '„ist ein besonderer …“', 'durchgezogen, leeres Dreieck am allgemeinen Element']
+            ]),
+            h('div', { class: 'game-figure' }, zeichneUc({ e1: { n: 'Rechnung erstellen' }, e2: { n: 'Steuer berechnen' } }, 'include', '2')),
+            h('div', { class: 'game-figure' }, zeichneUc({ e1: { n: 'Film streamen' }, e2: { n: 'Untertitel einblenden' } }, 'extend', '1')),
+            h('p', { class: 'game-merke', html: '«include» = „immer dabei“, der Pfeil zeigt zum eingebundenen Teil. «extend» = „kann dazukommen“, der Pfeil zeigt zum Basisfall zurück.' })),
+
+        typ: () => {
+            const gruppen = {};
+            DIAGRAMME.forEach((d) => { (gruppen[d.gruppe] = gruppen[d.gruppe] || []).push(d); });
+            return h('div', {},
+                h('p', {}, 'Achte zuerst auf die Symbole – fast jeder Diagrammtyp hat ein unverwechselbares Merkmal.'),
+                Object.entries(gruppen).map(([gruppe, liste]) => [
+                    h('h4', {}, gruppe),
+                    tabelle(['Diagramm', 'erkennst du an', 'wofür'], liste.map((d) => [d.name, d.merkmal, d.wozu]))
+                ]));
+        }
+    };
+
     const modes = [
-        { id: 'uml', name: 'UML-Beziehungen', icon: 'bi-bounding-box', levels: false, create: ({ rng }) => umlAufgabe(rng) },
-        { id: 'klasse', name: 'Klassen modellieren', icon: 'bi-card-list', levels: false, create: ({ rng }) => klassenAufgabe(rng) },
-        { id: 'er', name: 'ER-Kardinalitäten', icon: 'bi-diagram-2', levels: false, create: ({ rng }) => erAufgabe(rng) },
-        { id: 'usecase', name: 'Use-Case-Beziehungen', icon: 'bi-person-workspace', levels: false, create: ({ rng }) => ucAufgabe(rng) },
-        { id: 'typ', name: 'Diagrammtyp erkennen', icon: 'bi-easel', levels: false, create: ({ rng }) => typAufgabe(rng) }
+        { id: 'uml', name: 'UML-Beziehungen', icon: 'bi-bounding-box', levels: false, learn: LERNEN.uml, create: ({ rng }) => umlAufgabe(rng) },
+        { id: 'klasse', name: 'Klassen modellieren', icon: 'bi-card-list', levels: false, learn: LERNEN.klasse, create: ({ rng }) => klassenAufgabe(rng) },
+        { id: 'er', name: 'ER-Kardinalitäten', icon: 'bi-diagram-2', levels: false, learn: LERNEN.er, create: ({ rng }) => erAufgabe(rng) },
+        { id: 'usecase', name: 'Use-Case-Beziehungen', icon: 'bi-person-workspace', levels: false, learn: LERNEN.usecase, create: ({ rng }) => ucAufgabe(rng) },
+        { id: 'typ', name: 'Diagrammtyp erkennen', icon: 'bi-easel', levels: false, learn: LERNEN.typ, create: ({ rng }) => typAufgabe(rng) }
     ];
 
     window.DiagrammTrainer = { modes, UML_FAELLE, KLASSEN, ER_FAELLE, UC_FAELLE, DIAGRAMME };

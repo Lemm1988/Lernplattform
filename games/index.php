@@ -39,7 +39,7 @@ $spiele = [
     [
         'url' => '/games/wiso/index.php', 'titel' => 'WiSo-Trainer', 'icon' => 'bi-briefcase', 'farbe' => '#e87ba4',
         'text' => 'Fallentscheidungen, Fristen und Rechenaufgaben aus Arbeitsrecht, Ausbildung, Kaufvertrag und Sozialversicherung.',
-        'themen' => ['Kündigung', 'Urlaub', 'Sozialversicherung', 'Rechtsformen'], 'speicher' => 'wiso',
+        'themen' => ['Kündigungsfristen', 'Urlaub', 'Sozialversicherung', 'Arbeitsrecht'], 'speicher' => 'wiso',
     ],
 ];
 
@@ -58,7 +58,8 @@ include __DIR__ . '/../includes/header.php';
                     </div>
                     <p class="text-muted game-intro">
                         Üben mit sofortigem Feedback: Jede Aufgabe wird neu erzeugt, Lösungen kommen mit Rechenweg.
-                        Dein Fortschritt wird in diesem Browser gespeichert.
+                        Jeder Aufgabentyp hat eine Lernkarte „Grundwissen“ mit Regeln und Beispiel, und bei typischen Fehlern
+                        erklärt das Spiel, was schiefgelaufen ist. Dein Fortschritt wird in diesem Browser gespeichert.
                     </p>
 
                     <div class="row g-3">

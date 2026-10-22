@@ -103,7 +103,7 @@ include __DIR__ . '/../../includes/header.php';
 </div>
 
 <script src="/assets/js/vendor/sql.js-1.10.3/sql-wasm.js"></script>
-<script src="/assets/js/games/sql-trainer-levels.js"></script>
-<script src="/assets/js/games/sql-trainer.js"></script>
+<script src="<?= asset_url('/assets/js/games/sql-trainer-levels.js') ?>"></script>
+<script src="<?= asset_url('/assets/js/games/sql-trainer.js') ?>"></script>
 
 <?php include __DIR__ . '/../../includes/footer.php'; ?>

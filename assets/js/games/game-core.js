@@ -7,6 +7,8 @@
  *   task.check()                 → { correct, score (0…1), message }
  *   task.showSolution(body)      zeigt die Lösung (optional mit Rechenweg)
  *   task.hint                    optionaler Tipp (String mit HTML aus eigenen Inhalten)
+ *   mode.learn                   optionale Lernkarte „Grundwissen“ (HTML-String oder Funktion, die ein Element liefert)
+ * check() darf zusätzlich tipps liefern (Array mit HTML) – z. B. Erklärungen zu typischen Fehlern.
  * Der Kern kümmert sich um Layout, Buttons, Statistik und Speichern (localStorage pro Benutzer).
  */
 (function () {
@@ -95,6 +97,13 @@
         maximumFractionDigits: decimals ?? 2
     });
 
+    /** Wie deFormat, aber ohne Tausenderpunkte – für Jahreszahlen und Variablenwerte im Code. */
+    const dePlain = (value, decimals) => Number(value).toLocaleString('de-DE', {
+        useGrouping: false,
+        minimumFractionDigits: decimals ?? 0,
+        maximumFractionDigits: decimals ?? 2
+    });
+
     /** Liest "1.234,56", "1234,56", "1234.56" oder "1 234" als Zahl; NaN bei Unsinn. */
     function parseNumber(text) {
         let t = String(text ?? '').trim().replace(/\s|€|%/g, '');
@@ -148,25 +157,33 @@
         }, props));
     }
 
+    /** Vergleicht eine Eingabe mit einem Sollwert (Zahl mit Toleranz oder normalisierter Text). */
+    function matches(f, soll, value, alternatives) {
+        if (typeof soll === 'number') return near(parseNumber(value), soll, f.tolerance);
+        const norm = f.normalize || ((v) => String(v).trim().toLowerCase().replace(/\s+/g, ''));
+        return [soll].concat(alternatives || []).map(norm).includes(norm(value));
+    }
+
     /**
-     * Prüft eine Liste von Feldern { input, answer, tolerance, normalize } und markiert sie.
+     * Prüft eine Liste von Feldern { input, answer, tolerance, normalize, typisch } und markiert sie.
      * answer kann Zahl oder String sein; bei Strings wird normalize (Standard: trim+lowercase) verglichen.
+     * typisch: [{ answer, warum }] – typische Fehlergebnisse; trifft eine falsche Eingabe eines davon,
+     * landet die Erklärung in tipps.
      */
     function checkFields(fields) {
         let right = 0;
+        const tipps = [];
         for (const f of fields) {
-            let ok;
-            if (typeof f.answer === 'number') {
-                ok = near(parseNumber(f.input.value), f.answer, f.tolerance);
-            } else {
-                const norm = f.normalize || ((v) => String(v).trim().toLowerCase().replace(/\s+/g, ''));
-                const accepted = [f.answer].concat(f.alternatives || []).map(norm);
-                ok = accepted.includes(norm(f.input.value));
-            }
+            const ok = matches(f, f.answer, f.input.value, f.alternatives);
             mark(f.input, ok);
-            if (ok) right++;
+            if (ok) {
+                right++;
+            } else if (f.typisch && String(f.input.value).trim() !== '') {
+                const t = f.typisch.find((x) => matches(f, x.answer, f.input.value));
+                if (t && !tipps.includes(t.warum)) tipps.push(t.warum);
+            }
         }
-        return { right, total: fields.length, correct: right === fields.length, score: fields.length ? right / fields.length : 0 };
+        return { right, total: fields.length, correct: right === fields.length, score: fields.length ? right / fields.length : 0, tipps };
     }
 
     function fillFields(fields, format) {
@@ -193,6 +210,7 @@
         const saved = store(userKey);
         const state = saved.load({ stats: {}, mode: null, level: 1 });
         state.stats = state.stats || {};
+        state.learn = state.learn || {};
 
         const modes = config.modes;
         let mode = modes.find((m) => m.id === state.mode) || modes[0];
@@ -213,13 +231,16 @@
         const title = h('h2', { class: 'h5 mb-0' });
         const badge = h('span', { class: 'badge text-bg-light border' });
         const description = h('p', { class: 'text-muted small mb-3' });
+        const learnBox = h('details', { class: 'game-learn' });
+        let learnMode = null;
         const body = h('div', { class: 'game-task' });
         const feedback = h('div', { class: 'alert mt-3 mb-0', role: 'status', 'aria-live': 'polite', hidden: true });
         const hintBox = h('div', { class: 'alert alert-info mt-3 mb-0', hidden: true });
         const solutionBox = h('div', { class: 'game-solution mt-3', hidden: true });
         const btnCheck = h('button', { type: 'button', class: 'btn btn-primary' }, h('i', { class: 'bi bi-check2-circle me-1' }), 'Prüfen');
         const btnHint = h('button', { type: 'button', class: 'btn btn-outline-secondary' }, h('i', { class: 'bi bi-lightbulb me-1' }), 'Tipp');
-        const btnSolution = h('button', { type: 'button', class: 'btn btn-outline-secondary' }, h('i', { class: 'bi bi-eye me-1' }), 'Lösung');
+        const solutionLabel = h('span', {}, 'Lösung');
+        const btnSolution = h('button', { type: 'button', class: 'btn btn-outline-secondary' }, h('i', { class: 'bi bi-eye me-1' }), solutionLabel);
         const btnNext = h('button', { type: 'button', class: 'btn btn-success ms-sm-auto' }, 'Neue Aufgabe ', h('i', { class: 'bi bi-arrow-right' }));
         const statLine = h('div', { class: 'game-stats small' });
 
@@ -238,6 +259,7 @@
                         levelBox
                     ),
                     description,
+                    learnBox,
                     body,
                     h('div', { class: 'd-flex flex-wrap gap-2 mt-3 game-buttons' }, btnCheck, btnHint, btnSolution, btnNext),
                     feedback, hintBox, solutionBox
@@ -289,16 +311,51 @@
             saved.save(state);
         }
 
-        function showFeedback(kind, content) {
+        function showFeedback(kind, content, tipps) {
             feedback.className = 'alert mt-3 mb-0 alert-' + kind;
             feedback.replaceChildren(...[].concat(content));
+            if (tipps && tipps.length) {
+                feedback.append(h('ul', { class: 'game-tipps' }, tipps.map((t) => h('li', { html: t }))));
+            }
             feedback.hidden = false;
         }
+
+        /** Lernkarte des Aufgabentyps; beim ersten Besuch offen, danach so, wie man sie zuletzt gelassen hat. */
+        function renderLearn() {
+            if (learnMode === mode) return;
+            learnMode = mode;
+            const inhalt = typeof mode.learn === 'function' ? mode.learn() : mode.learn;
+            learnBox.hidden = !inhalt;
+            learnBox.replaceChildren();
+            if (!inhalt) return;
+            learnBox.append(
+                h('summary', {}, h('i', { class: 'bi bi-mortarboard me-2', 'aria-hidden': 'true' }), 'Grundwissen: ' + mode.name,
+                    h('i', { class: 'bi bi-chevron-down game-learn-chevron', 'aria-hidden': 'true' })),
+                typeof inhalt === 'string' ? h('div', { class: 'game-learn-body', html: inhalt }) : h('div', { class: 'game-learn-body' }, inhalt)
+            );
+            const offen = state.learn[mode.id] ?? statsFor(mode.id).tasks === 0;
+            if (learnBox.open !== offen) {
+                learnIgnoreToggle = true;      // nur Klicks der Person merken, nicht das Öffnen per Code
+                learnBox.open = offen;
+            }
+        }
+        let learnIgnoreToggle = false;
+        learnBox.addEventListener('toggle', () => {
+            if (learnIgnoreToggle) {
+                learnIgnoreToggle = false;
+                return;
+            }
+            if (learnMode) {
+                state.learn[learnMode.id] = learnBox.open;
+                persist();
+            }
+        });
 
         function newTask() {
             checked = false;
             solved = false;
             revealed = false;
+            solutionLabel.textContent = 'Lösung';
             feedback.hidden = true;
             hintBox.hidden = true;
             solutionBox.hidden = true;
@@ -310,6 +367,7 @@
             title.textContent = task.title || mode.name;
             badge.textContent = mode.name;
             description.innerHTML = task.description || mode.description || '';
+            renderLearn();
             body.replaceChildren();
             task.render(body);
             btnHint.disabled = !task.hint;
@@ -336,6 +394,7 @@
                     st.streak++;
                     st.best = Math.max(st.best, st.streak);
                 }
+                solutionLabel.textContent = 'Lösungsweg';
                 showFeedback('success', [h('strong', {}, 'Richtig! '), result.message ? h('span', { html: result.message }) : 'Weiter so.']);
             } else {
                 st.streak = 0;
@@ -343,7 +402,7 @@
                 showFeedback(pct >= 50 ? 'warning' : 'danger', [
                     h('strong', {}, pct > 0 ? `${pct} % richtig. ` : 'Noch nicht richtig. '),
                     h('span', { html: result.message || 'Rot markierte Felder prüfen und erneut versuchen.' })
-                ]);
+                ], result.tipps);
             }
             persist();
             renderModes();
@@ -387,5 +446,5 @@
         return api;
     }
 
-    window.ITGame = { h, s, rng, deck, parseNumber, deFormat, near, mark, numberInput, checkFields, fillFields, mount, store };
+    window.ITGame = { h, s, rng, deck, parseNumber, deFormat, dePlain, near, mark, numberInput, checkFields, fillFields, mount, store };
 })();

@@ -41,6 +41,16 @@ function safe_output($string, $encoding = 'UTF-8') {
 }
 
 /**
+ * Pfad einer lokalen CSS- oder JS-Datei mit Versionsparameter (?v=Änderungszeit).
+ * Die .htaccess erlaubt Browsern, diese Dateien einen Monat zu cachen – mit dem Parameter
+ * wird nach einem Update trotzdem sofort die neue Fassung geladen.
+ */
+function asset_url($path) {
+    $file = __DIR__ . '/..' . $path;
+    return is_file($file) ? $path . '?v=' . filemtime($file) : $path;
+}
+
+/**
  * Validiert E-Mail-Adresse
  */
 function validate_email($email) {

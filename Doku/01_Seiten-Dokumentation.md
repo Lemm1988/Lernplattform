@@ -725,7 +725,7 @@
 ### `games/` - IT-Games
 **Zweck:** Lernspiele mit zufällig erzeugten Aufgaben und sofortigem Feedback  
 **Zugriff:** Eingeloggte Benutzer; Fortschritt im localStorage des Browsers  
-**Technik:** gemeinsamer Kern `assets/js/games/game-core.js` (Layout, Prüfen/Tipp/Lösung, Statistik), Gestaltung `assets/css/games.css`  
+**Technik:** gemeinsamer Kern `assets/js/games/game-core.js` (Layout, Prüfen/Tipp/Lösung, Lernkarte „Grundwissen“, Hinweise zu typischen Fehlern, Statistik), Gestaltung `assets/css/games.css`  
 **Seiten:**
 - `games/index.php` - Übersicht aller Spiele mit Fortschritt
 - `games/sql-trainer/` - SQL-Abfragen in 14 Leveln (sql.js im Browser)

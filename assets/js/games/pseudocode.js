@@ -3,16 +3,19 @@
  * Jeder Algorithmus liegt zweimal vor – als Pseudocode zum Anzeigen und als JavaScript-Funktion,
  * die für zufällige Eingaben die Wertetabelle (Schreibtischtest) und das Ergebnis berechnet.
  *
+ * lauf() liefert zusätzlich „wege“: den Lösungsweg in Worten, Schritt für Schritt.
+ *
  * Notation: ← Zuweisung, DIV ganzzahlige Division, MOD Divisionsrest, Arrays beginnen bei Index 0.
  */
 (function () {
     'use strict';
 
-    const { h, checkFields, mark, deFormat } = window.ITGame;
+    const { h, checkFields, mark, dePlain } = window.ITGame;
 
     const liste = (a) => a.join(', ');
     const bool = (b) => (b ? 'wahr' : 'falsch');
     const zahlenListe = (rng, n, min, max) => Array.from({ length: n }, () => rng.int(min, max));
+    const z = (n) => dePlain(n);     // Variablenwerte ohne Tausenderpunkt: 5040, nicht 5.040
 
     const ALGORITHMEN = [
         {
@@ -32,12 +35,16 @@
             wann: 'nach jedem Schleifendurchlauf',
             lauf(e) {
                 const zeilen = [];
+                const wege = ['summe ← 0'];
                 let summe = 0;
                 for (let i = 0; i < e.werte.length; i++) {
+                    wege.push(`i = ${i}: summe ← ${summe} + werte[${i}] = ${summe} + ${e.werte[i]} = <strong>${summe + e.werte[i]}</strong>`);
                     summe += e.werte[i];
                     zeilen.push([i, e.werte[i], summe]);
                 }
-                return { zeilen, ergebnis: summe / e.werte.length };
+                const ergebnis = summe / e.werte.length;
+                wege.push(`Schleife fertig. RÜCKGABE ${summe} / ${e.werte.length} = <strong>${z(ergebnis)}</strong>`);
+                return { zeilen, ergebnis, wege };
             },
             luecken: [
                 { zeile: 1, text: '0', optionen: ['0', '1', 'werte[0]', 'länge(werte)'], warum: 'Die Summe startet bei 0 – sonst wird ein Wert doppelt oder ein fremder Wert mitgezählt.' },
@@ -69,11 +76,15 @@
             lauf(e) {
                 const zeilen = [];
                 let max = e.werte[0];
+                const wege = [`max ← werte[0] = ${max}`];
                 for (let i = 1; i < e.werte.length; i++) {
-                    if (e.werte[i] > max) max = e.werte[i];
+                    const groesser = e.werte[i] > max;
+                    wege.push(`i = ${i}: ${e.werte[i]} > ${max}? ${groesser ? `ja → max ← <strong>${e.werte[i]}</strong>` : `nein → max bleibt ${max}`}`);
+                    if (groesser) max = e.werte[i];
                     zeilen.push([i, e.werte[i], max]);
                 }
-                return { zeilen, ergebnis: max };
+                wege.push(`RÜCKGABE <strong>${max}</strong>`);
+                return { zeilen, ergebnis: max, wege };
             },
             luecken: [
                 { zeile: 1, text: 'werte[0]', optionen: ['werte[0]', '0', 'werte[1]', '−1'], warum: 'Mit werte[0] funktioniert es für alle Eingaben, auch wenn alle Werte negativ sind. Mit 0 wäre das Ergebnis dann falsch.' },
@@ -105,12 +116,15 @@
             wann: 'nach jedem Schleifendurchlauf',
             lauf(e) {
                 const zeilen = [];
+                const wege = ['anzahl ← 0'];
                 let anzahl = 0;
                 for (const w of e.werte) {
                     if (w > e.grenze) anzahl++;
+                    wege.push(`w = ${w}: ${w} > ${e.grenze}? ${w > e.grenze ? `ja → anzahl ← <strong>${anzahl}</strong>` : `nein → anzahl bleibt ${anzahl}`}`);
                     zeilen.push([w, anzahl]);
                 }
-                return { zeilen, ergebnis: anzahl };
+                wege.push(`RÜCKGABE <strong>${anzahl}</strong>`);
+                return { zeilen, ergebnis: anzahl, wege };
             },
             luecken: [
                 { zeile: 3, text: 'w > grenze', optionen: ['w > grenze', 'w = grenze', 'anzahl > grenze', 'w > anzahl'], warum: 'Gezählt werden Werte, die größer als die Grenze sind.' },
@@ -138,12 +152,15 @@
             wann: 'nach jedem Schleifendurchlauf',
             lauf(e) {
                 const zeilen = [];
+                const wege = ['ergebnis ← 1'];
                 let ergebnis = 1;
                 for (let i = 2; i <= e.n; i++) {
+                    wege.push(`i = ${i}: ergebnis ← ${z(ergebnis)} · ${i} = <strong>${z(ergebnis * i)}</strong>`);
                     ergebnis *= i;
                     zeilen.push([i, ergebnis]);
                 }
-                return { zeilen, ergebnis };
+                wege.push(`i hat n = ${e.n} erreicht, Schleife fertig. RÜCKGABE <strong>${z(ergebnis)}</strong>`);
+                return { zeilen, ergebnis, wege };
             },
             luecken: [
                 { zeile: 1, text: '1', optionen: ['1', '0', 'n', '2'], warum: 'Bei der Multiplikation ist 1 das neutrale Element – mit 0 wäre alles 0.' },
@@ -172,14 +189,18 @@
             wann: 'nach jedem Schleifendurchlauf',
             lauf(e) {
                 const zeilen = [];
+                const wege = ['summe ← 0'];
                 let summe = 0;
                 let zahl = e.zahl;
                 while (zahl > 0) {
-                    summe += zahl % 10;
+                    const ziffer = zahl % 10;
+                    wege.push(`${zahl} > 0: summe ← ${summe} + ${zahl} MOD 10 = ${summe} + ${ziffer} = <strong>${summe + ziffer}</strong>; zahl ← ${zahl} DIV 10 = <strong>${Math.floor(zahl / 10)}</strong>`);
+                    summe += ziffer;
                     zahl = Math.floor(zahl / 10);
                     zeilen.push([summe, zahl]);
                 }
-                return { zeilen, ergebnis: summe };
+                wege.push(`zahl = 0 → Schleife endet. RÜCKGABE <strong>${summe}</strong>`);
+                return { zeilen, ergebnis: summe, wege };
             },
             luecken: [
                 { zeile: 3, text: 'zahl MOD 10', optionen: ['zahl MOD 10', 'zahl DIV 10', 'zahl', 'zahl MOD 2'], warum: 'MOD 10 liefert die letzte Ziffer.' },
@@ -214,15 +235,18 @@
             wann: 'nach jedem Schleifendurchlauf',
             lauf(e) {
                 const zeilen = [];
+                const wege = [];
                 let a = e.a;
                 let b = e.b;
                 while (b !== 0) {
                     const rest = a % b;
+                    wege.push(`b = ${b} ≠ 0: rest ← ${a} MOD ${b} = <strong>${rest}</strong>; a ← ${b}; b ← ${rest}`);
                     a = b;
                     b = rest;
                     zeilen.push([rest, a, b]);
                 }
-                return { zeilen, ergebnis: a };
+                wege.push(`b = 0 → Schleife endet. RÜCKGABE a = <strong>${a}</strong>`);
+                return { zeilen, ergebnis: a, wege };
             },
             luecken: [
                 { zeile: 1, text: 'b ≠ 0', optionen: ['b ≠ 0', 'a ≠ 0', 'b > 1', 'a > b'], warum: 'Das Verfahren endet, wenn der Rest 0 ist – dann steht der ggT in a.' },
@@ -254,15 +278,18 @@
             text: true,
             lauf(e) {
                 const zeilen = [];
+                const wege = ['ergebnis ← "" (leerer Text)'];
                 let ergebnis = '';
                 let zahl = e.zahl;
                 while (zahl > 0) {
                     const rest = zahl % 2;
+                    wege.push(`${zahl} > 0: rest ← ${zahl} MOD 2 = ${rest}; ergebnis ← "${rest}" + "${ergebnis}" = <strong>"${rest + ergebnis}"</strong>; zahl ← ${zahl} DIV 2 = ${Math.floor(zahl / 2)}`);
                     ergebnis = rest + ergebnis;
                     zahl = Math.floor(zahl / 2);
                     zeilen.push([rest, ergebnis, zahl]);
                 }
-                return { zeilen, ergebnis };
+                wege.push(`zahl = 0 → Schleife endet. RÜCKGABE <strong>"${ergebnis}"</strong>`);
+                return { zeilen, ergebnis, wege };
             },
             luecken: [
                 { zeile: 4, text: 'rest + ergebnis', optionen: ['rest + ergebnis', 'ergebnis + rest', 'rest', 'ergebnis + 2'], warum: 'Der neue Rest ist die höherwertige Stelle und kommt deshalb nach vorne.' },
@@ -298,13 +325,24 @@
             wann: 'jedes Mal, wenn die SOLANGE-Bedingung geprüft wird (auch beim letzten, abbrechenden Mal; gibt es werte[i] nicht, trage „–“ ein)',
             lauf(e) {
                 const zeilen = [];
+                const wege = [];
                 let i = 0;
                 for (;;) {
                     zeilen.push([i, i < e.werte.length ? e.werte[i] : '–']);
-                    if (!(i < e.werte.length && e.werte[i] !== e.gesucht)) break;
+                    if (i >= e.werte.length) {
+                        wege.push(`i = ${i}: i &lt; ${e.werte.length} ist falsch → Schleife endet (Liste ganz durchsucht)`);
+                        break;
+                    }
+                    if (e.werte[i] === e.gesucht) {
+                        wege.push(`i = ${i}: werte[${i}] = ${e.werte[i]} ist der gesuchte Wert → Schleife endet`);
+                        break;
+                    }
+                    wege.push(`i = ${i}: werte[${i}] = ${e.werte[i]} ≠ ${e.gesucht} → i ← ${i + 1}`);
                     i++;
                 }
-                return { zeilen, ergebnis: i < e.werte.length ? i : -1 };
+                const ergebnis = i < e.werte.length ? i : -1;
+                wege.push(i < e.werte.length ? `i = ${i} &lt; länge → RÜCKGABE <strong>${i}</strong>` : 'i = länge → RÜCKGABE <strong>−1</strong> (nicht gefunden)');
+                return { zeilen, ergebnis, wege };
             },
             luecken: [
                 { zeile: 2, text: 'UND', optionen: ['UND', 'ODER'], warum: 'Weitersuchen nur, solange noch Elemente da sind UND das aktuelle nicht passt.' },
@@ -339,14 +377,18 @@
             bool: true,
             lauf(e) {
                 const zeilen = [];
-                if (e.n < 2) return { zeilen, ergebnis: false };
+                const wege = [];
+                if (e.n < 2) return { zeilen, ergebnis: false, wege: [`${e.n} &lt; 2 → RÜCKGABE falsch`] };
                 let teiler = 2;
                 while (teiler * teiler <= e.n) {
-                    zeilen.push([teiler, e.n % teiler]);
-                    if (e.n % teiler === 0) return { zeilen, ergebnis: false };
+                    const rest = e.n % teiler;
+                    zeilen.push([teiler, rest]);
+                    wege.push(`teiler = ${teiler} (${teiler} · ${teiler} = ${teiler * teiler} ≤ ${e.n}): ${e.n} MOD ${teiler} = ${rest}` + (rest === 0 ? ` → ${teiler} teilt ${e.n}: RÜCKGABE <strong>falsch</strong>` : ' → kein Teiler'));
+                    if (rest === 0) return { zeilen, ergebnis: false, wege };
                     teiler++;
                 }
-                return { zeilen, ergebnis: true };
+                wege.push(`teiler = ${teiler}: ${teiler} · ${teiler} = ${teiler * teiler} > ${e.n} → Schleife endet, kein Teiler gefunden: RÜCKGABE <strong>wahr</strong>`);
+                return { zeilen, ergebnis: true, wege };
             },
             luecken: [
                 { zeile: 5, text: 'teiler · teiler ≤ n', optionen: ['teiler · teiler ≤ n', 'teiler < 2', 'teiler · teiler > n', 'teiler = n'], warum: 'Teiler über √n muss man nicht prüfen – zu jedem großen Teiler gibt es einen kleinen Partner.' },
@@ -380,15 +422,21 @@
             bool: true,
             lauf(e) {
                 const zeilen = [];
+                const wege = [`links ← 0, rechts ← länge − 1 = ${e.text.length - 1}`];
                 let l = 0;
                 let r = e.text.length - 1;
                 while (l < r) {
                     zeilen.push([l, r, e.text[l], e.text[r]]);
-                    if (e.text[l] !== e.text[r]) return { zeilen, ergebnis: false };
+                    if (e.text[l] !== e.text[r]) {
+                        wege.push(`links = ${l}, rechts = ${r}: ${e.text[l]} ≠ ${e.text[r]} → RÜCKGABE <strong>falsch</strong>`);
+                        return { zeilen, ergebnis: false, wege };
+                    }
+                    wege.push(`links = ${l}, rechts = ${r}: ${e.text[l]} = ${e.text[r]} → beide Zeiger rücken zur Mitte`);
                     l++;
                     r--;
                 }
-                return { zeilen, ergebnis: true };
+                wege.push(`links = ${l}, rechts = ${r}: links &lt; rechts ist falsch → Schleife endet. RÜCKGABE <strong>wahr</strong>`);
+                return { zeilen, ergebnis: true, wege };
             },
             luecken: [
                 { zeile: 2, text: 'länge(text) − 1', optionen: ['länge(text) − 1', 'länge(text)', 'länge(text) DIV 2', '1'], warum: 'Der letzte Buchstabe hat den Index länge − 1.' },
@@ -423,14 +471,18 @@
             toleranz: 0.02,
             lauf(e) {
                 const zeilen = [];
+                const wege = ['jahre ← 0'];
                 let kapital = e.kapital;
                 let jahre = 0;
                 while (kapital < e.ziel) {
-                    kapital += kapital * e.zinssatz / 100;
+                    const neu = kapital + kapital * e.zinssatz / 100;
+                    wege.push(`${z(Math.round(kapital * 100) / 100)} &lt; ${e.ziel}: kapital ← ${z(Math.round(kapital * 100) / 100)} + ${z(Math.round(kapital * 100) / 100)} · ${e.zinssatz} / 100 = <strong>${z(Math.round(neu * 100) / 100)}</strong>; jahre ← ${jahre + 1}`);
+                    kapital = neu;
                     jahre++;
                     zeilen.push([Math.round(kapital * 100) / 100, jahre]);
                 }
-                return { zeilen, ergebnis: jahre };
+                wege.push(`${z(Math.round(kapital * 100) / 100)} ≥ ${e.ziel} → Schleife endet. RÜCKGABE <strong>${jahre}</strong>`);
+                return { zeilen, ergebnis: jahre, wege };
             },
             luecken: [
                 { zeile: 2, text: 'kapital < ziel', optionen: ['kapital < ziel', 'kapital > ziel', 'jahre < ziel', 'kapital = ziel'], warum: 'Es wird weiter verzinst, solange das Ziel noch nicht erreicht ist.' },
@@ -463,8 +515,12 @@
             spalten: null,
             lauf(e) {
                 let prozent = e.betrag >= 1000 ? 10 : e.betrag >= 500 ? 5 : 0;
+                const wege = [e.betrag >= 1000 ? `${e.betrag} ≥ 1000 → prozent ← 10` : e.betrag >= 500 ? `${e.betrag} ≥ 1000? nein. ${e.betrag} ≥ 500? ja → prozent ← 5` : `${e.betrag} ist weder ≥ 1000 noch ≥ 500 → prozent ← 0`];
                 if (e.stammkunde) prozent += 2;
-                return { zeilen: [], ergebnis: e.betrag - e.betrag * prozent / 100 };
+                wege.push(e.stammkunde ? `stammkunde ist wahr → prozent ← ${prozent - 2} + 2 = ${prozent}` : 'stammkunde ist falsch → prozent bleibt');
+                const ergebnis = e.betrag - e.betrag * prozent / 100;
+                wege.push(`RÜCKGABE ${e.betrag} − ${e.betrag} · ${prozent} / 100 = <strong>${z(ergebnis)}</strong>`);
+                return { zeilen: [], ergebnis, wege };
             },
             luecken: [
                 { zeile: 3, text: 'SONST WENN', optionen: ['SONST WENN', 'WENN', 'SOLANGE', 'SONST'], warum: 'Mit einem eigenständigen WENN würde ein Betrag über 1000 auch die zweite Prüfung durchlaufen und auf 5 % fallen.' },
@@ -508,16 +564,27 @@
             wann: 'in jedem Schleifendurchlauf: links und rechts zu Beginn, dazu mitte und liste[mitte]',
             lauf(e) {
                 const zeilen = [];
+                const wege = [];
                 let l = 0;
                 let r = e.liste.length - 1;
                 while (l <= r) {
                     const m = Math.floor((l + r) / 2);
                     zeilen.push([l, r, m, e.liste[m]]);
-                    if (e.liste[m] === e.gesucht) return { zeilen, ergebnis: m };
-                    if (e.liste[m] < e.gesucht) l = m + 1;
-                    else r = m - 1;
+                    const kopf = `links = ${l}, rechts = ${r}: mitte ← (${l} + ${r}) DIV 2 = ${m}, liste[${m}] = ${e.liste[m]}`;
+                    if (e.liste[m] === e.gesucht) {
+                        wege.push(`${kopf} = gesucht → RÜCKGABE <strong>${m}</strong>`);
+                        return { zeilen, ergebnis: m, wege };
+                    }
+                    if (e.liste[m] < e.gesucht) {
+                        wege.push(`${kopf} &lt; ${e.gesucht} → rechts weitersuchen: links ← ${m + 1}`);
+                        l = m + 1;
+                    } else {
+                        wege.push(`${kopf} > ${e.gesucht} → links weitersuchen: rechts ← ${m - 1}`);
+                        r = m - 1;
+                    }
                 }
-                return { zeilen, ergebnis: -1 };
+                wege.push(`links = ${l} > rechts = ${r} → Bereich leer, RÜCKGABE <strong>−1</strong>`);
+                return { zeilen, ergebnis: -1, wege };
             },
             luecken: [
                 { zeile: 3, text: 'links ≤ rechts', optionen: ['links ≤ rechts', 'links < rechts', 'links ≠ mitte', 'rechts > 0'], warum: 'Auch ein Bereich aus genau einem Element (links = rechts) muss noch geprüft werden.' },
@@ -551,16 +618,24 @@
             lauf(e) {
                 const a = e.liste.slice();
                 const zeilen = [];
+                const wege = [];
                 let gesamt = 0;
                 for (let d = 1; d <= a.length - 1; d++) {
                     let t = 0;
+                    const tausch = [];
                     for (let j = 0; j <= a.length - 1 - d; j++) {
-                        if (a[j] > a[j + 1]) { [a[j], a[j + 1]] = [a[j + 1], a[j]]; t++; }
+                        if (a[j] > a[j + 1]) {
+                            tausch.push(`${a[j]}↔${a[j + 1]}`);
+                            [a[j], a[j + 1]] = [a[j + 1], a[j]];
+                            t++;
+                        }
                     }
                     gesamt += t;
                     zeilen.push([d, liste(a), t]);
+                    wege.push(`Durchlauf ${d} (j = 0 bis ${a.length - 1 - d}): ${t ? 'getauscht ' + tausch.join(', ') : 'kein Tausch'} → [${liste(a)}]; ${a[a.length - d]} steht fest`);
                 }
-                return { zeilen, ergebnis: gesamt };
+                wege.push(`Vertauschungen insgesamt: ${zeilen.map((x) => x[2]).join(' + ')} = <strong>${gesamt}</strong>`);
+                return { zeilen, ergebnis: gesamt, wege };
             },
             luecken: [
                 { zeile: 3, text: 'n − 1 − durchlauf', optionen: ['n − 1 − durchlauf', 'n − 1', 'n', 'durchlauf'], warum: 'Nach jedem Durchlauf steht das größte Element hinten fest – der Vergleichsbereich wird kürzer.' },
@@ -636,15 +711,16 @@
                 return { correct: r.correct, score: r.score, message: r.correct ? `Ergebnis: ${formatErgebnis(alg, lauf.ergebnis)}.` : '' };
             },
             showSolution(box) {
-                felder.forEach((f) => { f.input.value = typeof f.answer === 'number' ? deFormat(f.answer, 2) : f.answer; mark(f.input, null); });
-                box.append(h('h3', {}, 'Ergebnis'), h('p', { class: 'mb-0' }, `${alg.aufruf(e)} liefert `, h('strong', {}, formatErgebnis(alg, lauf.ergebnis)), '.'));
+                felder.forEach((f) => { f.input.value = typeof f.answer === 'number' ? z(f.answer) : f.answer; mark(f.input, null); });
+                box.append(h('h3', {}, 'Lösungsweg'), h('ol', { class: 'game-steps' }, lauf.wege.map((w) => h('li', { html: w }))),
+                    h('p', { class: 'mt-2 mb-0' }, `${alg.aufruf(e)} liefert `, h('strong', {}, formatErgebnis(alg, lauf.ergebnis)), '.'));
             }
         };
     }
 
     function formatErgebnis(alg, wert) {
         if (alg.bool) return bool(wert);
-        if (typeof wert === 'number') return deFormat(wert, 2);
+        if (typeof wert === 'number') return z(wert);
         return `"${wert}"`;
     }
 
@@ -673,14 +749,15 @@
                 return { correct: r.correct, score: r.score, message: '' };
             },
             showSolution(box) {
-                feld.value = alg.bool ? bool(lauf.ergebnis) : (typeof lauf.ergebnis === 'number' ? deFormat(lauf.ergebnis, 2) : lauf.ergebnis);
+                feld.value = alg.bool ? bool(lauf.ergebnis) : (typeof lauf.ergebnis === 'number' ? z(lauf.ergebnis) : lauf.ergebnis);
                 mark(feld, null);
                 const kids = [h('h3', {}, 'Lösung'), h('p', {}, `${alg.aufruf(e)} → `, h('strong', {}, formatErgebnis(alg, lauf.ergebnis)))];
                 if (alg.spalten && lauf.zeilen.length) {
-                    kids.push(h('div', { class: 'table-responsive' }, h('table', { class: 'table table-sm table-bordered game-table w-auto mb-0' },
+                    kids.push(h('div', { class: 'table-responsive' }, h('table', { class: 'table table-sm table-bordered game-table w-auto' },
                         h('thead', {}, h('tr', {}, alg.spalten.map((s) => h('th', {}, s)))),
-                        h('tbody', {}, lauf.zeilen.map((z) => h('tr', {}, z.map((w) => h('td', { class: 'text-center' }, typeof w === 'number' ? deFormat(w, 2) : String(w)))))))));
+                        h('tbody', {}, lauf.zeilen.map((zeile) => h('tr', {}, zeile.map((w) => h('td', { class: 'text-center' }, typeof w === 'number' ? z(w) : String(w)))))))));
                 }
+                kids.push(h('h3', { class: 'mt-2' }, 'Lösungsweg'), h('ol', { class: 'game-steps' }, lauf.wege.map((w) => h('li', { html: w }))));
                 box.append(...kids);
             }
         };
@@ -851,12 +928,89 @@
         }[alg.id];
     }
 
+    // ---------- Lernkarten ----------
+
+    const NOTATION = `
+        <h4>Die Pseudocode-Notation</h4>
+        <div class="table-responsive"><table class="table table-sm table-bordered">
+            <thead class="table-light"><tr><th>Schreibweise</th><th>Bedeutung</th><th>Beispiel</th></tr></thead>
+            <tbody>
+                <tr><td><code>x ← 5</code></td><td>Zuweisung: x bekommt den Wert 5</td><td><code>summe ← summe + 1</code> erhöht summe um 1</td></tr>
+                <tr><td><code>=  ≠  &lt;  ≤  &gt;  ≥</code></td><td>Vergleiche (Ergebnis wahr oder falsch)</td><td><code>WENN x ≠ 0 DANN</code></td></tr>
+                <tr><td><code>DIV</code>, <code>MOD</code></td><td>ganzzahlige Division und Divisionsrest</td><td>17 DIV 5 = 3, 17 MOD 5 = 2</td></tr>
+                <tr><td><code>FÜR i ← 1 BIS 4</code></td><td>Zählschleife – i nimmt nacheinander 1, 2, 3 und 4 an (die Grenze gehört dazu)</td><td>4 Durchläufe</td></tr>
+                <tr><td><code>FÜR JEDES w IN werte</code></td><td>durchläuft alle Elemente der Reihe nach</td><td>w ist erst werte[0], dann werte[1] …</td></tr>
+                <tr><td><code>SOLANGE bedingung</code></td><td>kopfgesteuerte Schleife: Bedingung wird <em>vor</em> jedem Durchlauf geprüft</td><td>ist sie gleich zu Beginn falsch, läuft die Schleife nie</td></tr>
+                <tr><td><code>WENN … DANN … SONST</code></td><td>Verzweigung</td><td><code>SONST WENN</code> prüft nur, wenn die erste Bedingung falsch war</td></tr>
+                <tr><td><code>werte[i]</code>, <code>länge(werte)</code></td><td>Zugriff auf ein Element, Anzahl der Elemente</td><td>Index beginnt bei 0, letzter Index ist länge − 1</td></tr>
+                <tr><td><code>UND</code>, <code>ODER</code>, <code>NICHT</code></td><td>logische Verknüpfungen</td><td>UND: beide Bedingungen müssen wahr sein</td></tr>
+                <tr><td><code>RÜCKGABE x</code></td><td>beendet die Funktion sofort und liefert x</td><td>Zeilen danach werden nicht mehr ausgeführt</td></tr>
+            </tbody>
+        </table></div>`;
+
+    const LERNEN = {
+        trace: `
+            <h4>So machst du einen Schreibtischtest</h4>
+            <ol>
+                <li>Lege für jede Variable eine Spalte an und trage die Startwerte ein.</li>
+                <li>Arbeite den Code Zeile für Zeile ab – genau so, wie der Computer es tun würde. Nichts überspringen, nichts „im Kopf abkürzen“.</li>
+                <li>Bei jeder Zuweisung den neuen Wert sofort notieren. Rechts vom ← wird immer mit den <em>alten</em> Werten gerechnet.</li>
+                <li>Vor jedem Schleifendurchlauf die Bedingung prüfen (bei FÜR: Ist die Grenze schon überschritten?).</li>
+            </ol>
+            <p class="game-example">durchschnitt([4, 8, 6]):<br>
+            Start: summe = 0 · i = 0: summe = 0 + 4 = 4 · i = 1: summe = 4 + 8 = 12 · i = 2: summe = 12 + 6 = 18<br>
+            Rückgabe: 18 / 3 = <strong>6</strong></p>
+            <p class="game-merke">Wann eine Zeile in die Tabelle kommt, steht in der Aufgabe (meist nach jedem Schleifendurchlauf). Achte genau darauf – sonst verrutschen alle Zeilen.</p>` + NOTATION,
+        ausgabe: `
+            <h4>Ausgabe bestimmen</h4>
+            <p>Hier wird nur das Endergebnis gefragt – der sichere Weg dorthin ist trotzdem eine kleine Wertetabelle auf dem Schmierzettel. Wer im Kopf rechnet, verliert schnell einen Durchlauf.</p>
+            <ul>
+                <li>Bei <code>RÜCKGABE</code> mitten in einer Schleife endet die Funktion sofort.</li>
+                <li>Bei Texten hängt <code>+</code> an: "1" + "10" ergibt "110".</li>
+                <li>Prüfe Grenzfälle bewusst: Ist die Schleifenbedingung beim letzten Durchlauf noch wahr?</li>
+            </ul>` + NOTATION,
+        puzzle: `
+            <h4>Die Bausteine eines Algorithmus</h4>
+            <p>Fast jede Funktion ist gleich aufgebaut:</p>
+            <ol>
+                <li><strong>Kopf</strong> – <code>FUNKTION name(parameter)</code></li>
+                <li><strong>Initialisierung</strong> – Startwerte setzen (<code>summe ← 0</code>), immer <em>vor</em> der Schleife</li>
+                <li><strong>Schleife oder Verzweigung</strong> – Kopfzeile, eingerückter Rumpf, passendes <code>ENDE …</code></li>
+                <li><strong>Ergebnis</strong> – <code>RÜCKGABE</code>, meist nach der Schleife</li>
+                <li><code>ENDE FUNKTION</code></li>
+            </ol>
+            <p class="game-merke">Jedes WENN, FÜR und SOLANGE braucht sein eigenes ENDE. Strukturen dürfen ineinander liegen, sich aber nie überkreuzen. Innerhalb der Schleife ist die Reihenfolge wichtig: Erst wird der Wert benutzt, dann verändert (z. B. erst die Ziffer addieren, dann die Zahl durch 10 teilen).</p>`,
+        luecken: `
+            <h4>Worauf es bei Lücken ankommt</h4>
+            <ul>
+                <li><strong>Startwerte:</strong> 0 für Summen und Zähler, 1 für Produkte, das erste Element für Maximum und Minimum.</li>
+                <li><strong>Schleifengrenzen:</strong> Arrays beginnen bei 0 – der letzte Index ist länge − 1.</li>
+                <li><strong>Vergleiche:</strong> &lt; oder ≤? Teste mit dem Grenzwert, ob er noch dazugehören soll.</li>
+                <li><strong>UND oder ODER:</strong> Eine Schleife läuft mit UND nur weiter, wenn <em>alle</em> Bedingungen erfüllt sind.</li>
+            </ul>
+            <p class="game-merke">Die richtige Lücke funktioniert für <em>alle</em> Eingaben. Teste jede Auswahl gedanklich mit einem Grenzfall: leere Liste, nur negative Zahlen, gesuchter Wert ganz vorne oder ganz hinten.</p>` + NOTATION,
+        fehler: `
+            <h4>Die häufigsten Fehler in Algorithmen</h4>
+            <div class="table-responsive"><table class="table table-sm table-bordered">
+                <thead class="table-light"><tr><th>Fehler</th><th>Beispiel</th></tr></thead>
+                <tbody>
+                    <tr><td>Grenze um eins daneben („off by one“)</td><td><code>FÜR i ← 1 BIS …</code> statt ab 0 – das erste Element fehlt</td></tr>
+                    <tr><td>falscher Startwert</td><td><code>max ← 0</code> – falsch, wenn alle Werte negativ sind</td></tr>
+                    <tr><td>überschreiben statt aufsummieren</td><td><code>summe ← werte[i]</code> statt <code>summe ← summe + werte[i]</code></td></tr>
+                    <tr><td>Vergleich verdreht</td><td><code>&lt;</code> statt <code>&gt;</code> – sucht das Minimum statt des Maximums</td></tr>
+                    <tr><td>Variable wird nie verändert</td><td>Endlosschleife, weil der Zähler nicht erhöht wird</td></tr>
+                    <tr><td>falscher Wert zurückgegeben</td><td>Index statt Wert, Rabattbetrag statt Endpreis</td></tr>
+                </tbody>
+            </table></div>
+            <p class="game-merke">Spiele den Code mit einer kleinen Eingabe durch und vergleiche mit dem Ergebnis, das herauskommen <em>soll</em>. Die erste Zeile, an der beides auseinanderläuft, ist meist der Fehler.</p>`
+    };
+
     const modes = [
-        { id: 'trace', name: 'Schreibtischtest', icon: 'bi-table', description: 'Werte Schritt für Schritt in eine Tabelle eintragen.', create: ({ rng, level }) => schreibtischtest(rng, level) },
-        { id: 'ausgabe', name: 'Ausgabe bestimmen', icon: 'bi-box-arrow-right', create: ({ rng, level }) => ausgabe(rng, level) },
-        { id: 'puzzle', name: 'Code-Puzzle', icon: 'bi-puzzle', create: ({ rng, level }) => puzzle(rng, level) },
-        { id: 'luecken', name: 'Lückentext', icon: 'bi-input-cursor-text', create: ({ rng, level }) => lueckentext(rng, level) },
-        { id: 'fehler', name: 'Fehler finden', icon: 'bi-bug', create: ({ rng, level }) => fehlerFinden(rng, level) }
+        { id: 'trace', name: 'Schreibtischtest', icon: 'bi-table', description: 'Werte Schritt für Schritt in eine Tabelle eintragen.', learn: LERNEN.trace, create: ({ rng, level }) => schreibtischtest(rng, level) },
+        { id: 'ausgabe', name: 'Ausgabe bestimmen', icon: 'bi-box-arrow-right', learn: LERNEN.ausgabe, create: ({ rng, level }) => ausgabe(rng, level) },
+        { id: 'puzzle', name: 'Code-Puzzle', icon: 'bi-puzzle', learn: LERNEN.puzzle, create: ({ rng, level }) => puzzle(rng, level) },
+        { id: 'luecken', name: 'Lückentext', icon: 'bi-input-cursor-text', learn: LERNEN.luecken, create: ({ rng, level }) => lueckentext(rng, level) },
+        { id: 'fehler', name: 'Fehler finden', icon: 'bi-bug', learn: LERNEN.fehler, create: ({ rng, level }) => fehlerFinden(rng, level) }
     ];
 
     window.PseudocodeTrainer = { ALGORITHMEN, modes };

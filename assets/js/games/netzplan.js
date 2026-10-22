@@ -252,12 +252,31 @@
 
     const SPALTEN = { faz: 'FAZ', fez: 'FEZ', saz: 'SAZ', sez: 'SEZ', gp: 'GP', fp: 'FP' };
 
+    /** Typische Fehlergebnisse für ein Feld eines Vorgangs – mit Erklärung für die Rückmeldung. */
+    function typischFuer(v, f, byId) {
+        const liste = [];
+        const plus = (answer, warum) => { if (answer !== v[f]) liste.push({ answer, warum }); };
+        if (f === 'faz' && v.pred.length > 1) plus(Math.min(...v.pred.map((x) => byId[x].fez)), 'Bei mehreren Vorgängern zählt der <strong>größte</strong> FEZ – der Vorgang muss auf den langsamsten Vorgänger warten.');
+        if (f === 'faz' && v.pred.length) plus(v.faz + 1, 'Hier gilt FAZ = FEZ des Vorgängers (Zeitpunkte ab 0) – ohne + 1.');
+        if (f === 'fez') plus(v.fez - 1, 'Hier gilt FEZ = FAZ + Dauer (Zeitpunkte ab 0) – ohne − 1.');
+        if (f === 'sez' && v.succ.length > 1) plus(Math.max(...v.succ.map((x) => byId[x].saz)), 'Bei mehreren Nachfolgern zählt der <strong>kleinste</strong> SAZ – sonst käme ein Nachfolger zu spät.');
+        if (f === 'sez' && v.succ.length) plus(v.sez - 1, 'Hier gilt SEZ = SAZ des Nachfolgers – ohne − 1.');
+        if (f === 'saz') plus(v.sez + v.d, 'SAZ = SEZ − Dauer (rückwärts wird abgezogen).');
+        if (f === 'gp') plus(v.fp, 'Das ist der freie Puffer. Gesamtpuffer = SAZ − FAZ.');
+        if (f === 'fp') {
+            plus(v.gp, 'Das ist der Gesamtpuffer. Freier Puffer = kleinster FAZ der Nachfolger − eigener FEZ.');
+            if (v.succ.length) plus(Math.min(...v.succ.map((x) => byId[x].saz)) - v.fez, 'Für den freien Puffer zählen die <em>frühesten</em> Anfänge (FAZ) der Nachfolger, nicht die spätesten.');
+        }
+        return liste;
+    }
+
     /**
      * Baut eine Tabellen-Aufgabe: gefragt = Felder mit Eingabe, gegeben = Felder mit Wert.
      * mitKritisch: Checkbox "kritisch" je Vorgang; mitDauer: Eingabe der Projektdauer.
      */
     function tabellenAufgabe(rng, level, cfg) {
         const plan = erzeuge(rng, level);
+        const byId = Object.fromEntries(plan.vorgaenge.map((v) => [v.id, v]));
         const felder = [];
         const kritischFelder = [];
         let dauerFeld = null;
@@ -301,7 +320,7 @@
                             const inp = numberInput({ 'aria-label': `${SPALTEN[f]} von Vorgang ${v.id}`, inputmode: 'numeric' });
                             inp.addEventListener('input', () => { mark(inp, null); neuZeichnen(false); });
                             eingaben[v.id + f] = inp;
-                            felder.push({ input: inp, answer: v[f], v, f });
+                            felder.push({ input: inp, answer: v[f], v, f, typisch: typischFuer(v, f, byId) });
                             zellen.push(h('td', {}, inp));
                         } else {
                             zellen.push(h('td', { class: 'text-center text-muted' }, String(v[f])));
@@ -326,7 +345,12 @@
             },
             check() {
                 const alle = felder.slice();
-                if (dauerFeld) alle.push({ input: dauerFeld, answer: plan.vorgaenge.dauer });
+                if (dauerFeld) {
+                    alle.push({
+                        input: dauerFeld, answer: plan.vorgaenge.dauer,
+                        typisch: [{ answer: plan.vorgaenge.reduce((sum, v) => sum + v.d, 0), warum: 'Die Projektdauer ist der FEZ des Endvorgangs. Parallele Vorgänge laufen gleichzeitig – ihre Dauern werden nicht addiert.' }]
+                    });
+                }
                 const r = checkFields(alle);
                 let richtigK = 0;
                 for (const k of kritischFelder) {
@@ -341,6 +365,7 @@
                 return {
                     correct: richtig === gesamt,
                     score: richtig / gesamt,
+                    tipps: r.tipps.slice(0, 3),
                     message: richtig === gesamt
                         ? `Projektdauer ${plan.vorgaenge.dauer} Tage, kritischer Pfad ${kritischerPfad(plan.vorgaenge)}.`
                         : (falscheVorgaenge.length ? 'Fehler bei Vorgang ' + falscheVorgaenge.join(', ') + '. ' : '') +
@@ -378,9 +403,111 @@
             ? `FP = ${v.succ.length > 1 ? 'min(' + v.succ.map((n) => `FAZ ${n} = ${byId[n].faz}`).join('; ') + ')' : `FAZ ${v.succ[0]}`} − FEZ ${v.id} = ${Math.min(...v.succ.map((n) => byId[n].faz))} − ${v.fez} = ${v.fp}`
             : 'FP = 0 (Endvorgang)'));
 
+    // ---------- Lernkarten ----------
+
+    /** Fester Beispielnetzplan für die Lernkarten: C hat Gesamtpuffer 4, aber freien Puffer 0. */
+    function beispielPlan() {
+        const daten = [
+            ['A', 'Anforderungen', 2, 0, []], ['B', 'Konzept', 3, 1, ['A']], ['C', 'Hardware bestellen', 2, 1, ['A']],
+            ['D', 'Software entwickeln', 4, 2, ['B']], ['E', 'Hardware einrichten', 1, 2, ['C']], ['F', 'Test und Abnahme', 2, 3, ['D', 'E']]
+        ];
+        const vorgaenge = daten.map(([id, name, d, layer, pred]) => ({ id, name, d, layer, pred, succ: [] }));
+        vorgaenge.forEach((v) => v.pred.forEach((x) => vorgaenge.find((u) => u.id === x).succ.push(v.id)));
+        berechne(vorgaenge);
+        return { projekt: 'Beispiel', vorgaenge };
+    }
+
+    const LERNTEXTE = {
+        vorwaerts: {
+            felder: ['faz', 'fez'],
+            vor: `<h4>Vorwärtsrechnung: frühester Anfang und frühestes Ende</h4>
+                <ul>
+                    <li>Der Startvorgang beginnt bei <strong>FAZ = 0</strong>.</li>
+                    <li><strong>FEZ = FAZ + Dauer</strong></li>
+                    <li>Ein Vorgang kann erst beginnen, wenn <em>alle</em> Vorgänger fertig sind: <strong>FAZ = größter FEZ aller Vorgänger</strong>.</li>
+                    <li>Die <strong>Projektdauer</strong> ist der FEZ des Endvorgangs.</li>
+                </ul>
+                <p>Gerechnet wird von links nach rechts, in Pfeilrichtung. Beispiel:</p>`,
+            nach: `<p class="game-example">A: 0 + 2 = 2 · B: 2 + 3 = 5 · C: 2 + 2 = 4 · D: 5 + 4 = 9 · E: 4 + 1 = 5<br>
+                F hat zwei Vorgänger: FAZ = max(FEZ D = 9; FEZ E = 5) = <strong>9</strong>, FEZ = 9 + 2 = 11 → Projektdauer <strong>11 Tage</strong></p>
+                <p class="game-merke">Manche Lehrbücher zählen Tage statt Zeitpunkten (Start bei 1, FAZ = FEZ des Vorgängers + 1). Hier wird – wie in vielen Prüfungsaufgaben – mit Zeitpunkten ab 0 gerechnet. Achte in der Prüfung darauf, welche Variante vorgegeben ist.</p>`
+        },
+        rueckwaerts: {
+            felder: ['faz', 'fez', 'saz', 'sez'],
+            vor: `<h4>Rückwärtsrechnung: spätester Anfang und spätestes Ende</h4>
+                <ul>
+                    <li>Beim Endvorgang gilt <strong>SEZ = FEZ</strong> – das Projekt soll nicht länger dauern als nötig.</li>
+                    <li><strong>SAZ = SEZ − Dauer</strong></li>
+                    <li>Ein Vorgang muss so früh fertig sein, dass <em>jeder</em> Nachfolger noch rechtzeitig beginnen kann: <strong>SEZ = kleinster SAZ aller Nachfolger</strong>.</li>
+                </ul>
+                <p>Gerechnet wird von rechts nach links, gegen die Pfeilrichtung. Beispiel:</p>`,
+            nach: `<p class="game-example">F: SEZ = 11, SAZ = 9 · D: SEZ = 9, SAZ = 5 · E: SEZ = 9, SAZ = 8 · B: SEZ = 5, SAZ = 2 · C: SEZ = 8, SAZ = 6<br>
+                A hat zwei Nachfolger: SEZ = min(SAZ B = 2; SAZ C = 6) = <strong>2</strong>, SAZ = 2 − 2 = 0</p>
+                <p class="game-merke">Kommt beim Startvorgang SAZ = 0 heraus, hast du richtig gerechnet.</p>`
+        },
+        puffer: {
+            felder: ['faz', 'fez', 'saz', 'sez', 'gp', 'fp'], kritisch: true,
+            vor: `<h4>Gesamtpuffer (GP)</h4>
+                <p><strong>GP = SAZ − FAZ</strong> (oder SEZ − FEZ). Um so viele Tage kann sich ein Vorgang verschieben, ohne dass sich das <em>Projektende</em> verschiebt.</p>
+                <h4>Freier Puffer (FP)</h4>
+                <p><strong>FP = kleinster FAZ der Nachfolger − eigener FEZ</strong>. Um so viele Tage kann sich ein Vorgang verschieben, ohne dass sich ein <em>Nachfolger</em> verschiebt. Beim Endvorgang ist FP = 0. Der FP ist nie größer als der GP.</p>
+                <h4>Kritischer Pfad</h4>
+                <p>Alle Vorgänge mit <strong>GP = 0</strong> sind kritisch: Jede Verzögerung verlängert das Projekt. Sie bilden einen durchgehenden Weg vom Start bis zum Ende (im Bild orange).</p>`,
+            nach: `<p class="game-example">C: GP = SAZ − FAZ = 6 − 2 = <strong>4</strong>, FP = FAZ E − FEZ C = 4 − 4 = <strong>0</strong> → C darf sich um 4 Tage verspäten, ohne das Projekt zu gefährden – aber schon ein Tag Verspätung schiebt E nach hinten.<br>
+                E: GP = 8 − 4 = 4, FP = FAZ F − FEZ E = 9 − 5 = 4 · Kritischer Pfad: <strong>A → B → D → F</strong></p>`
+        },
+        komplett: {
+            felder: ['faz', 'fez', 'saz', 'sez', 'gp', 'fp'], kritisch: true,
+            vor: `<h4>Reihenfolge beim kompletten Netzplan</h4>
+                <ol>
+                    <li>Vorwärtsrechnung: alle FAZ und FEZ von links nach rechts (FAZ = größter FEZ der Vorgänger).</li>
+                    <li>Projektdauer = FEZ des Endvorgangs.</li>
+                    <li>Rückwärtsrechnung: alle SEZ und SAZ von rechts nach links (SEZ = kleinster SAZ der Nachfolger).</li>
+                    <li>Puffer: GP = SAZ − FAZ, FP = kleinster FAZ der Nachfolger − FEZ.</li>
+                    <li>Kritischer Pfad: alle Vorgänge mit GP = 0.</li>
+                </ol>
+                <p>So sieht das fertig berechnete Beispiel aus:</p>`,
+            nach: '<p class="game-merke">Selbstkontrolle: Der Startvorgang hat SAZ = 0, kein Puffer ist negativ, und der kritische Pfad ist ein lückenloser Weg vom Start bis zum Ende.</p>'
+        },
+        verzoegerung: {
+            felder: ['faz', 'fez', 'saz', 'sez', 'gp', 'fp'],
+            vor: `<h4>Was passiert, wenn ein Vorgang länger dauert?</h4>
+                <div class="table-responsive"><table class="table table-sm table-bordered">
+                    <thead class="table-light"><tr><th>Verzögerung</th><th>direkte Nachfolger</th><th>Projektende</th></tr></thead>
+                    <tbody>
+                        <tr><td>höchstens so groß wie der FP</td><td>nicht betroffen</td><td>nicht betroffen</td></tr>
+                        <tr><td>größer als der FP, höchstens so groß wie der GP</td><td>verschieben sich um bis zu Verzögerung − FP</td><td>nicht betroffen</td></tr>
+                        <tr><td>größer als der GP</td><td>verschieben sich um bis zu Verzögerung − FP</td><td>verschiebt sich um Verzögerung − GP</td></tr>
+                    </tbody>
+                </table></div>`,
+            nach: `<p class="game-example">C hat GP 4 und FP 0. Dauert C 3 Tage länger, beginnt E 3 Tage später – das Projekt bleibt bei 11 Tagen.<br>
+                Dauert C 6 Tage länger, verschiebt sich E um 6 Tage und das Projektende um 6 − 4 = <strong>2 Tage</strong> (neue Dauer 13 Tage). C wird dadurch kritisch.</p>`
+        },
+        vorgaenger: {
+            felder: [],
+            vor: `<h4>Vom Netzplan zur Vorgangsliste</h4>
+                <p>Ein Pfeil bedeutet „muss fertig sein, bevor … beginnen kann“. Die <strong>Vorgänger</strong> eines Vorgangs sind alle Knoten, von denen ein Pfeil <em>direkt</em> auf ihn zeigt. Der Startvorgang hat keine Vorgänger.</p>`,
+            nach: `<p class="game-example">Im Beispiel: A –, B: A, C: A, D: B, E: C, F: D, E</p>
+                <p class="game-merke">Nur direkte Vorgänger eintragen: F wartet zwar auch auf A, aber nur über B und D bzw. C und E – A ist deshalb kein direkter Vorgänger von F.</p>`
+        }
+    };
+
+    /** Lernkarte: Regeln, Beispielnetzplan (nur die Werte, die zum Aufgabentyp passen) und Rechenbeispiel. */
+    function lernkarte(teil) {
+        const text = LERNTEXTE[teil];
+        const plan = beispielPlan();
+        const werte = (v, f) => (f === 'd' || text.felder.includes(f) ? String(v[f]) : '');
+        return h('div', {},
+            h('div', { class: 'd-flex flex-wrap gap-3 align-items-center mb-2 small' }, legende(),
+                h('div', { style: 'max-width:28rem' }, 'Aufbau eines Knotens: oben frühester Anfang (FAZ), Dauer (D), frühestes Ende (FEZ); unten spätester Anfang (SAZ), Gesamtpuffer (GP), freier Puffer (FP), spätestes Ende (SEZ). Zeitangaben in Tagen.')),
+            h('div', { html: text.vor }),
+            h('div', { class: 'game-figure' }, zeichne(plan, werte, !!text.kritisch)),
+            h('div', { html: text.nach }));
+    }
+
     const modes = [
         {
-            id: 'vorwaerts', name: 'Vorwärtsrechnung', icon: 'bi-arrow-right-circle',
+            id: 'vorwaerts', name: 'Vorwärtsrechnung', icon: 'bi-arrow-right-circle', learn: () => lernkarte('vorwaerts'),
             description: 'Frühester Anfang und frühestes Ende berechnen.',
             create: ({ rng, level }) => tabellenAufgabe(rng, level, {
                 titel: 'Vorwärtsrechnung', gefragt: ['faz', 'fez'], gegeben: [], mitDauer: true,
@@ -390,7 +517,7 @@
             })
         },
         {
-            id: 'rueckwaerts', name: 'Rückwärtsrechnung', icon: 'bi-arrow-left-circle',
+            id: 'rueckwaerts', name: 'Rückwärtsrechnung', icon: 'bi-arrow-left-circle', learn: () => lernkarte('rueckwaerts'),
             description: 'Spätesten Anfang und spätestes Ende berechnen.',
             create: ({ rng, level }) => tabellenAufgabe(rng, level, {
                 titel: 'Rückwärtsrechnung', gefragt: ['saz', 'sez'], gegeben: ['faz', 'fez'],
@@ -400,7 +527,7 @@
             })
         },
         {
-            id: 'puffer', name: 'Puffer & kritischer Pfad', icon: 'bi-hourglass-split',
+            id: 'puffer', name: 'Puffer & kritischer Pfad', icon: 'bi-hourglass-split', learn: () => lernkarte('puffer'),
             description: 'Gesamtpuffer, freien Puffer und kritische Vorgänge bestimmen.',
             create: ({ rng, level }) => tabellenAufgabe(rng, level, {
                 titel: 'Puffer und kritischer Pfad', gefragt: ['gp', 'fp'], gegeben: ['faz', 'fez', 'saz', 'sez'], mitKritisch: true,
@@ -410,7 +537,7 @@
             })
         },
         {
-            id: 'komplett', name: 'Kompletter Netzplan', icon: 'bi-diagram-3',
+            id: 'komplett', name: 'Kompletter Netzplan', icon: 'bi-diagram-3', learn: () => lernkarte('komplett'),
             description: 'Alle Zeiten, Puffer, Projektdauer und kritischen Pfad selbst berechnen.',
             create: ({ rng, level }) => tabellenAufgabe(rng, level, {
                 titel: 'Kompletter Netzplan', gefragt: ['faz', 'fez', 'saz', 'sez', 'gp', 'fp'], gegeben: [], mitKritisch: true, mitDauer: true,
@@ -420,12 +547,12 @@
             })
         },
         {
-            id: 'verzoegerung', name: 'Verzögerungen bewerten', icon: 'bi-exclamation-triangle',
+            id: 'verzoegerung', name: 'Verzögerungen bewerten', icon: 'bi-exclamation-triangle', learn: () => lernkarte('verzoegerung'),
             description: 'Wirkt sich eine Verzögerung auf das Projektende aus?',
             create: ({ rng, level }) => verzoegerungsAufgabe(rng, level)
         },
         {
-            id: 'vorgaenger', name: 'Vorgangsliste ablesen', icon: 'bi-list-ol',
+            id: 'vorgaenger', name: 'Vorgangsliste ablesen', icon: 'bi-list-ol', learn: () => lernkarte('vorgaenger'),
             description: 'Aus einem gezeichneten Netzplan die Vorgänger jedes Vorgangs ablesen.',
             create: ({ rng, level }) => vorgaengerAufgabe(rng, level)
         }
@@ -457,20 +584,23 @@
                 fNeu = numberInput({ id: 'nv-neu', inputmode: 'numeric' });
                 body.append(
                     h('div', { class: 'game-fieldrow' }, h('label', { for: 'nv-gp' }, `Gesamtpuffer von ${v.id}`), fGp, h('span', { class: 'game-unit' }, 'Tage')),
-                    h('div', { class: 'game-fieldrow' }, h('label', { for: 'nv-nach' }, 'Direkte Nachfolger starten frühestens später um'), fNach, h('span', { class: 'game-unit' }, 'Tage')),
+                    h('div', { class: 'game-fieldrow' }, h('label', { for: 'nv-nach' }, 'Der Start der direkten Nachfolger verschiebt sich um bis zu'), fNach, h('span', { class: 'game-unit' }, 'Tage')),
                     h('div', { class: 'game-fieldrow' }, h('label', { for: 'nv-ver' }, 'Das Projektende verschiebt sich um'), fVer, h('span', { class: 'game-unit' }, 'Tage')),
                     h('div', { class: 'game-fieldrow' }, h('label', { for: 'nv-neu' }, 'Neue Projektdauer'), fNeu, h('span', { class: 'game-unit' }, 'Tage'))
                 );
             },
             check() {
+                const nurGp = 'Fürs Projektende zählt der <strong>Gesamt</strong>puffer: Verschiebung = Verzögerung − GP (mindestens 0).';
+                const nurFp = 'Für die direkten Nachfolger zählt der <strong>freie</strong> Puffer: Verschiebung = Verzögerung − FP (mindestens 0).';
+                const ohne = (x) => (x === undefined ? [] : [x]);
                 const r = checkFields([
-                    { input: fGp, answer: v.gp },
-                    { input: fNach, answer: nachfolgerVerschiebung },
-                    { input: fVer, answer: verschiebung },
-                    { input: fNeu, answer: plan.vorgaenge.dauer + verschiebung }
+                    { input: fGp, answer: v.gp, typisch: ohne(v.fp !== v.gp ? { answer: v.fp, warum: 'Das ist der freie Puffer. Gesamtpuffer = SAZ − FAZ.' } : undefined) },
+                    { input: fNach, answer: nachfolgerVerschiebung, typisch: [{ answer: tage, warum: nurFp }, { answer: Math.max(0, tage - v.gp), warum: nurFp }] },
+                    { input: fVer, answer: verschiebung, typisch: [{ answer: tage, warum: nurGp }, { answer: Math.max(0, tage - v.fp), warum: nurGp }] },
+                    { input: fNeu, answer: plan.vorgaenge.dauer + verschiebung, typisch: [{ answer: plan.vorgaenge.dauer + tage, warum: nurGp }] }
                 ]);
                 return {
-                    correct: r.correct, score: r.score,
+                    correct: r.correct, score: r.score, tipps: r.tipps,
                     message: r.correct ? (verschiebung ? 'Der Puffer reicht nicht – das Projekt wird später fertig.' : 'Der Gesamtpuffer fängt die Verzögerung auf.') : ''
                 };
             },
@@ -500,7 +630,7 @@
                 const tbody = h('tbody');
                 for (const v of plan.vorgaenge) {
                     const inp = h('input', { type: 'text', class: 'form-control form-control-sm', 'aria-label': `Vorgänger von ${v.id}`, autocomplete: 'off', style: 'max-width:9rem' });
-                    felder.push({ input: inp, answer: v.pred.join(', '), normalize: norm });
+                    felder.push({ input: inp, answer: v.pred.join(', '), normalize: norm, typisch: v.succ.length ? [{ answer: v.succ.join(', '), warum: 'Das sind die Nachfolger (die Pfeile gehen von dort weg). Gesucht sind die Vorgänger: Knoten, deren Pfeile auf den Vorgang <em>zeigen</em>.' }] : [] });
                     tbody.append(h('tr', {}, h('th', { scope: 'row' }, v.id), h('td', {}, v.name), h('td', { class: 'text-center' }, String(v.d)), h('td', {}, inp)));
                 }
                 body.append(h('div', { class: 'table-responsive' }, h('table', { class: 'table table-sm table-bordered game-table' },
@@ -508,7 +638,7 @@
             },
             check() {
                 const r = checkFields(felder);
-                return { correct: r.correct, score: r.score, message: r.correct ? 'Die Vorgangsliste stimmt.' : '' };
+                return { correct: r.correct, score: r.score, message: r.correct ? 'Die Vorgangsliste stimmt.' : '', tipps: r.tipps };
             },
             showSolution(box) {
                 felder.forEach((f) => { f.input.value = f.answer; mark(f.input, null); });

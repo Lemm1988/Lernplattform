@@ -51,7 +51,7 @@ $footer_site_title = $site_title_value ?? get_setting('site_title', SITE_TITLE);
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom JavaScript -->
-    <script src="/assets/js/main.js"></script>
+    <script src="<?= asset_url('/assets/js/main.js') ?>"></script>
 
     <!-- Cookie-Hinweis (DSGVO) -->
     <?php if ($require_privacy_consent === '1' && !isset($_COOKIE['cookie_consent'])): ?>

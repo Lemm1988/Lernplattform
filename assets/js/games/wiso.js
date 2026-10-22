@@ -6,7 +6,7 @@
 (function () {
     'use strict';
 
-    const { h, checkFields, numberInput, deFormat, mark, deck } = window.ITGame;
+    const { h, checkFields, numberInput, deFormat, dePlain, mark, deck } = window.ITGame;
     const eur = (n) => deFormat(n, 2) + ' €';
     const r2 = (n) => Math.round(n * 100) / 100;
 
@@ -20,7 +20,7 @@
         const y = dt.getUTCFullYear();
         const m = dt.getUTCMonth() + 1 + n;
         const zy = y + Math.floor((m - 1) / 12);
-        const zm = ((m - 1) % 12) + 1;
+        const zm = (((m - 1) % 12) + 12) % 12 + 1;       // auch für negative n (rückwärts rechnen)
         return datum(zy, zm, Math.min(dt.getUTCDate(), tageImMonat(zy, zm)));
     }
     const iso = (dt) => dt.toISOString().slice(0, 10);
@@ -84,8 +84,49 @@
         { t: 'Lohn & Steuern', f: 'Eine alleinerziehende Mitarbeiterin mit einem Kind fragt nach ihrer Lohnsteuerklasse.', o: ['Steuerklasse II', 'Steuerklasse I', 'Steuerklasse III', 'Steuerklasse V'], r: 0, e: 'Klasse I: ledig; II: alleinerziehend (Entlastungsbetrag); III/V oder IV/IV: verheiratet; VI: zweites und jedes weitere Arbeitsverhältnis.' },
         { t: 'Lohn & Steuern', f: 'Was wird vom Bruttogehalt NICHT abgezogen?', o: ['der Arbeitgeberanteil zur Rentenversicherung', 'die Lohnsteuer', 'der Arbeitnehmeranteil zur Krankenversicherung', 'gegebenenfalls die Kirchensteuer'], r: 0, e: 'Netto = Brutto − Lohnsteuer − Solidaritätszuschlag (falls fällig) − Kirchensteuer − Arbeitnehmeranteile zur Sozialversicherung. Den Arbeitgeberanteil zahlt der Arbeitgeber zusätzlich.' },
         { t: 'Mutterschutz & Elternzeit', f: 'Wie lange darf eine Mitarbeiterin nach der Geburt ihres Kindes im Regelfall nicht beschäftigt werden?', o: ['8 Wochen', '6 Wochen', '12 Wochen', '4 Wochen'], r: 0, e: 'MuSchG § 3: Schutzfrist sechs Wochen vor und acht Wochen nach der Entbindung (bei Früh- oder Mehrlingsgeburten zwölf Wochen nach der Geburt).' },
-        { t: 'Mutterschutz & Elternzeit', f: 'Ein Vater möchte direkt nach der Geburt Elternzeit nehmen. Wie lange vorher muss er sie spätestens schriftlich verlangen?', o: ['7 Wochen', '4 Wochen', '3 Monate', 'gar nicht, er kann sofort zu Hause bleiben'], r: 0, e: 'Elternzeit muss für die Zeit bis zum dritten Geburtstag spätestens sieben Wochen vor Beginn schriftlich verlangt werden (§ 16 BEEG). Insgesamt sind bis zu drei Jahre pro Kind möglich.' }
+        { t: 'Mutterschutz & Elternzeit', f: 'Ein Vater möchte direkt nach der Geburt Elternzeit nehmen. Wie lange vorher muss er sie spätestens schriftlich verlangen?', o: ['7 Wochen', '4 Wochen', '3 Monate', 'gar nicht, er kann sofort zu Hause bleiben'], r: 0, e: 'Elternzeit muss für die Zeit bis zum dritten Geburtstag spätestens sieben Wochen vor Beginn schriftlich verlangt werden (§ 16 BEEG). Insgesamt sind bis zu drei Jahre pro Kind möglich.' },
+        { t: 'Kündigung', f: 'Herr Weber arbeitet seit 14 Jahren in einem Rechenzentrum. Er hat eine neue Stelle gefunden und kündigt selbst. Im Vertrag stehen nur die gesetzlichen Fristen. Welche Frist muss er einhalten?', o: ['4 Wochen zum 15. oder zum Monatsende', '5 Monate zum Monatsende', '6 Monate zum Monatsende', '2 Wochen zu jedem Tag'], r: 0, e: 'Die verlängerten Fristen aus § 622 Abs. 2 BGB gelten nur, wenn der Arbeitgeber kündigt. Kündigt der Arbeitnehmer, bleibt es bei der Grundfrist von 4 Wochen zum 15. oder zum Monatsende – egal, wie lange er schon im Betrieb ist.' },
+        { t: 'Kündigung', f: 'Eine Arbeitgeberin erfährt am 2. Mai, dass ein Mitarbeiter Firmenlaptops verkauft hat. Die fristlose Kündigung spricht sie erst am 10. Juni aus.', o: ['Die fristlose Kündigung kommt zu spät – sie muss innerhalb von zwei Wochen nach Kenntnis des Grundes erklärt werden.', 'Die fristlose Kündigung ist wirksam, Diebstahl ist immer ein wichtiger Grund.', 'Eine fristlose Kündigung ist nur nach einer Anzeige bei der Polizei möglich.', 'Die fristlose Kündigung ist wirksam, wenn vorher abgemahnt wurde.'], r: 0, e: '§ 626 Abs. 2 BGB: Eine außerordentliche (fristlose) Kündigung muss innerhalb von zwei Wochen erklärt werden, nachdem der Kündigungsberechtigte vom wichtigen Grund erfahren hat. Danach bleibt nur noch die ordentliche Kündigung mit Frist.' },
+        { t: 'Kündigung', f: 'Ein Mitarbeiter hält seine Kündigung für sozial ungerechtfertigt. Was muss er beachten?', o: ['Er muss innerhalb von drei Wochen nach Zugang der Kündigung Klage beim Arbeitsgericht erheben.', 'Er kann sich bis zum Ende der Kündigungsfrist Zeit lassen.', 'Er muss die Klage beim Betriebsrat einreichen.', 'Er kann innerhalb eines Jahres beim Amtsgericht klagen.'], r: 0, e: '§ 4 KSchG: Die Kündigungsschutzklage muss innerhalb von drei Wochen nach Zugang der schriftlichen Kündigung beim Arbeitsgericht eingehen. Versäumt er die Frist, gilt die Kündigung als von Anfang an wirksam (§ 7 KSchG).' },
+        { t: 'Arbeitsvertrag', f: 'Arbeitgeber und Mitarbeiterin wollen das Arbeitsverhältnis einvernehmlich zum Monatsende beenden. Was trifft auf einen Aufhebungsvertrag zu?', o: ['Er braucht die Schriftform; Kündigungsfristen und Anhörung des Betriebsrats entfallen, beim Arbeitslosengeld kann aber eine Sperrzeit drohen.', 'Er kann auch mündlich geschlossen werden.', 'Er ist nur mit Zustimmung des Betriebsrats wirksam.', 'Er muss die gesetzliche Kündigungsfrist einhalten.'], r: 0, e: 'Beim Aufhebungsvertrag einigen sich beide Seiten auf das Ende – Kündigungsfristen und Kündigungsschutz spielen keine Rolle. § 623 BGB verlangt die Schriftform. Weil man an der eigenen Arbeitslosigkeit mitwirkt, kann die Agentur für Arbeit eine Sperrzeit beim Arbeitslosengeld verhängen.' },
+        { t: 'Ausbildung', f: 'Ein Azubi fragt, ob er den Ausbildungsnachweis (das „Berichtsheft“) wirklich führen muss.', o: ['Ja – er muss ihn führen, der Betrieb muss ihm dafür Zeit während der Ausbildungszeit geben, und ohne Nachweis gibt es keine Zulassung zur Abschlussprüfung.', 'Nein, der Nachweis ist freiwillig.', 'Nur, solange er noch nicht volljährig ist.', 'Ja, aber nur in seiner Freizeit.'], r: 0, e: 'Azubis müssen einen Ausbildungsnachweis führen (§ 13 BBiG). Der Betrieb hält dazu an, sieht ihn regelmäßig durch und lässt ihn während der Ausbildungszeit führen (§ 14 BBiG). Er ist Voraussetzung für die Zulassung zur Abschlussprüfung (§ 43 BBiG).' },
+        { t: 'Ausbildung', f: 'Gilt der gesetzliche Mindestlohn auch für Auszubildende?', o: ['Nein – für sie gilt die Mindestausbildungsvergütung nach dem BBiG, sofern kein Tarifvertrag gilt.', 'Ja, ab dem ersten Ausbildungstag.', 'Ja, aber erst ab dem 18. Geburtstag.', 'Nein, Azubis haben keinen Anspruch auf eine Vergütung.'], r: 0, e: 'Das Mindestlohngesetz gilt nicht für die Berufsausbildung. Azubis haben stattdessen Anspruch auf eine angemessene Vergütung, mindestens die Mindestausbildungsvergütung nach § 17 BBiG. Sie steigt mit jedem Ausbildungsjahr.' },
+        { t: 'Datenschutz', f: 'Ein Kunde möchte wissen, welche personenbezogenen Daten euer Webshop über ihn gespeichert hat.', o: ['Er hat ein Auskunftsrecht; die Auskunft muss in der Regel innerhalb eines Monats und kostenlos erteilt werden.', 'Das Unternehmen muss nur antworten, wenn er einen Anwalt einschaltet.', 'Auskunft gibt es nur gegen eine Bearbeitungsgebühr.', 'Gespeicherte Kundendaten sind Betriebsgeheimnis.'], r: 0, e: 'Art. 15 DSGVO gibt jeder betroffenen Person ein Auskunftsrecht. Nach Art. 12 DSGVO ist die Auskunft unverzüglich, spätestens innerhalb eines Monats zu erteilen; die erste Kopie ist kostenlos.' },
+        { t: 'Datenschutz', f: 'Ein Online-Händler will die E-Mail-Adressen seiner Kunden für einen Werbe-Newsletter nutzen. Was braucht er in der Regel?', o: ['eine ausdrückliche Einwilligung (z. B. per Double-Opt-in), die jederzeit widerrufen werden kann', 'nichts, die Adressen liegen ja schon vor', 'die Zustimmung des Betriebsrats', 'eine Genehmigung der IHK'], r: 0, e: 'Werbe-E-Mails brauchen grundsätzlich eine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO, § 7 UWG). In der Praxis wird sie per Double-Opt-in nachgewiesen. Die Einwilligung kann jederzeit widerrufen werden.' },
+        { t: 'Arbeitsschutz', f: 'Eine Mitarbeiterin arbeitet täglich am Bildschirm und bekommt Probleme mit den Augen. Was gilt?', o: ['Der Arbeitgeber muss eine arbeitsmedizinische Vorsorge mit Augenuntersuchung anbieten und eine nötige spezielle Bildschirmbrille bezahlen.', 'Sie muss die Untersuchung selbst bezahlen.', 'Der Arbeitgeber muss nichts tun, Augenprobleme sind Privatsache.', 'Für Bildschirmbrillen ist allein die Krankenkasse zuständig.'], r: 0, e: 'Nach der Verordnung zur arbeitsmedizinischen Vorsorge (ArbMedVV) muss der Arbeitgeber bei Bildschirmarbeit eine Vorsorge anbieten. Ist eine spezielle Sehhilfe für die Bildschirmarbeit nötig, stellt er sie zur Verfügung.' },
+        { t: 'Arbeitsschutz', f: 'Wer ist im Betrieb dafür verantwortlich, dass die Arbeitsschutzvorschriften eingehalten werden?', o: ['der Arbeitgeber – er muss unter anderem Gefährdungen beurteilen und die Beschäftigten unterweisen', 'jeder Beschäftigte allein für sich', 'ausschließlich die Berufsgenossenschaft', 'der Betriebsrat'], r: 0, e: 'Das Arbeitsschutzgesetz nimmt den Arbeitgeber in die Pflicht: Gefährdungsbeurteilung (§ 5 ArbSchG), Schutzmaßnahmen und Unterweisung (§ 12 ArbSchG). Die Beschäftigten müssen mitwirken; Berufsgenossenschaft und Gewerbeaufsicht überwachen.' },
+        { t: 'Kaufvertrag', f: 'In einem Webshop steht ein Notebook durch einen Tippfehler für 49 € statt 1.490 €. Ein Kunde bestellt sofort. Wann ist ein Kaufvertrag zustande gekommen?', o: ['Erst wenn der Shop die Bestellung annimmt – die Anzeige im Shop ist nur eine Aufforderung, ein Angebot abzugeben.', 'Schon mit dem Klick auf „Kaufen“.', 'Sobald die automatische Eingangsbestätigung eintrifft.', 'Nie – Kaufverträge im Internet brauchen eine Unterschrift.'], r: 0, e: 'Ein Kaufvertrag entsteht durch zwei übereinstimmende Willenserklärungen: Antrag und Annahme. Die Darstellung im Shop ist nur eine Aufforderung zur Abgabe eines Angebots; die Bestellung ist der Antrag. Eine bloße Eingangsbestätigung ist noch keine Annahme.' },
+        { t: 'Kaufvertrag', f: 'Im Vertrag steht „Lieferung spätestens am 15. März“. Die Ware kommt nicht. Muss der Käufer den Verkäufer erst mahnen, damit dieser in Verzug gerät?', o: ['Nein – der Termin ist kalendermäßig bestimmt, der Verzug tritt ohne Mahnung ein.', 'Ja, ohne Mahnung gibt es nie einen Verzug.', 'Ja, und zwar per Einschreiben.', 'Nein, aber nur bei Verträgen zwischen Privatpersonen.'], r: 0, e: '§ 286 Abs. 2 Nr. 1 BGB: Ist der Leistungszeitpunkt nach dem Kalender bestimmt, gerät der Schuldner ohne Mahnung in Verzug. Bei unbestimmten Angaben wie „Lieferung im Frühjahr“ ist eine Mahnung nötig.' },
+        { t: 'Kaufvertrag', f: 'Ein Unternehmen schickt einem Geschäftskunden eine Rechnung ohne Zahlungsziel. Wann gerät der Kunde spätestens in Zahlungsverzug, wenn er nicht zahlt?', o: ['30 Tage nach Fälligkeit und Zugang der Rechnung', 'sofort mit Zugang der Rechnung', 'nach 14 Tagen', 'erst nach der dritten Mahnung'], r: 0, e: '§ 286 Abs. 3 BGB: Ohne Mahnung tritt der Verzug spätestens 30 Tage nach Fälligkeit und Zugang der Rechnung ein. Bei Verbrauchern gilt das nur, wenn die Rechnung auf diese Folge hinweist.' },
+        { t: 'Betriebsrat', f: 'Für wie lange wird ein Betriebsrat regulär gewählt?', o: ['4 Jahre', '2 Jahre', '3 Jahre', '5 Jahre'], r: 0, e: '§ 21 BetrVG: Die regelmäßige Amtszeit des Betriebsrats beträgt vier Jahre. Die Jugend- und Auszubildendenvertretung wird für zwei Jahre gewählt.' },
+        { t: 'Organisation', f: 'Eine Entwicklerin bekommt fachliche Anweisungen von ihrer Projektleiterin und disziplinarische vom Abteilungsleiter. Welche Organisationsform liegt vor?', o: ['Matrixorganisation', 'Einliniensystem', 'Stabliniensystem', 'Spartenorganisation'], r: 0, e: 'In der Matrixorganisation überlagern sich zwei Leitungslinien (z. B. Funktion und Projekt) – Beschäftigte haben zwei Vorgesetzte. Im Einliniensystem gibt es genau einen Vorgesetzten; im Stabliniensystem kommen beratende Stabsstellen ohne Weisungsrecht hinzu.' },
+        { t: 'Wirtschaft', f: 'Welches Ziel gehört NICHT zum „magischen Viereck“ des Stabilitätsgesetzes?', o: ['gerechte Einkommens- und Vermögensverteilung', 'stabiles Preisniveau', 'hoher Beschäftigungsstand', 'außenwirtschaftliches Gleichgewicht'], r: 0, e: 'Magisches Viereck (§ 1 StabG): stabiles Preisniveau, hoher Beschäftigungsstand, außenwirtschaftliches Gleichgewicht und stetiges, angemessenes Wirtschaftswachstum. Gerechte Verteilung und Umweltschutz erweitern es zum magischen Sechseck.' },
+        { t: 'Sozialversicherung', f: 'Wer ist Träger der gesetzlichen Rentenversicherung?', o: ['die Deutsche Rentenversicherung', 'die Berufsgenossenschaft', 'die Bundesagentur für Arbeit', 'die Krankenkasse'], r: 0, e: 'Träger der fünf Zweige: Krankenversicherung → Krankenkassen, Pflegeversicherung → Pflegekassen, Rentenversicherung → Deutsche Rentenversicherung, Arbeitslosenversicherung → Bundesagentur für Arbeit, Unfallversicherung → Berufsgenossenschaften und Unfallkassen.' },
+        { t: 'Lohn & Steuern', f: 'Ein Mitarbeiter hat neben seiner Vollzeitstelle einen zweiten, regulär versteuerten Job. Nach welcher Steuerklasse wird der Zweitjob abgerechnet?', o: ['Steuerklasse VI', 'Steuerklasse I', 'Steuerklasse V', 'Steuerklasse II'], r: 0, e: 'Für das zweite und jedes weitere Arbeitsverhältnis gilt Steuerklasse VI. Minijobs werden dagegen meist pauschal versteuert.' }
     ];
+
+    /** Denkanstöße je Themengebiet: Tipp-Knopf und Hinweis nach einer falschen Antwort. */
+    const THEMEN = {
+        'Ausbildung': 'Alles zur Ausbildung regelt das Berufsbildungsgesetz (BBiG). Frag dich: Läuft noch die Probezeit? Wer handelt – Azubi oder Betrieb? Welche Pflichten hat welche Seite?',
+        'Jugendarbeitsschutz': 'Für unter 18-Jährige gilt das Jugendarbeitsschutzgesetz. Es ist strenger als das Arbeitszeitgesetz: höchstens 8 Stunden am Tag, längere Pausen, mehr Urlaub.',
+        'Arbeitszeit': 'Das Arbeitszeitgesetz staffelt die Pausen nach der Arbeitsdauer (mehr als 6 bzw. mehr als 9 Stunden) und verlangt eine ununterbrochene Ruhezeit zwischen zwei Arbeitstagen.',
+        'Kündigung': 'Geh die Prüfschritte durch: Form (schriftlich mit Unterschrift?), Frist (wer kündigt, wie lange im Betrieb?), Kündigungsschutz (KSchG, Mutterschutz …) und Beteiligung des Betriebsrats.',
+        'Betriebsrat': 'Das Betriebsverfassungsgesetz unterscheidet Information, Anhörung und echte Mitbestimmung. Bei Mitbestimmung geht es nicht ohne Zustimmung des Betriebsrats.',
+        'Tarifrecht': 'Tarifverträge setzen Mindestbedingungen – abweichen darf man nur zugunsten der Beschäftigten. Während der Laufzeit gilt die Friedenspflicht.',
+        'Sozialversicherung': 'Fünf Zweige: Kranken-, Pflege-, Renten-, Arbeitslosen- und Unfallversicherung. Wer zahlt jeweils die Beiträge, und wer ist der Träger?',
+        'Geschäftsfähigkeit': 'Entscheidend ist das Alter: unter 7 geschäftsunfähig, 7 bis 17 beschränkt geschäftsfähig, ab 18 voll geschäftsfähig. Wichtige Ausnahme: der Taschengeldparagraf.',
+        'Kaufvertrag': 'Wie kommt der Vertrag zustande (Antrag und Annahme)? Was gilt bei Mängeln, Verzug oder Widerruf? Und: Ist der Käufer Verbraucher oder Unternehmer?',
+        'Rechtsformen': 'Rechtsformen unterscheiden sich vor allem bei der Haftung (beschränkt oder auch mit dem Privatvermögen) und beim Mindestkapital.',
+        'Vollmachten': 'Prokura steht im Handelsregister und erlaubt fast alle Geschäfte – mit wenigen Ausnahmen. Die Handlungsvollmacht deckt nur gewöhnliche Geschäfte und wird nicht eingetragen.',
+        'Mahnung & Verjährung': 'Gerichtliches Mahnverfahren: Mahnbescheid → Widerspruch innerhalb von 2 Wochen → sonst Vollstreckungsbescheid. Die regelmäßige Verjährung beginnt erst mit dem Schluss des Jahres.',
+        'Arbeitsvertrag': 'Aus dem Arbeitsvertrag folgen Pflichten für beide Seiten: Was schuldet der Arbeitnehmer, was der Arbeitgeber? Und welche Form braucht ein Vertrag, der das Arbeitsverhältnis beendet?',
+        'Wirtschaft': 'Denk an die Grundbegriffe: ökonomisches Prinzip, Marktformen (Zahl der Anbieter und Nachfrager), Preisbildung durch Angebot und Nachfrage, gesamtwirtschaftliche Ziele.',
+        'Lohn & Steuern': 'Die Steuerklasse hängt vom Familienstand und von der Zahl der Arbeitsverhältnisse ab. Netto = Brutto − Steuern − Arbeitnehmeranteile zur Sozialversicherung.',
+        'Mutterschutz & Elternzeit': 'Mutterschutzgesetz: Schutzfristen vor und nach der Geburt, Kündigungsverbot. Elternzeit (BEEG): bis zu 3 Jahre je Kind, rechtzeitig schriftlich verlangen.',
+        'Datenschutz': 'Die DSGVO gibt Betroffenen Rechte (Auskunft, Berichtigung, Löschung) und verlangt für jede Verarbeitung eine Rechtsgrundlage – zum Beispiel eine Einwilligung.',
+        'Arbeitsschutz': 'Nach dem Arbeitsschutzgesetz ist der Arbeitgeber verantwortlich: Er beurteilt Gefährdungen und unterweist die Beschäftigten. Für Bildschirmarbeit gibt es eigene Regeln.',
+        'Organisation': 'Wie viele Vorgesetzte hat eine Stelle, und gibt es beratende Stabsstellen? Daran unterscheidest du Einlinien-, Mehrlinien-, Stablinien- und Matrixorganisation.'
+    };
 
     const naechsterFall = deck(FAELLE);
 
@@ -94,10 +135,11 @@
         const reihenfolge = rng.shuffle(fall.o.map((text, i) => ({ text, richtig: i === fall.r })));
         const name = 'fall-' + Math.random().toString(36).slice(2, 8);
         const optionen = [];
+        const denkanstoss = THEMEN[fall.t] || 'Lies genau, wer handelt (Arbeitgeber oder Arbeitnehmer, Azubi oder Fachkraft, Verbraucher oder Unternehmen) – davon hängt die Regel oft ab.';
         return {
             title: fall.t,
             description: 'Wähle die zutreffende Antwort.',
-            hint: 'Lies genau, wer handelt (Arbeitgeber oder Arbeitnehmer, Azubi oder Fachkraft, Verbraucher oder Unternehmen) – davon hängt die Regel oft ab.',
+            hint: denkanstoss,
             render(body) {
                 body.append(h('div', { class: 'game-scenario game-question' }, fall.f));
                 const liste = h('div', { class: 'game-choices', role: 'radiogroup', 'aria-label': 'Antworten' });
@@ -114,7 +156,8 @@
                 optionen.forEach((o) => o.label.classList.remove('is-valid', 'is-invalid'));
                 if (!gewaehlt) return { correct: false, score: 0, message: 'Bitte eine Antwort auswählen.' };
                 gewaehlt.label.classList.add(gewaehlt.opt.richtig ? 'is-valid' : 'is-invalid');
-                return { correct: gewaehlt.opt.richtig, score: gewaehlt.opt.richtig ? 1 : 0, message: gewaehlt.opt.richtig ? fall.e : 'Überleg noch einmal – oder lass dir die Lösung zeigen.' };
+                if (gewaehlt.opt.richtig) return { correct: true, score: 1, message: fall.e };
+                return { correct: false, score: 0, message: 'Diese Antwort trifft nicht zu. Versuch es noch einmal – oder lass dir die Lösung mit Erklärung zeigen.', tipps: ['Denkanstoß: ' + denkanstoss] };
             },
             showSolution(box) {
                 optionen.forEach((o) => {
@@ -129,147 +172,471 @@
 
     // ---------- Zahlen und Fristen ----------
 
+    // g: Themengruppe für die Lernkarte, i: kurze Erklärung mit Fundstelle, t: typische Verwechslungen
     const FAKTEN = [
-        { f: 'Höchstdauer der Probezeit in der Ausbildung', a: 4, e: 'Monate' },
-        { f: 'Mindestdauer der Probezeit in der Ausbildung', a: 1, e: 'Monat(e)' },
-        { f: 'Gesetzlicher Mindesturlaub nach BUrlG (6-Tage-Woche)', a: 24, e: 'Werktage' },
-        { f: 'Urlaub für Jugendliche, die zu Jahresbeginn noch nicht 16 sind', a: 30, e: 'Werktage' },
-        { f: 'Urlaub für Jugendliche, die zu Jahresbeginn noch nicht 17 sind', a: 27, e: 'Werktage' },
-        { f: 'Urlaub für Jugendliche, die zu Jahresbeginn noch nicht 18 sind', a: 25, e: 'Werktage' },
-        { f: 'Mindestzahl ständiger wahlberechtigter Arbeitnehmer für einen Betriebsrat', a: 5, e: 'Arbeitnehmer' },
-        { f: 'Mindestalter für das Wahlrecht bei der Betriebsratswahl', a: 16, e: 'Jahre' },
-        { f: 'Mutterschutzfrist vor der Entbindung', a: 6, e: 'Wochen' },
-        { f: 'Mutterschutzfrist nach der Entbindung (Regelfall)', a: 8, e: 'Wochen' },
-        { f: 'Entgeltfortzahlung im Krankheitsfall durch den Arbeitgeber', a: 6, e: 'Wochen' },
-        { f: 'Gesetzliche Mängelhaftung beim Kauf neuer Sachen', a: 2, e: 'Jahre' },
-        { f: 'Widerrufsfrist bei Online-Käufen für Verbraucher', a: 14, e: 'Tage' },
-        { f: 'Regelmäßige Verjährungsfrist', a: 3, e: 'Jahre' },
-        { f: 'Mindeststammkapital einer GmbH', a: 25000, e: '€' },
-        { f: 'Mindestgrundkapital einer AG', a: 50000, e: '€' },
-        { f: 'Kündigungsschutzgesetz: Betriebsgröße „mehr als …“', a: 10, e: 'Arbeitnehmer' },
-        { f: 'Kündigungsschutzgesetz: Wartezeit', a: 6, e: 'Monate' },
-        { f: 'Höchstarbeitszeit für Jugendliche pro Woche', a: 40, e: 'Stunden' },
-        { f: 'Mindestruhezeit zwischen zwei Arbeitstagen (Erwachsene)', a: 11, e: 'Stunden' },
-        { f: 'Pause bei mehr als 6 Stunden Arbeit (Erwachsene)', a: 30, e: 'Minuten' },
-        { f: 'Pause bei mehr als 9 Stunden Arbeit (Erwachsene)', a: 45, e: 'Minuten' },
-        { f: 'Pause bei mehr als 6 Stunden Arbeit (Jugendliche)', a: 60, e: 'Minuten' },
-        { f: 'Maximale Elternzeit je Kind', a: 3, e: 'Jahre' },
-        { f: 'Grundkündigungsfrist nach § 622 Abs. 1 BGB', a: 4, e: 'Wochen' },
-        { f: 'Kündigungsfrist während einer vereinbarten Probezeit im Arbeitsverhältnis', a: 2, e: 'Wochen' },
-        { f: 'Längste Probezeit mit verkürzter Kündigungsfrist im Arbeitsverhältnis', a: 6, e: 'Monate' },
-        { f: 'Widerspruchsfrist gegen einen Mahnbescheid', a: 2, e: 'Wochen' },
-        { f: 'Beweislastumkehr beim Verbrauchsgüterkauf', a: 1, e: 'Jahr(e)' },
-        { f: 'Anmeldefrist für Elternzeit (bis zum 3. Geburtstag) vor Beginn', a: 7, e: 'Wochen' }
+        { g: 'Ausbildung und Jugendliche', f: 'Höchstdauer der Probezeit in der Ausbildung', a: 4, e: 'Monate', i: '§ 20 BBiG: mindestens 1, höchstens 4 Monate.', t: [[6, 'Höchstens 6 Monate gelten für die Probezeit im normalen Arbeitsverhältnis – in der Ausbildung sind es höchstens 4.']] },
+        { g: 'Ausbildung und Jugendliche', f: 'Mindestdauer der Probezeit in der Ausbildung', a: 1, e: 'Monat(e)', i: '§ 20 BBiG: mindestens 1, höchstens 4 Monate.' },
+        { g: 'Arbeitszeit und Urlaub', f: 'Gesetzlicher Mindesturlaub nach BUrlG (6-Tage-Woche)', a: 24, e: 'Werktage', i: '§ 3 BUrlG: 24 Werktage. Bei einer 5-Tage-Woche entspricht das 20 Arbeitstagen.', t: [[20, '20 Tage sind es bei einer 5-Tage-Woche. Das Gesetz rechnet aber mit Werktagen (Montag bis Samstag): 24 Werktage.']] },
+        { g: 'Ausbildung und Jugendliche', f: 'Urlaub für Jugendliche, die zu Jahresbeginn noch nicht 16 sind', a: 30, e: 'Werktage', i: '§ 19 JArbSchG – maßgeblich ist das Alter zu Beginn des Kalenderjahres.' },
+        { g: 'Ausbildung und Jugendliche', f: 'Urlaub für Jugendliche, die zu Jahresbeginn noch nicht 17 sind', a: 27, e: 'Werktage', i: '§ 19 JArbSchG.' },
+        { g: 'Ausbildung und Jugendliche', f: 'Urlaub für Jugendliche, die zu Jahresbeginn noch nicht 18 sind', a: 25, e: 'Werktage', i: '§ 19 JArbSchG.' },
+        { g: 'Betriebsrat', f: 'Mindestzahl ständiger wahlberechtigter Arbeitnehmer für einen Betriebsrat', a: 5, e: 'Arbeitnehmer', i: '§ 1 BetrVG: mindestens 5 ständige wahlberechtigte Arbeitnehmer, davon 3 wählbar.', t: [[10, 'Mehr als 10 Arbeitnehmer braucht es für das Kündigungsschutzgesetz – einen Betriebsrat gibt es schon ab 5.']] },
+        { g: 'Betriebsrat', f: 'Mindestalter für das Wahlrecht bei der Betriebsratswahl', a: 16, e: 'Jahre', i: '§ 7 BetrVG (seit 2021). Wählbar in den Betriebsrat ist man ab 18.', t: [[18, '18 ist das Alter für die Wählbarkeit. Wählen darf man seit 2021 schon ab 16.']] },
+        { g: 'Betriebsrat', f: 'Regelmäßige Amtszeit des Betriebsrats', a: 4, e: 'Jahre', i: '§ 21 BetrVG. Die Jugend- und Auszubildendenvertretung wird für 2 Jahre gewählt.' },
+        { g: 'Mutterschutz, Elternzeit, Krankheit', f: 'Mutterschutzfrist vor der Entbindung', a: 6, e: 'Wochen', i: '§ 3 MuSchG: 6 Wochen vor, 8 Wochen nach der Geburt.', t: [[8, '8 Wochen gelten nach der Entbindung – davor sind es 6.']] },
+        { g: 'Mutterschutz, Elternzeit, Krankheit', f: 'Mutterschutzfrist nach der Entbindung (Regelfall)', a: 8, e: 'Wochen', i: '§ 3 MuSchG: bei Früh- und Mehrlingsgeburten 12 Wochen.', t: [[6, '6 Wochen gelten vor der Entbindung – danach sind es 8.']] },
+        { g: 'Mutterschutz, Elternzeit, Krankheit', f: 'Entgeltfortzahlung im Krankheitsfall durch den Arbeitgeber', a: 6, e: 'Wochen', i: '§ 3 EFZG: bis zu 6 Wochen je Krankheit, danach zahlt die Krankenkasse Krankengeld.' },
+        { g: 'Kaufvertrag und Forderungen', f: 'Gesetzliche Mängelhaftung beim Kauf neuer Sachen', a: 2, e: 'Jahre', i: '§ 438 BGB. Bei gebrauchten Sachen kann sie gegenüber Verbrauchern auf 1 Jahr verkürzt werden.', t: [[3, '3 Jahre beträgt die regelmäßige Verjährung von Forderungen. Die Gewährleistung beim Kauf dauert 2 Jahre.']] },
+        { g: 'Kaufvertrag und Forderungen', f: 'Widerrufsfrist bei Online-Käufen für Verbraucher', a: 14, e: 'Tage', i: '§ 355 BGB: 14 Tage ab Erhalt der Ware bei ordnungsgemäßer Belehrung.' },
+        { g: 'Kaufvertrag und Forderungen', f: 'Regelmäßige Verjährungsfrist', a: 3, e: 'Jahre', i: '§ 195 BGB, Beginn mit dem Schluss des Jahres, in dem der Anspruch entstanden ist (§ 199 BGB).', t: [[2, '2 Jahre dauert die Gewährleistung beim Kauf. Die regelmäßige Verjährung beträgt 3 Jahre.']] },
+        { g: 'Unternehmen', f: 'Mindeststammkapital einer GmbH', a: 25000, e: '€', i: '§ 5 GmbHG. Die UG (haftungsbeschränkt) geht schon ab 1 €.', t: [[50000, '50.000 € braucht die AG. Für die GmbH reichen 25.000 €.']] },
+        { g: 'Unternehmen', f: 'Mindestgrundkapital einer AG', a: 50000, e: '€', i: '§ 7 AktG.', t: [[25000, '25.000 € braucht die GmbH. Die AG braucht 50.000 €.']] },
+        { g: 'Kündigung', f: 'Kündigungsschutzgesetz: Betriebsgröße „mehr als …“', a: 10, e: 'Arbeitnehmer', i: '§ 23 KSchG: in Betrieben mit mehr als 10 Arbeitnehmern (Azubis zählen nicht mit).', t: [[5, '5 Arbeitnehmer reichen für einen Betriebsrat. Das KSchG gilt erst bei mehr als 10.']] },
+        { g: 'Kündigung', f: 'Kündigungsschutzgesetz: Wartezeit', a: 6, e: 'Monate', i: '§ 1 KSchG: Das Arbeitsverhältnis muss länger als 6 Monate bestehen.' },
+        { g: 'Kündigung', f: 'Frist für die Kündigungsschutzklage nach Zugang der Kündigung', a: 3, e: 'Wochen', i: '§ 4 KSchG – danach gilt die Kündigung als wirksam.' },
+        { g: 'Kündigung', f: 'Frist für eine fristlose Kündigung ab Kenntnis des wichtigen Grundes', a: 2, e: 'Wochen', i: '§ 626 Abs. 2 BGB.' },
+        { g: 'Ausbildung und Jugendliche', f: 'Höchstarbeitszeit für Jugendliche pro Woche', a: 40, e: 'Stunden', i: '§ 8 JArbSchG: 8 Stunden täglich, 40 Stunden wöchentlich.' },
+        { g: 'Arbeitszeit und Urlaub', f: 'Regelmäßige Höchstarbeitszeit Erwachsener pro Werktag', a: 8, e: 'Stunden', i: '§ 3 ArbZG: bis zu 10 Stunden, wenn im Durchschnitt von 6 Monaten 8 Stunden nicht überschritten werden.', t: [[10, '10 Stunden sind nur ausnahmsweise erlaubt, wenn es einen Ausgleich gibt. Regelmäßig sind es 8.']] },
+        { g: 'Arbeitszeit und Urlaub', f: 'Mindestruhezeit zwischen zwei Arbeitstagen (Erwachsene)', a: 11, e: 'Stunden', i: '§ 5 ArbZG (Jugendliche: 12 Stunden, § 13 JArbSchG).' },
+        { g: 'Arbeitszeit und Urlaub', f: 'Pause bei mehr als 6 Stunden Arbeit (Erwachsene)', a: 30, e: 'Minuten', i: '§ 4 ArbZG: mehr als 6 Stunden → 30 Minuten, mehr als 9 Stunden → 45 Minuten.', t: [[60, '60 Minuten gelten für Jugendliche. Erwachsene brauchen nach mehr als 6 Stunden 30 Minuten Pause.']] },
+        { g: 'Arbeitszeit und Urlaub', f: 'Pause bei mehr als 9 Stunden Arbeit (Erwachsene)', a: 45, e: 'Minuten', i: '§ 4 ArbZG.' },
+        { g: 'Ausbildung und Jugendliche', f: 'Pause bei mehr als 6 Stunden Arbeit (Jugendliche)', a: 60, e: 'Minuten', i: '§ 11 JArbSchG: mehr als 4,5 bis 6 Stunden → 30 Minuten, mehr als 6 Stunden → 60 Minuten.', t: [[30, '30 Minuten gelten für Erwachsene (oder für Jugendliche bei 4,5 bis 6 Stunden). Ab mehr als 6 Stunden brauchen Jugendliche 60 Minuten.']] },
+        { g: 'Arbeitszeit und Urlaub', f: 'Wartezeit bis zum vollen Urlaubsanspruch', a: 6, e: 'Monate', i: '§ 4 BUrlG. Vorher gibt es Teilurlaub (1/12 je vollem Monat).' },
+        { g: 'Mutterschutz, Elternzeit, Krankheit', f: 'Maximale Elternzeit je Kind', a: 3, e: 'Jahre', i: '§ 15 BEEG – bis zum 3. Geburtstag, Teile davon auch später.' },
+        { g: 'Mutterschutz, Elternzeit, Krankheit', f: 'Anmeldefrist für Elternzeit (bis zum 3. Geburtstag) vor Beginn', a: 7, e: 'Wochen', i: '§ 16 BEEG: schriftlich, 7 Wochen vor Beginn.' },
+        { g: 'Kündigung', f: 'Grundkündigungsfrist nach § 622 Abs. 1 BGB', a: 4, e: 'Wochen', i: '4 Wochen zum 15. oder zum Ende eines Kalendermonats.' },
+        { g: 'Kündigung', f: 'Kündigungsfrist während einer vereinbarten Probezeit im Arbeitsverhältnis', a: 2, e: 'Wochen', i: '§ 622 Abs. 3 BGB – zu jedem Tag, ohne festen Endtermin.' },
+        { g: 'Kündigung', f: 'Längste Probezeit mit verkürzter Kündigungsfrist im Arbeitsverhältnis', a: 6, e: 'Monate', i: '§ 622 Abs. 3 BGB.', t: [[4, '4 Monate sind die Höchstgrenze in der Ausbildung. Im Arbeitsverhältnis sind es 6.']] },
+        { g: 'Kaufvertrag und Forderungen', f: 'Widerspruchsfrist gegen einen Mahnbescheid', a: 2, e: 'Wochen', i: '§ 692 ZPO – danach kann der Gläubiger den Vollstreckungsbescheid beantragen.' },
+        { g: 'Kaufvertrag und Forderungen', f: 'Beweislastumkehr beim Verbrauchsgüterkauf', a: 1, e: 'Jahr(e)', i: '§ 477 BGB (seit 2022; vorher 6 Monate).' }
     ];
 
     const naechstesFaktum = deck(FAKTEN);
 
-    function faktenAufgabe(rng, level) {
+    function faktenAufgabe(rng) {
         const auswahl = [];
         while (auswahl.length < 4) {
             const x = naechstesFaktum(rng);
             if (!auswahl.includes(x)) auswahl.push(x);
         }
-        const fragen = auswahl.map((x) => ({ label: x.f, answer: x.a, unit: x.e }));
-        // eine berechnete Verjährungsfrage
+        const fragen = auswahl.map((x) => ({
+            label: x.f, answer: x.a, unit: x.e, info: x.i,
+            typisch: (x.t || []).map(([wert, warum]) => ({ answer: wert, warum }))
+        }));
+        // eine berechnete Verjährungsfrage – das Jahr wird ohne Tausenderpunkt geschrieben
         const entstanden = zufallsDatum(rng, 2023, 2026);
-        fragen.push({ label: `Eine Forderung entstand am ${de(entstanden)}. Die regelmäßige Verjährung endet mit Ablauf des 31.12. im Jahr …`, answer: entstanden.getUTCFullYear() + 3, unit: '', verj: entstanden });
+        const y = entstanden.getUTCFullYear();
+        fragen.push({
+            label: `Eine Forderung entstand am ${de(entstanden)}. Die regelmäßige Verjährung endet mit Ablauf des 31.12. im Jahr …`,
+            answer: y + 3, unit: '', jahr: true,
+            info: `Entstanden ${de(entstanden)} → die Frist beginnt erst mit dem Schluss des Jahres (31.12.${y}) → plus 3 Jahre → Ablauf des 31.12.${y + 3} (§§ 195, 199 BGB).`,
+            typisch: [
+                { answer: y + 2, warum: 'Die regelmäßige Verjährung dauert 3 Jahre (2 Jahre sind die Gewährleistung beim Kauf).' },
+                { answer: y + 4, warum: `Gezählt wird ab dem 31.12.${y}: drei Jahre später ist der 31.12.${y + 3}.` }
+            ]
+        });
         const felder = [];
         return {
             title: 'Zahlen und Fristen',
             description: 'Fünf schnelle Fragen – trage jeweils nur die Zahl ein.',
-            hint: 'Merkhilfe: Probezeit Ausbildung 1–4 Monate, Verjährung 3 Jahre ab Jahresende, Gewährleistung 2 Jahre, Widerruf 14 Tage.',
+            hint: 'Merkhilfe: Probezeit Ausbildung 1–4 Monate, Arbeitsverhältnis höchstens 6 Monate. Verjährung 3 Jahre ab Jahresende, Gewährleistung 2 Jahre, Widerruf 14 Tage.',
             render(body) {
                 fragen.forEach((q, i) => {
                     const id = 'wf-' + i;
                     const input = numberInput({ id, inputmode: 'numeric' });
-                    felder.push({ input, answer: q.answer, q });
+                    felder.push({ input, answer: q.answer, typisch: q.typisch, q });
                     body.append(h('div', { class: 'game-fieldrow' }, h('label', { for: id, style: 'flex:1 1 20rem' }, q.label), input, q.unit ? h('span', { class: 'game-unit', style: 'min-width:6rem' }, q.unit) : null));
                 });
             },
             check() {
                 const r = checkFields(felder);
-                return { correct: r.correct, score: r.score, message: r.correct ? '' : `${r.right} von ${r.total} richtig.` };
+                return { correct: r.correct, score: r.score, message: r.correct ? '' : `${r.right} von ${r.total} richtig.`, tipps: r.tipps };
             },
             showSolution(box) {
-                felder.forEach((f) => { f.input.value = deFormat(f.answer, 0); mark(f.input, null); });
-                const v = fragen[fragen.length - 1];
-                box.append(h('h3', {}, 'Hinweis zur Verjährung'), h('p', { class: 'mb-0' },
-                    `Entstanden ${de(v.verj)} → Fristbeginn mit Schluss des Jahres (31.12.${v.verj.getUTCFullYear()}) → plus 3 Jahre → Ablauf des 31.12.${v.answer}.`));
+                felder.forEach((f) => { f.input.value = f.q.jahr ? dePlain(f.answer) : deFormat(f.answer, 0); mark(f.input, null); });
+                box.append(h('h3', {}, 'Erklärungen'), h('ul', { class: 'game-steps' }, fragen.map((q) =>
+                    h('li', {}, h('strong', {}, q.jahr ? `Verjährung: Ablauf des 31.12.${dePlain(q.answer)}` : `${q.label}: ${deFormat(q.answer, 0)} ${q.unit}`), ' – ' + q.info))));
             }
         };
     }
 
     // ---------- Kündigungsfristen ----------
 
+    /** Verlängerte Fristen bei Kündigung durch den Arbeitgeber: [ab Jahren, Monate] (§ 622 Abs. 2 BGB) */
     const VERLAENGERT = [[20, 7], [15, 6], [12, 5], [10, 4], [8, 3], [5, 2], [2, 1]];
+    const MONATE = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+
+    const REGELN = [
+        { id: 'sofort', text: 'keine Frist – endet mit dem Zugang' },
+        { id: 'w2', text: '2 Wochen – zu jedem Tag' },
+        { id: 'w4', text: '4 Wochen – zu jedem Tag' },
+        { id: 'grund', text: '4 Wochen zum 15. oder zum Monatsende' }
+    ].concat([1, 2, 3, 4, 5, 6, 7].map((m) => ({ id: 'm' + m, text: `${m} Monat${m === 1 ? '' : 'e'} zum Monatsende` })));
+
+    const monateText = (m) => `${m} Monat${m === 1 ? '' : 'e'}`;
+    const stufeFuer = (jahre) => VERLAENGERT.find(([j]) => jahre >= j);
+
+    /** Nächster zulässiger Termin der Grundfrist: der 15. oder das Monatsende. */
+    const zum15OderMonatsende = (dt) => (dt.getUTCDate() <= 15 ? datum(dt.getUTCFullYear(), dt.getUTCMonth() + 1, 15) : monatsende(dt));
+
+    /** Grundfrist: 28 Tage ab dem Tag nach dem Zugang, dann zum nächsten 15. oder Monatsende. */
+    function grundfrist(zugang) {
+        const frist = plusTage(zugang, 28);
+        return { frist, ende: zum15OderMonatsende(frist) };
+    }
+
+    /** Verlängerte Frist: n Monate ab Zugang, dann zum Monatsende. */
+    const monatsfrist = (zugang, m) => {
+        const frist = plusMonate(zugang, m);
+        return { frist, ende: monatsende(frist) };
+    };
+
+    function grundSchritte(zugang) {
+        const { frist, ende } = grundfrist(zugang);
+        return [
+            'Grundkündigungsfrist: <strong>4 Wochen zum 15. oder zum Ende eines Kalendermonats</strong> (§ 622 Abs. 1 BGB).',
+            `Die 4 Wochen (28 Tage) zählen ab dem Tag nach dem Zugang: ${de(zugang)} + 28 Tage = ${deLang(frist)}.`,
+            iso(frist) === iso(ende)
+                ? `Das Fristende fällt genau auf ${frist.getUTCDate() === 15 ? 'den 15.' : 'ein Monatsende'} – ein zulässiger Termin: <strong>${deLang(ende)}</strong>.`
+                : `Früher darf das Arbeitsverhältnis nicht enden. Nächster zulässiger Termin (15. oder Monatsende): <strong>${deLang(ende)}</strong>.`
+        ];
+    }
+
+    function grundTypisch(zugang) {
+        const { frist, ende } = grundfrist(zugang);
+        const liste = [];
+        if (iso(frist) !== iso(ende)) liste.push({ answer: frist, warum: 'Nach den 4 Wochen geht es noch bis zum nächsten zulässigen Termin weiter – dem 15. oder dem Monatsende.' });
+        if (ende.getUTCDate() === 15) liste.push({ answer: monatsende(ende), warum: 'Endet die 4-Wochen-Frist spätestens am 15., ist schon der 15. ein zulässiger Termin – nicht erst das Monatsende.' });
+        liste.push({ answer: zum15OderMonatsende(plusMonate(zugang, 1)), warum: '4 Wochen sind genau 28 Tage – nicht ein ganzer Monat.' });
+        liste.push({ answer: plusTage(zugang, 14), warum: '2 Wochen gelten nur in einer vereinbarten Probezeit.' });
+        return liste;
+    }
+
+    function monatsSchritte(zugang, jahre, m) {
+        const { frist, ende } = monatsfrist(zugang, m);
+        return [
+            `Der Arbeitgeber kündigt nach ${jahre} Jahren Betriebszugehörigkeit: Stufe „ab ${stufeFuer(jahre)[0]} Jahren“ → <strong>${monateText(m)} zum Monatsende</strong> (§ 622 Abs. 2 BGB).`,
+            `${monateText(m)} ab Zugang: ${de(zugang)} + ${monateText(m)} = ${deLang(frist)}.`,
+            iso(frist) === iso(ende) ? `Das ist bereits ein Monatsende: <strong>${deLang(ende)}</strong>.` : `Weiter bis zum Monatsende: <strong>${deLang(ende)}</strong>.`
+        ];
+    }
+
+    function monatsTypisch(zugang, jahre, m) {
+        const { frist, ende } = monatsfrist(zugang, m);
+        const liste = [{ answer: grundfrist(zugang).ende, warum: `Nach ${jahre} Jahren im Betrieb gilt bei einer Kündigung durch den Arbeitgeber nicht mehr die Grundfrist, sondern eine verlängerte Frist.` }];
+        if (iso(frist) !== iso(ende)) liste.push({ answer: frist, warum: 'Nach Ablauf der Monate geht es noch bis zum Monatsende weiter.' });
+        [m - 1, m + 1].filter((x) => x >= 1 && x <= 7).forEach((x) => liste.push({
+            answer: monatsfrist(zugang, x).ende,
+            warum: 'Prüfe die Stufe: ab 2 Jahren 1 Monat, ab 5 → 2, ab 8 → 3, ab 10 → 4, ab 12 → 5, ab 15 → 6, ab 20 Jahren 7 Monate.'
+        }));
+        return liste;
+    }
+
+    // Jeder Fall liefert: text, regel, frage ('ende' | 'zugang'), loesung, schritte, typisch, optional vertrag und merke
+
+    function fallProbezeit(rng, zugang) {
+        const eintritt = plusMonate(zugang, -rng.int(1, 5));
+        const agKuendigt = rng.chance(0.5);
+        const ende = plusTage(zugang, 14);
+        return {
+            text: `Mia ist seit dem ${de(eintritt)} als IT-Supporterin angestellt; im Arbeitsvertrag sind 6 Monate Probezeit vereinbart. ${agKuendigt ? 'Der Arbeitgeber kündigt ihr' : 'Sie kündigt selbst'} – die Kündigung geht am <strong>${deLang(zugang)}</strong> zu.`,
+            regel: 'w2', frage: 'ende', loesung: ende,
+            schritte: [
+                `Die Kündigung geht in der vereinbarten Probezeit zu (sie läuft bis ${de(plusTage(plusMonate(eintritt, 6), -1))}). Dann gilt für beide Seiten eine Frist von <strong>2 Wochen – zu jedem beliebigen Tag</strong> (§ 622 Abs. 3 BGB).`,
+                `Die 14 Tage zählen ab dem Tag nach dem Zugang: ${de(zugang)} + 14 Tage = <strong>${deLang(ende)}</strong> – derselbe Wochentag wie beim Zugang.`
+            ],
+            merke: 'In der Probezeit gibt es keinen festen Endtermin. Das Arbeitsverhältnis kann deshalb auch am 12. oder 23. eines Monats enden.',
+            typisch: [
+                { answer: grundfrist(zugang).ende, warum: 'Das wäre die Grundkündigungsfrist. In einer vereinbarten Probezeit gilt die kürzere Frist von 2 Wochen.' },
+                { answer: plusTage(zugang, 13), warum: 'Die Frist beginnt erst am Tag <em>nach</em> dem Zugang – es müssen 14 volle Tage sein.' },
+                { answer: monatsende(ende), warum: 'In der Probezeit wird nicht auf das Monatsende aufgerundet.' }
+            ]
+        };
+    }
+
+    function fallAzubiProbezeit(rng, zugang) {
+        const probe = rng.pick([2, 3, 4]);
+        const eintritt = plusTage(plusMonate(zugang, -rng.int(0, probe - 1)), -rng.int(3, 20));
+        const betrieb = rng.chance(0.5);
+        return {
+            text: `Tim hat am ${de(eintritt)} seine Ausbildung zum Fachinformatiker begonnen; die Probezeit beträgt ${probe} Monate. ${betrieb ? 'Der Ausbildungsbetrieb kündigt ihm schriftlich' : 'Tim merkt, dass der Beruf nicht zu ihm passt, und kündigt schriftlich'}. Die Kündigung geht am <strong>${deLang(zugang)}</strong> zu.`,
+            regel: 'sofort', frage: 'ende', loesung: zugang, vertrag: 'Ausbildungsverhältnis',
+            schritte: [
+                `Die Kündigung geht innerhalb der Probezeit zu (sie läuft bis ${de(plusTage(plusMonate(eintritt, probe), -1))}).`,
+                'In der Probezeit können beide Seiten das Ausbildungsverhältnis <strong>jederzeit ohne Kündigungsfrist</strong> kündigen (§ 22 Abs. 1 BBiG). Ein Grund muss nicht genannt werden – die Schriftform aber ist Pflicht.',
+                `Die Kündigung wirkt mit dem Zugang: Das Ausbildungsverhältnis endet am <strong>${deLang(zugang)}</strong>.`
+            ],
+            merke: 'Für die Ausbildung gilt das BBiG, nicht § 622 BGB: In der Probezeit gibt es gar keine Frist.',
+            typisch: [
+                { answer: plusTage(zugang, 14), warum: 'Die 2-Wochen-Frist gilt in der Probezeit eines <em>Arbeits</em>verhältnisses. In der Ausbildung gibt es während der Probezeit keine Frist.' },
+                { answer: plusTage(zugang, 28), warum: '4 Wochen gelten erst nach der Probezeit – und nur, wenn der Azubi die Ausbildung aufgibt oder den Beruf wechselt.' },
+                { answer: grundfrist(zugang).ende, warum: 'Die Grundkündigungsfrist aus dem BGB gilt hier nicht – die Ausbildung regelt das BBiG.' }
+            ]
+        };
+    }
+
+    function fallAzubiAufgabe(rng, zugang) {
+        const eintritt = datum(zugang.getUTCFullYear() - rng.int(1, 2), rng.pick([8, 9]), 1);
+        const ende = plusTage(zugang, 28);
+        const plan = rng.pick(['ein Studium beginnen', 'eine Ausbildung zur Mediengestalterin anfangen', 'eine Ausbildung zur Elektronikerin anfangen', 'in den elterlichen Betrieb wechseln und Bäckerin werden']);
+        return {
+            text: `Lena ist seit dem ${de(eintritt)} in der Ausbildung, die Probezeit ist vorbei. Sie möchte die Ausbildung aufgeben und ${plan}. Ihre schriftliche Kündigung mit Angabe des Grundes geht dem Betrieb am <strong>${deLang(zugang)}</strong> zu.`,
+            regel: 'w4', frage: 'ende', loesung: ende, vertrag: 'Ausbildungsverhältnis',
+            schritte: [
+                'Nach der Probezeit kann der Azubi mit einer Frist von <strong>4 Wochen</strong> kündigen, wenn er die Berufsausbildung aufgeben oder einen anderen Beruf lernen will (§ 22 Abs. 2 Nr. 2 BBiG). Die Kündigung muss schriftlich sein und den Grund nennen.',
+                `Einen festen Endtermin gibt es nicht: ${de(zugang)} + 28 Tage = <strong>${deLang(ende)}</strong>.`,
+                'Der Betrieb dagegen kann nach der Probezeit nur noch fristlos aus wichtigem Grund kündigen.'
+            ],
+            merke: '4 Wochen ohne festen Termin – nicht „zum 15. oder Monatsende“. Das Ende fällt auf denselben Wochentag wie der Zugang.',
+            typisch: [
+                { answer: grundfrist(zugang).ende, warum: 'Für Azubis gilt § 22 BBiG: 4 Wochen ohne festen Endtermin – es wird nicht auf den 15. oder das Monatsende aufgerundet.' },
+                { answer: zugang, warum: 'Fristlos geht es nur in der Probezeit oder aus wichtigem Grund. Wer die Ausbildung aufgibt, hat 4 Wochen Frist.' },
+                { answer: plusTage(zugang, 27), warum: 'Gezählt wird ab dem Tag nach dem Zugang – 28 volle Tage.' }
+            ]
+        };
+    }
+
+    function fallGrundAn(rng, zugang, lange) {
+        const jahre = lange ? rng.int(3, 18) : rng.int(0, 1);
+        const zeit = jahre === 0 ? `${rng.int(7, 11)} Monaten` : jahre === 1 ? 'einem Jahr' : `${jahre} Jahren`;
+        const typisch = [];
+        if (jahre >= 2) {
+            const m = stufeFuer(jahre)[1];
+            typisch.push({ answer: monatsfrist(zugang, m).ende, warum: 'Die verlängerte Frist gilt nur, wenn der Arbeitgeber kündigt. Kündigt der Arbeitnehmer, bleibt es bei 4 Wochen zum 15. oder Monatsende.' });
+        }
+        return {
+            text: `Jonas arbeitet seit ${zeit} als Fachinformatiker in einem Systemhaus, die Probezeit ist vorbei. Im Arbeitsvertrag sind die gesetzlichen Kündigungsfristen vereinbart. Er hat ein besseres Angebot und kündigt selbst; die Kündigung geht dem Arbeitgeber am <strong>${deLang(zugang)}</strong> zu.`,
+            regel: 'grund', frage: 'ende', loesung: grundfrist(zugang).ende, an: true,
+            schritte: [jahre >= 2
+                ? `Jonas ist zwar schon ${jahre} Jahre im Betrieb – aber er kündigt <strong>selbst</strong>. Die verlängerten Fristen nach § 622 Abs. 2 BGB gelten nur für Kündigungen durch den Arbeitgeber.`
+                : 'Probezeit vorbei, nichts Besonderes vereinbart: Es gilt die gesetzliche Grundkündigungsfrist.'].concat(grundSchritte(zugang)),
+            merke: jahre >= 2 ? 'Arbeitnehmer kündigen (ohne andere Vereinbarung) immer mit der Grundfrist – egal, wie lange sie schon im Betrieb sind.' : null,
+            typisch: typisch.concat(grundTypisch(zugang))
+        };
+    }
+
+    function fallGrundAg(rng, zugang) {
+        const monate = rng.int(8, 22);
+        return {
+            text: `Frau Schulz ist seit ${monate} Monaten bei einem IT-Dienstleister beschäftigt, die Probezeit ist vorbei. Der Arbeitgeber kündigt ihr ordentlich; die Kündigung geht am <strong>${deLang(zugang)}</strong> zu. Vertraglich gelten die gesetzlichen Fristen.`,
+            regel: 'grund', frage: 'ende', loesung: grundfrist(zugang).ende,
+            schritte: [`Betriebszugehörigkeit: ${monate} Monate – weniger als 2 Jahre. Die verlängerten Fristen beginnen erst ab 2 Jahren; es gilt die Grundkündigungsfrist.`].concat(grundSchritte(zugang)),
+            typisch: [{ answer: monatsfrist(zugang, 1).ende, warum: '„1 Monat zum Monatsende“ gilt erst ab 2 Jahren Betriebszugehörigkeit.' }].concat(grundTypisch(zugang))
+        };
+    }
+
+    function fallLang(rng, zugang, mitEintritt) {
+        let jahre = rng.int(2, 22);
+        let eintritt = null;
+        if (mitEintritt) {
+            eintritt = datum(zugang.getUTCFullYear() - rng.int(1, 22), rng.int(1, 12), 1 + rng.int(0, 27));
+            if (volleJahre(eintritt, zugang) < 1) eintritt = datum(eintritt.getUTCFullYear() - 1, eintritt.getUTCMonth() + 1, eintritt.getUTCDate());
+            jahre = volleJahre(eintritt, zugang);
+        }
+        const text = (mitEintritt ? `Herr Kaya ist seit dem <strong>${de(eintritt)}</strong> im Unternehmen.` : `Herr Kaya ist seit <strong>${jahre} Jahren</strong> im Unternehmen.`) +
+            ` Der Arbeitgeber kündigt ihm ordentlich (betriebsbedingt); die Kündigung geht am <strong>${deLang(zugang)}</strong> zu. Vertraglich gelten die gesetzlichen Fristen.`;
+        const schritte = mitEintritt ? [`Betriebszugehörigkeit beim Zugang der Kündigung: ${de(eintritt)} bis ${de(zugang)} = <strong>${jahre} volle${jahre === 1 ? 's Jahr' : ' Jahre'}</strong>.`] : [];
+        const typisch = [];
+        if (mitEintritt) {
+            const differenz = zugang.getUTCFullYear() - eintritt.getUTCFullYear();
+            const falscheStufe = stufeFuer(differenz);
+            if (differenz !== jahre && falscheStufe && falscheStufe !== stufeFuer(jahre)) {
+                typisch.push({ answer: monatsfrist(zugang, falscheStufe[1]).ende, warum: 'Zähle nur volle Beschäftigungsjahre bis zum Zugang der Kündigung – nicht die Differenz der Jahreszahlen.' });
+            }
+        }
+        const stufe = stufeFuer(jahre);
+        if (!stufe) {
+            return {
+                text, regel: 'grund', frage: 'ende', loesung: grundfrist(zugang).ende,
+                schritte: schritte.concat('Weniger als 2 volle Jahre: Die verlängerten Fristen greifen noch nicht, es gilt die Grundkündigungsfrist.', grundSchritte(zugang)),
+                typisch: typisch.concat({ answer: monatsfrist(zugang, 1).ende, warum: '„1 Monat zum Monatsende“ gilt erst ab 2 <em>vollen</em> Jahren Betriebszugehörigkeit.' }, grundTypisch(zugang))
+            };
+        }
+        const m = stufe[1];
+        return {
+            text, regel: 'm' + m, frage: 'ende', loesung: monatsfrist(zugang, m).ende,
+            schritte: schritte.concat(monatsSchritte(zugang, jahre, m)),
+            typisch: typisch.concat(monatsTypisch(zugang, jahre, m))
+        };
+    }
+
+    function fallRueckGrund(rng, jahr) {
+        const mon = rng.int(1, 12);
+        const zum15 = rng.chance(0.4);
+        const termin = datum(jahr, mon, zum15 ? 15 : tageImMonat(jahr, mon));
+        const zugang = plusTage(termin, -28);
+        const an = rng.chance(0.6);
+        const zuSpaet = grundfrist(plusTage(zugang, 1)).ende;
+        return {
+            text: an
+                ? `Sara arbeitet seit ${rng.int(3, 12)} Jahren als Systemadministratorin. Sie hat einen neuen Job und möchte ihr Arbeitsverhältnis zum <strong>${de(termin)}</strong> beenden; vereinbart sind die gesetzlichen Fristen. Bis wann muss ihre Kündigung dem Arbeitgeber spätestens zugehen?`
+                : `Ein Arbeitgeber möchte einem Mitarbeiter, der seit ${rng.int(8, 20)} Monaten im Betrieb ist (Probezeit vorbei), zum <strong>${de(termin)}</strong> kündigen. Bis wann muss die Kündigung dem Mitarbeiter spätestens zugehen?`,
+            regel: 'grund', frage: 'zugang', loesung: zugang, termin, an,
+            schritte: [
+                an ? 'Sara kündigt selbst – es gilt die Grundkündigungsfrist, egal wie lange sie schon im Betrieb ist.' : 'Weniger als 2 Jahre Betriebszugehörigkeit: Es gilt die Grundkündigungsfrist.',
+                `Der ${de(termin)} ist ${zum15 ? 'ein 15.' : 'ein Monatsende'} und damit ein zulässiger Termin für die Grundfrist (4 Wochen zum 15. oder Monatsende).`,
+                `Vom Wunschtermin 4 Wochen = 28 Tage zurückrechnen: ${de(termin)} − 28 Tage = <strong>${deLang(zugang)}</strong>.`,
+                `Probe: ${de(zugang)} + 28 Tage = ${de(termin)} ✓. Geht die Kündigung einen Tag später zu, ist erst der ${de(zuSpaet)} möglich.`
+            ],
+            merke: 'Rückwärts rechnen heißt: Termin minus 28 Tage – nicht minus einen Monat. Zur Probe muss Zugang + 28 Tage genau den Termin ergeben.',
+            typisch: [
+                { answer: plusMonate(termin, -1), warum: '4 Wochen sind genau 28 Tage – nicht ein Monat. Rechne 28 Tage zurück.' },
+                { answer: plusTage(termin, -27), warum: 'Die Frist beginnt am Tag nach dem Zugang. Damit 28 volle Tage bis zum Termin bleiben, muss die Kündigung 28 Tage vorher zugehen.' },
+                { answer: plusTage(termin, -29), warum: 'Das würde auch reichen – gefragt ist aber der <em>späteste</em> Tag. Probe: Zugang + 28 Tage muss genau den Termin ergeben.' },
+                { answer: plusTage(termin, -14), warum: '2 Wochen gelten nur in der Probezeit.' }
+            ]
+        };
+    }
+
+    function fallRueckLang(rng, jahr) {
+        const jahre = rng.int(2, 22);
+        const [ab, m] = stufeFuer(jahre);
+        const mon = rng.int(1, 12);
+        const termin = datum(jahr, mon, tageImMonat(jahr, mon));
+        const zugang = monatsende(plusMonate(datum(jahr, mon, 1), -m));
+        const naechster = plusTage(zugang, 1);
+        const typisch = [{ answer: plusTage(termin, -28), warum: 'Das wäre die Rechnung mit der Grundfrist. Kündigt der Arbeitgeber nach mindestens 2 Jahren, gilt eine verlängerte Frist.' }];
+        if (iso(plusMonate(termin, -m)) !== iso(zugang)) {
+            typisch.push({ answer: plusMonate(termin, -m), warum: 'Bei „zum Monatsende“ reicht der Zugang am <em>letzten Tag</em> des Monats, der so viele Monate vor dem Termin liegt.' });
+        }
+        [m - 1, m + 1].filter((x) => x >= 1 && x <= 7).forEach((x) => typisch.push({
+            answer: monatsende(plusMonate(datum(jahr, mon, 1), -x)),
+            warum: 'Prüfe die Stufe: ab 2 Jahren 1 Monat, ab 5 → 2, ab 8 → 3, ab 10 → 4, ab 12 → 5, ab 15 → 6, ab 20 Jahren 7 Monate.'
+        }));
+        return {
+            text: `Eine Mitarbeiterin ist seit ${jahre} Jahren im Unternehmen. Wegen einer Umstrukturierung will der Arbeitgeber ihr Arbeitsverhältnis zum <strong>${de(termin)}</strong> ordentlich kündigen; es gelten die gesetzlichen Fristen. Bis wann muss ihr die Kündigung spätestens zugehen?`,
+            regel: 'm' + m, frage: 'zugang', loesung: zugang, termin,
+            schritte: [
+                `Kündigung durch den Arbeitgeber nach ${jahre} Jahren: Stufe „ab ${ab} Jahren“ → <strong>${monateText(m)} zum Monatsende</strong> (§ 622 Abs. 2 BGB).`,
+                `Bis zum ${de(termin)} müssen ${monateText(m)} vergangen sein. Also ${monateText(m)} zurückrechnen: Die Kündigung muss spätestens am letzten Tag im ${MONATE[zugang.getUTCMonth()]} zugehen – <strong>${deLang(zugang)}</strong>.`,
+                `Probe: ${de(zugang)} + ${monateText(m)} = ${de(plusMonate(zugang, m))} → Monatsende ${de(termin)} ✓. Ein Tag später (${de(naechster)}) wäre erst der ${de(monatsfrist(naechster, m).ende)} möglich.`
+            ],
+            merke: `„${monateText(m)} zum Monatsende“ heißt rückwärts: Zugang spätestens am letzten Tag des Monats, der ${monateText(m)} vor dem Ende liegt.`,
+            typisch
+        };
+    }
+
+    /** Postweg: Datum des Schreibens und Zugang fallen auseinander – gezählt wird ab Zugang. */
+    function fallPost(rng) {
+        const lange = rng.chance(0.5);
+        const jahre = lange ? rng.int(2, 22) : 0;
+        const m = lange ? stufeFuer(jahre)[1] : 0;
+        const ergebnis = (z) => (lange ? monatsfrist(z, m).ende : grundfrist(z).ende);
+        let zugang;
+        let geschrieben;
+        for (let versuch = 0; versuch < 60; versuch++) {
+            zugang = zugangsTag(rng);
+            geschrieben = plusTage(zugang, -rng.int(2, 4));
+            if (iso(ergebnis(geschrieben)) !== iso(ergebnis(zugang))) break;   // die Falle soll greifen
+        }
+        const ende = ergebnis(zugang);
+        return {
+            text: `Ein Arbeitgeber kündigt Frau Öztürk, die seit ${lange ? jahre + ' Jahren' : rng.int(9, 20) + ' Monaten'} im Betrieb ist, ordentlich. Das Kündigungsschreiben ist auf <strong>${deLang(geschrieben)}</strong> datiert und wird per Post verschickt. Es liegt am <strong>${deLang(zugang)}</strong> in ihrem Briefkasten. Vertraglich gelten die gesetzlichen Fristen.`,
+            regel: lange ? 'm' + m : 'grund', frage: 'ende', loesung: ende,
+            schritte: [
+                'Maßgeblich ist der <strong>Zugang</strong> – der Tag, an dem das Schreiben im Briefkasten liegt und man es normalerweise lesen kann (§ 130 BGB). Das Datum auf dem Schreiben spielt keine Rolle.'
+            ].concat(lange ? monatsSchritte(zugang, jahre, m) : ['Weniger als 2 Jahre im Betrieb: Grundkündigungsfrist.'].concat(grundSchritte(zugang))),
+            merke: 'Die Frist läuft ab Zugang. Wer knapp vor einem Termin kündigt, sollte die Kündigung deshalb persönlich übergeben (mit Zeugen) oder durch einen Boten einwerfen lassen.',
+            typisch: [{ answer: ergebnis(geschrieben), warum: 'Gerechnet wird ab dem Zugang (Briefkasten), nicht ab dem Datum des Schreibens.' }]
+                .concat(lange ? monatsTypisch(zugang, jahre, m) : grundTypisch(zugang))
+        };
+    }
+
+    /** Hinweis, wenn die gewählte Frist nicht passt. */
+    function regelTipp(gewaehlt, fall) {
+        const soll = fall.regel;
+        if (soll === 'grund' && gewaehlt.startsWith('m')) {
+            return fall.an ? 'Die verlängerten Fristen gelten nur, wenn der <em>Arbeitgeber</em> kündigt. Kündigt der Arbeitnehmer, bleibt es bei der Grundfrist.' : 'Die verlängerten Fristen beginnen erst nach 2 vollen Jahren Betriebszugehörigkeit.';
+        }
+        if (soll.startsWith('m') && gewaehlt === 'grund') return 'Der Arbeitgeber kündigt nach mindestens 2 Jahren – dann gilt eine verlängerte Frist zum Monatsende.';
+        if (soll.startsWith('m') && gewaehlt.startsWith('m')) return 'Die Richtung stimmt, aber nicht die Stufe: ab 2 Jahren 1 Monat, ab 5 → 2, ab 8 → 3, ab 10 → 4, ab 12 → 5, ab 15 → 6, ab 20 Jahren 7 Monate.';
+        if (soll === 'w2') return 'Während einer vereinbarten Probezeit (höchstens 6 Monate) gilt eine verkürzte Frist von 2 Wochen.';
+        if (soll === 'sofort') return 'In der Probezeit der Ausbildung muss keine Seite eine Frist einhalten (§ 22 Abs. 1 BBiG).';
+        if (soll === 'w4') return 'Azubis, die nach der Probezeit die Ausbildung aufgeben, kündigen mit 4 Wochen Frist – ohne festen Endtermin (§ 22 Abs. 2 BBiG).';
+        return 'Probezeit vorbei, keine Ausbildung: Es gilt § 622 BGB.';
+    }
+
+    const FALLTYPEN = {
+        1: ['grund-an', 'grund-ag', 'probe', 'azubi-probe'],
+        2: ['lang', 'grund-an-lang', 'azubi-aufgabe', 'rueck-grund', 'probe'],
+        3: ['lang-eintritt', 'lang-eintritt', 'rueck-lang', 'post', 'rueck-grund', 'azubi-aufgabe']
+    };
+
+    /** Zugangstag einer Kündigung – nie an einem Sonntag, an dem keine Post kommt. */
+    function zugangsTag(rng) {
+        const dt = zufallsDatum(rng, 2026, 2027);
+        return dt.getUTCDay() === 0 ? plusTage(dt, 1) : dt;
+    }
+
+    function kuendigungsFall(rng, typ) {
+        const zugang = zugangsTag(rng);
+        const jahr = rng.int(2026, 2027);
+        return {
+            'grund-an': () => fallGrundAn(rng, zugang, false),
+            'grund-an-lang': () => fallGrundAn(rng, zugang, true),
+            'grund-ag': () => fallGrundAg(rng, zugang),
+            'probe': () => fallProbezeit(rng, zugang),
+            'azubi-probe': () => fallAzubiProbezeit(rng, zugang),
+            'azubi-aufgabe': () => fallAzubiAufgabe(rng, zugang),
+            'lang': () => fallLang(rng, zugang, false),
+            'lang-eintritt': () => fallLang(rng, zugang, true),
+            'rueck-grund': () => fallRueckGrund(rng, jahr),
+            'rueck-lang': () => fallRueckLang(rng, jahr),
+            'post': () => fallPost(rng)
+        }[typ]();
+    }
 
     function kuendigungsAufgabe(rng, level) {
-        const art = rng.pick(level === 1 ? ['grund-an', 'grund-ag'] : level === 2 ? ['grund-an', 'lang', 'lang', 'probe'] : ['lang-eintritt', 'lang-eintritt', 'probe', 'grund-an']);
-        const zugang = zufallsDatum(rng, 2025, 2027);
-        let text;
-        let ende;
-        const schritte = [];
-        if (art === 'probe') {
-            const eintritt = plusMonate(zugang, -rng.int(1, 5));
-            text = `Mia ist seit dem ${de(eintritt)} angestellt, vereinbart sind 6 Monate Probezeit. Der Arbeitgeber kündigt; die Kündigung geht ihr am <strong>${deLang(zugang)}</strong> zu.`;
-            ende = plusTage(zugang, 14);
-            schritte.push('Während einer vereinbarten Probezeit (höchstens 6 Monate) beträgt die Frist <strong>2 Wochen</strong> – ohne festen Endtermin (§ 622 Abs. 3 BGB).',
-                `Die Frist beginnt am Tag nach dem Zugang und endet zwei Wochen später am gleichen Wochentag: <strong>${deLang(ende)}</strong>.`);
-        } else if (art === 'grund-an' || art === 'grund-ag') {
-            const jahre = art === 'grund-ag' ? rng.int(0, 1) : rng.int(1, 15);
-            text = art === 'grund-an'
-                ? `Jonas arbeitet seit ${jahre} Jahr${jahre === 1 ? '' : 'en'} in einem Systemhaus. Im Arbeitsvertrag ist nur die gesetzliche Frist vereinbart. Er kündigt selbst; die Kündigung geht dem Arbeitgeber am <strong>${deLang(zugang)}</strong> zu.`
-                : `Ein Arbeitgeber kündigt einer Mitarbeiterin, die seit ${jahre === 0 ? 'zehn Monaten' : 'einem Jahr und drei Monaten'} im Betrieb ist (keine Probezeit mehr). Die Kündigung geht am <strong>${deLang(zugang)}</strong> zu.`;
-            const frist = plusTage(zugang, 28);
-            ende = frist.getUTCDate() <= 15 ? datum(frist.getUTCFullYear(), frist.getUTCMonth() + 1, 15) : monatsende(frist);
-            if (art === 'grund-an') schritte.push('Kündigt der <strong>Arbeitnehmer</strong>, gilt die Grundkündigungsfrist – die verlängerten Fristen gelten nur für Kündigungen durch den Arbeitgeber.');
-            else schritte.push('Weniger als 2 Jahre Betriebszugehörigkeit: Es gilt die Grundkündigungsfrist.');
-            schritte.push('Grundkündigungsfrist: <strong>4 Wochen zum 15. oder zum Ende eines Kalendermonats</strong> (§ 622 Abs. 1 BGB).',
-                `Vier Wochen nach dem Zugang: ${deLang(frist)} – frühestens dann darf das Arbeitsverhältnis enden.`,
-                `Nächster zulässiger Termin (15. oder Monatsende): <strong>${deLang(ende)}</strong>.`);
-        } else {
-            let jahre;
-            let zeile;
-            if (art === 'lang-eintritt') {
-                const eintritt = datum(zugang.getUTCFullYear() - rng.int(2, 22), rng.int(1, 12), 1 + rng.int(0, 27));
-                jahre = volleJahre(eintritt, zugang);
-                zeile = `Herr Kaya ist seit dem <strong>${de(eintritt)}</strong> im Unternehmen.`;
-                schritte.push(`Betriebszugehörigkeit beim Zugang der Kündigung: ${de(eintritt)} bis ${de(zugang)} = <strong>${jahre} volle Jahre</strong>.`);
-            } else {
-                jahre = rng.int(2, 22);
-                zeile = `Herr Kaya ist seit <strong>${jahre} Jahren</strong> im Unternehmen.`;
-            }
-            const stufe = VERLAENGERT.find(([j]) => jahre >= j);
-            if (!stufe) return kuendigungsAufgabe(rng, level);
-            const monate = stufe[1];
-            text = `${zeile} Der Arbeitgeber kündigt ordentlich; die Kündigung geht am <strong>${deLang(zugang)}</strong> zu. Vertraglich gelten die gesetzlichen Fristen.`;
-            const frist = plusMonate(zugang, monate);
-            ende = monatsende(frist);
-            schritte.push(`Kündigung durch den Arbeitgeber nach ${jahre} Jahren: verlängerte Frist von <strong>${monate} Monat${monate === 1 ? '' : 'en'} zum Monatsende</strong> (§ 622 Abs. 2 BGB, ab ${stufe[0]} Jahren).`,
-                `${monate} Monat${monate === 1 ? '' : 'e'} nach dem Zugang: ${deLang(frist)}.`,
-                `Nächstes Monatsende: <strong>${deLang(ende)}</strong>.`);
-        }
-        let feld;
+        const fall = kuendigungsFall(rng, rng.pick(FALLTYPEN[level]));
+        const vertrag = fall.vertrag || 'Arbeitsverhältnis';
+        const rueckwaerts = fall.frage === 'zugang';
+        let fRegel;
+        let fDatum;
         return {
-            title: 'Kündigungsfrist berechnen',
-            description: 'An welchem Tag endet das Arbeitsverhältnis frühestens? Feiertage und Wochenenden spielen dabei keine Rolle.',
-            hint: '§ 622 BGB: Grundfrist 4 Wochen zum 15. oder Monatsende. Arbeitgeber ab 2 Jahren Betriebszugehörigkeit: 1 Monat, ab 5 J.: 2, ab 8 J.: 3, ab 10 J.: 4, ab 12 J.: 5, ab 15 J.: 6, ab 20 J.: 7 Monate – jeweils zum Monatsende. Probezeit: 2 Wochen.',
+            title: rueckwaerts ? 'Spätester Kündigungstermin' : 'Kündigungsfrist berechnen',
+            description: rueckwaerts
+                ? 'Welche Frist gilt – und an welchem Tag muss die Kündigung spätestens zugehen? Wochenenden und Feiertage spielen keine Rolle.'
+                : `Welche Frist gilt – und an welchem Tag endet das ${vertrag} frühestens? Wochenenden und Feiertage spielen keine Rolle.`,
+            hint: 'Erst klären: Ausbildung oder Arbeitsverhältnis? Probezeit? Wer kündigt? Danach: Frist ab dem Tag nach dem Zugang zählen und auf den nächsten zulässigen Termin aufrunden.',
             render(body) {
-                body.append(h('div', { class: 'game-scenario game-question', html: text }));
-                feld = h('input', { type: 'date', id: 'wk-ende', class: 'form-control form-control-sm game-num', style: 'max-width:12rem' });
-                body.append(h('div', { class: 'game-fieldrow' }, h('label', { for: 'wk-ende' }, 'Letzter Tag des Arbeitsverhältnisses'), feld));
+                body.append(h('div', { class: 'game-scenario game-question', html: fall.text }));
+                fRegel = h('select', { id: 'wk-regel', class: 'form-select form-select-sm', style: 'max-width:22rem' },
+                    h('option', { value: '' }, 'bitte wählen'), REGELN.map((r) => h('option', { value: r.id }, r.text)));
+                fDatum = h('input', { type: 'date', id: 'wk-datum', class: 'form-control form-control-sm game-num', style: 'max-width:12rem' });
+                fRegel.addEventListener('change', () => mark(fRegel, null));
+                fDatum.addEventListener('input', () => mark(fDatum, null));
+                body.append(
+                    h('div', { class: 'game-fieldrow' }, h('label', { for: 'wk-regel' }, 'Welche Frist gilt?'), fRegel),
+                    h('div', { class: 'game-fieldrow' }, h('label', { for: 'wk-datum' }, rueckwaerts ? 'Spätester Zugang der Kündigung' : `Letzter Tag des ${vertrag}ses`), fDatum)
+                );
             },
             check() {
-                if (!feld.value) return { correct: false, score: 0, message: 'Bitte ein Datum eingeben.' };
-                const ok = feld.value === iso(ende);
-                mark(feld, ok);
-                return { correct: ok, score: ok ? 1 : 0, message: ok ? `Das Arbeitsverhältnis endet am ${deLang(ende)}.` : '' };
+                if (!fRegel.value && !fDatum.value) return { correct: false, score: 0, message: 'Bitte die Frist auswählen und ein Datum eingeben.' };
+                const okR = fRegel.value === fall.regel;
+                const okD = fDatum.value === iso(fall.loesung);
+                mark(fRegel, fRegel.value ? okR : false);
+                mark(fDatum, fDatum.value ? okD : false);
+                const tipps = [];
+                if (fRegel.value && !okR) tipps.push(regelTipp(fRegel.value, fall));
+                if (fDatum.value && !okD) {
+                    const t = fall.typisch.find((x) => iso(x.answer) === fDatum.value);
+                    tipps.push(t ? t.warum : rueckwaerts
+                        ? 'Mach die Probe: Zugang + Frist muss genau auf den gewünschten Termin führen.'
+                        : 'Zähle die Frist ab dem Tag nach dem Zugang und runde dann – falls die Frist einen festen Termin hat – auf den nächsten zulässigen Termin auf.');
+                }
+                const fertig = okR && okD;
+                return {
+                    correct: fertig, score: (okR + okD) / 2, tipps: [...new Set(tipps)],
+                    message: fertig ? (rueckwaerts ? `Spätester Zugang: ${deLang(fall.loesung)}.` : `Das ${vertrag} endet am ${deLang(fall.loesung)}.`) : ''
+                };
             },
             showSolution(box) {
-                feld.value = iso(ende);
-                mark(feld, null);
-                box.append(h('h3', {}, 'Lösungsweg'), h('ol', { class: 'game-steps' }, schritte.map((s) => h('li', { html: s }))));
+                fRegel.value = fall.regel;
+                fDatum.value = iso(fall.loesung);
+                mark(fRegel, null);
+                mark(fDatum, null);
+                box.append(h('h3', {}, 'Lösungsweg'), h('ol', { class: 'game-steps' }, fall.schritte.map((s) => h('li', { html: s }))));
+                if (fall.merke) box.append(h('p', { class: 'game-merke mb-0' }, fall.merke));
             }
         };
     }
@@ -293,7 +660,15 @@
             const roh = jahresurlaub * monate / 12;
             const anspruch = voll ? jahresurlaub : (roh % 1 === 0 ? roh : Math.ceil(roh));
             const wartezeitEnde = plusTage(plusMonate(eintritt, 6), -1);
+            const typisch = voll
+                ? [{ answer: Math.ceil(roh - 0.5 + 1e-9), warum: 'Die 6 Monate Wartezeit enden noch im Eintrittsjahr – dann gibt es den vollen Jahresurlaub, keinen Teilurlaub.' }]
+                : [
+                    { answer: jahresurlaub, warum: 'Die Wartezeit endet erst im nächsten Jahr. Für das Eintrittsjahr gibt es deshalb nur Teilurlaub: 1/12 je vollem Monat.' },
+                    { answer: Math.floor(roh), warum: 'Bruchteile von mindestens einem halben Tag werden auf einen vollen Tag aufgerundet (§ 5 Abs. 2 BUrlG).' },
+                    { answer: Math.ceil(jahresurlaub * (monate - 1) / 12 - 0.5 + 1e-9), warum: `Zähle die vollen Monate von ${MONATE[m - 1]} bis Dezember – der Eintrittsmonat zählt mit: ${monate} Monate.` }
+                ];
             return einfacheUrlaubsAufgabe({
+                typisch,
                 text: `Sophie beginnt am <strong>${de(eintritt)}</strong> bei einem neuen Arbeitgeber (5-Tage-Woche). Laut Vertrag hat sie <strong>${jahresurlaub} Arbeitstage</strong> Urlaub im Jahr; für das Eintrittsjahr regelt der Vertrag nichts Besonderes. Wie viele Urlaubstage stehen ihr für ${jahr} zu?`,
                 answer: anspruch,
                 unit: 'Arbeitstage',
@@ -310,8 +685,17 @@
         const geburt = datum(jahr - alterZuJahresbeginn - 1, rng.int(1, 12), 2 + rng.int(0, 26));
         const werktage = alterZuJahresbeginn < 16 ? 30 : alterZuJahresbeginn < 17 ? 27 : alterZuJahresbeginn < 18 ? 25 : 24;
         const gesetz = alterZuJahresbeginn < 18 ? 'JArbSchG § 19' : 'BUrlG § 3';
+        const werktageFuer = (alter) => (alter < 16 ? 30 : alter < 17 ? 27 : alter < 18 ? 25 : 24);
+        const alterTypisch = (umrechnen) => {
+            const liste = [];
+            const spaeter = werktageFuer(alterZuJahresbeginn + 1);
+            if (spaeter !== werktage) liste.push({ answer: umrechnen(spaeter), warum: `Maßgeblich ist das Alter zu Beginn des Kalenderjahres: Am 01.01.${jahr} ist die Person noch ${alterZuJahresbeginn} – der Geburtstag im Lauf des Jahres zählt erst im nächsten Jahr.` });
+            if (alterZuJahresbeginn < 18) liste.push({ answer: umrechnen(24), warum: 'Für Jugendliche gilt das JArbSchG – es gibt mehr Urlaub als die 24 Werktage des BUrlG.' });
+            return liste;
+        };
         if (level === 1) {
             return einfacheUrlaubsAufgabe({
+                typisch: alterTypisch((w) => w),
                 text: `Ein Azubi wurde am <strong>${de(geburt)}</strong> geboren. Wie viele Werktage gesetzlichen Mindesturlaub hat er im Jahr <strong>${jahr}</strong> (6-Tage-Woche)?`,
                 answer: werktage,
                 unit: 'Werktage',
@@ -324,7 +708,11 @@
         }
         const tage = rng.pick([4, 5, 5]);
         const arbeitstage = werktage * tage / 6;
+        const typisch = [{ answer: werktage, warum: `${werktage} sind Werktage (6-Tage-Woche). Umrechnen auf ${tage} Arbeitstage: Werktage · ${tage} / 6.` }]
+            .concat(alterTypisch((w) => Math.round(w * tage / 6 * 100) / 100));
+        if (arbeitstage % 1) typisch.push({ answer: Math.round(arbeitstage), warum: 'Beim vollen Jahresurlaub wird nicht gerundet – trag den genauen Wert mit Komma ein. Aufgerundet wird nur beim Teilurlaub.' });
         return einfacheUrlaubsAufgabe({
+            typisch,
             text: `Geburtsdatum <strong>${de(geburt)}</strong>, Jahr <strong>${jahr}</strong>. Gearbeitet wird an <strong>${tage} Tagen pro Woche</strong>. Wie viele Arbeitstage beträgt der gesetzliche Mindesturlaub?`,
             answer: Math.round(arbeitstage * 100) / 100,
             decimals: 2,
@@ -349,8 +737,8 @@
                 body.append(h('div', { class: 'game-fieldrow' }, h('label', { for: 'wu-tage' }, 'Urlaubsanspruch'), input, h('span', { class: 'game-unit' }, cfg.unit)));
             },
             check() {
-                const r = checkFields([{ input, answer: cfg.answer, tolerance: cfg.decimals ? 0.01 : 0 }]);
-                return { correct: r.correct, score: r.score, message: '' };
+                const r = checkFields([{ input, answer: cfg.answer, tolerance: cfg.decimals ? 0.01 : 0, typisch: cfg.typisch }]);
+                return { correct: r.correct, score: r.score, message: '', tipps: r.tipps };
             },
             showSolution(box) {
                 input.value = deFormat(cfg.answer, cfg.decimals || 0);
@@ -379,9 +767,26 @@
         const kistSatz = level === 3 ? rng.pick([0, 8, 9]) : 0;
         const kist = r2(lohnsteuer * kistSatz / 100);
         const netto = r2(brutto - summe - lohnsteuer - kist);
-        const felder = betraege.map((b) => ({ label: `AN-Anteil ${saetze[b.k].name}`, answer: b.betrag }));
+        const halb = 'Der Arbeitnehmer zahlt nur seinen Anteil – die Hälfte des Beitragssatzes. Die andere Hälfte trägt der Arbeitgeber.';
+        const typischFuer = {
+            kv: [{ answer: r2(brutto * saetze.kv.gesamt / 100), warum: halb }, { answer: r2(brutto * 7.3 / 100), warum: 'Auch der Zusatzbeitrag der Krankenkasse wird je zur Hälfte geteilt – er gehört mit in den Arbeitnehmeranteil.' }],
+            pv: kinderlos
+                ? [{ answer: r2(brutto * 1.8 / 100), warum: 'Kinderlose ab 23 zahlen zusätzlich den Zuschlag von 0,6 % – allein, ohne Arbeitgeberanteil.' },
+                    { answer: r2(brutto * 2.1 / 100), warum: 'Den Kinderlosenzuschlag trägt der Arbeitnehmer allein – er wird nicht geteilt.' },
+                    { answer: r2(brutto * 4.2 / 100), warum: halb }]
+                : [{ answer: r2(brutto * 2.4 / 100), warum: 'Der Zuschlag von 0,6 % gilt nur für Kinderlose.' }, { answer: r2(brutto * 3.6 / 100), warum: halb }],
+            rv: [{ answer: r2(brutto * 18.6 / 100), warum: halb }],
+            av: [{ answer: r2(brutto * 2.6 / 100), warum: halb }]
+        };
+        const felder = betraege.map((b) => ({ label: `AN-Anteil ${saetze[b.k].name}`, answer: b.betrag, typisch: typischFuer[b.k] }));
         felder.push({ label: 'AN-Anteile gesamt', answer: summe });
-        if (level === 3) felder.push({ label: 'Nettogehalt', answer: netto });
+        if (level === 3) {
+            felder.push({
+                label: 'Nettogehalt', answer: netto,
+                typisch: [{ answer: r2(brutto - summe), warum: 'Vom Brutto gehen neben den Sozialversicherungsbeiträgen auch Lohnsteuer und gegebenenfalls Kirchensteuer ab.' },
+                    { answer: r2(brutto - summe - lohnsteuer), warum: 'Die Kirchensteuer (Prozentsatz der Lohnsteuer) fehlt noch.' }]
+            });
+        }
         const inputs = [];
         return {
             title: 'Sozialversicherungsbeiträge',
@@ -394,13 +799,13 @@
                     (level === 3 ? `<br>Lohnsteuer laut Tabelle: <strong>${eur(lohnsteuer)}</strong>, Kirchensteuer: ${kistSatz ? kistSatz + ' % der Lohnsteuer' : 'keine (kein Kirchenmitglied)'}, kein Solidaritätszuschlag.` : '') }));
                 felder.forEach((f, i) => {
                     const input = numberInput({ id: 'sv-' + i });
-                    inputs.push({ input, answer: f.answer, tolerance: 0.011 });
+                    inputs.push({ input, answer: f.answer, tolerance: 0.011, typisch: f.typisch });
                     body.append(h('div', { class: 'game-fieldrow' }, h('label', { for: 'sv-' + i }, f.label), input, h('span', { class: 'game-unit' }, '€')));
                 });
             },
             check() {
                 const r = checkFields(inputs);
-                return { correct: r.correct, score: r.score, message: r.correct ? (level === 1 ? 'Die übrigen Zweige (KV, PV) folgen auf Stufe Mittel.' : '') : '' };
+                return { correct: r.correct, score: r.score, message: r.correct ? (level === 1 ? 'Die übrigen Zweige (KV, PV) folgen auf Stufe Mittel.' : '') : '', tipps: r.tipps };
             },
             showSolution(box) {
                 inputs.forEach((f) => { f.input.value = deFormat(f.answer, 2); mark(f.input, null); });
@@ -416,15 +821,146 @@
         };
     }
 
+    // ---------- Lernkarten ----------
+
+    const LERNEN = {
+        faelle: `
+            <h4>So gehst du an einen Fall heran</h4>
+            <ol>
+                <li><strong>Wer ist beteiligt?</strong> Azubi oder Fachkraft, Arbeitgeber oder Arbeitnehmer, Verbraucher oder Unternehmer, jugendlich oder volljährig – davon hängt fast immer ab, welche Regel gilt.</li>
+                <li><strong>Welches Gesetz passt?</strong> Ordne den Fall einem Rechtsgebiet zu (Tabelle unten).</li>
+                <li><strong>Gibt es eine Besonderheit?</strong> Probezeit, Schwangerschaft, Betriebsrat vorhanden, Betrieb mit mehr als 10 Beschäftigten …</li>
+                <li><strong>Antworten kritisch lesen:</strong> Wörter wie „immer“, „nie“ oder „jederzeit“ sind oft ein Hinweis auf eine falsche Antwort.</li>
+            </ol>
+            <h4>Die wichtigsten Gesetze</h4>
+            <div class="table-responsive"><table class="table table-sm table-bordered">
+                <thead class="table-light"><tr><th>Gesetz</th><th>regelt</th><th>typische Prüfungsthemen</th></tr></thead>
+                <tbody>
+                    <tr><td>BBiG</td><td>Berufsausbildung</td><td>Probezeit 1–4 Monate, Kündigung, Pflichten, Berichtsheft, Vergütung</td></tr>
+                    <tr><td>JArbSchG</td><td>Beschäftigte unter 18</td><td>8 Std./Tag, 40 Std./Woche, Pausen 30/60 Min., 25–30 Werktage Urlaub</td></tr>
+                    <tr><td>ArbZG</td><td>Arbeitszeit Erwachsener</td><td>8 (max. 10) Std./Werktag, Pausen 30/45 Min., 11 Std. Ruhezeit</td></tr>
+                    <tr><td>BGB</td><td>Verträge allgemein</td><td>Arbeitsvertrag, Kündigungsfristen (§ 622), Schriftform (§ 623), Kaufvertrag, Verzug, Verjährung</td></tr>
+                    <tr><td>KSchG</td><td>Kündigungsschutz</td><td>mehr als 10 Beschäftigte, mehr als 6 Monate im Betrieb, Klage binnen 3 Wochen</td></tr>
+                    <tr><td>BetrVG</td><td>Betriebsrat</td><td>Wahl ab 5 Beschäftigten, Wahlrecht ab 16, Anhörung vor Kündigungen, Mitbestimmung</td></tr>
+                    <tr><td>MuSchG, BEEG</td><td>Mutterschutz, Elternzeit</td><td>Schutzfristen 6 + 8 Wochen, Kündigungsverbot, Elternzeit bis 3 Jahre</td></tr>
+                    <tr><td>BUrlG</td><td>Urlaub</td><td>24 Werktage Mindesturlaub, 6 Monate Wartezeit</td></tr>
+                    <tr><td>HGB</td><td>Kaufleute</td><td>Prokura, Handlungsvollmacht, Handelsregister</td></tr>
+                    <tr><td>DSGVO</td><td>Datenschutz</td><td>Rechtsgrundlage, Einwilligung, Auskunftsrecht</td></tr>
+                    <tr><td>ArbSchG</td><td>Arbeitsschutz</td><td>Gefährdungsbeurteilung, Unterweisung</td></tr>
+                </tbody>
+            </table></div>
+            <p class="game-merke">Nach einer falschen Antwort bekommst du einen Denkanstoß zum Themengebiet. Die Lösung erklärt immer auch, warum die richtige Antwort stimmt – lies sie, auch wenn du richtig lagst.</p>`,
+
+        fakten() {
+            const gruppen = {};
+            FAKTEN.forEach((x) => { (gruppen[x.g] = gruppen[x.g] || []).push(x); });
+            return h('div', {},
+                h('p', {}, 'Diese Zahlen kommen in WiSo-Prüfungen immer wieder vor. Lies sie dir hier in Ruhe durch – im Spiel werden sie dann abgefragt, dazu eine Verjährungsfrage.'),
+                Object.entries(gruppen).map(([gruppe, liste]) => [
+                    h('h4', {}, gruppe),
+                    h('div', { class: 'table-responsive' }, h('table', { class: 'table table-sm table-bordered' },
+                        h('tbody', {}, liste.map((x) => h('tr', {},
+                            h('td', {}, x.f),
+                            h('td', { class: 'text-nowrap fw-semibold' }, deFormat(x.a, 0) + ' ' + x.e),
+                            h('td', { class: 'small text-muted' }, x.i))))))
+                ]),
+                h('h4', {}, 'Verjährung berechnen'),
+                h('p', { html: 'Die regelmäßige Verjährung (3 Jahre) beginnt erst <strong>mit dem Schluss des Jahres</strong>, in dem der Anspruch entstanden ist. Das genaue Datum im Jahr spielt also keine Rolle.' }),
+                h('p', { class: 'game-example', html: 'Rechnung fällig am 10.03.2025 → Fristbeginn 31.12.2025 → Verjährung mit Ablauf des <strong>31.12.2028</strong>.' }));
+        },
+
+        kuendigung: `
+            <h4>Welche Frist gilt?</h4>
+            <div class="table-responsive"><table class="table table-sm table-bordered">
+                <thead class="table-light"><tr><th>Situation</th><th>Frist</th><th>Endtermin</th></tr></thead>
+                <tbody>
+                    <tr><td>Arbeitsverhältnis in einer vereinbarten Probezeit (höchstens 6 Monate)</td><td>2 Wochen</td><td>jeder Tag</td></tr>
+                    <tr><td><strong>Grundkündigungsfrist</strong> (§ 622 Abs. 1 BGB) – gilt, wenn der <strong>Arbeitnehmer</strong> kündigt, und für den Arbeitgeber in den ersten 2 Jahren</td><td>4 Wochen</td><td>zum 15. oder zum Monatsende</td></tr>
+                    <tr><td><strong>Arbeitgeber</strong> kündigt nach 2 / 5 / 8 / 10 / 12 / 15 / 20 Jahren Betriebszugehörigkeit (§ 622 Abs. 2 BGB)</td><td>1 / 2 / 3 / 4 / 5 / 6 / 7 Monate</td><td>zum Monatsende</td></tr>
+                    <tr><td>Ausbildung während der Probezeit (§ 22 Abs. 1 BBiG)</td><td>keine</td><td>sofort mit Zugang</td></tr>
+                    <tr><td>Ausbildung nach der Probezeit: Azubi gibt die Ausbildung auf oder wechselt den Beruf (§ 22 Abs. 2 BBiG)</td><td>4 Wochen</td><td>jeder Tag</td></tr>
+                    <tr><td>Ausbildung nach der Probezeit: Betrieb kündigt</td><td colspan="2">nur fristlos aus wichtigem Grund</td></tr>
+                    <tr><td>Fristlose Kündigung aus wichtigem Grund (§ 626 BGB)</td><td>keine</td><td>sofort – erklären innerhalb von 2 Wochen nach Kenntnis</td></tr>
+                </tbody>
+            </table></div>
+            <p class="game-merke">Bei der Grundfrist und den verlängerten Fristen endet das Arbeitsverhältnis immer am 15. oder am Monatsende. Ein Ende am 12. oder 23. ist nur möglich, wenn die Frist keinen festen Termin hat: in der Probezeit, in der Ausbildung oder bei einer fristlosen Kündigung.</p>
+            <h4>So rechnest du vorwärts</h4>
+            <ol>
+                <li><strong>Zugang bestimmen:</strong> Die Frist läuft ab dem Tag, an dem die Kündigung zugeht (z. B. im Briefkasten liegt) – nicht ab dem Datum auf dem Schreiben.</li>
+                <li><strong>Frist ab dem Folgetag zählen:</strong> 2 Wochen = 14 Tage, 4 Wochen = 28 Tage. Das Fristende fällt deshalb auf denselben Wochentag wie der Zugang. Monatsfristen enden am gleichen Kalendertag n Monate später (gibt es den Tag nicht, am letzten Tag des Monats).</li>
+                <li><strong>Auf den Endtermin aufrunden:</strong> Grundfrist → nächster 15. oder nächstes Monatsende; verlängerte Frist → nächstes Monatsende; Fristen ohne Termin → das Fristende ist das Ende.</li>
+                <li>Wochenenden und Feiertage verschieben nichts.</li>
+            </ol>
+            <p class="game-example">Zugang Mittwoch, 04.03.2026, Grundfrist: 04.03. + 28 Tage = Mittwoch, 01.04.2026. Nächster zulässiger Termin: <strong>15.04.2026</strong>.<br>
+            Arbeitgeber nach 9 Jahren (3 Monate), Zugang 20.01.2026: + 3 Monate = 20.04.2026 → Monatsende: <strong>30.04.2026</strong>.</p>
+            <h4>So rechnest du rückwärts („Bis wann muss die Kündigung zugehen?“)</h4>
+            <ul>
+                <li>Grundfrist: <strong>Termin minus 28 Tage</strong> – zum 31.05. also spätestens am 03.05., zum 15.06. spätestens am 18.05.</li>
+                <li>n Monate zum Monatsende: spätestens am <strong>letzten Tag des Monats, der n Monate vor dem Termin liegt</strong> – 3 Monate zum 30.09. also spätestens am 30.06.</li>
+            </ul>
+            <h4>Außerdem wichtig</h4>
+            <ul>
+                <li>Jede Kündigung braucht die <strong>Schriftform</strong> mit eigenhändiger Unterschrift (§ 623 BGB) – E-Mail, Fax oder Messenger reichen nicht.</li>
+                <li>Arbeits- oder Tarifverträge können längere Fristen vereinbaren. Für den Arbeitnehmer darf die Frist aber nie länger sein als für den Arbeitgeber.</li>
+                <li>Ist ein Betriebsrat vorhanden, muss er vor jeder Kündigung durch den Arbeitgeber angehört werden.</li>
+            </ul>`,
+
+        urlaub: `
+            <h4>Wie viel Urlaub steht mindestens zu?</h4>
+            <div class="table-responsive"><table class="table table-sm table-bordered">
+                <thead class="table-light"><tr><th>Alter zu Beginn des Kalenderjahres</th><th>Werktage</th><th>Gesetz</th></tr></thead>
+                <tbody>
+                    <tr><td>noch nicht 16</td><td>30</td><td rowspan="3">§ 19 JArbSchG</td></tr>
+                    <tr><td>noch nicht 17</td><td>27</td></tr>
+                    <tr><td>noch nicht 18</td><td>25</td></tr>
+                    <tr><td>volljährig</td><td>24</td><td>§ 3 BUrlG</td></tr>
+                </tbody>
+            </table></div>
+            <p class="game-merke">Es zählt das Alter am 1. Januar. Wer am 01.01. noch 16 ist, bekommt das ganze Jahr 27 Werktage – auch wenn im März der 17. Geburtstag kommt.</p>
+            <h4>Werktage oder Arbeitstage?</h4>
+            <p>Das Gesetz rechnet mit <strong>Werktagen</strong> (Montag bis Samstag, also einer 6-Tage-Woche). Wer an weniger Tagen arbeitet, rechnet um:</p>
+            <p class="game-example">Urlaub in Arbeitstagen = Werktage · Arbeitstage pro Woche / 6<br>24 Werktage bei 5-Tage-Woche: 24 · 5 / 6 = <strong>20 Arbeitstage</strong> · 25 Werktage: 25 · 5 / 6 = <strong>20,83 Arbeitstage</strong></p>
+            <h4>Wartezeit und Teilurlaub</h4>
+            <ul>
+                <li>Den <strong>vollen</strong> Jahresurlaub gibt es erst nach 6 Monaten im Betrieb (§ 4 BUrlG). Endet die Wartezeit noch im Eintrittsjahr (Eintritt bis 1. Juli), steht der volle Urlaub schon im ersten Jahr zu.</li>
+                <li>Endet die Wartezeit erst im nächsten Jahr, gibt es für das Eintrittsjahr <strong>Teilurlaub</strong>: 1/12 des Jahresurlaubs für jeden vollen Monat (§ 5 BUrlG).</li>
+                <li>Beim Teilurlaub werden Bruchteile von mindestens einem halben Tag auf einen vollen Tag <strong>aufgerundet</strong>.</li>
+            </ul>
+            <p class="game-example">Eintritt 01.09., 26 Urlaubstage im Jahr: September bis Dezember = 4 volle Monate → 26 · 4 / 12 = 8,67 → aufgerundet <strong>9 Tage</strong>.</p>`,
+
+        sv: `
+            <h4>Die fünf Zweige der Sozialversicherung</h4>
+            <div class="table-responsive"><table class="table table-sm table-bordered">
+                <thead class="table-light"><tr><th>Zweig</th><th>Beitragssatz (2026)</th><th>Wer zahlt?</th><th>Träger</th></tr></thead>
+                <tbody>
+                    <tr><td>Krankenversicherung</td><td>14,6 % + Zusatzbeitrag der Kasse (Ø 2,9 %)</td><td>je zur Hälfte</td><td>Krankenkasse</td></tr>
+                    <tr><td>Pflegeversicherung</td><td>3,6 % + 0,6 % Zuschlag für Kinderlose ab 23</td><td>je zur Hälfte, den Zuschlag zahlt der Arbeitnehmer allein</td><td>Pflegekasse</td></tr>
+                    <tr><td>Rentenversicherung</td><td>18,6 %</td><td>je zur Hälfte</td><td>Deutsche Rentenversicherung</td></tr>
+                    <tr><td>Arbeitslosenversicherung</td><td>2,6 %</td><td>je zur Hälfte</td><td>Bundesagentur für Arbeit</td></tr>
+                    <tr><td>Unfallversicherung</td><td>je nach Gefahrenklasse</td><td>Arbeitgeber allein</td><td>Berufsgenossenschaft</td></tr>
+                </tbody>
+            </table></div>
+            <h4>So rechnest du den Arbeitnehmeranteil</h4>
+            <p>Arbeitnehmeranteil = Bruttogehalt · halber Beitragssatz (bei der Pflegeversicherung ggf. plus Kinderlosenzuschlag). Jeden Beitrag auf Cent runden.</p>
+            <p class="game-example">3.000 € brutto, kinderlos, Zusatzbeitrag 2,9 %:<br>
+            KV: 3.000 € · (14,6 % + 2,9 %) / 2 = 3.000 € · 8,75 % = 262,50 €<br>
+            PV: 3.000 € · (1,8 % + 0,6 %) = 72,00 €<br>
+            RV: 3.000 € · 9,3 % = 279,00 € · AV: 3.000 € · 1,3 % = 39,00 €<br>
+            Summe: <strong>652,50 €</strong></p>
+            <h4>Vom Brutto zum Netto</h4>
+            <p>Netto = Brutto − Lohnsteuer − Solidaritätszuschlag (nur bei hohen Einkommen) − Kirchensteuer (8 % oder 9 % der Lohnsteuer) − Arbeitnehmeranteile zur Sozialversicherung.</p>
+            <p class="game-merke">Die Beitragssätze ändern sich fast jedes Jahr. In Prüfungsaufgaben werden sie deshalb angegeben – wichtig ist, dass du den Rechenweg sicher beherrschst.</p>`
+    };
+
     const modes = [
-        { id: 'faelle', name: 'Fallentscheidungen', icon: 'bi-briefcase', levels: false, description: 'Kurze Fälle aus Ausbildung, Arbeitsrecht, Kaufvertrag und Wirtschaft.', create: ({ rng }) => fallAufgabe(rng) },
-        { id: 'fakten', name: 'Zahlen & Fristen', icon: 'bi-stopwatch', levels: false, create: ({ rng, level }) => faktenAufgabe(rng, level) },
-        { id: 'kuendigung', name: 'Kündigungsfristen', icon: 'bi-calendar-x', create: ({ rng, level }) => kuendigungsAufgabe(rng, level) },
-        { id: 'urlaub', name: 'Urlaubsanspruch', icon: 'bi-sun', create: ({ rng, level }) => urlaubsAufgabe(rng, level) },
-        { id: 'sv', name: 'Sozialversicherung', icon: 'bi-shield-plus', create: ({ rng, level }) => svAufgabe(rng, level) }
+        { id: 'faelle', name: 'Fallentscheidungen', icon: 'bi-briefcase', levels: false, description: 'Kurze Fälle aus Ausbildung, Arbeitsrecht, Kaufvertrag und Wirtschaft.', learn: LERNEN.faelle, create: ({ rng }) => fallAufgabe(rng) },
+        { id: 'fakten', name: 'Zahlen & Fristen', icon: 'bi-stopwatch', levels: false, learn: LERNEN.fakten, create: ({ rng }) => faktenAufgabe(rng) },
+        { id: 'kuendigung', name: 'Kündigungsfristen', icon: 'bi-calendar-x', learn: LERNEN.kuendigung, create: ({ rng, level }) => kuendigungsAufgabe(rng, level) },
+        { id: 'urlaub', name: 'Urlaubsanspruch', icon: 'bi-sun', learn: LERNEN.urlaub, create: ({ rng, level }) => urlaubsAufgabe(rng, level) },
+        { id: 'sv', name: 'Sozialversicherung', icon: 'bi-shield-plus', learn: LERNEN.sv, create: ({ rng, level }) => svAufgabe(rng, level) }
     ];
 
-    window.WisoTrainer = { modes, FAELLE, FAKTEN, plusMonate, monatsende, plusTage, datum };
+    window.WisoTrainer = { modes, FAELLE, FAKTEN, THEMEN, plusMonate, monatsende, plusTage, datum, grundfrist, monatsfrist, kuendigungsFall, FALLTYPEN, REGELN };
 
     const root = document.getElementById('wiso-game');
     if (root) window.ITGame.mount(root, { id: 'wiso', modes });

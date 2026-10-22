@@ -108,6 +108,168 @@
     margin-top: 0.25rem;
 }
 
+/* Hinweise zu typischen Fehlern unter der Rückmeldung */
+.game-tipps {
+    margin: 0.5rem 0 0;
+    padding-left: 1.25rem;
+}
+
+.game-tipps li + li {
+    margin-top: 0.25rem;
+}
+
+/* Lernkarte „Grundwissen“ je Aufgabentyp
+   (.game-page davor, damit die allgemeinen details-/summary-Regeln aus style.css nicht greifen) */
+.game-page .game-learn {
+    border: 1px solid var(--game-line);
+    border-left: 4px solid var(--game-accent);
+    border-radius: 0.5rem;
+    background: #fff;
+    box-shadow: none;
+    padding: 0;
+    margin-bottom: 1rem;
+}
+
+.game-page .game-learn > summary {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0.6rem 0.9rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: inherit;
+    background: transparent;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    list-style: none;
+}
+
+.game-page .game-learn > summary:hover {
+    background: var(--game-surface);
+}
+
+.game-page .game-learn > .game-learn-body {
+    margin: 0;
+}
+
+.game-learn > summary::-webkit-details-marker {
+    display: none;
+}
+
+.game-learn > summary:focus-visible {
+    outline: 2px solid var(--game-accent);
+    outline-offset: 2px;
+    border-radius: 0.375rem;
+}
+
+.game-learn-chevron {
+    margin-left: auto;
+    transition: transform 0.2s ease;
+}
+
+.game-learn[open] .game-learn-chevron {
+    transform: rotate(180deg);
+}
+
+.game-learn-body {
+    padding: 0 0.9rem 0.9rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 90ch;
+}
+
+.game-learn-body h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 1rem 0 0.35rem;
+}
+
+.game-learn-body h4:first-child {
+    margin-top: 0.25rem;
+}
+
+.game-learn-body p,
+.game-learn-body ul,
+.game-learn-body ol {
+    margin-bottom: 0.5rem;
+}
+
+.game-learn-body ul,
+.game-learn-body ol {
+    padding-left: 1.25rem;
+}
+
+.game-learn-body table {
+    font-size: 0.875rem;
+    margin-bottom: 0.5rem;
+}
+
+.game-learn-body .table th {
+    white-space: nowrap;
+}
+
+.game-learn-body .game-figure {
+    margin-bottom: 0.5rem;
+}
+
+.game-merke {
+    background: rgba(33, 128, 141, 0.08);
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem 0;
+}
+
+.game-merke::before {
+    content: "Merke: ";
+    font-weight: 600;
+}
+
+.game-example {
+    background: var(--game-surface);
+    border-radius: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.game-example::before {
+    content: "Beispiel";
+    display: block;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--game-muted);
+    margin-bottom: 0.2rem;
+}
+
+.game-symbols {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.game-symbols figure {
+    margin: 0;
+    border: 1px solid var(--game-line);
+    border-radius: 0.375rem;
+    padding: 0.4rem 0.5rem;
+    background: #fff;
+}
+
+.game-symbols figcaption {
+    font-size: 0.85rem;
+    line-height: 1.4;
+}
+
+.game-symbols svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
 /* Diagramme und Netzpläne */
 .game-figure {
     background: #fff;
@@ -360,7 +522,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .games-hub .game-card {
+    .games-hub .game-card,
+    .game-learn-chevron {
         transition: none;
     }
 }
