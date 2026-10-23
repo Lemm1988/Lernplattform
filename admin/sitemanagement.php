@@ -1,406 +1,411 @@
 <?php
+/**
+ * Seitenverwaltung: Überschriften und Links der Seitenleiste, Sichtbarkeit nach Rolle und Einzelfreigaben.
+ * Links im Bereich "admin" stehen nicht in der Seitenleiste, sondern als Karten im Admin-Dashboard.
+ */
 require_once '../config.php';
 require_admin();
 
-$page_title = 'Sitemanagement';
+$page_title = 'Seitenverwaltung';
+$extra_css = ['/assets/css/admin.css'];
 $error = '';
 $success = '';
-
-// --- SPEZIFISCHE AJAX-HANDLER GANZ OBEN ---
-if (isset($_POST['ajax_action']) && $_POST['ajax_action'] === 'toggle_section') {
-  error_log('[DEBUG] toggle_section Handler aufgerufen für ID: ' . $_POST['id']);
-  $id = intval($_POST['id']);
-  $stmt = $pdo->prepare("UPDATE site_sections SET is_active = 1 - is_active WHERE id = ?");
-  $stmt->execute([$id]);
-  log_event($_SESSION['user_id'], "Section $id Status getoggelt", 'custom');
-  echo json_encode(['success' => true, 'message' => 'Status geändert!']);
-  exit;
-}
-if (isset($_POST['ajax_action']) && $_POST['ajax_action'] === 'delete_section') {
-  error_log('[DEBUG] delete_section Handler aufgerufen für ID: ' . $_POST['id']);
-  $id = intval($_POST['id']);
-  $pdo->prepare('DELETE FROM site_sections WHERE id = ?')->execute([$id]);
-  log_event($_SESSION['user_id'], "Section $id gelöscht", 'custom');
-  echo json_encode(['success' => true, 'message' => 'Eintrag gelöscht!']);
-  exit;
-}
-if (isset($_POST['ajax_action']) && $_POST['ajax_action'] === 'get_section_details') {
-  $id = intval($_POST['id']);
-  $stmt = $pdo->prepare('SELECT * FROM site_sections WHERE id = ?');
-  $stmt->execute([$id]);
-  $section = $stmt->fetch();
-  if ($section) {
-    $roles = array_map('trim', explode(',', $section['roles']));
-    $user_ids_stmt = $pdo->prepare('SELECT user_id FROM section_user_access WHERE section_id = ? AND access = "allow"');
-    $user_ids_stmt->execute([$id]);
-    $user_ids = $user_ids_stmt->fetchAll(PDO::FETCH_COLUMN);
-    echo json_encode([
-      'success' => true,
-      'data' => [
-        'name' => $section['name'],
-        'url_path' => $section['url_path'],
-        'icon' => $section['icon'],
-        'is_active' => $section['is_active'],
-        'roles' => $roles,
-        'user_ids' => $user_ids
-      ]
-    ]);
-  } else {
-    echo json_encode(['success' => false, 'message' => 'Section mit ID ' . $id . ' nicht gefunden. Ergebnis: ' . json_encode($section)]);
-  }
-  exit;
-}
-if (isset($_POST['ajax_action']) && $_POST['ajax_action'] === 'edit_section_advanced') {
-  $id = intval($_POST['id']);
-  $name = trim($_POST['name']);
-  $url_path = trim($_POST['url_path']);
-  $icon = trim($_POST['icon']);
-  $is_active = isset($_POST['is_active']) ? intval($_POST['is_active']) : 0;
-  $roles = isset($_POST['roles']) ? trim($_POST['roles']) : '';
-  // Wenn keine Rolle ausgewählt ist, setze auf leeren String (oder 'admin' als Fallback)
-  // $roles = $roles === '' ? 'admin' : $roles; // Falls du einen Fallback willst, sonst leer lassen
-  $user_ids = isset($_POST['users']) ? $_POST['users'] : [];
-  if (!is_array($user_ids))
-    $user_ids = [];
-  if ($name && $url_path) {
-    $stmt = $pdo->prepare('UPDATE site_sections SET name = ?, url_path = ?, icon = ?, is_active = ?, roles = ? WHERE id = ?');
-    $stmt->execute([$name, $url_path, $icon, $is_active, $roles, $id]);
-    $pdo->prepare('DELETE FROM section_user_access WHERE section_id = ?')->execute([$id]);
-    foreach ($user_ids as $uid) {
-      $pdo->prepare('INSERT INTO section_user_access (section_id, user_id, access) VALUES (?, ?, "allow")')->execute([$id, intval($uid)]);
-    }
-    log_event($_SESSION['user_id'], "Section $id bearbeitet (Name/Rechte)", 'custom');
-    echo json_encode(['success' => true, 'message' => 'Seite erfolgreich aktualisiert!']);
-  } else {
-    echo json_encode(['success' => false, 'message' => 'Bitte Name und Pfad angeben.']);
-  }
-  exit;
-}
-// --- GENERISCHER AJAX-HANDLER DANACH ---
-if (isset($_POST['ajax_action'])) {
-  header('Content-Type: application/json');
-  $response = ['success' => false, 'message' => ''];
-
-  try {
-    switch ($_POST['ajax_action']) {
-      case 'update_section':
-        $id = intval($_POST['id']);
-        $name = trim($_POST['name']);
-        $url_path = trim($_POST['url_path']);
-        $icon = trim($_POST['icon']);
-        $section_type = $_POST['section_type'];
-
-        if ($name && $url_path) {
-          $stmt = $pdo->prepare('UPDATE site_sections SET name = ?, url_path = ?, icon = ?, section_type = ? WHERE id = ?');
-          $stmt->execute([$name, $url_path, $icon, $section_type, $id]);
-          log_event($_SESSION['user_id'], "Section $id aktualisiert", 'custom');
-          $response = ['success' => true, 'message' => 'Seitenlink aktualisiert!'];
-        } else {
-          $response = ['success' => false, 'message' => 'Bitte Name und Pfad angeben.'];
-        }
-        break;
-
-      case 'update_header':
-        $id = intval($_POST['id']);
-        $name = trim($_POST['name']);
-        $section_type = $_POST['section_type'];
-        $icon = trim($_POST['icon']);
-
-        if ($name) {
-          $stmt = $pdo->prepare('UPDATE site_section_headers SET name = ?, section_type = ?, icon = ? WHERE id = ?');
-          $stmt->execute([$name, $section_type, $icon, $id]);
-          log_event($_SESSION['user_id'], "Header $id aktualisiert", 'custom');
-          $response = ['success' => true, 'message' => 'Überschrift aktualisiert!'];
-        } else {
-          $response = ['success' => false, 'message' => 'Bitte Name angeben.'];
-        }
-        break;
-
-      case 'toggle_section':
-        $id = intval($_POST['id']);
-        $stmt = $pdo->prepare("UPDATE site_sections SET is_active = 1 - is_active WHERE id = ?");
-        $stmt->execute([$id]);
-        log_event($_SESSION['user_id'], "Section $id Status getoggelt (generic)", 'custom');
-        $response = ['success' => true, 'message' => 'Status geändert!'];
-        break;
-
-      case 'toggle_header':
-        $id = intval($_POST['id']);
-        $stmt = $pdo->prepare("UPDATE site_section_headers SET is_active = 1 - is_active WHERE id = ?");
-        $stmt->execute([$id]);
-        log_event($_SESSION['user_id'], "Header $id Status getoggelt", 'custom');
-        $response = ['success' => true, 'message' => 'Status geändert!'];
-        break;
-
-      case 'delete_section':
-        $id = intval($_POST['id']);
-        $pdo->prepare('DELETE FROM site_sections WHERE id = ?')->execute([$id]);
-        log_event($_SESSION['user_id'], "Section $id gelöscht (generic)", 'custom');
-        $response = ['success' => true, 'message' => 'Eintrag gelöscht!'];
-        break;
-
-      case 'delete_header':
-        $id = intval($_POST['id']);
-        $pdo->prepare('DELETE FROM site_section_headers WHERE id = ?')->execute([$id]);
-        log_event($_SESSION['user_id'], "Header $id gelöscht", 'custom');
-        $response = ['success' => true, 'message' => 'Überschrift gelöscht!'];
-        break;
-
-      case 'sort_items':
-        $items = $_POST['items'];
-        // Falls als JSON-String gesendet, dekodieren
-        if (is_string($items)) {
-          $items = json_decode($items, true);
-        }
-        if (!is_array($items)) {
-          $response = ['success' => false, 'message' => 'Ungültige Sortierdaten!'];
-          break;
-        }
-        $pdo->beginTransaction();
-        try {
-          foreach ($items as $item) {
-            $id = intval($item['id']);
-            $sort_order = intval($item['sort_order']);
-            $type = $item['type'];
-
-            if ($type === 'section') {
-              $stmt = $pdo->prepare("UPDATE site_sections SET sort_order = ? WHERE id = ?");
-              $stmt->execute([$sort_order, $id]);
-            } elseif ($type === 'header') {
-              $stmt = $pdo->prepare("UPDATE site_section_headers SET sort_order = ? WHERE id = ?");
-              $stmt->execute([$sort_order, $id]);
-            }
-          }
-          $pdo->commit();
-          log_event($_SESSION['user_id'], "Sortierung geändert", 'custom');
-          $response = ['success' => true, 'message' => 'Sortierung aktualisiert!'];
-        } catch (Exception $e) {
-          $pdo->rollBack();
-          $response = ['success' => false, 'message' => 'Fehler beim Speichern der Sortierung: ' . $e->getMessage()];
-        }
-        break;
-    }
-  } catch (Exception $e) {
-    $response = ['success' => false, 'message' => 'Fehler: ' . $e->getMessage()];
-  }
-
-  echo json_encode($response);
-  exit;
-}
 
 // Hilfsfunktion für section_type-Generierung
 function generate_section_type($name)
 {
-  // Wandelt den Namen in Kleinbuchstaben um, ersetzt Leerzeichen/Sonderzeichen durch Unterstrich
-  $type = strtolower($name);
-  $type = preg_replace('/[^a-z0-9]/', '_', $type); // nur Buchstaben und Zahlen, Rest zu _
+  // Umlaute ausschreiben, dann alles außer Buchstaben/Zahlen zu Unterstrichen
+  $type = strtr(mb_strtolower($name), ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'ß' => 'ss']);
+  $type = preg_replace('/[^a-z0-9]/', '_', $type);
   $type = preg_replace('/_+/', '_', $type); // doppelte Unterstriche vermeiden
   $type = trim($type, '_');
   return $type;
 }
 
-// Aktionen verarbeiten
+function sm_json($antwort)
+{
+  header('Content-Type: application/json');
+  echo json_encode($antwort);
+  exit;
+}
+
+// Bereichskennung: nur Buchstaben, Zahlen, _ und -
+function sm_typ($typ)
+{
+  $typ = trim((string)$typ);
+  return preg_match('/^[A-Za-z0-9_-]{1,50}$/', $typ) ? $typ : '';
+}
+
+// Eigene Seiten (/…) oder Webadressen – kein javascript: o. Ä. im href der Seitenleiste
+function sm_url_ok($url)
+{
+  return (bool)preg_match('#^(/|https?://)#i', $url);
+}
+
+function sm_icon($icon, $standard)
+{
+  $icon = trim((string)$icon);
+  return preg_match('/^bi-[a-z0-9-]+$/', $icon) ? $icon : $standard;
+}
+
+function sm_rollen($roh)
+{
+  $gewaehlt = array_map('trim', explode(',', (string)$roh));
+  return implode(',', array_values(array_intersect(['admin', 'moderator', 'student'], $gewaehlt)));
+}
+
+function sm_einzelfreigaben($pdo, $section_id, $user_ids)
+{
+  $pdo->prepare('DELETE FROM section_user_access WHERE section_id = ?')->execute([$section_id]);
+  $insert = $pdo->prepare('INSERT INTO section_user_access (section_id, user_id, access) VALUES (?, ?, "allow")');
+  foreach (array_unique(array_map('intval', is_array($user_ids) ? $user_ids : [])) as $uid) {
+    if ($uid > 0) {
+      $insert->execute([$section_id, $uid]);
+    }
+  }
+}
+
+// --- AJAX ---
+if (isset($_POST['ajax_action'])) {
+  try {
+    $id = intval($_POST['id'] ?? 0);
+    switch ($_POST['ajax_action']) {
+      case 'get_section_details':
+        $stmt = $pdo->prepare('SELECT * FROM site_sections WHERE id = ?');
+        $stmt->execute([$id]);
+        $section = $stmt->fetch();
+        if (!$section) {
+          sm_json(['success' => false, 'message' => 'Link mit ID ' . $id . ' nicht gefunden.']);
+        }
+        $user_ids_stmt = $pdo->prepare('SELECT user_id FROM section_user_access WHERE section_id = ? AND access = "allow"');
+        $user_ids_stmt->execute([$id]);
+        sm_json([
+          'success' => true,
+          'data' => [
+            'name' => $section['name'],
+            'url_path' => $section['url_path'],
+            'icon' => $section['icon'],
+            'section_type' => $section['section_type'],
+            'is_active' => $section['is_active'],
+            'roles' => array_map('trim', explode(',', $section['roles'])),
+            'user_ids' => array_map('intval', $user_ids_stmt->fetchAll(PDO::FETCH_COLUMN))
+          ]
+        ]);
+
+      case 'add_section':
+      case 'edit_section_advanced':
+        $neu = $_POST['ajax_action'] === 'add_section';
+        $name = trim($_POST['name'] ?? '');
+        $url_path = trim($_POST['url_path'] ?? '');
+        $icon = sm_icon($_POST['icon'] ?? '', 'bi-link');
+        $is_active = isset($_POST['is_active']) ? intval($_POST['is_active']) : 0;
+        $roles = sm_rollen($_POST['roles'] ?? '');
+        $section_type = sm_typ($_POST['section_type'] ?? '');
+        if ($name === '' || $url_path === '' || ($neu && $section_type === '')) {
+          sm_json(['success' => false, 'message' => 'Bitte Name, Pfad und Bereich angeben.']);
+        }
+        if (!sm_url_ok($url_path)) {
+          sm_json(['success' => false, 'message' => 'Der Pfad muss mit / (eigene Seite) oder https:// beginnen.']);
+        }
+        if ($neu) {
+          $stmt = $pdo->prepare("SELECT IFNULL(MAX(sort_order),0) + 1 FROM site_sections WHERE section_type = ?");
+          $stmt->execute([$section_type]);
+          $sort_order = (int)$stmt->fetchColumn();
+          // Rollen immer ausdrücklich setzen: Der Spalten-Standard ist auf dem Server 'admin,moderator,schueler'
+          // – "schueler" gibt es als Rolle nicht, Lernende hätten neue Links nie gesehen.
+          $stmt = $pdo->prepare('INSERT INTO site_sections (name, url_path, icon, section_type, is_active, sort_order, roles) VALUES (?, ?, ?, ?, ?, ?, ?)');
+          $stmt->execute([$name, $url_path, $icon, $section_type, $is_active ? 1 : 0, $sort_order, $roles]);
+          $id = (int)$pdo->lastInsertId();
+        } else {
+          // Bereich ist optional (ältere Formulare schicken keinen mit)
+          if ($section_type !== '') {
+            $stmt = $pdo->prepare('UPDATE site_sections SET name = ?, url_path = ?, icon = ?, is_active = ?, roles = ?, section_type = ? WHERE id = ?');
+            $stmt->execute([$name, $url_path, $icon, $is_active ? 1 : 0, $roles, $section_type, $id]);
+          } else {
+            $stmt = $pdo->prepare('UPDATE site_sections SET name = ?, url_path = ?, icon = ?, is_active = ?, roles = ? WHERE id = ?');
+            $stmt->execute([$name, $url_path, $icon, $is_active ? 1 : 0, $roles, $id]);
+          }
+        }
+        sm_einzelfreigaben($pdo, $id, $_POST['users'] ?? []);
+        log_event($_SESSION['user_id'], $neu ? "Neue Section $id hinzugefügt" : "Section $id bearbeitet (Name/Rechte)", 'custom');
+        sm_json(['success' => true, 'message' => $neu ? 'Link „' . $name . '“ angelegt.' : 'Link „' . $name . '“ gespeichert.']);
+
+      case 'update_section':
+        $name = trim($_POST['name'] ?? '');
+        $url_path = trim($_POST['url_path'] ?? '');
+        $icon = sm_icon($_POST['icon'] ?? '', 'bi-link');
+        $section_type = sm_typ($_POST['section_type'] ?? '');
+        if ($name && $url_path && $section_type && sm_url_ok($url_path)) {
+          $stmt = $pdo->prepare('UPDATE site_sections SET name = ?, url_path = ?, icon = ?, section_type = ? WHERE id = ?');
+          $stmt->execute([$name, $url_path, $icon, $section_type, $id]);
+          log_event($_SESSION['user_id'], "Section $id aktualisiert", 'custom');
+          sm_json(['success' => true, 'message' => 'Seitenlink aktualisiert!']);
+        }
+        sm_json(['success' => false, 'message' => 'Bitte Name, Pfad und Bereich angeben.']);
+
+      case 'move_section':
+        $section_type = sm_typ($_POST['section_type'] ?? '');
+        if ($section_type === '') {
+          sm_json(['success' => false, 'message' => 'Unbekannter Bereich.']);
+        }
+        $pdo->prepare('UPDATE site_sections SET section_type = ? WHERE id = ?')->execute([$section_type, $id]);
+        log_event($_SESSION['user_id'], "Section $id in Bereich $section_type verschoben", 'custom');
+        sm_json(['success' => true, 'message' => 'Link verschoben.']);
+
+      case 'toggle_section':
+        $pdo->prepare("UPDATE site_sections SET is_active = 1 - is_active WHERE id = ?")->execute([$id]);
+        log_event($_SESSION['user_id'], "Section $id Status getoggelt", 'custom');
+        sm_json(['success' => true, 'message' => 'Status geändert!']);
+
+      case 'delete_section':
+        $pdo->prepare('DELETE FROM site_sections WHERE id = ?')->execute([$id]);
+        log_event($_SESSION['user_id'], "Section $id gelöscht", 'custom');
+        sm_json(['success' => true, 'message' => 'Eintrag gelöscht!']);
+
+      case 'add_header':
+        $name = trim($_POST['name'] ?? '');
+        $icon = sm_icon($_POST['icon'] ?? '', 'bi-list');
+        $basis = generate_section_type($name);
+        if ($name === '' || $basis === '') {
+          sm_json(['success' => false, 'message' => 'Bitte einen Namen mit Buchstaben oder Zahlen angeben.']);
+        }
+        // Kennung eindeutig machen – sonst entstünde eine zweite Überschrift für denselben Bereich
+        $vorhanden = $pdo->query("SELECT section_type FROM site_section_headers")->fetchAll(PDO::FETCH_COLUMN);
+        $section_type = $basis;
+        for ($nr = 2; in_array($section_type, $vorhanden, true); $nr++) {
+          $section_type = $basis . '_' . $nr;
+        }
+        $max_sort = (int)$pdo->query("SELECT IFNULL(MAX(sort_order),0) FROM site_section_headers")->fetchColumn();
+        $stmt = $pdo->prepare('INSERT INTO site_section_headers (name, section_type, icon, is_active, sort_order) VALUES (?, ?, ?, 1, ?)');
+        $stmt->execute([$name, $section_type, $icon, $max_sort + 1]);
+        log_event($_SESSION['user_id'], "Neuer Header hinzugefügt (Name)", 'custom');
+        sm_json(['success' => true, 'message' => 'Überschrift „' . $name . '“ angelegt.']);
+
+      case 'update_header':
+        $name = trim($_POST['name'] ?? '');
+        $section_type = sm_typ($_POST['section_type'] ?? '');
+        $icon = sm_icon($_POST['icon'] ?? '', 'bi-list');
+        if ($name === '' || $section_type === '') {
+          sm_json(['success' => false, 'message' => 'Bitte Name und Bereich angeben.']);
+        }
+        $stmt = $pdo->prepare('UPDATE site_section_headers SET name = ?, section_type = ?, icon = ? WHERE id = ?');
+        $stmt->execute([$name, $section_type, $icon, $id]);
+        log_event($_SESSION['user_id'], "Header $id aktualisiert", 'custom');
+        sm_json(['success' => true, 'message' => 'Überschrift „' . $name . '“ gespeichert.']);
+
+      case 'toggle_header':
+        $pdo->prepare("UPDATE site_section_headers SET is_active = 1 - is_active WHERE id = ?")->execute([$id]);
+        log_event($_SESSION['user_id'], "Header $id Status getoggelt", 'custom');
+        sm_json(['success' => true, 'message' => 'Status geändert!']);
+
+      case 'delete_header':
+        $pdo->prepare('DELETE FROM site_section_headers WHERE id = ?')->execute([$id]);
+        log_event($_SESSION['user_id'], "Header $id gelöscht", 'custom');
+        sm_json(['success' => true, 'message' => 'Überschrift gelöscht!']);
+
+      case 'sort_items':
+        $items = $_POST['items'] ?? [];
+        // Falls als JSON-String gesendet, dekodieren
+        if (is_string($items)) {
+          $items = json_decode($items, true);
+        }
+        if (!is_array($items)) {
+          sm_json(['success' => false, 'message' => 'Ungültige Sortierdaten!']);
+        }
+        $pdo->beginTransaction();
+        try {
+          $sections = $pdo->prepare("UPDATE site_sections SET sort_order = ? WHERE id = ?");
+          $headers_stmt = $pdo->prepare("UPDATE site_section_headers SET sort_order = ? WHERE id = ?");
+          foreach ($items as $item) {
+            $ziel = ($item['type'] ?? '') === 'header' ? $headers_stmt : (($item['type'] ?? '') === 'section' ? $sections : null);
+            if ($ziel) {
+              $ziel->execute([intval($item['sort_order'] ?? 0), intval($item['id'] ?? 0)]);
+            }
+          }
+          $pdo->commit();
+        } catch (Exception $e) {
+          $pdo->rollBack();
+          sm_json(['success' => false, 'message' => 'Fehler beim Speichern der Sortierung: ' . $e->getMessage()]);
+        }
+        log_event($_SESSION['user_id'], "Sortierung geändert", 'custom');
+        sm_json(['success' => true, 'message' => 'Sortierung aktualisiert!']);
+    }
+    sm_json(['success' => false, 'message' => 'Unbekannte Aktion.']);
+  } catch (Exception $e) {
+    sm_json(['success' => false, 'message' => 'Fehler: ' . $e->getMessage()]);
+  }
+}
+
+// --- Klassische Formular-Aktionen (?action=…&type=…) – für ältere Links und Lesezeichen ---
 $action = $_GET['action'] ?? '';
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $type = $_GET['type'] ?? ''; // 'section' oder 'header'
 
-// === SECTION MANAGEMENT ===
-if ($type === 'section' || $type === '') {
-  // Neuen Eintrag anlegen
-  if ($action === 'add' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name'] ?? '');
-    $url_path = trim($_POST['url_path'] ?? '');
-    $icon = trim($_POST['icon'] ?? 'bi-link');
-    $section_type = $_POST['section_type'] ?? '';
-    // Bereich muss gesetzt sein!
-    if (empty($section_type)) {
-      $first_header = $pdo->query("SELECT section_type FROM site_section_headers ORDER BY sort_order, name LIMIT 1")->fetch();
-      if ($first_header) {
-        $section_type = $first_header['section_type'];
-      } else {
-        $section_type = 'main'; // Fallback nur wenn gar keine Headers existieren
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && $action !== '') {
+  if ($type === 'section' || $type === '') {
+    if ($action === 'add') {
+      $name = trim($_POST['name'] ?? '');
+      $url_path = trim($_POST['url_path'] ?? '');
+      $section_type = sm_typ($_POST['section_type'] ?? '');
+      if ($section_type === '') {
+        // Bereich muss gesetzt sein – sonst den ersten nehmen
+        $section_type = $pdo->query("SELECT section_type FROM site_section_headers ORDER BY sort_order, name LIMIT 1")->fetchColumn() ?: 'main';
       }
-    }
-    if ($name && $url_path && $section_type) {
-      $stmt = $pdo->prepare("SELECT IFNULL(MAX(sort_order),0) FROM site_sections WHERE section_type = ?");
-      $stmt->execute([$section_type]);
-      $max_sort = $stmt->fetchColumn();
-      $new_sort = $max_sort + 1;
-      $stmt = $pdo->prepare('INSERT INTO site_sections (name, url_path, icon, section_type, is_active, sort_order) VALUES (?, ?, ?, ?, 1, ?)');
-      $stmt->execute([$name, $url_path, $icon, $section_type, $new_sort]);
-      $success = 'Seitenlink hinzugefügt!';
-      log_event($_SESSION['user_id'], "Neue Section hinzugefügt (Name/Pfad)", 'custom');
-      header('Location: sitemanagement.php');
-      exit;
-    } else {
+      if ($name && $url_path && sm_url_ok($url_path)) {
+        $stmt = $pdo->prepare("SELECT IFNULL(MAX(sort_order),0) + 1 FROM site_sections WHERE section_type = ?");
+        $stmt->execute([$section_type]);
+        $sort = (int)$stmt->fetchColumn();
+        $stmt = $pdo->prepare('INSERT INTO site_sections (name, url_path, icon, section_type, is_active, sort_order, roles) VALUES (?, ?, ?, ?, 1, ?, ?)');
+        $stmt->execute([$name, $url_path, sm_icon($_POST['icon'] ?? '', 'bi-link'), $section_type, $sort, 'admin,moderator,student']);
+        log_event($_SESSION['user_id'], "Neue Section hinzugefügt (Name/Pfad)", 'custom');
+        header('Location: sitemanagement.php');
+        exit;
+      }
       $error = 'Bitte Name, Pfad und Bereich angeben.';
-    }
-  }
-
-  // Eintrag bearbeiten
-  if ($action === 'edit' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name'] ?? '');
-    $url_path = trim($_POST['url_path'] ?? '');
-    $icon = trim($_POST['icon'] ?? 'bi-link');
-    $section_type = $_POST['section_type'] ?? 'main';
-
-    if ($name && $url_path) {
-      $stmt = $pdo->prepare('UPDATE site_sections SET name = ?, url_path = ?, icon = ?, section_type = ? WHERE id = ?');
-      $stmt->execute([$name, $url_path, $icon, $section_type, $id]);
-      $success = 'Seitenlink aktualisiert!';
-      log_event($_SESSION['user_id'], "Section $id bearbeitet (Name/Pfad)", 'custom');
-      header('Location: sitemanagement.php');
-      exit;
-    } else {
+    } elseif ($action === 'edit' && $id) {
+      $name = trim($_POST['name'] ?? '');
+      $url_path = trim($_POST['url_path'] ?? '');
+      $section_type = sm_typ($_POST['section_type'] ?? '') ?: 'main';
+      if ($name && $url_path && sm_url_ok($url_path)) {
+        $stmt = $pdo->prepare('UPDATE site_sections SET name = ?, url_path = ?, icon = ?, section_type = ? WHERE id = ?');
+        $stmt->execute([$name, $url_path, sm_icon($_POST['icon'] ?? '', 'bi-link'), $section_type, $id]);
+        log_event($_SESSION['user_id'], "Section $id bearbeitet (Name/Pfad)", 'custom');
+        header('Location: sitemanagement.php');
+        exit;
+      }
       $error = 'Bitte Name und Pfad angeben.';
+    } elseif ($action === 'toggle' && $id) {
+      $pdo->prepare("UPDATE site_sections SET is_active = 1 - is_active WHERE id = ?")->execute([$id]);
+      log_event($_SESSION['user_id'], "Section $id Status getoggelt", 'custom');
+      header('Location: sitemanagement.php');
+      exit;
+    } elseif ($action === 'delete' && $id) {
+      $pdo->prepare('DELETE FROM site_sections WHERE id = ?')->execute([$id]);
+      log_event($_SESSION['user_id'], "Section $id gelöscht (generic)", 'custom');
+      header('Location: sitemanagement.php');
+      exit;
     }
-  }
-
-  // Aktivieren/Deaktivieren
-  if ($action === 'toggle' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $stmt = $pdo->prepare("UPDATE site_sections SET is_active = 1 - is_active WHERE id = ?");
-    $stmt->execute([$id]);
-    $success = 'Status geändert!';
-    log_event($_SESSION['user_id'], "Section $id Status getoggelt", 'custom');
-    header('Location: sitemanagement.php');
-    exit;
-  }
-
-  // Löschen
-  if ($action === 'delete' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $pdo->prepare('DELETE FROM site_sections WHERE id = ?')->execute([$id]);
-    $success = 'Eintrag gelöscht!';
-    log_event($_SESSION['user_id'], "Section $id gelöscht (generic)", 'custom');
-    header('Location: sitemanagement.php');
-    exit;
-  }
-
-  // Sortieren (Up/Down)
-  if (($action === 'up' || $action === 'down') && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $current = $pdo->prepare('SELECT id, sort_order, section_type FROM site_sections WHERE id = ?');
-    $current->execute([$id]);
-    $cur = $current->fetch();
-    if ($cur) {
-      $cmp = $pdo->prepare('SELECT id, sort_order FROM site_sections WHERE section_type = ? AND sort_order ' . ($action === 'up' ? '<' : '>') . ' ? ORDER BY sort_order ' . ($action === 'up' ? 'DESC' : 'ASC') . ' LIMIT 1');
-      $cmp->execute([$cur['section_type'], $cur['sort_order']]);
-      $other = $cmp->fetch();
-      if ($other) {
-        $pdo->prepare('UPDATE site_sections SET sort_order = ? WHERE id = ?')->execute([$other['sort_order'], $cur['id']]);
-        $pdo->prepare('UPDATE site_sections SET sort_order = ? WHERE id = ?')->execute([$cur['sort_order'], $other['id']]);
-        $success = 'Sortierung geändert!';
+  } elseif ($type === 'header') {
+    if ($action === 'add') {
+      $name = trim($_POST['name'] ?? '');
+      $section_type = generate_section_type($name);
+      if ($name && $section_type) {
+        $max_sort = (int)$pdo->query("SELECT IFNULL(MAX(sort_order),0) FROM site_section_headers")->fetchColumn();
+        $stmt = $pdo->prepare('INSERT INTO site_section_headers (name, section_type, icon, is_active, sort_order) VALUES (?, ?, ?, 1, ?)');
+        $stmt->execute([$name, $section_type, sm_icon($_POST['icon'] ?? '', 'bi-list'), $max_sort + 1]);
+        log_event($_SESSION['user_id'], "Neuer Header hinzugefügt (Name)", 'custom');
+        header('Location: sitemanagement.php');
+        exit;
       }
-    }
-  }
-}
-
-// === HEADER MANAGEMENT ===
-if ($type === 'header') {
-  // Neuen Header anlegen
-  if ($action === 'add' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name'] ?? '');
-    $icon = trim($_POST['icon'] ?? 'bi-list');
-    $section_type = generate_section_type($name);
-    error_log('[DEBUG HEADER ADD] Name: ' . $name . ' | SectionType: ' . $section_type);
-    // Validierung: section_type darf nicht leer sein!
-    if ($name && $section_type) {
-      $stmt = $pdo->prepare("SELECT IFNULL(MAX(sort_order),0) FROM site_section_headers");
-      $stmt->execute();
-      $max_sort = $stmt->fetchColumn();
-      $new_sort = $max_sort + 1;
-      $stmt = $pdo->prepare('INSERT INTO site_section_headers (name, section_type, icon, is_active, sort_order) VALUES (?, ?, ?, 1, ?)');
-      $stmt->execute([$name, $section_type, $icon, $new_sort]);
-      $success = 'Überschrift hinzugefügt!';
-      log_event($_SESSION['user_id'], "Neuer Header hinzugefügt (Name)", 'custom');
-      header('Location: sitemanagement.php');
-      exit;
-    } else {
-      error_log('[DEBUG HEADER ADD] Fehler: Name oder section_type leer!');
-      $error = 'Bitte Name angeben. (section_type darf nicht leer sein, generiert aus Name: ' . htmlspecialchars($name) . ')';
-    }
-  }
-
-  // Header bearbeiten
-  if ($action === 'edit' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = trim($_POST['name'] ?? '');
-    $section_type = $_POST['section_type'] ?? 'main';
-    $icon = trim($_POST['icon'] ?? 'bi-list');
-
-    if ($name) {
-      $stmt = $pdo->prepare('UPDATE site_section_headers SET name = ?, section_type = ?, icon = ? WHERE id = ?');
-      $stmt->execute([$name, $section_type, $icon, $id]);
-      $success = 'Überschrift aktualisiert!';
-      log_event($_SESSION['user_id'], "Header $id bearbeitet (Name)", 'custom');
-      header('Location: sitemanagement.php');
-      exit;
-    } else {
       $error = 'Bitte Name angeben.';
-    }
-  }
-
-  // Header aktivieren/deaktivieren
-  if ($action === 'toggle' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $stmt = $pdo->prepare("UPDATE site_section_headers SET is_active = 1 - is_active WHERE id = ?");
-    $stmt->execute([$id]);
-    $success = 'Status geändert!';
-    log_event($_SESSION['user_id'], "Header $id Status getoggelt", 'custom');
-    header('Location: sitemanagement.php');
-    exit;
-  }
-
-  // Header löschen
-  if ($action === 'delete' && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $pdo->prepare('DELETE FROM site_section_headers WHERE id = ?')->execute([$id]);
-    $success = 'Überschrift gelöscht!';
-    log_event($_SESSION['user_id'], "Header $id gelöscht", 'custom');
-    header('Location: sitemanagement.php');
-    exit;
-  }
-
-  // Header sortieren (Up/Down)
-  if (($action === 'up' || $action === 'down') && $id && $_SERVER['REQUEST_METHOD'] === 'POST') {
-    $current = $pdo->prepare('SELECT id, sort_order FROM site_section_headers WHERE id = ?');
-    $current->execute([$id]);
-    $cur = $current->fetch();
-    if ($cur) {
-      $cmp = $pdo->prepare('SELECT id, sort_order FROM site_section_headers WHERE sort_order ' . ($action === 'up' ? '<' : '>') . ' ? ORDER BY sort_order ' . ($action === 'up' ? 'DESC' : 'ASC') . ' LIMIT 1');
-      $cmp->execute([$cur['sort_order']]);
-      $other = $cmp->fetch();
-      if ($other) {
-        $pdo->prepare('UPDATE site_section_headers SET sort_order = ? WHERE id = ?')->execute([$other['sort_order'], $cur['id']]);
-        $pdo->prepare('UPDATE site_section_headers SET sort_order = ? WHERE id = ?')->execute([$cur['sort_order'], $other['id']]);
-        $success = 'Sortierung geändert!';
-      }
+    } elseif ($action === 'toggle' && $id) {
+      $pdo->prepare("UPDATE site_section_headers SET is_active = 1 - is_active WHERE id = ?")->execute([$id]);
+      log_event($_SESSION['user_id'], "Header $id Status getoggelt", 'custom');
+      header('Location: sitemanagement.php');
+      exit;
+    } elseif ($action === 'delete' && $id) {
+      $pdo->prepare('DELETE FROM site_section_headers WHERE id = ?')->execute([$id]);
+      log_event($_SESSION['user_id'], "Header $id gelöscht", 'custom');
+      header('Location: sitemanagement.php');
+      exit;
     }
   }
 }
 
-// Sortierung speichern
-if ($action === 'sort' && $_SERVER['REQUEST_METHOD'] === 'POST') {
-  $sort_data = json_decode($_POST['sort_data'] ?? '[]', true);
-  if ($sort_data) {
-    $pdo->beginTransaction();
-    try {
-      foreach ($sort_data as $item) {
-        if ($item['type'] === 'section') {
-          $stmt = $pdo->prepare("UPDATE site_sections SET sort_order = ? WHERE id = ?");
-          $stmt->execute([$item['order'], $item['id']]);
-        } elseif ($item['type'] === 'header') {
-          $stmt = $pdo->prepare("UPDATE site_section_headers SET sort_order = ? WHERE id = ?");
-          $stmt->execute([$item['order'], $item['id']]);
-        }
-      }
-      $pdo->commit();
-      $success = 'Sortierung gespeichert!';
-    } catch (Exception $e) {
-      $pdo->rollBack();
-      $error = 'Fehler beim Speichern der Sortierung.';
+// --- Daten für die Seite ---
+// Eigene Variablennamen ($sm_…, $esc): sidebar.php überschreibt $headers mit den aktiven Überschriften –
+// deshalb waren inaktive Überschriften früher hier unsichtbar und ließen sich nicht wieder einschalten.
+$all_sections = $pdo->query("SELECT * FROM site_sections ORDER BY sort_order, name")->fetchAll();
+$sm_headers = $pdo->query("SELECT * FROM site_section_headers ORDER BY sort_order, name")->fetchAll();
+$einzelfreigaben = $pdo->query("SELECT section_id, COUNT(*) FROM section_user_access WHERE access = 'allow' GROUP BY section_id")->fetchAll(PDO::FETCH_KEY_PAIR);
+$benutzer = $pdo->query("SELECT id, username, role FROM users WHERE is_active = 1 ORDER BY username")->fetchAll();
+
+$links_nach_typ = [];
+foreach ($all_sections as $section) {
+  $links_nach_typ[$section['section_type']][] = $section;
+}
+// Die Seitenleiste nimmt pro Bereich die erste aktive Überschrift – dort stehen die Links
+$haupt_header = [];
+foreach ([true, false] as $nur_aktive) {
+  foreach ($sm_headers as $header) {
+    if ((!$nur_aktive || $header['is_active']) && !isset($haupt_header[$header['section_type']])) {
+      $haupt_header[$header['section_type']] = $header;
     }
   }
 }
+$ohne_ueberschrift = array_diff_key($links_nach_typ, $haupt_header);
 
-// Lade alle Sections und Headers
-$all_sections = $pdo->query("SELECT * FROM site_sections ORDER BY section_type, sort_order, name")->fetchAll();
-$headers = $pdo->query("SELECT * FROM site_section_headers ORDER BY sort_order, name")->fetchAll();
+// Auswahl "Bereich" in den Dialogen
+$bereich_optionen = [];
+foreach ($haupt_header as $typ => $header) {
+  $bereich_optionen[$typ] = $header['name'] . ($typ === 'admin' ? ' (nur Admin-Dashboard)' : '');
+}
+foreach ($ohne_ueberschrift as $typ => $links) {
+  $bereich_optionen[$typ] = $typ . ' (ohne Überschrift)';
+}
+
+$rollen_namen = ['admin' => 'Admin', 'moderator' => 'Moderator', 'student' => 'Lernende'];
+$rollen_kurz = ['admin' => 'A', 'moderator' => 'M', 'student' => 'L'];
+$anzahl_inaktiv = count(array_filter($all_sections, function ($s) { return !$s['is_active']; }));
+
+$icon_vorschlaege = array_values(array_unique(array_merge([
+  'bi-house', 'bi-house-door', 'bi-play-circle', 'bi-trophy', 'bi-graph-up', 'bi-person', 'bi-people', 'bi-envelope',
+  'bi-chat-dots', 'bi-newspaper', 'bi-plus-circle', 'bi-question-circle', 'bi-info-circle', 'bi-book', 'bi-journal-bookmark',
+  'bi-journal-text', 'bi-mortarboard', 'bi-code-slash', 'bi-terminal', 'bi-cpu', 'bi-hdd-network', 'bi-diagram-3',
+  'bi-database', 'bi-shield-lock', 'bi-shield-check', 'bi-key', 'bi-kanban', 'bi-controller', 'bi-puzzle', 'bi-calculator',
+  'bi-translate', 'bi-lightbulb', 'bi-lightning', 'bi-star', 'bi-flag', 'bi-calendar', 'bi-clock-history', 'bi-gear',
+  'bi-sliders', 'bi-tools', 'bi-wrench', 'bi-link', 'bi-file-text', 'bi-file-earmark', 'bi-cloud', 'bi-display', 'bi-phone',
+  'bi-bar-chart', 'bi-list', 'bi-lock', 'bi-unlock', 'bi-heart', 'bi-palette', 'bi-music-note',
+], array_filter(array_column($all_sections, 'icon')), array_filter(array_column($sm_headers, 'icon')))));
+$icon_vorschlaege = array_values(array_filter($icon_vorschlaege, function ($icon) { return preg_match('/^bi-[a-z0-9-]+$/', $icon); }));
+
+$daten = [
+  'headers' => array_map(function ($h) {
+    return ['id' => (int)$h['id'], 'name' => $h['name'], 'type' => $h['section_type'], 'icon' => $h['icon'], 'active' => (int)$h['is_active'], 'sort' => (int)$h['sort_order']];
+  }, $sm_headers),
+  'sections' => array_map(function ($s) {
+    return ['id' => (int)$s['id'], 'name' => $s['name'], 'url' => $s['url_path'], 'icon' => $s['icon'], 'type' => $s['section_type'],
+      'active' => (int)$s['is_active'], 'sort' => (int)$s['sort_order'], 'roles' => array_values(array_filter(array_map('trim', explode(',', (string)$s['roles']))))];
+  }, $all_sections),
+];
+
+$esc = function ($text) {
+  return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
+};
+
+// Eine Zeile pro Link
+$link_zeile = function ($sec) use ($esc, $einzelfreigaben, $rollen_namen, $rollen_kurz) {
+  $rollen = array_map('trim', explode(',', (string)$sec['roles']));
+  $freigaben = (int)($einzelfreigaben[$sec['id']] ?? 0);
+  $icon = $sec['icon'] ?: 'bi-link';
+  $aktiv = (int)$sec['is_active'] === 1;
+  ob_start(); ?>
+  <li class="sm-link<?= $aktiv ? '' : ' is-inactive' ?>" data-section-id="<?= (int)$sec['id'] ?>" data-suche="<?= $esc(mb_strtolower($sec['name'] . ' ' . $sec['url_path'])) ?>">
+    <span class="sm-handle" title="Ziehen zum Sortieren"><i class="bi bi-grip-vertical" aria-hidden="true"></i></span>
+    <span class="sm-link-icon"><i class="bi <?= $esc($icon) ?>" aria-hidden="true"></i></span>
+    <span class="sm-link-text">
+      <strong><?= $esc($sec['name']) ?></strong>
+      <code><?= $esc($sec['url_path']) ?></code>
+    </span>
+    <span class="sm-roles" title="Sichtbar für: <?= $esc(implode(', ', array_map(function ($r) use ($rollen_namen) { return $rollen_namen[$r]; }, array_intersect(array_keys($rollen_namen), $rollen))) ?: 'niemanden') ?>">
+      <?php foreach ($rollen_kurz as $rolle => $kurz): ?>
+        <span class="sm-role<?= in_array($rolle, $rollen, true) ? ' is-on' : '' ?>"><?= $kurz ?></span>
+      <?php endforeach; ?>
+    </span>
+    <?php if ($freigaben): ?>
+      <span class="sm-users" title="<?= $freigaben ?> Einzelfreigabe<?= $freigaben === 1 ? '' : 'n' ?>"><i class="bi bi-person-check" aria-hidden="true"></i><?= $freigaben ?></span>
+    <?php endif; ?>
+    <span class="sm-link-actions">
+      <label class="sm-switch" title="Link aktiv">
+        <input type="checkbox" data-sm-toggle="section" data-id="<?= (int)$sec['id'] ?>" aria-label="Link „<?= $esc($sec['name']) ?>“ aktiv"<?= $aktiv ? ' checked' : '' ?>>
+        <span class="sm-switch-track"></span>
+      </label>
+      <button type="button" class="sm-icon-btn" data-sm-edit="link" data-id="<?= (int)$sec['id'] ?>" title="Bearbeiten" aria-label="„<?= $esc($sec['name']) ?>“ bearbeiten"><i class="bi bi-pencil" aria-hidden="true"></i></button>
+      <button type="button" class="sm-icon-btn is-danger" data-sm-del="link" data-id="<?= (int)$sec['id'] ?>" data-name="<?= $esc($sec['name']) ?>" title="Löschen" aria-label="„<?= $esc($sec['name']) ?>“ löschen"><i class="bi bi-trash3" aria-hidden="true"></i></button>
+    </span>
+  </li>
+  <?php return ob_get_clean();
+};
 
 include '../includes/header.php';
 ?>
@@ -408,859 +413,677 @@ include '../includes/header.php';
   <?php include '../includes/sidebar.php'; ?>
   <div class="main-wrapper">
     <main class="main-content">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-md-4 col-lg-3">
+      <div class="adm">
+        <div class="adm-page-head">
+          <div class="adm-page-title">
+            <span class="adm-page-icon"><i class="bi bi-diagram-3" aria-hidden="true"></i></span>
+            <div>
+              <h1>Seitenverwaltung</h1>
+              <p>Was in der Seitenleiste steht – und wer es sieht.</p>
+            </div>
           </div>
-          <div class="col-md-8 col-lg-9">
-            <div
-              class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-              <h1 class="h2">
-                <i class="bi bi-gear-wide-connected me-2"></i>
-                Sitemanagement
-              </h1>
-              <div class="btn-toolbar mb-2 mb-md-0">
-                <button type="button" class="btn btn-success me-2" data-bs-toggle="modal"
-                  data-bs-target="#addSectionModal">
-                  <i class="bi bi-plus-circle me-1"></i>Neuen Link hinzufügen
-                </button>
-                <button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#addHeaderModal">
-                  <i class="bi bi-type-h1 me-1"></i>Neue Überschrift hinzufügen
-                </button>
-              </div>
+          <div class="adm-page-actions">
+            <button type="button" class="btn btn-outline-secondary" data-sm-neu="header"><i class="bi bi-type-h2 me-1" aria-hidden="true"></i>Neue Überschrift</button>
+            <button type="button" class="btn btn-primary" data-sm-neu="link"><i class="bi bi-plus-lg me-1" aria-hidden="true"></i>Neuer Link</button>
+          </div>
+        </div>
+
+        <?php if ($error): ?>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle me-2"></i><?= $esc($error) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Schließen"></button>
+          </div>
+        <?php endif; ?>
+
+        <div class="sm-summary">
+          <span class="sm-chip"><i class="bi bi-type-h2" aria-hidden="true"></i><strong><?= count($sm_headers) ?></strong> Überschriften</span>
+          <span class="sm-chip"><i class="bi bi-link-45deg" aria-hidden="true"></i><strong id="smAnzahlLinks"><?= count($all_sections) ?></strong> Links</span>
+          <span class="sm-chip"><i class="bi bi-eye-slash" aria-hidden="true"></i><strong id="smAnzahlInaktiv"><?= $anzahl_inaktiv ?></strong> inaktiv</span>
+          <span class="sm-chip"><i class="bi bi-person-check" aria-hidden="true"></i><strong><?= count($einzelfreigaben) ?></strong> mit Einzelfreigaben</span>
+        </div>
+
+        <div class="sm-note">
+          <i class="bi bi-info-circle" aria-hidden="true"></i>
+          <p>Ändere die Reihenfolge, indem du am Griff <i class="bi bi-grip-vertical" aria-hidden="true"></i> ziehst – Links auch in einen anderen Bereich.
+            Links im Bereich <strong>Administration</strong> erscheinen nicht in der Seitenleiste, sondern als Karten im <a href="/admin/dashboard.php">Admin-Dashboard</a>.</p>
+        </div>
+
+        <div class="sm-layout">
+          <div>
+            <div class="sm-toolbar">
+              <label class="adm-search">
+                <i class="bi bi-search" aria-hidden="true"></i>
+                <span class="visually-hidden">Links filtern</span>
+                <input type="search" id="smSuche" placeholder="Links filtern …" autocomplete="off">
+              </label>
+              <span class="sm-hint"><i class="bi bi-arrows-move" aria-hidden="true"></i>Ziehen zum Sortieren</span>
             </div>
 
-            <!-- Status-Nachrichten -->
-            <div id="statusMessages"></div>
-
-            <?php if ($error): ?>
-              <div class="alert alert-danger">
-                <i class="bi bi-exclamation-triangle me-2"></i>
-                <?= htmlspecialchars($error) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" title="Schließen"></button>
-              </div>
-            <?php endif; ?>
-
-            <?php if ($success): ?>
-              <div class="alert alert-success">
-                <i class="bi bi-check-circle me-2"></i>
-                <?= htmlspecialchars($success) ?>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" title="Schließen"></button>
-              </div>
-            <?php endif; ?>
-
-            <!-- Section Headers Verwaltung -->
-            <div class="card mb-4">
-              <div class="card-header">
-                <h5 class="mb-0">
-                  <i class="bi bi-type-h1 me-2"></i>
-                  Überschriften verwalten
-                </h5>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-striped" id="headersTable">
-                    <thead>
-                      <tr>
-                        <th style="width: 50px;">#</th>
-                        <th>Name</th>
-                        <th>Bereich</th>
-                        <th>Icon</th>
-                        <th>Status</th>
-                        <th>Position</th>
-                        <th>Aktionen</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($headers as $header): ?>
-                        <tr data-id="<?= $header['id'] ?>" data-type="header" class="sortable-row">
-                          <td>
-                            <i class="bi bi-grip-vertical handle" style="cursor: move;"></i>
-                          </td>
-                          <td>
-                            <i class="<?= htmlspecialchars($header['icon']) ?> me-2"></i>
-                            <strong><?= htmlspecialchars($header['name']) ?></strong>
-                          </td>
-                          <td>
-                            <span class="badge bg-<?php
-                            if ($header['section_type'] === 'admin')
-                              echo 'warning';
-                            elseif ($header['section_type'] === 'programming')
-                              echo 'info';
-                            elseif ($header['section_type'] === 'help')
-                              echo 'success';
-                            else
-                              echo 'secondary';
-                            ?>">
-                              <?= ucfirst($header['section_type']) ?>
-                            </span>
-                          </td>
-                          <td><i class="<?= htmlspecialchars($header['icon']) ?>"></i>
-                            <?= htmlspecialchars($header['icon']) ?></td>
-                          <td>
-                            <span class="badge bg-<?= $header['is_active'] ? 'success' : 'danger' ?>">
-                              <?= $header['is_active'] ? 'Aktiv' : 'Inaktiv' ?>
-                            </span>
-                          </td>
-                          <td><?= $header['sort_order'] ?></td>
-                          <td>
-                            <div class="btn-group btn-group-sm">
-                              <button class="btn btn-primary edit-header" data-id="<?= $header['id'] ?>"
-                                data-name="<?= htmlspecialchars($header['name']) ?>"
-                                data-type="<?= $header['section_type'] ?>"
-                                data-icon="<?= htmlspecialchars($header['icon']) ?>">Bearbeiten</button>
-                              <button class="btn btn-warning toggle-header"
-                                data-id="<?= $header['id'] ?>">Aktiv/Inaktiv</button>
-                              <button class="btn btn-danger delete-header" data-id="<?= $header['id'] ?>"
-                                data-name="<?= htmlspecialchars($header['name']) ?>">Löschen</button>
-                            </div>
-                          </td>
-                        </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-
-            <!-- Debug: Zeige alle geladenen Sections -->
-            <div class="card mb-4">
-              <div class="card-header">
-                <h6 class="mb-0">Debug: Alle geladenen Sections</h6>
-              </div>
-              <div class="card-body">
-                <table class="table table-bordered table-sm">
-                  <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Name</th>
-                      <th>section_type</th>
-                      <th>is_active</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($all_sections as $s): ?>
-                      <tr>
-                        <td><?= htmlspecialchars($s['id']) ?></td>
-                        <td><?= htmlspecialchars($s['name']) ?></td>
-                        <td>'<?= htmlspecialchars($s['section_type']) ?>'</td>
-                        <td><?= htmlspecialchars($s['is_active']) ?></td>
-                      </tr>
-                    <?php endforeach; ?>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <?php
-            $categories = [
-              'main' => ['name' => 'Hauptnavigation', 'icon' => 'bi-house'],
-              'admin' => ['name' => 'Administration', 'icon' => 'bi-shield'],
-              'programming' => ['name' => 'Programmiersprachen', 'icon' => 'bi-code-slash'],
-              'help' => ['name' => 'Hilfe & Support', 'icon' => 'bi-question-circle']
-            ];
-            foreach ($headers as $header):
-              $cat_type = $header['section_type'];
-              $cat_sections = array_filter($all_sections, function ($section) use ($cat_type) {
-                return strcmp(trim($section['section_type']), $cat_type) === 0;
-              });
+            <div class="sm-groups" id="smGruppen">
+              <?php foreach ($sm_headers as $header):
+                $typ = $header['section_type'];
+                $ist_haupt = (int)$haupt_header[$typ]['id'] === (int)$header['id'];
+                $links = $ist_haupt ? ($links_nach_typ[$typ] ?? []) : [];
+                $klassen = ['sm-group'];
+                if (!$header['is_active']) $klassen[] = 'is-inactive';
+                if ($typ === 'admin') $klassen[] = 'is-admin';
               ?>
-              <div class="card mb-4">
-                <div class="card-header d-flex justify-content-between align-items-center">
-                  <h5 class="mb-0">
-                    <i class="<?= htmlspecialchars($header['icon']) ?> me-2"></i>
-                    <?= htmlspecialchars($header['name']) ?>
-                    <?php if (!$header['is_active']): ?>
-                      <span class="badge bg-warning ms-2">Inaktiv</span>
-                    <?php endif; ?>
-                  </h5>
-                  <div class="btn-group btn-group-sm">
-                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addSectionModal"
-                      data-section-type="<?= htmlspecialchars($cat_type) ?>">
-                      <i class="bi bi-plus-circle me-1"></i>Seite hinzufügen
-                    </button>
+                <section class="<?= implode(' ', $klassen) ?>" data-header-id="<?= (int)$header['id'] ?>" data-type="<?= $esc($typ) ?>" data-name="<?= $esc(mb_strtolower($header['name'])) ?>">
+                  <div class="sm-group-head">
+                    <span class="sm-handle sm-handle-group" title="Ziehen zum Sortieren"><i class="bi bi-grip-vertical" aria-hidden="true"></i></span>
+                    <span class="sm-group-icon"><i class="bi <?= $esc($header['icon'] ?: 'bi-list') ?>" aria-hidden="true"></i></span>
+                    <div class="sm-group-title">
+                      <h2>
+                        <?= $esc($header['name']) ?>
+                        <span class="sm-tag sm-tag-off" data-inaktiv-tag<?= $header['is_active'] ? ' hidden' : '' ?>>Inaktiv</span>
+                        <?php if ($typ === 'admin'): ?><span class="sm-tag sm-tag-admin">Nur im Admin-Dashboard</span><?php endif; ?>
+                        <?php if (!$ist_haupt): ?><span class="sm-tag sm-tag-warn">Doppelt</span><?php endif; ?>
+                      </h2>
+                      <?php if ($ist_haupt): ?>
+                        <p>Bereich <code><?= $esc($typ) ?></code> · <span data-anzahl><?= count($links) ?></span> <span data-anzahl-wort><?= count($links) === 1 ? 'Link' : 'Links' ?></span></p>
+                      <?php else: ?>
+                        <p>Gleicher Bereich <code><?= $esc($typ) ?></code> wie „<?= $esc($haupt_header[$typ]['name']) ?>“ – die Seitenleiste nutzt nur die erste aktive Überschrift.</p>
+                      <?php endif; ?>
+                    </div>
+                    <div class="sm-group-actions">
+                      <label class="sm-switch" title="Überschrift aktiv">
+                        <input type="checkbox" data-sm-toggle="header" data-id="<?= (int)$header['id'] ?>" aria-label="Überschrift „<?= $esc($header['name']) ?>“ aktiv"<?= $header['is_active'] ? ' checked' : '' ?>>
+                        <span class="sm-switch-track"></span>
+                      </label>
+                      <?php if ($ist_haupt): ?>
+                        <button type="button" class="sm-icon-btn is-add" data-sm-neu="link" data-type="<?= $esc($typ) ?>" title="Link hinzufügen" aria-label="Link zu „<?= $esc($header['name']) ?>“ hinzufügen"><i class="bi bi-plus-lg" aria-hidden="true"></i></button>
+                      <?php endif; ?>
+                      <button type="button" class="sm-icon-btn" data-sm-edit="header" data-id="<?= (int)$header['id'] ?>" title="Bearbeiten" aria-label="Überschrift „<?= $esc($header['name']) ?>“ bearbeiten"><i class="bi bi-pencil" aria-hidden="true"></i></button>
+                      <button type="button" class="sm-icon-btn is-danger" data-sm-del="header" data-id="<?= (int)$header['id'] ?>" data-name="<?= $esc($header['name']) ?>" title="Löschen" aria-label="Überschrift „<?= $esc($header['name']) ?>“ löschen"><i class="bi bi-trash3" aria-hidden="true"></i></button>
+                    </div>
                   </div>
-                </div>
-                <div class="card-body">
-                  <?php if (empty($cat_sections)): ?>
-                    <div class="text-muted text-center py-3">
-                      <i class="bi bi-inbox me-2"></i>
-                      Keine Seiten in dieser Kategorie.
-                      <button class="btn btn-link p-0 ms-1" data-bs-toggle="modal" data-bs-target="#addSectionModal"
-                        data-section-type="<?= htmlspecialchars($cat_type) ?>">
-                        Erste Seite hinzufügen
-                      </button>
-                    </div>
-                  <?php else: ?>
-                    <div class="table-responsive">
-                      <table class="table table-striped sections-table" data-type="<?= htmlspecialchars($cat_type) ?>">
-                        <thead>
-                          <tr>
-                            <th style="width: 50px;">#</th>
-                            <th>Name</th>
-                            <th>URL</th>
-                            <th>Icon</th>
-                            <th>Status</th>
-                            <th>Position</th>
-                            <th>Aktionen</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <?php foreach ($cat_sections as $sec): ?>
-                            <?php
-                            if (!isset($sec['roles']))
-                              $sec['roles'] = 'admin,moderator,student';
-                            if (!isset($sec['icon']))
-                              $sec['icon'] = 'bi-link';
-                            if (!isset($sec['is_active']) && isset($sec['active']))
-                              $sec['is_active'] = $sec['active'];
-                            if (!isset($sec['is_active']))
-                              $sec['is_active'] = 1;
-                            ?>
-                            <tr data-id="<?= $sec['id'] ?>" data-type="section" class="sortable-row">
-                              <td>
-                                <i class="bi bi-grip-vertical handle" style="cursor: move;"></i>
-                              </td>
-                              <td>
-                                <i class="<?= htmlspecialchars($sec['icon']) ?> me-2"></i>
-                                <?= htmlspecialchars($sec['name']) ?>
-                              </td>
-                              <td><code><?= htmlspecialchars($sec['url_path']) ?></code></td>
-                              <td><i class="<?= htmlspecialchars($sec['icon']) ?>"></i> <?= htmlspecialchars($sec['icon']) ?>
-                              </td>
-                              <td>
-                                <span class="badge bg-<?= $sec['is_active'] ? 'success' : 'danger' ?>">
-                                  <?= $sec['is_active'] ? 'Aktiv' : 'Inaktiv' ?>
-                                </span>
-                              </td>
-                              <td><?= $sec['sort_order'] ?></td>
-                              <td>
-                                <div class="btn-group btn-group-sm">
-                                  <button class="btn btn-primary edit-section" data-id="<?= $sec['id'] ?>"
-                                    data-name="<?= htmlspecialchars($sec['name']) ?>"
-                                    data-url="<?= htmlspecialchars($sec['url_path']) ?>"
-                                    data-icon="<?= htmlspecialchars($sec['icon']) ?>"
-                                    data-type="<?= $sec['section_type'] ?>">Bearbeiten</button>
-                                  <button class="btn btn-warning toggle-section"
-                                    data-id="<?= $sec['id'] ?>">Aktiv/Inaktiv</button>
-                                  <button class="btn btn-danger delete-section" data-id="<?= $sec['id'] ?>"
-                                    data-name="<?= htmlspecialchars($sec['name']) ?>">Löschen</button>
-                                </div>
-                              </td>
-                            </tr>
-                          <?php endforeach; ?>
-                        </tbody>
-                      </table>
-                    </div>
+                  <?php if ($ist_haupt): ?>
+                    <ul class="sm-links" data-type="<?= $esc($typ) ?>"><?php foreach ($links as $sec) echo $link_zeile($sec); ?></ul>
+                    <p class="sm-empty-links"<?= $links ? ' hidden' : '' ?>>Noch keine Links. <button type="button" data-sm-neu="link" data-type="<?= $esc($typ) ?>">Ersten Link anlegen</button></p>
                   <?php endif; ?>
-                </div>
-              </div>
-            <?php endforeach; ?>
+                </section>
+              <?php endforeach; ?>
+              <?php if (!$sm_headers): ?>
+                <p class="adm-empty"><i class="bi bi-inbox" aria-hidden="true"></i>Noch keine Überschriften – lege oben die erste an.</p>
+              <?php endif; ?>
+            </div>
 
+            <?php if ($ohne_ueberschrift): ?>
+              <div class="sm-groups mt-3">
+                <?php foreach ($ohne_ueberschrift as $typ => $links): ?>
+                  <section class="sm-group is-orphan" data-type="<?= $esc($typ) ?>" data-name="">
+                    <div class="sm-group-head">
+                      <span class="sm-group-icon"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i></span>
+                      <div class="sm-group-title">
+                        <h2>Ohne Überschrift <span class="sm-tag sm-tag-warn">Unsichtbar</span></h2>
+                        <p>Bereich <code><?= $esc($typ) ?></code> hat keine Überschrift – diese Links erscheinen nirgends. Zieh sie in einen anderen Bereich oder bearbeite sie.</p>
+                      </div>
+                    </div>
+                    <ul class="sm-links" data-type="<?= $esc($typ) ?>"><?php foreach ($links as $sec) echo $link_zeile($sec); ?></ul>
+                    <p class="sm-empty-links" hidden>Alle Links verschoben.</p>
+                  </section>
+                <?php endforeach; ?>
+              </div>
+            <?php endif; ?>
+            <p class="adm-empty" id="smKeinTreffer" hidden><i class="bi bi-search" aria-hidden="true"></i>Kein Link gefunden.</p>
           </div>
+
+          <aside class="sm-preview" aria-labelledby="smVorschauTitel">
+            <div class="sm-preview-head">
+              <h2 id="smVorschauTitel"><i class="bi bi-layout-sidebar" aria-hidden="true"></i>Vorschau der Seitenleiste</h2>
+              <div class="sm-seg" role="group" aria-label="Vorschau für Rolle">
+                <button type="button" data-rolle="student" aria-pressed="true">Lernende</button>
+                <button type="button" data-rolle="moderator" aria-pressed="false">Moderator</button>
+                <button type="button" data-rolle="admin" aria-pressed="false">Admin</button>
+              </div>
+            </div>
+            <div class="sm-preview-body" id="smVorschau" aria-live="polite"></div>
+            <p class="sm-preview-foot">Einzelfreigaben für bestimmte Benutzer sind hier nicht berücksichtigt.</p>
+          </aside>
         </div>
       </div>
     </main>
   </div>
 </div>
-<?php include '../includes/footer.php'; ?>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-<!-- Stelle sicher, dass jQuery und Bootstrap geladen sind (vor dem eigenen Script) -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<script>
-  function showMessage(message, type) {
-    const statusDiv = document.getElementById('statusMessages');
-    const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
-    const icon = type === 'success' ? 'bi-check-circle' : 'bi-exclamation-triangle';
-    statusDiv.innerHTML = `
-        <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
-            <i class="${icon} me-2"></i>${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" title="Schließen"></button>
+<!-- Dialog: Link anlegen / bearbeiten -->
+<div class="modal fade sm-modal" id="smLinkModal" tabindex="-1" aria-labelledby="smLinkTitel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
+    <form class="modal-content" id="smLinkForm" novalidate>
+      <div class="modal-header">
+        <h2 class="modal-title" id="smLinkTitel"><i class="bi bi-link-45deg" aria-hidden="true"></i><span>Link</span></h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="id" value="">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label" for="smLinkName">Name</label>
+            <input type="text" class="form-control" id="smLinkName" name="name" maxlength="100" required autocomplete="off">
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="smLinkUrl">URL-Pfad</label>
+            <input type="text" class="form-control" id="smLinkUrl" name="url_path" maxlength="255" required autocomplete="off" placeholder="/games/index.php">
+            <div class="sm-field-hint">Beginnt mit / (eigene Seite) oder https://</div>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label" for="smLinkTyp">Bereich</label>
+            <select class="form-select" id="smLinkTyp" name="section_type" required>
+              <?php foreach ($bereich_optionen as $typ => $label): ?>
+                <option value="<?= $esc($typ) ?>"><?= $esc($label) ?></option>
+              <?php endforeach; ?>
+            </select>
+          </div>
+          <div class="col-md-6 d-flex align-items-end">
+            <label class="d-inline-flex align-items-center gap-2 mb-2" for="smLinkAktiv">
+              <span class="sm-switch m-0"><input type="checkbox" id="smLinkAktiv" name="is_active" checked><span class="sm-switch-track"></span></span>
+              Link aktiv
+            </label>
+          </div>
+          <div class="col-12">
+            <label class="form-label" for="smLinkIcon">Icon</label>
+            <div class="sm-icon-input">
+              <span class="sm-icon-current" aria-hidden="true"><i class="bi bi-link"></i></span>
+              <input type="text" class="form-control" id="smLinkIcon" name="icon" maxlength="50" autocomplete="off" placeholder="bi-link">
+            </div>
+            <div class="sm-icon-grid" role="group" aria-label="Icon auswählen">
+              <?php foreach ($icon_vorschlaege as $icon): ?>
+                <button type="button" data-icon="<?= $esc($icon) ?>" title="<?= $esc($icon) ?>" aria-label="<?= $esc($icon) ?>" aria-pressed="false"><i class="bi <?= $esc($icon) ?>" aria-hidden="true"></i></button>
+              <?php endforeach; ?>
+            </div>
+            <div class="sm-field-hint">Weitere Namen findest du unter <a href="https://icons.getbootstrap.com/" target="_blank" rel="noopener">icons.getbootstrap.com</a> (mit „bi-“ davor).</div>
+          </div>
+          <div class="col-12">
+            <span class="form-label d-block">Sichtbar für</span>
+            <div class="sm-role-pick">
+              <?php foreach (['student', 'moderator', 'admin'] as $rolle): ?>
+                <label><input type="checkbox" name="roles[]" value="<?= $rolle ?>"><span><?= $rollen_namen[$rolle] ?></span></label>
+              <?php endforeach; ?>
+            </div>
+            <div class="sm-field-hint">Ohne Haken sieht niemand den Link – außer Benutzern mit Einzelfreigabe.</div>
+          </div>
+          <div class="col-12">
+            <span class="form-label d-block">Einzelfreigaben <span class="sm-user-count" id="smUserCount"></span></span>
+            <div class="sm-user-pick">
+              <input type="search" id="smUserSuche" placeholder="Benutzer suchen …" aria-label="Benutzer suchen" autocomplete="off">
+              <ul class="sm-user-list">
+                <?php foreach ($benutzer as $user): ?>
+                  <li><label><input type="checkbox" name="users[]" value="<?= (int)$user['id'] ?>"> <?= $esc($user['username']) ?> <small>(<?= $esc($rollen_namen[$user['role']] ?? $user['role']) ?>)</small></label></li>
+                <?php endforeach; ?>
+              </ul>
+            </div>
+            <div class="sm-field-hint">Diese Benutzer sehen den Link und die Seite zusätzlich – unabhängig von ihrer Rolle.</div>
+          </div>
         </div>
-    `;
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Abbrechen</button>
+        <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1" aria-hidden="true"></i>Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Dialog: Überschrift anlegen / bearbeiten -->
+<div class="modal fade sm-modal" id="smHeaderModal" tabindex="-1" aria-labelledby="smHeaderTitel" aria-hidden="true">
+  <div class="modal-dialog">
+    <form class="modal-content" id="smHeaderForm" novalidate>
+      <div class="modal-header">
+        <h2 class="modal-title" id="smHeaderTitel"><i class="bi bi-type-h2" aria-hidden="true"></i><span>Überschrift</span></h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" name="id" value="">
+        <div class="mb-3">
+          <label class="form-label" for="smHeaderName">Name</label>
+          <input type="text" class="form-control" id="smHeaderName" name="name" maxlength="100" required autocomplete="off">
+          <div class="sm-field-hint" id="smHeaderKennung"></div>
+        </div>
+        <div class="mb-3" id="smHeaderTypFeld">
+          <label class="form-label" for="smHeaderTyp">Bereich</label>
+          <select class="form-select" id="smHeaderTyp" name="section_type">
+            <?php foreach (array_unique(array_merge(array_column($sm_headers, 'section_type'), array_keys($links_nach_typ))) as $typ): ?>
+              <option value="<?= $esc($typ) ?>"><?= $esc($typ) ?></option>
+            <?php endforeach; ?>
+          </select>
+          <div class="sm-field-hint">Bestimmt, welche Links unter dieser Überschrift stehen. Normalerweise nicht ändern.</div>
+        </div>
+        <div>
+          <label class="form-label" for="smHeaderIcon">Icon</label>
+          <div class="sm-icon-input">
+            <span class="sm-icon-current" aria-hidden="true"><i class="bi bi-list"></i></span>
+            <input type="text" class="form-control" id="smHeaderIcon" name="icon" maxlength="50" autocomplete="off" placeholder="bi-list">
+          </div>
+          <div class="sm-icon-grid" role="group" aria-label="Icon auswählen">
+            <?php foreach ($icon_vorschlaege as $icon): ?>
+              <button type="button" data-icon="<?= $esc($icon) ?>" title="<?= $esc($icon) ?>" aria-label="<?= $esc($icon) ?>" aria-pressed="false"><i class="bi <?= $esc($icon) ?>" aria-hidden="true"></i></button>
+            <?php endforeach; ?>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Abbrechen</button>
+        <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg me-1" aria-hidden="true"></i>Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="sm-toast" id="smToast" role="status" aria-live="polite"><i class="bi bi-check-circle-fill" aria-hidden="true"></i><span></span></div>
+
+<script type="application/json" id="smDaten"><?= json_encode($daten, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) ?></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const daten = JSON.parse(document.getElementById('smDaten').textContent);
+  const ROLLEN = ['student', 'moderator', 'admin'];
+
+  // --- Rückmeldung ---------------------------------------------------------
+  const toast = document.getElementById('smToast');
+  let toastTimer;
+  function melden(text, fehler) {
+    toast.querySelector('span').textContent = text;
+    toast.querySelector('.bi').className = 'bi ' + (fehler ? 'bi-exclamation-triangle-fill' : 'bi-check-circle-fill');
+    toast.classList.toggle('is-error', !!fehler);
+    toast.classList.add('is-visible');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('is-visible'); }, fehler ? 5000 : 2200);
+  }
+  function neuLaden(text) {
+    try { sessionStorage.setItem('smMeldung', text); } catch (e) {}
+    location.reload();
+  }
+  try {
+    const gespeichert = sessionStorage.getItem('smMeldung');
+    if (gespeichert) {
+      sessionStorage.removeItem('smMeldung');
+      melden(gespeichert);
+    }
+  } catch (e) {}
+
+  async function senden(aktion, felder) {
+    const fd = new FormData();
+    fd.append('ajax_action', aktion);
+    // Token auch im Formular (csrf.js setzt es zusätzlich als Header)
+    const token = document.querySelector('meta[name="csrf-token"]');
+    if (token) fd.append('csrf_token', token.content);
+    Object.keys(felder || {}).forEach(function (name) {
+      const wert = felder[name];
+      if (Array.isArray(wert)) wert.forEach(function (w) { fd.append(name + '[]', w); });
+      else fd.append(name, wert);
+    });
+    const antwort = await fetch('sitemanagement.php', { method: 'POST', body: fd, credentials: 'same-origin' });
+    let json;
+    try { json = await antwort.json(); } catch (e) { throw new Error('Unerwartete Antwort vom Server (' + antwort.status + '). Bitte Seite neu laden.'); }
+    if (!json.success) throw new Error(json.message || json.error || 'Speichern fehlgeschlagen.');
+    return json;
   }
 
-  $(function () {
-    // Öffnen und Daten laden
-    $(document).on('click', '.edit-section', function () {
-      console.log('[DEBUG] .edit-section geklickt');
-      const sectionId = $(this).data('id');
-      console.log('[DEBUG] sectionId:', sectionId);
-      // Modal leeren
-      $('#editSectionForm')[0].reset();
-      $('#editSectionId').val(sectionId);
-      // AJAX: Section-Daten laden
-      $.post('sitemanagement.php', { ajax_action: 'get_section_details', id: sectionId }, function (response) {
-        console.log('[DEBUG] AJAX response:', response);
-        if (response.success) {
-          const s = response.data;
-          $('#editSectionName').val(s.name);
-          $('#editSectionUrl').val(s.url_path);
-          $('#editSectionIcon').val(s.icon);
-          $('#editSectionActive').prop('checked', s.is_active == 1);
-          // Rollen
-          $('#roleAdmin').prop('checked', s.roles.includes('admin'));
-          $('#roleModerator').prop('checked', s.roles.includes('moderator'));
-          $('#roleStudent').prop('checked', s.roles.includes('student'));
-          // Individuelle Nutzer
-          $('#editSectionUsers option').prop('selected', false);
-          if (Array.isArray(s.user_ids)) {
-            s.user_ids.forEach(function (uid) {
-              $('#editSectionUsers option[value="' + uid + '"]')
-                .prop('selected', true);
-            });
-          }
-          var modalElem = document.getElementById('editSectionModal');
-          console.log('[DEBUG] modalElem:', modalElem);
-          if (modalElem) {
-            var modal = new bootstrap.Modal(modalElem);
-            modal.show();
-          } else {
-            console.warn('[DEBUG] editSectionModal nicht im DOM gefunden!');
-          }
-        } else {
-          showMessage(response.message, 'error');
-        }
-      }, 'json');
-    });
-
-    // Speichern
-    $('#editSectionForm').on('submit', function (e) {
-      e.preventDefault();
-      // Checkboxen für Rollen korrekt sammeln
-      let roles = [];
-      if ($('#roleAdmin').is(':checked')) roles.push('admin');
-      if ($('#roleModerator').is(':checked')) roles.push('moderator');
-      if ($('#roleStudent').is(':checked')) roles.push('student');
-      // Multi-Select für User
-      let users = $('#editSectionUsers').val() || [];
-      // Sonstige Felder
-      const data = {
-        ajax_action: 'edit_section_advanced',
-        id: $('#editSectionId').val(),
-        name: $('#editSectionName').val(),
-        url_path: $('#editSectionUrl').val(),
-        icon: $('#editSectionIcon').val(),
-        is_active: $('#editSectionActive').is(':checked') ? 1 : 0,
-        roles: roles.join(','),
-        users: users
-      };
-      $.post('sitemanagement.php', data, function (response) {
-        if (response.success) {
-          var modal = bootstrap.Modal.getInstance(document.getElementById('editSectionModal'));
-          if (modal) modal.hide();
-          showMessage(response.message, 'success');
-          setTimeout(() => location.reload(), 700);
-        } else {
-          showMessage(response.message, 'error');
-        }
-      }, 'json');
-    });
-
-    // Toggle Section (Aktiv/Inaktiv)
-    $(document).on('click', '.toggle-section', function () {
-      const sectionId = $(this).data('id');
-      $.post('sitemanagement.php', { ajax_action: 'toggle_section', id: sectionId }, function (response) {
-        if (response.success) {
-          showMessage(response.message, 'success');
-          setTimeout(() => location.reload(), 700);
-        } else {
-          showMessage(response.message, 'error');
-        }
-      }, 'json');
-    });
-
-    // Delete Section
-    $(document).on('click', '.delete-section', function () {
-      const sectionId = $(this).data('id');
-      const name = $(this).data('name');
-      if (confirm(`Möchten Sie "${name}" wirklich löschen?`)) {
-        $.post('sitemanagement.php', { ajax_action: 'delete_section', id: sectionId }, function (response) {
-          if (response.success) {
-            showMessage(response.message, 'success');
-            setTimeout(() => location.reload(), 700);
-          } else {
-            showMessage(response.message, 'error');
-          }
-        }, 'json');
-      }
-    });
-
-    // Drag & Drop Sortierung für Sections
-    document.querySelectorAll('.sections-table tbody').forEach(tbody => {
-      new Sortable(tbody, {
-        handle: '.handle',
-        animation: 150,
-        onEnd: function (evt) {
-          const items = [];
-          const rows = evt.to.querySelectorAll('tr[data-id]');
-          rows.forEach((row, index) => {
-            items.push({
-              id: row.dataset.id,
-              type: row.dataset.type,
-              sort_order: index + 1
-            });
-          });
-          $.post('sitemanagement.php', { ajax_action: 'sort_items', items: JSON.stringify(items) }, function (response) {
-            if (response.success) {
-              showMessage(response.message, 'success');
-              setTimeout(() => location.reload(), 700);
-            } else {
-              showMessage(response.message, 'error');
-            }
-          }, 'json');
-        }
+  // --- Vorschau der Seitenleiste (gleiche Regeln wie includes/sidebar.php) --
+  let vorschauRolle = 'student';
+  const vorschauBox = document.getElementById('smVorschau');
+  function sortiert(liste) {
+    return liste.slice().sort(function (a, b) { return a.sort - b.sort || a.name.localeCompare(b.name, 'de'); });
+  }
+  function eintrag(icon, text, klasse) {
+    const li = document.createElement('li');
+    if (klasse) li.className = klasse;
+    const i = document.createElement('i');
+    i.className = 'bi ' + (icon || 'bi-link');
+    i.setAttribute('aria-hidden', 'true');
+    li.append(i, document.createTextNode(text));
+    return li;
+  }
+  function vorschau() {
+    vorschauBox.textContent = '';
+    const gesehen = {};
+    sortiert(daten.headers).forEach(function (h) {
+      if (!h.active || gesehen[h.type]) return;
+      gesehen[h.type] = true;
+      if (h.type === 'admin') return;
+      const doppelt = {};
+      const links = sortiert(daten.sections.filter(function (s) {
+        return s.type === h.type && s.active && s.roles.indexOf(vorschauRolle) !== -1;
+      })).filter(function (s) {
+        const schluessel = s.url + '|' + s.name;
+        if (doppelt[schluessel]) return false;
+        return (doppelt[schluessel] = true);
       });
-    });
-
-    // Drag & Drop Sortierung für Headers
-    document.querySelectorAll('#headersTable tbody').forEach(tbody => {
-      new Sortable(tbody, {
-        handle: '.handle',
-        animation: 150,
-        onEnd: function (evt) {
-          const items = [];
-          const rows = evt.to.querySelectorAll('tr[data-id]');
-          rows.forEach((row, index) => {
-            items.push({
-              id: row.dataset.id,
-              type: row.dataset.type,
-              sort_order: index + 1
-            });
-          });
-          $.post('sitemanagement.php', { ajax_action: 'sort_items', items: JSON.stringify(items) }, function (response) {
-            if (response.success) {
-              showMessage(response.message, 'success');
-              setTimeout(() => location.reload(), 700);
-            } else {
-              showMessage(response.message, 'error');
-            }
-          }, 'json');
-        }
-      });
-    });
-
-    // Header bearbeiten
-    $(document).on('click', '.edit-header', function () {
-      const headerId = $(this).data('id');
-      const name = $(this).data('name');
-      const type = $(this).data('type');
-      const icon = $(this).data('icon');
-
-      $('#editHeaderId').val(headerId);
-      $('#editHeaderName').val(name);
-      $('#editHeaderType').val(type);
-      $('#editHeaderIcon').val(icon);
-
-      var modal = new bootstrap.Modal(document.getElementById('editHeaderModal'));
-      modal.show();
-    });
-
-    // Header bearbeiten speichern
-    $('#editHeaderForm').on('submit', function (e) {
-      e.preventDefault();
-      const data = {
-        ajax_action: 'update_header',
-        id: $('#editHeaderId').val(),
-        name: $('#editHeaderName').val(),
-        section_type: $('#editHeaderType').val(),
-        icon: $('#editHeaderIcon').val()
-      };
-      $.post('sitemanagement.php', data, function (response) {
-        if (response.success) {
-          var modal = bootstrap.Modal.getInstance(document.getElementById('editHeaderModal'));
-          if (modal) modal.hide();
-          showMessage(response.message, 'success');
-          setTimeout(() => location.reload(), 700);
-        } else {
-          showMessage(response.message, 'error');
-        }
-      }, 'json');
-    });
-
-    // Header Toggle
-    $(document).on('click', '.toggle-header', function () {
-      const headerId = $(this).data('id');
-      $.post('sitemanagement.php', { ajax_action: 'toggle_header', id: headerId }, function (response) {
-        if (response.success) {
-          showMessage(response.message, 'success');
-          setTimeout(() => location.reload(), 700);
-        } else {
-          showMessage(response.message, 'error');
-        }
-      }, 'json');
-    });
-
-    // Header löschen
-    $(document).on('click', '.delete-header', function () {
-      const headerId = $(this).data('id');
-      const name = $(this).data('name');
-      if (confirm(`Möchten Sie die Überschrift "${name}" wirklich löschen?`)) {
-        $.post('sitemanagement.php', { ajax_action: 'delete_header', id: headerId }, function (response) {
-          if (response.success) {
-            showMessage(response.message, 'success');
-            setTimeout(() => location.reload(), 700);
-          } else {
-            showMessage(response.message, 'error');
-          }
-        }, 'json');
+      if (!links.length && h.type !== 'main') return;
+      const titel = document.createElement('h3');
+      const icon = document.createElement('i');
+      icon.className = 'bi ' + (h.icon || 'bi-list');
+      icon.setAttribute('aria-hidden', 'true');
+      titel.append(icon, document.createTextNode(h.name));
+      const ul = document.createElement('ul');
+      if (h.type === 'main' && vorschauRolle !== 'admin') {
+        const fest = eintrag('bi-trophy', 'Meine Quizzes', 'is-fixed');
+        fest.title = 'Fest eingebaut';
+        ul.append(fest);
       }
+      links.forEach(function (s) { ul.append(eintrag(s.icon, s.name)); });
+      vorschauBox.append(titel, ul);
     });
-
-    // "Seite hinzufügen" Button - Kategorie automatisch setzen
-    $(document).on('click', '[data-bs-target="#addSectionModal"]', function () {
-      const sectionType = $(this).data('section-type');
-      if (sectionType) {
-        $('#addSectionType').val(sectionType);
-      }
-    });
-
-    // "Erste Seite hinzufügen" Link - Kategorie automatisch setzen
-    $(document).on('click', '.btn-link[data-bs-target="#addSectionModal"]', function () {
-      const sectionType = $(this).data('section-type');
-      if (sectionType) {
-        $('#addSectionType').val(sectionType);
-      }
-    });
-  }); // Ende bestehender $(function() { ... });
-
-  // === Custom JS für Bereichs-Dropdown und Modal ===
-  $(document).ready(function () {
-    // Bereich beim Öffnen des AddSectionModals setzen
-    $(document).on('click', '[data-bs-target="#addSectionModal"]', function () {
-      var sectionType = $(this).data('section-type');
-      if (sectionType) {
-        $('#addSectionType').val(sectionType);
-      } else {
-        // Fallback: ersten Bereich auswählen
-        $('#addSectionType option:first').prop('selected', true);
-      }
-    });
-
-    // Nach dem Hinzufügen eines Headers Seite reloaden, damit das Bereichs-Dropdown aktuell ist
-    $('#addHeaderModal form').on('submit', function () {
-      setTimeout(function () {
-        location.reload();
-      }, 700);
+    if (!vorschauBox.children.length) {
+      const leer = document.createElement('p');
+      leer.className = 'adm-empty';
+      leer.textContent = 'Diese Rolle sieht keine Links.';
+      vorschauBox.append(leer);
+    }
+  }
+  document.querySelectorAll('.sm-seg button').forEach(function (knopf) {
+    knopf.addEventListener('click', function () {
+      vorschauRolle = knopf.dataset.rolle;
+      document.querySelectorAll('.sm-seg button').forEach(function (k) { k.setAttribute('aria-pressed', k === knopf ? 'true' : 'false'); });
+      vorschau();
     });
   });
+
+  // --- Zähler und leere Bereiche nachführen --------------------------------
+  function aufraeumen() {
+    document.querySelectorAll('.sm-group').forEach(function (gruppe) {
+      const ul = gruppe.querySelector('.sm-links');
+      if (!ul) return;
+      const anzahl = ul.children.length;
+      const leer = gruppe.querySelector('.sm-empty-links');
+      if (leer) leer.hidden = anzahl > 0;
+      const zahl = gruppe.querySelector('[data-anzahl]');
+      if (zahl) {
+        zahl.textContent = anzahl;
+        gruppe.querySelector('[data-anzahl-wort]').textContent = anzahl === 1 ? 'Link' : 'Links';
+      }
+    });
+    document.getElementById('smAnzahlLinks').textContent = daten.sections.length;
+    document.getElementById('smAnzahlInaktiv').textContent = daten.sections.filter(function (s) { return !s.active; }).length;
+  }
+
+  // --- Aktiv/Inaktiv -------------------------------------------------------
+  document.addEventListener('change', async function (ev) {
+    const schalter = ev.target.closest('[data-sm-toggle]');
+    if (!schalter) return;
+    const istHeader = schalter.dataset.smToggle === 'header';
+    const id = Number(schalter.dataset.id);
+    schalter.disabled = true;
+    try {
+      await senden(istHeader ? 'toggle_header' : 'toggle_section', { id: id });
+      const eintragDaten = (istHeader ? daten.headers : daten.sections).find(function (x) { return x.id === id; });
+      if (eintragDaten) eintragDaten.active = schalter.checked ? 1 : 0;
+      const box = schalter.closest(istHeader ? '.sm-group' : '.sm-link');
+      box.classList.toggle('is-inactive', !schalter.checked);
+      const tag = istHeader ? box.querySelector('[data-inaktiv-tag]') : null;
+      if (tag) tag.hidden = schalter.checked;
+      aufraeumen();
+      vorschau();
+      melden(schalter.checked ? 'Aktiviert' : 'Deaktiviert');
+    } catch (err) {
+      schalter.checked = !schalter.checked;
+      melden(err.message, true);
+    }
+    schalter.disabled = false;
+  });
+
+  // --- Icon-Auswahl --------------------------------------------------------
+  function iconFeld(form) {
+    const eingabe = form.querySelector('input[name="icon"]');
+    const anzeige = form.querySelector('.sm-icon-current i');
+    const knoepfe = form.querySelectorAll('.sm-icon-grid button');
+    function zeigen() {
+      const wert = eingabe.value.trim();
+      anzeige.className = 'bi ' + (/^bi-[a-z0-9-]+$/.test(wert) ? wert : eingabe.placeholder);
+      knoepfe.forEach(function (k) { k.setAttribute('aria-pressed', k.dataset.icon === wert ? 'true' : 'false'); });
+    }
+    eingabe.addEventListener('input', zeigen);
+    knoepfe.forEach(function (k) {
+      k.addEventListener('click', function () { eingabe.value = k.dataset.icon; zeigen(); });
+    });
+    return zeigen;
+  }
+
+  // --- Dialog: Link --------------------------------------------------------
+  const linkModalEl = document.getElementById('smLinkModal');
+  const linkModal = bootstrap.Modal.getOrCreateInstance(linkModalEl);
+  const linkForm = document.getElementById('smLinkForm');
+  const linkIconZeigen = iconFeld(linkForm);
+  const userSuche = document.getElementById('smUserSuche');
+  const userZahl = document.getElementById('smUserCount');
+  function userZaehlen() {
+    const n = linkForm.querySelectorAll('input[name="users[]"]:checked').length;
+    userZahl.textContent = n ? '(' + n + ' ausgewählt)' : '';
+  }
+  linkForm.addEventListener('change', function (ev) { if (ev.target.name === 'users[]') userZaehlen(); });
+  userSuche.addEventListener('input', function () {
+    const begriff = userSuche.value.toLowerCase().trim();
+    linkForm.querySelectorAll('.sm-user-list li').forEach(function (li) {
+      li.hidden = begriff !== '' && li.textContent.toLowerCase().indexOf(begriff) === -1;
+    });
+  });
+
+  function linkDialog(werte) {
+    linkForm.reset();
+    linkForm.elements.id.value = werte.id || '';
+    linkForm.elements.name.value = werte.name || '';
+    linkForm.elements.url_path.value = werte.url_path || '';
+    linkForm.elements.icon.value = werte.icon || '';
+    const typAuswahl = linkForm.elements.section_type;
+    if (werte.section_type && !Array.from(typAuswahl.options).some(function (o) { return o.value === werte.section_type; })) {
+      typAuswahl.add(new Option(werte.section_type, werte.section_type));
+    }
+    typAuswahl.value = werte.section_type || typAuswahl.options[0].value;
+    linkForm.elements.is_active.checked = werte.is_active === undefined ? true : Number(werte.is_active) === 1;
+    linkForm.querySelectorAll('input[name="roles[]"]').forEach(function (box) { box.checked = (werte.roles || ROLLEN).indexOf(box.value) !== -1; });
+    const freigaben = (werte.user_ids || []).map(Number);
+    linkForm.querySelectorAll('input[name="users[]"]').forEach(function (box) { box.checked = freigaben.indexOf(Number(box.value)) !== -1; });
+    userSuche.value = '';
+    linkForm.querySelectorAll('.sm-user-list li').forEach(function (li) { li.hidden = false; });
+    userZaehlen();
+    linkIconZeigen();
+    document.querySelector('#smLinkTitel span').textContent = werte.id ? 'Link bearbeiten' : 'Neuer Link';
+    linkModal.show();
+  }
+  linkModalEl.addEventListener('shown.bs.modal', function () { linkForm.elements.name.focus(); });
+
+  linkForm.addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    const name = linkForm.elements.name.value.trim();
+    const url = linkForm.elements.url_path.value.trim();
+    if (!name || !url) { melden('Bitte Name und URL-Pfad angeben.', true); return; }
+    const knopf = linkForm.querySelector('[type="submit"]');
+    knopf.disabled = true;
+    try {
+      const id = linkForm.elements.id.value;
+      const antwort = await senden(id ? 'edit_section_advanced' : 'add_section', {
+        id: id,
+        name: name,
+        url_path: url,
+        icon: linkForm.elements.icon.value.trim(),
+        section_type: linkForm.elements.section_type.value,
+        is_active: linkForm.elements.is_active.checked ? 1 : 0,
+        roles: Array.from(linkForm.querySelectorAll('input[name="roles[]"]:checked')).map(function (b) { return b.value; }).join(','),
+        users: Array.from(linkForm.querySelectorAll('input[name="users[]"]:checked')).map(function (b) { return b.value; })
+      });
+      neuLaden(antwort.message);
+    } catch (err) {
+      melden(err.message, true);
+      knopf.disabled = false;
+    }
+  });
+
+  // --- Dialog: Überschrift -------------------------------------------------
+  const headerModalEl = document.getElementById('smHeaderModal');
+  const headerModal = bootstrap.Modal.getOrCreateInstance(headerModalEl);
+  const headerForm = document.getElementById('smHeaderForm');
+  const headerIconZeigen = iconFeld(headerForm);
+  const kennung = document.getElementById('smHeaderKennung');
+  function kennungAus(name) {
+    return name.toLowerCase().replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+      .replace(/[^a-z0-9]/g, '_').replace(/_+/g, '_').replace(/^_|_$/g, '');
+  }
+  headerForm.elements.name.addEventListener('input', function () {
+    if (!headerForm.elements.id.value) {
+      const k = kennungAus(headerForm.elements.name.value);
+      kennung.textContent = k ? 'Bereichskennung (automatisch): ' + k : '';
+    }
+  });
+  function headerDialog(werte) {
+    headerForm.reset();
+    headerForm.elements.id.value = werte.id || '';
+    headerForm.elements.name.value = werte.name || '';
+    headerForm.elements.icon.value = werte.icon || '';
+    document.getElementById('smHeaderTypFeld').hidden = !werte.id;
+    if (werte.id) headerForm.elements.section_type.value = werte.type;
+    kennung.textContent = '';
+    headerIconZeigen();
+    document.querySelector('#smHeaderTitel span').textContent = werte.id ? 'Überschrift bearbeiten' : 'Neue Überschrift';
+    headerModal.show();
+  }
+  headerModalEl.addEventListener('shown.bs.modal', function () { headerForm.elements.name.focus(); });
+  headerForm.addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    const name = headerForm.elements.name.value.trim();
+    if (!name) { melden('Bitte einen Namen angeben.', true); return; }
+    const knopf = headerForm.querySelector('[type="submit"]');
+    knopf.disabled = true;
+    try {
+      const id = headerForm.elements.id.value;
+      const antwort = id
+        ? await senden('update_header', { id: id, name: name, icon: headerForm.elements.icon.value.trim(), section_type: headerForm.elements.section_type.value })
+        : await senden('add_header', { name: name, icon: headerForm.elements.icon.value.trim() });
+      neuLaden(antwort.message);
+    } catch (err) {
+      melden(err.message, true);
+      knopf.disabled = false;
+    }
+  });
+
+  // --- Knöpfe: neu, bearbeiten, löschen -----------------------------------
+  document.addEventListener('click', async function (ev) {
+    const neu = ev.target.closest('[data-sm-neu]');
+    if (neu) {
+      if (neu.dataset.smNeu === 'header') headerDialog({});
+      else linkDialog({ section_type: neu.dataset.type || '' });
+      return;
+    }
+    const bearbeiten = ev.target.closest('[data-sm-edit]');
+    if (bearbeiten) {
+      const id = Number(bearbeiten.dataset.id);
+      if (bearbeiten.dataset.smEdit === 'header') {
+        const h = daten.headers.find(function (x) { return x.id === id; });
+        if (h) headerDialog(h);
+        return;
+      }
+      bearbeiten.disabled = true;
+      try {
+        const antwort = await senden('get_section_details', { id: id });
+        linkDialog(Object.assign({ id: id }, antwort.data));
+      } catch (err) {
+        melden(err.message, true);
+      }
+      bearbeiten.disabled = false;
+      return;
+    }
+    const loeschen = ev.target.closest('[data-sm-del]');
+    if (loeschen) {
+      const istHeader = loeschen.dataset.smDel === 'header';
+      const id = Number(loeschen.dataset.id);
+      const name = loeschen.dataset.name;
+      const frage = istHeader
+        ? 'Überschrift „' + name + '“ löschen?\n\nDie Links darunter bleiben erhalten.'
+        : 'Link „' + name + '“ wirklich löschen?';
+      if (!window.confirm(frage)) return;
+      try {
+        await senden(istHeader ? 'delete_header' : 'delete_section', { id: id });
+        if (istHeader) { neuLaden('Überschrift gelöscht'); return; }
+        daten.sections = daten.sections.filter(function (s) { return s.id !== id; });
+        loeschen.closest('.sm-link').remove();
+        aufraeumen();
+        vorschau();
+        melden('Link gelöscht');
+      } catch (err) {
+        melden(err.message, true);
+      }
+    }
+  });
+
+  // --- Filter ---------------------------------------------------------------
+  const suche = document.getElementById('smSuche');
+  suche.addEventListener('input', function () {
+    const begriff = suche.value.toLowerCase().trim();
+    let treffer = 0;
+    document.querySelectorAll('.sm-group').forEach(function (gruppe) {
+      const gruppeTrifft = begriff !== '' && gruppe.dataset.name.indexOf(begriff) !== -1;
+      let sichtbar = 0;
+      gruppe.querySelectorAll('.sm-link').forEach(function (li) {
+        li.hidden = begriff !== '' && !gruppeTrifft && li.dataset.suche.indexOf(begriff) === -1;
+        if (!li.hidden) sichtbar++;
+      });
+      gruppe.hidden = begriff !== '' && !gruppeTrifft && sichtbar === 0;
+      if (!gruppe.hidden) treffer++;
+    });
+    document.getElementById('smKeinTreffer').hidden = treffer > 0;
+  });
+
+  // --- Sortieren per Ziehen -----------------------------------------------
+  if (window.Sortable) {
+    const gruppen = document.getElementById('smGruppen');
+    Sortable.create(gruppen, {
+      handle: '.sm-handle-group',
+      draggable: '.sm-group',
+      animation: 160,
+      onEnd: async function () {
+        const items = Array.from(gruppen.querySelectorAll(':scope > .sm-group')).map(function (g, i) {
+          return { id: Number(g.dataset.headerId), type: 'header', sort_order: i + 1 };
+        });
+        try {
+          await senden('sort_items', { items: JSON.stringify(items) });
+          items.forEach(function (it) {
+            const h = daten.headers.find(function (x) { return x.id === it.id; });
+            if (h) h.sort = it.sort_order;
+          });
+          vorschau();
+          melden('Reihenfolge gespeichert');
+        } catch (err) {
+          melden(err.message + ' Die Seite wird neu geladen.', true);
+          setTimeout(function () { location.reload(); }, 1800);
+        }
+      }
+    });
+    document.querySelectorAll('.sm-links').forEach(function (liste) {
+      Sortable.create(liste, {
+        group: 'links',
+        handle: '.sm-handle',
+        animation: 160,
+        onEnd: async function (ev) {
+          if (ev.from === ev.to && ev.oldIndex === ev.newIndex) return;
+          const id = Number(ev.item.dataset.sectionId);
+          const verschoben = ev.from !== ev.to;
+          try {
+            if (verschoben) {
+              await senden('move_section', { id: id, section_type: ev.to.dataset.type });
+              const s = daten.sections.find(function (x) { return x.id === id; });
+              if (s) s.type = ev.to.dataset.type;
+            }
+            const items = [];
+            (verschoben ? [ev.from, ev.to] : [ev.to]).forEach(function (l) {
+              Array.from(l.children).forEach(function (li, i) { items.push({ id: Number(li.dataset.sectionId), type: 'section', sort_order: i + 1 }); });
+            });
+            await senden('sort_items', { items: JSON.stringify(items) });
+            items.forEach(function (it) {
+              const s = daten.sections.find(function (x) { return x.id === it.id; });
+              if (s) s.sort = it.sort_order;
+            });
+            aufraeumen();
+            vorschau();
+            melden(verschoben ? 'Link verschoben' : 'Reihenfolge gespeichert');
+          } catch (err) {
+            melden(err.message + ' Die Seite wird neu geladen.', true);
+            setTimeout(function () { location.reload(); }, 1800);
+          }
+        }
+      });
+    });
+  }
+
+  vorschau();
+});
 </script>
-<!-- Bearbeiten-Modal für Section (Seite) -->
-<div class="modal fade" id="editSectionModal" tabindex="-1" aria-labelledby="editSectionModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <form id="editSectionForm">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editSectionModalLabel"><i class="bi bi-pencil-square me-2"></i>Seite bearbeiten
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"
-            title="Schließen"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" name="section_id" id="editSectionId">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="editSectionName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="editSectionName" name="name" required autocomplete="off">
-            </div>
-            <div class="col-md-6">
-              <label for="editSectionUrl" class="form-label">URL-Pfad</label>
-              <input type="text" class="form-control" id="editSectionUrl" name="url_path" required autocomplete="off">
-            </div>
-            <div class="col-md-6">
-              <label for="editSectionIcon" class="form-label">Icon</label>
-              <select class="form-select" id="editSectionIcon" name="icon" autocomplete="off">
-                <option value="bi-link">bi-link</option>
-                <option value="bi-house">bi-house</option>
-                <option value="bi-person">bi-person</option>
-                <option value="bi-gear">bi-gear</option>
-                <option value="bi-code-slash">bi-code-slash</option>
-                <option value="bi-question-circle">bi-question-circle</option>
-                <option value="bi-shield">bi-shield</option>
-                <option value="bi-envelope">bi-envelope</option>
-                <option value="bi-list">bi-list</option>
-                <option value="bi-book">bi-book</option>
-                <option value="bi-calendar">bi-calendar</option>
-                <option value="bi-chat">bi-chat</option>
-                <option value="bi-cloud">bi-cloud</option>
-                <option value="bi-cpu">bi-cpu</option>
-                <option value="bi-display">bi-display</option>
-                <option value="bi-file-earmark">bi-file-earmark</option>
-                <option value="bi-flag">bi-flag</option>
-                <option value="bi-heart">bi-heart</option>
-                <option value="bi-lightning">bi-lightning</option>
-                <option value="bi-lock">bi-lock</option>
-                <option value="bi-music-note">bi-music-note</option>
-                <option value="bi-palette">bi-palette</option>
-                <option value="bi-people">bi-people</option>
-                <option value="bi-phone">bi-phone</option>
-                <option value="bi-star">bi-star</option>
-                <option value="bi-tools">bi-tools</option>
-                <option value="bi-trophy">bi-trophy</option>
-                <option value="bi-unlock">bi-unlock</option>
-                <option value="bi-wrench">bi-wrench</option>
-              </select>
-            </div>
-            <div class="col-md-6 d-flex align-items-center">
-              <div class="form-check form-switch mt-4">
-                <input class="form-check-input" type="checkbox" id="editSectionActive" name="is_active">
-                <label class="form-check-label" for="editSectionActive">Seite aktiv</label>
-              </div>
-            </div>
-            <div class="col-12">
-              <label class="form-label">Zugriffsrechte (Rollen)</label>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="roleAdmin" name="roles[]" value="admin">
-                <label class="form-check-label" for="roleAdmin">Admin</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="roleModerator" name="roles[]" value="moderator">
-                <label class="form-check-label" for="roleModerator">Moderator</label>
-              </div>
-              <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="roleStudent" name="roles[]" value="student">
-                <label class="form-check-label" for="roleStudent">Student</label>
-              </div>
-            </div>
-            <div class="col-12">
-              <label for="editSectionUsers" class="form-label">Individuelle Nutzer (Zugriff erlauben/verbieten)</label>
-              <select class="form-select" id="editSectionUsers" name="users[]" multiple autocomplete="off">
-                <?php
-                // User-Liste für Multi-Select
-                $user_stmt = $pdo->query("SELECT id, username, role FROM users WHERE is_active = 1 ORDER BY username");
-                while ($user = $user_stmt->fetch()) {
-                  echo '<option value="' . (int) $user['id'] . '">' . htmlspecialchars($user['username']) . ' (' . htmlspecialchars($user['role']) . ')</option>';
-                }
-                ?>
-              </select>
-              <div class="form-text">Halte Strg (Windows) oder Cmd (Mac), um mehrere Nutzer auszuwählen.</div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-          <button type="submit" class="btn btn-primary"><i class="bi bi-save me-1"></i>Speichern</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-<!-- Ende Bearbeiten-Modal für Section -->
-
-<!-- Modal für neuen Link hinzufügen -->
-<div class="modal fade" id="addSectionModal" tabindex="-1" aria-labelledby="addSectionModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form method="post" action="?action=add&type=section">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addSectionModalLabel">
-            <i class="bi bi-plus-circle me-2"></i>Neuen Link hinzufügen
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="addSectionName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="addSectionName" name="name" required>
-            </div>
-            <div class="col-md-6">
-              <label for="addSectionUrl" class="form-label">URL-Pfad</label>
-              <input type="text" class="form-control" id="addSectionUrl" name="url_path" required>
-            </div>
-            <div class="col-md-6">
-              <label for="addSectionType" class="form-label">Bereich</label>
-              <select class="form-select" id="addSectionType" name="section_type" required>
-                <?php
-                // Bereich-Dropdown dynamisch aus allen Headers:
-                $header_options = $pdo->query("SELECT section_type, name FROM site_section_headers ORDER BY sort_order, name")->fetchAll();
-                $first = true;
-                foreach ($header_options as $header) {
-                  $selected = $first ? ' selected="selected"' : '';
-                  echo '<option value="' . htmlspecialchars($header['section_type']) . '"' . $selected . '>' . htmlspecialchars($header['name']) . '</option>';
-                  $first = false;
-                }
-                ?>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="addSectionIcon" class="form-label">Icon</label>
-              <select class="form-select" id="addSectionIcon" name="icon">
-                <option value="bi-link">bi-link</option>
-                <option value="bi-house">bi-house</option>
-                <option value="bi-person">bi-person</option>
-                <option value="bi-gear">bi-gear</option>
-                <option value="bi-code-slash">bi-code-slash</option>
-                <option value="bi-question-circle">bi-question-circle</option>
-                <option value="bi-shield">bi-shield</option>
-                <option value="bi-envelope">bi-envelope</option>
-                <option value="bi-list">bi-list</option>
-                <option value="bi-book">bi-book</option>
-                <option value="bi-calendar">bi-calendar</option>
-                <option value="bi-chat">bi-chat</option>
-                <option value="bi-cloud">bi-cloud</option>
-                <option value="bi-cpu">bi-cpu</option>
-                <option value="bi-display">bi-display</option>
-                <option value="bi-file-earmark">bi-file-earmark</option>
-                <option value="bi-flag">bi-flag</option>
-                <option value="bi-heart">bi-heart</option>
-                <option value="bi-lightning">bi-lightning</option>
-                <option value="bi-lock">bi-lock</option>
-                <option value="bi-music-note">bi-music-note</option>
-                <option value="bi-palette">bi-palette</option>
-                <option value="bi-people">bi-people</option>
-                <option value="bi-phone">bi-phone</option>
-                <option value="bi-star">bi-star</option>
-                <option value="bi-tools">bi-tools</option>
-                <option value="bi-trophy">bi-trophy</option>
-                <option value="bi-unlock">bi-unlock</option>
-                <option value="bi-wrench">bi-wrench</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-          <button type="submit" class="btn btn-success">
-            <i class="bi bi-plus-circle me-1"></i>Hinzufügen
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- Modal für neue Überschrift hinzufügen -->
-<div class="modal fade" id="addHeaderModal" tabindex="-1" aria-labelledby="addHeaderModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form method="post" action="?action=add&type=header">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addHeaderModalLabel">
-            <i class="bi bi-type-h1 me-2"></i>Neue Überschrift hinzufügen
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="addHeaderName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="addHeaderName" name="name" required>
-            </div>
-            <!-- Bereichs-Dropdown entfernt -->
-            <div class="col-md-6">
-              <label for="addHeaderIcon" class="form-label">Icon</label>
-              <select class="form-select" id="addHeaderIcon" name="icon">
-                <option value="bi-list">bi-list</option>
-                <option value="bi-shield">bi-shield</option>
-                <option value="bi-question-circle">bi-question-circle</option>
-                <option value="bi-code-slash">bi-code-slash</option>
-                <option value="bi-gear">bi-gear</option>
-                <option value="bi-house">bi-house</option>
-                <option value="bi-book">bi-book</option>
-                <option value="bi-calendar">bi-calendar</option>
-                <option value="bi-chat">bi-chat</option>
-                <option value="bi-cloud">bi-cloud</option>
-                <option value="bi-cpu">bi-cpu</option>
-                <option value="bi-display">bi-display</option>
-                <option value="bi-file-earmark">bi-file-earmark</option>
-                <option value="bi-flag">bi-flag</option>
-                <option value="bi-heart">bi-heart</option>
-                <option value="bi-lightning">bi-lightning</option>
-                <option value="bi-lock">bi-lock</option>
-                <option value="bi-music-note">bi-music-note</option>
-                <option value="bi-palette">bi-palette</option>
-                <option value="bi-people">bi-people</option>
-                <option value="bi-phone">bi-phone</option>
-                <option value="bi-star">bi-star</option>
-                <option value="bi-tools">bi-tools</option>
-                <option value="bi-trophy">bi-trophy</option>
-                <option value="bi-unlock">bi-unlock</option>
-                <option value="bi-wrench">bi-wrench</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-          <button type="submit" class="btn btn-info">
-            <i class="bi bi-type-h1 me-1"></i>Hinzufügen
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<!-- Modal für Header bearbeiten -->
-<div class="modal fade" id="editHeaderModal" tabindex="-1" aria-labelledby="editHeaderModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="editHeaderForm">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editHeaderModalLabel">
-            <i class="bi bi-pencil-square me-2"></i>Überschrift bearbeiten
-          </h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Schließen"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="editHeaderId">
-          <div class="row g-3">
-            <div class="col-md-6">
-              <label for="editHeaderName" class="form-label">Name</label>
-              <input type="text" class="form-control" id="editHeaderName" required>
-            </div>
-            <div class="col-md-6">
-              <label for="editHeaderType" class="form-label">Bereich</label>
-              <select class="form-select" id="editHeaderType" required>
-                <option value="main">Hauptnavigation</option>
-                <option value="admin">Administration</option>
-                <option value="help">Hilfe</option>
-                <option value="programming">Programmiersprachen</option>
-              </select>
-            </div>
-            <div class="col-md-6">
-              <label for="editHeaderIcon" class="form-label">Icon</label>
-              <select class="form-select" id="editHeaderIcon">
-                <option value="bi-list">bi-list</option>
-                <option value="bi-shield">bi-shield</option>
-                <option value="bi-question-circle">bi-question-circle</option>
-                <option value="bi-code-slash">bi-code-slash</option>
-                <option value="bi-gear">bi-gear</option>
-                <option value="bi-house">bi-house</option>
-                <option value="bi-book">bi-book</option>
-                <option value="bi-calendar">bi-calendar</option>
-                <option value="bi-chat">bi-chat</option>
-                <option value="bi-cloud">bi-cloud</option>
-                <option value="bi-cpu">bi-cpu</option>
-                <option value="bi-display">bi-display</option>
-                <option value="bi-file-earmark">bi-file-earmark</option>
-                <option value="bi-flag">bi-flag</option>
-                <option value="bi-heart">bi-heart</option>
-                <option value="bi-lightning">bi-lightning</option>
-                <option value="bi-lock">bi-lock</option>
-                <option value="bi-music-note">bi-music-note</option>
-                <option value="bi-palette">bi-palette</option>
-                <option value="bi-people">bi-people</option>
-                <option value="bi-phone">bi-phone</option>
-                <option value="bi-star">bi-star</option>
-                <option value="bi-tools">bi-tools</option>
-                <option value="bi-trophy">bi-trophy</option>
-                <option value="bi-unlock">bi-unlock</option>
-                <option value="bi-wrench">bi-wrench</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Abbrechen</button>
-          <button type="submit" class="btn btn-primary">
-            <i class="bi bi-save me-1"></i>Speichern
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
+<?php include '../includes/footer.php'; ?>

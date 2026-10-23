@@ -1621,28 +1621,22 @@ function check_section_access($url_path, $redirect = true) {
         }
         return false;
     }
+    // Individuelle Rechte haben Vorrang vor der Rolle – wie in der Seitenleiste (sidebar.php).
+    // Früher kam die Rollenprüfung zuerst: Eine Einzelfreigabe zeigte den Link, die Seite leitete aber um.
+    $access_stmt = $pdo->prepare("SELECT access FROM section_user_access WHERE section_id = ? AND user_id = ?");
+    $access_stmt->execute([$section['id'], $user_id]);
+    $individual_access = $access_stmt->fetchColumn();
+    if ($individual_access === 'allow') return true;
     $user_stmt = $pdo->prepare("SELECT role FROM users WHERE id = ?");
     $user_stmt->execute([$user_id]);
     $user_role = $user_stmt->fetchColumn();
     $allowed_roles = array_map('trim', explode(',', $section['roles']));
-    if (!in_array($user_role, $allowed_roles)) {
+    if ($individual_access === 'deny' || !in_array($user_role, $allowed_roles)) {
         if ($redirect) {
             header('Location: /'); exit;
         }
         return false;
     }
-    // Individuelle Rechte prüfen
-    $deny_stmt = $pdo->prepare("SELECT 1 FROM section_user_access WHERE section_id = ? AND user_id = ? AND access = 'deny'");
-    $deny_stmt->execute([$section['id'], $user_id]);
-    if ($deny_stmt->fetch()) {
-        if ($redirect) {
-            header('Location: /'); exit;
-        }
-        return false;
-    }
-    $allow_stmt = $pdo->prepare("SELECT 1 FROM section_user_access WHERE section_id = ? AND user_id = ? AND access = 'allow'");
-    $allow_stmt->execute([$section['id'], $user_id]);
-    if ($allow_stmt->fetch()) return true;
     // Standard: Zugriff, wenn Rolle passt
     return true;
 }

@@ -729,6 +729,59 @@ img { max-width: 100%; }
 .dropdown-item .bi { width: 1.25rem; color: var(--ink-500); }
 .dropdown-item:active .bi, .dropdown-item.active .bi { color: inherit; }
 
+/* Administration oben rechts (Admins und Moderatoren) */
+.admin-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: .45rem;
+    height: 42px;
+    padding: 0 .9rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    color: var(--ink-700);
+    font-weight: 650;
+    font-size: .9rem;
+    white-space: nowrap;
+    transition: border-color .15s ease, box-shadow .2s ease, color .15s ease;
+}
+.admin-link .bi { font-size: 1.05rem; color: var(--brand-600); transition: transform .5s var(--ease); }
+.admin-link:hover, .admin-link:focus-visible { border-color: var(--brand-200); box-shadow: 0 0 0 3px var(--brand-50); color: var(--ink-900); }
+.admin-link:hover .bi { transform: rotate(60deg); }
+.admin-link.active { border-color: transparent; background: var(--brand-gradient); color: #fff; box-shadow: var(--shadow-brand); }
+.admin-link.active .bi { color: #fff; }
+.admin-link-badge {
+    display: inline-grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: 999px;
+    background: var(--bad);
+    color: #fff;
+    font-size: .7rem;
+    font-weight: 750;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+.admin-link.active .admin-link-badge { background: #fff; color: var(--bad); }
+
+/* Brotkrumen auf den Admin-Seiten */
+.admin-bar {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+    padding: .55rem 1.25rem;
+    font-size: .875rem;
+}
+.admin-bar ol { display: flex; flex-wrap: wrap; align-items: center; gap: .15rem .5rem; margin: 0 auto; padding: 0; list-style: none; max-width: 1480px; }
+.admin-bar li { display: inline-flex; align-items: center; gap: .5rem; color: var(--ink-500); min-width: 0; }
+.admin-bar li + li::before { content: "/"; color: var(--ink-400); }
+.admin-bar li[aria-current] { color: var(--ink-900); font-weight: 650; }
+.admin-bar a { display: inline-flex; align-items: center; gap: .4rem; font-weight: 650; color: var(--brand-700); }
+.admin-bar a .bi { transition: transform .3s var(--ease); }
+.admin-bar a:hover .bi { transform: translateX(-3px); }
+
 /* Benachrichtigungen unter der Kopfzeile */
 .flash-stack { padding: 1rem 1.25rem 0; }
 .flash-stack .alert { margin: 0 auto .75rem; max-width: 1200px; box-shadow: var(--shadow-2); }
@@ -1236,6 +1289,9 @@ details > summary + * { margin-top: 1rem; }
 /* Schmale Bildschirme ------------------------------------------------------ */
 @media (max-width: 1199.98px) {
     :root { --sidebar-w: 244px; }
+    .admin-link { width: 42px; padding: 0; justify-content: center; }
+    .admin-link-text { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .admin-link-badge { position: absolute; top: -5px; right: -6px; box-shadow: 0 0 0 2px var(--surface); }
 }
 @media (max-width: 991.98px) {
     .site-nav .navbar-collapse {
@@ -1253,6 +1309,8 @@ details > summary + * { margin-top: 1rem; }
     :root { --header-h: 58px; }
     .site-nav { padding: 0 .9rem; }
     .site-nav .navbar-collapse { margin: 0 -.9rem; padding-left: .9rem; padding-right: .9rem; }
+    .admin-bar { padding: .5rem .9rem; }
+    .admin-link { width: 40px; height: 40px; }
     .brand-mark, .brand-mark svg { width: 32px; height: 32px; }
     .site-brand { font-size: .98rem; margin-right: .25rem; }
     .brand-name { max-width: 46vw; }

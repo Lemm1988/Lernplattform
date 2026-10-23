@@ -372,18 +372,21 @@
 ## 🛠️ Admin-Bereich
 
 ### `admin/dashboard.php`
-**Zweck:** Admin-Dashboard  
-**Zugriff:** Admin/Moderator  
+**Zweck:** Startpunkt der Verwaltung – erreichbar über „Administration“ oben rechts in der Kopfzeile  
+**Zugriff:** Admin; Moderatoren sehen nur ihre Bereiche (Fragen verwalten) ohne Statistiken  
 **Funktionen:**
-- Übersicht über System-Status
-- Statistiken
-- Letzte Aktivitäten
-- System-Logs
+- „Zu erledigen“: unbeantwortete Nachrichten, Fragen zur Prüfung, neue Registrierungen
+- Alle Verwaltungsseiten als Karten, gruppiert und durchsuchbar (Taste `/`); Verzeichnis in `includes/admin_bereiche.php`.
+  Links, die in der Seitenverwaltung im Bereich `admin` stehen, dort aber fehlen, erscheinen als „Weitere Links“.
+- Kennzahlen zu Benutzern, Rollen, Fragen und Quizzen; Säulendiagramm der Quiz-Abschlüsse (14 Tage, ohne Chart.js)
+- Letzte Aktionen, Admin-/Moderator-Logins, Cronjob-Protokoll, IT-Coins (Top 5, letzte Belohnungen)
 
 **Verwendete Tabellen:**
 - `users` - Benutzer-Statistiken
 - `quiz_sessions` - Quiz-Statistiken
-- `log_entries` - System-Logs
+- `user_activity_logs`, `log_entries` - Protokolle
+- `contact_messages`, `questions` - offene Aufgaben
+- `site_sections` - zusätzliche Admin-Links
 
 ---
 
@@ -545,16 +548,19 @@
 ---
 
 ### `admin/sitemanagement.php`
-**Zweck:** Seitenverwaltung  
+**Zweck:** Seitenverwaltung – Überschriften und Links der Seitenleiste  
 **Zugriff:** Admin  
 **Funktionen:**
-- Navigation verwalten
-- Seiten aktivieren/deaktivieren
-- Sortierreihenfolge ändern
+- Überschriften und Links anlegen, bearbeiten, löschen, aktivieren/deaktivieren (Schalter speichern sofort)
+- Reihenfolge per Ziehen am Griff, Links auch in einen anderen Bereich
+- Sichtbarkeit nach Rolle (Lernende, Moderator, Admin) und Einzelfreigaben für bestimmte Benutzer
+- Live-Vorschau der Seitenleiste je Rolle; Filter; Hinweise auf doppelte Überschriften und Links ohne Überschrift
+- Der Bereich `admin` erscheint nicht in der Seitenleiste, sondern als Karten im Admin-Dashboard
 
 **Verwendete Tabellen:**
-- `site_sections` - Seiten
-- `site_section_headers` - Header
+- `site_sections` - Links
+- `site_section_headers` - Überschriften
+- `section_user_access` - Einzelfreigaben
 
 ---
 

@@ -1,14 +1,20 @@
 <?php
 /**
- * Admin Dashboard
+ * Admin-Dashboard – Startpunkt der Verwaltung.
+ * Erreichbar über "Administration" oben rechts. Alle Verwaltungsseiten hängen als Karten daran
+ * (includes/admin_bereiche.php). Moderatoren sehen nur ihre Bereiche, keine Statistiken.
  */
 
 require_once '../config.php';
-require_admin();
+require_admin_or_moderator();
+$ist_admin = is_admin();
 
-// IP-Zugriff prüfen (flexibel)
-check_admin_access();
+if ($ist_admin) {
+    // IP-Zugriff prüfen (flexibel)
+    check_admin_access();
+}
 require_once '../includes/functions.php';
+require_once '../includes/admin_bereiche.php';
 
 // Statistik-Tabellen erstellen falls nötig (muss vor den Statistik-Funktionen sein)
 require_once '../includes/statistics_logger.php';
@@ -16,820 +22,609 @@ if (function_exists('create_statistics_tables')) {
     create_statistics_tables();
 }
 
-$page_title = 'Admin Dashboard';
+$page_title = $ist_admin ? 'Admin-Dashboard' : 'Moderation';
+$extra_css = ['/assets/css/admin.css'];
+$esc = function ($text) {
+    return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
+};
 
-// Statistiken laden
-$total_users = get_user_count();
-$active_users = get_active_user_count();
-$roles = get_user_roles_distribution();
-$open_msgs = get_open_messages_count();
-$question_status = get_question_status_counts();
-$quiz_stats = get_quiz_stats();
-$quiz_trend = get_quiz_completion_trend(14);
-$last_mod_activities = get_last_moderator_activities(5);
-$last_log_entries = get_last_log_entries(5);
-$new_registrations = get_new_registrations_last_7_days();
-$mod_logs = get_last_moderator_actions();
-$cron_logs = get_last_cron_logs();
+$bereiche = admin_bereiche_fuer_rolle($ist_admin ? 'admin' : 'moderator');
+$offen = admin_offene_aufgaben($ist_admin);
+$seiten_anzahl = array_sum(array_map(function ($b) { return count($b['seiten']); }, $bereiche));
 
-// Belohnungssystem-Statistiken laden
-$reward_stats = get_reward_statistics();
+$wochentage = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
+$monate = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+$heute_text = $wochentage[(int)date('w')] . ', ' . (int)date('j') . '. ' . $monate[(int)date('n') - 1] . ' ' . date('Y');
 
-// Letzte 5 Frage-Aktionen laden
-$log_stmt = $pdo->prepare("SELECT l.*, u.username FROM log_entries l LEFT JOIN users u ON l.user_id = u.id WHERE l.action IN ('question_deleted', 'question_edited') ORDER BY l.created_at DESC LIMIT 5");
-$log_stmt->execute();
-$question_logs = $log_stmt->fetchAll();
+if ($ist_admin) {
+    $total_users = (int)get_user_count();
+    $active_users = (int)get_active_user_count();
+    $online_users = (int)get_online_users_count();
+    $new_registrations = (int)get_new_registrations_last_7_days();
+    $roles = get_user_roles_distribution();
+    $question_status = get_question_status_counts();
+    $quiz_stats = get_quiz_stats();
+    $mod_logs = get_last_moderator_actions();
+    $cron_logs = get_last_cron_logs();
+    $reward_stats = get_reward_statistics();
 
-// Letzte 5 allgemeine Aktionen laden
-$log_stmt = $pdo->prepare("SELECT l.*, u.username FROM log_entries l LEFT JOIN users u ON l.user_id = u.id WHERE l.action NOT IN ('login', 'cronjob') ORDER BY l.created_at DESC LIMIT 5");
-$log_stmt->execute();
-$recent_logs = $log_stmt->fetchAll();
+    // Quiz-Abschlüsse der letzten 14 Tage – Tage ohne Abschluss mit 0 auffüllen
+    $trend_werte = [];
+    foreach (get_quiz_completion_trend(14) as $zeile) {
+        $trend_werte[$zeile['completion_date']] = (int)$zeile['completions'];
+    }
+    $kurztage = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+    $trend = [];
+    for ($i = 13; $i >= 0; $i--) {
+        $zeit = strtotime("-$i day");
+        $tag = date('Y-m-d', $zeit);
+        $trend[] = [
+            'anzahl' => $trend_werte[$tag] ?? 0,
+            'kurz' => date('j.n.', $zeit),
+            'lang' => $kurztage[(int)date('w', $zeit)] . ', ' . date('d.m.', $zeit),
+            'heute' => $i === 0,
+        ];
+    }
+    $trend_summe = array_sum(array_column($trend, 'anzahl'));
+    $trend_max = max(array_column($trend, 'anzahl'));
+    // Saubere Achsenschritte (1, 2, 5, 10, 20 …)
+    $schritt = max(1, (int)ceil($trend_max / 4));
+    $groesse = 10 ** (int)floor(log10($schritt));
+    foreach ([1, 2, 5, 10] as $faktor) {
+        if ($faktor * $groesse >= $schritt) {
+            $schritt = $faktor * $groesse;
+            break;
+        }
+    }
+    $skala_max = max($schritt, $schritt * (int)ceil($trend_max / $schritt));
+    $max_index = $trend_max > 0 ? array_search($trend_max, array_column($trend, 'anzahl'), true) : -1;
+
+    // Rollenverteilung – feste Farbe je Rolle (nicht nach Rang)
+    $rollen_info = [
+        'student' => ['name' => 'Lernende', 'farbe' => '#4f46e5'],
+        'moderator' => ['name' => 'Moderatoren', 'farbe' => '#eb6834'],
+        'admin' => ['name' => 'Admins', 'farbe' => '#1baf7a'],
+    ];
+    $rollen = [];
+    foreach ($rollen_info as $schluessel => $info) {
+        $rollen[$schluessel] = $info + ['anzahl' => 0];
+    }
+    foreach ($roles as $zeile) {
+        $schluessel = isset($rollen_info[$zeile['role']]) ? $zeile['role'] : 'sonstige';
+        if (!isset($rollen[$schluessel])) {
+            $rollen[$schluessel] = ['name' => 'Sonstige', 'farbe' => '#94a3b8', 'anzahl' => 0];
+        }
+        $rollen[$schluessel]['anzahl'] += (int)$zeile['count'];
+    }
+    $rollen_summe = max(1, array_sum(array_column($rollen, 'anzahl')));
+
+    $fragen_offen = (int)($question_status['offen'] ?? 0);
+    $fragen_geprueft = (int)($question_status['geprueft'] ?? 0);
+    $fragen_abgelehnt = (int)($question_status['abgelehnt'] ?? 0);
+    $quiz_gesamt = (int)($quiz_stats['total'] ?? 0);
+    $quiz_bestanden = (int)($quiz_stats['passed'] ?? 0);
+    $quiz_quote = (float)($quiz_stats['avg_percentage'] ?? 0);
+    $bestanden_quote = $quiz_gesamt > 0 ? round($quiz_bestanden / $quiz_gesamt * 100) : 0;
+    $aktiv_quote = $total_users > 0 ? round($active_users / $total_users * 100) : 0;
+
+    // Letzte Aktionen
+    $activity_labels = [
+        'login' => 'Anmeldung',
+        'logout' => 'Abmeldung',
+        'quiz_start' => 'Quiz gestartet',
+        'quiz_completed' => 'Quiz abgeschlossen',
+        'quiz_abandoned' => 'Quiz abgebrochen',
+        'page_access' => 'Seitenzugriff',
+        'request_post' => 'Formulareingabe',
+        'request_put' => 'Update-Anfrage',
+        'request_delete' => 'Lösch-Anfrage',
+        'request_patch' => 'Änderungs-Anfrage',
+        'profile_updated' => 'Profil aktualisiert',
+        'password_changed' => 'Passwort geändert',
+        'settings_updated' => 'Einstellungen aktualisiert'
+    ];
+    $recent_activities = null;
+    $recent_logs = [];
+    try {
+        $stmt = $pdo->prepare("
+            SELECT ual.*, u.username, u.role
+            FROM user_activity_logs ual
+            LEFT JOIN users u ON ual.user_id = u.id
+            ORDER BY ual.created_at DESC
+            LIMIT 10
+        ");
+        $stmt->execute();
+        $recent_activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        // Fallback auf alte Logs
+        $stmt = $pdo->prepare("SELECT l.*, u.username FROM log_entries l LEFT JOIN users u ON l.user_id = u.id WHERE l.action NOT IN ('login', 'cronjob') ORDER BY l.created_at DESC LIMIT 5");
+        $stmt->execute();
+        $recent_logs = $stmt->fetchAll();
+    }
+}
+
+$aufgaben = [];
+if ($ist_admin) {
+    $aufgaben[] = ['url' => '/admin/messages.php', 'icon' => 'bi-envelope', 'anzahl' => $offen['nachrichten'],
+        'offen' => 'unbeantwortete Nachricht|unbeantwortete Nachrichten', 'erledigt' => 'Alle Nachrichten beantwortet'];
+}
+$aufgaben[] = ['url' => '/admin/question_management.php?status=0', 'icon' => 'bi-patch-question', 'anzahl' => $offen['fragen'],
+    'offen' => 'Frage wartet auf Prüfung|Fragen warten auf Prüfung', 'erledigt' => 'Alle Fragen geprüft'];
+if ($ist_admin) {
+    $aufgaben[] = ['url' => '/admin/user_management.php', 'icon' => 'bi-person-plus', 'anzahl' => $new_registrations, 'info' => true,
+        'offen' => 'neue Registrierung (7 Tage)|neue Registrierungen (7 Tage)', 'erledigt' => 'Keine neuen Registrierungen (7 Tage)'];
+}
+$offen_summe = $offen['nachrichten'] + $offen['fragen'];
 
 include '../includes/header.php';
 ?>
-
-<style>
-.stat-card-primary {
-    border-left: 4px solid #0d6efd;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.stat-card-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(13, 110, 253, 0.15);
-}
-
-.stat-card-success {
-    border-left: 4px solid #198754;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.stat-card-success:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(25, 135, 84, 0.15);
-}
-
-.stat-card-info {
-    border-left: 4px solid #0dcaf0;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.stat-card-info:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(13, 202, 240, 0.15);
-}
-
-.stat-card-warning {
-    border-left: 4px solid #ffc107;
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.stat-card-warning:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 193, 7, 0.15);
-}
-
-.hover-shadow {
-    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-}
-
-.hover-shadow:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-.dashboard-header {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: 0.5rem;
-    padding: 2rem;
-    margin-bottom: 2rem;
-}
-
-.dashboard-header h2 {
-    margin: 0;
-    font-weight: 600;
-}
-
-.dashboard-header p {
-    margin: 0.5rem 0 0 0;
-    opacity: 0.9;
-}
-
-.chart-container {
-    position: relative;
-    height: 300px;
-    margin: 20px 0;
-}
-
-.quick-stats {
-    background: #f8f9fa;
-    border-radius: 0.5rem;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.quick-stats .row {
-    margin: 0;
-}
-
-.quick-stats .col {
-    padding: 0.5rem;
-}
-
-@media (max-width: 768px) {
-    .dashboard-header {
-        padding: 1.5rem;
-        text-align: center;
-    }
-    
-    .chart-container {
-        height: 250px;
-    }
-}
-</style>
 <div class="layout-container">
     <?php include '../includes/sidebar.php'; ?>
     <div class="main-wrapper">
         <main class="main-content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4 col-lg-3">
+            <div class="adm">
+
+                <!-- Kopf -->
+                <section class="adm-hero">
+                    <div class="adm-hero-main">
+                        <span class="adm-eyebrow"><i class="bi bi-gear-wide-connected" aria-hidden="true"></i><?= $ist_admin ? 'Administration' : 'Moderation' ?> · <?= $esc($heute_text) ?></span>
+                        <h1><?= $ist_admin ? 'Admin-Dashboard' : 'Moderation' ?></h1>
+                        <p>
+                            <?= $offen_summe > 0 ? ($offen_summe === 1 ? 'Eine Sache wartet auf dich.' : $offen_summe . ' Dinge warten auf dich.') : 'Alles erledigt.' ?>
+                            <?= $seiten_anzahl === 1 ? 'Darunter findest du deine Verwaltungsseite.' : 'Darunter findest du alle ' . $seiten_anzahl . ' Verwaltungsseiten.' ?>
+                        </p>
                     </div>
-                    <div class="col-md-8 col-lg-9">
-                        <div class="dashboard-header">
-                            <h2><i class="bi bi-speedometer2 me-3"></i>Admin Dashboard</h2>
-                            <p>Übersicht über die Plattform-Aktivitäten und Benutzerstatistiken</p>
-                        </div>
-                        <!-- Statistiken-Kacheln -->
-                        <div class="row g-4 mb-4">
-                            <div class="col-12">
-                                <div class="card shadow-sm">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0"><i class="bi bi-person-badge me-2"></i>Benutzer & Kommunikation</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row g-3">
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-primary stat-card-primary">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-primary"><?= $total_users ?></div>
-                                                                <div class="text-muted small">Benutzer gesamt</div>
-                                                            </div>
-                                                            <i class="bi bi-people fs-2 text-primary"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-success stat-card-success">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-success"><?= $active_users ?></div>
-                                                                <div class="text-muted small">Aktive Benutzer</div>
-                                                            </div>
-                                                            <i class="bi bi-person-check fs-2 text-success"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-secondary stat-card-info">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-info"><?= get_online_users_count() ?></div>
-                                                                <div class="text-muted small">Derzeit online</div>
-                                                            </div>
-                                                            <i class="bi bi-circle-fill text-success fs-4"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-info stat-card-info">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-info"><?= (int) $new_registrations ?></div>
-                                                                <div class="text-muted small">Neue Registrierungen</div>
-                                                            </div>
-                                                            <i class="bi bi-person-plus fs-2 text-info"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-info stat-card-info">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-info"><?= $open_msgs ?></div>
-                                                                <div class="text-muted small">Offene Nachrichten</div>
-                                                            </div>
-                                                            <i class="bi bi-envelope fs-2 text-info"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-warning stat-card-warning">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-warning"><?= (int) $question_status['offen'] ?></div>
-                                                                <div class="text-muted small">Fragen offen</div>
-                                                            </div>
-                                                            <i class="bi bi-question-circle fs-2 text-warning"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-success stat-card-success">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-success"><?= (int) $question_status['geprueft'] ?></div>
-                                                                <div class="text-muted small">Fragen geprüft</div>
-                                                            </div>
-                                                            <i class="bi bi-check-circle fs-2 text-success"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <?php if ($ist_admin): ?>
+                        <div class="adm-hero-stats">
+                            <div class="adm-hero-stat">
+                                <span class="adm-hero-stat-label"><i class="bi bi-people" aria-hidden="true"></i>Benutzer</span>
+                                <span class="adm-hero-stat-value"><?= number_format($total_users, 0, ',', '.') ?></span>
                             </div>
-                            <div class="col-12">
-                                <div class="card shadow-sm">
-                                    <div class="card-header bg-light">
-                                        <h5 class="mb-0"><i class="bi bi-journal-check me-2"></i>Quiz-Leistung</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row g-3">
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-primary stat-card-primary">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-primary"><?= (int) ($quiz_stats['total'] ?? 0) ?></div>
-                                                                <div class="text-muted small">Quiz gesamt</div>
-                                                            </div>
-                                                            <i class="bi bi-bar-chart fs-2 text-primary"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-info stat-card-info">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-info"><?= (int) ($quiz_stats['recent'] ?? 0) ?></div>
-                                                                <div class="text-muted small">letzte 7 Tage</div>
-                                                            </div>
-                                                            <i class="bi bi-calendar-week fs-2 text-info"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-success stat-card-success">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-success"><?= (int) ($quiz_stats['passed'] ?? 0) ?></div>
-                                                                <div class="text-muted small">bestanden</div>
-                                                            </div>
-                                                            <i class="bi bi-patch-check fs-2 text-success"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 col-md-3">
-                                                <div class="card shadow h-100 border-primary stat-card-primary">
-                                                    <div class="card-body text-center">
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <div>
-                                                                <div class="fs-4 fw-bold text-primary"><?= number_format($quiz_stats['avg_percentage'] ?? 0, 1) ?>%</div>
-                                                                <div class="text-muted small">Ø Erfolgsquote</div>
-                                                            </div>
-                                                            <i class="bi bi-graph-up fs-2 text-primary"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="adm-hero-stat">
+                                <span class="adm-hero-stat-label"><span class="adm-live" aria-hidden="true"></span>Gerade online</span>
+                                <span class="adm-hero-stat-value"><?= number_format($online_users, 0, ',', '.') ?></span>
+                            </div>
+                            <div class="adm-hero-stat">
+                                <span class="adm-hero-stat-label"><i class="bi bi-lightning-charge" aria-hidden="true"></i>Quizze (7 Tage)</span>
+                                <span class="adm-hero-stat-value"><?= number_format((int)($quiz_stats['recent'] ?? 0), 0, ',', '.') ?></span>
                             </div>
                         </div>
-                        <!-- Rollenverteilung (Chart.js) -->
-                        <div class="row g-4 mb-4">
-                            <div class="col-lg-6">
-                                <div class="card h-100">
-                                    <div class="card-header">
-                                        <h5 class="mb-0"><i class="bi bi-pie-chart me-2"></i>Rollenverteilung</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-container">
-                                            <canvas id="roleChart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="card h-100">
-                                    <div class="card-header d-flex justify-content-between align-items-center">
-                                        <h5 class="mb-0"><i class="bi bi-bar-chart-steps me-2"></i>Quiz-Abschlüsse (letzte 14 Tage)</h5>
-                                        <span class="badge bg-primary"><?= (int)($quiz_stats['recent'] ?? 0) ?> gesamt</span>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="chart-container">
-                                            <canvas id="quizTrendChart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Logs: Moderator-Logins & Cronjob-Protokoll -->
-                        <div class="row g-4 mb-4">
-                            <div class="col-md-6">
-                                <div class="card h-100">
-                                    <div class="card-header">
-                                        <h5 class="mb-0"><i class="bi bi-clock-history me-2"></i>Letzte Admin- & Moderator-Logins</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="list-group list-group-flush">
-                                            <?php if (!empty($mod_logs)): ?>
-                                                <?php foreach ($mod_logs as $log): ?>
-                                                    <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <div>
-                                                            <strong><?= htmlspecialchars($log['username'] ?? 'Unbekannt') ?></strong>
-                                                            <div class="small text-muted">
-                                                                <?php if (isset($log['role'])): ?>
-                                                                    <span class="badge bg-<?= $log['role'] === 'admin' ? 'danger' : 'warning' ?> me-1">
-                                                                        <?= htmlspecialchars(ucfirst($log['role'])) ?>
-                                                                    </span>
-                                                                <?php endif; ?>
-                                                                <span class="badge bg-<?= ($log['activity_type'] ?? '') === 'login' ? 'success' : 'secondary' ?> me-1">
-                                                                    <?= ($log['activity_type'] ?? '') === 'login' ? 'Login' : 'Logout' ?>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                        <small class="text-muted"><?= format_german_datetime($log['created_at'] ?? '') ?></small>
-                                                    </div>
-                                                <?php endforeach; ?>
-                                            <?php else: ?>
-                                                <div class="list-group-item text-muted text-center">
-                                                    <i class="bi bi-info-circle me-2"></i>
-                                                    Keine Admin- oder Moderator-Logins gefunden.
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card h-100">
-                                    <div class="card-header">
-                                        <h5 class="mb-0"><i class="bi bi-bug me-2"></i>Cronjob-Protokoll</h5>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="list-group list-group-flush">
-                                            <?php foreach ($cron_logs as $log): ?>
-                                                <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <div>
-                                                        <span class="badge bg-info"><?= htmlspecialchars($log['action']) ?></span>
-                                                    </div>
-                                                    <small class="text-muted"><?= format_german_datetime($log['created_at']) ?></small>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Letzte Aktionen -->
-                        <div class="card mb-4">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <h5 class="mb-0"><i class="bi bi-clock-history me-2"></i>Letzte Aktionen</h5>
-                                <a href="activity_logs.php" class="btn btn-sm btn-outline-light">
-                                    <i class="bi bi-arrow-right me-1"></i>Alle Protokolle
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <?php
-                                // Lade neueste Aktivitäten aus user_activity_logs
-                                // statistics_logger.php wurde bereits oben geladen
-                                try {
-                                    $recent_activities_stmt = $pdo->prepare("
-                                        SELECT 
-                                            ual.*,
-                                            u.username,
-                                            u.role
-                                        FROM user_activity_logs ual
-                                        LEFT JOIN users u ON ual.user_id = u.id
-                                        ORDER BY ual.created_at DESC
-                                        LIMIT 10
-                                    ");
-                                    $recent_activities_stmt->execute();
-                                    $recent_activities = $recent_activities_stmt->fetchAll(PDO::FETCH_ASSOC);
-                                    
-                                    $activity_labels = [
-                                        'login' => 'Anmeldung',
-                                        'logout' => 'Abmeldung',
-                                        'quiz_start' => 'Quiz gestartet',
-                                        'quiz_completed' => 'Quiz abgeschlossen',
-                                        'quiz_abandoned' => 'Quiz abgebrochen',
-                                        'page_access' => 'Seitenzugriff',
-                                        'request_post' => 'Formulareingabe',
-                                        'request_put' => 'Update-Anfrage',
-                                        'request_delete' => 'Lösch-Anfrage',
-                                        'request_patch' => 'Änderungs-Anfrage',
-                                        'profile_updated' => 'Profil aktualisiert',
-                                        'password_changed' => 'Passwort geändert',
-                                        'settings_updated' => 'Einstellungen aktualisiert'
-                                    ];
-                                    
-                                    if (!empty($recent_activities)):
+                    <?php endif; ?>
+                </section>
+
+                <!-- Zu erledigen -->
+                <section class="adm-section" aria-labelledby="admAufgaben">
+                    <h2 class="adm-section-title" id="admAufgaben"><i class="bi bi-check2-square" aria-hidden="true"></i>Zu erledigen</h2>
+                    <div class="adm-todo">
+                        <?php foreach ($aufgaben as $nr => $aufgabe):
+                            $texte = explode('|', $aufgabe['offen']);
+                            $hat_offen = $aufgabe['anzahl'] > 0;
+                            $klasse = $hat_offen ? (!empty($aufgabe['info']) ? 'is-info' : 'is-open') : 'is-clear';
+                        ?>
+                            <a class="adm-todo-item <?= $klasse ?>" href="<?= $esc($aufgabe['url']) ?>" data-reveal style="--reveal-delay: <?= $nr * 0.06 ?>s">
+                                <span class="adm-todo-icon"><i class="bi <?= $hat_offen ? $aufgabe['icon'] : 'bi-check-lg' ?>" aria-hidden="true"></i></span>
+                                <span class="adm-todo-text">
+                                    <?php if ($hat_offen): ?>
+                                        <strong><?= number_format($aufgabe['anzahl'], 0, ',', '.') ?></strong>
+                                        <span><?= $esc($aufgabe['anzahl'] === 1 ? $texte[0] : $texte[1]) ?></span>
+                                    <?php else: ?>
+                                        <span><?= $esc($aufgabe['erledigt']) ?></span>
+                                    <?php endif; ?>
+                                </span>
+                                <i class="bi bi-arrow-right adm-arrow" aria-hidden="true"></i>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </section>
+
+                <!-- Verwaltungsbereiche -->
+                <section class="adm-section" aria-labelledby="admBereiche">
+                    <div class="adm-section-head">
+                        <h2 class="adm-section-title" id="admBereiche"><i class="bi bi-grid-1x2" aria-hidden="true"></i>Verwaltung</h2>
+                        <?php if ($seiten_anzahl > 4): ?>
+                            <label class="adm-search">
+                                <i class="bi bi-search" aria-hidden="true"></i>
+                                <span class="visually-hidden">Verwaltungsseite suchen</span>
+                                <input type="search" id="admSuche" placeholder="Seite suchen …" autocomplete="off">
+                                <kbd title="Taste / springt in die Suche">/</kbd>
+                            </label>
+                        <?php endif; ?>
+                    </div>
+                    <?php foreach ($bereiche as $bereich): ?>
+                        <div class="adm-group">
+                            <h3 class="adm-group-title"><i class="bi <?= $esc($bereich['icon']) ?>" aria-hidden="true"></i><?= $esc($bereich['titel']) ?></h3>
+                            <div class="adm-tiles">
+                                <?php foreach ($bereich['seiten'] as $nr => $seite):
+                                    $zaehler = isset($seite['zaehler']) ? ($offen[$seite['zaehler']] ?? 0) : 0;
                                 ?>
-                                    <div class="list-group list-group-flush">
-                                        <?php foreach ($recent_activities as $activity): ?>
-                                            <div class="list-group-item d-flex justify-content-between align-items-start">
-                                                <div class="flex-grow-1">
-                                                    <div class="d-flex align-items-center mb-1">
-                                                        <strong><?= htmlspecialchars($activity['username'] ?? 'Unbekannt') ?></strong>
-                                                        <?php if ($activity['role']): ?>
-                                                            <span class="badge bg-<?= $activity['role'] === 'admin' ? 'danger' : ($activity['role'] === 'moderator' ? 'warning' : 'info') ?> ms-2">
-                                                                <?= htmlspecialchars(ucfirst($activity['role'])) ?>
-                                                            </span>
+                                    <a class="adm-tile" href="<?= $esc($seite['url']) ?>" style="--c: <?= $esc($seite['farbe']) ?>; --reveal-delay: <?= min($nr, 5) * 0.05 ?>s" data-reveal
+                                       data-suche="<?= $esc(mb_strtolower($seite['titel'] . ' ' . $seite['text'] . ' ' . $bereich['titel'])) ?>">
+                                        <span class="adm-tile-icon"><i class="bi <?= $esc($seite['icon']) ?>" aria-hidden="true"></i></span>
+                                        <span class="adm-tile-text">
+                                            <strong><?= $esc($seite['titel']) ?></strong>
+                                            <small><?= $esc($seite['text']) ?></small>
+                                        </span>
+                                        <?php if ($zaehler > 0): ?>
+                                            <span class="adm-tile-badge" title="<?= (int)$zaehler ?> offen"><?= (int)$zaehler ?></span>
+                                        <?php endif; ?>
+                                        <i class="bi bi-arrow-right adm-arrow" aria-hidden="true"></i>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <p class="adm-empty" id="admKeinTreffer" hidden>
+                        <i class="bi bi-search" aria-hidden="true"></i>Keine Verwaltungsseite gefunden.
+                    </p>
+                </section>
+
+                <?php if ($ist_admin): ?>
+                <!-- Kennzahlen -->
+                <section class="adm-section" aria-labelledby="admZahlen">
+                    <h2 class="adm-section-title" id="admZahlen"><i class="bi bi-activity" aria-hidden="true"></i>Kennzahlen</h2>
+                    <div class="adm-grid-2">
+                        <div class="adm-card" data-reveal>
+                            <div class="adm-card-head">
+                                <div>
+                                    <h3>Benutzer</h3>
+                                    <p>Konten und Rollen</p>
+                                </div>
+                                <a class="adm-card-link" href="/admin/user_management.php">Verwalten<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="adm-stats">
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Gesamt</span>
+                                    <span class="adm-stat-value"><?= number_format($total_users, 0, ',', '.') ?></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Aktiv</span>
+                                    <span class="adm-stat-value"><?= number_format($active_users, 0, ',', '.') ?></span>
+                                    <span class="adm-meter" role="img" aria-label="<?= $aktiv_quote ?> % der Konten sind aktiv"><span style="width: <?= $aktiv_quote ?>%"></span></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Gerade online</span>
+                                    <span class="adm-stat-value"><?= number_format($online_users, 0, ',', '.') ?></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Neu (7 Tage)</span>
+                                    <span class="adm-stat-value"><?= number_format($new_registrations, 0, ',', '.') ?></span>
+                                </div>
+                            </div>
+                            <div class="adm-roles">
+                                <h4>Rollenverteilung</h4>
+                                <div class="adm-stack" role="img" aria-label="Rollenverteilung: <?= $esc(implode(', ', array_map(function ($r) { return $r['name'] . ' ' . $r['anzahl']; }, $rollen))) ?>">
+                                    <?php foreach ($rollen as $rolle): if ($rolle['anzahl'] === 0) continue; ?>
+                                        <span class="adm-stack-seg" style="flex-grow: <?= $rolle['anzahl'] ?>; --c: <?= $rolle['farbe'] ?>" title="<?= $esc($rolle['name'] . ': ' . $rolle['anzahl']) ?>"></span>
+                                    <?php endforeach; ?>
+                                </div>
+                                <ul class="adm-legend">
+                                    <?php foreach ($rollen as $rolle): ?>
+                                        <li>
+                                            <span class="adm-swatch" style="--c: <?= $rolle['farbe'] ?>" aria-hidden="true"></span>
+                                            <span><?= $esc($rolle['name']) ?></span>
+                                            <strong><?= number_format($rolle['anzahl'], 0, ',', '.') ?></strong>
+                                            <small><?= round($rolle['anzahl'] / $rollen_summe * 100) ?> %</small>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="adm-card" data-reveal style="--reveal-delay: .08s">
+                            <div class="adm-card-head">
+                                <div>
+                                    <h3>Fragen &amp; Quiz</h3>
+                                    <p>Fragenpool und abgeschlossene Quizze</p>
+                                </div>
+                                <a class="adm-card-link" href="/admin/quiz_statistics.php">Details<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="adm-stats">
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Fragen freigegeben</span>
+                                    <span class="adm-stat-value"><?= number_format($fragen_geprueft, 0, ',', '.') ?></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Fragen offen / abgelehnt</span>
+                                    <span class="adm-stat-value"><?= number_format($fragen_offen, 0, ',', '.') ?> <small>/ <?= number_format($fragen_abgelehnt, 0, ',', '.') ?></small></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Quizze gesamt</span>
+                                    <span class="adm-stat-value"><?= number_format($quiz_gesamt, 0, ',', '.') ?></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Gestartet (7 Tage)</span>
+                                    <span class="adm-stat-value"><?= number_format((int)($quiz_stats['recent'] ?? 0), 0, ',', '.') ?></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Bestanden</span>
+                                    <span class="adm-stat-value"><?= number_format($quiz_bestanden, 0, ',', '.') ?> <small><?= $bestanden_quote ?> %</small></span>
+                                    <span class="adm-meter" role="img" aria-label="<?= $bestanden_quote ?> % der Quizze bestanden"><span style="width: <?= $bestanden_quote ?>%"></span></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Ø Erfolgsquote</span>
+                                    <span class="adm-stat-value"><?= number_format($quiz_quote, 1, ',', '.') ?> %</span>
+                                    <span class="adm-meter" role="img" aria-label="Durchschnittlich <?= number_format($quiz_quote, 1, ',', '.') ?> % richtig"><span style="width: <?= min(100, $quiz_quote) ?>%"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quiz-Abschlüsse der letzten 14 Tage -->
+                    <div class="adm-card" data-reveal>
+                        <div class="adm-card-head">
+                            <div>
+                                <h3>Quiz-Abschlüsse</h3>
+                                <p>Letzte 14 Tage · <?= number_format($trend_summe, 0, ',', '.') ?> insgesamt</p>
+                            </div>
+                        </div>
+                        <div class="adm-chart<?= $trend_summe === 0 ? ' is-empty' : '' ?>">
+                            <div class="adm-chart-plot">
+                                <?php for ($wert = $skala_max; $wert >= 0; $wert -= $schritt): ?>
+                                    <span class="adm-gridline" style="bottom: <?= $wert / $skala_max * 100 ?>%"><span><?= $wert ?></span></span>
+                                <?php endfor; ?>
+                                <div class="adm-cols">
+                                    <?php foreach ($trend as $nr => $tag): ?>
+                                        <div class="adm-col<?= $tag['heute'] ? ' is-today' : '' ?>" tabindex="0" style="--i: <?= $nr ?>"
+                                             aria-label="<?= $esc($tag['lang'] . ': ' . $tag['anzahl'] . ' abgeschlossen') ?>">
+                                            <span class="adm-col-bar" style="height: <?= $tag['anzahl'] / $skala_max * 100 ?>%">
+                                                <?php if ($nr === $max_index): ?><span class="adm-col-value"><?= $tag['anzahl'] ?></span><?php endif; ?>
+                                            </span>
+                                            <span class="adm-tip" aria-hidden="true"><strong><?= $tag['anzahl'] ?></strong> <?= $tag['anzahl'] === 1 ? 'Quiz' : 'Quizze' ?><small><?= $esc($tag['lang']) ?></small></span>
+                                        </div>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                            <div class="adm-chart-x" aria-hidden="true">
+                                <?php foreach ($trend as $tag): ?>
+                                    <span<?= $tag['heute'] ? ' class="is-today"' : '' ?>><?= $tag['heute'] ? 'Heute' : $esc($tag['kurz']) ?></span>
+                                <?php endforeach; ?>
+                            </div>
+                            <?php if ($trend_summe === 0): ?>
+                                <p class="adm-chart-empty">In den letzten 14 Tagen wurde kein Quiz abgeschlossen.</p>
+                            <?php endif; ?>
+                        </div>
+                        <details class="adm-table-toggle">
+                            <summary>Werte als Tabelle</summary>
+                            <table class="table table-sm mb-0">
+                                <thead><tr><th scope="col">Tag</th><th scope="col" class="text-end">Abgeschlossene Quizze</th></tr></thead>
+                                <tbody>
+                                    <?php foreach ($trend as $tag): ?>
+                                        <tr><td><?= $esc($tag['lang']) ?></td><td class="text-end"><?= $tag['anzahl'] ?></td></tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </details>
+                    </div>
+                </section>
+
+                <!-- Protokolle -->
+                <section class="adm-section" aria-labelledby="admProtokolle">
+                    <h2 class="adm-section-title" id="admProtokolle"><i class="bi bi-clock-history" aria-hidden="true"></i>Was zuletzt passiert ist</h2>
+                    <div class="adm-grid-log">
+                        <div class="adm-card" data-reveal>
+                            <div class="adm-card-head">
+                                <div>
+                                    <h3>Letzte Aktionen</h3>
+                                    <p>Die zehn neuesten Einträge</p>
+                                </div>
+                                <a class="adm-card-link" href="/admin/activity_logs.php">Alle Protokolle<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                            </div>
+                            <?php if ($recent_activities !== null): ?>
+                                <?php if ($recent_activities): ?>
+                                    <ul class="adm-list">
+                                        <?php foreach ($recent_activities as $activity):
+                                            $details = $activity['details'] ? json_decode($activity['details'], true) : null;
+                                        ?>
+                                            <li>
+                                                <span class="adm-list-main">
+                                                    <strong><?= $esc($activity['username'] ?? 'Unbekannt') ?></strong>
+                                                    <?php if ($activity['role']): ?>
+                                                        <span class="adm-role adm-role-<?= $esc($activity['role']) ?>"><?= $esc(ucfirst($activity['role'])) ?></span>
+                                                    <?php endif; ?>
+                                                    <span class="adm-list-sub">
+                                                        <?= $esc($activity_labels[$activity['activity_type']] ?? $activity['activity_type']) ?>
+                                                        <?php if (is_array($details) && isset($details['page'])): ?>
+                                                            <span class="adm-muted">→ <?= $esc(basename($details['page'])) ?></span>
                                                         <?php endif; ?>
-                                                    </div>
-                                                    <div class="small">
-                                                        <span class="badge bg-primary">
-                                                            <?= htmlspecialchars($activity_labels[$activity['activity_type']] ?? $activity['activity_type']) ?>
-                                                        </span>
-                                                        <?php if ($activity['details']): 
-                                                            $details = json_decode($activity['details'], true);
-                                                            if (is_array($details) && isset($details['page'])):
-                                                        ?>
-                                                            <span class="text-muted ms-2">
-                                                                → <?= htmlspecialchars(basename($details['page'])) ?>
-                                                            </span>
-                                                        <?php endif; endif; ?>
-                                                    </div>
-                                                </div>
-                                                <small class="text-muted text-nowrap ms-3">
-                                                    <?= time_ago($activity['created_at']) ?>
-                                                </small>
-                                            </div>
+                                                    </span>
+                                                </span>
+                                                <time class="adm-time" datetime="<?= $esc($activity['created_at']) ?>"><?= time_ago($activity['created_at']) ?></time>
+                                            </li>
                                         <?php endforeach; ?>
-                                    </div>
+                                    </ul>
                                 <?php else: ?>
-                                    <div class="alert alert-info mb-0">
-                                        <i class="bi bi-info-circle me-2"></i>
-                                        Keine Aktivitäten gefunden.
-                                    </div>
-                                <?php 
-                                    endif;
-                                } catch (Exception $e) {
-                                    // Fallback auf alte Logs
-                                ?>
-                                    <div class="list-group list-group-flush">
-                                        <?php foreach ($recent_logs as $log): ?>
-                                            <div class="list-group-item d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <strong><?= htmlspecialchars($log['username'] ?? 'System') ?></strong>
-                                                    <div class="small text-muted"><?= htmlspecialchars($log['description'] ?? $log['action'] ?? 'Aktion') ?></div>
-                                                </div>
-                                                <small class="text-muted"><?= format_german_datetime($log['created_at']) ?></small>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                <?php } ?>
-                            </div>
+                                    <p class="adm-empty"><i class="bi bi-inbox" aria-hidden="true"></i>Keine Aktivitäten gefunden.</p>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <ul class="adm-list">
+                                    <?php foreach ($recent_logs as $log): ?>
+                                        <li>
+                                            <span class="adm-list-main">
+                                                <strong><?= $esc($log['username'] ?? 'System') ?></strong>
+                                                <span class="adm-list-sub"><?= $esc($log['description'] ?? $log['action'] ?? 'Aktion') ?></span>
+                                            </span>
+                                            <span class="adm-time"><?= format_german_datetime($log['created_at']) ?></span>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            <?php endif; ?>
                         </div>
-                        
-                        <!-- Belohnungssystem-Übersicht -->
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h5 class="mb-0"><i class="bi bi-trophy me-2"></i>IT-Coin-System</h5>
-                                <p class="mb-0 text-muted">Übersicht über IT-Coins und Top-Performer</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <!-- Statistiken -->
-                                    <div class="col-md-6">
-                                        <h6 class="text-muted mb-3">Gesamtstatistiken</h6>
-                                        <div class="row text-center">
-                                            <div class="col-6 mb-3">
-                                                <div class="stat-item">
-                                                    <div class="stat-number text-warning"><?= number_format($reward_stats['overview']['total_points_awarded'] ?? 0) ?></div>
-                                                    <div class="stat-label">Punkte vergeben</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 mb-3">
-                                                <div class="stat-item">
-                                                    <div class="stat-number text-success"><?= number_format($reward_stats['overview']['total_quizzes_completed'] ?? 0) ?></div>
-                                                    <div class="stat-label">Quizzes belohnt</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 mb-3">
-                                                <div class="stat-item">
-                                                    <div class="stat-number text-info"><?= number_format($reward_stats['overview']['avg_points_per_user'] ?? 0, 1) ?></div>
-                                                    <div class="stat-label">Ø Punkte/User</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-6 mb-3">
-                                                <div class="stat-item">
-                                                    <div class="stat-number text-primary"><?= number_format($reward_stats['overview']['max_points'] ?? 0) ?></div>
-                                                    <div class="stat-label">Max. Punkte</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- Top 5 User -->
-                                    <div class="col-md-6">
-                                        <h6 class="text-muted mb-3">Top 5 IT-Coin-Sammler</h6>
-                                        <div class="list-group list-group-flush">
-                                            <?php foreach ($reward_stats['top_users'] as $index => $user): ?>
-                                                <div class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                                    <div class="d-flex align-items-center">
-                                                        <span class="badge bg-<?= $index < 3 ? ($index === 0 ? 'warning' : ($index === 1 ? 'secondary' : 'success')) : 'light' ?> me-2">
-                                                            #<?= $index + 1 ?>
-                                                        </span>
-                                                        <span class="fw-medium"><?= htmlspecialchars($user['username']) ?></span>
-                                                    </div>
-                                                    <div class="text-end">
-                                                        <span class="badge bg-warning"><?= $user['reward_points'] ?> IT-Coins</span>
-                                                        <small class="text-muted d-block"><?= $user['total_quizzes_passed'] ?> Quizzes</small>
-                                                    </div>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        </div>
+
+                        <div class="adm-stack-cards">
+                            <div class="adm-card" data-reveal style="--reveal-delay: .06s">
+                                <div class="adm-card-head">
+                                    <div>
+                                        <h3>Admin- &amp; Moderator-Logins</h3>
+                                        <p>An- und Abmeldungen</p>
                                     </div>
                                 </div>
-                                
-                                <!-- Letzte Belohnungen -->
-                                <?php if (!empty($reward_stats['recent_rewards'])): ?>
-                                    <hr>
-                                    <h6 class="text-muted mb-3">Letzte Belohnungen</h6>
-                                    <div class="table-responsive">
-                                        <table class="table table-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th>User</th>
-                                                    <th>Lernfeld</th>
-                                                    <th>Punkte</th>
-                                                    <th>Erfolg</th>
-                                                    <th>Datum</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php foreach (array_slice($reward_stats['recent_rewards'], 0, 5) as $reward): ?>
-                                                    <tr>
-                                                        <td><?= htmlspecialchars($reward['username']) ?></td>
-                                                        <td><?= htmlspecialchars($reward['learning_field_title'] ?? 'Allgemein') ?></td>
-                                                        <td><span class="badge bg-warning"><?= $reward['points_earned'] ?></span></td>
-                                                        <td><?= number_format($reward['success_percentage'], 1) ?>%</td>
-                                                        <td><?= date('d.m.Y H:i', strtotime($reward['completion_date'])) ?></td>
-                                                    </tr>
-                                                <?php endforeach; ?>
-                                            </tbody>
-                                        </table>
+                                <?php if ($mod_logs): ?>
+                                    <ul class="adm-list">
+                                        <?php foreach ($mod_logs as $log): $ist_login = ($log['activity_type'] ?? '') === 'login'; ?>
+                                            <li>
+                                                <span class="adm-dot <?= $ist_login ? 'is-in' : 'is-out' ?>" aria-hidden="true"><i class="bi <?= $ist_login ? 'bi-box-arrow-in-right' : 'bi-box-arrow-right' ?>"></i></span>
+                                                <span class="adm-list-main">
+                                                    <strong><?= $esc($log['username'] ?? 'Unbekannt') ?></strong>
+                                                    <?php if (isset($log['role'])): ?>
+                                                        <span class="adm-role adm-role-<?= $esc($log['role']) ?>"><?= $esc(ucfirst($log['role'])) ?></span>
+                                                    <?php endif; ?>
+                                                    <span class="adm-list-sub"><?= $ist_login ? 'Login' : 'Logout' ?></span>
+                                                </span>
+                                                <span class="adm-time"><?= format_german_datetime($log['created_at'] ?? '') ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php else: ?>
+                                    <p class="adm-empty"><i class="bi bi-info-circle" aria-hidden="true"></i>Keine Admin- oder Moderator-Logins gefunden.</p>
+                                <?php endif; ?>
+                            </div>
+                            <div class="adm-card" data-reveal style="--reveal-delay: .12s">
+                                <div class="adm-card-head">
+                                    <div>
+                                        <h3>Cronjob-Protokoll</h3>
+                                        <p>Automatische Aufgaben</p>
                                     </div>
+                                </div>
+                                <?php if ($cron_logs): ?>
+                                    <ul class="adm-list">
+                                        <?php foreach ($cron_logs as $log): ?>
+                                            <li>
+                                                <span class="adm-dot is-cron" aria-hidden="true"><i class="bi bi-gear"></i></span>
+                                                <span class="adm-list-main"><span class="adm-code"><?= $esc($log['action']) ?></span></span>
+                                                <span class="adm-time"><?= format_german_datetime($log['created_at']) ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                <?php else: ?>
+                                    <p class="adm-empty"><i class="bi bi-moon-stars" aria-hidden="true"></i>Noch keine Cronjob-Einträge.</p>
                                 <?php endif; ?>
                             </div>
                         </div>
-                        
-                        <!-- Admin-Navigation als Grid -->
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <h5 class="mb-0"><i class="bi bi-grid-3x3-gap me-2"></i>Admin-Bereiche</h5>
-                                <p class="mb-0 text-muted">Alle verfügbaren Verwaltungsbereiche im Überblick</p>
+                    </div>
+                </section>
+
+                <!-- IT-Coins -->
+                <section class="adm-section" aria-labelledby="admCoins">
+                    <h2 class="adm-section-title" id="admCoins"><i class="bi bi-coin" aria-hidden="true"></i>IT-Coins</h2>
+                    <div class="adm-card" data-reveal>
+                        <div class="adm-card-head">
+                            <div>
+                                <h3>Belohnungssystem</h3>
+                                <p>IT-Coins der Lernenden und die besten Sammler</p>
                             </div>
-                            <div class="card-body">
-                                <div class="row row-cols-1 row-cols-md-3 g-4">
-                            <div class="col">
-                                <a href="user_management.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-people fs-1 text-primary"></i>
-                                        <h5 class="card-title mt-2">Benutzerverwaltung</h5>
-                                        <p class="card-text">User, Rollen, Aktivierungen</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="reward_management.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-trophy fs-1 text-warning"></i>
-                                        <h5 class="card-title mt-2">Belohnungspunkte</h5>
-                                        <p class="card-text">Punkte verwalten, Top-User</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="question_management.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-question-circle fs-1 text-warning"></i>
-                                        <h5 class="card-title mt-2">Fragen verwalten</h5>
-                                        <p class="card-text">Fragen prüfen, freigeben, ablehnen</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="index_content.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-house fs-1 text-primary"></i>
-                                        <h5 class="card-title mt-2">Startseite verwalten</h5>
-                                        <p class="card-text">Text der Startseite bearbeiten</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="learning_field_management.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-shield fs-1 text-info"></i>
-                                        <h5 class="card-title mt-2">Lernfelder</h5>
-                                        <p class="card-text">Lernfelder verwalten</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="messages.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-envelope fs-1 text-secondary"></i>
-                                        <h5 class="card-title mt-2">Nachrichten</h5>
-                                        <p class="card-text">Benutzer-Nachrichten</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="newsletter.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-envelope-paper fs-1 text-danger"></i>
-                                        <h5 class="card-title mt-2">Newsletter</h5>
-                                        <p class="card-text">Newsletter versenden</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="sitemanagement.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-list fs-1 text-dark"></i>
-                                        <h5 class="card-title mt-2">Navigation</h5>
-                                        <p class="card-text">Navigation & Rechte</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="statistics.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-graph-up fs-1 text-success"></i>
-                                        <h5 class="card-title mt-2">Statistiken</h5>
-                                        <p class="card-text">Benutzerstatistiken & Analysen</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="settings.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-gear fs-1 text-dark"></i>
-                                        <h5 class="card-title mt-2">Systemeinstellungen</h5>
-                                        <p class="card-text">Systemweite Einstellungen</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="ip_whitelist_management.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-shield-lock fs-1 text-warning"></i>
-                                        <h5 class="card-title mt-2">IP-Whitelist</h5>
-                                        <p class="card-text">Admin-Zugriff beschränken</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="news/manage_news.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-newspaper fs-1 text-info"></i>
-                                        <h5 class="card-title mt-2">News verwalten</h5>
-                                        <p class="card-text">Artikel erstellen & bearbeiten</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="news/category_management.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-tags fs-1 text-primary"></i>
-                                        <h5 class="card-title mt-2">News-Kategorien</h5>
-                                        <p class="card-text">Kategorien verwalten</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="news/tag_management.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-hash fs-1 text-secondary"></i>
-                                        <h5 class="card-title mt-2">News-Tags</h5>
-                                        <p class="card-text">Tags verwalten</p>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="col">
-                                <a href="automails/edit_cron_mail.php"
-                                    class="card h-100 shadow text-decoration-none text-dark hover-shadow">
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-clock-history fs-1 text-warning"></i>
-                                        <h5 class="card-title mt-2">Cron-Mails</h5>
-                                        <p class="card-text">Automatische E-Mails</p>
-                                    </div>
-                                </a>
-                            </div>
+                            <a class="adm-card-link" href="/admin/reward_management.php">IT-Coins verwalten<i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                        </div>
+                        <div class="adm-coins">
+                            <div class="adm-stats adm-stats-2">
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">IT-Coins vergeben</span>
+                                    <span class="adm-stat-value"><?= number_format($reward_stats['overview']['total_points_awarded'] ?? 0, 0, ',', '.') ?></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Quizze belohnt</span>
+                                    <span class="adm-stat-value"><?= number_format($reward_stats['overview']['total_quizzes_completed'] ?? 0, 0, ',', '.') ?></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Ø pro Lernendem</span>
+                                    <span class="adm-stat-value"><?= number_format($reward_stats['overview']['avg_points_per_user'] ?? 0, 1, ',', '.') ?></span>
+                                </div>
+                                <div class="adm-stat">
+                                    <span class="adm-stat-label">Höchster Stand</span>
+                                    <span class="adm-stat-value"><?= number_format($reward_stats['overview']['max_points'] ?? 0, 0, ',', '.') ?></span>
                                 </div>
                             </div>
+                            <div class="adm-top">
+                                <h4>Top 5 Sammler</h4>
+                                <?php if (!empty($reward_stats['top_users'])): ?>
+                                    <ol class="adm-ranking">
+                                        <?php foreach ($reward_stats['top_users'] as $index => $user): ?>
+                                            <li>
+                                                <span class="adm-rank adm-rank-<?= $index + 1 ?>"><?= $index + 1 ?></span>
+                                                <span class="adm-list-main">
+                                                    <strong><?= $esc($user['username']) ?></strong>
+                                                    <span class="adm-list-sub"><?= (int)$user['total_quizzes_passed'] ?> Quizze bestanden</span>
+                                                </span>
+                                                <span class="adm-coin-badge"><i class="bi bi-coin" aria-hidden="true"></i><?= number_format((int)$user['reward_points'], 0, ',', '.') ?></span>
+                                            </li>
+                                        <?php endforeach; ?>
+                                    </ol>
+                                <?php else: ?>
+                                    <p class="adm-empty"><i class="bi bi-trophy" aria-hidden="true"></i>Noch keine IT-Coins vergeben.</p>
+                                <?php endif; ?>
+                            </div>
                         </div>
+                        <?php if (!empty($reward_stats['recent_rewards'])): ?>
+                            <h4 class="adm-subhead">Letzte Belohnungen</h4>
+                            <div class="table-responsive">
+                                <table class="table table-sm align-middle mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Benutzer</th>
+                                            <th scope="col">Lernfeld</th>
+                                            <th scope="col" class="text-end">IT-Coins</th>
+                                            <th scope="col" class="text-end">Erfolg</th>
+                                            <th scope="col" class="text-end">Datum</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach (array_slice($reward_stats['recent_rewards'], 0, 5) as $reward): ?>
+                                            <tr>
+                                                <td><?= $esc($reward['username']) ?></td>
+                                                <td><?= $esc($reward['learning_field_title'] ?? 'Allgemein') ?></td>
+                                                <td class="text-end">+<?= (int)$reward['points_earned'] ?></td>
+                                                <td class="text-end"><?= number_format($reward['success_percentage'], 1, ',', '.') ?> %</td>
+                                                <td class="text-end text-nowrap"><?= date('d.m.Y H:i', strtotime($reward['completion_date'])) ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <?php endif; ?>
                     </div>
-                </div>
+                </section>
+                <?php endif; ?>
+
             </div>
         </main>
     </div>
 </div>
-<?php include '../includes/footer.php'; ?>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const roleData = <?= json_encode(array_column($roles, 'count')) ?>;
-    const roleLabels = <?= json_encode(array_column($roles, 'role')) ?>;
-    const roleCtx = document.getElementById('roleChart').getContext('2d');
-    new Chart(roleCtx, {
-        type: 'pie',
-        data: {
-            labels: roleLabels,
-            datasets: [{
-                data: roleData,
-                backgroundColor: ['#2563EB', '#10B981', '#F59E0B', '#EF4444', '#6366F1'],
-            }]
-        },
-        options: {
-            plugins: { legend: { position: 'bottom' } }
+// Verwaltungsseiten filtern; "/" springt in die Suche, Enter öffnet den einzigen Treffer
+(function () {
+    const suche = document.getElementById('admSuche');
+    if (!suche) return;
+    const kacheln = Array.from(document.querySelectorAll('.adm-tile'));
+    const gruppen = Array.from(document.querySelectorAll('.adm-group'));
+    const leer = document.getElementById('admKeinTreffer');
+
+    function filtern() {
+        const begriffe = suche.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+        kacheln.forEach(function (k) {
+            const text = k.dataset.suche;
+            k.hidden = !begriffe.every(function (b) { return text.indexOf(b) !== -1; });
+        });
+        gruppen.forEach(function (g) {
+            g.hidden = !g.querySelector('.adm-tile:not([hidden])');
+        });
+        leer.hidden = kacheln.some(function (k) { return !k.hidden; });
+    }
+    suche.addEventListener('input', filtern);
+    suche.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+            const treffer = kacheln.filter(function (k) { return !k.hidden; });
+            if (treffer.length === 1) window.location.href = treffer[0].href;
+        } else if (e.key === 'Escape') {
+            suche.value = '';
+            filtern();
         }
     });
-    
-    const quizTrendData = <?= json_encode($quiz_trend ?? []) ?>;
-    const labels = quizTrendData.map(item => item.completion_date);
-    const values = quizTrendData.map(item => parseInt(item.completions, 10));
-    const quizCtx = document.getElementById('quizTrendChart').getContext('2d');
-    new Chart(quizCtx, {
-        type: 'line',
-        data: {
-            labels,
-            datasets: [{
-                label: 'Abgeschlossene Quizzes',
-                data: values,
-                borderColor: 'rgba(13, 110, 253, 1)',
-                backgroundColor: 'rgba(13, 110, 253, 0.15)',
-                borderWidth: 2,
-                tension: 0.3,
-                pointRadius: 4,
-                pointBackgroundColor: 'rgba(13, 110, 253, 1)'
-            }]
-        },
-        options: {
-            plugins: { legend: { display: false } },
-            scales: {
-                x: {
-                    ticks: { color: '#333' },
-                    grid: { display: false }
-                },
-                y: {
-                    beginAtZero: true,
-                    ticks: { color: '#333', stepSize: 1 },
-                    grid: { color: 'rgba(0,0,0,0.05)' }
-                }
-            }
+    document.addEventListener('keydown', function (e) {
+        const ziel = e.target;
+        if (e.key === '/' && !(ziel.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(ziel.tagName))) {
+            e.preventDefault();
+            suche.focus();
         }
     });
-});
+})();
 </script>
+<?php include '../includes/footer.php'; ?>

@@ -51,6 +51,18 @@ if ($header_logged_in) {
     $current_user = $user_stmt->fetch();
 }
 $header_is_admin = isset($current_user['role']) && $current_user['role'] === 'admin';
+// Admins und Moderatoren erreichen die Verwaltung über "Administration" oben rechts
+$header_is_staff = $header_is_admin || (isset($current_user['role']) && $current_user['role'] === 'moderator');
+$header_admin_offen = 0;
+$header_admin_seite = null;
+$header_in_admin = strpos($header_path, '/admin/') === 0;
+if ($header_is_staff) {
+    require_once __DIR__ . '/admin_bereiche.php';
+    $header_admin_offen = array_sum(admin_offene_aufgaben($header_is_admin));
+    if ($header_in_admin && $header_path !== '/admin/dashboard.php') {
+        $header_admin_seite = admin_seite_zu_pfad($header_path) ?? ['bereich' => null, 'titel' => $page_title ?? ''];
+    }
+}
 $header_is_home = in_array($header_path, ['/', '/index.php'], true);
 $header_allow_registration = (bool)get_setting('allow_registration', true);
 $body_classes = [$header_logged_in ? 'is-user' : 'is-guest'];
@@ -130,6 +142,16 @@ $header_nav_link = function ($href, $icon, $label, $active = false) {
                     </ul>
 
                     <div class="nav-actions">
+                        <?php if ($header_is_staff): ?>
+                            <a class="admin-link<?= $header_in_admin ? ' active' : '' ?>" href="/admin/dashboard.php"<?= $header_in_admin ? ' aria-current="page"' : '' ?>
+                               title="Administration<?= $header_admin_offen ? ' – ' . (int)$header_admin_offen . ' offen' : '' ?>">
+                                <i class="bi bi-gear-wide-connected" aria-hidden="true"></i>
+                                <span class="admin-link-text">Administration</span>
+                                <?php if ($header_admin_offen > 0): ?>
+                                    <span class="admin-link-badge"><?= $header_admin_offen > 99 ? '99+' : (int)$header_admin_offen ?><span class="visually-hidden"> offene Aufgaben</span></span>
+                                <?php endif; ?>
+                            </a>
+                        <?php endif; ?>
                         <div class="dropdown user-menu">
                             <button class="user-menu-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Benutzermenü">
                                 <?= render_simple_avatar($_SESSION['user_id'], $current_user['avatar'] ?? null, 'sm') ?>
@@ -154,14 +176,9 @@ $header_nav_link = function ($href, $icon, $label, $active = false) {
                                 <li><a class="dropdown-item" href="/settings.php">
                                     <i class="bi bi-gear me-2"></i>Einstellungen
                                 </a></li>
-                                <?php if ($header_is_admin): ?>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><h6 class="dropdown-header">Administration</h6></li>
+                                <?php if ($header_is_staff): ?>
                                 <li><a class="dropdown-item" href="/admin/dashboard.php">
-                                    <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
-                                </a></li>
-                                <li><a class="dropdown-item" href="/admin/sitemanagement.php">
-                                    <i class="bi bi-gear-wide-connected me-2"></i>Sitemanagement
+                                    <i class="bi bi-gear-wide-connected me-2"></i>Administration
                                 </a></li>
                                 <?php endif; ?>
                                 <li><hr class="dropdown-divider"></li>
@@ -204,6 +221,21 @@ $header_nav_link = function ($href, $icon, $label, $active = false) {
             </div>
         </nav>
     </header>
+
+    <?php if ($header_admin_seite): ?>
+    <!-- Brotkrumen im Verwaltungsbereich: zurück geht es immer über das Admin-Dashboard -->
+    <nav class="admin-bar" aria-label="Brotkrumen">
+        <ol>
+            <li><a href="/admin/dashboard.php"><i class="bi bi-arrow-left" aria-hidden="true"></i>Administration</a></li>
+            <?php if (!empty($header_admin_seite['bereich'])): ?>
+                <li><?= htmlspecialchars($header_admin_seite['bereich']) ?></li>
+            <?php endif; ?>
+            <?php if ($header_admin_seite['titel'] !== ''): ?>
+                <li aria-current="page"><?= htmlspecialchars($header_admin_seite['titel']) ?></li>
+            <?php endif; ?>
+        </ol>
+    </nav>
+    <?php endif; ?>
 
     <!-- Benachrichtigungen -->
     <?php if (isset($_SESSION['success_message']) || isset($_SESSION['error_message']) || isset($_SESSION['info_message'])): ?>

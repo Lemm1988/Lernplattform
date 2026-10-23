@@ -124,6 +124,9 @@ if (is_logged_in()) {
                 }
             }
             foreach ($header_by_type as $type => $header):
+                // Verwaltungsseiten stehen nicht in der Seitenleiste – sie sind über "Administration"
+                // oben rechts und die Karten im Admin-Dashboard erreichbar (includes/admin_bereiche.php)
+                if ($type === 'admin') continue;
                 // Alle aktiven Links (Sections) für diesen Bereich laden
                 $sections_stmt = $pdo->prepare("SELECT * FROM site_sections WHERE section_type = ? AND is_active = 1 ORDER BY sort_order, name");
                 $sections_stmt->execute([$type]);
@@ -221,13 +224,8 @@ if (is_logged_in()) {
             echo '<li class="nav-item"><a class="nav-link" href="/users/activity.php"><i class="bi bi-clock-history me-2"></i><span>Meine Aktivitäten</span></a></li>';
             echo '<li class="nav-item"><a class="nav-link" href="/users/gdpr_data_management.php"><i class="bi bi-gear me-2"></i><span>Datenverwaltung</span></a></li>';
             echo '<li class="nav-item"><a class="nav-link" href="/auth/2fa_setup.php"><i class="bi bi-shield-lock me-2"></i><span>2FA einrichten</span></a></li>';
-            if (is_admin()) {
-                echo '<li class="nav-item"><a class="nav-link" href="/admin/dashboard.php"><i class="bi bi-shield me-2"></i><span>Admin</span></a></li>';
-                echo '<li class="nav-item"><a class="nav-link" href="/admin/activity_logs.php"><i class="bi bi-journal-text me-2"></i><span>Aktivitätsprotokolle</span></a></li>';
-                echo '<li class="nav-item"><a class="nav-link" href="/admin/news/manage_news.php"><i class="bi bi-newspaper me-2"></i><span>News verwalten</span></a></li>';
-                echo '<li class="nav-item"><a class="nav-link" href="/admin/news/create_news.php"><i class="bi bi-plus-circle me-2"></i><span>News erstellen</span></a></li>';
-                echo '<li class="nav-item"><a class="nav-link" href="/admin/news/category_management.php"><i class="bi bi-tags me-2"></i><span>Kategorien</span></a></li>';
-                echo '<li class="nav-item"><a class="nav-link" href="/admin/news/tag_management.php"><i class="bi bi-tag me-2"></i><span>Tags</span></a></li>';
+            if (is_admin_or_moderator()) {
+                echo '<li class="nav-item"><a class="nav-link" href="/admin/dashboard.php"><i class="bi bi-gear-wide-connected me-2"></i><span>Administration</span></a></li>';
             }
         }
         ?>
