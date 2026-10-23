@@ -1,93 +1,47 @@
 <?php
-require_once '../config.php';
-$page_title = 'Impressum';
-include '../includes/header.php';
+/**
+ * Impressum nach § 5 DDG und § 18 Abs. 2 MStV.
+ * Name und Anschrift kommen aus betreiber.local.php (nur auf dem Server, nicht im Repository).
+ */
+require_once __DIR__ . '/../includes/rechtliches.php';
+$b = betreiber();
+
+rechtsseite_start('Impressum', 'bi-info-circle', 'Angaben gemäß § 5 Digitale-Dienste-Gesetz (DDG)');
 ?>
-<div class="layout-container">
-    <?php include '../includes/sidebar.php'; ?>
-    <div class="main-wrapper">
-        <main class="main-content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4 col-lg-3">
-                    </div>
-                    <div class="col-md-8 col-lg-9">
-                        <div class="container py-5">
-                            <h1 class="mb-4"><i class="bi bi-info-circle me-2"></i>Impressum</h1>
-                            
-                            <div class="alert alert-info mb-4">
-                                <h5><i class="bi bi-shield-check me-2"></i>Angaben gemäß § 5 TMG</h5>
-                                <p class="mb-0">Diese Website wird betrieben von YourName als private Lernplattform für die Fachinformatiker-Ausbildung.</p>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="card h-100">
-                                        <div class="card-header">
-                                            <h5 class="mb-0"><i class="bi bi-person me-2"></i>Anbieter</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p><strong>MaxMuster</strong><br>
-                                                Musterstraße 123<br>
-                                                12345 Musterstadt<br>
-                                                Deutschland</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <div class="card h-100">
-                                        <div class="card-header">
-                                            <h5 class="mb-0"><i class="bi bi-envelope me-2"></i>Kontakt</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p><strong>E-Mail:</strong> admin@YourDomain<br>
-                                                <strong>Telefon:</strong> 000-000-000<br>
-                                                <strong>Postalisch:</strong> Musterstraße 123, 12345 Musterstadt</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mt-4">
-                                <div class="col-md-6">
-                                    <div class="card h-100">
-                                        <div class="card-header">
-                                            <h5 class="mb-0"><i class="bi bi-file-text me-2"></i>Verantwortlich für redaktionelle Inhalte</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p>MaxMuster<br>
-                                                Musterstraße 123<br>
-                                                12345 Musterstadt</p>
-                                            <small class="text-muted">Nach § 18 Abs. 2 MStV</small>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <div class="card h-100">
-                                        <div class="card-header">
-                                            <h5 class="mb-0"><i class="bi bi-globe me-2"></i>Website-Informationen</h5>
-                                        </div>
-                                        <div class="card-body">
-                                            <p><strong>Domain:</strong> YourDomain<br>
-                                                <strong>Zweck:</strong> Lernplattform für Fachinformatiker<br>
-                                                <strong>Hosting:</strong> YourHoster (Deutschland)<br>
-                                                <strong>SSL:</strong> Aktiviert (HTTPS)</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="alert alert-warning mt-4">
-                                <h6><i class="bi bi-exclamation-triangle me-2"></i>Haftungsausschluss</h6>
-                                <p class="mb-0">Diese Website dient ausschließlich der Aus- und Weiterbildung. Der Betreiber übernimmt keine Gewähr für die Richtigkeit, Vollständigkeit oder Aktualität der bereitgestellten Informationen. Die Nutzung erfolgt auf eigene Gefahr.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
+<div class="legal-grid">
+    <section class="legal-card">
+        <h2><i class="bi bi-person" aria-hidden="true"></i>Anbieter</h2>
+        <address><?= betreiber_anschrift_html() ?></address>
+    </section>
+    <section class="legal-card">
+        <h2><i class="bi bi-envelope" aria-hidden="true"></i>Kontakt</h2>
+        <p>E-Mail: <?= betreiber_email_html() ?><br>
+            Kontaktformular: <a href="/kontakt.php">Nachricht schreiben</a></p>
+    </section>
 </div>
-<?php include '../includes/footer.php'; ?>
+
+<section class="legal-card">
+    <h2><i class="bi bi-pencil-square" aria-hidden="true"></i>Verantwortlich für den Inhalt</h2>
+    <p>Verantwortlich für die redaktionellen Inhalte nach § 18 Abs. 2 Medienstaatsvertrag (MStV):<br>
+        <?= htmlspecialchars($b['name']) ?>, Anschrift wie oben</p>
+</section>
+
+<section class="legal-card">
+    <h2><i class="bi bi-info-square" aria-hidden="true"></i>Hinweise</h2>
+    <h3>Inhalte</h3>
+    <p>Die Lerninhalte, Quizfragen und IT-Trainer werden mit Sorgfalt erstellt. Sie dienen der Vorbereitung auf die
+        Abschlussprüfungen für Fachinformatiker/-innen, sind aber kein offizielles Material der IHK. Eine Gewähr für
+        Richtigkeit, Vollständigkeit und Aktualität sowie für einen Prüfungserfolg kann nicht übernommen werden.</p>
+    <h3>Links</h3>
+    <p>Für Inhalte verlinkter fremder Seiten sind ausschließlich deren Betreiber verantwortlich. Bei Bekanntwerden von
+        Rechtsverletzungen werden entsprechende Links umgehend entfernt.</p>
+    <h3>Urheberrecht</h3>
+    <p>Texte, Grafiken, Aufgaben und Quizfragen dieser Seite sind eigene Werke und urheberrechtlich geschützt. Für das
+        persönliche Lernen darfst du sie selbstverständlich nutzen; eine Veröffentlichung oder Weitergabe – auch in
+        Auszügen – ist nur mit Erlaubnis gestattet. Verwendete Software und Schriften stehen unter ihren eigenen
+        Open-Source-Lizenzen.</p>
+    <h3>Streitbeilegung</h3>
+    <p>Zur Teilnahme an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle bin ich weder verpflichtet
+        noch bereit.</p>
+</section>
+<?php rechtsseite_ende(); ?>

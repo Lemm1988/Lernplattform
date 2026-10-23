@@ -90,6 +90,9 @@ $header_nav_link = function ($href, $icon, $label, $active = false) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= htmlspecialchars($meta_description) ?>">
     <meta name="theme-color" content="#4f46e5">
+    <?php if (!empty($meta_robots)): ?>
+    <meta name="robots" content="<?= htmlspecialchars($meta_robots) ?>">
+    <?php endif; ?>
     <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="de_DE">

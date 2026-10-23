@@ -1,6 +1,9 @@
 # Lokale Einstellungen mit Zugangsdaten (Vorlage: config.local.example.php)
 config.local.php
 
+# Name und Anschrift des Betreibers für die Rechtstexte (Vorlage: betreiber.local.example.php)
+betreiber.local.php
+
 # Server-Logs – enthalten IP-Adressen (personenbezogene Daten nach DSGVO), gehören nie ins Repo
 logs/*
 !logs/.htaccess

@@ -54,9 +54,8 @@ $footer_logged_in = is_logged_in();
                     <h2>Infos</h2>
                     <ul>
                         <li><a href="<?= htmlspecialchars($help_url) ?>">Hilfe</a></li>
-                        <?php if ($footer_logged_in && is_contact_enabled_for_user()): ?>
-                            <li><a href="<?= htmlspecialchars($contact_url) ?>">Kontakt</a></li>
-                        <?php endif; ?>
+                        <?php // Mit Konto die Nachrichten im Konto, sonst das öffentliche Kontaktformular ?>
+                        <li><a href="<?= htmlspecialchars($footer_logged_in && is_contact_enabled_for_user() ? $contact_url : '/kontakt.php') ?>">Kontakt</a></li>
                         <li><a href="<?= htmlspecialchars($privacy_url) ?>">Datenschutz</a></li>
                         <li><a href="<?= htmlspecialchars($imprint_url) ?>">Impressum</a></li>
                         <li><a href="<?= htmlspecialchars($terms_url) ?>">AGB</a></li>

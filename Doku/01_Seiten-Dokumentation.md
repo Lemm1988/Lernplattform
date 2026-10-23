@@ -272,11 +272,23 @@
 
 ---
 
+### `kontakt.php` (öffentliches Kontaktformular)
+**Zweck:** Zweiter Kontaktweg neben der E-Mail (Impressum ohne Telefonnummer)
+**Zugriff:** Öffentlich
+**Funktionen:**
+- Name, E-Mail, Thema, Nachricht; Versand per `send_email()` an die E-Mail aus `betreiber.local.php`, keine Speicherung
+- Spam-Schutz: verstecktes Feld, mindestens 4 Sekunden Ausfüllzeit, höchstens 3 Nachrichten pro Stunde und Sitzung
+
+---
+
 ### `users/agb.php` / `users/impressum.php` / `users/datenschutz.php`
 **Zweck:** Rechtliche Seiten  
-**Zugriff:** Öffentlich  
+**Zugriff:** Öffentlich (noindex – Suchmaschinen nehmen sie nicht auf)  
 **Funktionen:**
-- AGB, Impressum, Datenschutzerklärung anzeigen
+- Nutzungsbedingungen, Impressum (§ 5 DDG, § 18 Abs. 2 MStV), Datenschutzerklärung (Art. 13 DSGVO)
+- Name, Anschrift, E-Mail und Aufsichtsbehörde aus `betreiber.local.php` (nur auf dem Server, Vorlage
+  `betreiber.local.example.php`); gemeinsame Bausteine in `includes/rechtliches.php`
+- E-Mail-Adresse steht nicht im HTML, sondern wird per Skript zusammengesetzt (Schutz vor Adress-Sammlern)
 
 **Verwendete Tabellen:**
 - `settings` - URLs für rechtliche Seiten

@@ -1,290 +1,165 @@
 <?php
-require_once '../config.php';
-$page_title = 'Datenschutz';
-include '../includes/header.php';
+/**
+ * Datenschutzerklärung nach Art. 13 DSGVO.
+ * Name und Anschrift kommen aus betreiber.local.php (nur auf dem Server, nicht im Repository).
+ * Bei neuen Funktionen, die personenbezogene Daten verarbeiten (z. B. Werbung), diese Seite anpassen.
+ */
+require_once __DIR__ . '/../includes/rechtliches.php';
+$b = betreiber();
+$abschnitte = [
+    'verantwortlich' => 'Verantwortlicher',
+    'ueberblick' => 'Überblick',
+    'hosting' => 'Hosting und Server-Logdateien',
+    'konto' => 'Benutzerkonto',
+    'lernen' => 'Quiz, Lernfortschritt und IT-Trainer',
+    'protokolle' => 'Sicherheits- und Aktivitätsprotokolle',
+    'kontakt' => 'Kontakt',
+    'newsletter' => 'Newsletter und E-Mails',
+    'cookies' => 'Cookies und Speicher im Browser',
+    'empfaenger' => 'Empfänger und Drittanbieter',
+    'dauer' => 'Speicherdauer',
+    'rechte' => 'Deine Rechte',
+];
+
+rechtsseite_start('Datenschutzerklärung', 'bi-shield-lock', 'Welche Daten diese Lernplattform verarbeitet, wozu und wie lange.');
 ?>
-<div class="layout-container">
-    <?php include '../includes/sidebar.php'; ?>
-    <div class="main-wrapper">
-        <main class="main-content">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4 col-lg-3">
-                    </div>
-                    <div class="col-md-8 col-lg-9">
-                        <div class="container py-5">
-                            <h1 class="mb-4"><i class="bi bi-shield-lock me-2"></i>Datenschutzerklärung</h1>
+<nav class="legal-toc" aria-label="Inhalt">
+    <strong>Inhalt</strong>
+    <ol>
+        <?php foreach ($abschnitte as $id => $titel): ?>
+            <li><a href="#<?= $id ?>"><?= htmlspecialchars($titel) ?></a></li>
+        <?php endforeach; ?>
+    </ol>
+</nav>
 
-                            <!-- Accordion START -->
-                            <div class="accordion" id="privacyAccordion">
+<section class="legal-card" id="verantwortlich">
+    <h2><i class="bi bi-person" aria-hidden="true"></i>1. Verantwortlicher</h2>
+    <address><?= betreiber_anschrift_html() ?></address>
+    <p class="mt-2">E-Mail: <?= betreiber_email_html() ?> · <a href="/kontakt.php">Kontaktformular</a></p>
+    <p>Ein Datenschutzbeauftragter ist nicht benannt, weil dafür keine gesetzliche Pflicht besteht. Bei Fragen zum
+        Datenschutz wende dich direkt an mich.</p>
+</section>
 
-                                <!-- 1 Allgemeine Hinweise -->
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingGeneral">
-                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseGeneral" aria-expanded="true"
-                                            aria-controls="collapseGeneral">
-                                            🛈 Allgemeine Hinweise
-                                        </button>
-                                    </h2>
-                                    <div id="collapseGeneral" class="accordion-collapse collapse show"
-                                        aria-labelledby="headingGeneral" data-bs-parent="#privacyAccordion">
-                                        <div class="accordion-body">
-                                            <pre
-                                                style="white-space: pre-wrap; background: none; border: none; font-family: inherit;">
-Der Schutz Ihrer personenbezogenen Daten hat höchste Priorität. Nachfolgend informieren wir Sie gem. Art. 12 ff. DSGVO umfassend darüber,
-welche Daten wir erfassen, zu welchem Zweck dies geschieht und welche Rechte Sie als betroffene Person haben.
-</pre>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 2 Verantwortlicher -->
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingController">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseController"
-                                            aria-expanded="false" aria-controls="collapseController">
-                                            👤 Verantwortlicher
-                                        </button>
-                                    </h2>
-                                    <div id="collapseController" class="accordion-collapse collapse"
-                                        aria-labelledby="headingController" data-bs-parent="#privacyAccordion">
-                                        <div class="accordion-body">
-                                            <pre
-                                                style="white-space: pre-wrap; background: none; border: none; font-family: inherit;">
-Verantwortlicher für die Datenverarbeitung:
-
-MaxMuster
-Musterstraße 123
-12345 Musterstadt
-Deutschland
-
-E-Mail: admin@YourDomain
-Telefon: 000-000-000
-
-Verantwortlich i. S. d. Art. 4 Nr. 7 DSGVO ist der oben genannte Betreiber der Fachinformatiker Lernplattform.
-</pre>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 3 Erhebung & Verarbeitung -->
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingProcessing">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseProcessing"
-                                            aria-expanded="false" aria-controls="collapseProcessing">
-                                            📑 Erhebung & Verarbeitung personenbezogener Daten
-                                        </button>
-                                    </h2>
-                                    <div id="collapseProcessing" class="accordion-collapse collapse"
-                                        aria-labelledby="headingProcessing" data-bs-parent="#privacyAccordion">
-                                        <div class="accordion-body">
-                                            <pre
-                                                style="white-space: pre-wrap; background: none; border: none; font-family: inherit;">
-Die Fachinformatiker Lernplattform erfasst folgende personenbezogene Daten:
-
-• Registrierungsdaten: E-Mail, Benutzername, Passwort-Hash, Vor- und Nachname
-  (Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO – Vertragserfüllung)
-
-• Quiz-Ergebnisse und Lernfortschritt: Speicherung zur Bereitstellung personalisierter Inhalte
-  (Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO – Vertragserfüllung)
-
-• Kontaktnachrichten: Fragen, Feedback und Support-Anfragen
-  (Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO – berechtigtes Interesse)
-
-• Technische Daten: IP-Adresse, Browser-Informationen, Zugriffszeiten, Login-Historie
-  (Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO – berechtigtes Interesse)
-
-• 2FA-Daten: Sicherheitstoken für Zwei-Faktor-Authentifizierung
-  (Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO – berechtigtes Interesse)
-
-• Session-Daten: Login-Status, Präferenzen, temporäre Einstellungen
-  (Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO – Vertragserfüllung)
-</pre>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 4 Cookies & Tracking -->
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingCookies">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseCookies"
-                                            aria-expanded="false" aria-controls="collapseCookies">
-                                            🍪 Cookies & Analyse-Tools
-                                        </button>
-                                    </h2>
-                                    <div id="collapseCookies" class="accordion-collapse collapse"
-                                        aria-labelledby="headingCookies" data-bs-parent="#privacyAccordion">
-                                        <div class="accordion-body">
-                                            <pre
-                                                style="white-space: pre-wrap; background: none; border: none; font-family: inherit;">
-Die Fachinformatiker Lernplattform verwendet folgende Cookies:
-
-Notwendige Cookies (Art. 6 Abs. 1 lit. f DSGVO):
-• Session-Cookies für Login-Status und Sicherheit
-• CSRF-Token für Schutz vor Angriffen
-• Cookie-Banner-Einstellungen
-
-Funktionale Cookies (Art. 6 Abs. 1 lit. b DSGVO):
-• Benutzereinstellungen und Präferenzen
-• Quiz-Fortschritt und temporäre Speicherung
-• Sidebar-Zustand und UI-Einstellungen
-
-Analyse-Cookies:
-• Derzeit werden keine Tracking- oder Analyse-Cookies verwendet
-• Keine Weitergabe von Daten an Drittanbieter
-• Keine Google Analytics oder ähnliche Tools
-
-Sie können Cookies in Ihrem Browser deaktivieren, dies kann jedoch die Funktionalität der Plattform einschränken.
-</pre>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 5 Drittanbieter -->
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingThird">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseThird"
-                                            aria-expanded="false" aria-controls="collapseThird">
-                                            🔗 Weitergabe an Auftragsverarbeiter / Drittanbieter
-                                        </button>
-                                    </h2>
-                                    <div id="collapseThird" class="accordion-collapse collapse"
-                                        aria-labelledby="headingThird" data-bs-parent="#privacyAccordion">
-                                        <div class="accordion-body">
-                                            <pre
-                                                style="white-space: pre-wrap; background: none; border: none; font-family: inherit;">
-Eine Weitergabe Ihrer personenbezogenen Daten erfolgt nicht an Dritte.
-
-Ausnahmen:
-• Hosting-Dienstleister (IONOS): Technische Bereitstellung der Plattform
-  (Serverstandort: Deutschland, Auftragsverarbeitungsvertrag nach Art. 28 DSGVO)
-
-• Keine Weitergabe an:
-  - Werbeunternehmen oder Marketing-Dienstleister
-  - Soziale Netzwerke oder Tracking-Anbieter
-  - Zahlungsdienstleister (da kostenlose Plattform)
-  - Versanddienstleister (da digitale Inhalte)
-
-Alle Daten verbleiben auf Servern in Deutschland und werden nicht in Drittländer übertragen.
-</pre>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 6 Datenverwaltung -->
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingDataManagement">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseDataManagement"
-                                            aria-expanded="false" aria-controls="collapseDataManagement">
-                                            <i class="bi bi-gear me-2"></i> Datenverwaltung & Ihre Rechte
-                                        </button>
-                                    </h2>
-                                    <div id="collapseDataManagement" class="accordion-collapse collapse"
-                                        aria-labelledby="headingDataManagement" data-bs-parent="#privacyAccordion">
-                                        <div class="accordion-body">
-                                            <pre
-                                                style="white-space: pre-wrap; background: none; border: none; font-family: inherit;">
-Sie haben jederzeit die Möglichkeit, Ihre Daten zu verwalten:
-
-• Datenexport: Laden Sie alle Ihre Daten in einem strukturierten JSON-Format herunter
-• Datenlöschung: Löschen Sie Ihr Benutzerkonto und alle zugehörigen Daten
-• Datenberichtigung: Ändern Sie Ihre Profildaten über das Benutzerprofil
-• Datenauskunft: Sehen Sie ein, welche Daten über Sie gespeichert sind
-
-Zugriff auf die Datenverwaltung:
-• Über das Benutzerprofil: "Datenverwaltung" im Menü
-• Direkt: /users/gdpr_data_management.php
-• Kontakt: admin@YourDomain
-
-Alle Aktionen sind kostenlos und werden unverzüglich bearbeitet.
-</pre>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 7 Ihre Rechte -->
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingRights">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseRights"
-                                            aria-expanded="false" aria-controls="collapseRights">
-                                            🛠️ Rechte der betroffenen Personen
-                                        </button>
-                                    </h2>
-                                    <div id="collapseRights" class="accordion-collapse collapse"
-                                        aria-labelledby="headingRights" data-bs-parent="#privacyAccordion">
-                                        <div class="accordion-body">
-                                            <pre
-                                                style="white-space: pre-wrap; background: none; border: none; font-family: inherit;">
-Sie haben jederzeit das Recht auf
-• Auskunft (Art. 15 DSGVO)
-• Berichtigung (Art. 16 DSGVO)
-• Löschung / „Recht auf Vergessenwerden“ (Art. 17 DSGVO)
-• Einschränkung der Verarbeitung (Art. 18 DSGVO)
-• Datenübertragbarkeit (Art. 20 DSGVO)
-• Widerspruch gegen Verarbeitung (Art. 21 DSGVO)
-• Beschwerde bei einer Aufsichtsbehörde (Art. 77 DSGVO)
-</pre>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 8 Datensicherheit -->
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingSecurity">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseSecurity"
-                                            aria-expanded="false" aria-controls="collapseSecurity">
-                                            🔒 Datensicherheit
-                                        </button>
-                                    </h2>
-                                    <div id="collapseSecurity" class="accordion-collapse collapse"
-                                        aria-labelledby="headingSecurity" data-bs-parent="#privacyAccordion">
-                                        <div class="accordion-body">
-                                            <pre
-                                                style="white-space: pre-wrap; background: none; border: none; font-family: inherit;">
-• TLS-Verschlüsselung (https) schützt alle Datenübertragungen zwischen Ihrem Endgerät und unserem Server.
-• Zugriffskontrollen, Zwei-Faktor-Authentifizierung für Administratoren.
-• Regelmäßige Backups & Sicherheits-Updates.
-</pre>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- 9 Kontakt -->
-                                <div class="accordion-item">
-                                    <h2 class="accordion-header" id="headingContact">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseContact"
-                                            aria-expanded="false" aria-controls="collapseContact">
-                                            ✉️ Kontakt bei Datenschutzfragen
-                                        </button>
-                                    </h2>
-                                    <div id="collapseContact" class="accordion-collapse collapse"
-                                        aria-labelledby="headingContact" data-bs-parent="#privacyAccordion">
-                                        <div class="accordion-body">
-                                            <pre
-                                                style="white-space: pre-wrap; background: none; border: none; font-family: inherit;">
-Bei Fragen wenden Sie sich bitte an unseren Datenschutzbeauftragten:
-E-Mail: admin@YourDomain
-</pre>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <!-- Accordion END -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
+<section class="legal-card" id="ueberblick">
+    <h2><i class="bi bi-list-check" aria-hidden="true"></i>2. Überblick</h2>
+    <p>Die Lernplattform ist kostenlos. Lerninhalte kannst du ohne Konto lesen. Für Quiz, Prüfungssimulation, IT-Trainer
+        und Lernfortschritt brauchst du ein Konto. Es gibt <strong>kein Tracking, keine Analyse-Tools, keine Werbung und
+        keine eingebundenen Inhalte fremder Server</strong> – Schriften, Symbole und Programmbibliotheken liegen auf dem
+        eigenen Server.</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered legal-table">
+            <thead><tr><th scope="col">Zweck</th><th scope="col">Daten</th><th scope="col">Rechtsgrundlage (DSGVO)</th></tr></thead>
+            <tbody>
+                <tr><td>Webseite ausliefern, Sicherheit</td><td>Server-Logdateien</td><td>Art. 6 Abs. 1 lit. f</td></tr>
+                <tr><td>Benutzerkonto, Lernfunktionen</td><td>Kontodaten, Quiz-Ergebnisse, Fortschritt</td><td>Art. 6 Abs. 1 lit. b</td></tr>
+                <tr><td>Schutz vor Missbrauch</td><td>Anmeldeversuche, Aktivitätsprotokolle</td><td>Art. 6 Abs. 1 lit. f</td></tr>
+                <tr><td>Anfragen beantworten</td><td>Name, E-Mail, Nachricht</td><td>Art. 6 Abs. 1 lit. b und f</td></tr>
+                <tr><td>Newsletter</td><td>E-Mail-Adresse</td><td>Art. 6 Abs. 1 lit. a (Einwilligung)</td></tr>
+            </tbody>
+        </table>
     </div>
-</div>
-<?php include '../includes/footer.php'; ?>
+</section>
+
+<section class="legal-card" id="hosting">
+    <h2><i class="bi bi-hdd-network" aria-hidden="true"></i>3. Hosting und Server-Logdateien</h2>
+    <p>Die Seite liegt bei der IONOS SE, Elgendorfer Str. 57, 56410 Montabaur, auf Servern in Deutschland. Mit IONOS
+        besteht ein Vertrag zur Auftragsverarbeitung (Art. 28 DSGVO).</p>
+    <p>Bei jedem Aufruf speichert der Server automatisch: IP-Adresse, Datum und Uhrzeit, aufgerufene Seite, übertragene
+        Datenmenge, zuvor besuchte Seite (Referrer) und Browserkennung. Das ist nötig, um die Seite auszuliefern und
+        Angriffe zu erkennen (berechtigtes Interesse nach Art. 6 Abs. 1 lit. f DSGVO). Die Logdateien werden nur für
+        begrenzte Zeit aufbewahrt und danach automatisch gelöscht.</p>
+</section>
+
+<section class="legal-card" id="konto">
+    <h2><i class="bi bi-person-badge" aria-hidden="true"></i>4. Benutzerkonto</h2>
+    <p>Bei der Registrierung speichere ich Benutzername, E-Mail-Adresse und dein Passwort – nur als sicheren Hash, nie im
+        Klartext. Dazu kommen Rolle, Registrierungsdatum, letzte Anmeldung, dein gewählter Avatar und, falls du sie
+        einrichtest, die Daten der Zwei-Faktor-Anmeldung. Zur Bestätigung der E-Mail-Adresse erhältst du eine E-Mail mit
+        einem Link. Rechtsgrundlage ist die Bereitstellung der Plattform (Art. 6 Abs. 1 lit. b DSGVO).</p>
+    <p>Du kannst unter <a href="/users/gdpr_data_management.php">Datenverwaltung</a> jederzeit alle Daten herunterladen
+        oder dein Konto mit allen Daten löschen.</p>
+</section>
+
+<section class="legal-card" id="lernen">
+    <h2><i class="bi bi-mortarboard" aria-hidden="true"></i>5. Quiz, Lernfortschritt und IT-Trainer</h2>
+    <p>Damit du deine Ergebnisse siehst und das Fehlertraining funktioniert, speichere ich zu deinem Konto: gestartete und
+        abgeschlossene Quizze und Prüfungssimulationen, deine Antworten, Punkte und IT-Coins, als gelesen markierte
+        Kapitel sowie von dir eingereichte Fragen und Nachrichten (Art. 6 Abs. 1 lit. b DSGVO). Diese Daten sieht außer
+        dir nur die Administration der Plattform.</p>
+    <p>Die IT-Trainer speichern deinen Spielstand nur in deinem Browser (siehe Abschnitt 9) – er wird nicht übertragen.</p>
+</section>
+
+<section class="legal-card" id="protokolle">
+    <h2><i class="bi bi-clock-history" aria-hidden="true"></i>6. Sicherheits- und Aktivitätsprotokolle</h2>
+    <p>Zum Schutz vor Missbrauch und zur Fehlersuche protokolliere ich bei angemeldeten Nutzern aufgerufene Seiten und
+        Aktionen mit Zeitpunkt, Browserkennung und einer <strong>gekürzten</strong> IP-Adresse (das letzte Byte wird entfernt).
+        Fehlgeschlagene und erfolgreiche Anmeldungen werden mit vollständiger IP-Adresse gespeichert, um
+        Passwort-Rateangriffe zu erkennen und zu sperren (Art. 6 Abs. 1 lit. f DSGVO).</p>
+</section>
+
+<section class="legal-card" id="kontakt">
+    <h2><i class="bi bi-envelope" aria-hidden="true"></i>7. Kontakt</h2>
+    <p>Schreibst du mir über das <a href="/kontakt.php">Kontaktformular</a> oder per E-Mail, verarbeite ich Name,
+        E-Mail-Adresse und Nachricht, um deine Anfrage zu beantworten (Art. 6 Abs. 1 lit. b bzw. f DSGVO). Nachrichten
+        über das öffentliche Formular werden nicht in der Datenbank gespeichert, sondern per E-Mail zugestellt und nach
+        Erledigung gelöscht. Nachrichten aus deinem Konto bleiben dort gespeichert, bis du sie oder dein Konto löschst.</p>
+</section>
+
+<section class="legal-card" id="newsletter">
+    <h2><i class="bi bi-envelope-paper" aria-hidden="true"></i>8. Newsletter und E-Mails</h2>
+    <p>Einen Newsletter bekommst du nur, wenn du bei der Registrierung oder in deinen
+        <a href="/settings.php">Einstellungen</a> zugestimmt hast (Art. 6 Abs. 1 lit. a DSGVO). Die Einwilligung kannst du
+        dort jederzeit mit Wirkung für die Zukunft widerrufen. Unabhängig davon erhältst du E-Mails, die für dein Konto nötig
+        sind – etwa zur Bestätigung der Adresse, zum Zurücksetzen des Passworts oder einen Hinweis, bevor ein lange
+        ungenutztes Konto gelöscht wird.</p>
+</section>
+
+<section class="legal-card" id="cookies">
+    <h2><i class="bi bi-database" aria-hidden="true"></i>9. Cookies und Speicher im Browser</h2>
+    <p>Es werden nur technisch notwendige Einträge gesetzt. Dafür ist keine Einwilligung nötig (§ 25 Abs. 2 Nr. 2 TDDDG).</p>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered legal-table">
+            <thead><tr><th scope="col">Name</th><th scope="col">Zweck</th><th scope="col">Dauer</th></tr></thead>
+            <tbody>
+                <tr><td>PHPSESSID (Cookie)</td><td>Anmeldung und Schutz von Formularen vor Fremdzugriff (CSRF)</td><td>bis zum Schließen des Browsers bzw. Abmelden</td></tr>
+                <tr><td>cookie_consent (Cookie)</td><td>merkt sich, dass du den Cookie-Hinweis geschlossen hast</td><td>1 Jahr</td></tr>
+                <tr><td>Spielstände (localStorage)</td><td>Fortschritt in den IT-Trainern, nur auf deinem Gerät</td><td>bis du ihn im Browser löschst</td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="legal-card" id="empfaenger">
+    <h2><i class="bi bi-share" aria-hidden="true"></i>10. Empfänger und Drittanbieter</h2>
+    <p>Daten werden nicht verkauft und nicht an Dritte weitergegeben. Empfänger ist nur der Hoster IONOS als
+        Auftragsverarbeiter. E-Mails werden über den E-Mail-Server des Hosters versendet. Eine Übermittlung in Länder
+        außerhalb der EU findet nicht statt.</p>
+</section>
+
+<section class="legal-card" id="dauer">
+    <h2><i class="bi bi-hourglass-split" aria-hidden="true"></i>11. Speicherdauer</h2>
+    <ul>
+        <li>Kontodaten, Ergebnisse und Fortschritt: bis du dein Konto löschst. Konten, die sechs Monate lang nicht genutzt
+            wurden, werden mit allen Daten automatisch gelöscht; vorher kann eine Erinnerung per E-Mail kommen.</li>
+        <li>Aktivitäts- und Anmeldeprotokolle: höchstens sechs Monate.</li>
+        <li>Anfragen über das Kontaktformular: bis sie erledigt sind.</li>
+        <li>Gesetzliche Aufbewahrungspflichten bleiben unberührt.</li>
+    </ul>
+</section>
+
+<section class="legal-card" id="rechte">
+    <h2><i class="bi bi-person-check" aria-hidden="true"></i>12. Deine Rechte</h2>
+    <p>Du hast das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der
+        Verarbeitung (Art. 18), Datenübertragbarkeit (Art. 20) und Widerspruch gegen Verarbeitungen auf Grundlage
+        berechtigter Interessen (Art. 21). Eine erteilte Einwilligung kannst du jederzeit widerrufen (Art. 7 Abs. 3).
+        Vieles davon erledigst du selbst unter <a href="/users/gdpr_data_management.php">Datenverwaltung</a>; sonst
+        genügt eine Nachricht an mich.</p>
+    <p>Außerdem kannst du dich bei einer Datenschutz-Aufsichtsbehörde beschweren (Art. 77 DSGVO), zum Beispiel bei der für
+        mich zuständigen: <?= htmlspecialchars($b['aufsicht_name'] ?? '') ?>
+        <?php if (!empty($b['aufsicht_web'])): ?>(<a href="<?= htmlspecialchars($b['aufsicht_web']) ?>" rel="noopener" target="_blank"><?= htmlspecialchars(preg_replace('#^https?://(www\.)?#', '', $b['aufsicht_web'])) ?></a>)<?php endif; ?>.</p>
+    <p>Die Bereitstellung von Daten ist freiwillig. Ohne Konto kannst du die Lerninhalte lesen, aber Quiz, Trainer und
+        Fortschritt nicht nutzen. Eine automatisierte Entscheidungsfindung oder ein Profiling findet nicht statt.</p>
+</section>
+
+<p class="legal-stand">Stand: Oktober 2026</p>
+<?php rechtsseite_ende(); ?>

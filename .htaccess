@@ -74,8 +74,8 @@
     RedirectMatch 404 "^/(\.git|\.vscode|dev|inhalte|migrations|tests|logs|Doku|docs|Lerplattform - Last Backup[^/]*)(/|$)"
 </IfModule>
 
-# Schutz der config.php vor direktem Zugriff
-<FilesMatch "^config(\.local|\.local\.example)?\.php$">
+# Schutz der config.php und der Betreiberdaten vor direktem Zugriff
+<FilesMatch "^(config|betreiber)(\.local|\.local\.example)?\.php$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
