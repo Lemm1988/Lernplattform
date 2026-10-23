@@ -64,6 +64,13 @@ if ($header_is_staff) {
     }
 }
 $header_is_home = in_array($header_path, ['/', '/index.php'], true);
+// Suchmaschinen und Link-Vorschau: Beschreibung pro Seite ($page_description), kanonische Adresse ohne index.php
+$meta_description = !empty($page_description) ? $page_description : $site_description_value;
+$canonical_path = preg_replace('#(^|/)index\.php$#', '$1', $header_path);
+if ($header_path === '/news/article.php' && isset($_GET['slug']) && is_string($_GET['slug'])) {
+    $canonical_path .= '?slug=' . rawurlencode($_GET['slug']);
+}
+$canonical_url = site_base_url() . $canonical_path;
 $header_allow_registration = (bool)get_setting('allow_registration', true);
 $body_classes = [$header_logged_in ? 'is-user' : 'is-guest'];
 if ($header_is_home) $body_classes[] = 'page-home';
@@ -81,23 +88,31 @@ $header_nav_link = function ($href, $icon, $label, $active = false) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="<?= htmlspecialchars($site_description_value) ?>">
-    <meta name="keywords" content="Fachinformatiker, IHK, Prüfung, Lernplattform, IT-Ausbildung">
-    <meta name="author" content="Fachinformatiker Lernplattform">
+    <meta name="description" content="<?= htmlspecialchars($meta_description) ?>">
     <meta name="theme-color" content="#4f46e5">
+    <link rel="canonical" href="<?= htmlspecialchars($canonical_url) ?>">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="de_DE">
+    <meta property="og:site_name" content="<?= htmlspecialchars($site_title_value) ?>">
+    <meta property="og:title" content="<?= htmlspecialchars(isset($page_title) ? $page_title : $site_title_value) ?>">
+    <meta property="og:description" content="<?= htmlspecialchars($meta_description) ?>">
+    <meta property="og:url" content="<?= htmlspecialchars($canonical_url) ?>">
+    <meta property="og:image" content="<?= htmlspecialchars(site_base_url()) ?>/assets/img/social-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
 
     <title><?= isset($page_title) ? htmlspecialchars($page_title) . ' - ' : '' ?><?= htmlspecialchars($site_title_value) ?></title>
     <script>document.documentElement.classList.remove('no-js');</script>
 
     <!-- Schrift liegt auf dem eigenen Server (keine Verbindung zu Google Fonts) -->
     <link rel="preload" href="/assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
     <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-5.3.0/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons-1.10.0/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="<?= asset_url('/assets/css/style.css') ?>" rel="stylesheet">

@@ -414,7 +414,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     background: #f8f9fa;
     border-radius: 8px;
     text-align: center;
-    border-top: 4px solid #0d6efd;
+    border-top: 4px solid #4f46e5;
 }
 
 .role-icon {
@@ -436,7 +436,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .responsibility-item i {
@@ -447,7 +447,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .responsibility-item h5 {
     margin-bottom: 0.5rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .comparison-table {
@@ -466,7 +466,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     background: #f8f9fa;
     border-radius: 8px;
     text-align: center;
-    border-top: 4px solid #0d6efd;
+    border-top: 4px solid #4f46e5;
 }
 
 .skill-card i {
@@ -476,7 +476,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .skill-card h5 {
     margin-bottom: 0.75rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .navigation-buttons {

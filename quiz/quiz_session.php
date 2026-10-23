@@ -90,6 +90,11 @@ usort($answers, function ($a, $b) use ($session_id) {
 
 // Zeitlimit prüfen
 $quiz_time_limit = (int)get_setting('quiz_time_limit', QUIZ_TIME_LIMIT); // Sekunden (gleicher Fallback wie start_quiz.php)
+// Prüfungssimulation: Zeitlimit des Prüfungsteils steht in der Session
+$exam_mode = (string)($session['quiz_mode'] ?? '');
+if (strpos($exam_mode, 'pruefung_') === 0 && (int)$session['time_limit'] > 0) {
+    $quiz_time_limit = (int)$session['time_limit'];
+}
 $started_at = strtotime($session['started_at']);
 $now = time();
 $time_left = $quiz_time_limit > 0 ? max(0, $started_at + $quiz_time_limit - $now) : null;
@@ -272,7 +277,7 @@ include '../includes/header.php';
                             class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                             <h1 class="h2">
                                 <i class="bi bi-question-circle me-2"></i>
-                                Quiz: Frage <?= $session['answered_questions'] + 1 ?> von
+                                <?= strpos($exam_mode, 'pruefung_') === 0 ? 'Prüfungssimulation' : 'Quiz' ?>: Frage <?= $session['answered_questions'] + 1 ?> von
                                 <?= $session['total_questions'] ?>
                             </h1>
                             <div class="d-flex align-items-center gap-3">

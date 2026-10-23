@@ -9,6 +9,10 @@
     RewriteCond %{REQUEST_URI} ^/LF1(/.*)?$ [NC]
     RewriteRule ^LF1(/.*)?$ /Learningfields/LF1$1 [L,R=301]
 
+    # robots.txt und sitemap.xml werden mit der aktuellen Domain erzeugt
+    RewriteRule ^robots\.txt$ /robots.php [L]
+    RewriteRule ^sitemap\.xml$ /sitemap.php [L]
+
     # HTTPS erzwingen (falls SSL-Zertifikat vorhanden)
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
@@ -37,7 +41,6 @@
 <IfModule mod_headers.c>
     Header always set X-Content-Type-Options nosniff
     Header always set X-Frame-Options DENY
-    Header always set X-XSS-Protection "1; mode=block"
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
 
@@ -47,13 +50,23 @@
 
 # Schutz sensibler Dateien
 <FilesMatch "\.(htaccess|htpasswd|ini|log|sh|inc|bak|sql|gz|db|sqlite|md|env)$">
-    Order Allow,Deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 <Files "Datenbankstruktur.txt">
-    Order Allow,Deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
 </Files>
 
 # Interne Ordner (Git, Tests, Logs, Doku, alte Backups) nie ausliefern
@@ -63,14 +76,24 @@
 
 # Schutz der config.php vor direktem Zugriff
 <FilesMatch "^config(\.local|\.local\.example)?\.php$">
-    Order Allow,Deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 # Schutz von Backup-Dateien
 <FilesMatch "\.(bak|backup|old|orig|save|swp|tmp)$">
-    Order Allow,Deny
-    Deny from all
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order Allow,Deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
 # PHP-Einstellungen für Sicherheit

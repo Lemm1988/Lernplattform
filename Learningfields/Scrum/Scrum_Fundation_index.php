@@ -800,7 +800,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 }
 
 .topic-card:hover {
-    border-color: #0d6efd;
+    border-color: #4f46e5;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     transform: translateY(-2px);
 }
@@ -882,12 +882,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .pillar-detail-item h3 {
     margin-bottom: 1rem;
-    color: #0d6efd;
+    color: #4f46e5;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -943,12 +943,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .value-detail-item h3 {
     margin-bottom: 1rem;
-    color: #0d6efd;
+    color: #4f46e5;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -981,9 +981,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .scrum-components h3 {
     margin-bottom: 1.5rem;
-    color: #0d6efd;
+    color: #4f46e5;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #0d6efd;
+    border-bottom: 2px solid #4f46e5;
 }
 
 .component-detail {
@@ -991,12 +991,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .component-detail h4 {
     margin-bottom: 1rem;
-    color: #0d6efd;
+    color: #4f46e5;
     display: flex;
     align-items: center;
     gap: 0.5rem;

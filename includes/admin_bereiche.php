@@ -108,8 +108,6 @@ function admin_seite_zu_pfad($pfad) {
     // Unterseiten ohne eigene Karte
     $unterseiten = [
         '/admin/answer_management.php' => ['bereich' => 'Fragen verwalten', 'titel' => 'Antworten bearbeiten'],
-        '/admin/statistics_simple.php' => ['bereich' => 'Auswertung', 'titel' => 'Benutzerstatistiken (einfach)'],
-        '/admin/automails/newsletter.php' => ['bereich' => 'Benutzer & Kommunikation', 'titel' => 'Newsletter'],
     ];
     if (isset($unterseiten[$pfad])) {
         return $unterseiten[$pfad];

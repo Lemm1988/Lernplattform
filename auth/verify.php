@@ -52,7 +52,7 @@ if (empty($token)) {
                 <p>Hallo " . htmlspecialchars($user['username']) . ",</p>
                 <p>vielen Dank für die Bestätigung Ihrer E-Mail-Adresse. Ihr Account ist jetzt vollständig aktiviert!</p>
                 <p>Sie können sich jetzt anmelden und mit dem Lernen beginnen:</p>
-                <p><a href='" . $site_url . "/auth/login.php' style='background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Jetzt anmelden</a></p>
+                <p><a href='" . $site_url . "/auth/login.php' style='background-color: #4f46e5; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;'>Jetzt anmelden</a></p>
                 <h3>Was Sie erwartet:</h3>
                 <ul>
                     <li>12 vollständige Lernfelder nach deutschem Rahmenlehrplan</li>

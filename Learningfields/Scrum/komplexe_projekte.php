@@ -363,12 +363,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .framework-card h4 {
     margin-bottom: 1rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .framework-details {
@@ -410,7 +410,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .practice-icon {
@@ -420,7 +420,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .practice-content h5 {
     margin-bottom: 0.5rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .backlog-structure {
@@ -434,7 +434,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -442,7 +442,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .structure-level h4 {
     margin: 0;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .structure-level p {

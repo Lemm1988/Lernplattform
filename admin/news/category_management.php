@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $name = trim($_POST['name'] ?? '');
                 $slug = trim($_POST['slug'] ?? '');
                 $description = trim($_POST['description'] ?? '');
-                $color = $_POST['color'] ?? '#007bff';
+                $color = $_POST['color'] ?? '#4f46e5';
                 $sort_order = intval($_POST['sort_order'] ?? 0);
                 
                 if (empty($name) || empty($slug)) {
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $name = trim($_POST['name'] ?? '');
                 $slug = trim($_POST['slug'] ?? '');
                 $description = trim($_POST['description'] ?? '');
-                $color = $_POST['color'] ?? '#007bff';
+                $color = $_POST['color'] ?? '#4f46e5';
                 $sort_order = intval($_POST['sort_order'] ?? 0);
                 $is_active = isset($_POST['is_active']) ? 1 : 0;
                 
@@ -251,7 +251,7 @@ include '../../includes/header.php';
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="categoryColor" class="form-label">Farbe</label>
-                                <input type="color" class="form-control form-control-color" id="categoryColor" name="color" value="#007bff">
+                                <input type="color" class="form-control form-control-color" id="categoryColor" name="color" value="#4f46e5">
                             </div>
                         </div>
                         <div class="col-md-6">

@@ -672,7 +672,7 @@ include '../includes/header.php';
 <div class="sm-toast" id="smToast" role="status" aria-live="polite"><i class="bi bi-check-circle-fill" aria-hidden="true"></i><span></span></div>
 
 <script type="application/json" id="smDaten"><?= json_encode($daten, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_UNICODE) ?></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+<script src="/assets/vendor/sortablejs-1.15.0/Sortable.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
   const daten = JSON.parse(document.getElementById('smDaten').textContent);

@@ -23,7 +23,7 @@ if (!defined('SCRUM_SHARED_STYLES')) {
 .page-content .summary-section h2 {
     margin-bottom: 1.25rem;
     font-weight: 600;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .page-content .info-box,
@@ -39,7 +39,7 @@ if (!defined('SCRUM_SHARED_STYLES')) {
 
 .page-content .info-box {
     background: #eef5ff;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .page-content .warning-box {
@@ -275,9 +275,9 @@ if (!defined('SCRUM_SHARED_STYLES')) {
 }
 
 .navigation-buttons .btn-primary {
-    background: #0d6efd;
-    border-color: #0d6efd;
-    box-shadow: 0 12px 24px rgba(13, 110, 253, 0.25);
+    background: #4f46e5;
+    border-color: #4f46e5;
+    box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
 }
 
 .navigation-buttons .btn-secondary {
@@ -317,7 +317,7 @@ if (!defined('SCRUM_SHARED_STYLES')) {
 }
 
 .quick-facts li i {
-    color: #0d6efd;
+    color: #4f46e5;
     margin-top: 0.2rem;
 }
 

@@ -26,7 +26,9 @@
 - **Gäste:** Vorstellung der Plattform mit Probe-Quiz (4 Fragen ohne Anmeldung), Kennzahlen (Lernfelder, Kapitel,
   freigegebene Fragen, IT-Trainer – live aus Inhalten und Datenbank gezählt), Funktionen, Lernfeld-Übersicht,
   IT-Trainer, News, Beiträge und Registrierungs-Aufrufe (bei abgeschalteter Registrierung führen sie zur Anmeldung)
-- **Angemeldet:** Dashboard mit Begrüßung, Punkten und IT-Coins, Kennzahlen, Schnellzugriff, letzten Aktivitäten und News
+- **Angemeldet:** Dashboard mit Begrüßung, Punkten und IT-Coins, Kennzahlen, Schnellzugriff, letzten Aktivitäten,
+  Lernfortschritt pro Lernfeld (als gelesen markierte Kapitel) und News
+- Die Lernfeld-Kacheln verlinken auf die öffentlich lesbaren Lernfelder
 - Gestaltung in `assets/css/home.css`, Effekte (Probe-Quiz, Zähler, Terminal-Zeile) in `assets/js/home.js`
 
 **Verwendete Tabellen:**
@@ -34,6 +36,33 @@
 - `news_articles`, `news_categories` - News
 - `questions`, `quiz_sessions`, `settings` - Kennzahlen und Hinweise
 - `site_sections` - Navigation
+- `lernfeld_fortschritt` - gelesene Kapitel
+
+---
+
+### `Learningfields/<Bereich>/` – Lernfelder und Kapitel
+**Zweck:** Lerninhalte (gemeinsame Darstellung in `includes/lernfeld.php`)
+**Zugriff:** Öffentlich lesbar, wenn der Menüeintrag des Lernfelds aktiv ist und die Rolle „student“ ihn sehen darf
+(`lernfeld_oeffentlich()`); sonst nur nach Anmeldung. Quiz, IT-Trainer und Lernfortschritt nur für angemeldete Nutzer.
+**Funktionen:**
+- Gäste sehen am Kapitelende einen Hinweis auf das kostenlose Konto (Quiz, Fehlertraining, Fortschritt)
+- Angemeldete Nutzer markieren Kapitel als gelesen; Fortschrittsbalken in Übersicht und Kapitel
+- Seitenbeschreibung (meta description) aus der Kapiteleinleitung
+
+**Verwendete Tabellen:**
+- `site_sections` - Freigabe
+- `lernfeld_fortschritt` - gelesene Kapitel
+- `learning_fields`, `questions` - Quiz-Link
+
+---
+
+### `robots.php` / `sitemap.php` (als `/robots.txt` und `/sitemap.xml`)
+**Zweck:** Suchmaschinen – über Umschreibregeln in der `.htaccess` erreichbar
+**Zugriff:** Öffentlich
+**Funktionen:**
+- robots.txt sperrt Admin-, API-, Quiz- und Spielebereich für Suchmaschinen und nennt die Sitemap
+- sitemap.xml listet Startseite, öffentliche Lernfelder mit Kapiteln, Programmier-Grundlagen und veröffentlichte News
+- Domain aus der Einstellung `site_url` (Platzhalter „YourDomain“ wird ignoriert), sonst aus der Anfrage (`site_base_url()`)
 
 ---
 
@@ -265,6 +294,9 @@
 - Benutzer-Statistiken anzeigen
 - Quiz-Session erstellen
 - Quiz starten
+- **Prüfungssimulation** (`includes/pruefung.php`): AP1, GA1, GA2 und WiSo mit Prüfungszeit (90/90/90/60 Minuten),
+  Fragen reihum aus den Lernfeldern des Prüfungsteils, Note nach dem IHK-Schlüssel auf `quizes_done.php`.
+  Benötigt die Spalte `quiz_sessions.quiz_mode` (Migration 2026-10-23), sonst ausgeblendet
 
 **Verwendete Tabellen:**
 - `learning_fields` - Verfügbare Lernfelder
@@ -623,13 +655,6 @@
 
 **Verwendete Tabellen:**
 - Template-Datei: `admin/automails/cron_mail.html`
-
----
-
-### `admin/automails/newsletter.php`
-**Zweck:** Newsletter-Versand  
-**Zugriff:** Admin  
-**Status:** ⚠️ Zu prüfen
 
 ---
 

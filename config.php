@@ -298,17 +298,18 @@ if (!defined('IS_CRONJOB')) {
     // Security Headers setzen
     header('X-Content-Type-Options: nosniff');
     header('X-Frame-Options: DENY');
-    header('X-XSS-Protection: 1; mode=block');
     header('Referrer-Policy: strict-origin-when-cross-origin');
 
     // Content Security Policy (CSP)
     $csp = "default-src 'self'; ";
     // 'wasm-unsafe-eval' erlaubt nur WebAssembly (für sql.js im SQL-Trainer), kein JavaScript-eval()
-    $csp .= "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://cdn.jsdelivr.net; ";
-    $csp .= "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; ";
-    $csp .= "font-src 'self' https://cdn.jsdelivr.net; ";
-    $csp .= "img-src 'self' data: https:; ";
-    $csp .= "connect-src 'self';";
+    // Alle Bibliotheken liegen unter /assets/vendor – keine fremden Server (DSGVO)
+    $csp .= "script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval'; ";
+    $csp .= "style-src 'self' 'unsafe-inline'; ";
+    $csp .= "font-src 'self'; ";
+    $csp .= "img-src 'self' data: blob: https:; ";
+    $csp .= "connect-src 'self'; ";
+    $csp .= "object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none';";
     header("Content-Security-Policy: " . $csp);
 
     // Wartungsmodus prüfen (Admins dürfen weiterhin zugreifen)
@@ -322,7 +323,7 @@ if (!defined('IS_CRONJOB')) {
                 $maintenance_message_setting = get_setting('maintenance_message', 'Die Seite befindet sich derzeit in Wartung. Bitte versuchen Sie es später erneut.');
                 header('HTTP/1.1 503 Service Unavailable');
                 header('Retry-After: 3600');
-                echo "<!DOCTYPE html><html lang=\"de\"><head><meta charset=\"UTF-8\"><title>Wartungsmodus</title><link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css\"></head><body class=\"bg-light d-flex align-items-center\" style=\"min-height:100vh;\"><div class=\"container\"><div class=\"row justify-content-center\"><div class=\"col-md-8\"><div class=\"card shadow-sm\"><div class=\"card-body text-center p-5\"><h1 class=\"display-6 mb-3\">Wartungsmodus aktiv</h1><p class=\"lead\">" . htmlspecialchars($maintenance_message_setting) . "</p><p class=\"text-muted mb-4\">Bitte schaue später noch einmal vorbei.</p><a href=\"/auth/login.php\" class=\"btn btn-primary\">Zum Login</a></div></div></div></div></div></body></html>";
+                echo "<!DOCTYPE html><html lang=\"de\"><head><meta charset=\"UTF-8\"><title>Wartungsmodus</title><link rel=\"stylesheet\" href=\"/assets/vendor/bootstrap-5.3.0/css/bootstrap.min.css\"></head><body class=\"bg-light d-flex align-items-center\" style=\"min-height:100vh;\"><div class=\"container\"><div class=\"row justify-content-center\"><div class=\"col-md-8\"><div class=\"card shadow-sm\"><div class=\"card-body text-center p-5\"><h1 class=\"display-6 mb-3\">Wartungsmodus aktiv</h1><p class=\"lead\">" . htmlspecialchars($maintenance_message_setting) . "</p><p class=\"text-muted mb-4\">Bitte schaue später noch einmal vorbei.</p><a href=\"/auth/login.php\" class=\"btn btn-primary\">Zum Login</a></div></div></div></div></div></body></html>";
                 exit;
             }
         }

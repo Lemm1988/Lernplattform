@@ -357,6 +357,9 @@
     transition: border-color .2s ease, box-shadow .25s ease, transform .3s var(--ease);
 }
 .lf-tile:hover { border-color: var(--brand-200); box-shadow: var(--shadow-2); }
+a.lf-tile { color: var(--ink-900); }
+a.lf-tile:hover, a.lf-tile:focus-visible { color: var(--ink-900); transform: translateY(-2px); }
+a.lf-tile:hover strong { color: var(--brand-700); }
 .lf-tile-extra { grid-column: span 2; background: linear-gradient(135deg, #fff, var(--brand-50)); border-color: var(--brand-100); }
 .lf-icon {
     flex: none;

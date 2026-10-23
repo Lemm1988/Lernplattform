@@ -431,7 +431,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .value-box.primary {
     background: #e7f3ff;
-    border-color: #0d6efd;
+    border-color: #4f46e5;
 }
 
 .value-box.success {
@@ -475,14 +475,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .principle-number {
     flex-shrink: 0;
     width: 40px;
     height: 40px;
-    background: #0d6efd;
+    background: #4f46e5;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -493,7 +493,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .principle-content h5 {
     margin-bottom: 0.5rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .comparison-table {
@@ -511,7 +511,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .connection-item h5 {
@@ -534,12 +534,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 .step-icon {
     flex-shrink: 0;
     font-size: 2rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .step-content h5 {
     margin-bottom: 0.5rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .navigation-buttons {
@@ -561,12 +561,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .manifest-detail-item h4 {
     margin-bottom: 1rem;
-    color: #0d6efd;
+    color: #4f46e5;
     display: flex;
     align-items: center;
     gap: 0.5rem;

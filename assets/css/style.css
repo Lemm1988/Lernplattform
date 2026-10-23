@@ -1266,6 +1266,48 @@ details > summary + * { margin-top: 1rem; }
 }
 .page-auth .card .btn[type="submit"] { padding-top: .7rem; padding-bottom: .7rem; }
 
+/* Lernfortschritt (Lernfelder, Dashboard) */
+.lf-progress { margin: 0 0 1.25rem; }
+.lf-progress-text { display: flex; justify-content: space-between; gap: .75rem; margin-bottom: .35rem; font-size: .875rem; color: var(--ink-600); }
+.lf-progress-text strong { color: var(--ink-900); font-variant-numeric: tabular-nums; }
+.lf-progress-bar { height: 8px; border-radius: 999px; background: #dcfce7; overflow: hidden; }
+.lf-progress-bar span { display: block; height: 100%; border-radius: inherit; background: #16a34a; transform-origin: left; animation: lf-grow 1s .15s var(--ease) both; }
+@keyframes lf-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.progress-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .35rem 1.5rem; }
+.progress-item { display: block; padding: .55rem .25rem; border-bottom: 1px solid var(--surface-3); color: var(--ink-800); }
+.progress-item:hover { color: var(--ink-900); }
+.progress-item:hover .lf-progress-text span { color: var(--brand-700); }
+.progress-item .lf-progress { margin: 0; }
+.progress-item .lf-progress-text { font-size: .85rem; }
+.progress-item .lf-progress-text span { min-width: 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 767.98px) { .progress-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* Seitenköpfe der Admin-Unterseiten wie im Admin-Dashboard: Icon als Verlaufskachel */
+.page-admin .main-content h1.h2,
+.page-admin .main-content h1:has(> .bi:first-child) {
+    display: flex;
+    align-items: center;
+    gap: .85rem;
+    font-size: clamp(1.35rem, 1.1rem + .9vw, 1.75rem);
+    font-weight: 800;
+    letter-spacing: -.03em;
+}
+.page-admin .main-content h1.h2 > .bi:first-child,
+.page-admin .main-content h1:has(> .bi:first-child) > .bi:first-child {
+    flex: none;
+    display: inline-grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    margin: 0 !important;
+    border-radius: 13px;
+    background: var(--brand-gradient);
+    color: #fff;
+    font-size: 1.25rem;
+    box-shadow: var(--shadow-brand);
+}
+.page-admin .main-content .border-bottom:has(> h1.h2) { border-bottom: 0 !important; }
+
 /* 8. Effekte und Barrierefreiheit ----------------------------------------- */
 .text-gradient {
     background: var(--brand-gradient);

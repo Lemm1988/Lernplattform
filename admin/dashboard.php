@@ -154,6 +154,15 @@ if ($ist_admin) {
     $aufgaben[] = ['url' => '/admin/user_management.php', 'icon' => 'bi-person-plus', 'anzahl' => $new_registrations, 'info' => true,
         'offen' => 'neue Registrierung (7 Tage)|neue Registrierungen (7 Tage)', 'erledigt' => 'Keine neuen Registrierungen (7 Tage)'];
 }
+// Jährliche Pflege: WiSo-Kapitel enthalten Beitragssätze und Grenzen eines bestimmten Jahres
+if ($ist_admin) {
+    require_once '../includes/lernfeld.php';
+    $wiso_stand = (int)(lernfeld_meta()['WiSo']['stand'] ?? 0);
+    if ($wiso_stand && (int)date('Y') > $wiso_stand) {
+        $aufgaben[] = ['url' => '/Learningfields/WiSo/', 'icon' => 'bi-calendar-check', 'anzahl' => 1,
+            'offen' => 'WiSo-Werte auf ' . date('Y') . ' aktualisieren|', 'erledigt' => '', 'ohne_zahl' => true];
+    }
+}
 $offen_summe = $offen['nachrichten'] + $offen['fragen'];
 
 include '../includes/header.php';
@@ -205,7 +214,7 @@ include '../includes/header.php';
                                 <span class="adm-todo-icon"><i class="bi <?= $hat_offen ? $aufgabe['icon'] : 'bi-check-lg' ?>" aria-hidden="true"></i></span>
                                 <span class="adm-todo-text">
                                     <?php if ($hat_offen): ?>
-                                        <strong><?= number_format($aufgabe['anzahl'], 0, ',', '.') ?></strong>
+                                        <?php if (empty($aufgabe['ohne_zahl'])): ?><strong><?= number_format($aufgabe['anzahl'], 0, ',', '.') ?></strong><?php endif; ?>
                                         <span><?= $esc($aufgabe['anzahl'] === 1 ? $texte[0] : $texte[1]) ?></span>
                                     <?php else: ?>
                                         <span><?= $esc($aufgabe['erledigt']) ?></span>

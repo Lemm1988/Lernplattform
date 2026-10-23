@@ -469,7 +469,7 @@ function renderPythonBreadcrumbs($current_page) {
     }
     
     .tutorial-breadcrumb .breadcrumb-item a {
-        color: #007bff;
+        color: #4f46e5;
         text-decoration: none;
         display: flex;
         align-items: center;
@@ -477,7 +477,7 @@ function renderPythonBreadcrumbs($current_page) {
     }
     
     .tutorial-breadcrumb .breadcrumb-item a:hover {
-        color: #0056b3;
+        color: #4338ca;
         text-decoration: underline;
     }
     

@@ -448,7 +448,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     background: #f8f9fa;
     border-radius: 8px;
     text-align: center;
-    border-top: 4px solid #0d6efd;
+    border-top: 4px solid #4f46e5;
 }
 
 .reason-card i {
@@ -458,7 +458,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .reason-card h5 {
     margin-bottom: 0.75rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .challenges-list {
@@ -501,7 +501,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 }
 
 .strategy-header {
-    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #0a58ca 100%);
     color: white;
     padding: 1.5rem;
     display: flex;
@@ -522,7 +522,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     margin-top: 1rem;
     padding: 1rem;
     background: #e7f3ff;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
     border-radius: 4px;
 }
 
@@ -539,14 +539,14 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .phase-number {
     flex-shrink: 0;
     width: 50px;
     height: 50px;
-    background: #0d6efd;
+    background: #4f46e5;
     color: white;
     border-radius: 50%;
     display: flex;
@@ -558,7 +558,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .phase-content h4 {
     margin-bottom: 0.75rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .success-factors {
@@ -573,7 +573,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     background: #f8f9fa;
     border-radius: 8px;
     text-align: center;
-    border-top: 4px solid #0d6efd;
+    border-top: 4px solid #4f46e5;
 }
 
 .factor-card.critical {
@@ -588,7 +588,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 
 .factor-card h5 {
     margin-bottom: 0.75rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .mistakes-list {
@@ -630,12 +630,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     background: #f8f9fa;
     border-radius: 8px;
     text-align: center;
-    border-top: 4px solid #0d6efd;
+    border-top: 4px solid #4f46e5;
 }
 
 .metric-item h5 {
     margin-bottom: 0.75rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .navigation-buttons {

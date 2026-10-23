@@ -4,6 +4,7 @@
  */
 
 require_once(__DIR__ . '/../config.php');
+require_once(__DIR__ . '/../includes/pruefung.php');
 require_login();
 
 $page_title = 'Quiz starten';
@@ -16,7 +17,7 @@ const QUIZ_MAX_QUESTIONS = 100;
  * Legt eine neue Quiz-Session mit den übergebenen Fragen an und gibt ihre ID zurück.
  * Laufende Sessions des Benutzers werden vorher als abgebrochen markiert.
  */
-function create_quiz_session(PDO $pdo, int $user_id, ?int $learning_field_id, array $question_ids): int
+function create_quiz_session(PDO $pdo, int $user_id, ?int $learning_field_id, array $question_ids, ?string $quiz_mode = null, ?int $time_limit = null): int
 {
     $pdo->prepare("
         UPDATE quiz_sessions
@@ -30,10 +31,18 @@ function create_quiz_session(PDO $pdo, int $user_id, ?int $learning_field_id, ar
     $max_points_stmt->execute($question_ids);
     $max_score = (float)($max_points_stmt->fetchColumn() ?: 0);
 
-    $pdo->prepare("
-        INSERT INTO quiz_sessions (user_id, learning_field_id, total_questions, max_score, started_at, questions_json)
-        VALUES (?, ?, ?, ?, NOW(), ?)
-    ")->execute([$user_id, $learning_field_id, count($question_ids), $max_score, json_encode(array_values($question_ids))]);
+    if ($quiz_mode !== null) {
+        // Prüfungssimulation: eigenes Zeitlimit in der Session (quiz_session.php nutzt es statt der Einstellung)
+        $pdo->prepare("
+            INSERT INTO quiz_sessions (user_id, learning_field_id, total_questions, max_score, started_at, questions_json, quiz_mode, time_limit)
+            VALUES (?, NULL, ?, ?, NOW(), ?, ?, ?)
+        ")->execute([$user_id, count($question_ids), $max_score, json_encode(array_values($question_ids)), $quiz_mode, $time_limit]);
+    } else {
+        $pdo->prepare("
+            INSERT INTO quiz_sessions (user_id, learning_field_id, total_questions, max_score, started_at, questions_json)
+            VALUES (?, ?, ?, ?, NOW(), ?)
+        ")->execute([$user_id, $learning_field_id, count($question_ids), $max_score, json_encode(array_values($question_ids))]);
+    }
 
     $session_id = (int)$pdo->lastInsertId();
     if (function_exists('log_quiz_start')) {
@@ -168,6 +177,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 } catch (PDOException $e) {
                     error_log("Quiz start error (Fehlertraining): " . $e->getMessage());
                     $error = 'Das Quiz konnte nicht gestartet werden. Bitte versuche es erneut.';
+                }
+            }
+        } elseif ($action === 'start_exam') {
+            $teile = pruefungsteile();
+            $teil_key = $_POST['teil'] ?? '';
+            if (!pruefung_verfuegbar() || !isset($teile[$teil_key])) {
+                $error = 'Die Prüfungssimulation ist noch nicht eingerichtet.';
+            } else {
+                $teil = $teile[$teil_key];
+                $exam_ids = pruefung_fragen_waehlen($teil);
+                if (count($exam_ids) < QUIZ_MIN_QUESTIONS) {
+                    $error = 'Für diesen Prüfungsteil gibt es noch zu wenige Fragen.';
+                } else {
+                    try {
+                        $session_id = create_quiz_session($pdo, (int)$_SESSION['user_id'], null, $exam_ids, 'pruefung_' . $teil_key, $teil['minuten'] * 60);
+                        header('Location: /quiz/quiz_session.php?session_id=' . $session_id);
+                        exit;
+                    } catch (PDOException $e) {
+                        error_log("Quiz start error (Prüfungssimulation): " . $e->getMessage());
+                        $error = 'Die Prüfungssimulation konnte nicht gestartet werden. Bitte versuche es erneut.';
+                    }
                 }
             }
         } elseif ($action === 'start_new') {
@@ -356,6 +386,47 @@ include '../includes/header.php';
                                 </form>
                             </div>
                         </div>
+
+                        <!-- Prüfungssimulation -->
+                        <?php if (pruefung_verfuegbar()): ?>
+                        <div class="card mb-3 exam-card" id="pruefung">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="bi bi-mortarboard me-2"></i>Prüfungssimulation</h5>
+                            </div>
+                            <div class="card-body">
+                                <p class="text-muted small mb-3">Gemischte Fragen aus allen Lernfeldern des Prüfungsteils, mit der echten Prüfungszeit und
+                                    Note nach dem IHK-Schlüssel. Die Auswertung siehst du erst am Ende. Die echte Prüfung hat zusätzlich offene Aufgaben –
+                                    die Simulation trainiert Themenmix und Zeitdruck.</p>
+                                <div class="exam-grid">
+                                    <?php foreach (pruefungsteile() as $teil_key => $teil): $teil_lf = pruefung_lernfelder($teil); ?>
+                                        <form method="post" class="exam-option" style="--e: <?= $teil['farbe'] ?>">
+                                            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                                            <input type="hidden" name="action" value="start_exam">
+                                            <input type="hidden" name="teil" value="<?= $teil_key ?>">
+                                            <span class="exam-icon"><i class="bi <?= $teil['icon'] ?>" aria-hidden="true"></i></span>
+                                            <span class="exam-text">
+                                                <small><?= htmlspecialchars($teil['teil']) ?> · <?= htmlspecialchars($teil['kurz']) ?></small>
+                                                <strong><?= htmlspecialchars($teil['titel']) ?></strong>
+                                                <span><?= (int)$teil['minuten'] ?> Min. · <?= min($teil['fragen'], array_sum(array_column($teil_lf, 'fragen'))) ?> Fragen · <?= htmlspecialchars(implode(', ', array_keys($teil_lf))) ?></span>
+                                            </span>
+                                            <button type="submit" class="btn btn-sm btn-primary"<?= $teil_lf ? '' : ' disabled' ?>
+                                                    onclick="return confirm('<?= htmlspecialchars($teil['kurz']) ?> starten? Die Zeit läuft ab dem Start (<?= (int)$teil['minuten'] ?> Minuten).<?= $active_session ? ' Dein laufendes Quiz wird dabei beendet.' : '' ?>')">Starten</button>
+                                        </form>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                        <style>
+                            .exam-grid { display: grid; gap: .6rem; }
+                            .exam-option { display: flex; align-items: center; gap: .85rem; padding: .75rem .9rem; border: 1px solid var(--line); border-radius: var(--r-md); background: var(--surface); transition: border-color .2s ease, box-shadow .2s ease; }
+                            .exam-option:hover { border-color: color-mix(in srgb, var(--e) 40%, var(--line)); box-shadow: var(--shadow-2); }
+                            .exam-icon { flex: none; display: grid; place-items: center; width: 42px; height: 42px; border-radius: 12px; background: var(--e); color: #fff; font-size: 1.15rem; }
+                            .exam-text { display: flex; flex-direction: column; flex: 1; min-width: 0; line-height: 1.3; }
+                            .exam-text small { color: var(--ink-500); font-size: .75rem; font-weight: 600; }
+                            .exam-text strong { font-size: .95rem; }
+                            .exam-text span { color: var(--ink-500); font-size: .8rem; }
+                        </style>
+                        <?php endif; ?>
 
                         <!-- Quiz-Informationen -->
                         <div class="card mb-3">
@@ -574,7 +645,7 @@ include '../includes/header.php';
                                 </div>
                                 
                                 <!-- IT-Coins Anzeige -->
-                                <div class="card text-bg-gradient mb-3" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                <div class="card text-bg-gradient mb-3" style="background: linear-gradient(135deg, #2563eb 0%, #4f46e5 45%, #9333ea 100%);">
                                     <div class="card-body text-center text-white">
                                         <h5 class="mb-2">
                                             <i class="bi bi-coin me-2"></i>IT-Coins

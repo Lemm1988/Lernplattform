@@ -392,9 +392,8 @@ include '../../includes/header.php';
     </div>
 </div>
 
-<!-- TinyMCE (Community-Version, MIT) über jsDelivr – von der Content-Security-Policy erlaubt;
-     cdn.tiny.cloud wurde von der CSP blockiert und braucht einen API-Key -->
-<script src="https://cdn.jsdelivr.net/npm/tinymce@6.8.5/tinymce.min.js"></script>
+<!-- TinyMCE (Community-Version, MIT) liegt auf dem eigenen Server – keine Verbindung zu einem CDN -->
+<script src="/assets/vendor/tinymce-6.8.5/tinymce.min.js"></script>
 
 <!-- Simple Editor Fallback -->
 <script src="simple-editor.js"></script>
@@ -578,7 +577,7 @@ function initializeTinyMCE(button) {
                             if (resizeHandle) {
                                 console.log('Resize handle found:', resizeHandle);
                                 resizeHandle.style.display = 'block';
-                                resizeHandle.style.background = '#0d6efd';
+                                resizeHandle.style.background = '#4f46e5';
                                 resizeHandle.style.width = '20px';
                                 resizeHandle.style.height = '20px';
                                 resizeHandle.style.cursor = 'se-resize';
@@ -589,7 +588,7 @@ function initializeTinyMCE(button) {
                                 if (statusbar) {
                                     const resizeHandle = document.createElement('div');
                                     resizeHandle.className = 'tox-statusbar__resize-handle';
-                                    resizeHandle.style.cssText = 'width: 20px; height: 20px; background: #0d6efd; cursor: se-resize; border-radius: 3px; margin: 2px;';
+                                    resizeHandle.style.cssText = 'width: 20px; height: 20px; background: #4f46e5; cursor: se-resize; border-radius: 3px; margin: 2px;';
                                     statusbar.appendChild(resizeHandle);
                                     console.log('Resize handle created manually');
                                 }

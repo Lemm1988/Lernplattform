@@ -457,7 +457,7 @@ include '../includes/header.php';
     box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
-.stat-card.primary { border-left-color: #0d6efd; }
+.stat-card.primary { border-left-color: #4f46e5; }
 .stat-card.success { border-left-color: #198754; }
 .stat-card.info { border-left-color: #0dcaf0; }
 .stat-card.warning { border-left-color: #ffc107; }
@@ -1054,7 +1054,7 @@ include '../includes/header.php';
 </div>
 
 <!-- Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="/assets/vendor/chart.js-4.4.1/chart.umd.js"></script>
 <script>
 // Registrierungs-Trend Chart
 const regCtx = document.getElementById('registrationChart').getContext('2d');
@@ -1065,8 +1065,8 @@ new Chart(regCtx, {
         datasets: [{
             label: 'Neue Registrierungen',
             data: <?= json_encode($registration_trends['data']) ?>,
-            borderColor: '#0d6efd',
-            backgroundColor: 'rgba(13, 110, 253, 0.1)',
+            borderColor: '#4f46e5',
+            backgroundColor: 'rgba(79, 70, 229, 0.1)',
             tension: 0.4,
             fill: true
         }]
@@ -1133,8 +1133,8 @@ new Chart(quizCompletedCtx, {
         datasets: [{
             label: 'Abgeschlossen pro Tag',
             data: <?= json_encode($quiz_completed_trends['data']) ?>,
-            backgroundColor: '#0d6efd',
-            borderColor: '#0d6efd',
+            backgroundColor: '#4f46e5',
+            borderColor: '#4f46e5',
             borderWidth: 1
         }]
     },
@@ -1201,7 +1201,7 @@ new Chart(roleCtx, {
         labels: roleLabels,
         datasets: [{
             data: roleData,
-            backgroundColor: ['#dc3545', '#ffc107', '#0d6efd'],
+            backgroundColor: ['#dc3545', '#ffc107', '#4f46e5'],
             borderWidth: 2,
             borderColor: '#fff'
         }]

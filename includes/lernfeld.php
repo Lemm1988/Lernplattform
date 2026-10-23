@@ -31,7 +31,8 @@ function lernfeld_meta() {
         'LF11' => ['title' => 'Funktionalität in Anwendungen realisieren', 'icon' => 'gear-wide-connected', 'ap' => 'AP2'],
         'LF12' => ['title' => 'Kundenspezifische Anwendungsentwicklung durchführen', 'icon' => 'kanban', 'ap' => 'AP2'],
         // Prüfungsbereiche außerhalb der Lernfelder ('label' ersetzt "Lernfeld N")
-        'WiSo' => ['title' => 'Wirtschafts- und Sozialkunde', 'icon' => 'briefcase', 'ap' => 'AP2', 'label' => 'Prüfungsbereich'],
+        // 'stand': Jahr der Sozialversicherungswerte in den WiSo-Kapiteln – das Admin-Dashboard erinnert ab dem Folgejahr
+        'WiSo' => ['title' => 'Wirtschafts- und Sozialkunde', 'icon' => 'briefcase', 'ap' => 'AP2', 'label' => 'Prüfungsbereich', 'stand' => 2026],
         'Englisch' => ['title' => 'IT-Fachenglisch', 'icon' => 'translate', 'ap' => 'AP1 + AP2', 'label' => 'Querschnittsthema'],
     ];
 }
@@ -69,18 +70,102 @@ function lernfeld_quiz_info($lf_key) {
     }
 }
 
-function lernfeld_page_start($lf_key, $page_title) {
+/** Kapitel-Fortschritt: Tabelle lernfeld_fortschritt (migrations/2026-10-23_lernfortschritt_pruefung.sql) */
+function lernfortschritt_verfuegbar() {
     global $pdo;
-    require_login();
-    if (function_exists('check_section_access')) {
-        check_section_access('/Learningfields/' . $lf_key . '/index.php');
+    static $verfuegbar = null;
+    if ($verfuegbar === null) {
+        try {
+            $verfuegbar = (bool)$pdo->query("SHOW TABLES LIKE 'lernfeld_fortschritt'")->fetch();
+        } catch (PDOException $e) {
+            $verfuegbar = false;
+        }
+    }
+    return $verfuegbar;
+}
+
+/** Gelesene Kapitel des angemeldeten Benutzers: [lf_key => [kapitel => gelesen_am]] */
+function lernfortschritt($neu_laden = false) {
+    global $pdo;
+    static $fortschritt = null;
+    if (!is_logged_in() || !lernfortschritt_verfuegbar()) return [];
+    if ($fortschritt === null || $neu_laden) {
+        $fortschritt = [];
+        $stmt = $pdo->prepare("SELECT lf_key, kapitel, gelesen_am FROM lernfeld_fortschritt WHERE user_id = ?");
+        $stmt->execute([$_SESSION['user_id']]);
+        foreach ($stmt->fetchAll() as $row) {
+            $fortschritt[$row['lf_key']][$row['kapitel']] = $row['gelesen_am'];
+        }
+    }
+    return $fortschritt;
+}
+
+/** Fortschrittsbalken "x von y Kapiteln gelesen" */
+function lernfortschritt_balken($gelesen, $gesamt, $text = null) {
+    $prozent = $gesamt > 0 ? round($gelesen / $gesamt * 100) : 0;
+    return '<div class="lf-progress"><div class="lf-progress-text"><span>' . htmlspecialchars($text ?? ($gelesen . ' von ' . $gesamt . ' Kapiteln gelesen')) . '</span><strong>' . $prozent . ' %</strong></div>'
+        . '<div class="lf-progress-bar" role="progressbar" aria-valuenow="' . $prozent . '" aria-valuemin="0" aria-valuemax="100" aria-label="Lernfortschritt">'
+        . '<span style="width:' . $prozent . '%"></span></div></div>';
+}
+
+/**
+ * Lernfelder sind auch ohne Anmeldung lesbar, wenn ihr Menüeintrag aktiv ist und Lernende ihn sehen dürfen
+ * (Seitenverwaltung). So finden Suchmaschinen die Inhalte. Quiz, IT-Trainer und Lernfortschritt bleiben
+ * angemeldeten Nutzern vorbehalten.
+ */
+function lernfeld_oeffentlich($lf_key) {
+    global $pdo;
+    static $oeffentlich = null;
+    if ($oeffentlich === null) {
+        $oeffentlich = [];
+        try {
+            $stmt = $pdo->query("SELECT url_path, roles FROM site_sections WHERE is_active = 1 AND url_path LIKE '/Learningfields/%/index.php'");
+            foreach ($stmt->fetchAll() as $row) {
+                if (preg_match('#^/Learningfields/([A-Za-z0-9]+)/index\.php$#', $row['url_path'], $m)
+                    && in_array('student', array_map('trim', explode(',', (string)$row['roles'])), true)) {
+                    $oeffentlich[$m[1]] = true;
+                }
+            }
+        } catch (PDOException $e) {
+            // Ohne Tabelle bleibt alles hinter der Anmeldung
+        }
+    }
+    return isset($oeffentlich[$lf_key]);
+}
+
+function lernfeld_page_start($lf_key, $page_title, $page_description = null) {
+    global $pdo;
+    if (is_logged_in()) {
+        if (function_exists('check_section_access')) {
+            check_section_access('/Learningfields/' . $lf_key . '/index.php');
+        }
+    } elseif (!lernfeld_oeffentlich($lf_key)) {
+        require_login();
     }
     $GLOBALS['page_title'] = $page_title;
     include __DIR__ . '/header.php';
-    echo '<div class="layout-container with-sidebar">';
-    include __DIR__ . '/sidebar.php';
+    if (is_logged_in()) {
+        echo '<div class="layout-container with-sidebar">';
+        include __DIR__ . '/sidebar.php';
+    } else {
+        echo '<div class="layout-container lernfeld-gast">';
+    }
     echo '<div class="main-wrapper"><main class="main-content"><div class="container-fluid py-4"><div class="row">'
         . '<div class="col-md-4 col-lg-3"></div><div class="col-md-8 col-lg-9 lernfeld">';
+}
+
+/** Hinweis für Gäste: Quiz und Fortschritt gibt es mit kostenlosem Konto */
+function lernfeld_gast_hinweis($lf_key) {
+    if (is_logged_in()) return;
+    $quiz = lernfeld_quiz_info($lf_key);
+    $fragen = $quiz ? (int)$quiz['fragen'] : 0;
+    $registrieren = (bool)get_setting('allow_registration', true);
+    echo '<aside class="lf-gast-cta" aria-label="Kostenloses Konto">'
+        . '<div><strong>Teste dein Wissen' . ($fragen ? ' – ' . $fragen . ' Prüfungsfragen zu ' . htmlspecialchars($lf_key) : '') . '</strong>'
+        . '<p>Mit einem kostenlosen Konto bekommst du das Quiz mit Erklärungen, das Fehlertraining, die IT-Trainer und deinen Lernfortschritt.</p></div>'
+        . '<div class="lf-gast-actions">'
+        . ($registrieren ? '<a class="btn btn-primary" href="/auth/register.php"><i class="bi bi-person-plus me-1"></i>Kostenlos registrieren</a>' : '')
+        . '<a class="btn btn-outline-secondary" href="/auth/login.php">Anmelden</a></div></aside>';
 }
 
 function lernfeld_page_end() {
@@ -92,6 +177,12 @@ function lernfeld_page_end() {
         .lernfeld .lf-merke { border-left: 4px solid var(--brand-600, #4f46e5); background: var(--brand-50, #eef2ff); padding: .75rem 1rem; border-radius: 8px; margin: 1rem 0; }
         .lernfeld .lf-pruefung { border-left: 4px solid #f59e0b; background: #fffbeb; padding: .75rem 1rem; border-radius: 8px; margin: 1rem 0; }
         .lernfeld details > summary { cursor: pointer; color: var(--brand-700, #4338ca); }
+        .lernfeld .lf-gast-cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 0 1.5rem; padding: 1.1rem 1.25rem; border-radius: 14px; background: var(--brand-gradient-soft); border: 1px solid var(--brand-100, #e0e7ff); }
+        .lernfeld .lf-gast-cta p { margin: .2rem 0 0; color: var(--ink-600, #475569); font-size: .925rem; }
+        .lernfeld .lf-gast-actions { display: flex; flex-wrap: wrap; gap: .5rem; }
+        .lernfeld .lf-fortschritt { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 0 1.5rem; padding: 1rem 1.25rem; border-radius: 14px; background: var(--surface, #fff); border: 1px solid var(--line, #e2e8f0); }
+        .lernfeld .lf-fortschritt .lf-progress { flex: 1 1 260px; margin: 0; }
+        .lernfeld .lf-card-gelesen { border-color: #bbf7d0; }
         .lernfeld .lf-goals li::marker { content: "✓  "; color: #16a34a; }
         @media (max-width: 575.98px) {
             /* Grafiken auf dem Handy lesbar halten: Mindestbreite, seitlich wischen */
@@ -103,6 +194,7 @@ function lernfeld_page_end() {
 }
 
 function lernfeld_quiz_button($lf_key) {
+    if (!is_logged_in()) return;
     $quiz = lernfeld_quiz_info($lf_key);
     if ($quiz && (int)$quiz['fragen'] > 0) {
         echo '<a class="btn btn-success" href="/quiz/start_quiz.php?field=' . (int)$quiz['id'] . '">'
@@ -114,7 +206,8 @@ function lernfeld_quiz_button($lf_key) {
 function render_lernfeld_overview($lf_key) {
     $lf = lernfeld_load($lf_key);
     $title = $lf['title'];
-    lernfeld_page_start($lf_key, $lf_key . ': ' . $title);
+    lernfeld_page_start($lf_key, $lf_key . ': ' . $title,
+        $lf['description'] ?? ($title . ' – Lerninhalte für Fachinformatiker/-innen: ' . count($lf['chapters']) . ' Kapitel mit Grafiken, Übungen und Selbstkontrolle.'));
     $e = fn($s) => htmlspecialchars((string)$s, ENT_QUOTES, 'UTF-8');
 
     echo '<div class="mb-4">';
@@ -132,12 +225,18 @@ function render_lernfeld_overview($lf_key) {
     lernfeld_quiz_button($lf_key);
     echo '</div></div>';
 
+    $gelesen = lernfortschritt()[$lf_key] ?? [];
+    if (is_logged_in() && lernfortschritt_verfuegbar()) {
+        echo lernfortschritt_balken(count(array_intersect_key($gelesen, $lf['chapters'])), count($lf['chapters']));
+    }
+
     echo '<div class="row g-3">';
     $n = 0;
     foreach ($lf['chapters'] as $key => $chapter) {
         $n++;
-        echo '<div class="col-md-6"><div class="card h-100 shadow-sm"><div class="card-body d-flex flex-column">';
-        echo '<div class="small text-muted mb-1">Kapitel ' . $n . '</div>';
+        echo '<div class="col-md-6"><div class="card h-100 shadow-sm' . (isset($gelesen[$key]) ? ' lf-card-gelesen' : '') . '"><div class="card-body d-flex flex-column">';
+        echo '<div class="small text-muted mb-1">Kapitel ' . $n
+            . (isset($gelesen[$key]) ? ' <span class="badge text-bg-success ms-1"><i class="bi bi-check2 me-1"></i>Gelesen</span>' : '') . '</div>';
         echo '<h2 class="h5">' . $e(preg_replace('/^\d+\.\s*/', '', $chapter['title'])) . '</h2>';
         echo '<p class="text-muted small flex-grow-1">' . $e($chapter['intro'] ?? '') . '</p>';
         echo '<a href="/Learningfields/' . $e($lf_key) . '/' . $e($key) . '.php" class="btn btn-outline-primary btn-sm align-self-start">Kapitel öffnen</a>';
@@ -145,6 +244,7 @@ function render_lernfeld_overview($lf_key) {
     }
     echo '</div>';
 
+    lernfeld_gast_hinweis($lf_key);
     echo '<div class="card mt-4"><div class="card-body small">'
         . '<h3 class="h6">So lernst du mit diesem ' . (isset($lf['label']) ? 'Bereich' : 'Lernfeld') . '</h3><ol class="mb-0">'
         . '<li>Lies ein Kapitel und schau dir die Grafiken genau an – sie zeigen das Prinzip auf einen Blick.</li>'
@@ -163,6 +263,20 @@ function render_lernfeld_chapter($lf_key, $chapter_key) {
         header('Location: /Learningfields/' . rawurlencode($lf_key) . '/index.php', true, 302);
         exit;
     }
+    // "Als gelesen markieren" (Formular am Kapitelende, CSRF prüft config.php)
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['kapitel_gelesen']) && is_logged_in() && lernfortschritt_verfuegbar()
+        && check_section_access('/Learningfields/' . $lf_key . '/index.php', false)) {
+        global $pdo;
+        if ($_POST['kapitel_gelesen'] === '1') {
+            $pdo->prepare("INSERT IGNORE INTO lernfeld_fortschritt (user_id, lf_key, kapitel) VALUES (?, ?, ?)")
+                ->execute([$_SESSION['user_id'], $lf_key, $chapter_key]);
+        } else {
+            $pdo->prepare("DELETE FROM lernfeld_fortschritt WHERE user_id = ? AND lf_key = ? AND kapitel = ?")
+                ->execute([$_SESSION['user_id'], $lf_key, $chapter_key]);
+        }
+        header('Location: /Learningfields/' . rawurlencode($lf_key) . '/' . rawurlencode($chapter_key) . '.php#fortschritt', true, 303);
+        exit;
+    }
     $chapter = $lf['chapters'][$chapter_key];
     $keys = array_keys($lf['chapters']);
     $index = array_search($chapter_key, $keys, true);
@@ -172,7 +286,8 @@ function render_lernfeld_chapter($lf_key, $chapter_key) {
     $chapter_title = preg_replace('/^\d+\.\s*/', '', $chapter['title']);
     $lf_title = $lf['title'];
 
-    lernfeld_page_start($lf_key, $lf_key . ' · ' . $chapter_title);
+    lernfeld_page_start($lf_key, $lf_key . ' · ' . $chapter_title,
+        !empty($chapter['intro']) ? mb_strimwidth(trim(strip_tags($chapter['intro'])), 0, 300, '…') : null);
 
     echo '<nav aria-label="breadcrumb" class="mb-3"><ol class="breadcrumb">'
         . '<li class="breadcrumb-item"><a href="/Learningfields/' . $e($lf_key) . '/index.php">' . $e($lf_key . ' ' . $lf_title) . '</a></li>'
@@ -222,6 +337,22 @@ function render_lernfeld_chapter($lf_key, $chapter_key) {
         echo '</ol>';
     }
     echo '</div></div>';
+
+    if (is_logged_in() && lernfortschritt_verfuegbar()) {
+        $gelesen = lernfortschritt()[$lf_key] ?? [];
+        $ist_gelesen = isset($gelesen[$chapter_key]);
+        echo '<div class="lf-fortschritt" id="fortschritt">'
+            . '<form method="post"><input type="hidden" name="csrf_token" value="' . $e($_SESSION['csrf_token'] ?? '') . '">'
+            . '<input type="hidden" name="kapitel_gelesen" value="' . ($ist_gelesen ? '0' : '1') . '">'
+            . ($ist_gelesen
+                ? '<button type="submit" class="btn btn-success"><i class="bi bi-check2-circle me-1"></i>Gelesen</button> <span class="small text-muted ms-1">Nochmal klicken nimmt es zurück.</span>'
+                : '<button type="submit" class="btn btn-outline-success"><i class="bi bi-circle me-1"></i>Als gelesen markieren</button>')
+            . '</form>'
+            . lernfortschritt_balken(count(array_intersect_key($gelesen, $lf['chapters'])), count($keys), count(array_intersect_key($gelesen, $lf['chapters'])) . ' von ' . count($keys) . ' Kapiteln in ' . $lf_key . ' gelesen')
+            . '</div>';
+    }
+
+    lernfeld_gast_hinweis($lf_key);
 
     // Kapitelnavigation
     echo '<div class="d-flex flex-wrap justify-content-between gap-2 mb-5">';

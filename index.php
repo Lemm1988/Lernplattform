@@ -132,7 +132,8 @@ if (!$is_logged_in) {
     foreach (lernfeld_meta() as $key => $meta) {
         $kapitel = count(glob(__DIR__ . '/Learningfields/' . $key . '/inhalt/kapitel*.php') ?: []);
         $chapter_total += $kapitel;
-        $lernfelder[$key] = $meta + ['kapitel' => $kapitel];
+        // Öffentlich lesbare Lernfelder sind direkt verlinkt (auch gut für Suchmaschinen)
+        $lernfelder[$key] = $meta + ['kapitel' => $kapitel, 'link' => lernfeld_oeffentlich($key) ? '/Learningfields/' . $key . '/' : null];
     }
     $question_total = 0;
     try {
@@ -344,6 +345,41 @@ include 'includes/header.php';
                         </div>
                     </div>
                 </div>
+
+                <?php if (lernfortschritt_verfuegbar()):
+                    // Kapitel pro Lernfeld aus den Dateien zählen (ohne alle Inhalte zu laden)
+                    $fortschritt = lernfortschritt();
+                    $fortschritt_liste = [];
+                    $kapitel_gesamt = $kapitel_gelesen = 0;
+                    foreach (lernfeld_meta() as $key => $meta) {
+                        if (!lernfeld_oeffentlich($key) && !check_section_access('/Learningfields/' . $key . '/index.php', false)) continue;
+                        $kapitel = array_map(function ($datei) { return basename($datei, '.php'); }, glob(__DIR__ . '/Learningfields/' . $key . '/inhalt/kapitel*.php') ?: []);
+                        if (!$kapitel) continue;
+                        $gelesen = count(array_intersect($kapitel, array_keys($fortschritt[$key] ?? [])));
+                        $kapitel_gesamt += count($kapitel);
+                        $kapitel_gelesen += $gelesen;
+                        $fortschritt_liste[$key] = ['titel' => $meta['title'], 'kapitel' => count($kapitel), 'gelesen' => $gelesen];
+                    }
+                ?>
+                <div class="card dash-card" data-reveal>
+                    <div class="card-header d-flex justify-content-between align-items-center gap-2 flex-wrap">
+                        <div>
+                            <h2 class="h5 mb-0"><i class="bi bi-journal-check me-2 text-success"></i>Dein Lernfortschritt</h2>
+                            <small class="text-muted"><?= $kapitel_gelesen ?> von <?= $kapitel_gesamt ?> Kapiteln gelesen – markiere Kapitel am Ende als gelesen</small>
+                        </div>
+                        <a href="/quiz/start_quiz.php#pruefung" class="btn btn-sm btn-outline-primary"><i class="bi bi-mortarboard me-1"></i>Prüfungssimulation</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="progress-grid">
+                            <?php foreach ($fortschritt_liste as $key => $lf): ?>
+                                <a class="progress-item" href="/Learningfields/<?= $esc($key) ?>/">
+                                    <?= lernfortschritt_balken($lf['gelesen'], $lf['kapitel'], $key . ' · ' . $lf['titel']) ?>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
 
                 <!-- News Section -->
                 <div class="card dash-card" data-reveal>
@@ -583,14 +619,15 @@ include 'includes/header.php';
             <div class="lf-grid">
                 <?php $i = 0; foreach ($lernfelder as $key => $lf): $i++; ?>
                     <?php $extra = !empty($lf['label']); ?>
-                    <div class="lf-tile<?= $extra ? ' lf-tile-extra' : '' ?>" data-reveal style="--reveal-delay:<?= number_format(($i % 4) * 0.05, 2, '.', '') ?>s">
+                    <?php $tag = $lf['link'] ? 'a' : 'div'; ?>
+                    <<?= $tag ?> class="lf-tile<?= $extra ? ' lf-tile-extra' : '' ?>"<?= $lf['link'] ? ' href="' . $esc($lf['link']) . '"' : '' ?> data-reveal style="--reveal-delay:<?= number_format(($i % 4) * 0.05, 2, '.', '') ?>s">
                         <span class="lf-icon"><i class="bi bi-<?= $esc($lf['icon']) ?>"></i></span>
                         <div class="lf-text">
                             <span class="lf-key"><?= $extra ? $esc($lf['label']) : 'Lernfeld ' . $esc(substr($key, 2)) ?></span>
                             <strong><?= $esc($lf['title']) ?></strong>
                             <span class="lf-meta"><?= (int)$lf['kapitel'] ?> Kapitel · <?= $esc($lf['ap']) ?></span>
                         </div>
-                    </div>
+                    </<?= $tag ?>>
                 <?php endforeach; ?>
             </div>
             <div class="text-center mt-4" data-reveal>

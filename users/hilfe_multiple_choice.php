@@ -359,13 +359,13 @@ echo $x + $y;
 }
 
 .question-result {
-    border-left: 4px solid #007bff;
+    border-left: 4px solid #4f46e5;
     padding-left: 15px;
 }
 
 .accordion-button:not(.collapsed) {
     background-color: #e7f3ff;
-    color: #0056b3;
+    color: #4338ca;
 }
 </style>
 

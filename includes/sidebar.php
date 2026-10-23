@@ -6,73 +6,57 @@
 ?>
 
 <?php
+// Pro Seitenaufruf nur wenige Abfragen: Rolle (zwischengespeichert), Einzelfreigaben und alle Links je einmal laden.
+// Früher fragte die Seitenleiste Rolle und Freigabe für jeden einzelnen Link neu ab (über 60 Abfragen pro Seite).
 $unread_admin_messages = 0;
-// Unread messages für Admins zählen
-if (is_logged_in() && is_admin()) {
-    $stmt = $pdo->prepare("SELECT COUNT(*) FROM contact_messages WHERE is_from_admin = 0 AND admin_reply IS NULL");
-    $stmt->execute();
-    $unread_admin_messages = $stmt->fetchColumn();
-}
-
 $unread_user_messages = 0;
-if (is_logged_in() && !is_admin()) {
-    // Prüfe für alle Konversationen, ob die letzte Nachricht vom Admin ist und ob sie als gelesen markiert wurde
-    $user_id = $_SESSION['user_id'];
-    $stmt = $pdo->prepare("SELECT m1.id FROM contact_messages m1 WHERE m1.user_id = ? AND m1.parent_id IS NULL");
-    $stmt->execute([$user_id]);
-    $convs = $stmt->fetchAll(PDO::FETCH_COLUMN);
-    $unread = 0;
-    foreach ($convs as $conv_id) {
-        // Finde die letzte Nachricht in der Konversation
-        $last_stmt = $pdo->prepare("SELECT * FROM contact_messages WHERE (id = ? OR parent_id = ?) AND user_id = ? ORDER BY created_at DESC LIMIT 1");
-        $last_stmt->execute([$conv_id, $conv_id, $user_id]);
-        $last_msg = $last_stmt->fetch();
-        if ($last_msg && $last_msg['is_from_admin']) {
-            // Prüfe, ob die Startnachricht ein Feld last_viewed_at hat und ob dieses nach der letzten Admin-Nachricht liegt
-            $view_stmt = $pdo->prepare("SELECT last_viewed_at FROM contact_messages WHERE id = ?");
-            $view_stmt->execute([$conv_id]);
-            $last_viewed_at = $view_stmt->fetchColumn();
-            if (!$last_viewed_at || $last_viewed_at < $last_msg['created_at']) {
-                $unread++;
-            }
-        }
-    }
-    $unread_user_messages = $unread;
-}
-
-function user_has_access_to_section($section, $user_id = null, $user_role = null, $pdo = null) {
-    if (!$section['is_active']) return false;
-    if ($user_id === null && isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
-    if ($user_role === null && isset($_SESSION['user_id'])) {
-        global $pdo;
-        $stmt = $pdo->prepare("SELECT role FROM users WHERE id = ?");
-        $stmt->execute([$user_id]);
-        $user_role = $stmt->fetchColumn();
-    }
-    // Individuelle Rechte prüfen (haben Vorrang!)
-    if ($pdo) {
-        $stmt = $pdo->prepare("SELECT access FROM section_user_access WHERE section_id = ? AND user_id = ?");
-        $stmt->execute([$section['id'], $user_id]);
-        $row = $stmt->fetch();
-        if ($row) {
-            if ($row['access'] === 'allow') return true;
-            if ($row['access'] === 'deny') return false;
-        }
-    }
-    // Rollen prüfen (ohne Fallbacks!)
-    if (!isset($section['roles']) || trim($section['roles']) === '') return false;
-    $allowed_roles = array_map('trim', explode(',', $section['roles']));
-    return in_array($user_role, $allowed_roles);
-}
-?>
-
-<?php
-// User-Rolle für Sidebar-Zugriff laden
 if (is_logged_in()) {
-    global $pdo;
-    $stmt = $pdo->prepare("SELECT role FROM users WHERE id = ?");
-    $stmt->execute([$_SESSION['user_id']]);
-    $debug_user_role = $stmt->fetchColumn();
+    if (is_admin()) {
+        // Unbeantwortete Nachrichten für Admins zählen
+        $stmt = $pdo->prepare("SELECT COUNT(*) FROM contact_messages WHERE is_from_admin = 0 AND admin_reply IS NULL");
+        $stmt->execute();
+        $unread_admin_messages = $stmt->fetchColumn();
+    } else {
+        // Unterhaltungen, deren letzte Nachricht vom Admin stammt und nach dem letzten Ansehen kam
+        $stmt = $pdo->prepare("
+            SELECT COUNT(*) FROM contact_messages start
+            JOIN contact_messages letzte ON letzte.id = (
+                SELECT m.id FROM contact_messages m
+                WHERE (m.id = start.id OR m.parent_id = start.id) AND m.user_id = start.user_id
+                ORDER BY m.created_at DESC LIMIT 1
+            )
+            WHERE start.user_id = ? AND start.parent_id IS NULL AND letzte.is_from_admin = 1
+              AND (start.last_viewed_at IS NULL OR start.last_viewed_at < letzte.created_at)
+        ");
+        $stmt->execute([$_SESSION['user_id']]);
+        $unread_user_messages = (int)$stmt->fetchColumn();
+    }
+}
+
+if (!function_exists('user_has_access_to_section')) {
+    function user_has_access_to_section($section, $user_id = null, $user_role = null, $pdo = null) {
+        static $freigaben = [];
+        if (!$section['is_active']) return false;
+        if ($user_id === null && isset($_SESSION['user_id'])) $user_id = $_SESSION['user_id'];
+        if ($user_role === null && isset($_SESSION['user_id'])) {
+            $user_role = current_user_role();
+        }
+        // Individuelle Rechte prüfen (haben Vorrang!) – alle Freigaben des Benutzers auf einmal laden
+        if ($pdo && $user_id) {
+            if (!isset($freigaben[$user_id])) {
+                $stmt = $pdo->prepare("SELECT section_id, access FROM section_user_access WHERE user_id = ?");
+                $stmt->execute([$user_id]);
+                $freigaben[$user_id] = $stmt->fetchAll(PDO::FETCH_KEY_PAIR);
+            }
+            $access = $freigaben[$user_id][$section['id']] ?? null;
+            if ($access === 'allow') return true;
+            if ($access === 'deny') return false;
+        }
+        // Rollen prüfen (ohne Fallbacks!)
+        if (!isset($section['roles']) || trim($section['roles']) === '') return false;
+        $allowed_roles = array_map('trim', explode(',', $section['roles']));
+        return in_array($user_role, $allowed_roles);
+    }
 }
 ?>
 
@@ -90,12 +74,16 @@ if (is_logged_in()) {
                 <div class="user-avatar">
                     <?php
                         $avatar_id = 1;
-                        try {
-                            $stmt = $pdo->prepare("SELECT avatar FROM users WHERE id = ?");
-                            $stmt->execute([$_SESSION['user_id']]);
-                            $avatar_val = $stmt->fetchColumn();
-                            if ($avatar_val) { $avatar_id = (int)$avatar_val; }
-                        } catch (Exception $e) {}
+                        // header.php hat den Benutzer schon geladen
+                        $avatar_val = $current_user['avatar'] ?? null;
+                        if ($avatar_val === null) {
+                            try {
+                                $stmt = $pdo->prepare("SELECT avatar FROM users WHERE id = ?");
+                                $stmt->execute([$_SESSION['user_id']]);
+                                $avatar_val = $stmt->fetchColumn();
+                            } catch (Exception $avatar_fehler) {}
+                        }
+                        if ($avatar_val) { $avatar_id = (int)$avatar_val; }
                     ?>
                     <?= render_simple_avatar($_SESSION['user_id'], $avatar_id, 'md') ?>
                 </div>
@@ -115,6 +103,11 @@ if (is_logged_in()) {
             $stmt = $pdo->prepare("SELECT * FROM site_section_headers WHERE is_active = 1 ORDER BY sort_order, name");
             $stmt->execute();
             $headers = $stmt->fetchAll();
+            // Alle aktiven Links einmal laden und nach Bereich gruppieren
+            $sections_by_type = [];
+            foreach ($pdo->query("SELECT * FROM site_sections WHERE is_active = 1 ORDER BY sort_order, name")->fetchAll() as $row) {
+                $sections_by_type[$row['section_type']][] = $row;
+            }
             // Pro Bereich nur den ersten Header nehmen
             $header_by_type = [];
             foreach ($headers as $header) {
@@ -128,9 +121,7 @@ if (is_logged_in()) {
                 // oben rechts und die Karten im Admin-Dashboard erreichbar (includes/admin_bereiche.php)
                 if ($type === 'admin') continue;
                 // Alle aktiven Links (Sections) für diesen Bereich laden
-                $sections_stmt = $pdo->prepare("SELECT * FROM site_sections WHERE section_type = ? AND is_active = 1 ORDER BY sort_order, name");
-                $sections_stmt->execute([$type]);
-                $sections = $sections_stmt->fetchAll();
+                $sections = $sections_by_type[$type] ?? [];
                 // Filtere Sections nach Zugriffsrecht
                 $visible_sections = [];
                 foreach ($sections as $section) {

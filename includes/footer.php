@@ -75,25 +75,26 @@ $footer_logged_in = is_logged_in();
     </footer>
 
     <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/bootstrap-5.3.0/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom JavaScript -->
     <script src="<?= asset_url('/assets/js/main.js') ?>"></script>
 
-    <!-- Cookie-Hinweis (DSGVO) -->
+    <?php
+    // Hinweis zu Cookies (DSGVO/TDDDG): Die Seite setzt nur technisch notwendige Cookies (Sitzung, Sicherheit)
+    // und speichert Spielstände im Browser. Dafür braucht es keine Einwilligung – deshalb ein Hinweis statt
+    // "Akzeptieren/Ablehnen" (Ablehnen hatte keine Wirkung). Für Werbung später ein Einwilligungs-Tool (CMP) einbauen.
+    ?>
     <?php if ($require_privacy_consent === '1' && !isset($_COOKIE['cookie_consent'])): ?>
-    <div id="cookieNotice" class="cookie-notice" role="region" aria-label="Cookie-Hinweis">
+    <div id="cookieNotice" class="cookie-notice" role="region" aria-label="Hinweis zu Cookies">
         <p>
-            <i class="bi bi-info-circle me-1" aria-hidden="true"></i>
-            Diese Website verwendet Cookies.
+            <i class="bi bi-shield-check me-1" aria-hidden="true"></i>
+            Wir verwenden nur technisch notwendige Cookies – für Anmeldung und Sicherheit. Kein Tracking, keine Werbung.
             <a href="<?= htmlspecialchars($privacy_url) ?>">Mehr erfahren</a>
         </p>
         <div class="cookie-actions">
-            <button type="button" class="btn btn-outline-light btn-sm" onclick="declineCookies()">
-                Ablehnen
-            </button>
             <button type="button" class="btn btn-primary btn-sm" onclick="acceptCookies()">
-                Akzeptieren
+                Verstanden
             </button>
         </div>
     </div>
@@ -101,11 +102,6 @@ $footer_logged_in = is_logged_in();
     <script>
     function acceptCookies() {
         document.cookie = "cookie_consent=accepted; path=/; max-age=31536000; SameSite=Strict";
-        document.getElementById('cookieNotice').style.display = 'none';
-    }
-
-    function declineCookies() {
-        document.cookie = "cookie_consent=declined; path=/; max-age=31536000; SameSite=Strict";
         document.getElementById('cookieNotice').style.display = 'none';
     }
     </script>

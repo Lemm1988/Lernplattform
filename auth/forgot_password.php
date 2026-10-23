@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h2>Passwort zurücksetzen</h2>
                     <p>Wir haben eine Anfrage zum Zurücksetzen Ihres Passworts erhalten.</p>
                     <p>Klicken Sie auf den folgenden Link, um ein neues Passwort zu setzen. Der Link ist 60 Minuten gültig.</p>
-                    <p><a href='" . $reset_url . "' style='background:#0d6efd;color:#fff;padding:10px 16px;border-radius:4px;text-decoration:none;'>Passwort zurücksetzen</a></p>
+                    <p><a href='" . $reset_url . "' style='background:#4f46e5;color:#fff;padding:10px 16px;border-radius:4px;text-decoration:none;'>Passwort zurücksetzen</a></p>
                     <p>Falls Sie diese Anfrage nicht gestellt haben, können Sie diese E-Mail ignorieren.</p>
                 ";
                 send_email($email, $subject, $message);

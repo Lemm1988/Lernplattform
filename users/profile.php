@@ -228,7 +228,7 @@ include '../includes/header.php';
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="card shadow-sm">
-                            <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                            <div class="card-header" style="background: linear-gradient(135deg, #2563eb 0%, #4f46e5 45%, #9333ea 100%); color: white;">
                                 <h5 class="mb-0"><i class="bi bi-trophy me-2"></i>Belohnungspunkte</h5>
                             </div>
                             <div class="card-body">
@@ -476,7 +476,7 @@ include '../includes/header.php';
                                                                          alt="<?= htmlspecialchars($avatar['name']) ?>"
                                                                          class="avatar-img-thumb"
                                                                          loading="lazy"
-                                                                         onerror="this.onerror=null; this.src='/assets/img/avatars/1.png';">
+                                                                         onerror="this.onerror=null; this.src='/assets/img/avatars/1.webp';">
                                                                     <?php if ($is_selected): ?>
                                                                         <div class="avatar-check">
                                                                             <i class="bi bi-check-circle-fill"></i>
@@ -825,16 +825,16 @@ include '../includes/header.php';
 }
 
 .avatar-option:hover {
-    border-color: #0d6efd;
+    border-color: #4f46e5;
     background: #f8f9fa;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .avatar-option.selected {
-    border-color: #0d6efd;
+    border-color: #4f46e5;
     background: #e7f3ff;
-    box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.25);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
 }
 
 .avatar-thumbnail {
@@ -849,7 +849,7 @@ include '../includes/header.php';
 }
 
 .avatar-option.selected .avatar-thumbnail {
-    border-color: #0d6efd;
+    border-color: #4f46e5;
 }
 
 .avatar-img-thumb {
@@ -862,7 +862,7 @@ include '../includes/header.php';
     position: absolute;
     top: -5px;
     right: -5px;
-    background: #0d6efd;
+    background: #4f46e5;
     color: white;
     border-radius: 50%;
     width: 24px;
@@ -881,7 +881,7 @@ include '../includes/header.php';
 }
 
 .avatar-option.selected .avatar-label {
-    color: #0d6efd;
+    color: #4f46e5;
     font-weight: 600;
 }
 
@@ -915,8 +915,8 @@ include '../includes/header.php';
 }
 
 .form-control:focus, .form-select:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+    border-color: #4f46e5;
+    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
 }
 
 .input-group-text {
@@ -930,7 +930,7 @@ include '../includes/header.php';
 }
 
 .input-group .form-control:focus {
-    border-left: 1px solid #0d6efd;
+    border-left: 1px solid #4f46e5;
 }
 
 /* Button-Verschönerungen */
@@ -1033,7 +1033,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (avatarPreview && avatarName) {
                     const avatarId = option.dataset.avatarId;
                     const avatarNameText = option.dataset.avatarName;
-                    avatarPreview.src = '/assets/img/avatars/' + avatarId + '.png';
+                    avatarPreview.src = '/assets/img/avatars/' + avatarId + '.webp';
                     avatarName.textContent = avatarNameText;
                 }
             }
@@ -1064,7 +1064,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (avatarPreview && avatarName) {
                     const avatarId = option.dataset.avatarId;
                     const avatarNameText = option.dataset.avatarName;
-                    avatarPreview.src = '/assets/img/avatars/' + avatarId + '.png';
+                    avatarPreview.src = '/assets/img/avatars/' + avatarId + '.webp';
                     avatarName.textContent = avatarNameText;
                 }
             }

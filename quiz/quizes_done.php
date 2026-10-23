@@ -5,6 +5,7 @@
  */
 
 require_once '../config.php';
+require_once '../includes/pruefung.php';
 
 // Prüfen ob Benutzer angemeldet ist
 if (!isset($_SESSION['user_id'])) {
@@ -120,6 +121,15 @@ foreach ($completed_quizzes as $index => $quiz) {
 
     $completed_quizzes[$index]['score_percentage'] = round($raw_percentage);
     $completed_quizzes[$index]['is_passed'] = $raw_percentage >= $passing_score_percentage;
+
+    // Prüfungssimulation: Note und Bestehen nach dem IHK-Schlüssel (ab 50 Punkten bestanden)
+    $completed_quizzes[$index]['exam'] = null;
+    $modus = (string)($quiz['quiz_mode'] ?? '');
+    if (strpos($modus, 'pruefung_') === 0) {
+        $completed_quizzes[$index]['exam'] = pruefungsteile()[substr($modus, 9)] ?? ['kurz' => 'Prüfung', 'titel' => 'Prüfungssimulation'];
+        $completed_quizzes[$index]['note'] = ihk_note($raw_percentage);
+        $completed_quizzes[$index]['is_passed'] = round($raw_percentage) >= 50;
+    }
     
     $sum_percentage += $raw_percentage;
     if ($completed_quizzes[$index]['is_passed']) {
@@ -179,6 +189,37 @@ include '../includes/header.php';
                             ?>
                         <?php endif; ?>
 
+                        <?php
+                        // Gerade beendete Prüfungssimulation hervorheben
+                        $exam_result = null;
+                        if (isset($_GET['session_id'])) {
+                            foreach ($completed_quizzes as $q) {
+                                if ((int)$q['id'] === (int)$_GET['session_id'] && $q['exam']) { $exam_result = $q; break; }
+                            }
+                        }
+                        ?>
+                        <?php if ($exam_result): [$note, $note_text] = $exam_result['note']; ?>
+                            <div class="exam-result exam-note-<?= $note ?> mb-4" role="status">
+                                <div class="exam-result-note"><span>Note</span><strong><?= $note ?></strong></div>
+                                <div>
+                                    <div class="small text-uppercase fw-bold opacity-75">Prüfungssimulation <?= htmlspecialchars($exam_result['exam']['kurz']) ?><?= isset($_GET['timeout']) ? ' · Zeit abgelaufen' : '' ?></div>
+                                    <h2 class="h4 mb-1"><?= htmlspecialchars($exam_result['exam']['titel']) ?>: <?= (int)$exam_result['score_percentage'] ?> Punkte – <?= htmlspecialchars($note_text) ?></h2>
+                                    <p class="mb-2"><?= $exam_result['is_passed'] ? 'Bestanden nach dem IHK-Schlüssel (ab 50 Punkten).' : 'Noch nicht bestanden – ab 50 Punkten wäre es eine 4. Schau dir deine Fehler an und versuch es erneut.' ?></p>
+                                    <a class="btn btn-light btn-sm" href="quiz_review.php?session_id=<?= (int)$exam_result['id'] ?>"><i class="bi bi-search me-1"></i>Antworten ansehen</a>
+                                    <a class="btn btn-outline-light btn-sm" href="start_quiz.php#pruefung"><i class="bi bi-arrow-repeat me-1"></i>Neue Simulation</a>
+                                </div>
+                            </div>
+                            <style>
+                                .exam-result { display: flex; gap: 1.25rem; align-items: center; padding: 1.25rem 1.5rem; border-radius: var(--r-xl); background: var(--brand-gradient); color: #fff; box-shadow: var(--shadow-4); }
+                                .exam-result h2 { color: #fff; }
+                                .exam-result-note { flex: none; display: grid; place-items: center; width: 92px; height: 92px; border-radius: 22px; background: rgba(255,255,255,.16); border: 1px solid rgba(255,255,255,.3); text-align: center; line-height: 1; }
+                                .exam-result-note span { font-size: .75rem; opacity: .85; }
+                                .exam-result-note strong { font-size: 2.6rem; font-weight: 850; }
+                                .exam-note-5, .exam-note-6 { background: linear-gradient(135deg, #b45309, #dc2626); }
+                                @media (max-width: 575.98px) { .exam-result { flex-direction: column; align-items: flex-start; } }
+                            </style>
+                        <?php endif; ?>
+
                         <!-- Header mit Avatar -->
                         <div class="dashboard-header mb-4">
                             <div class="d-flex align-items-center">
@@ -203,7 +244,7 @@ include '../includes/header.php';
                                         <div class="row g-3 text-center stats-grid">
                                             <div class="col-6 col-md-4 col-xl-2">
                                                 <div class="stat-item h-100">
-                                                    <div class="stat-icon" style="background: rgba(13, 110, 253, 0.12); color: #0d6efd;">
+                                                    <div class="stat-icon" style="background: rgba(79, 70, 229, 0.12); color: #4f46e5;">
                                                         <i class="bi bi-clipboard-check"></i>
                                                     </div>
                                                     <div class="stat-number text-primary"><?= number_format($total_quizzes, 0, ',', '.') ?></div>
@@ -295,7 +336,9 @@ include '../includes/header.php';
                                                         <div class="quiz-header">
                                                             <div class="quiz-info">
                                                                 <h6 class="quiz-title">
-                                                                    <?php if ($quiz['field_title']): ?>
+                                                                    <?php if ($quiz['exam']): ?>
+                                                                        <span class="badge bg-primary me-1"><?= htmlspecialchars($quiz['exam']['kurz']) ?></span>Prüfungssimulation: <?= htmlspecialchars($quiz['exam']['titel']) ?>
+                                                                    <?php elseif ($quiz['field_title']): ?>
                                                                         <?= htmlspecialchars($quiz['lf_number'] . ' - ' . $quiz['field_title']) ?>
                                                                     <?php else: ?>
                                                                         Allgemeines Quiz
@@ -320,6 +363,9 @@ include '../includes/header.php';
                                                                      <div class="score-percentage">
                                                                          <?= $quiz['score_percentage'] ?>%
                                                                      </div>
+                                                                     <?php if ($quiz['exam']): ?>
+                                                                         <div class="small fw-semibold">IHK-Note <?= (int)$quiz['note'][0] ?> (<?= htmlspecialchars($quiz['note'][1]) ?>)</div>
+                                                                     <?php endif; ?>
                                                                  </div>
                                                                  
                                                                  <!-- Quiz-Punkte und IT-Coins -->

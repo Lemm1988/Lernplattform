@@ -770,8 +770,8 @@ class SettingsUpdateHandler {
             <title>SMTP Test-E-Mail</title>
         </head>
         <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
-            <div style="background-color: #f8f9fa; border-left: 4px solid #007bff; padding: 20px; margin-bottom: 20px;">
-                <h2 style="margin-top: 0; color: #007bff;">✅ SMTP Test-E-Mail erfolgreich</h2>
+            <div style="background-color: #f8f9fa; border-left: 4px solid #4f46e5; padding: 20px; margin-bottom: 20px;">
+                <h2 style="margin-top: 0; color: #4f46e5;">✅ SMTP Test-E-Mail erfolgreich</h2>
                 <p>Diese E-Mail wurde erfolgreich über die konfigurierten SMTP-Einstellungen versendet.</p>
             </div>
             

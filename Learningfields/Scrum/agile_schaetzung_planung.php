@@ -450,7 +450,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
 }
 
 .level-header {
-    background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+    background: linear-gradient(135deg, #4f46e5 0%, #0a58ca 100%);
     color: white;
     padding: 1.5rem;
     display: flex;
@@ -483,7 +483,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     background: #f8f9fa;
     border-radius: 8px;
     text-align: center;
-    border-top: 4px solid #0d6efd;
+    border-top: 4px solid #4f46e5;
 }
 
 .principle-box i {
@@ -502,12 +502,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .technique-card h4 {
     margin-bottom: 1rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .technique-details {
@@ -527,12 +527,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .metric-card h4 {
     margin-bottom: 1rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .monitoring-events {
@@ -546,12 +546,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .event-card h4 {
     margin-bottom: 0.75rem;
-    color: #0d6efd;
+    color: #4f46e5;
 }
 
 .dod-section {
@@ -563,7 +563,7 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #e7f3ff;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .navigation-buttons {
@@ -586,12 +586,12 @@ include $_SERVER['DOCUMENT_ROOT'] . '/includes/header.php';
     padding: 1.5rem;
     background: #f8f9fa;
     border-radius: 8px;
-    border-left: 4px solid #0d6efd;
+    border-left: 4px solid #4f46e5;
 }
 
 .estimation-detail-item h4 {
     margin-bottom: 1rem;
-    color: #0d6efd;
+    color: #4f46e5;
     display: flex;
     align-items: center;
     gap: 0.5rem;

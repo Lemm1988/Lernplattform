@@ -98,27 +98,54 @@ function is_logged_in() {
 }
 
 /**
+ * Basisadresse der Seite ohne Schrägstrich am Ende, z. B. https://example.org – aus der Einstellung site_url,
+ * sonst aus der aktuellen Anfrage. Für Canonical-Links, Link-Vorschau, robots.txt und sitemap.xml.
+ */
+function site_base_url() {
+    static $basis = null;
+    if ($basis !== null) return $basis;
+    $einstellung = function_exists('get_setting') ? (string)get_setting('site_url', '') : '';
+    // Platzhalter aus der Vorlage (https://YourDomain) nicht verwenden
+    if (preg_match('#^https?://[^/\s]+#i', $einstellung, $treffer) && stripos($treffer[0], 'yourdomain') === false) {
+        return $basis = rtrim($treffer[0], '/');
+    }
+    $https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+    $host = preg_replace('/[^A-Za-z0-9.:\-\[\]]/', '', $_SERVER['HTTP_HOST'] ?? 'localhost');
+    return $basis = ($https ? 'https' : 'http') . '://' . $host;
+}
+
+/**
+ * Rolle des angemeldeten Benutzers – einmal pro Seitenaufruf aus der Datenbank gelesen.
+ * Vorher fragten is_admin(), check_section_access() und die Seitenleiste die Rolle bei jedem Aufruf neu ab
+ * (über 60 gleiche Abfragen pro Seite). $active_only = true liefert null für gesperrte Konten.
+ */
+function current_user_role($active_only = false) {
+    global $pdo;
+    static $cache = [];
+    if (!is_logged_in()) return null;
+    $user_id = (int)$_SESSION['user_id'];
+    if (!array_key_exists($user_id, $cache)) {
+        $stmt = $pdo->prepare("SELECT role, is_active FROM users WHERE id = ?");
+        $stmt->execute([$user_id]);
+        $cache[$user_id] = $stmt->fetch() ?: null;
+    }
+    $user = $cache[$user_id];
+    if (!$user || ($active_only && !(int)$user['is_active'])) return null;
+    return $user['role'];
+}
+
+/**
  * Überprüft ob Benutzer Admin- oder Moderator-Rechte hat
  */
 function is_admin_or_moderator() {
-    global $pdo;
-    if (!is_logged_in()) return false;
-    $stmt = $pdo->prepare("SELECT role FROM users WHERE id = ? AND is_active = 1");
-    $stmt->execute([$_SESSION['user_id']]);
-    $user = $stmt->fetch();
-    return $user && ($user['role'] === 'admin' || $user['role'] === 'moderator');
+    return in_array(current_user_role(true), ['admin', 'moderator'], true);
 }
 
 /**
  * Überprüft ob Benutzer Admin-Rechte hat (nur Admin, nicht Moderator)
  */
 function is_admin() {
-    global $pdo;
-    if (!is_logged_in()) return false;
-    $stmt = $pdo->prepare("SELECT role FROM users WHERE id = ? AND is_active = 1");
-    $stmt->execute([$_SESSION['user_id']]);
-    $user = $stmt->fetch();
-    return $user && $user['role'] === 'admin';
+    return current_user_role(true) === 'admin';
 }
 
 /**
@@ -225,28 +252,13 @@ function log_user_activity($user_id, $action, $details = null) {
         $details = (string)$details;
     }
     
-    // 1. Log in user_logs Tabelle (Legacy)
-    try {
-        $stmt = $pdo->prepare("
-            INSERT INTO user_logs (user_id, action, details, ip_address, user_agent, created_at) 
-            VALUES (?, ?, ?, ?, ?, NOW())
-        ");
-        $stmt->execute([
-            $user_id,
-            $action,
-            $details,
-            $_SERVER['REMOTE_ADDR'] ?? null,
-            $_SERVER['HTTP_USER_AGENT'] ?? null
-        ]);
-    } catch (Exception $e) {
-        // Logging-Fehler sollten die Anwendung nicht stoppen
-        error_log("Logging-Fehler (user_logs): " . $e->getMessage());
-    }
-    
-    // 2. Sicherstellen, dass die Statistik-Tabellen existieren (ohne SHOW TABLES)
+    // Früher zusätzlich in die Alt-Tabelle user_logs – jeder Seitenaufruf stand doppelt in der Datenbank.
+    // Alle Anzeigen und der Datenexport lesen user_activity_logs.
+
+    // Sicherstellen, dass die Statistik-Tabellen existieren (ohne SHOW TABLES)
     ensure_activity_tables_ready();
     
-    // 3. In user_activity_logs loggen
+    // In user_activity_logs loggen
     try {
         insert_into_user_activity_logs($user_id, $action, $details);
         return true;
@@ -379,10 +391,28 @@ function ensure_activity_tables_ready($force = false) {
 }
 
 /**
+ * Kürzt eine IP-Adresse für Protokolle (Datensparsamkeit, DSGVO): IPv4 ohne letztes Byte (203.0.113.0),
+ * IPv6 nur die ersten 48 Bit. Für die Erkennung von Missbrauch reicht das, einzelne Anschlüsse sind nicht mehr bestimmbar.
+ * Sicherheitsrelevante Tabellen (Login-Versuche) speichern weiterhin die volle Adresse.
+ */
+function anonymize_ip($ip) {
+    if (!is_string($ip) || $ip === '') return null;
+    if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+        return preg_replace('/\.\d+$/', '.0', $ip);
+    }
+    $packed = @inet_pton($ip);
+    if ($packed !== false && strlen($packed) === 16) {
+        return inet_ntop(substr($packed, 0, 6) . str_repeat(chr(0), 10));
+    }
+    return null;
+}
+
+/**
  * Hilfsfunktion: Eintrag in user_activity_logs einfügen
  */
 function insert_into_user_activity_logs($user_id, $action, $details) {
     global $pdo;
+    $ip = anonymize_ip($_SERVER['REMOTE_ADDR'] ?? null);
     
     $payload = is_string($details) ? $details : json_encode($details, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     
@@ -395,7 +425,7 @@ function insert_into_user_activity_logs($user_id, $action, $details) {
             $user_id,
             $action,
             $payload,
-            $_SERVER['REMOTE_ADDR'] ?? null,
+            $ip,
             $_SERVER['HTTP_USER_AGENT'] ?? null
         ]);
     } catch (PDOException $e) {
@@ -420,7 +450,7 @@ function insert_into_user_activity_logs($user_id, $action, $details) {
                     $user_id,
                     $action,
                     $payload,
-                    $_SERVER['REMOTE_ADDR'] ?? null,
+                    $ip,
                     $_SERVER['HTTP_USER_AGENT'] ?? null
                 ]);
                 
@@ -721,6 +751,9 @@ function register_login_attempt($email, $success = false) {
 }
 
 // Globale Variable für Settings-Cache (wird von get_setting() und clear_setting_cache() geteilt)
+if (!isset($GLOBALS['_settings_missing'])) {
+    $GLOBALS['_settings_missing'] = [];
+}
 if (!isset($GLOBALS['_settings_cache'])) {
     $GLOBALS['_settings_cache'] = [];
 }
@@ -736,10 +769,14 @@ if (!isset($GLOBALS['_settings_cache'])) {
  * - allowed_file_types: Wird als JSON gespeichert und automatisch dekodiert
  */
 function get_setting($key, $default = null) {
-    global $pdo, $_settings_cache;
+    global $pdo, $_settings_cache, $_settings_missing;
 
     if (isset($_settings_cache[$key])) {
         return $_settings_cache[$key];
+    }
+    // Schon nachgesehen und nicht in der Datenbank – nicht bei jedem Aufruf erneut abfragen
+    if (isset($_settings_missing[$key])) {
+        return $default;
     }
 
     $stmt = $pdo->prepare("SELECT setting_value FROM settings WHERE setting_key = ?");
@@ -753,7 +790,8 @@ function get_setting($key, $default = null) {
         $value = $result['setting_value'];
         // Sicherstellen, dass null als null behandelt wird, nicht als default
         if ($value === null) {
-            $value = $default;
+            $_settings_missing[$key] = true;
+            return $default;
         } else {
             // Spezielle Behandlung für JSON-Werte (z.B. allowed_file_types)
             if ($key === 'allowed_file_types' && is_string($value)) {
@@ -767,9 +805,10 @@ function get_setting($key, $default = null) {
             }
         }
     } else {
-        $value = $default;
+        $_settings_missing[$key] = true;
+        return $default;
     }
-    
+
     $_settings_cache[$key] = $value;
 
     return $value;
@@ -779,14 +818,15 @@ function get_setting($key, $default = null) {
  * Leert den Settings-Cache (für einen bestimmten Key oder alle)
  */
 function clear_setting_cache($key = null) {
-    global $_settings_cache;
+    global $_settings_cache, $_settings_missing;
     
     if ($key === null) {
         // Alle Cache-Einträge löschen
         $_settings_cache = [];
+        $_settings_missing = [];
     } else {
         // Nur einen bestimmten Key löschen
-        unset($_settings_cache[$key]);
+        unset($_settings_cache[$key], $_settings_missing[$key]);
     }
 }
 
@@ -917,12 +957,12 @@ function validate_upload($file, $allowed_types = null, $max_size = null) {
 function get_user_avatar($user_id, $avatar = null) {
     // Wenn ein spezifischer Avatar übergeben wurde, verwende diesen
     if ($avatar && is_numeric($avatar) && (int)$avatar >= 1 && (int)$avatar <= 13) {
-        return "/assets/img/avatars/" . (int)$avatar . ".png";
+        return "/assets/img/avatars/" . (int)$avatar . ".webp"; // WebP: ein Zehntel der PNG-Größe
     }
     
     // Fallback: Avatar basierend auf user_id generieren (konsistent)
     $avatar_number = (($user_id - 1) % 13) + 1;
-    return "/assets/img/avatars/{$avatar_number}.png";
+    return "/assets/img/avatars/{$avatar_number}.webp";
 }
 
 /**
@@ -933,7 +973,7 @@ function get_available_avatars() {
     for ($i = 1; $i <= 13; $i++) {
         $avatars[] = [
             'id' => $i,
-            'path' => "/assets/img/avatars/{$i}.png",
+            'path' => "/assets/img/avatars/{$i}.webp",
             'name' => "Avatar {$i}"
         ];
     }
@@ -1356,6 +1396,7 @@ function cleanup_6month_old_data() {
                 'user_logs' => 'user_id',
                 'user_activity_logs' => 'user_id',
                 'user_online_status' => 'user_id',
+                'lernfeld_fortschritt' => 'user_id',
                 'login_attempts' => 'email',
                 'news_drafts' => 'author_id',
                 'news_media' => 'uploaded_by'
@@ -1627,9 +1668,7 @@ function check_section_access($url_path, $redirect = true) {
     $access_stmt->execute([$section['id'], $user_id]);
     $individual_access = $access_stmt->fetchColumn();
     if ($individual_access === 'allow') return true;
-    $user_stmt = $pdo->prepare("SELECT role FROM users WHERE id = ?");
-    $user_stmt->execute([$user_id]);
-    $user_role = $user_stmt->fetchColumn();
+    $user_role = current_user_role();
     $allowed_roles = array_map('trim', explode(',', $section['roles']));
     if ($individual_access === 'deny' || !in_array($user_role, $allowed_roles)) {
         if ($redirect) {
@@ -2567,12 +2606,12 @@ function fetch_user_data_for_export($user_id) {
             $data['messages'] = [];
         }
         
-        // Benutzer-Logs (falls Tabelle existiert)
+        // Aktivitätsprotokoll (user_logs ist die alte, nicht mehr beschriebene Tabelle)
         try {
             $stmt = $pdo->prepare("
-                SELECT action, details, ip_address, created_at
-                FROM user_logs 
-                WHERE user_id = ? 
+                SELECT activity_type AS action, details, ip_address, created_at
+                FROM user_activity_logs
+                WHERE user_id = ?
                 ORDER BY created_at DESC
                 LIMIT 100
             ");
@@ -2583,6 +2622,15 @@ function fetch_user_data_for_export($user_id) {
             $data['activity_logs'] = [];
         }
         
+        // Als gelesen markierte Kapitel (falls Tabelle existiert)
+        try {
+            $stmt = $pdo->prepare("SELECT lf_key, kapitel, gelesen_am FROM lernfeld_fortschritt WHERE user_id = ? ORDER BY gelesen_am DESC");
+            $stmt->execute([$user_id]);
+            $data['learning_progress'] = $stmt->fetchAll();
+        } catch (PDOException $e) {
+            $data['learning_progress'] = [];
+        }
+
         // Login-Historie (falls Tabelle existiert)
         try {
             $stmt = $pdo->prepare("
